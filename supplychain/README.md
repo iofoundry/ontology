@@ -1,5 +1,14 @@
 # SupplyChainOntology
-Supply Chain Reference Ontology (SCRO) aims to represent the most generic categories of entities and relationships in the domain of supply chain. The Supply Chain reference ontology can be extended to create application ontologies addressing the needs of specific use cases. SCRO uses BFO as the top-level ontology and some portions of the Common Core Ontology (CCO) as the mid-level ontology. SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
+Supply Chain Reference Ontology (SCRO) aims to represent the most generic categories of entities and relationships in the domain of supply chain. The Supply Chain reference ontology can be extended to create application ontologies addressing the needs of specific use cases. SCRO uses BFO as the top-level ontology and some portions of the Common Core Ontology (CCO) as the mid-level ontology. 
+
+SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
+
+To open the maintenance WG ontology, perform the following steps:
+
+Clone or download the repository
+Navigate to the folder named Reference Ontology - Maintenance Working Group
+Right click the file named maintenance_wg_ontology_iofcore.owl, click "Open With" and choose "Protege".
+Protege might prompt you to manually find some files that the ontology imports. All relevant files can be found in the imports folder.
 
 SCRO is currenlty in draft status and it is not officially released yet.
 
