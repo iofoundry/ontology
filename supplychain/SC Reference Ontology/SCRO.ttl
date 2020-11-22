@@ -13,15 +13,16 @@
 @prefix terms: <http://purl.org/dc/terms/> .
 @prefix oboInOwl: <http://www.geneontology.org/formats/oboInOwl#> .
 @prefix CommonCoreOntologies: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix IOFAnnotationVocabulary: <http://www.industrialontologies.org/IOFAnnotationVocabulary/> .
 @base <http://infoneer.txstate.edu/IOF/SupplyChainOntology> .
 
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology> rdf:type owl:Ontology ;
-                                                       owl:imports <http://www.industrialontologies.org/core> ,
-                                                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/> ;
+                                                       owl:imports <http://www.industrialontologies.org/core/> ;
                                                        bfo:IAO_0000232 "This is a draft ontology. Not formally released yet." ;
                                                        dc:contributor "Farhad Ameri" ;
+                                                       terms:license "https://opensource.org/licenses/MIT" ;
+                                                       terms:title "Supply Chain Reference Ontology" ;
                                                        rdfs:comment "This ontology is designed in the context of IOF Supply Chain WG activities" ;
-                                                       rdfs:label "Supply Chain Reference Ontology" ;
                                                        owl:versionInfo 1.0 .
 
 #################################################################
@@ -85,7 +86,6 @@ scro:OccurrentPartOf rdf:type owl:ObjectProperty ;
 scro:has_capability rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf iof:RO_0000091 ;
                     rdfs:domain bfo:BFO_0000040 ;
-                    rdfs:range iof:Capability ;
                     rdfs:label "has capability" .
 
 
@@ -99,8 +99,7 @@ scro:has_occurrent_part rdf:type owl:ObjectProperty ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#has_skill
 scro:has_skill rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf scro:has_capability ;
-               rdfs:domain iof:Person ;
-               rdfs:range scro:Skill ;
+               rdfs:range <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill> ;
                rdfs:label "has skill" .
 
 
@@ -126,14 +125,14 @@ bfo:BFO_0000051 rdf:type owl:ObjectProperty ;
                 rdfs:label "has part" .
 
 
-###  http://purl.obolibrary.org/obo/BFO_0000054
-bfo:BFO_0000054 rdfs:label "realized in" .
-
-
 ###  http://purl.obolibrary.org/obo/RO_0000056
 bfo:RO_0000056 rdf:type owl:ObjectProperty ;
                bfo:IAO_0000115 "a relation between a continuant and a process, in which the continuant is somehow involved in the process" ;
                rdfs:label "participates in" .
+
+
+###  http://www.industrialontologies.org/core#RO_0000091
+iof:RO_0000091 rdf:type owl:ObjectProperty .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of
@@ -142,6 +141,10 @@ CommonCoreOntologies:bearer_of rdf:type owl:ObjectProperty .
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/designates
 CommonCoreOntologies:designates rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_output_at_some_time
+CommonCoreOntologies:has_output_at_some_time rdf:type owl:ObjectProperty .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/is_about
@@ -162,22 +165,22 @@ CommonCoreOntologies:prescribes rdf:type owl:ObjectProperty .
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ActofReverseEngineering
 scro:ActofReverseEngineering rdf:type owl:Class ;
-                             rdfs:subClassOf iof:PlannedProcess ;
+                             rdfs:subClassOf <http://www.industrialontologies.org/core/PlannedProcess> ;
                              rdfs:label "Act of Reverse Engineering" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#AgentCapability
 scro:AgentCapability rdf:type owl:Class ;
-                     rdfs:subClassOf iof:Capability ;
-                     <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "CCO" ;
-                     <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Capability that inheres in an Agent to the extent of that Agent's capacity to realize it in Actions of a certain type." ;
+                     rdfs:subClassOf <http://www.industrialontologies.org/core/Capability> ;
+                     IOFAnnotationVocabulary:directSource "CCO" ;
+                     IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Capability that inheres in an Agent to the extent of that Agent's capacity to realize it in Actions of a certain type." ;
                      rdfs:label "'Agent Capability'" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Airway
 scro:Airway rdf:type owl:Class ;
             rdfs:subClassOf bfo:BFO_0000028 ;
-            <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "A spatia region that connects one specified location to another at a specified altitude, along which an aircraft that meets the requirements of the airway may be flown." ;
+            IOFAnnotationVocabulary:naturalLanguageDefinition "A spatia region that connects one specified location to another at a specified altitude, along which an aircraft that meets the requirements of the airway may be flown." ;
             rdfs:label "Airway" .
 
 
@@ -192,15 +195,15 @@ scro:Cargo rdf:type owl:Class ;
                                  rdf:type owl:Class
                                ] ;
            rdfs:subClassOf bfo:BFO_0000040 ;
-           <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "Goods carried on a ship, aircraft, or motor vehicle." ;
-           <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A material entity that bears a cargo role." ;
+           IOFAnnotationVocabulary:naturalLanguageDefinition "Goods carried on a ship, aircraft, or motor vehicle." ;
+           IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A material entity that bears a cargo role." ;
            rdfs:label "Cargo" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#CargoRole
 scro:CargoRole rdf:type owl:Class ;
                rdfs:subClassOf bfo:BFO_0000023 ;
-               <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Role borne by a material entity when transported by a Transport Equipment." ;
+               IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Role borne by a material entity when transported by a Transport Equipment." ;
                rdfs:label "Cargo Role" .
 
 
@@ -213,35 +216,50 @@ scro:CastingService rdf:type owl:Class ;
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#CommercialService
 scro:CommercialService rdf:type owl:Class ;
-                       rdfs:subClassOf iof:PlannedProcess ;
-                       <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "Planned Process that has proper-occurrent-parts, some Act of Service Provisioning and some an Act of Consumption that coincide temporally, and that is prescribed by a Service Agreement, and in which some Agents playing a causal role in the respective occurrent parts, are parties of the agreement." ;
+                       rdfs:subClassOf <http://www.industrialontologies.org/core/PlannedProcess> ;
+                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "Planned Process that has proper-occurrent-parts, some Act of Service Provisioning and some an Act of Consumption that coincide temporally, and that is prescribed by a Service Agreement, and in which some Agents playing causal roles in the respective occurrent parts, are parties of the agreement." ;
                        rdfs:label "Commercial Service" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Department
+scro:Department rdf:type owl:Class ;
+                rdfs:subClassOf scro:GroupOfPersons ;
+                IOFAnnotationVocabulary:naturalLanguageDefinition "A Group of Persons that is part of some organization which is created to provide certain functions and achieve some objective of the organization and appears in the organizational hierarchy of that organization." ;
+                rdfs:label "Department" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#EngineeringDesignCapability
 scro:EngineeringDesignCapability rdf:type owl:Class ;
-                                 rdfs:subClassOf iof:Capability ;
-                                 <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Capability that inheres in an Engineered System, Organization, or Person to design Material Artifacts as prescribed by engineering rules and principles." ;
+                                 rdfs:subClassOf <http://www.industrialontologies.org/core/Capability> ;
+                                 IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Capability that inheres in an Engineered System, Organization, or Person to design Material Artifacts as prescribed by engineering rules and principles." ;
                                  rdfs:label "Engineering Design Capability" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#GeometricModelingArtifactFunction
 scro:GeometricModelingArtifactFunction rdf:type owl:Class ;
-                                       rdfs:subClassOf bfo:BFO_0000034 ;
+                                       rdfs:subClassOf CommonCoreOntologies:ArtifactFunction ;
                                        rdfs:label "Geometric Modeling Artifact Function" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#GeometricModelingSkill
 scro:GeometricModelingSkill rdf:type owl:Class ;
-                            rdfs:subClassOf scro:Skill ;
-                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Skill that inheres in a Person and is realized in an Act of Geometric Modeling." ;
+                            rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill> ;
+                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Skill that inheres in a Person and is realized in an Act of Geometric Modeling." ;
                             rdfs:label "Geometric Modeling Skill" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#GroupOfPersons
+scro:GroupOfPersons rdf:type owl:Class ;
+                    rdfs:subClassOf CommonCoreOntologies:GroupOfAgents ;
+                    IOFAnnotationVocabulary:directSource "CCO" ;
+                    IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Group of Agents that has only Persons as parts." ;
+                    rdfs:label "Group of Persons" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#LowVolumeProductionCapability
 scro:LowVolumeProductionCapability rdf:type owl:Class ;
                                    rdfs:subClassOf <http://infoneer.txstate.edu/ontology/ProductionCapability> ;
-                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Production Capability to manufacture large quantities of some material artifact in some unit of time." ;
+                                   IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Production Capability to manufacture large quantities of some material artifact in some unit of time." ;
                                    rdfs:label "Low Volume Production Capability" .
 
 
@@ -255,215 +273,93 @@ scro:MachiningService rdf:type owl:Class ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ManufacturingService
 scro:ManufacturingService rdf:type owl:Class ;
                           rdfs:subClassOf scro:CommercialService ;
-                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Service which 1) includes at least one manufacturing process as process part and 2) an Agent satisfies the manufacturing needs of another agent." ;
+                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Commercial Service which 1) includes at least one manufacturing process as process part and 2) an Agent satisfies the manufacturing needs of another agent." ;
                           rdfs:label "Manufacturing Service" ;
                           skos:example "Foxconn, a contract manufacturing service company, owns and operates factories in China that do the final assembly of iPhones for Apple." .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ManufacturingSupplyChain
 scro:ManufacturingSupplyChain rdf:type owl:Class ;
-                              owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem>
-                                                                         [ rdf:type owl:Restriction ;
-                                                                           owl:onProperty CommonCoreOntologies:has_output_at_some_time ;
-                                                                           owl:someValuesFrom iof:Product
-                                                                         ]
-                                                                       ) ;
-                                                    rdf:type owl:Class
-                                                  ] ;
-                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supply Chain System whose members are agent in some Product Production Process that outputs some Product." ;
+                              rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem> ;
+                              IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supply Chain System whose members are agent in some Product Production Process that outputs some Manufactured Product." ;
                               rdfs:label "Manufacturing Supply Chain System" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#OrganizationCapability
-scro:OrganizationCapability rdf:type owl:Class ;
-                            rdfs:subClassOf scro:AgentCapability ;
-                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/adaptedFrom> "https://www.sebokwiki.org/wiki/Organizational_Capability_(glossary)" ;
-                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "CCO" ;
-                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "The capability of an organization to perform certain acts that contributes towards organizational value and purpose." ;
-                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Agent Capability that inheres in an Organization to the extent of that Organization's capacity to realize it in Actions of a certain type." ;
-                            rdfs:label "Organization Capability" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ReverseEngineeringCapability
 scro:ReverseEngineeringCapability rdf:type owl:Class ;
-                                  rdfs:subClassOf [ owl:intersectionOf ( scro:EngineeringDesignCapability
-                                                                         [ rdf:type owl:Restriction ;
-                                                                           owl:onProperty bfo:BFO_0000054 ;
-                                                                           owl:someValuesFrom scro:ActofReverseEngineering
-                                                                         ]
-                                                                         [ rdf:type owl:Restriction ;
-                                                                           owl:onProperty bfo:BFO_0000197 ;
-                                                                           owl:someValuesFrom [ owl:intersectionOf ( bfo:BFO_0000040
-                                                                                                                     [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Machine
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty iof:RO_0000085 ;
-                                                                                                                                                                                          owl:someValuesFrom scro:GeometricModelingArtifactFunction
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Machine
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty iof:RO_0000085 ;
-                                                                                                                                                                                          owl:someValuesFrom scro:ScanningArtifactFunction
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Machine
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty iof:RO_0000085 ;
-                                                                                                                                                                                          owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology#3DPrintingArtifactFunction>
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Person
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty scro:has_skill ;
-                                                                                                                                                                                          owl:someValuesFrom scro:GeometricModelingSkill
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Person
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty scro:has_skill ;
-                                                                                                                                                                                          owl:someValuesFrom scro:ScanningSkill
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                                                              owl:onProperty bfo:BFO_0000051 ;
-                                                                                                                                              owl:someValuesFrom [ owl:intersectionOf ( iof:Person
-                                                                                                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                                                                                                          owl:onProperty scro:has_skill ;
-                                                                                                                                                                                          owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology#3D_Printing_Skill>
-                                                                                                                                                                                        ]
-                                                                                                                                                                                      ) ;
-                                                                                                                                                                   rdf:type owl:Class
-                                                                                                                                                                 ]
-                                                                                                                                            ]
-                                                                                                                                          ) ;
-                                                                                                                       rdf:type owl:Class
-                                                                                                                     ]
-                                                                                                                   ) ;
-                                                                                                rdf:type owl:Class
-                                                                                              ]
-                                                                         ]
-                                                                       ) ;
-                                                    rdf:type owl:Class
-                                                  ] ;
-                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "The process by which a man-made object is deconstructed to reveal its designs, architecture, code or to extract knowledge from the object." ;
-                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Engineering Design Capability to examine and analyze a Manufactured Product in ordder to identify its Engineering Specifications." ;
+                                  rdfs:subClassOf scro:EngineeringDesignCapability ;
+                                  IOFAnnotationVocabulary:naturalLanguageDefinition "The process by which a man-made object is deconstructed to reveal its designs, architecture, code or to extract knowledge from the object." ;
+                                  IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Engineering Design Capability to examine and analyze a Manufactured Product in ordder to identify its Engineering Specifications." ;
                                   rdfs:label "Reverse Engineering Capability" ;
                                   skos:altLabel "Back Engineering" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ScanningArtifactFunction
 scro:ScanningArtifactFunction rdf:type owl:Class ;
-                              rdfs:subClassOf bfo:BFO_0000034 ;
+                              rdfs:subClassOf CommonCoreOntologies:ArtifactFunction ;
                               rdfs:label "Scanning Artifact Function" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ScanningSkill
-scro:ScanningSkill rdf:type owl:Class ;
-                   rdfs:subClassOf scro:Skill ;
-                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Skill that inheres in a Person and is realized in an Act of Scanning." ;
-                   rdfs:label "Scanning Skill" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Seaway
 scro:Seaway rdf:type owl:Class ;
             rdfs:subClassOf bfo:BFO_0000028 ;
-            <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "A spatia region that connects one specified location to another on a body of water along which a watercraft may travel." ;
+            IOFAnnotationVocabulary:naturalLanguageDefinition "A spatia region that connects one specified location to another on a body of water along which a watercraft may travel." ;
             rdfs:label "Seaway" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ServiceConsumerRole
 scro:ServiceConsumerRole rdf:type owl:Class ;
                          rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/CustomerRole> ;
-                         <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A role which inheres in a person or organization who uses a service" ;
+                         IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A role which inheres in a person or organization who uses a service" ;
                          rdfs:label "Service Consumer Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ServiceSpecification
 scro:ServiceSpecification rdf:type owl:Class ;
                           rdfs:subClassOf CommonCoreOntologies:DirectiveInformationContentEntity ;
-                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Directive Information Content entity with service action specifications and service objective specifications as parts that, when concretized, is realized in a process comprised of production and consumption of an economic good such that production and consumption coincide." ;
+                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Directive Information Content entity with service action specifications and service objective specifications as parts that, when concretized, is realized in a process comprised of production and consumption of an economic good such that production and consumption coincide." ;
                           rdfs:label "Service Plan Specification" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#ServiceSupplyChain
 scro:ServiceSupplyChain rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem>
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty CommonCoreOntologies:has_output_at_some_time ;
+                                                                     owl:someValuesFrom scro:CommercialService
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] ;
                         rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem> ;
-                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supply Chain System whose members are agent in some Service Provisioning Process that outputs some Service." ;
+                        IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supply Chain System whose members are agent in some Service Provisioning Process that outputs some Commercial Service." ;
                         rdfs:label "Service Supply Chain System" .
 
 
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Skill
-scro:Skill rdf:type owl:Class ;
-           rdfs:subClassOf scro:AgentCapability ;
-           <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "CCO" ;
-           <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Agent Capability that inheres in a Person to the extent of that Person's capacity to realize it in Actions of a certain type." ;
-           skos:altLabel "Person Capability" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Supply_Chain_Product_Production_Process_Aggregate
-scro:Supply_Chain_Product_Production_Process_Aggregate rdf:type owl:Class ;
-                                                       rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductProductionProcess> ;
-                                                       iof:definition-SemiFOL "A Product Production Process Aggregate than involves more than one agent as participant."^^xsd:string ;
-                                                       rdfs:label "supply chain product production process aggregate"^^xsd:string .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#SystemCapability
-scro:SystemCapability rdf:type owl:Class ;
-                      rdfs:subClassOf iof:Capability ;
-                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "https://www.sebokwiki.org/wiki/System_Capability_(glossary)" ;
-                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "The ability of a system to execute a particular course of action or achieve a desired effect, under a specified set of conditions." ;
-                      rdfs:label "System Capability" .
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#Team
+scro:Team rdf:type owl:Class ;
+          rdfs:subClassOf scro:GroupOfPersons ;
+          IOFAnnotationVocabulary:naturalLanguageDefinition "A Group of Persons that is be part of some department or organization which is formed to provide  certain functions to achieve some objective of the department or organization." ;
+          rdfs:label "Team" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#TransportationService
 scro:TransportationService rdf:type owl:Class ;
                            rdfs:subClassOf scro:CommercialService ;
-                           <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Commercial Service in which an Agent changes the location of some material entities to satisfy the transportation needs of another Agent." ;
+                           IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Commercial Service in which an Agent changes the location of some material entities to satisfy the transportation needs of another Agent." ;
                            rdfs:label "Transportation Service" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#3DPrintingArtifactFunction
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology#3DPrintingArtifactFunction> rdf:type owl:Class ;
-                                                                                 rdfs:subClassOf bfo:BFO_0000034 ;
+                                                                                 rdfs:subClassOf CommonCoreOntologies:ArtifactFunction ;
                                                                                  rdfs:label "3D Printing Artifact Function" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology#3D_Printing_Skill
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology#3D_Printing_Skill> rdf:type owl:Class ;
-                                                                        rdfs:subClassOf scro:Skill ;
-                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Skill that inheres in a Person and is realized in an Act of 3D Printing." ;
-                                                                        rdfs:label "3D Printing Skill" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActOfTransportation
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActOfTransportation> rdf:type owl:Class ;
                                                                           rdfs:subClassOf CommonCoreOntologies:ActOfLocationChange ;
-                                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Location Change involving the movement of material entities through some Transportation Agent." ;
+                                                                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Location Change involving the movement of material entities through some Transportation Agent." ;
                                                                           CommonCoreOntologies:alternative_label "act of shipping" ;
                                                                           rdfs:label "Act of Transportation" .
 
@@ -471,7 +367,7 @@ scro:TransportationService rdf:type owl:Class ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActofPositionChange
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActofPositionChange> rdf:type owl:Class ;
                                                                           rdfs:subClassOf CommonCoreOntologies:ActOfMotion ;
-                                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Motion in which the position (i.e. the orientation, alignment, or arrangement) of some Object or of one or more of an Object's parts is changed by some Agent." ;
+                                                                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Motion in which the position (i.e. the orientation, alignment, or arrangement) of some Object or of one or more of an Object's parts is changed by some Agent." ;
                                                                           rdfs:comment "An Act of Position Change does not entail a change of location." ;
                                                                           rdfs:label "Act of Position Change" .
 
@@ -479,94 +375,107 @@ scro:TransportationService rdf:type owl:Class ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActofSupplierEvaluation
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActofSupplierEvaluation> rdf:type owl:Class ;
                                                                               rdfs:subClassOf CommonCoreOntologies:ActOfAppraisal ;
-                                                                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "An Act of Measuring that involves evaluating, assessing, estimating, or judging the capabilities of an Agent that is intended to become a member of a Supply Chain." ;
+                                                                              IOFAnnotationVocabulary:naturalLanguageDefinition "An Act of Measuring that involves evaluating, assessing, estimating, or judging the capabilities of an Agent that is intended to become a member of a Supply Chain." ;
                                                                               rdfs:label "Act of Supplier Evaluation" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/AircraftManufacturingFactory
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/AircraftManufacturingFactory> rdf:type owl:Class ;
                                                                                    rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Factory> ;
-                                                                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Facility that is designed for manufacturing aircraft." ;
+                                                                                   IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Facility that is designed for manufacturing aircraft." ;
                                                                                    rdfs:label "Aircraft Manufacturing Factory" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/AssemblyServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/AssemblyServiceProviderRole> rdf:type owl:Class ;
-                                                                                  rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole> ;
-                                                                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Service Provider Role that is borne by an Agent to provide an Assembly Service to some Agents in some Supply Chain." ;
+                                                                                  rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole> ;
+                                                                                  IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Service Provider Role that is borne by an Agent to provide an Assembly Service to some Agents in some Supply Chain." ;
                                                                                   rdfs:label "Assembly Service Provider Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Batch
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Batch> rdf:type owl:Class ;
                                                             rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> ;
-                                                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Traceable Resource Unit that is the output of a batch process" ;
+                                                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Traceable Resource Unit that is the output of a batch process" ;
                                                             rdfs:label "Batch" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/BusinessFunction
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/BusinessFunction> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf bfo:BFO_0000034 ;
+                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Function that inheres in some Business Organization in virtue of that Business Organization being designed to be engaged in Planned Processes that require that Function to be realized and 2) the function exists because it is prescribed by some objectives that 'is carried by' the organization." ;
+                                                                       rdfs:comment "agent that bears the function should be linked to the agent that prescribes the objective." ;
+                                                                       rdfs:label "Business Function" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/CastingServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/CastingServiceProviderRole> rdf:type owl:Class ;
                                                                                  rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole> ;
-                                                                                 <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Manufacturing Service Provider Role that is borne by an Agent to provide a Casting Service to some Agents in some Supply Chain." ;
+                                                                                 IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Manufacturing Service Provider Role that is borne by an Agent to provide a Casting Service to some Agents in some Supply Chain." ;
                                                                                  rdfs:label "Casting Service Provider Role" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/CastingSupplier
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/CastingSupplier> rdf:type owl:Class ;
-                                                                      owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier>
-                                                                                                                 [ rdf:type owl:Restriction ;
-                                                                                                                   owl:onProperty CommonCoreOntologies:bearer_of ;
-                                                                                                                   owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/CastingServiceProviderRole>
-                                                                                                                 ]
-                                                                                                               ) ;
-                                                                                            rdf:type owl:Class
-                                                                                          ] ;
-                                                                      rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier> ;
-                                                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Manufacturing Supplier that bears a Casting Service Provider Role." ;
-                                                                      rdfs:label "Casting Supplier" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/CustomerRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/CustomerRole> rdf:type owl:Class ;
                                                                    rdfs:subClassOf bfo:BFO_0000023 ;
-                                                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Role that is borne by an Agent to buy or consume a Product or Service." ;
+                                                                   IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Role that is borne by an Agent to buy or consume a Product or Service." ;
                                                                    rdfs:label "Customer Role" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/DistributorAgent
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/DistributorAgent> rdf:type owl:Class ;
+                                                                       owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent>
+                                                                                                                  [ rdf:type owl:Restriction ;
+                                                                                                                    owl:onProperty CommonCoreOntologies:bearer_of ;
+                                                                                                                    owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/DistributorRole>
+                                                                                                                  ]
+                                                                                                                ) ;
+                                                                                             rdf:type owl:Class
+                                                                                           ] ;
+                                                                       rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent> ;
+                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supplier that bears a Distributor Role in some supply chain." ;
+                                                                       rdfs:label "Distributor Agent" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/DistributorRole
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/DistributorRole> rdf:type owl:Class ;
+                                                                      rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
+                                                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Product Supplier Role that is borne by an Agent when it buys  some Manufactured Product form a Manufacturer Agent and resells them to some Wholesaler Agents in a supply chain." ;
+                                                                      rdfs:label "Distributor Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Facility
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Facility> rdf:type owl:Class ;
-                                                               rdfs:subClassOf iof:MaterialArtifact ;
-                                                               <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Artifact that is designed as a building or campus dedicated to some specific purpose." ;
+                                                               rdfs:subClassOf <http://www.industrialontologies.org/core/MaterialArtifact> ;
+                                                               IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Artifact that is designed as a building or campus dedicated to some specific purpose." ;
                                                                rdfs:label "Facility" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Factory
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Factory> rdf:type owl:Class ;
                                                               rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Facility> ;
-                                                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Facility that is designed for manufacturing or refining discrete or continuous material products." ;
+                                                              IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Facility that is designed for manufacturing or refining discrete or continuous material products." ;
                                                               rdfs:label "Factory" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ForgingServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ForgingServiceProviderRole> rdf:type owl:Class ;
                                                                                  rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole> ;
-                                                                                 <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Manufacturing Service Provider Role that is borne by an Agent to provide a Forging Service to some Agents in some Supply Chain." ;
+                                                                                 IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Manufacturing Service Provider Role that is borne by an Agent to provide a Forging Service to some Agents in some Supply Chain." ;
                                                                                  rdfs:label "Forging Service Provider Role" .
 
 
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ForgingSupplier
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/ForgingSupplier> rdf:type owl:Class ;
-                                                                      owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier>
-                                                                                                                 [ rdf:type owl:Restriction ;
-                                                                                                                   owl:onProperty CommonCoreOntologies:bearer_of ;
-                                                                                                                   owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ForgingServiceProviderRole>
-                                                                                                                 ]
-                                                                                                               ) ;
-                                                                                            rdf:type owl:Class
-                                                                                          ] ;
-                                                                      rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier> ;
-                                                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Manufacturing Supplier that bears a Forging Service Provider Role." ;
-                                                                      rdfs:label "Forging Supplier" .
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/GroupOfOrganizations
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/GroupOfOrganizations> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf CommonCoreOntologies:GroupOfAgents ;
+                                                                           IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Group of Agents that has only Organizations as parts." ;
+                                                                           rdfs:label "Group of Organizations" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Industry
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/Industry> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/GroupOfOrganizations> ;
+                                                               IOFAnnotationVocabulary:naturalLanguageDefinition "An industry is a group of companies that are related based on their primary business activities." .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Inventory
@@ -578,197 +487,214 @@ scro:TransportationService rdf:type owl:Class ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Load
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Load> rdf:type owl:Class ;
                                                            rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> ;
-                                                           <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "Collection of material transported or transferred together." ;
-                                                           <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A TRU that shares the same transportation and transfer history" ;
+                                                           IOFAnnotationVocabulary:naturalLanguageDefinition "Collection of material transported or transferred together." ;
+                                                           IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A TRU that shares the same transportation and transfer history" ;
                                                            rdfs:label "Load" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/LogisticUnit
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/LogisticUnit> rdf:type owl:Class ;
                                                                    rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> ;
-                                                                   CommonCoreOntologies:definition "goods packaged together for transport and storage" ;
+                                                                   IOFAnnotationVocabulary:naturalLanguageDefinition "goods packaged together for transport and storage" ;
                                                                    rdfs:label "Logistic Unit" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Lot
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Lot> rdf:type owl:Class ;
                                                           rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> ;
-                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/adaptedFrom> "APICS" ;
-                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "A quantity of material produced together and sharing the same production costs and specifications." ;
-                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A TRU that is produced together such that it shares some characteristics." ;
+                                                          IOFAnnotationVocabulary:adaptedFrom "APICS" ;
+                                                          IOFAnnotationVocabulary:naturalLanguageDefinition "A quantity of material produced together and sharing the same production costs and specifications." ;
+                                                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A TRU that is produced together such that it shares some characteristics." ;
                                                           rdfs:label "Lot" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/MachiningServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/MachiningServiceProviderRole> rdf:type owl:Class ;
                                                                                    rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole> ;
-                                                                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Manufacturing Service Role that is borne by an Agent to provide a Machining Service to some Agents in some Supply Chain." ;
+                                                                                   IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Manufacturing Service Role that is borne by an Agent to provide a Machining Service to some Agents in some Supply Chain." ;
                                                                                    rdfs:label "Machining Service Provider Role" .
 
 
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/MachiningSupplier
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/MachiningSupplier> rdf:type owl:Class ;
-                                                                        owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier>
-                                                                                                                   [ rdf:type owl:Restriction ;
-                                                                                                                     owl:onProperty CommonCoreOntologies:bearer_of ;
-                                                                                                                     owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/MachiningServiceProviderRole>
-                                                                                                                   ]
-                                                                                                                 ) ;
-                                                                                              rdf:type owl:Class
-                                                                                            ] ;
-                                                                        rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier> ;
-                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier that bears a Machining Service Provider Role." ;
-                                                                        rdfs:label "Machining Supplier" .
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturerRole
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturerRole> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
+                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Product Supplier Role that is borne by an Agent to manufacture and sell some Manufactured Products to other Agents in some Supply Chain." ;
+                                                                       rdfs:label "Manufacturer Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole> rdf:type owl:Class ;
                                                                                        rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole> ;
-                                                                                       <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Service Provider Role that is borne by an Agent to provide a Manufacturing Service to some Agents in some Supply Chain." ;
+                                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Service Provider Role that is borne by an Agent to provide a Manufacturing Service to some Agents in some Supply Chain." ;
                                                                                        rdfs:label "Manufacturing Service Provider Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingSupplier> rdf:type owl:Class ;
-                                                                            owl:equivalentClass [ owl:intersectionOf ( iof:Supplier
+                                                                            owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent>
                                                                                                                        [ rdf:type owl:Restriction ;
                                                                                                                          owl:onProperty CommonCoreOntologies:bearer_of ;
-                                                                                                                         owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole>
+                                                                                                                         owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                                                                                              owl:unionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturerRole>
+                                                                                                                                                            <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ManufacturingServiceProviderRole>
+                                                                                                                                                          )
+                                                                                                                                            ]
                                                                                                                        ]
                                                                                                                      ) ;
                                                                                                   rdf:type owl:Class
                                                                                                 ] ;
-                                                                            rdfs:subClassOf iof:Supplier ;
-                                                                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier that bears a Manufacturing Service Provider or Product Manufacturer Role." ;
-                                                                            rdfs:label "Manufacturing Supplier" .
+                                                                            rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent> ;
+                                                                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supplier that bears a Manufacturing Service Provider or Manufacturer Role in some supply chain." ;
+                                                                            rdfs:label "Manufacturer Agent" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/MotorVehicleManufacturingFactory
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/MotorVehicleManufacturingFactory> rdf:type owl:Class ;
                                                                                        rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Factory> ;
-                                                                                       <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Facility that is designed for manufacturing motor vehicle." ;
+                                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Facility that is designed for manufacturing motor vehicle." ;
                                                                                        rdfs:label "Motor Vehicle Manufacturing Factory" .
 
 
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/PartVendorRole
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/PartVendorRole> rdf:type owl:Class ;
-                                                                     rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
-                                                                     iof:definition-SemiFOL "A Supplier Role that is borne by an Agent to sell some Component to some other Agents." ;
-                                                                     rdfs:label "Part Vendor Role" .
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/OrganizationCapability
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/OrganizationCapability> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf scro:AgentCapability ;
+                                                                             IOFAnnotationVocabulary:adaptedFrom "https://www.sebokwiki.org/wiki/Organizational_Capability_(glossary)" ;
+                                                                             IOFAnnotationVocabulary:directSource "CCO" ;
+                                                                             IOFAnnotationVocabulary:naturalLanguageDefinition "The capability of an organization to perform certain acts that contributes towards organizational value and purpose." ;
+                                                                             IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Agent Capability that inheres in an Organization to the extent of that Organization's capacity to realize it in Actions of a certain type." ;
+                                                                             rdfs:label "Organization Capability" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/PieceofTransportEquipment
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/PieceofTransportEquipment> rdf:type owl:Class ;
-                                                                                rdfs:subClassOf iof:PieceOfEquipment ;
-                                                                                rdfs:label "piece of transport equipment" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductManfacturerRole
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductManfacturerRole> rdf:type owl:Class ;
-                                                                             rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
-                                                                             <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier Role that is borne by an Agent to sell some Manufactured Products to the Agents in some Supply Chain." ;
-                                                                             rdfs:label "Product Manufacturer Role" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductProductionProcess
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductProductionProcess> rdf:type owl:Class ;
-                                                                               rdfs:subClassOf CommonCoreOntologies:ProcessAggregate ;
-                                                                               iof:definition-SemiFOL "A Process Aggregate comprising all planned processes involved in creating a product (including manufacturing, inspection, and transportation)." ;
-                                                                               CommonCoreOntologies:definition "planned process that has specified output some product, where the product did not exist at the point of initiation of the planned process." ;
-                                                                               rdfs:label "product production process" .
+                                                                                rdfs:subClassOf <http://www.industrialontologies.org/core/PieceOfEquipment> ;
+                                                                                rdfs:label "Piece Of Transport Equipment" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> rdf:type owl:Class ;
-                                                                          rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplierRole> ;
-                                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier Role that is borne by an Agent to sell Product, Component, or Raw Material to some Agents." ;
+                                                                          rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainRole> ;
+                                                                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supply Chain Role that is borne by an Agent to supply Products to other Agents in the supply chain." ;
                                                                           rdfs:label "Product Supplier Role" .
 
 
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/RawMaterialProviderRole
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/RawMaterialProviderRole> rdf:type owl:Class ;
-                                                                              rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
-                                                                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier Role that is borne by an Agent to sell some Raw Material to some Agents in some Supply Chain." ;
-                                                                              rdfs:label "Raw Material Supplier Role" .
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Retailer
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/Retailer> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://www.industrialontologies.org/core/Agent> ;
+                                                               IOFAnnotationVocabulary:naturalLanguageDefinition "a person or business that sells goods to the public in relatively small quantities for use or consumption rather than for resale." .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/RetailerRole
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/RetailerRole> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf bfo:BFO_0000023 ;
+                                                                   IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "Role an Agent has when it engages in a selling some products to customers who are the end-users of the products." ;
+                                                                   rdfs:label "Retailer Role" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ScanningSkill
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/ScanningSkill> rdf:type owl:Class ;
+                                                                    rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill> ;
+                                                                    IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Skill that inheres in a Person and is realized in an Act of Scanning." ;
+                                                                    rdfs:label "Scanning Skill" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole> rdf:type owl:Class ;
-                                                                          rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplierRole> ;
-                                                                          <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Supplier Role that is borne by an Agent to provide a Service to some Agent." ;
+                                                                          rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainRole> ;
+                                                                          IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supply Chain Role that is borne by an Agent to supply some Service to other Agents in the supply chain." ;
                                                                           rdfs:label "Service Provider Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Shipment
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Shipment> rdf:type owl:Class ;
                                                                rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> ;
-                                                               <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "GS1" ;
-                                                               <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "An item or group of items delivered to one party's location at one moment in time that have undegone the same despatch and receipt processes." ;
+                                                               IOFAnnotationVocabulary:directSource "GS1" ;
+                                                               IOFAnnotationVocabulary:naturalLanguageDefinition "An item or group of items delivered to one party's location at one moment in time that have undegone the same despatch and receipt processes." ;
                                                                CommonCoreOntologies:definition "A TRU which travels under one dispatch advice and/or Bill of Lading." ;
                                                                rdfs:label "Shipment" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill> rdf:type owl:Class ;
+                                                            rdfs:subClassOf scro:AgentCapability ;
+                                                            IOFAnnotationVocabulary:directSource "CCO" ;
+                                                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Agent Capability that inheres in a Person to the extent of that Person's capacity to realize it in Actions of a certain type." ;
+                                                            skos:altLabel "Person Capability" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/StorageFacility
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/StorageFacility> rdf:type owl:Class ;
                                                                       rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Facility> ;
-                                                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Facility that is designed to store materials or goods." ;
+                                                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Facility that is designed to store materials or goods." ;
                                                                       rdfs:label "Storage Facility" .
-
-
-###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplierRole
-<http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplierRole> rdf:type owl:Class ;
-                                                                   rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainRole> ;
-                                                                   <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Role that is borne by an Agent to sell or provide Products or Services to other Agent in some Supply Chain System." ;
-                                                                   rdfs:label "Supplier Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChain
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChain> rdf:type owl:Class ;
                                                                   rdfs:subClassOf CommonCoreOntologies:GroupOfAgents ;
-                                                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/explanatoryNote> "When two agents are members of the same supply chains, there exist a 'supply chain link'  between them. A supply chain link = def.2   a relationship between two Agents (a1 and a2) if a1 and a2 participate in a process that is an occurrent part of a product production process." ;
-                                                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Group of Agents who are members of some Supply Chain System and play causal role (are agent) in some Product Production Process that outputs some Product or in some Service Provisioning Process that outputs some Service." ;
-                                                                  rdfs:label "Supply Chain Membership" ;
-                                                                  skos:altLabel "Supply Chain" ,
-                                                                                "Supply Chain Community" .
+                                                                  IOFAnnotationVocabulary:adaptedFrom "GS1" ;
+                                                                  IOFAnnotationVocabulary:explanatoryNote """There exist a 'supply chain link'  between to interacting agents who are members of the same suppier group related to a specific supply chain system. 
+
+A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 and a2 participate in a process that is an occurrent part of a product production process.""" ;
+                                                                  IOFAnnotationVocabulary:naturalLanguageDefinition "A supply network is a set of organizations involved in trading and other business relationships with one another during the operation of specific supply chains." ;
+                                                                  IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Group of Agents who are parts of some Supply Chain System and play causal role (are agent) in some Product Production Process that outputs some Product or in some Service Provisioning Process that outputs some Service." ;
+                                                                  rdfs:label "Group of Suppliers" ;
+                                                                  skos:altLabel "Supply Network" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <http://www.industrialontologies.org/core/Agent> ;
+                                                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Agent who bears a Supply Chain Role in some Supply Chain System." ;
+                                                                       rdfs:label "Supply Chain Agent" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainProcess
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainProcess> rdf:type owl:Class ;
-                                                                         rdfs:subClassOf iof:PlannedProcess ;
-                                                                         <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Planned Process that is an occurrent part of a Product Production Process pr Service Provisioning Process and has at least one supplier as a participant."^^xsd:string ;
+                                                                         rdfs:subClassOf <http://www.industrialontologies.org/core/PlannedProcess> ;
+                                                                         IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Planned Process that is an occurrent part of a Product Production Process or Service Provisioning Process and has at least one Supply Chain Agent as a participant."^^xsd:string ;
                                                                          rdfs:label "Supply Chain Process"^^xsd:string .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainRole> rdf:type owl:Class ;
                                                                       rdfs:subClassOf bfo:BFO_0000023 ;
-                                                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Role that inheres in an Agent in virtue of the responsibilities and commitments that Agent is expected to fulfill as a member of some Supply Chain." ;
+                                                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Role that is borne by an Agent to supply Products or Services to other Agent in some Supply Chain System." ;
                                                                       rdfs:label "Supply Chain Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainSystem> rdf:type owl:Class ;
-                                                                        rdfs:subClassOf iof:EngineeredSystem ;
+                                                                        rdfs:subClassOf <http://www.industrialontologies.org/core/EngineeredSystem> ;
                                                                         terms:source "APICS" ;
-                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/explanatoryNote> "A related notion is Supply Chain Infrastrucutre." ;
-                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "The global network used to deliver products and services from raw materials to end customers through an engineered flow of information, physical distribution, and cash." ;
-                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Engineered System comprising all agents, equipment, facilities, software systems, and other systems and resources, governed by a set of rules, designed and deployed with the function of delivering a product or a service to some customer." ;
-                                                                        rdfs:label "Supply Chain System" .
+                                                                        IOFAnnotationVocabulary:explanatoryNote "A related notion is Supply Chain Infrastrucutre." ;
+                                                                        IOFAnnotationVocabulary:naturalLanguageDefinition "The global network used to deliver products and services from raw materials to end customers through an engineered flow of information, physical distribution, and cash." ;
+                                                                        IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Engineered System comprising all agents, equipment, facilities, software systems, production systems, logistics systems,  and other systems and resources, governed by a set of rules, designed and deployed with the function of delivering a product or a service to some customer." ;
+                                                                        rdfs:label "Supply Chain System" ;
+                                                                        skos:altLabel "Supply Chain" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/SystemCapability
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/SystemCapability> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <http://www.industrialontologies.org/core/Capability> ;
+                                                                       IOFAnnotationVocabulary:directSource "https://www.sebokwiki.org/wiki/System_Capability_(glossary)" ;
+                                                                       IOFAnnotationVocabulary:naturalLanguageDefinition "The ability of a system to execute a particular course of action or achieve a desired effect, under a specified set of conditions." ;
+                                                                       rdfs:label "System Capability" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/TestServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TestServiceProviderRole> rdf:type owl:Class ;
                                                                               rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole> ;
-                                                                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Service Provider Role that is borne by an Agent to provide a Test Service to some Agents in some Supply Chain." ;
+                                                                              IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Service Provider Role that is borne by an Agent to provide a Test Service to some Agents in some Supply Chain." ;
                                                                               rdfs:label "Test Service Provider Role" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TraceableResourceUnit> rdf:type owl:Class ;
                                                                             rdfs:subClassOf bfo:BFO_0000040 ;
-                                                                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "GS1" ;
-                                                                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "An entity where there may be a need to retrieve information about its history, application, or location." ;
-                                                                            iof:definition-SemiFOL "Portion of Material or Object Aggregate whose members share some History for which some Agent may have an interest to retrieve information" ;
+                                                                            IOFAnnotationVocabulary:directSource "GS1" ;
+                                                                            IOFAnnotationVocabulary:naturalLanguageDefinition "An entity where there may be a need to retrieve information about its history, application, or location." ;
+                                                                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "Portion of Material or Object Aggregate whose members share some History for which some Agent may have an interest to retrieve information" ;
                                                                             rdfs:label "Traceable Resource Unit" .
 
 
@@ -781,14 +707,14 @@ scro:TransportationService rdf:type owl:Class ;
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/TransportationFacility
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TransportationFacility> rdf:type owl:Class ;
                                                                              rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Facility> ;
-                                                                             <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Facility that is designed for commencing or concluding the transportation of transportation artifacts, or for housing transportation artifacts." ;
+                                                                             IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Facility that is designed for commencing or concluding the transportation of transportation artifacts, or for housing transportation artifacts." ;
                                                                              rdfs:label "Transportation Facility" .
 
 
 ###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/TransportationServiceProviderRole
 <http://infoneer.txstate.edu/IOF/SupplyChainOntology/TransportationServiceProviderRole> rdf:type owl:Class ;
                                                                                         rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ServiceProviderRole> ;
-                                                                                        <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Service Provider Role that is borne by an Agent to provide some Transportation Service to some Agents." ;
+                                                                                        IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Service Provider Role that is borne by an Agent to provide some Transportation Service to some Agents." ;
                                                                                         rdfs:label "Transportation Service Provider Role" .
 
 
@@ -798,17 +724,46 @@ scro:TransportationService rdf:type owl:Class ;
                                                             CommonCoreOntologies:definition "Piece of Transport Equipment in a rail transport system (railroad or railway) used for carrying cargo or passengers" .
 
 
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/WholesalerAgent
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/WholesalerAgent> rdf:type owl:Class ;
+                                                                      owl:equivalentClass [ owl:intersectionOf ( <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent>
+                                                                                                                 [ rdf:type owl:Restriction ;
+                                                                                                                   owl:onProperty CommonCoreOntologies:bearer_of ;
+                                                                                                                   owl:someValuesFrom <http://infoneer.txstate.edu/IOF/SupplyChainOntology/WholesalerRole>
+                                                                                                                 ]
+                                                                                                               ) ;
+                                                                                            rdf:type owl:Class
+                                                                                          ] ;
+                                                                      rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/SupplyChainAgent> ;
+                                                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Supplier that bears a Wholesaler Role in some supply chain." ;
+                                                                      rdfs:label "Wholesaler Agent" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/WholesalerRole
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/WholesalerRole> rdf:type owl:Class ;
+                                                                     rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ProductSupplierRole> ;
+                                                                     IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Product Supplier Role that is borne by an Agent when it buysvsome Manufactured Product from a Distributor Agent in a supply chain and resells them to Customers and Retailer Agents" ;
+                                                                     rdfs:label "Wholesaler Role" .
+
+
+###  http://infoneer.txstate.edu/IOF/SupplyChainOntology/3D_Printing_Skill
+<http://infoneer.txstate.edu/IOF/SupplyChainOntology/3D_Printing_Skill> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/Skill> ;
+                                                                        IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Skill that inheres in a Person and is realized in an Act of 3D Printing." ;
+                                                                        rdfs:label "3D Printing Skill" .
+
+
 ###  http://infoneer.txstate.edu/ontology/HighVolumeProductionCapability
 <http://infoneer.txstate.edu/ontology/HighVolumeProductionCapability> rdf:type owl:Class ;
                                                                       rdfs:subClassOf <http://infoneer.txstate.edu/ontology/ProductionCapability> ;
-                                                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Production Capability to manufacture large quantities of some material artifact in some unit of time." ;
+                                                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Production Capability to manufacture large quantities of some material artifact in some unit of time." ;
                                                                       rdfs:label "High Volume Production Capability" .
 
 
 ###  http://infoneer.txstate.edu/ontology/ProductionCapability
 <http://infoneer.txstate.edu/ontology/ProductionCapability> rdf:type owl:Class ;
-                                                            rdfs:subClassOf iof:Capability ;
-                                                            <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Capability that is inheres in a Material Entity and is realized in some Product Production Process in order to achieve desired effects as prescribed by a Product Production Plan." ;
+                                                            rdfs:subClassOf <http://www.industrialontologies.org/core/Capability> ;
+                                                            IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Capability that is inheres in a Material Entity and is realized in some Product Production Process in order to achieve desired effects as prescribed by a Product Production Plan." ;
                                                             rdfs:label "Production Capability" .
 
 
@@ -856,26 +811,10 @@ bfo:BFO_0000031 rdf:type owl:Class .
 bfo:BFO_0000040 rdf:type owl:Class .
 
 
-###  http://www.industrialontologies.org/core#EngineeredSystem
-iof:EngineeredSystem rdf:type owl:Class .
-
-
-###  http://www.industrialontologies.org/core#Organism
-iof:Organism rdf:type owl:Class .
-
-
-###  http://www.industrialontologies.org/core#PlannedProcess
-iof:PlannedProcess rdf:type owl:Class .
-
-
-###  http://www.industrialontologies.org/core#Supplier
-iof:Supplier rdf:type owl:Class .
-
-
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfAppraisal
 CommonCoreOntologies:ActOfAppraisal rdf:type owl:Class ;
                                     rdfs:subClassOf CommonCoreOntologies:ActOfMeasuring ;
-                                    <http://www.industrialontologies.org/IOFAnnotationVocabulary/naturalLanguageDefinition> "An Act of Measuring that involves evaluating, assessing, estimating, or judging the nature, value, importance, condition, or quality of something or someone."^^xsd:string ;
+                                    IOFAnnotationVocabulary:naturalLanguageDefinition "An Act of Measuring that involves evaluating, assessing, estimating, or judging the nature, value, importance, condition, or quality of something or someone."^^xsd:string ;
                                     CommonCoreOntologies:elucidation "In the context of an Act of Appraisal, the terms 'value', 'condition', and 'quality' do not have the same meanings as their counterparts that are defined in the Common Core Ontologies. For example, a knife may be appraised to be of high quality if it is sharp and sturdy or to be of inferior quality if it is dull or fragile."^^xsd:string ;
                                     CommonCoreOntologies:example_of_usage "a food critic rating the quality of a restaurant's ambiance, service, and food"^^xsd:string ,
                                                                           "a mechanic assessing whether a damaged vehicle is repairable"^^xsd:string ,
@@ -888,7 +827,7 @@ CommonCoreOntologies:ActOfAppraisal rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfArrival
 CommonCoreOntologies:ActOfArrival rdf:type owl:Class ;
                                   rdfs:subClassOf CommonCoreOntologies:ActOfLocationChange ;
-                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Location Change that consists of the participating entity reaching its destination such that the larger Act of Location Change is completed."^^xsd:string ;
+                                  IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Location Change that consists of the participating entity reaching its destination such that the larger Act of Location Change is completed."^^xsd:string ;
                                   CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                   rdfs:label "Act of Arrival"^^xsd:string .
 
@@ -896,7 +835,7 @@ CommonCoreOntologies:ActOfArrival rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfCargoTransportation
 CommonCoreOntologies:ActOfCargoTransportation rdf:type owl:Class ;
                                               rdfs:subClassOf <http://infoneer.txstate.edu/IOF/SupplyChainOntology/ActOfTransportation> ;
-                                              <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Transportation involving the movement of manufactured goods through some Transportation Agent."^^xsd:string ;
+                                              IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Transportation involving the movement of manufactured goods through some Transportation Agent."^^xsd:string ;
                                               CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                               rdfs:comment "In CCO, Act of Cargo Transportation is the immediate sub-class of Act of Location Change" ;
                                               rdfs:label "Act of Cargo Transportation"^^rdfs:Literal .
@@ -905,7 +844,7 @@ CommonCoreOntologies:ActOfCargoTransportation rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfDeparture
 CommonCoreOntologies:ActOfDeparture rdf:type owl:Class ;
                                     rdfs:subClassOf CommonCoreOntologies:ActOfLocationChange ;
-                                    <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Location Change that consists of the participating entity leaving its starting location such that the larger Act of Location Change is initiated."^^xsd:string ;
+                                    IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Location Change that consists of the participating entity leaving its starting location such that the larger Act of Location Change is initiated."^^xsd:string ;
                                     CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                     rdfs:label "Act of Departure"^^xsd:string .
 
@@ -913,7 +852,7 @@ CommonCoreOntologies:ActOfDeparture rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfEstimation
 CommonCoreOntologies:ActOfEstimation rdf:type owl:Class ;
                                      rdfs:subClassOf CommonCoreOntologies:ActOfMeasuring ;
-                                     <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Measuring that involves the comparison of a measurement of a similar Entity or of a portion of the Entity being estimated to produce an approximated measurement of the target Entity."^^xsd:string ;
+                                     IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Measuring that involves the comparison of a measurement of a similar Entity or of a portion of the Entity being estimated to produce an approximated measurement of the target Entity."^^xsd:string ;
                                      CommonCoreOntologies:alternative_label "Act of Approximation"^^xsd:string ;
                                      CommonCoreOntologies:elucidation "In all cases, the Agent in an Act of Estimation either lacks complete information, lacks access to the relevant information, or chooses not to use the complete information (perhaps to save money or time) about the thing being estimated; instead, the Agent uses some or all of the relevant information that the Agent does have as a basis for arriving at the estimate."^^xsd:string ;
                                      CommonCoreOntologies:example_of_usage "measuring how much time a train will add to your commute by measuring how long it takes for 10 train cars to pass a given point and then combining this information with an estimate of how many train cars are in a typical train based on your past experience"^^xsd:string ,
@@ -929,15 +868,15 @@ CommonCoreOntologies:ActOfEstimation rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfLocationChange
 CommonCoreOntologies:ActOfLocationChange rdf:type owl:Class ;
                                          rdfs:subClassOf CommonCoreOntologies:ActOfMotion ;
-                                         <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Motion in which the location of some Object is changed by some Agent."^^xsd:string ;
+                                         IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Motion in which the location of some Object is changed by some Agent."^^xsd:string ;
                                          CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                          rdfs:label "Act of Location Change"^^xsd:string .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring
 CommonCoreOntologies:ActOfMeasuring rdf:type owl:Class ;
-                                    rdfs:subClassOf iof:PlannedProcess ;
-                                    <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Intentional Act that involves determining the extent, dimensions, quanity, or quality of an Entity relative to some standard."^^xsd:string ;
+                                    rdfs:subClassOf <http://www.industrialontologies.org/core/PlannedProcess> ;
+                                    IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Intentional Act that involves determining the extent, dimensions, quanity, or quality of an Entity relative to some standard."^^xsd:string ;
                                     CommonCoreOntologies:example_of_usage "putting an object on a scale to measure its weight in kilograms"^^xsd:string ,
                                                                           "rating Hollywood movies on a 1 to 5 star scale"^^xsd:string ,
                                                                           "using a tape measure to determine the height and width of a doorway in inches"^^xsd:string ;
@@ -947,8 +886,8 @@ CommonCoreOntologies:ActOfMeasuring rdf:type owl:Class ;
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMotion
 CommonCoreOntologies:ActOfMotion rdf:type owl:Class ;
-                                 rdfs:subClassOf iof:PlannedProcess ;
-                                 <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Intentional Act by which an Agent causes the position or location of some Object to change."^^xsd:string ;
+                                 rdfs:subClassOf <http://www.industrialontologies.org/core/PlannedProcess> ;
+                                 IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Intentional Act by which an Agent causes the position or location of some Object to change."^^xsd:string ;
                                  CommonCoreOntologies:definition_source "http://www.merriam-webster.com/dictionary/motion"^^xsd:string ;
                                  CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                  rdfs:label "Act of Motion"^^xsd:string .
@@ -957,7 +896,7 @@ CommonCoreOntologies:ActOfMotion rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfTravel
 CommonCoreOntologies:ActOfTravel rdf:type owl:Class ;
                                  rdfs:subClassOf CommonCoreOntologies:ActOfLocationChange ;
-                                 <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Location Change wherein one or more Persons move between relatively distant geographical locations for any purpose and any duration, with or without any means of transport."^^xsd:string ;
+                                 IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Location Change wherein one or more Persons move between relatively distant geographical locations for any purpose and any duration, with or without any means of transport."^^xsd:string ;
                                  CommonCoreOntologies:definition_source " http://en.wikipedia.org/wiki/Travel"^^xsd:string ;
                                  CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                  rdfs:label "Act of Travel"^^xsd:string .
@@ -966,18 +905,38 @@ CommonCoreOntologies:ActOfTravel rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfWalking
 CommonCoreOntologies:ActOfWalking rdf:type owl:Class ;
                                   rdfs:subClassOf CommonCoreOntologies:ActOfTravel ;
-                                  <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "An Act of Travel that proceeds by foot."^^xsd:string ;
+                                  IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Act of Travel that proceeds by foot."^^xsd:string ;
                                   CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
                                   rdfs:label "Act of Walking"^^xsd:string .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/Animal
 CommonCoreOntologies:Animal rdf:type owl:Class ;
-                            rdfs:subClassOf iof:Organism ;
+                            rdfs:subClassOf <http://www.industrialontologies.org/core/Organism> ;
                             CommonCoreOntologies:definition "An Organism that is multicellular, eukaryotic, heterotrophic, and capable of motility for part of its life."^^xsd:string ;
                             CommonCoreOntologies:definition_source "https://en.wikipedia.org/wiki/Animal"^^xsd:string ;
                             CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology"^^xsd:string ;
                             rdfs:label "Animal"^^xsd:string .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Artifact
+CommonCoreOntologies:Artifact rdf:type owl:Class ;
+                              rdfs:subClassOf bfo:BFO_0000040 ;
+                              IOFAnnotationVocabulary:directSource "CCO: Artifact Ontology" ;
+                              IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "An Object that was designed by some Agent to realize a certain Function." ;
+                              rdfs:label "Artifact" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction
+CommonCoreOntologies:ArtifactFunction rdf:type owl:Class ;
+                                      rdfs:subClassOf bfo:BFO_0000034 ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty bfo:BFO_0000197 ;
+                                                        owl:someValuesFrom CommonCoreOntologies:Artifact
+                                                      ] ;
+                                      CommonCoreOntologies:definition "A Function that inheres in some Artifact in virtue of that Artifact being designed to be used in processes that require that Function to be realized."@en ;
+                                      CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                                      rdfs:label "Artifact Function"@en .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/Container
@@ -1036,7 +995,7 @@ CommonCoreOntologies:FuelTank rdf:type owl:Class ;
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/Government
 CommonCoreOntologies:Government rdf:type owl:Class ;
-                                rdfs:subClassOf CommonCoreOntologies:Organization ;
+                                rdfs:subClassOf <http://www.industrialontologies.org/core/Organization> ;
                                 CommonCoreOntologies:definition "An Organization that exercises executive, legislative, or judicial authority over a Geopolitical Entity."^^xsd:string ;
                                 CommonCoreOntologies:definition_source "https://en.wikipedia.org/wiki/Government"^^xsd:string ;
                                 CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology"^^xsd:string ;
@@ -1066,13 +1025,9 @@ CommonCoreOntologies:InformationContentEntity rdf:type owl:Class ;
                                               rdfs:label "Information Content Entity"^^xsd:string .
 
 
-###  http://www.ontologyrepository.com/CommonCoreOntologies/Organization
-CommonCoreOntologies:Organization rdf:type owl:Class .
-
-
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/Plant
 CommonCoreOntologies:Plant rdf:type owl:Class ;
-                           rdfs:subClassOf iof:Organism ;
+                           rdfs:subClassOf <http://www.industrialontologies.org/core/Organism> ;
                            CommonCoreOntologies:definition "An Organism that is multicellular, eukaryotic, autotrophic, and has cells that contain chloroplasts and walls made of cellulose."^^xsd:string ;
                            CommonCoreOntologies:definition_source "https://en.wikipedia.org/wiki/Plant"^^xsd:string ;
                            CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology"^^xsd:string ;
@@ -1082,7 +1037,7 @@ CommonCoreOntologies:Plant rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfCoolant
 CommonCoreOntologies:PortionOfCoolant rdf:type owl:Class ;
                                       rdfs:subClassOf CommonCoreOntologies:PortionOfMaterial ;
-                                      <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Portion of Material that is designed to be used in a thermal control system to reduce or maintain the temperature of an object to or at a specified level."^^xsd:string ;
+                                      IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Portion of Material that is designed to be used in a thermal control system to reduce or maintain the temperature of an object to or at a specified level."^^xsd:string ;
                                       CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:string ;
                                       rdfs:label "Portion of Coolant"^^xsd:string .
 
@@ -1090,26 +1045,18 @@ CommonCoreOntologies:PortionOfCoolant rdf:type owl:Class ;
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfMaterial
 CommonCoreOntologies:PortionOfMaterial rdf:type owl:Class ;
                                        rdfs:subClassOf CommonCoreOntologies:PortionOfProcessedMaterial ;
-                                       <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Portion of Processed Material that was produced to be used as the input for another Act of Artifact Processing."^^xsd:string ;
+                                       IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Portion of Processed Material that was produced to be used as the input for another Act of Artifact Processing."^^xsd:string ;
                                        CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:string ;
                                        rdfs:label "Portion of Material"^^xsd:string .
 
 
 ###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfProcessedMaterial
 CommonCoreOntologies:PortionOfProcessedMaterial rdf:type owl:Class ;
-                                                rdfs:subClassOf iof:MaterialArtifact ;
-                                                <http://www.industrialontologies.org/IOFAnnotationVocabulary/directSource> "CCO" ;
-                                                <http://www.industrialontologies.org/IOFAnnotationVocabulary/semi-formalNaturalLanguageDefinition> "A Material Artifact that is the output of an Act of Artifact Processing."^^xsd:string ;
+                                                rdfs:subClassOf <http://www.industrialontologies.org/core/MaterialArtifact> ;
+                                                IOFAnnotationVocabulary:directSource "CCO" ;
+                                                IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition "A Material Artifact that is the output of an Act of Artifact Processing."^^xsd:string ;
                                                 CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:string ;
                                                 rdfs:label "Portion of Processed Material"^^xsd:string .
-
-
-###  http://www.ontologyrepository.com/CommonCoreOntologies/ProcessAggregate
-CommonCoreOntologies:ProcessAggregate rdf:type owl:Class ;
-                                      rdfs:subClassOf bfo:BFO_0000003 ;
-                                      iof:definition-SemiFOL "An Occurrent that is a collection of processes."^^xsd:string ;
-                                      CommonCoreOntologies:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology"^^xsd:string ;
-                                      rdfs:label "Process Aggregate"^^xsd:string .
 
 
 #################################################################
@@ -1133,6 +1080,9 @@ CommonCoreOntologies:ProcessAggregate rdf:type owl:Class ;
 #################################################################
 #    Annotations
 #################################################################
+
+bfo:BFO_0000054 rdfs:label "realized in" .
+
 
 bfo:BFO_0000056 rdfs:comment "participates in at some time" .
 
