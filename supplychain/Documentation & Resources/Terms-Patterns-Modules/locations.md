@@ -15,8 +15,7 @@ Sometimes the location of a Field or Farm needs to be specified in a more granul
 | term | Semi-formal Natural Language Definition |
 |--|--|
 | Geospatial Position	| A zero-dimensional continuant fiat boundary that is at or near the surface of the Earth and fixed according to some Geospatial Coordinate Reference System.|
-|Object Position Reference Point|
-	A zero-dimensional continuant fiat boundary that is on the surface of an object and represents the spatial location of the object.|
+|Object Position Reference Point| A zero-dimensional continuant fiat boundary that is on the surface of an object and represents the spatial location of the object.|
 
 
 
