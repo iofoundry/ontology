@@ -25,7 +25,11 @@ Sometimes the location of a Field or Farm needs to be specified in a more granul
 |Ground Track Point|	A Zero-Dimensional Spatial Region that is an idealized point located on the surface of an Astronomical Body directly below an Object Track Point (subclass of Ground Spatial Point)|
 
 
+![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-1.png)
 
+To specify the GPS location of a moving object, such as a truck, at any given moment in time, Object Track Point (a type of zero-dimensional spatial region) is used. The Object Position Reference Point (a fiat point that moves with its host) of a moving object occupies different instances of Object Track Point at different points in time. An Object Track (a type of one-dimensional spatial region) is composed of an infinite number of Object Track Points. It is the idealized line (trajectory) along which an Object has traversed during some motion. An object track point is projected on the surface of the earth as Ground Track Point which is designated by some GPS Identifier. Through this chain of relationships, it can be inferred that the same  GPS Identifier individual also designates the position of the truck at time t (Figure 10). 
+
+![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-2.png)
 
 	
 	
