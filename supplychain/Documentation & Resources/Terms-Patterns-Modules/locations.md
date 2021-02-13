@@ -9,6 +9,7 @@ Geospatial Region  is a special type of site at or near the surface of the earth
 
 
 ![A Grain Cart (Object) is located in a Site and the Transfer Event occurs at a site](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-3.png)
+'Figure 8: A Grain Cart (Object) is located in a Site and the Transfer Event (Process) occurs at a site'
 
 
 ![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-4.png)
