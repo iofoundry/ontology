@@ -5,8 +5,8 @@ SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports
 
 To open the Supply Chain ontology, perform the following steps:
 
-1. Clone or download the repository
-2. Navigate to the folder named SC Reference Ontology 
+1. Download SCRO.OWL file
+2. Download import folder 
 3. Right click the file named SCRO.owl, click "Open With" and choose "Protege".
 4. Protege might prompt you to manually find some files that the ontology imports. All relevant files can be found in the "Imports" folder.
 
