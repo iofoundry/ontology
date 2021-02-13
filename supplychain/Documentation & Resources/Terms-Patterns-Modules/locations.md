@@ -10,6 +10,9 @@ Geospatial Region  is a special type of site at or near the surface of the earth
 
 ![A Grain Cart (Object) is located in a Site and the Transfer Event occurs at a site](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-3.png)
 
+
+![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/location-4.png)
+
 Sometimes the location of a Field or Farm needs to be specified in a more granular and precise manner than just specifying the site of the Field or Farm. For example, in many occasions, the location of a Field or Farm needs to be specified based on some coordinate reference system such as the World Geodetic System (WGS) used by the Global Positioning System (GPS). The GPS location (or position) in the proposed ontology is represented  by Ground Spatial Point (a point on the surface of the earth ) that is a type of Spatial Region (zero-dimensional spatial region). Suppose the idealized fiat point Geospatial Position (p) that represents Farm (f) occupies Ground Spatial Point (gp) at time t. The coordinates of the Ground Spatial Point (gp) are designated by a GPS Identifier (gps ID1) that is a type of Designative Information Content Entity. Then it can be inferred that gps ID1 also designates the position of Farm (f). This approach for specifying the location is adopted from Common Core Ontologies (CCO) with some modifications to exclude Spatial Region form the range of located in relationship. The definitions of the main classes used in the location module of the SCT ontology are provided in Table 1.
 
 | term | Semi-formal Natural Language Definition |
