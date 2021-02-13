@@ -1,21 +1,28 @@
+<h1 id="header-1">Header 1</h1>
+<p>it is my first test file created in stacked.</p>
+<h2 id="header-2">Header 2</h2>
+<ul>
+<li>item 1</li>
+<li>item 2</li>
+<li>item 3</li>
+</ul>
+<blockquote>
+<p>Blockqudddote<br>
+dcdscwdm</p>
+</blockquote>
+<p>dcwcwwfcdsbdssdhjv</p>
 
-
-# Header 1
-it is my first test file created in stacked. 
-## Header 2 
-
- - item 1
- -  item 2
- - item 3
-
-> Blockqudddote
-dcdscwdm
-
-dcwcwwfcdsbdssdhjv
-| a |b  |
-|--|--|
-| 123 |  345|
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQzNTUzNTMxMSwxNTk4ODk1NzY3XX0=
--->
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123</td>
+<td>345</td>
+</tr>
+</tbody>
+</table>
