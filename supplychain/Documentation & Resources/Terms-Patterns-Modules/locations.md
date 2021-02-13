@@ -16,12 +16,16 @@ Sometimes the location of a Field or Farm needs to be specified in a more granul
 |--|--|
 | Geospatial Position	| A zero-dimensional continuant fiat boundary that is at or near the surface of the Earth and fixed according to some Geospatial Coordinate Reference System.|
 |Object Position Reference Point| A zero-dimensional continuant fiat boundary that is on the surface of an object and represents the spatial location of the object.|
+|Ground Spatial Point|A Zero-Dimensional Spatial Region that is an idealized point located on the surface of an Astronomical Body.|
+|Object Track Point|A zero-Dimensional Spatial Region that is an idealized point where an Object is or was located during some motion.|
+|Object Track |A zero-Dimensional Spatial Region that is an idealized point where an Object is or was located during some motion|
+|Ground Track Point|	A Zero-Dimensional Spatial Region that is an idealized point located on the surface of an Astronomical Body directly below an Object Track Point (subclass of Ground Spatial Point)|
 
 
 
 
-Ground Spatial Point	A Zero-Dimensional Spatial Region that is an idealized point located on the surface of an Astronomical Body.  
-Object Track Point	A zero-Dimensional Spatial Region that is an idealized point where an Object is or was located during some motion. 
-Object Track 	A zero-Dimensional Spatial Region that is an idealized point where an Object is or was located during some motion
-Ground Track Point 	A Zero-Dimensional Spatial Region that is an idealized point located on the surface of an Astronomical Body directly below an Object Track Point (subclass of Ground Spatial Point).
+	
+	
+	
+ 
 
