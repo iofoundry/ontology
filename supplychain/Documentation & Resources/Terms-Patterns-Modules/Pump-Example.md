@@ -9,3 +9,4 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 | Degraded Stasis	| def.|
 | Fault Stasis	| def.|
 | Nominal Stasis	| def.|
+| Defective Stasis	| def.|
