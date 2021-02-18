@@ -1,2 +1,2 @@
 # Punmp Example Description:
-This example shows 
+Consider a waterpump that uses a type of mechanical seal as shown in the following image. Due to some residual stress in the seal (caused by nonuniform cooling during the casting process, for example), an internal crack forms and begin to grow gradually inside the seal. As the crack grows, the pump begins to operate with some unusual noise. However, the pump functions as intended (i.e., pumps water with the nominal pressure as expected). 
