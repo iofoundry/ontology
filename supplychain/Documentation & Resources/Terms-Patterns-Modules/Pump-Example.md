@@ -3,9 +3,7 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 
 | Term | Semi-formal Natural Language Definition |
 |--|--|
-| Faiure Event	| def.|
-| Functional Faiure Event	| def.|
-| Faiure Event	| def.|
+| Failure Event	| def.|
 | Degraded Stasis	| def.|
 | Fault Stasis	| def.|
 | Nominal Stasis	| def.|
