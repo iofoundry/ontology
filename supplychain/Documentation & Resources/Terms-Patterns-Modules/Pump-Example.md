@@ -17,6 +17,9 @@ In the proposed formalization, failure event is considered to be a process bound
 <p align="center">
 <img  align="center"  src="https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/failure-event.png">
 </p>
+<p align="center">
+	Figure 2: The relationship between failure process, event, and stasis
+</p>
 
 
 | Term | Semi-formal Natural Language Definition |
