@@ -5,7 +5,11 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 <img  align="center"  src="https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/pump.png"
 	title="a pump" height="300">
 </p>
-`Figure 1: `
+
+<p align="center">
+	Figure 1: A typical pump with a mechanical seal
+</p>
+
 
 ## Failure Process, Event, and Stasis:
 In the proposed formalization, failure event is considered to be a process boundary that the begins a failed stasis. An artifact is in a state of failure if it fails to conform with specifications and requirements. A failure event is preceded by a failure process. A failure process is a process that changes an artifcat, or one or more of its parts, in a way that it eventually becomes nonconforming, defective, of disfunctional. In the pump example, the crack in the mechanical seal is formed during some _crack formation process_ with an unknown start time. As the crack grows, it renders the seal defective (because crack is a _defect_ according to the specifications). When the crack grows beyond a certain size, at a certain point in time, the seal fails to perform the _bodyguard function_ of leak prevention. Here is when the functional failure event occurs and the pump enters a fault stasis. An event is a minimal unit of observable change. In this example, the _observable change_ is leaking and reduction in pumping pressure (a process profile).  Note that the same failure process (crack formation process) that turns the seal into a defective component, continues to unfold in time until it causes the pump to become dysfunctional. 
