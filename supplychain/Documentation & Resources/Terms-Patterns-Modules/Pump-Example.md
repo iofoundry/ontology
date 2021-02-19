@@ -5,7 +5,7 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 |--|--|
 | Nonconforming Quality Stasis	| A Stasis in which some Artifact bears some Quality that fails to conform with the specifications of the Artifact|
 | Defunct (fault) Stasis	|A Stasis in which some Artifact no longer maintains some of its intended functions to a desired level of performance|
-| Defective Stasis	| def.| A Stasis in which some Artifact fails to meet intended usage requirements| 
+| Defective Stasis	| A Stasis in which some Artifact fails to meet intended usage requirements| 
 | Nominal Stasis	| def.|
 | Failure Event	|A Process Boundary which is the begining of some Nonconfroming Quality Stasis|
 | Functional Failure Event	|A Process Boundary which is the begining of some Fault Stasis|
