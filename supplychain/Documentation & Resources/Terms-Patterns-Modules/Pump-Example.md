@@ -1,7 +1,7 @@
 # Pump Use Case Description:
 Consider an industrial water pump used in a cooling tower that has a type of mechanical seal as shown in the following image. Due to some residual stress in the seal (caused by nonuniform cooling during the casting process, for example), an internal crack forms and begins to grow gradually inside the seal. As the crack grows, the pump begins to operate with some unusual noise and mild vibration. However, the pump functions as intended (i.e., pumps water with the nominal pressure of 100 l/s as expected). After a few days, the crack reaches the surface of the seal. At this point, leaking begins and, as a result, the pump is only delivering 40 l/s.  Therefore, the pump is unable to perform its intended function to a desired level of performance. A request for service is initiated and a maintenance technician responds to the request and fixes the pump by replacing the seal and the pump begins to function normally as intended. 
 
-<span style="display:block;text-align:center">![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/failure-event.png)</span>
+![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/failure-event.png)
 
 | Term | Semi-formal Natural Language Definition |
 |--|--|
