@@ -12,3 +12,6 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 | Failure Process	|A Process that changes some Quality or Disposition born by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
 | Failure Event	|A Process Boundary that 1) occurs on a zero-dimensional temporal region that is part of a one-dimensional temporal region on which a Failure Process occures and 2) is the begining of some Nonconfroming Quality Stasis or Fault Stasis or Defective Stasis|
 | Functional Failure Event	|A Failure Event that is the begining of and some Fault Stasis|
+
+
+![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/pump-stasis.png)
