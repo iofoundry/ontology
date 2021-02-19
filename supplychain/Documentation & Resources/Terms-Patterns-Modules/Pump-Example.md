@@ -31,6 +31,7 @@ In general, events can be instantaneous or they can have duration. In the propos
 | Failure Process	|A Process that changes some Quality or Disposition born by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
 | Failure Event	|A Process Boundary that 1) occurs on a zero-dimensional temporal region that is part of a spatiotemporal region on which a Failure Process occures and 2) is the begining of some Nonconfroming Quality Stasis or Fault Stasis or Defective Stasis|
 | Functional Failure Event|A Failure Event that is the begining of and some Fault Stasis|
+| Disposition to Fail|A Disposition that inheres in a bearer in virtue of its being susceptible to bearing nonconfroming qualities or failing to meet functional requirements or fittness for use requirements|
 
 
 ![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/pump-stasis.png)
