@@ -7,5 +7,6 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 | Defunct (fault) Stasis	|A Stasis in which an Artifact no longer maintains some of its intended functions to a desired level of performance|
 | Defective Stasis	| A Stasis in which an Artifact fails to meet its intended usage requirements| 
 | Nominal Stasis	|A Stasis in which an Artifcat endures and all Qualities born by the Artifcat conform with the specifications and the Artifact meets intended usage requirements and functions as expected to a desired level of performance|
-| Failure Event	|A Process Boundary which is the begining of some Nonconfroming Quality Stasis or Fault Stasis or Defective Stasis|
-| Functional Failure Event	|A Process Boundary which is the begining of some Fault Stasis|
+| Failure Process	|A Process that changes some Quality or Disposition born by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
+| Failure Event	|A Process Boundary which is the boundary between some Failure Process and some Nonconfroming Quality Stasis or Fault Stasis or Defective Stasis|
+| Functional Failure Event	|A Process Boundary which is the boundary between some Failure Process and some Fault Stasis|
