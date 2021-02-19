@@ -4,7 +4,7 @@ Consider an industrial water pump used in a cooling tower that has a type of mec
 | Term | Semi-formal Natural Language Definition |
 |--|--|
 | Nonconforming Quality Stasis	| A Stasis in which an Artifact bears some Quality that fails to conform with the specifications of the Artifact|
-| Defunct (fault) Stasis	|A Stasis in which an Artifact no longer maintains some of its intended functions to a desired level of performance|
+| Fault (Defunct) Stasis	|A Stasis in which an Artifact no longer maintains some of its intended functions to a desired level of performance|
 | Defective Stasis	| A Stasis in which an Artifact fails to meet its intended usage requirements| 
 | Nominal Stasis	|A Stasis in which an Artifcat endures and all Qualities born by the Artifcat conform with the specifications and the Artifact meets intended usage requirements and functions as expected to a desired level of performance|
 | Failure Process	|A Process that changes some Quality or Disposition born by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
