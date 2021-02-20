@@ -49,7 +49,7 @@ In FMEA process, we try to identify all potential types of failure that might ha
 
 ## Future Steps
 - Do we need to create a _state diagram_ for maintenance to relate 'events' to 'states' in a more granular way?  
-- Since failures are connected to _requirements_ in the proposed definitons, it is necessary to have a formalization of requirement and specifications. 
+- Since failures are connected to _requirements_ in the proposed definitons, it is necessary to have a formalization of functional and nonfunctional requirements and specifications. 
 
 
 
