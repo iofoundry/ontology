@@ -36,6 +36,14 @@ In general, events can be instantaneous or they can have duration. In the propos
 
 ![](https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/pump-stasis.png)
 
+
+<p align="center">
+<img  align="center"  src="https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20%26%20Resources/images/FailureModule.png">
+</p>
+<p align="center">
+	Figure 3: The top-level classes of the Failure Module 
+</p>
+
 ## Disposition Vs. Predisposition
 In FMEA process, we try to identify all potential types of failure that might happen in an item (the ways things can go wrong in an item which is referred to as _failure mode_). The failures listed in FMEA table point to the propensity of an item to behave in certain ways or fail to meet the requirements. Therefore, in BFO sense, they are _dispositions_ or, more accurately, `Disposition to Fail`. Dispositions are _internally grounded_ realizable entities meaning that they can be realized when the bearer is in some special _physical_ circumstances or conditions. Dispositions come to existance in virtue of bearer's physical make-up or properties. A pump doesn't have a disposition to leak when it is normal conditions physically. But it can acquire a disposition to leak if certain conditions are present in the pump such as a damaged gasket or a cracked seal. Therefore, we can assert that any pump is _predisposed_ to disposition to leak (i.e., it has a disposition to have a disposition to leak). A pump with a damaged gasket is already disposed to leak becasue there exist a physical disorder (damaged gasket) in the pump. Predispositions are  _risk factors_ that we care about them and would like to have mitigation plans in place to deal with them in case they are ealized. But for example, we don't say a pump is predisposed to explode because it is not possiblility based on the physical make-up and design specifications of a typical pump . Currently we don't have a relationship _has predisposition_ in BFO or IOF but it is sensible to have one. 
 
