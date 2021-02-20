@@ -50,9 +50,10 @@ In FMEA process, we try to identify all potential types of failure that might ha
 ## Open Issues
 - Do we need to create a _state diagram_ for maintenance to relate 'events' to 'states' in a more granular way?  
 - Since failures are connected to _requirements_ in the proposed definitons, it is necessary to have a formalization of functional and nonfunctional requirements and specifications. 
-- _Crack_ is a `site` in BFO and it cannot be treated as a Specifically Dependant Continuant. T
-   - a crack is a site, in BFO terms
-a break is, first of all, a process (properly called the process of breaking) whose output is an object aggregate whose member parts are objects which correspond in the obvious way [we do not have a name for this but 'transformation-of' might work] to certain fiat object parts of the broken object that had existed immediately before the break
+- _Crack_ is a `site` in BFO and it cannot be treated as a Specifically Dependant Continuant. Therefore, we cannot say, for instance, Seal(x) _is bearer of_ Crack(y). The surface of the seal (fiat object part of the seal)is the material boundary for the crack. The question is what should be a relationship for relating a crack to its host, or a pump, for that matter. We would like to classify both crack as bump as types of defects that may render an item defective. 
+
+   - Barry's comments on crack: "a crack is a site, in BFO terms
+a break is, first of all, a process (properly called the process of breaking) whose output is an object aggregate whose member parts are objects which correspond in the obvious way [we do not have a name for this but 'transformation-of' might work] to certain fiat object parts of the broken object that had existed immediately before the break". 
 
 
 
