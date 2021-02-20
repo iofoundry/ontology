@@ -51,7 +51,7 @@ In FMEA process, we try to identify all potential types of failure that might ha
 - Do we need to create a _state diagram_ for maintenance to relate 'events' to 'states' in a more granular way?  
 - Since failures are connected to _requirements_ in the proposed definitons, it is necessary to have a formalization of functional and nonfunctional requirements and specifications. 
 - _Crack_ is a `site` in BFO and it cannot be treated as a Specifically Dependant Continuant. T
--- 	a crack is a site, in BFO terms
+   - a crack is a site, in BFO terms
 a break is, first of all, a process (properly called the process of breaking) whose output is an object aggregate whose member parts are objects which correspond in the obvious way [we do not have a name for this but 'transformation-of' might work] to certain fiat object parts of the broken object that had existed immediately before the break
 
 
