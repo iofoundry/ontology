@@ -24,7 +24,7 @@ In general, an event can be instantaneous or it can have a duration. In the prop
 
 | Term | Semi-formal Natural Language Definition |
 |--|--|
-| Nonconforming Quality Stasis	| A Stasis in which an Artifact bears some Quality that fails to conform with the specifications of the Artifact|
+| Nonconforming Quality Stasis	| A Stasis in which an Artifact bears some Quality that is outside the specification limits|
 | Fault (Defunct) Stasis	|A Stasis in which an Artifact no longer maintains some of its intended functions to a desired level of performance|
 | Defective Stasis	| A Stasis in which an Artifact fails to meet its intended usage requirements (or fittness for use requirements )| 
 | Nominal Stasis	|A Stasis in which an Artifcat endures and all Qualities born by the Artifcat conform with the specifications and the Artifact meets intended usage requirements and functions as expected to a desired level of performance|
