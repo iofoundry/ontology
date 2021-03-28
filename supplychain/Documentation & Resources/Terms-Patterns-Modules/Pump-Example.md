@@ -50,10 +50,18 @@ In FMEA process, we try to identify all potential types of failure that might ha
 Another possible approach is to introduce ‘vulnerability’ or ‘susceptibility’ as a type of disposition (it is a disposition to gain an `Undesirable Disposition`). A pump is vulnerable to leak. It means that, with some degree of likelihood, the physical makeup of the pump might change in future such that the pump gains a disposition to leak. 
 
 	
-	Predisposition	
-		Vulnerability (disposition to gain an undesirable disposition) 
-			Vulnerability to Leak 
-			Vulnerability to Malfunction 
+	Realizable Entity 
+		Disposition 
+			Capability 
+				Function 
+			Undesirable Disposition 
+				Disposition to leak
+			Predisposition	
+				Vulnerability (disposition to gain an undesirable disposition) 
+					Vulnerability to Leak 
+					Vulnerability to Malfunction 
+
+Please note that there is not necessary to explicitly introduce Predisposition as a class since predisposition itself is a type of disposition. 
 
 ## Open Issues
 - Do we need to create a _state diagram_ for maintenance to relate 'events' to 'states' in a more granular way?  
