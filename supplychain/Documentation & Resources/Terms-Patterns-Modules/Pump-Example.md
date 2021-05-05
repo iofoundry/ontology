@@ -27,8 +27,8 @@ In general, an event can be instantaneous or it can have a duration. In the prop
 | Nonconforming Quality Stasis	| A Stasis in which an Artifact bears some Quality that is outside the specification limits|
 | Fault (Defunct) Stasis	|A Stasis in which an Artifact no longer maintains some of its intended functions to a desired level of performance|
 | Defective Stasis	| A Stasis in which an Artifact fails to meet its intended usage requirements (or fittness for use requirements )| 
-| Nominal Stasis	|A Stasis in which an Artifcat endures and all Qualities born by the Artifcat conform with the specifications and the Artifact meets intended usage requirements and functions as expected to a desired level of performance|
-| Failure Process	|A Process that changes some Quality or Disposition born by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
+| Nominal Stasis	|A Stasis in which an Artifcat endures and all Qualities borne by the Artifcat conform with the specifications and the Artifact meets intended usage requirements and functions as expected to a desired level of performance|
+| Failure Process	|A Process that changes some Quality or Disposition borne by an Artifact and causes the the Artifcat to become nonconforming, defective, or faulty|
 | Failure Event	|A Process Boundary that 1) occurs on a zero-dimensional temporal region that is part of a spatiotemporal region on which a Failure Process occures and 2) is the begining of some Nonconfroming Quality Stasis or Fault Stasis or Defective Stasis|
 | Functional Failure Event|A Failure Event that is the begining of and some Fault Stasis|
 | Disposition to Fail|A Disposition that inheres in a bearer in virtue of its being susceptible to bearing nonconfroming qualities or failing to meet functional requirements or fittness for use requirements|
