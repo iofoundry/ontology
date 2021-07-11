@@ -5,5 +5,6 @@ WARNING: The contents of this repository will undergo a major review by IOF memb
 
 This repository contains:
 1. An owl implementation of the IOF's top terms ontology, serialized in rdf/xml
-2. An import folder of the various imported ontologies which include BFO 2020,  as well as import files containing a subset of terms imported from the Common Core Ontology, and the  Relations Ontology. The import folder also includes the IOF Annotation Vocabulary. 
-3. A SPARQL querying for extracting the classes and their annotations. 
+2. An import folder of the various imported ontologies which include BFO 2020,  as well as import files containing a subset of terms imported from the Common Core Ontology, and the  Relations Ontology. 
+3. A meta folder that includes the IOF Annotation Vocabulary.
+4. A SPARQL querying for extracting the classes and their annotations. 
