@@ -53,11 +53,6 @@
 		<iof-av:naturalLanguageDefinition>To come before (something) in time.</iof-av:naturalLanguageDefinition>
 	</rdf:Description>
 	
-	<rdf:Description rdf:about="&owl;topObjectProperty">
-		<rdfs:range rdf:resource="&iof-core;Requirement"/>
-		<iof-av:naturalLanguageDefinition>relation between a thing and some person or organization that holds when the thing meets the some need, desire or requirement the person or organism has</iof-av:naturalLanguageDefinition>
-	</rdf:Description>
-	
 	<owl:Class rdf:about="&iof-core;ActionSpecification">
 		<rdfs:subClassOf rdf:resource="&ccoimport;DirectiveInformationContentEntity"/>
 		<rdfs:label>Action Specification</rdfs:label>
@@ -718,9 +713,9 @@ Additional comments:
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;MeasuredProductQuality">
-		<rdfs:subClassOf rdf:resource="&iof-core;zDeprecatedClasses"/>
 		<rdfs:label xml:lang="en">Measured Product Quality</rdfs:label>
 		<rdfs:comment>product quality: ​synonym of ‘measured product quality’</rdfs:comment>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 		<iof-core:xDefinitionOtherCommon>Distinguishing feature. :
 ISO 9000:2016] A characteristic is a distinguishing feature.
 Note 1 to entry: A characteristic can be inherent or assigned.
@@ -1180,7 +1175,7 @@ We probably need to introduce the related term, Requirements Specification Docum
 		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000023"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;availableTo"/>
+				<owl:onProperty rdf:resource="&iof-core;isAvailableTo"/>
 				<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1194,8 +1189,8 @@ We probably need to introduce the related term, Requirements Specification Docum
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Specification">
-		<rdfs:subClassOf rdf:resource="&iof-core;zDeprecatedClasses"/>
 		<rdfs:label xml:lang="en">Specification</rdfs:label>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 		<iof-core:xIssuesAndActionItems>This adds no value beyond what we already have imported from CCO in terms of Descriptive or Directive ICEs.</iof-core:xIssuesAndActionItems>
 		<iof-core:xMaturity>In Analysis</iof-core:xMaturity>
 		<iof-av:elucidation>A directive information content entity that prescribes some part or feature of an independent continuant or a process.</iof-av:elucidation>
@@ -1343,8 +1338,7 @@ Other thoughts, none urgent:
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;actsOnBehalfOf">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label>acts On Behalf Of</rdfs:label>
+		<rdfs:label>acts on behalf of</rdfs:label>
 		<rdfs:domain rdf:resource="&roimport;BFO_0000040"/>
 		<rdfs:range>
 			<owl:Class>
@@ -1360,31 +1354,8 @@ Other thoughts, none urgent:
 		<iof-av:elucidation>x ‘acts On Behalf Of’ y holds when x is a material entity and y is some Person or Group of Persons (x and y are not the same) and at some time t, there exists a Planned Process p such that x ‘participates in’ p and y ‘has interest in’ p</iof-av:elucidation>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-core;availableTo">
-		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label>available To</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&roimport;BFO_0000004">
-					</rdf:Description>
-					<owl:Class>
-						<owl:complementOf rdf:resource="&roimport;BFO_0000006"/>
-					</owl:Class>
-				</owl:intersectionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:range rdf:resource="&iof-core;Agent"/>
-		<iof-core:xMaturity>In Analysis</iof-core:xMaturity>
-		<iof-av:naturalLanguageDefinition>NL: independent continuant ‘x’ is available to agent ‘y’ means ‘y’ has some intention ‘i’ realized by some planned process ‘p’ whereby either ‘x’ has some disposition ‘p’ realizes or, more generally, ‘x’ merely participates in ‘p’. 
-
-FOL:  isAvailableTo (x, y) → IndependentContinuant(x) ∧ Agent(y) ∧ ∃p, ∃i (PlannedProcess(p) ∧ intentionOf(i, y) ∧ realizes(p, i) ∧ (∃d (Disposition(d) ∧ bears(x, d) ∧ realizes(p, d)) ∨ participates-in(x, p)))</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;hasInterestIn">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label>has Interest In</rdfs:label>
+	<owl:ObjectProperty rdf:about="&iof-core;hasAnInterestIn">
+		<rdfs:label>has an interest in</rdfs:label>
 		<rdfs:domain>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -1406,30 +1377,51 @@ FOL:  isAvailableTo (x, y) → IndependentContinuant(x) ∧ Agent(y) ∧ ∃p, �
 (iv) (Permanence Axiom) to be added</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-core;intentionOf">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en">intention Of</rdfs:label>
+	<owl:ObjectProperty rdf:about="&iof-core;isAvailableTo">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:label>is available to</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&roimport;BFO_0000004">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&roimport;BFO_0000006"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&iof-core;Agent"/>
+		<iof-core:xMaturity>In Analysis</iof-core:xMaturity>
+		<iof-av:naturalLanguageDefinition>NL: independent continuant ‘x’ is available to agent ‘y’ means ‘y’ has some intention ‘i’ realized by some planned process ‘p’ whereby either ‘x’ has some disposition ‘p’ realizes or, more generally, ‘x’ merely participates in ‘p’. 
+
+FOL:  isAvailableTo (x, y) → IndependentContinuant(x) ∧ Agent(y) ∧ ∃p, ∃i (PlannedProcess(p) ∧ intentionOf(i, y) ∧ realizes(p, i) ∧ (∃d (Disposition(d) ∧ bears(x, d) ∧ realizes(p, d)) ∨ participates-in(x, p)))</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;isIntentionOf">
+		<rdfs:label xml:lang="en">is intention of</rdfs:label>
 		<iof-core:xIssuesAndActionItems>This needs to be reviewed.</iof-core:xIssuesAndActionItems>
 		<iof-core:xMaturity>In Analysis</iof-core:xMaturity>
-		<iof-av:firstOrderLogicDefinition xml:lang="en">intentionOf(i, x) is a agent(x) &amp; intention(i) &amp; bearer_of(x, i)</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition xml:lang="en">isIntentionOf(i, x) is an agent(x) &amp; intention(i) &amp; bearer_of(x, i)</iof-av:firstOrderLogicDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;processProfileOf">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>process Profile Of</rdfs:label>
 		<iof-core:xMaturity>Pre-analysis</iof-core:xMaturity>
 		<iof-av:elucidation>b &apos;process Profile Of&apos; c holds if b is &apos;proper occurrent part of&apos; c and there exists d that is &apos;proper occurrent part&apos; of c, which has no parts in common with b, is mutually dependent on b, and is such that b, c and d occupy the same temporal region</iof-av:elucidation>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;satisfies">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>satisfies</rdfs:label>
+		<rdfs:range rdf:resource="&iof-core;Requirement"/>
+		<iof-av:naturalLanguageDefinition>relation between a thing and some person or organization that holds when the thing meets the some need, desire or requirement the person or organism has</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;specifies">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;zDeprecated"/>
 		<rdfs:label>specifies</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-core;Specification"/>
 		<rdfs:range rdf:resource="&roimport;BFO_0000001"/>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 		<iof-av:elucidation>&apos;x&apos; specifies &apos;y&apos; means:  &apos;x&apos; is a specification and  &apos;x&apos; prescribes &apos;y&apos;</iof-av:elucidation>
 		<iof-av:firstOrderLogicDefinition>specifies(x,y) → Specification(x) ∧ prescribes(x,y)</iof-av:firstOrderLogicDefinition>
 	</owl:ObjectProperty>
@@ -1458,13 +1450,6 @@ FOL:  isAvailableTo (x, y) → IndependentContinuant(x) ∧ Agent(y) ∧ ∃p, �
 3) In Analysis → term or notion is under analysis by the WG, or has a candidate definition that has not yet been peer-reviewed
 4) Pre-analysis → a new term or notion motivated by WG discussions, or one that needs to be introduced because it is contained in the definition of another term that has been adopted; although the analysis for such a term remains to be conducted, it will usually have a candidate natural language definition originating from the context where it is used, or from some external source</iof-av:usageNote>
 	</owl:AnnotationProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;zDeprecated">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-	</owl:ObjectProperty>
-	
-	<owl:Class rdf:about="&iof-core;zDeprecatedClasses">
-	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;zParkedClasses">
 	</owl:Class>
