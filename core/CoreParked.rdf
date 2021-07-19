@@ -50,6 +50,10 @@
 		<iof-av:copyright>Copyright (c) 2021 OAGi</iof-av:copyright>
 	</owl:Ontology>
 	
+	<owl:Class rdf:about="&roimport;BFO_0000027">
+		<rdfs:subClassOf rdf:resource="&iof-core;Collection"/>
+	</owl:Class>
+	
 	<rdf:Description rdf:about="&roimport;BFO_0000063">
 		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
 		<iof-av:naturalLanguageDefinition>comes before (something) in time</iof-av:naturalLanguageDefinition>
@@ -65,6 +69,15 @@
 		</owl:equivalentClass>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-core;Capability">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000016"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;Collection">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000004"/>
+		<skos:scopeNote>Note that this term is broader in scope than BFO &apos;object aggregate&apos;, in that it may include zero or more things, and they do not necessarily need to be material entities.</skos:scopeNote>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-core;Component">
 		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000040"/>
 	</owl:Class>
@@ -75,6 +88,11 @@
 	
 	<owl:Class rdf:about="&iof-core;Entity">
 		<owl:equivalentClass rdf:resource="&roimport;BFO_0000001"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;GroupOfAgents">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000027"/>
+		<iof-av:semi-formalNaturalLanguageDefinition>Group of Agents is an Object Aggregate that has only Agents as parts.</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;InformationEntity">
@@ -98,7 +116,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Process">
-		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000015"/>
+		<owl:equivalentClass rdf:resource="&roimport;BFO_0000015"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Requirement">
@@ -108,6 +126,14 @@
 	<owl:Class rdf:about="&iof-core;Role">
 		<owl:equivalentClass rdf:resource="&roimport;BFO_0000023"/>
 	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;System">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000027"/>
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;achieves">
+		<rdfs:subPropertyOf rdf:resource="&roimport;BFO_0000059"/>
+	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&iof-core-pk;ActionSpecification">
 		<rdfs:subClassOf rdf:resource="&ccoimport;DirectiveInformationContentEntity"/>
@@ -137,7 +163,7 @@ If the above is acceptable, we need to: (a) Define and reify the relation prescr
 								<owl:unionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-core;Agent">
 									</rdf:Description>
-									<rdf:Description rdf:about="&iof-core-pk;GroupOfAgents">
+									<rdf:Description rdf:about="&iof-core;GroupOfAgents">
 									</rdf:Description>
 								</owl:unionOf>
 							</owl:Class>
@@ -252,26 +278,6 @@ Any action that is not explicitly prescribed by some plan specification, or does
 		<iof-av:naturalLanguageDefinition>planned process that is prescribed by a plan specification carried by some business entity, wherein the process achieves the plan, or a part of it</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core-pk;Capability">
-		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000016"/>
-		<rdfs:label xml:lang="en">capability</rdfs:label>
-		<rdfs:comment>1. Whereas the BFO term &apos;disposition refers to all tendencies, powers, habits, skills, potentials, and so forth, that a material entity may possess, a Capability narrows this down by requiring the existence of an Agent that has an interest in the capability, and requires a capability to be gradable according to some scale or system of reference. 
-
-2. This definition does not attempt to capture &quot;task-based&quot; capabilities that an entity may bear -- e.g., a stone&apos;s capability to kill when used by some person. Rather, it captures &quot;proper capabilities.&quot; See related discussion of &quot;proper functions&quot; in the literature. 
-
-3. Not all capabilities are functions. Capabilities are often added to an artifact by the designer/engineer, or to a biological entity through evolution, as &quot;additional benefits,&quot; and are differentiated from function (i.e., purpose). Examples: the air conditioner in your car is a capability but not the function of your car. Yet the function of the car air conditioner certainly forms some material basis of your car&apos;s ability to provide a comfortable experience. The ability of your heart to beat fast to support your need to run fast to escape a threat. The decaying stick on the forest lawn does not have the function to be used as a tool, but certainly a chimpanzee
- may have an interest in using a stick to extract food from a termite mound.</rdfs:comment>
-		<skos:example xml:lang="en">Capability of a person to play chess at the &quot;master&quot; level; of a team to play football in the professional league; of a lathe to turn at 4,000 RPM; or of your digestive system to digest tiramisu.</skos:example>
-		<iof-core-pk:xDefinitionOtherCommon>From Oxford Languages: Capability is
-(1) the power or ability to do something, and
-(2) the extent of someone&apos;s or something&apos;s ability.</iof-core-pk:xDefinitionOtherCommon>
-		<iof-core-pk:xExampleComplement>Any capability that is not gradable against a reference system or for which one does not yet exist, is not a capability: the capability of a stick on the forest lawn to be used as a tool by an animal to extract food from a termite mound. The ability of certain bacterium to convert carbon dioxide into fuel in a single enzymatic step, is not a capability until such time that a group of researchers discovers this (and quantifies this ability).</iof-core-pk:xExampleComplement>
-		<iof-core-pk:xMaturity>Stable Definition</iof-core-pk:xMaturity>
-		<iof-av:elucidation>disposition&apos; in whose realization some Agent has an interest and for all times during which the capability inheres in its bearer, it is gradable according to some scale or system of reference</iof-av:elucidation>
-		<iof-av:excerptedFrom>CCO for term by the same name.</iof-av:excerptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">the extent of someone or something&apos;s ability to bring about processes of a certain kind</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-core-pk;ComponentRole">
 		<rdfs:subClassOf rdf:resource="&iof-core;Role"/>
 		<rdfs:label>component role</rdfs:label>
@@ -294,14 +300,8 @@ Need to define some of these embedded terms and relations.</skos:editorialNote>
 		<iof-av:semi-formalNaturalLanguageDefinition>Role an Agent (person, organization or automated system acting on behalf of one) has when it &apos;participates in at some time&apos;, a Purchasing Process</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core-pk;EngineeredSystem">
-		<rdfs:subClassOf rdf:resource="&iof-core-pk;System"/>
-		<rdfs:label xml:lang="en">engineered system</rdfs:label>
-		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
-		<iof-av:naturalLanguageDefinition>To be brought in from Systems Engineering WG</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-core-pk;Feature">
+		<rdfs:subClassOf rdf:resource="&iof-core;Characteristic"/>
 		<rdfs:subClassOf rdf:resource="&iof-core-pk;zParkedClasses"/>
 		<rdfs:label xml:lang="en">feature</rdfs:label>
 		<rdfs:comment>&quot;Feature&quot; (like &quot;characteristic&quot;) is an umbrella term including in its coverage domain: qualities, parts of a material product (for example, chromium plating), a hole within a material product (for example, a button hole), as well as information entities, as well as metalevel characteristics such as availability, reliability, average dimensions, as well as characteristics of processes such as rate, continuity, and so forth</rdfs:comment>
@@ -321,15 +321,6 @@ Need to define some of these embedded terms and relations.</skos:editorialNote>
 2. External or environmental operating features as in the operating temperature range of a product.</iof-core-pk:xExampleComplement>
 		<iof-core-pk:xExampleCounter>&quot;Soft&quot; criteria such as usability, aesthetics, etc., that cannot be measured nor have they a physical referent.</iof-core-pk:xExampleCounter>
 		<iof-av:naturalLanguageDefinition xml:lang="en">descriptive information content entity that describes some characteristic of a material artifact or process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core-pk;GroupOfAgents">
-		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000027"/>
-		<rdfs:label>group of agents</rdfs:label>
-		<iof-core-pk:xMaturity>Stable Definition</iof-core-pk:xMaturity>
-		<iof-av:excerptedFrom>http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology</iof-av:excerptedFrom>
-		<iof-av:naturalLanguageDefinition>group that consists of two or more persons, organizations or machines, or any combination of these, that interact together to realize some function</iof-av:naturalLanguageDefinition>
-		<iof-av:semi-formalNaturalLanguageDefinition>Group of Agents is an Object Aggregate that has only Agents as parts.</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core-pk;HumanResource">
@@ -434,7 +425,7 @@ https://en.wikipedia.org/wiki/Workforce_management</skos:editorialNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core-pk;ManufacturedSystem">
-		<rdfs:subClassOf rdf:resource="&iof-core-pk;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
 		<rdfs:label xml:lang="en">manufactured system</rdfs:label>
 		<rdfs:comment>a manufactured system is not a manufactured product, since all manufactured products are objects and all systems are object aggregates.</rdfs:comment>
 		<skos:editorialNote>Not sure we need this term and if we do, it needs some work. Not sure what Niel is trying to say in his comment either.</skos:editorialNote>
@@ -681,7 +672,7 @@ Note 3 to entry: There are various classes of characteristic, such as the follow
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core-pk;MechanicalSystem">
-		<rdfs:subClassOf rdf:resource="&iof-core-pk;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
 		<rdfs:label xml:lang="en">mechanical system</rdfs:label>
 		<skos:editorialNote>We are not specifying yet what sort of function a mechanical system bears. Perhaps we should introduce class &quot;mechanical function&quot; or &quot;material creation/elimination function,&quot; and other functions that mechanical systems possess, different from otherl types of engineered systems (information systems, structural systems, etc.)</skos:editorialNote>
 		<iof-core-pk:xDefinitionOtherCommon>A machine that also includes computers and sensors that monitor performance and plan movement [Wikipedia].</iof-core-pk:xDefinitionOtherCommon>
@@ -1078,15 +1069,6 @@ sellers in the marketplace).</iof-core-pk:xDefinitionOtherCommon>
 		<iof-av:semi-formalNaturalLanguageDefinition>Supplier Role is a Role a Human Agent bears when it sells or provides a Product or Service.</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core-pk;System">
-		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000027"/>
-		<rdfs:label xml:lang="en">system</rdfs:label>
-		<skos:example>solar system, digestive system, forest ecosystem, hydraulic system, subway system.</skos:example>
-		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
-		<iof-av:adaptedFrom>Oxford Languages: &quot;A set of things working together as parts of a mechanism or an interconnecting network.&quot;</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>To be brought in from Systems Engineering WG</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-core-pk;Task">
 		<rdfs:subClassOf rdf:resource="&iof-core-pk;AgentiveProcess"/>
 		<rdfs:label xml:lang="en">task</rdfs:label>
@@ -1167,60 +1149,6 @@ Other thoughts, none urgent:
 		<iof-av:naturalLanguageDefinition>planned process in which some person, machine, piece of equipment or engineered system changes the location of some material entity or portion of material.</iof-av:naturalLanguageDefinition>
 		<iof-av:semi-formalNaturalLanguageDefinition>Transport Process is a Planned Process in which a Material Entity is moved from one Site to another.</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
-	
-	<owl:ObjectProperty rdf:about="&iof-core-pk;achieves">
-		<rdfs:subPropertyOf rdf:resource="&roimport;BFO_0000059"/>
-		<rdfs:label xml:lang="en">achieves</rdfs:label>
-		<dcterms:title>The staffing and ramping up of production to 2 shifts per work day acheives the company plan of satisfying a surge in demand for its products.</dcterms:title>
-		<rdfs:domain rdf:resource="&iof-core;Process"/>
-		<rdfs:range rdf:resource="&ccoimport;DirectiveInformationContentEntity"/>
-		<skos:editorialNote>1. Do we need an inverse for this? 
-2. We need to formalize the part about achieving a part of some plan, but not necessarily the whole plan?
-3. Do we need a relation that relates the modal form of the thing the plan prescribes in the future (i.e., entities that may not exist as yet that the plan prescribes), to the entities that come into existence as the process unfolds?</skos:editorialNote>
-		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
-		<iof-av:firstOrderLogicDefinition>achieves(p,o) → PlannedProcess(p) ∧ DirectiveInformationContentEntity(o) ∧ concretizes-at-some-time(p,o))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>a relation between a planned process and some plan that holds when a process prescribed by some plan concretizes the plan or a part of the plan, at some time as the process unfolds</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core-pk;actsOnBehalfOf">
-		<rdfs:label>acts on behalf of</rdfs:label>
-		<rdfs:domain rdf:resource="&roimport;BFO_0000040"/>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;Organization">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-core;Person">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
-		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
-		<iof-av:elucidation>x &apos;acts On Behalf Of&apos; y holds when x is a material entity and y is some Person or Group of Persons (x and y are not the same) and at some time t, there exists a Planned Process p such that x &apos;participates in&apos; p and y &apos;has interest in&apos; p</iof-av:elucidation>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core-pk;hasAnInterestIn">
-		<rdfs:label>has an interest in</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;Agent">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-core-pk;GroupOfAgents">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:range rdf:resource="&roimport;BFO_0000015"/>
-		<skos:editorialNote>The facilitation axiom still needs some work. The embedded relation facilitates seems to be very similar to the one Barry has introduced for the IOF, named &apos;causes&apos;. Whatever name we use, it seems to be a relation that holds between two processes p, q, wherein p&apos;s temporal extent precedes or overlaps the temporal extent of q (or p&apos;s temporal extent lies entirely within q&apos;s, in which case it is likely a process part of q), but in any case, p is such that it triggers q.</skos:editorialNote>
-		<iof-core-pk:xMaturity>In Analysis</iof-core-pk:xMaturity>
-		<iof-av:adaptedFrom>Eric MERRELL, David LIMBAUGH, Peter KOCH &amp; Barry SMITH, &quot;Capabilities,&quot; pre-publication paper</iof-av:adaptedFrom>
-		<iof-av:semi-formalNaturalLanguageDefinition>x &apos;has Interest In&apos; y iff x is an Organism or Group of Organisms and y is a process, and:
-(i) there exists some objective o that x is carrier of, and some plan &apos;i&apos; that achieves &apos;o&apos;, and the plan is such that it prescribes y (Prescription Axiom), or
-(ii) there exists some downstream process p that y facilitates and in which x already has an interest (Facilitation Axiom) 
-(iii) (Biological Axiom) to be added
-(iv) (Permanence Axiom) to be added</iof-av:semi-formalNaturalLanguageDefinition>
-	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core-pk;isAvailableTo">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
