@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://infoneer.txstate.edu/IOF/SupplyChainOntology#"
-     xml:base="http://infoneer.txstate.edu/IOF/SupplyChainOntology"
+<rdf:RDF xmlns="https://www.industrialontologies.org/ontology/supplychain/"
+     xml:base="https://www.industrialontologies.org/ontology/supplychain/"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:bfo="http://purl.obolibrary.org/obo/"
      xmlns:cco="http://www.ontologyrepository.com/CommonCoreOntologies/"
@@ -9,6 +9,7 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:Core="http://www.industrialontologies.org/ontology/core/Core/"
      xmlns:core="http://www.industrialontologies.org/core/"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -17,8 +18,8 @@
      xmlns:terms="http://purl.org/dc/terms/"
      xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:IOFAnnotationVocabulary="http://www.industrialontologies.org/IOFAnnotationVocabulary/">
-    <owl:Ontology rdf:about="https://www.industrialontologies.org/ontology/supplychain">
-        <owl:imports rdf:resource="http://www.industrialontologies.org/core/"/>
+    <owl:Ontology rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO">
+        <owl:imports rdf:resource="http://www.industrialontologies.org/ontology/core/Core/"/>
         <bfo:IAO_0000232>This is a draft ontology. Not formally released yet.</bfo:IAO_0000232>
         <dc:contributor>Farhad Ameri</dc:contributor>
         <terms:description>This is a working draft of the reference ontology that is being develped  in  of IOF Supply Chain WG. This ontology will be decomposed into several modules in future.</terms:description>
@@ -153,6 +154,12 @@
     
 
 
+    <!-- http://www.industrialontologies.org/core/RO_0000085 -->
+
+    <owl:ObjectProperty rdf:about="http://www.industrialontologies.org/core/RO_0000085"/>
+    
+
+
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of -->
 
     <owl:ObjectProperty rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of"/>
@@ -186,32 +193,42 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/prescribes -->
 
     <owl:ObjectProperty rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/prescribes">
-        <owl:inverseOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/is_prescribed_by"/>
+        <owl:inverseOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/is_prescribed_by"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/OccurrentPartOf -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/OccurrentPartOf -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/OccurrentPartOf">
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/OccurrentPartOf">
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
-        <owl:inverseOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/has_occurrent_part"/>
+        <owl:inverseOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/has_occurrent_part"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">occurrent part of</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/agent_in -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/agent_in -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/agent_in">
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/agent_in">
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0000056"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/hasCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/endsAt -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/hasCapability">
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/endsAt">
+        <rdfs:subPropertyOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/occursAt"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An instance level relation that holds between instances of Processual Entities and Spatial Regions or Site whevever some spatial region or site is the location in which the process ends.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>ends at</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/hasCapability -->
+
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/hasCapability">
         <rdfs:subPropertyOf rdf:resource="http://www.industrialontologies.org/core#RO_0000091"/>
         <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
         <rdfs:label>has capability</rdfs:label>
@@ -219,9 +236,9 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/has_occurrent_part -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/has_occurrent_part -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/has_occurrent_part">
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/has_occurrent_part">
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
         <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000003"/>
         <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000003"/>
@@ -229,19 +246,47 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/has_skill -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/has_skill -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/has_skill">
-        <rdfs:subPropertyOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/hasCapability"/>
-        <rdfs:range rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Skill"/>
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/has_skill">
+        <rdfs:subPropertyOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/hasCapability"/>
+        <rdfs:range rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill"/>
         <rdfs:label>has skill</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/is_prescribed_by -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/is_prescribed_by -->
 
-    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/is_prescribed_by"/>
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/is_prescribed_by"/>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/occursAt -->
+
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/occursAt">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000006"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000029"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <IOFAnnotationVocabulary:naturalLanguageDefinition>An instance level relation that holds between instances of Processual Entities and Spatial Regions or Site whevever some spatial region or site is the location in which the process unfolds.</IOFAnnotationVocabulary:naturalLanguageDefinition>
+        <rdfs:label>occurs at</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/startsAt -->
+
+    <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/startsAt">
+        <rdfs:subPropertyOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/occursAt"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An instance level relation that holds between instances of Processual Entities and Spatial Regions or Site whevever some spatial region or site is the location in which the process starts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>starts at</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
@@ -259,7 +304,7 @@
     <!-- http://infoneer.txstate.edu/ontology/HighVolumeProductionCapability -->
 
     <owl:Class rdf:about="http://infoneer.txstate.edu/ontology/HighVolumeProductionCapability">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ProductionCapability"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductionCapability"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Production Capability to manufacture large quantities of some material artifact in some unit of time.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>High Volume Production Capability</rdfs:label>
     </owl:Class>
@@ -334,27 +379,15 @@
 
     <!-- http://www.industrialontologies.org/core/BusinessOrganization -->
 
-    <rdf:Description rdf:about="http://www.industrialontologies.org/core/BusinessOrganization">
+    <owl:Class rdf:about="http://www.industrialontologies.org/core/BusinessOrganization">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.industrialontologies.org/core/RO_0000085"/>
-                <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/BusinessFunction"/>
+                <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/BusinessFunction"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-    </rdf:Description>
-    
-
-
-    <!-- http://www.industrialontologies.org/core/Organization -->
-
-    <rdf:Description rdf:about="http://www.industrialontologies.org/core/Organization">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000172"/>
-                <owl:someValuesFrom rdf:resource="http://www.industrialontologies.org/core/Person"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </rdf:Description>
+    </owl:Class>
     
 
 
@@ -388,7 +421,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/ActOfCargoTransportation -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfCargoTransportation">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ActOfTransportation"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ActOfTransportation"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Act of Transportation involving the movement of manufactured goods through some Transportation Agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology</cco:is_curated_in_ontology>
         <rdfs:comment>In CCO, Act of Cargo Transportation is the immediate sub-class of Act of Location Change</rdfs:comment>
@@ -441,7 +474,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PlannedProcess"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Intentional Act that involves determining the extent, dimensions, quanity, or quality of an Entity relative to some standard.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:example_of_usage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">putting an object on a scale to measure its weight in kilograms</cco:example_of_usage>
         <cco:example_of_usage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rating Hollywood movies on a 1 to 5 star scale</cco:example_of_usage>
@@ -455,7 +488,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMotion -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMotion">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PlannedProcess"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Intentional Act by which an Agent causes the position or location of some Object to change.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:definition_source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.merriam-webster.com/dictionary/motion</cco:definition_source>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology</cco:is_curated_in_ontology>
@@ -490,7 +523,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Animal -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Animal">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Organism"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Organism"/>
         <cco:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Organism that is multicellular, eukaryotic, heterotrophic, and capable of motility for part of its life.</cco:definition>
         <cco:definition_source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://en.wikipedia.org/wiki/Animal</cco:definition_source>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology</cco:is_curated_in_ontology>
@@ -499,27 +532,10 @@
     
 
 
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Artifact -->
-
-    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
-        <IOFAnnotationVocabulary:directSource>CCO: Artifact Ontology</IOFAnnotationVocabulary:directSource>
-        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Object that was designed by some Agent to realize a certain Function.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
-        <rdfs:label>Artifact</rdfs:label>
-    </owl:Class>
-    
-
-
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
-                <owl:someValuesFrom rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <cco:definition xml:lang="en">A Function that inheres in some Artifact in virtue of that Artifact being designed to be used in processes that require that Function to be realized.</cco:definition>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology</cco:is_curated_in_ontology>
         <rdfs:label xml:lang="en">Artifact Function</rdfs:label>
@@ -530,7 +546,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Container -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Container">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/PieceofTransportEquipment"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/PieceofTransportEquipment"/>
         <cco:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Piece of Transport Equipment that is designed to contain (wholly or partially) some material entity.</cco:definition>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology</cco:is_curated_in_ontology>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Container</rdfs:label>
@@ -603,7 +619,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Government -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Government">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Organization"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Organization"/>
         <cco:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Organization that exercises executive, legislative, or judicial authority over a Geopolitical Entity.</cco:definition>
         <cco:definition_source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://en.wikipedia.org/wiki/Government</cco:definition_source>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology</cco:is_curated_in_ontology>
@@ -635,7 +651,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Plant -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Plant">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Organism"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Organism"/>
         <cco:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An Organism that is multicellular, eukaryotic, autotrophic, and has cells that contain chloroplasts and walls made of cellulose.</cco:definition>
         <cco:definition_source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://en.wikipedia.org/wiki/Plant</cco:definition_source>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology</cco:is_curated_in_ontology>
@@ -669,7 +685,7 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfProcessedMaterial -->
 
     <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfProcessedMaterial">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/MaterialArtifact"/>
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
         <IOFAnnotationVocabulary:directSource>CCO</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Material Artifact that is the output of an Act of Artifact Processing.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:is_curated_in_ontology rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology</cco:is_curated_in_ontology>
@@ -678,9 +694,9 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ActOfTransportation -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ActOfTransportation -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ActOfTransportation">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ActOfTransportation">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfLocationChange"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Act of Location Change involving the movement of material entities by some Agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:alternative_label>act of shipping</cco:alternative_label>
@@ -689,9 +705,9 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ActofPositionChange -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofPositionChange -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ActofPositionChange">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofPositionChange">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMotion"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Act of Motion in which the position (i.e. the orientation, alignment, or arrangement) of some Object or of one or more of an Object&apos;s parts is changed by some Agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:comment>An Act of Position Change does not entail a change of location.</rdfs:comment>
@@ -700,18 +716,18 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ActofReverseEngineering -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofReverseEngineering -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ActofReverseEngineering">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PlannedProcess"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofReverseEngineering">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
         <rdfs:label>Reverse Engineering Process</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ActofSupplierEvaluation -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofSupplierEvaluation -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ActofSupplierEvaluation">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ActofSupplierEvaluation">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfAppraisal"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>An Act of Measuring that involves evaluating, assessing, estimating, or judging the capabilities of an Agent that is intended to become a part of a Supply Chain System.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Act of Supplier Evaluation</rdfs:label>
@@ -719,10 +735,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/AgentCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/AgentCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/AgentCapability">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Capability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/AgentCapability">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Capability"/>
         <IOFAnnotationVocabulary:directSource>CCO</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Capability that inheres in an Agent to the extent of that Agent&apos;s capacity to realize it in Actions of a certain type.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>&apos;Agent Capability&apos;</rdfs:label>
@@ -730,19 +746,19 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/AircraftManufacturingFactory -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/AircraftManufacturingFactory -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/AircraftManufacturingFactory">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Factory"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/AircraftManufacturingFactory">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Factory"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Facility that is designed for manufacturing aircraft.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Aircraft Manufacturing Factory</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Airway -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Airway -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Airway">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Airway">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000028"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A spatia region that connects one specified location to another at a specified altitude, along which an aircraft that meets the requirements of the airway may be flown.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Airway</rdfs:label>
@@ -750,29 +766,29 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/AssemblyServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/AssemblyServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/AssemblyServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/AssemblyServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Service Provider Role that is borne by an Agent to provide an Assembly Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Assembly Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Batch -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Batch -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Batch">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Batch">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Traceable Resource Unit that is the output of a batch process</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Batch</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/BusinessFunction -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/BusinessFunction -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/BusinessFunction">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/BusinessFunction">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Function that inheres in some Business Organization in virtue of that Business Organization being designed to be engaged in Planned Processes that require that Function to be realized and 2) the function exists because it is prescribed by some objectives that &apos;is carried by&apos; the organization.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:comment>agent that bears the function should be linked to the agent that prescribes the objective.</rdfs:comment>
@@ -781,16 +797,16 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Cargo -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Cargo -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Cargo">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Cargo">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
                     <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of"/>
-                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/CargoRole"/>
+                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/CargoRole"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
@@ -803,9 +819,9 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/CargoRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/CargoRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/CargoRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CargoRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Role borne by a material entity when transported by a Transport Equipment.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Cargo Role</rdfs:label>
@@ -813,10 +829,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Carrier -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Carrier -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Carrier">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Agent"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Carrier">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A company that provides air, sea, or land transportation services [APICS]</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The party that provides freight transportation services or a physical or electronic mechanism that carries business information [GS1].</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Agent that bears a Carrier Role</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
@@ -825,48 +841,49 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/CastingService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/CastingService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/CastingService">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingService"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CastingService">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingService"/>
         <cco:definition>A Manufacturing Service which involves at least one casting process as process part.</cco:definition>
         <rdfs:label>Casting Service</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/CastingServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/CastingServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/CastingServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CastingServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Manufacturing Service Provider Role that is borne by an Agent to provide a Casting Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Casting Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/CommercialService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/CommercialService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/CommercialService">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PlannedProcess"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CommercialService">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>Planned Process that has proper-occurrent-parts, some Act of Service Provisioning and some an Act of Consumption that coincide temporally, and that is prescribed by a Service Agreement, and in which some Agents playing causal roles in the respective occurrent parts, are parties of the agreement.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Commercial Service</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Consignee -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Consignee -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Consignee">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Agent"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Consignee">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The party by whom the goods, cargo or containers are meant to be received. The actual physical receipt can take place by another party [GS1].</IOFAnnotationVocabulary:naturalLanguageDefinition>
+        <skos:altLabel>receiver</skos:altLabel>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/CustomerRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/CustomerRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/CustomerRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CustomerRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Role that is borne by an Agent to buy or consume a Product or Service.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Customer Role</rdfs:label>
@@ -874,120 +891,140 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Department -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Department -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Department">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/GroupOfPersons"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Department">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfPersons"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A Group of Persons that is part of some organization which is created to provide certain functions and achieve some objective of the organization and appears in the organizational hierarchy of that organization.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Department</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/DistributorAgent -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/DistributorAgent -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/DistributorAgent">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/DistributorAgent">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of"/>
-                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/DistributorRole"/>
+                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/DistributorRole"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supplier that bears a Distributor Role in some supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Distributor Agent</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/DistributorRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/DistributorRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/DistributorRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ProductSupplierRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/DistributorRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductSupplierRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Product Supplier Role that is borne by an Agent when it buys  some Manufactured Product form a Manufacturer Agent and resells them to some Wholesaler Agents in a supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Distributor Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/EngineeringDesignCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/EngineeringDesignCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/EngineeringDesignCapability">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Capability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/EngineeringDesignCapability">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Capability"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Capability that inheres in an Engineered System, Organization, or Person to design Material Artifacts as prescribed by engineering rules and principles.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Engineering Design Capability</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Facility -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Facility -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Facility">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/MaterialArtifact"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Facility">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Artifact that is designed as a building or campus dedicated to some specific purpose.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Facility</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Factory -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Factory -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Factory">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Facility"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Factory">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Facility"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Facility that is designed for manufacturing or refining discrete or continuous material products.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Factory</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ForgingServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ForgingServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ForgingServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ForgingServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Manufacturing Service Provider Role that is borne by an Agent to provide a Forging Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Forging Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/GeometricModelingArtifactFunction -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GeometricModelingArtifactFunction -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/GeometricModelingArtifactFunction">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeometricModelingArtifactFunction">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
         <rdfs:label>Geometric Modeling Artifact Function</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/GeometricModelingSkill -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GeometricModelingSkill -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/GeometricModelingSkill">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Skill"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeometricModelingSkill">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Skill that inheres in a Person and is realized in an Act of Geometric Modeling.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Geometric Modeling Skill</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/GroupOfOrganizations -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialLocation -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/GroupOfOrganizations">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/GroupOfAgents"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialLocation">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialSite"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Geospatial Site that is the location of some material entity or the location in which a process occurs in.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Geospatial Location</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialSite -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialSite">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000029"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Site at or near the surface of the earth</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Geospatial Site</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfOrganizations -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfOrganizations">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Group of Agents that has only Organizations as parts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Group of Organizations</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/GroupOfPersons -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfPersons -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/GroupOfPersons">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/GroupOfAgents"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfPersons">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
         <IOFAnnotationVocabulary:directSource>CCO</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Group of Agents that has only Persons as parts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Group of Persons</rdfs:label>
@@ -995,10 +1032,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/IndustrialInventory -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/IndustrialInventory -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/IndustrialInventory">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Inventory"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/IndustrialInventory">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Inventory"/>
         <IOFAnnotationVocabulary:directSource>APICS</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>Those stocks or items used to support production (raw materials and work-in-process items), supporting activities (maintenance, repair, and operating supplies), and customer service (finished goods and spare parts).</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A material entity that bears an Industrial Inventory Role.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
@@ -1007,28 +1044,28 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/IndustrialInventoryRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/IndustrialInventoryRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/IndustrialInventoryRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/InventoryRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/IndustrialInventoryRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/InventoryRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A role borne by object or object aggregate when it is stored by a Bussiness Organization that is intended to be sold to a customer or to be used or consumed in some Product Production Process</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Industrial Inventory Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Industry -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Industry -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Industry">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/GroupOfOrganizations"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Industry">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfOrganizations"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>An industry is a group of organizations that are related based on their primary business activities.</IOFAnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Inventory -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Inventory -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Inventory">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Inventory">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A stock of items kept (or owned) by an agent to meet external or internal need some agent might have.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A material entity that bears an Inventory Role.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
@@ -1037,9 +1074,9 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/InventoryRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/InventoryRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/InventoryRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/InventoryRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A role borne by object or object aggregate when it is kept by an agent to satisfy some need of the agent or meet some objective borne by the agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Inventory Role</rdfs:label>
@@ -1047,10 +1084,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Load -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Load -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Load">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Load">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>Collection of material transported or transferred together.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A TRU that shares the same transportation and transfer history</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Load</rdfs:label>
@@ -1058,10 +1095,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/LogisticUnit -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticUnit -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/LogisticUnit">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticUnit">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>An item of any composition established for transport and/or storage that needs to be managed through the supply chain [GS1].</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>goods packaged together for transport and storage</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Logistic Unit</rdfs:label>
@@ -1069,29 +1106,29 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/LogisticsService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/LogisticsService">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/CommercialService"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsService">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/CommercialService"/>
         <rdfs:label>Logistics Service</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/LogisticsServiceProvider -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsServiceProvider -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/LogisticsServiceProvider">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsServiceProvider">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Service Provider Role that is borne by an Agent to provide some Logistics Service to some Agents.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Logistics Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Lot -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Lot -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Lot">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Lot">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit"/>
         <IOFAnnotationVocabulary:adaptedFrom>APICS</IOFAnnotationVocabulary:adaptedFrom>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A quantity of material produced together and sharing the same production costs and specifications.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A TRU that is produced together such that it shares some characteristics.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
@@ -1100,50 +1137,50 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/LowVolumeProductionCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/LowVolumeProductionCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/LowVolumeProductionCapability">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ProductionCapability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/LowVolumeProductionCapability">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductionCapability"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Production Capability to manufacture large quantities of some material artifact in some unit of time.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Low Volume Production Capability</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/MachiningService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/MachiningService">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingService"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningService">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingService"/>
         <cco:definition>A Manufacturing Service that involves at least one machining process as proess part.</cco:definition>
         <rdfs:label>Machining Service</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/MachiningServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/MachiningServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Manufacturing Service Role that is borne by an Agent to provide a Machining Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Machining Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ManufacturerRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturerRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturerRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ProductSupplierRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturerRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductSupplierRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Product Supplier Role that is borne by an Agent to manufacture and sell some Manufactured Products to other Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Manufacturer Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ManufacturingService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturingService">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/CommercialService"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingService">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/CommercialService"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Commercial Service which 1) includes at least one manufacturing process as process part and 2) an Agent satisfies the manufacturing needs of another agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Manufacturing Service</rdfs:label>
         <skos:example>Foxconn, a contract manufacturing service company, owns and operates factories in China that do the final assembly of iPhones for Apple.</skos:example>
@@ -1151,30 +1188,30 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Service Provider Role that is borne by an Agent to provide a Manufacturing Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Manufacturing Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ManufacturingSupplier -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingSupplier -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturingSupplier">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingSupplier">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of"/>
                         <owl:someValuesFrom>
                             <owl:Class>
                                 <owl:unionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturerRole"/>
-                                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturingServiceProviderRole"/>
+                                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturerRole"/>
+                                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingServiceProviderRole"/>
                                 </owl:unionOf>
                             </owl:Class>
                         </owl:someValuesFrom>
@@ -1182,55 +1219,55 @@
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supplier that bears a Manufacturing Service Provider or Manufacturer Role in some supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Manufacturer Agent</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ManufacturingSupplyChain -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingSupplyChain -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ManufacturingSupplyChain">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainSystem"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ManufacturingSupplyChain">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainSystem"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain System whose members are agent in some Product Production Process that outputs some Manufactured Product.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Manufacturing Supply Chain System</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/MotorVehicleManufacturingFactory -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/MotorVehicleManufacturingFactory -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/MotorVehicleManufacturingFactory">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Factory"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/MotorVehicleManufacturingFactory">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Factory"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Facility that is designed for manufacturing motor vehicle.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Motor Vehicle Manufacturing Factory</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/NAICSCodeIdentifier -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/NAICSCodeIdentifier -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/NAICSCodeIdentifier">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/NAICSCodeIdentifier">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A code Identifier that consists of a string of characters that was created and assigned according to NAICS Coding System.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/NAICSCodingSystem -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/NAICSCodingSystem -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/NAICSCodingSystem">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/NAICSCodingSystem">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DirectiveInformationContentEntity"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Diective Information Content Entity that prescribes a coding scheme based on NAICS code structure.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/OrganizationCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/OrganizationCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/OrganizationCapability">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/AgentCapability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/OrganizationCapability">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/AgentCapability"/>
         <IOFAnnotationVocabulary:adaptedFrom>https://www.sebokwiki.org/wiki/Organizational_Capability_(glossary)</IOFAnnotationVocabulary:adaptedFrom>
         <IOFAnnotationVocabulary:directSource>CCO</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The capability of an organization to perform certain acts that contributes towards organizational value and purpose.</IOFAnnotationVocabulary:naturalLanguageDefinition>
@@ -1240,47 +1277,57 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/PieceofTransportEquipment -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/PieceofTransportEquipment -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/PieceofTransportEquipment">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PieceOfEquipment"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/PieceofTransportEquipment">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PieceOfEquipment"/>
         <rdfs:label>Piece Of Transport Equipment</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ProductSupplierRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductSupplierRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ProductSupplierRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductSupplierRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain Role that is borne by an Agent to supply Products to other Agents in the supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Product Supplier Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ProductionCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductionCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ProductionCapability">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Capability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductionCapability">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Capability"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Capability that is inheres in a Material Entity and is realized in some Product Production Process in order to achieve desired effects as prescribed by a Product Production Plan.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Production Capability</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Retailer -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/RecivingProcess -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Retailer">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Agent"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/RecivingProcess">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Planned Process in which an Agent  &apos;receives&apos;  (obtains physical possession of) some Material Entity from another Agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Receiving Process</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Retailer -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Retailer">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>a person or business that sells goods to the public in relatively small quantities for use or consumption rather than for resale.</IOFAnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/RetailerRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/RetailerRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/RetailerRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/RetailerRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>Role an Agent has when it engages in a selling some products to customers who are the end-users of the products.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Retailer Role</rdfs:label>
@@ -1288,10 +1335,10 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ReverseEngineeringCapability -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ReverseEngineeringCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ReverseEngineeringCapability">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/EngineeringDesignCapability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ReverseEngineeringCapability">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/EngineeringDesignCapability"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The process by which a man-made object is deconstructed to reveal its designs, architecture, code or to extract knowledge from the object.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Engineering Design Capability to examine and analyze a Manufactured Product in ordder to identify its Engineering Specifications.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Reverse Engineering Capability</rdfs:label>
@@ -1300,28 +1347,28 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ScanningArtifactFunction -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ScanningArtifactFunction -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ScanningArtifactFunction">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ScanningArtifactFunction">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
         <rdfs:label>Scanning Artifact Function</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ScanningSkill -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ScanningSkill -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ScanningSkill">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Skill"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ScanningSkill">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Skill that inheres in a Person and is realized in an Act of Scanning.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Scanning Skill</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Seaway -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Seaway -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Seaway">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Seaway">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000028"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A spatia region that connects one specified location to another on a body of water along which a watercraft may travel.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Seaway</rdfs:label>
@@ -1329,73 +1376,103 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ServiceConsumerRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceConsumerRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ServiceConsumerRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/CustomerRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceConsumerRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/CustomerRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A role which inheres in a person or organization who uses a service</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Service Consumer Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain Role that is borne by an Agent to supply some Service to other Agents in the supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ServiceSpecification -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceSpecification -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ServiceSpecification">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DirectiveInformationContentEntity"/>
-        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Directive Information Content entity with service action specifications and service objective specifications as parts that, when concretized, is realized in a process comprised of production and consumption of an economic good such that production and consumption coincide.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Service Plan Specification with service action specifications and service objective specifications as parts that, when concretized, is realized in a process comprised of production and consumption of an economic good such that production and consumption coincide.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Service Plan Specification</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/ServiceSupplyChain -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceSupplyChain -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/ServiceSupplyChain">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceSupplyChain">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainSystem"/>
+                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainSystem"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output_at_some_time"/>
-                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/CommercialService"/>
+                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/CommercialService"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainSystem"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainSystem"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain System whose members are agent in some Service Provisioning Process that outputs some Commercial Service.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Service Supply Chain System</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Shipment -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipFromLocation -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Shipment">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipFromLocation">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialLocation"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>The Geospatial Location in which some Shipment Preparation Process occurs.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Ship From Location</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipToLocation -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipToLocation">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialLocation"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>The Geospatial Location in which some Receiving Process occurs.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Ship to Location</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Shipment -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Shipment">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit"/>
         <IOFAnnotationVocabulary:directSource>GS1</IOFAnnotationVocabulary:directSource>
-        <IOFAnnotationVocabulary:naturalLanguageDefinition>An item or group of items delivered to one party&apos;s location at one moment in time that have undegone the same despatch and receipt processes.</IOFAnnotationVocabulary:naturalLanguageDefinition>
-        <cco:definition>A TRU which travels under one despatch advice and/or Bill of Lading.</cco:definition>
+        <IOFAnnotationVocabulary:naturalLanguageDefinition>A Traceable Resource Unit delivered to receivers&apos;s location that have undegone the same despatch and receipt processes.</IOFAnnotationVocabulary:naturalLanguageDefinition>
+        <rdfs:comment>A TRU which travels under one despatch advice and/or Bill of Lading.</rdfs:comment>
         <rdfs:label>Shipment</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Shipper -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipmentRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Shipper">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Agent"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipmentRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnitRole"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A TRU Role borne by some object or object aggregate when it is prepared as prescribed according to some  shipment plan and is intended to be transported by some carrier and delivered to some receiver.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Shipment Role</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Shipper -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Shipper">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>An individual or firm that sends freight</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Agent that bears a Shipper Role</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <cco:alternative_label>Consignor</cco:alternative_label>
@@ -1404,10 +1481,29 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Skill -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ShippingProcess -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Skill">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/AgentCapability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShippingProcess">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+        <rdfs:label>Shipment Preperation Process</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/ShippingRoute -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShippingRoute">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000026"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A one-dimensional spatial region along which some Shipment travels during some Transport Process.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Shipping Route</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/AgentCapability"/>
         <IOFAnnotationVocabulary:directSource>CCO</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Agent Capability that inheres in a Person to the extent of that Person&apos;s capacity to realize it in Actions of a certain type.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <skos:altLabel>Person Capability</skos:altLabel>
@@ -1415,20 +1511,30 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/StorageFacility -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/StorageFacility -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/StorageFacility">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Facility"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/StorageFacility">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Facility"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Facility that is designed to store materials or goods.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Storage Facility</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChain -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/StorageProcess -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChain">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/GroupOfAgents"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/StorageProcess">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Planned Process of holding Material Entities in a specified location for future use.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <rdfs:label>Storage Process</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChain -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChain">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
         <IOFAnnotationVocabulary:adaptedFrom>GS1</IOFAnnotationVocabulary:adaptedFrom>
         <IOFAnnotationVocabulary:explanatoryNote>There exist a &apos;supply chain link&apos;  between to interacting agents who are members of the same suppier group related to a specific supply chain system. 
 
@@ -1441,48 +1547,49 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Agent"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Agent"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>An Agent who bears a Supply Chain Role in some Supply Chain System.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Supply Chain Agent</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainLogisticsProcess -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainLogisticsProcess -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainLogisticsProcess">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess"/>
-        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain Process that includes some Transportation Process or Storage Process as its occurrent parts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainLogisticsProcess">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainProcess"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supply Chain Process that involves some Transportation Process, Shipping Process, and Warehousing Process as its occurrent parts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Supply Chain Logistics Process</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainNode -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/PlannedProcess"/>
-        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Planned Process that has at least one Supply Chain Agent as a participant and achieves an objective of a Supply Chain System.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainNode">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialSite"/>
+        <rdfs:label>A Geospatial Location which is the physical location of some Supply Chain Agent.</rdfs:label>
+        <rdfs:label>Supply Chain Node</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainProcess -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainProcess">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/BusinessProcess"/>
+        <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Planned Process that has at least one Supply Chain Agent as participant and achieves some Supply Chain Plan Specification.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Supply Chain Process</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainRecivingProcess -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainRecivingProcess">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess"/>
-        <rdfs:label>Supply Chain Receiving Process</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainRole -->
-
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Role that is borne by an Agent to supply Products or Services to other Agent in some Supply Chain System.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Supply Chain Role</rdfs:label>
@@ -1490,19 +1597,10 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainShippingProcess -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainSystem -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainShippingProcess">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess"/>
-        <rdfs:label>Supply Chain Shipping Process</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainSystem -->
-
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainSystem">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/EngineeredSystem"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainSystem">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/EngineeredSystem"/>
         <terms:source>APICS</terms:source>
         <IOFAnnotationVocabulary:explanatoryNote>A related notion is Supply Chain Infrastrucutre.</IOFAnnotationVocabulary:explanatoryNote>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The global network used to deliver products and services from raw materials to end customers through an engineered flow of information, physical distribution, and cash.</IOFAnnotationVocabulary:naturalLanguageDefinition>
@@ -1513,19 +1611,10 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SupplyChainWarehousingProcess -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/SystemCapability -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainWarehousingProcess">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainProcess"/>
-        <rdfs:label>SupplyChain Warehousing Process</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- https://www.industrialontologies.org/ontology/supplychain/SystemCapability -->
-
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SystemCapability">
-        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/core/Capability"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SystemCapability">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/Capability"/>
         <IOFAnnotationVocabulary:directSource>https://www.sebokwiki.org/wiki/System_Capability_(glossary)</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>The ability of a system to execute a particular course of action or achieve a desired effect, under a specified set of conditions.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>System Capability</rdfs:label>
@@ -1533,29 +1622,29 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Team -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Team -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Team">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/GroupOfPersons"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Team">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/GroupOfPersons"/>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>A Group of Persons that is be part of some department or organization which is formed to provide  certain functions to achieve some objective of the department or organization.</IOFAnnotationVocabulary:naturalLanguageDefinition>
         <rdfs:label>Team</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TestServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TestServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TestServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ServiceProviderRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TestServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ServiceProviderRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Service Provider Role that is borne by an Agent to provide a Test Service to some Agents in some Supply Chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Test Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnit">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnit">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
         <IOFAnnotationVocabulary:directSource>GS1</IOFAnnotationVocabulary:directSource>
         <IOFAnnotationVocabulary:naturalLanguageDefinition>An entity where there may be a need to retrieve information about its history, application, or location.</IOFAnnotationVocabulary:naturalLanguageDefinition>
@@ -1565,9 +1654,9 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnitRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnitRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TraceableResourceUnitRole">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TraceableResourceUnitRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A role borne by some object or object aggregate when they have a shared history and some agent may have a need to retrieve information about them.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Traceable Resource Unit Role</rdfs:label>
@@ -1575,107 +1664,116 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Trailer -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Trailer -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Trailer">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/PieceofTransportEquipment"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Trailer">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/PieceofTransportEquipment"/>
         <cco:definition>A piece of transport equipment that is unpowered and is pulled by a powered vehicle.</cco:definition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TransportationFacility -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationFacility -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TransportationFacility">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Facility"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationFacility">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Facility"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Facility that is designed for commencing or concluding the transportation of transportation artifacts, or for housing transportation artifacts.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Transportation Facility</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TransportationService -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationService -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TransportationService">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/LogisticsService"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationService">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsService"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Commercial Service in which an Agent changes the location of some material entities to satisfy the transportation needs of another Agent.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Transportation Service</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/TransportationServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/TransportationServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/LogisticsServiceProvider"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsServiceProvider"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Logisitics Service Provider Role that is borne by an Agent to provide some Transportation Service to some Agents.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Transportation Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/Wagon -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/Wagon -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/Wagon">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/PieceofTransportEquipment"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Wagon">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/PieceofTransportEquipment"/>
         <cco:definition>Piece of Transport Equipment in a rail transport system (railroad or railway) used for carrying cargo or passengers</cco:definition>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/WarehouseServiceProviderRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/WarehouseServiceProviderRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/WarehouseServiceProviderRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/LogisticsServiceProvider"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/WarehouseServiceProviderRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticsServiceProvider"/>
         <rdfs:label>Warehouse Service Provider Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/WholesalerAgent -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/WarehousingProcess -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/WholesalerAgent">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/WarehousingProcess">
+        <rdfs:subClassOf rdf:resource="http://www.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+        <rdfs:label>Warehousing Process</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/WholesalerAgent -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/WholesalerAgent">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+                    <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/bearer_of"/>
-                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/WholesalerRole"/>
+                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/WholesalerRole"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SupplyChainAgent"/>
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/SupplyChainAgent"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Supplier that bears a Wholesaler Role in some supply chain.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Wholesaler Agent</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/WholesalerRole -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/WholesalerRole -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/WholesalerRole">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/ProductSupplierRole"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/WholesalerRole">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/ProductSupplierRole"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Product Supplier Role that is borne by an Agent when it buysvsome Manufactured Product from a Distributor Agent in a supply chain and resells them to Customers and Retailer Agents</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>Wholesaler Role</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/3DPrintingArtifactFunction -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/3DPrintingArtifactFunction -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/3DPrintingArtifactFunction">
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/3DPrintingArtifactFunction">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
         <rdfs:label>3D Printing Artifact Function</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/supplychain/3D_Printing_Skill -->
+    <!-- https://www.industrialontologies.org/ontology/supplychain/SCRO/3D_Printing_Skill -->
 
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/3D_Printing_Skill">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/Skill"/>
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/3D_Printing_Skill">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/Skill"/>
         <IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>A Skill that inheres in a Person and is realized in an Act of 3D Printing.</IOFAnnotationVocabulary:semi-formalNaturalLanguageDefinition>
         <rdfs:label>3D Printing Skill</rdfs:label>
     </owl:Class>
@@ -1710,7 +1808,7 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     <!-- http://infoneer.txstate.edu/ontology/machining_service_provider_role_A -->
 
     <owl:NamedIndividual rdf:about="http://infoneer.txstate.edu/ontology/machining_service_provider_role_A">
-        <rdf:type rdf:resource="https://www.industrialontologies.org/ontology/supplychain/MachiningServiceProviderRole"/>
+        <rdf:type rdf:resource="https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningServiceProviderRole"/>
     </owl:NamedIndividual>
     <rdf:Description>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
@@ -1755,27 +1853,35 @@ A supply chain link = def.  A relationship between two Agents (a1 and a2) if a1 
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/Batch"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/Load"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/LogisticUnit"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/Lot"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/Shipment"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Batch"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Load"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/LogisticUnit"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Lot"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Shipment"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/CastingServiceProviderRole"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/ForgingServiceProviderRole"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/MachiningServiceProviderRole"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/CastingServiceProviderRole"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ForgingServiceProviderRole"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/MachiningServiceProviderRole"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/Factory"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/StorageFacility"/>
-            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/TransportationFacility"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/Factory"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/StorageFacility"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/TransportationFacility"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/GeospatialLocation"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipFromLocation"/>
+            <rdf:Description rdf:about="https://www.industrialontologies.org/ontology/supplychain/SCRO/ShipToLocation"/>
         </owl:members>
     </rdf:Description>
 </rdf:RDF>
