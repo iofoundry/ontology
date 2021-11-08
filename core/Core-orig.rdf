@@ -45,7 +45,6 @@
 		<owl:imports rdf:resource="&roimport;bfo.owl"/>
 		<owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/"/>
 		<owl:imports rdf:resource="https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
-		<iof-av:copyright xml:lang="en">Copyright (c) 2020-2021 Industrial Ontology Foundry</iof-av:copyright>
 		<iof-av:copyright>Copyright (c) 2021 OAGi</iof-av:copyright>
 	</owl:Ontology>
 	
@@ -284,6 +283,53 @@ Any action that is not explicitly prescribed by some plan specification, or does
 		<iof-av:elucidation>disposition&apos; in whose realization some Agent has an interest and for all times during which the capability inheres in its bearer, it is gradable according to some scale or system of reference</iof-av:elucidation>
 		<iof-av:excerptedFrom>CCO for term by the same name.</iof-av:excerptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">the extent of someone or something&apos;s ability to bring about processes of a certain kind</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;Collection">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000001"/>
+		<rdfs:label>collection</rdfs:label>
+		<dcterms:source>https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/</dcterms:source>
+		<iof-av:naturalLanguageDefinition>grouping of some variable number of things (may be zero) that have some shared significance</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;Component">
+		<rdfs:label xml:lang="en">component</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&roimport;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&roimport;RO_0000087"/>
+						<owl:someValuesFrom rdf:resource="&iof-core;ComponentRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:altLabel>part, item</skos:altLabel>
+		<skos:editorialNote>Changes made to the 2019 definition and the reasons why:
+
+
+1 Removed the comment arguing the case that components, even initially (i.e., raw materials) are self-standing products. Some raw materials or component parts that are consumed by manufacturing are not products (see examples).
+
+2. Moved the term under material entity vs keeping it under material artifact. Some raw materials and parts are not man-made artifacts (e.g., a portion of water that is used to produce bakery goods). Then of course we have the discrete example of the sea shells an employee collects on the beach to be packaged and sold as product.
+
+As far as action items:
+(a) We may want to rename this class to product component, and introduce a generic parent class called component,, defined along the lines of the standard dictionary definition. 
+
+(b) Once we a generic parent class called component, we may want to introduce other common child classes such as Maintainable Component, Packaging Component. and Software (Information Bearing) Component.</skos:editorialNote>
+		<skos:example>portion of water; portion of crude oil; sea shells; bolt; transmission assembly; engine control software</skos:example>
+		<iof-core:xDefinitionOtherCommon>1. A raw material, part, or subassembly that goes into a higher level assembly, compound, or the final product. This term may also include packaging materials for finished items [APICS].
+
+2. An individual piece used in the assembly of a single unit of equipment [ISO 13533:2001]</iof-core:xDefinitionOtherCommon>
+		<iof-core:xExampleComplement>Assemblies that are components for one manufacturer and final products for another (e.g., the selling of diesel engines is a primary product line of Cummins diesel engine yet a component assembly for its customers, Freightliner Trucks). The context in which a material entity is used needs to be ideally considered in inferring whether it bears the component role.</iof-core:xExampleComplement>
+		<iof-core:xExampleCounter>Braking subsystem -- systems and subsystems are object aggregates and often have fiat boundaries, in which case they may be incorrectly inferred as product components. Othertimes, they are systems with bonafide boundaries and should be inferred as a product component. 
+
+Software Components -- sometimes they are components of a product, other times they are fiat subsystems of a software system and not to be inferred as product components.</iof-core:xExampleCounter>
+		<iof-core:xMaturity>Stable Definition</iof-core:xMaturity>
+		<iof-av:firstOrderLogicDefinition>Component(x) ↔ MaterialEntity(x) ∧∃r (ComponentRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>a raw material or other intermediate-level processed material, or a part or subassembly, that is intended to become part of a higher-level processed material, part, or assembly, or the final product</iof-av:naturalLanguageDefinition>
+		<iof-av:semi-formalNaturalLanguageDefinition>Component is a Material Entity when it has a Component Role</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ComponentRole">
@@ -857,6 +903,11 @@ More generally, any action where the causitive agent intends to adhere to laws a
 		<iof-av:semi-formalNaturalLanguageDefinition>Portion of Input Material is a Material Entity when it bears some Input Material Role</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-core;ProcessCharacteristic">
+		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000003"/>
+		<rdfs:label xml:lang="en">process characteristic</rdfs:label>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-core;ProcessProfile">
 		<rdfs:subClassOf rdf:resource="&roimport;BFO_0000003"/>
 		<rdfs:label xml:lang="en">process profile</rdfs:label>
@@ -905,46 +956,6 @@ More generally, any action where the causitive agent intends to adhere to laws a
 		<iof-core:xMaturity>Stable Definition</iof-core:xMaturity>
 		<iof-av:naturalLanguageDefinition>thing for which there is market or internal demand, which some person or organization intends to sell or grant rights to in some economic exchange</iof-av:naturalLanguageDefinition>
 		<iof-av:semi-formalNaturalLanguageDefinition>Product is an Independent Continuant (that is not a spatial region) when it bears some Product Role.</iof-av:semi-formalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;ProductComponent">
-		<rdfs:label xml:lang="en">product component</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&roimport;BFO_0000040">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&roimport;RO_0000087"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;ProductComponentRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:altLabel>part, item</skos:altLabel>
-		<skos:editorialNote>Changes made to the 2019 definition and the reasons why:
-
-
-1 Removed the comment arguing the case that components, even initially (i.e., raw materials) are self-standing products. Some raw materials or component parts that are consumed by manufacturing are not products (see examples).
-
-2. Moved the term under material entity vs keeping it under material artifact. Some raw materials and parts are not man-made artifacts (e.g., a portion of water that is used to produce bakery goods). Then of course we have the discrete example of the sea shells an employee collects on the beach to be packaged and sold as product.
-
-As far as action items:
-(a) We may want to rename this class to product component, and introduce a generic parent class called component,, defined along the lines of the standard dictionary definition. 
-
-(b) Once we a generic parent class called component, we may want to introduce other common child classes such as Maintainable Component, Packaging Component. and Software (Information Bearing) Component.</skos:editorialNote>
-		<skos:example>portion of water; portion of crude oil; sea shells; bolt; transmission assembly; engine control software</skos:example>
-		<iof-core:xDefinitionOtherCommon>1. A raw material, part, or subassembly that goes into a higher level assembly, compound, or the final product. This term may also include packaging materials for finished items [APICS].
-
-2. An individual piece used in the assembly of a single unit of equipment [ISO 13533:2001]</iof-core:xDefinitionOtherCommon>
-		<iof-core:xExampleComplement>Assemblies that are components for one manufacturer and final products for another (e.g., the selling of diesel engines is a primary product line of Cummins diesel engine yet a component assembly for its customers, Freightliner Trucks). The context in which a material entity is used needs to be ideally considered in inferring whether it bears the component role.</iof-core:xExampleComplement>
-		<iof-core:xExampleCounter>Braking subsystem -- systems and subsystems are object aggregates and often have fiat boundaries, in which case they may be incorrectly inferred as product components. Othertimes, they are systems with bonafide boundaries and should be inferred as a product component. 
-
-Software Components -- sometimes they are components of a product, other times they are fiat subsystems of a software system and not to be inferred as product components.</iof-core:xExampleCounter>
-		<iof-core:xMaturity>Stable Definition</iof-core:xMaturity>
-		<iof-av:firstOrderLogicDefinition>Component(x) ↔ MaterialEntity(x) ∧∃r (ComponentRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>a raw material or other intermediate-level processed material, or a part or subassembly, that is intended to become part of a higher-level processed material, part, or assembly, or the final product</iof-av:naturalLanguageDefinition>
-		<iof-av:semi-formalNaturalLanguageDefinition>Component is a Material Entity when it has a Component Role</iof-av:semi-formalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ProductComponentRole">
