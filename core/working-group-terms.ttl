@@ -113,10 +113,16 @@
               <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/excerptedFrom> "https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4226744329/Supply+Chain+Top-Level+Domain+Terms" .
 
 
+###  http://www.industrialontologies.org/working-group-terms#observedBy
+:observedBy rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            owl:inverseOf :observes ;
+            rdfs:label "observed by" .
+
+
 ###  http://www.industrialontologies.org/working-group-terms#observes
 :observes rdf:type owl:ObjectProperty ;
           rdfs:subPropertyOf owl:topObjectProperty ;
-          owl:inverseOf :targetOfObservation ;
           rdfs:domain :ObservationProcess ;
           <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/excerptedFrom> "https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4225892353/MTConnect+WG+Top-Level+Domain+Terms+and+Relations" ;
           <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "the entity that is about some observation" .
@@ -185,12 +191,6 @@
         roimport:IAO_0000112 "This warehouse stores tires until they can be shipped out" ;
         rdfs:label "stores" ;
         <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/excerptedFrom> "https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4226744329/Supply+Chain+Top-Level+Domain+Terms" .
-
-
-###  http://www.industrialontologies.org/working-group-terms#targetOfObservation
-:targetOfObservation rdf:type owl:ObjectProperty ;
-                     rdfs:subPropertyOf owl:topObjectProperty ;
-                     rdfs:label "target of observation" .
 
 
 ###  http://www.industrialontologies.org/working-group-terms#triggers
@@ -475,7 +475,7 @@
                     rdfs:subClassOf iof:ProcessCharacteristic ;
                     rdfs:label "functioning process"@en ;
                     <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/excerptedFrom> "https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4229758977/Maintenance+WG+Top-Level+Terms+and+Relations" ;
-                    <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/semi-formalNaturalLanguageDefinition> "Process that realises some quality or disposition of an artifact"@en .
+                    <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/semi-formalNaturalLanguageDefinition> "Process that realises some Quality or Disposition of an Artifact"@en .
 
 
 ###  http://www.industrialontologies.org/working-group-terms#GeospatialLocation
@@ -1116,6 +1116,20 @@
        <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/semi-formalNaturalLanguageDefinition> "Process in which some Independent Continuant endures and one or more of the dependent entities it bears does not change in kind or intensity. [CCO]" .
 
 
+###  http://www.industrialontologies.org/working-group-terms#TargetOfObservation
+:TargetOfObservation rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( roimport:BFO_0000001
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :observedBy ;
+                                                                  owl:someValuesFrom :ObservationProcess
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] ;
+                     rdfs:label "target of observation" ;
+                     <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "Some quality, process profile, or state that is observed" .
+
+
 ###  http://www.industrialontologies.org/working-group-terms#Tolerance
 :Tolerance rdf:type owl:Class ;
            rdfs:subClassOf :Constraint ,
@@ -1185,10 +1199,6 @@ iof:ManufacturingOperation rdfs:subClassOf :ProcessPlanningUseCase .
 
 ###  https://www.industrialontologies.org/ontology/core/Core/ManufacturingProcess
 iof:ManufacturingProcess rdfs:subClassOf :ProcessPlanningUseCase .
-
-
-###  https://www.industrialontologies.org/ontology/core/Core/Product
-iof:Product rdfs:subClassOf :ProductRepresentation .
 
 
 ###  https://www.industrialontologies.org/ontology/core/Core/ProductDesign
