@@ -1,0 +1,33 @@
+#Query to retrieve all Core,and non-BFO import classes
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cco: <http://www.ontologyrepository.com/CommonCoreOntologies/>
+PREFIX av: <https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT  ?relation ?parent ?closestBFOparent ?NLdefinition ?semiOReluc
+WHERE
+{
+	?URI rdf:type owl:ObjectProperty.
+  	FILTER(regex(str(?URI), "core/core|CommonCore|obo/ro", "i"))
+    OPTIONAL {?URI rdfs:label ?relation}
+    OPTIONAL {select ?parentx ?parent ?URI where{
+        OPTIONAL {?URI rdfs:subPropertyOf ?parentx}
+        OPTIONAL {?parentx rdfs:label ?parent}
+        OPTIONAL {FILTER(regex(str(?parentx), "owl:ObjectProperty", "i"))}
+        }}
+	OPTIONAL {?URI av:naturalLanguageDefinition ?NLdefinition}
+	OPTIONAL {?URI av:semi-formalNaturalLanguageDefinition ?semiformal}
+	OPTIONAL {?URI av:elucidation ?elucidation}
+	OPTIONAL {?URI cco:definition ?defcco}
+    OPTIONAL {?URI obo:IAO_0000115 ?obodef}
+	BIND(IF(BOUND(?elucidation), ?elucidation, ?semiformal) as ?aa)  
+	BIND(IF(BOUND(?aa), ?aa, ?defcco) as ?bb)  
+	BIND(IF(BOUND(?bb), ?bb, ?obodef) as ?semiOReluc)  
+	OPTIONAL {?URI rdfs:comment ?comment}
+	OPTIONAL {?URI skos:editorialNote ?note}
+	OPTIONAL {?URI skos:example ?example}
+}
+ORDER BY ?relation
+
