@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY annotationvocabulary "https://www.industrialontologies.org/ontology/core/20210701/meta/AnnotationVocabulary/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY iof-av "https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
@@ -8,7 +9,8 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+<rdf:RDF 
+	xmlns:annotationvocabulary="https://www.industrialontologies.org/ontology/core/20210701/meta/AnnotationVocabulary/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -245,6 +247,15 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 		<iof-av:usageNote xml:lang="en">This annotation is to be used for an entire ontology and not individual elements.</iof-av:usageNote>
 	</owl:AnnotationProperty>
 	
+	<owl:AnnotationProperty rdf:about="&iof-av;counterExample">
+		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
+		<rdfs:label>counter example</rdfs:label>
+		<skos:definition>An example of the misuse of a concept.</skos:definition>
+		<iof-av:usageNote>Use of this annotation is optional, but recommended if it will help a user understand the intended interpretation(s).
+- This annotation should use at most twice with/on a notion.
+- Additional examples or more elaborate examples should be placed in the External Documentation (using rdfs:seeAlso).</iof-av:usageNote>
+	</owl:AnnotationProperty>
+	
 	<owl:AnnotationProperty rdf:about="&iof-av;directSource">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;source"/>
 		<rdfs:label xml:lang="en">direct source</rdfs:label>
@@ -325,13 +336,22 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
             b) a computer actionable representation to allow reconstruction of the position of the class or relation in the BFO taxonomy</iof-av:elucidation>
 	</owl:AnnotationProperty>
 	
-	<owl:AnnotationProperty rdf:about="&iof-av;semi-formalNaturalLanguageDefinition">
+	<owl:AnnotationProperty rdf:about="&iof-av;semiFormalNaturalLanguageDefinition">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;logicDefinition"/>
 		<rdfs:label xml:lang="en">semi-formal natural language definition</rdfs:label>
 		<iof-av:usageNote xml:lang="en">This annotation is required if an element in an IOF OWL ontology has a First Order Logic definition or in a IOF Common Logic (where the element is defined using Common Logic).
         - The intent of this annotation to provide a transition or bridge from the First Order Logic definition of a notion to the natural language definition. This definition is intended to help a user understand the intended interpretation of the notion.
         - As example using the First Order Logic definition of &apos;Product&apos; above, a semi-formal translation of that might be: 
             - Product =def. Continuant that is not a Person and not an Organization and not a Specifically Dependent Continuant and there is a Product Role that the thing has or bears.</iof-av:usageNote>
+	</owl:AnnotationProperty>
+	
+	<owl:AnnotationProperty rdf:about="&iof-av;subjectMatterExpertExplanation">
+		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
+		<rdfs:label>subject matter expert explanation</rdfs:label>
+		<skos:definition>A definition of the term expressed in natural language that has the minimal usage of ontological terms and is intended to be a self-standing explanation</skos:definition>
+		<iof-av:usageNote>Usage of this annotation is optional but is recommended in cases where:
+- the natural language definition or elucidation rely heavily on the terms defined in the ontology
+- there exists an explanation of the term that is more familiar to SMEs that does not coincide with the definition present in the ontology</iof-av:usageNote>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;symbol">
