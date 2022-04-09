@@ -10,7 +10,7 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://www.industrialontologies.org/ontology/core/Core/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:iof-core="https://www.industrialontologies.org/ontology/core/Core/"
@@ -36,7 +36,6 @@
 		<rdfs:seeAlso>https://docs.google.com/document/d/1gwrGTOjFc3xdnfUsMVNGOHwasUQUBpKXxwyrKlC5UBI/edit</rdfs:seeAlso>
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://www.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
-		<iof-av:copyright>Copyright (c) 2022 Open Applications Group</iof-av:copyright>
 	</owl:Ontology>
 	
 	<rdf:Description rdf:about="&roimport;BFO_0000029">
@@ -545,7 +544,22 @@ elucidation: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&roimport;BFO_0000055"/>
+				<owl:onProperty rdf:resource="&roimport;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Agent">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Machine">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&roimport;BFO_0000059"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -569,25 +583,10 @@ elucidation: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&roimport;BFO_0000057"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;Machine">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label>computing process</rdfs:label>
-		<iof-av:firstOrderLogicDefinition>ComputingProcess(x) → PlannedProcess(x) ∧ ∃y,∃a ((Agent(y) ∨ Machine(y)) ∧ Algorithm(a) ∧ hasParticipantAtSomeTIme(x,y) ∧ genericallyDependsOnAtSomeTime(a,y) ∧ realizes(x,a))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ComputingProcess(x) → PlannedProcess(x) ∧ ∃y,∃a ((Agent(y) ∨ Machine(y)) ∧ Algorithm(a) ∧ hasParticipantAtSomeTIme(x,y) ∧ genericallyDependsOnAtSomeTime(a,y) ∧ concretizesAtSomeTime(x,a))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>planned process in which an algorithm is realized by an agent or a machine</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>Computing Process x implies x is a Planned Process that &apos;has participant at some time&apos; some Agent or Machine y and that &apos;realizes&apos; an Algorithm a which &apos;generically depends on at some time&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>Computing Process x implies x is a Planned Process that &apos;has participant at some time&apos; some Agent or Machine y and that &apos;concretizes at some time&apos; some Algorithm a which &apos;generically depends on at some time&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;CustomerRole">
@@ -2367,27 +2366,6 @@ FOL: recognizes(b,p) → Agent(b) ∧ Entity(p) ∧ ∃r,∃d (Process(r) ∧ De
 		<skos:example>a piece of software satisfies a UML requirement specification, a design specification of a car satisfies its functional requirement specification</skos:example>
 		<iof-av:elucidation>x satisfies r holds when &apos;entity&apos; x conforms to all &apos;continuant parts of&apos; Requirement Specification r and r &apos;prescribes&apos; x</iof-av:elucidation>
 	</owl:ObjectProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-core;xDefinitionOtherCommon">
-		<skos:editorialNote>This annotation property is used to track the source of  and other common definitions for a term that were used in deriving the natural language definition adopted by the IOF .  This property is used only during the pre-release/inbetween-releases phase of ontology development and is removed prior to each release.</skos:editorialNote>
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-core;xExampleComplement">
-		<skos:editorialNote>This annotation property is used to document any important complement examples that were discovered or raised during the analysis phase of a term and pertaining to the natural language definition adopted by the IOF.  Complement examples are not inferrable or not included in the scope of a term&apos;s current definition and formalization, whereas ideally, one or more restrictions would be relaxed or dropped in the term&apos;s formalization to allow their inclusion.  Complement examples serve as an important input to the creation of ontology tutorials and reference guides, which at the term level,  inform users of the ontology on potential negative impacts and side-effects that a term&apos;s formalization may have on its potential use. This property is used only during the pre-release/inbetween-releases phase of ontology development and is removed prior to each release.</skos:editorialNote>
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-core;xExampleCounter">
-		<skos:editorialNote>This annotation property is used to document any important counter examples that were discovered or raised during the analysis phase of a term and pertaining to the natural language definition adopted by the IOF.  Counter examples are inferrable or included in a term&apos;s current definition and formalization, whereas ideally, additional restrictions would have been added to the term&apos;s formalization to exclude them.  Counter examples serve as an important input to the creation of ontology tutorials and reference guides, which at the term level,  inform users of the ontology on potential negative impacts and side-effects that a term&apos;s formalization may have on its potential use. This annotation property is used ...  This property is used only during the pre-release/inbetween-releases phase of ontology development and is removed prior to each release.</skos:editorialNote>
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-core;xMaturity">
-		<skos:editorialNote>This annotation property stores the &quot;maturity&quot; of a term (class or object property) and signifies what stage of completion a term&apos;s definitional content is in. This property is used only during the pre-release/inbetween-releases phase of ontology development and is removed prior to each release.  Allowable designations are as follows:
-
-1) Formalized → term has been analyzed, defined and formalized according to the IOF Technical Principles Guide and the Annotation Property Rules; term has been &quot;peer-reviewed&quot; by WG members with no major issues are outstanding
-2) Stable Definition → term has been analyzed and a natural language definition has been identified and adopted by WG members; term however may be lacking in further formalization and may contain terms or notions to be analyzed, defined and added to the ontology
-3) In Analysis → term or notion is under analysis by the WG, or has a candidate definition that has not yet been peer-reviewed
-4) Pre-analysis → a new term or notion motivated by WG discussions, or one that needs to be introduced because it is contained in the definition of another term that has been adopted; although the analysis for such a term remains to be conducted, it will usually have a candidate natural language definition originating from the context where it is used, or from some external source</skos:editorialNote>
-	</owl:AnnotationProperty>
 	
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
