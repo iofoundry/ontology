@@ -1,5 +1,6 @@
-﻿<img src="https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png" width="150" align="right"/>
-<img src="https://user-images.githubusercontent.com/12449023/166088434-b6761386-9b3f-4881-a891-c8ffdbde0fae.png" width="125" align="right"/>
+﻿![logo of IOF](https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png)
+![logo of OAGi](https://user-images.githubusercontent.com/12449023/166088434-b6761386-9b3f-4881-a891-c8ffdbde0fae.png)
+
 # Industrial Ontologies Foundry Core Ontology
 Version 1 Beta, 6-May-2022 
 
