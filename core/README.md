@@ -3,9 +3,8 @@
 <img src="https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png" >
 </p>
 
-#The Industrial Ontologies Foundry Core Ontology
-Version 1 Beta, 6-May-2022
-
+# The Industrial Ontologies Foundry Core Ontology
+## Version 1 Beta, 6-May-2022
 *The IOF is an international standards group that operates under the auspices of the Open Applications Group (OAGi).*
 # Introduction
 The IOF’s mission is to create a suite of ontologies intended to support digital manufacturing by facilitating cross-system integration both within the factory, across the enterprise, in commerce between suppliers, manufacturers, customers and other trading partners, and throughout the various stages of the product life cycle. The IOF Core Ontology resides at the top of this suite from an architectural perspective and contains terms found in a number of operational areas of manufacturing. These common terms appear, or anticipated to appear, in two or more of the ontologies of the suite. Additionally, as the architectural approach chosen by the IOF is to base all of its ontologies on a single foundational or top-level ontology – for which the IOF chose the Basic Formal Ontology or BFO – the Core Ontology contains a number of intermediate-level terms that derive from BFO and from which common industry terms are in turn derived. Such intermediate-level terms are most often domain independent – meaning they are found in other industries and domains, such as in the banking, insurance, and healthcare industries, or in the sciences, as in the physics, chemistry and biology domains. 
