@@ -2,8 +2,9 @@
 <img src="https://user-images.githubusercontent.com/12449023/166088434-b6761386-9b3f-4881-a891-c8ffdbde0fae.png" height="80">
 <img src="https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png" >
 </p>
-#The Industrial Ontologies Foundry Core Ontology</font>
-##Version 1 Beta, 6-May-2022
+
+#The Industrial Ontologies Foundry Core Ontology
+Version 1 Beta, 6-May-2022
 
 *The IOF is an international standards group that operates under the auspices of the Open Applications Group (OAGi).*
 # Introduction
