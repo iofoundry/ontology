@@ -1,2 +1,3 @@
-# IOF_maintenance_WG_2022
-Development of IOF Maintenance Ontology aligned to IOF Core 2022
+# Reference Ontology - Maintenance Working Group
+
+Work in progress. Major edits on going following release of IOF CORE in April 2022
