@@ -11,6 +11,8 @@ __Classes from Maintenance WG now in IOF Core 2022__
 
 __Classes used in Application ontologies developed by maintenance WG members: BFO-aligned: maintenance activity ontology, maintenance state ontology, maintenance procedure ontology and ISO15926-14 aligned: FMEA ontology __
 
+__For consideration in the Maintenance Ontology__
+
 - - Component function [Used in FMEA ontology]  
 - Downtime
 - - Failure [used in Stasis ontology] 
