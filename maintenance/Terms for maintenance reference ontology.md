@@ -6,10 +6,12 @@ __Maintenance WG terms submitted to IOF Technical Oversight Board for considerat
 
 See https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4229758977/Maintenance+WG+Top-Level+Terms+and+Relations
 
-__Classes from Maintenance WG now in IOF Core 2022__
-- Maintainable Item Role 
+__Classes from Maintenance WG proposed in IOF Core 2022__
+- Maintainable Item Role - checked and it is NOT in IOF Core as proposed.
 
 __Classes used in Application ontologies developed by maintenance WG members: BFO-aligned: maintenance activity ontology, maintenance state ontology, maintenance procedure ontology and ISO15926-14 aligned: FMEA ontology __
+
+__For consideration in the Maintenance Ontology__
 
 - - Component function [Used in FMEA ontology]  
 - Downtime
