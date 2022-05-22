@@ -1,0 +1,97 @@
+@startuml
+
+
+class InformationContentEntity
+class DescriptiveInformationContentEntity
+class FailureModeObservation
+class DirectiveInformationContentEntity
+class PlanSpecification
+class MaintenanceProcedure
+
+DescriptiveInformationContentEntity -u-> InformationContentEntity : "subclassof"
+DirectiveInformationContentEntity -u-> InformationContentEntity : "subclassof"
+FailureModeObservation -u-> DescriptiveInformationContentEntity : "subclassof"
+PlanSpecification -u-> DirectiveInformationContentEntity : "subclassof"
+MaintenanceProcedure -u-> PlanSpecification : "subclassof"
+
+class MaterialEntity
+class Agent
+class HumanAgent
+class QualifiedPerson
+
+Agent -u-> MaterialEntity : "subclassof"
+HumanAgent -u-> Agent : "subclassof"
+QualifiedPerson -u-> HumanAgent : "subclassof"
+
+class Object
+class MaterialArtifact
+class MaintainableItem
+
+MaterialArtifact -u-> Object : "subclassof"
+MaintainableItem -u-> MaterialArtifact : "subclassof"
+
+class Quality 
+class Qualification
+
+Qualification -u-> Quality : "subclassof"
+
+class Disposition
+class Function
+class PrimaryFunction 
+class UndesireableDisposition 
+class DispositionToFail 
+
+Function -u-> Disposition : "subclassof"
+PrimaryFunction -u-> Function : "subclassof"
+UndesireableDisposition -u-> Disposition : "subclassof"
+DispositionToFail -u-> UndesireableDisposition : "subclassof"
+
+class Role
+class MaintainableItemRole
+
+MaintainableItemRole -u-> Role : "subclassof"
+
+class Process
+class FailureEffect
+class FailureProcess
+class FunctioningProcess
+class PlannedProcess
+class MaintenanceActivity
+class SupportingActivity
+class Stasis
+class MaintenanceState
+class DegradedState
+class FailedState
+class OperatingState
+
+FailureEffect -u-> Process : "subclassof"
+FailureProcess -u-> Process : "subclassof"
+FunctioningProcess -u-> Process : "subclassof"
+PlannedProcess -u-> Process : "subclassof"
+MaintenanceActivity -u-> PlannedProcess : "subclassof"
+SupportingActivity -u-> PlannedProcess : "subclassof"
+
+Stasis -u-> Process : "subclassof"
+MaintenanceState -u-> Stasis : "subclassof"
+DegradedState -u-> MaintenanceState : "subclassof"
+FailedState -u-> MaintenanceState : "subclassof"
+OperatingState -u-> MaintenanceState : "subclassof"
+
+class ProcessBoundary
+class FailureEvent
+
+FailureEvent -u-> ProcessBoundary : "subclassof"
+
+FailureModeObservation -u-> FailureProcess : "describes"
+MaintainableItem -u-> MaintainableItemRole : "bearerOf"
+DispositionToFail -u-> FailureProcess : "hasRealization"
+FailureProcess -u-> DispositionToFail : "realizes"
+FailureEvent -u-> FailureEffect : "precedes"
+FailureEvent -u-> MaintainableItem : "hasParticipant"
+FailureEvent -u-> FailedState : "precedes"
+
+
+
+
+
+@enduml
