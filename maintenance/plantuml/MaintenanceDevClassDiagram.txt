@@ -4,36 +4,34 @@
 class InformationContentEntity
 class DescriptiveInformationContentEntity
 class FailureModeObservation
-class DirectiveInformationContentEntity
 class PlanSpecification
 class MaintenanceProcedure
+class InformationContentEntity 
+class Qualification
+
+
 
 DescriptiveInformationContentEntity -u-> InformationContentEntity : "subclassof"
-DirectiveInformationContentEntity -u-> InformationContentEntity : "subclassof"
+PlanSpecification -u-> InformationContentEntity : "subclassof"
 FailureModeObservation -u-> DescriptiveInformationContentEntity : "subclassof"
 PlanSpecification -u-> DirectiveInformationContentEntity : "subclassof"
 MaintenanceProcedure -u-> PlanSpecification : "subclassof"
+Qualification -u-> InformationContentEntity : "subclassof"
 
 class MaterialEntity
-class Agent
-class HumanAgent
-class QualifiedPerson
-
-Agent -u-> MaterialEntity : "subclassof"
-HumanAgent -u-> Agent : "subclassof"
-QualifiedPerson -u-> HumanAgent : "subclassof"
-
 class Object
 class MaterialArtifact
 class MaintainableItem
+class Person
 
+Object -u-> MaterialEntity : "subclassof"
 MaterialArtifact -u-> Object : "subclassof"
 MaintainableItem -u-> MaterialArtifact : "subclassof"
+Person -u-> Object : "subclassof"
+QualifiedPerson -u-> Person : "subclassof"
 
-class Quality 
-class Qualification
 
-Qualification -u-> Quality : "subclassof"
+
 
 class Disposition
 class Function
@@ -71,16 +69,27 @@ PlannedProcess -u-> Process : "subclassof"
 MaintenanceActivity -u-> PlannedProcess : "subclassof"
 SupportingActivity -u-> PlannedProcess : "subclassof"
 
-Stasis -u-> Process : "subclassof"
+State -u-> Process : "subclassof"
 MaintenanceState -u-> Stasis : "subclassof"
 DegradedState -u-> MaintenanceState : "subclassof"
 FailedState -u-> MaintenanceState : "subclassof"
 OperatingState -u-> MaintenanceState : "subclassof"
 
-class ProcessBoundary
+class Event
 class FailureEvent
 
-FailureEvent -u-> ProcessBoundary : "subclassof"
+FailureEvent -u-> Event : "subclassof"
+
+FailureModeObservation -u-> FailureProcess : "describes"
+MaintainableItem -u-> MaintainableItemRole : "bearerOf"
+DispositionToFail -u-> FailureProcess : "hasRealization"
+FailureProcess -u-> DispositionToFail : "realizes"
+FailureEvent -u-> FailureEffect : "precedes"
+FailureEvent -u-> MaintainableItem : "hasParticipant"
+FailureEvent -u-> FailedState : "precedes"
+
+
+
 
 
 @enduml
