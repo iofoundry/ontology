@@ -2,98 +2,108 @@
 
 This is now the Master Working document for all terms needed by the Maintenance WG including those terms relating to maintenance management, failure events, and stasis
 
-__Maintenance WG terms submitted to IOF Technical Oversight Board for consideration for IOF core terms (29/10/21)
+__Maintenance WG terms submitted to IOF Technical Oversight Board for consideration for IOF core terms (29/10/21)__
 
 See https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4229758977/Maintenance+WG+Top-Level+Terms+and+Relations
 
 __Classes from Maintenance WG proposed in IOF Core 2022__
 - Maintainable Item Role - checked and it is NOT in IOF Core as proposed.
 
-__Classes used in Application ontologies developed by maintenance WG members: BFO-aligned: maintenance activity ontology, maintenance state ontology, maintenance procedure ontology and ISO15926-14 aligned: FMEA ontology __
+__Classes used in Application ontologies developed by maintenance WG members:__
+
+- BFO-aligned: 
+  - maintenance activity ontology
+  - maintenance state ontology
+  - maintenance procedure ontology
+- ISO15926-14 aligned: 
+  - FMEA ontology
 
 __For consideration in the Maintenance Ontology__
 
-- - Component function [Used in FMEA ontology]  
-- Downtime
-- - Failure [used in Stasis ontology] 
-- - Failure effect (and Final failure effect) [Used in FMEA ontology] 
-- Failure event [Used in FMEA ontology]
-- - Failure process [Used in Stasis Ontology  MH 29/6/21] (imported)
-- - Function (asset function) - [Required function used in stasis ontology] 
-- - Function (Primary function) [Used in FMEA ontology] - [used in Stasis ontology] 
-- - Function (Secondary function) [Used in Stasis ontology] 
-- Failure mode observation (code) [Used in FMEA ontology]
-- - Functional failure (state) [Used in FMEA ontology] 
-- - Maintenance [used in Stasis ontology] 
-- Maintainable Item - [Used in Stasis ontology]
-- Maintenance Activity - [Used in Maintenance Activity ontology] 
-- Supporting Activity - [Used in Maintenance Activity ontology] 
-- Unspecified Activity - [Used in Maintenance Activity ontology] 
-- - Maintenance Procedure Document [used in Procedure ontology] 
-- - Maintenance Process [used in Procedure ontology] 
-- - Maintenance Procedure Process [used in Procedure ontology] 
-- - Maintenance State [used in Stasis ontology] 
-- Maintenance Task  [Used in Procedure ontology] 
-- Malfunction [Used in FMEA ontology] (compare definition with non-conformity)
-- - Object in fault state [Used in FMEA ontology] 
-- - Physical Asset [Used in Stasis ontology] 
-- Maintenance Work Order Record
-- Non-conformity (cross check with malfunction)
-- Stasis (CCO definition) 
-- - Stasis (down state) and up (up state) [Used in Stasis ontology] 
-- Stasis (failure/ fault / defunct) also Object in fault state (statis of failure)
-- Stasis (degraded/ degradation) - State of degradation* [used in Stasis ontology]
+> NOTE: not all of the cross-refs in this index work as many do not have definitions at the end of the document.
+> When adding new terms use '`### <term>`' so that cross-refs are auto generated.
+
+- - [Component function](#component-function) [Used in FMEA ontology]  
+- [Downtime](#downtime)
+- - [Failure](#failure) [used in Stasis ontology] 
+- - [Failure effect (and Final failure effect)](#failure-effect) [Used in FMEA ontology] 
+- [Failure event](#failure-event) [Used in FMEA ontology]
+- - [Failure process](#failure-process) [Used in Stasis Ontology  MH 29/6/21] (imported)
+- - [Function (asset function)](#function-asset-function) - [Required function used in stasis ontology] 
+- - [Function (Primary function)](#function-primary-function) [Used in FMEA ontology] - [used in Stasis ontology] 
+- - [Function (Secondary function)](#function-secondary-function) [Used in Stasis ontology] 
+- [Failure mode observation (code)](#failure-mode-observation-code) [Used in FMEA ontology]
+- - [Functional failure (state)](#functional-failure-state) [Used in FMEA ontology] 
+- - [Maintenance](#maintenance) [used in Stasis ontology] 
+- [Maintainable Item](#maintainable-item) - [Used in Stasis ontology]
+- [Maintenance Activity](#maintenance-activity) - [Used in Maintenance Activity ontology] 
+- [Supporting Activity](#supporting-activity) - [Used in Maintenance Activity ontology] 
+- [Unspecified Activity](#unspecified-activity) - [Used in Maintenance Activity ontology] 
+- - [Maintenance Procedure Document](#maintenance-procedure-document) [used in Procedure ontology] 
+- - [Maintenance Process](#maintenance-process) [used in Procedure ontology] 
+- - [Maintenance Procedure Process](#maintenance-procedure-process) [used in Procedure ontology] 
+- - [Maintenance State](#maintenance-state) [used in Stasis ontology] 
+- [Maintenance Task](#maintenance-task)  [Used in Procedure ontology] 
+- [Malfunction](#malfunction) [Used in FMEA ontology] (compare definition with non-conformity)
+- - [Object in fault state](#object-in-fault-state) [Used in FMEA ontology] 
+- - [Physical Asset](#physical-asset) [Used in Stasis ontology] 
+- [Maintenance Work Order Record](#maintenance-work-order-record)
+- [Non-conformity](#non-conformity) (cross check with malfunction)
+- [Stasis (CCO definition)](#stasis-cco)
+- [Stasis (nominal)](#stasis-nominal) [equivalent to 'Operating State' used in the Stasis Ontology]
+- [Stasis (down state) and up (up state)](#stasis-of-down-down-state) [Used in Stasis ontology] 
+- [Stasis (failure/ fault / defunct) also Object in fault state (statis of failure)](#stasis-fault-object-in-fault-state) also Object in fault state (statis of failure)
+- [Stasis (degraded/ degradation)](#stasis-degraded) - State of degradation* [used in Stasis ontology]
 
 __Existing Object properties__
 
-- functional continuant part of at some time [used in FMEA ontology]
-- as functional continuant part at some time [used in FMEA ontology]
-- has malfunction [used in FMEA ontology]
-- disabled by / disables [used in Stasis ontology]
-- has state / state of [used in Stasis ontology]
-- functionally depended on by/ functionally depends on [used in Stasis ontology]
-- failure to participate [used in Stasis ontology]
-- has incapable participant [used in Stasis ontology]
-- kind of [used in Stasis ontology]
-- type disabled by [used in Stasis ontology]
-- type has realization [used in Stasis ontology]
-- unable to participate [used in Stasis ontology]
+- [functional continuant part of at some time](#functional-continuant-part-of-at-some-time) [used in FMEA ontology]
+- [as functional continuant part at some time](#as-functional-continuant-part-at-some-time) [used in FMEA ontology]
+- [has malfunction](#has-malfunction) [used in FMEA ontology]
+- [disabled by / disables](#disabled-by-disables) [used in Stasis ontology]
+- [has state / state of](#has-state-state-of) [used in Stasis ontology]
+- [functionally depended on by/ functionally depends on](#functionally-depended-on-by-functionally-depends-on) [used in Stasis ontology]
+- [failure to participate](#failure-to-participate) [used in Stasis ontology]
+- [has incapable participant](#has-incapable-participant) [used in Stasis ontology]
+- [kind of](#kind-of) [used in Stasis ontology]
+- [type disabled by](#type-disabled-by) [used in Stasis ontology]
+- [type has realization](#type-has-realization) [used in Stasis ontology]
+- [unable to participate](#unable-to-participate) [used in Stasis ontology]
 
 
 __Under-consideration classes from previous interations of Maintenance WG maintenance OWL files__
 
-- Act of modality change
-- Asset role (moved out of V2 core to under consideration)
-- Asset role
-- Bodyguard capability
-- Function descriptor
-- Disposition to fail
-- Failure cause
-- Failure mode (moved out of V2 core to under consideration)
-- Function descriptor (not found in V2 core)
-- Functional location (moved out of V2 core to under consideration)
-- Failure mechanism (moved out of V2 core to under consideration)
-- Inspection Action
-- Machine (asset) identifier (moved out of V2 core to under consideration)
-- Maintenance Non-standard Work Specification
-- Maintenance Notification (moved out of V2 core to under consideration)
-- Maintenance Plan Specification (moved out of V2 core to under consideration)
-- Maintenance Schedule List (moved out of V2 core to under consideration)
-- Maintenance Strategy Specification (Type) [consider strategy as a requirements for a process - use requirements ontology aibel as guide] (moved out of V2 core to under consideration)
-- Maintenance Strategy Development Process (moved out of V2 core to under consideration)
-- Maintenance Structured Maintenance Task Specification (moved out of V2 core to under consideration)
-- Process of degradation (MH 29/6/21 - may not be necessary) (moved out of V2 core to under consideration)
-- Stasis (defective)
-- Stasis (functional failure) - see also Stasis (non-conforming quality) - State of Failure Component* - State of Failure Machine
-- Statis (nominal)
-- Stasis (non-conforming quality)
-- Switched/ powered on
-- Triggering event (Maintenance) (MH 29/6/21 - may not be necessary - considering object property instead) (moved out of V2 core to under consideration)
-- Triggering event (Inspection)
-- Triggering event (Maintenance Notification)
-- Triggering event (Structured maintenance)
-- Triggering event, operating
-- Unchanging (stable)
+- [Act of modality change](#act-of-modality-change)
+- [Asset role](#asset-role) (moved out of V2 core to under consideration)
+- [Asset role](#asset-role)
+- [Bodyguard capability](#bodyguard-capability)
+- [Function descriptor](#function-descriptor)
+- [Disposition to fail](#disposition-to-fail)
+- [Failure cause](#failure-cause)
+- [Failure mode](#failure-mode) (moved out of V2 core to under consideration)
+- [Function descriptor](#function-descriptor) (not found in V2 core)
+- [Functional location](#functional-location) (moved out of V2 core to under consideration)
+- [Failure mechanism](#failure-mechanism) (moved out of V2 core to under consideration)
+- [Inspection Action](#inspection-action)
+- [Machine (asset) identifier](#machine-asset-identifier) (moved out of V2 core to under consideration)
+- [Maintenance Non-standard Work Specification](#maintenance-non-standard-work-specification)
+- [Maintenance Notification](#maintenance-notification) (moved out of V2 core to under consideration)
+- [Maintenance Plan Specification](#maintenance-plan-specification) (moved out of V2 core to under consideration)
+- [Maintenance Schedule List](#maintenance-schedule-list) (moved out of V2 core to under consideration)
+- [Maintenance Strategy Specification](#maintenance-stategy-specification) (Type) [consider strategy as a requirements for a process - use requirements ontology aibel as guide] (moved out of V2 core to under consideration)
+- [Maintenance Strategy Development Process](#maintenance-stategy-development-process) (moved out of V2 core to under consideration)
+- [Maintenance Structured Maintenance Task Specification](#maintenance-structured-maintenance-task-specification) (moved out of V2 core to under consideration)
+- [Process of degradation](#process-of-degradation) (MH 29/6/21 - may not be necessary) (moved out of V2 core to under consideration)
+- [Stasis (defective)](#stasis-defective)
+- [Stasis (functional failure)](#stasis-functional-failure) - see also Stasis (non-conforming quality) - State of Failure Component* - State of Failure Machine
+- [Stasis (non-conforming quality)](#stasis-non-conforming-quality)
+- [Switched/ powered on](#switched-powered-on)
+- [Triggering event (Maintenance)](#triggering-event-maintenance) (MH 29/6/21 - may not be necessary - considering object property instead) (moved out of V2 core to under consideration)
+- [Triggering event (Inspection)](#triggering-event-inspection)
+- [Triggering event (Maintenance Notification)](#triggering-event-maintenance-notification)
+- [Triggering event (Structured maintenance)](#triggering-event-structured-maintenance)
+- [Triggering event, operating](#triggering-event-operating)
+- [Unchanging (stable)](#unchanging-stable)
 ************************************************************************************************************************************************
 __Object properties__
 
@@ -112,8 +122,11 @@ Not necessary at the reference ontology level
 - Failure modes and effects analysis specification
 
 ************************************************************************************************************************************************
-__IOF required Annotations__:
+## IOF required Annotations
+
 The following is a transcription from the IOF_AnnotationsVocabulary_11Dec2020.rdf file
+
+Current rules and expectations are at [Confluence](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4384686095/Simplified+Annotations+Rules)
 
 rdfs:label - The de facto use of rdfs:label is to exactly reflect (but not necessarily be exactly the same as) the local name of an element in an ontology. Example: If the IRI of a class was www.industrialontologies.org/core#ManufacturedProduct, the rdfs:label might be ‘Manufactured Product’. 
 
@@ -149,25 +162,40 @@ comment - This annotation is optional. It use is not recommended. But if used, u
 __Acronym list summary__
 
 Note:
+
 rdfs:label:
+
 definition:
-example:
+
+example: 
+
 abbreviation:
+
 acronym:
+
 adaptedFrom:
+
 directSource:
+
 source:
+
 Natural Language Definition:
+
 First Order Logic Definition:
+
 Semi-Formal Natural Language Definition:
+
 elucidation:
+
 explanatoryNote:
+
 comment:
+
 
 We have added a biblography at the bottom for references used in the 'adaptedFrom' and 'directSource'. We are using last name and date for in-text citation e.g. (Karray2019), (IEC 60300-3.12, 2016)
 
 *****************************************************************************************************************************************
-__Useful Figures__:
+__Useful Figures__
 
 Please see figure at https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documentation%20&%20Resources/Terms-Patterns-Modules/Pump-Example.md
 
@@ -175,7 +203,7 @@ Please see figure at https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/mas
 ******************************************************************************************************************************************
 Note these terms are in alphabetical order
 
-__Act of modality change__-:
+### Act of modality change
 
 Note: This is believed to be important in the ontology to capture the state change - to be confirmed
 
@@ -207,7 +235,7 @@ comment:
 ******************************************************************************************************************************************************************
 
 
-__Asset role__: 
+### Asset role 
 
 Note - work in progress, definition uses undefined concept of ValueAddingProcess
 
@@ -233,7 +261,7 @@ Note 2 Physical assets usually refer to equipment, inventory and properties owne
 Note 3 A grouping of assets referred to as an asset system could also be considered as an asset
 ******************************************************************************************************************************************************************
 
-__Bodyguard capability__:
+### Bodyguard capability
 
 Note: this has been proposed as a means to capture properties that prevent undesireable events or processes from occuring
 
@@ -263,7 +291,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Disposition to fail__:
+### Disposition to fail
 
 Note: this 
 
@@ -294,7 +322,7 @@ explanatoryNote:
 comment:
 
 ******************************************************************************************************************************************************************
- __Failure__: 
+### Failure 
 
 Note: see either failure event or failure process
 
@@ -302,10 +330,10 @@ Note: see either failure event or failure process
 
 
 
-__Failure cause__: 
+### Failure cause 
 Note - not a high priority
 ******************************************************************************************************************************************************************
-__Failure effect__: 
+### Failure effect 
 Note - not a high priority.
 see discussion  https://github.com/uwasystemhealth/IOF_Maintenance_Working_Group_Private/issues/13
 
@@ -338,7 +366,7 @@ Note 2: Failure effect also covers the consequence of a failure, within or beyon
 comment:
 ******************************************************************************************************************************************************************
 ******************************************************************************************************************************************************************
-__Failure event__:
+### Failure event
 
 rdfs:label: Failure Event
 
@@ -407,14 +435,14 @@ comment:
 ******************************************************************************************************************************************************************
 
 
-__Failure mechanism__: 
+### Failure mechanism 
 Note - may be an equivalent class to Failure Process
 
 Explanatory Note: Previous work  - FailureMechanism =  A XXX:ProcessOfDegradation that results in a XXX:FailureEvent
 IEC 60812:2020 \cite{IEC60812-2020} defines failure mechanism as a  process that leads to failure.
 Note 1:the process can be physical, chemical, logical, or a combination thereof.
 ******************************************************************************************************************************************************************
-__Failure mode__: 
+### Failure mode 
 Note - needs review, was written before the Maintenance WG discussions on stasis started.
 
 rdfs:label: failure mode
@@ -452,10 +480,10 @@ comment:
 
 ******************************************************************************************************************************************************************
 
-__Failure mode code__:
+### Failure mode code
 Note - this is an information artifact for the failure mode defined above. Needs defined.
 ******************************************************************************************************************************************************************
-__Failure Process__:
+### Failure Process
 Note: See if this is an equivalent class to failure mechanism
 
 rdfs:label: 
@@ -485,7 +513,7 @@ explanatoryNote:
 comment:
 a process that causes the material artifact to fail to perform its desired function
 ******************************************************************************************************************************************************************
-__Function (asset function)__:
+### Function (asset function)
 Note: this is a BFO defined term but do we need an engineering version? BFOs definition of Function does not conform to BFO's definition of function. Based on BFO, a function is a disposition that a continuant (e.g., an asset) bears by design. The functions of an asset are independant of the owner's or user's needs or wants. I may want to use a screwdriver to open a can of paint but it is not the "intended" function of a screwdriver.  
 
 rdfs:label: engineering function
@@ -522,7 +550,7 @@ comment:
 
 
 ******************************************************************************************************************************************************************
-__Functional failure (state)__:
+### Functional failure (state)
 Note: see potential confusion with functional failure state below. this term is not currently in the OWL file as on 16/4/21. See extensive earlier work on this in the explanatory note section.
 
 rdfs:label: Stasis of functional failure
@@ -563,16 +591,16 @@ A state of failure machine x is equivalent to an IOF state x where for some mach
 
 comment:
 ******************************************************************************************************************************************************************
-__Functional location__:
+### Functional location
 Note: not defined yet but important. FLOC is a key field in maintenance data. All maintenance work orders are issued against a functional location. A functional location is a code that uniquely identifies an item that performs a function in a specific location. At that functional location, the individual asset with a unique serial number can be changed out but the functional location stays when a replacement asset with a different serial number is installed. 
 ******************************************************************************************************************************************************************
 
 
-__Inspection Action__:
+### Inspection Action
 Note: note defined yet
 ******************************************************************************************************************************************************************
 
-__Maintainable Item__:
+### Maintainable Item
 Note: 
 
 rdfs:label: Maintainable Item
@@ -615,7 +643,7 @@ Issue#2:  Maintainable item [included in IESA paper and current version of Terms
 
 comment:
 ******************************************************************************************************************************************************************
-__Maintainable Item Role__:
+### Maintainable Item Role
 
 Note: see maintainable item above
 
@@ -660,7 +688,7 @@ A maintainable item x is equivalent to a material artifact x and there exists so
 
 def. A role that inheres in some IOF:Component that has the capability to serve as  the output of some MNT:MaintenanceProcess
 ******************************************************************************************************************************************************************
-__Maintenance Action__:
+### Maintenance Action
 Note: 
 
 rdfs:label: maintenance action
@@ -687,7 +715,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Maintenance Notification__: 
+### Maintenance Notification 
 Note: Need to resolve confusion between MWO record and notification (MWO's are approved). Note the current definition uses the notion of non-conformity which needs to be clearly defined
 
 rdfs:label: maintenance notification
@@ -716,7 +744,7 @@ explanatoryNote:
 comment:
 ******************************************************************************************************************************************************************
 
-__Maintenance Plan Specification__:
+### Maintenance Plan Specification
 Note: an important concept that needs work. Tentative definition - an information content entity describing the output of a planning process conducted by a maintenance planner
 
 rdfs:label: maintenance plan
@@ -748,7 +776,7 @@ The documentation of a plan for the maintenance of an asset over its life cycle
 
 comment:
 ******************************************************************************************************************************************************************
-__Maintenance Schedule List__:
+### Maintenance Schedule List
 
 Note: needs more work
 
@@ -780,7 +808,7 @@ comment:
 ******************************************************************************************************************************************************************
 
 
-__Maintenance Stategy Development Process__:
+### Maintenance Stategy Development Process
 Note: 
 
 rdfs:label: maintenance strategy development process
@@ -809,7 +837,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Maintenance Stategy Specification__:
+### Maintenance Stategy Specification
 
 Note: Vital concept, needs work, needs to be done in conjunction with the class above
 
@@ -838,7 +866,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Maintenance Work Order Record__:
+### Maintenance Work Order Record
 Note: Need to resolve confusion between MWO record and notification (MWO's are approved)
 
 rdfs:label: maintenance work order record
@@ -869,7 +897,7 @@ comment:
 ******************************************************************************************************************************************************************
 
 
-__Malfunction__: 
+### Malfunction 
 Note: May be aquivalent to a Functional Failure Event
 
 rdfs:label: 
@@ -899,7 +927,7 @@ Malfunction is the inability of a continuent to not properly realize a function 
 
 comment:
 ******************************************************************************************************************************************************************
-__Mode__:
+### Mode
 Note: A notion introduced by Chris Will that sits alongside Disposition as a sub-class of Function.
 Failure Mode is realised by process called failure event. Source: Maintenance WG
 
@@ -929,7 +957,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Non-conformity__:
+### Non-conformity
 
 
 rdfs:label: 
@@ -999,7 +1027,7 @@ EN
 comment:
 ******************************************************************************************************************************************************************
 
-__Stasis (CCO)__:
+### Stasis (CCO)
 Note: 
 
 rdfs:label: state
@@ -1032,7 +1060,7 @@ Source: Maintenance WG meeting
 
 comment:
 ******************************************************************************************************************************************************************
-__Stasis (fault/ object in fault state)__:
+### Stasis (fault/ object in fault state)
 Note: 
 
 rdfs:label: fault state
@@ -1071,7 +1099,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Stasis (defective)__:
+### Stasis (defective)
 Note: Not sure we need this right now
 
 rdfs:label: 
@@ -1102,7 +1130,7 @@ Source: https://github.com/InfoneerTXST/IOF-SupplyChain-WG/blob/master/Documenta
 
 comment:
 ******************************************************************************************************************************************************************
-__Stasis (degraded)__:
+### Stasis (degraded)
 Note: A couple of definitions have been proposed.
 
 rdfs:label: degraded state
@@ -1137,7 +1165,8 @@ English Translation: A state of degradation x is equivalent to an IOF state x su
 
 comment:
 ******************************************************************************************************************************************************************
-__Stasis (functional failure)__: see also Stasis (non-conforming quality) and functional failure event
+### Stasis (functional failure) 
+see also Stasis (non-conforming quality) and functional failure event
 Note: see dilemma over component, maintainable item, artifact
 
 rdfs:label: 
@@ -1170,8 +1199,11 @@ c. A stasis of failure maintainable item x is equivalent to an stasis x where fo
 
 comment:
 ******************************************************************************************************************************************************************
- __Stasis (nominal)__:
-Note: Not sure if we need this
+### Stasis (nominal)
+
+> Note: Not sure if we need this
+
+> MSe: this is equivalent to the 'Operating State' of the Stasis Ontology
 
 rdfs:label: 
 
@@ -1199,7 +1231,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
- __Stasis of down (down state)__:
+### Stasis of down (down state)
  Note: this is in here for the MTConnect use case
 
 rdfs:label: 
@@ -1240,7 +1272,7 @@ ISO14224: internal disabled state of an item characterized either by a fault or 
 
 comment:
 ******************************************************************************************************************************************************************
- __Stasis of up (up state)__:
+### Stasis of up (up state)
  Note: this is in here for the MTConnect use case
 
 rdfs:label: 
@@ -1272,7 +1304,7 @@ ISO14224: state of an item characterized by the fact it can perform a required f
 
 comment:
 ******************************************************************************************************************************************************************
-__Stasis (Non conforming quality)__:
+### Stasis (Non conforming quality)
 Note: 
 
 rdfs:label: 
@@ -1301,7 +1333,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
- __Switched/ powered on__:
+### Switched/ powered on
  Note: 
 
 rdfs:label: 
@@ -1330,7 +1362,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Triggering event__:
+### Triggering event
  Note: 
 
 rdfs:label: 
@@ -1360,7 +1392,7 @@ explanatoryNote: A BFO:process resulting in an action (or is it a process bounda
 comment:
 ******************************************************************************************************************************************************************
 
-__Triggering event (Maintenance)__
+### Triggering event (Maintenance)
 
 Note: this is necessary in the ontology to define the moment in time when we know a maintenance action is required. this can come from a casual observation by an operator, an inspection, a structured maintenance task (such as fixed interval replacement), from condition monitoring, or in response to a failure. 
 An event resulting in the generation of a maintenance notification or generation of a task with structured maintenance task specification (needs more thought. For the latter the triggering event is a state or date for which there is a task specification in place that is then initiated when the trigger occurs)
@@ -1390,7 +1422,7 @@ explanatoryNote:
 
 comment:
 ******************************************************************************************************************************************************************
-__Triggering event, operating__:
+### Triggering event, operating
 Note: 
 
 rdfs:label: 
@@ -1422,7 +1454,7 @@ comment:
 ******************************************************************************************************************************************************************
 __Object Properties__
 
-__Enables__:
+### Enables
  
 Note: there should be some relationship like this defined between a stasis and a process. See ongoing discussion in https://github.com/uwasystemhealth/IOF_Maintenance_Working_Group_Private/issues/18
 
@@ -1453,7 +1485,7 @@ explanatoryNote:
 comment:
 ******************************************************************************************************************************************************************
 
-__hasFunction__
+### hasFunction
 
 SME def: x hasFunction y is a relation between an independent continuant (the bearer) and a function in which the function specifically depends on the bearer for its existence. -- sub-relation of BFO 'bearer of'.
 Note: 
@@ -1504,97 +1536,99 @@ __Deprecated classes__
 - Triggering event (Structured maintenance)
 
 *****************************************************************************************************************************
-##Bibliography (in no particular order) - 
+## Bibliography (in no particular order)
 
-  @book{EN13306,
-	author = {{CEN}},
-    title = {EN13306 Maintenance - Maintenance terminology},
-    year = {2017},
-     institution = {European Committee for Standardization},
-    address     = {Brussels}
- }
+```bibtex
+@book{EN13306,
+  author = {{CEN}},
+  title = {EN13306 Maintenance - Maintenance terminology},
+  year = {2017},
+  institution = {European Committee for Standardization},
+  address     = {Brussels}
+}
 
 @techreport{IEC,
-type = {Standard},
-key = {AS IEC 60300.3.14},
-year = {2016},
-title = {{Dependability management Application guide - Maintenance and maintenance support}},
-volume = {2016},
-address = {Geneva, Switzerland}
+  type = {Standard},
+  key = {AS IEC 60300.3.14},
+  year = {2016},
+  title = {{Dependability management Application guide - Maintenance and maintenance support}},
+  volume = {2016},
+  address = {Geneva, Switzerland}
 }
 
 @book{IEC60300.3.14,
 	author = {{IEC}},
-    title = {AS IEC 60300.3.14 Dependability management Application guide - Maintenance and maintenance support},
-    year = {2016},
-     institution = {International Electrochemical Commission},
-    address     = {Geneva Switzerland}
- } 
+  title = {AS IEC 60300.3.14 Dependability management Application guide - Maintenance and maintenance support},
+  year = {2016},
+  institution = {International Electrochemical Commission},
+  address     = {Geneva Switzerland}
+} 
 
- @book{IEC60300.3.11,
-	author = {{IEC}},
-    title = {AS IEC 60300.3.11 Dependability management Application guide - Reliability-centred Maintenance},
-    year = {2011},
-     institution = {International Electrochemical Commission},
-    address     = {Geneva Switzerland}
- } 
+@book{IEC60300.3.11,
+  author = {{IEC}},
+  title = {AS IEC 60300.3.11 Dependability management Application guide - Reliability-centred Maintenance},
+  year = {2011},
+  institution = {International Electrochemical Commission},
+  address     = {Geneva Switzerland}
+} 
 
-    @book{IEC60812,
+@book{IEC60812,
 	author = {{IEC}},
-    title = {IEC 60812 Failure modes and effects analysis (FMEA and FMECA)},
-    year = {2020},
-     institution = {International Electrochemical Commission},
-    address     = {Geneva, Switzerland}
- }
+  title = {IEC 60812 Failure modes and effects analysis (FMEA and FMECA)},
+  year = {2020},
+  institution = {International Electrochemical Commission},
+  address     = {Geneva, Switzerland}
+}
 
 @book{ISO15926,
   author      = {{ISO}},
   title       = {ISO 15926 Industrial automation systems and integration -- Integration of life-cycle data for process plants including oil and gas production facilities -- Part 2: Data model},
-     institution = {International Standards Organisation},
-    address     = {Geneva Switzerland},
+  institution = {International Standards Organisation},
+  address     = {Geneva Switzerland},
   year        = {2003}
 }
 
 @book{SAEJA1012,
 	author = {{SAE}},
-    title = {SAE JA1012 A guide to the  Reliability-centered maintenance (RCM) Standard},
-    year = {2011},
-     institution = {SAE International},
-    address     = {London}
- } 
+  title = {SAE JA1012 A guide to the  Reliability-centered maintenance (RCM) Standard},
+  year = {2011},
+  institution = {SAE International},
+  address     = {London}
+} 
 
-   @book{ISO13372,
+@book{ISO13372,
 	author = {{ISO}},
-    title = {ISO 13372 Condition monitoring and diagnostics of machines - Vocabulary},
-    year = {2012},
-     institution = {International Standards Organization},
-    address     = {Geneva, Switzerland}
+  title = {ISO 13372 Condition monitoring and diagnostics of machines - Vocabulary},
+  year = {2012},
+  institution = {International Standards Organization},
+  address     = {Geneva, Switzerland}
  }
 
 @book{SMRP,
 	author = {SMRP},
-    title = {SMRP Best Practice - Maintenance |\& Reliability Body of Knowledge},
-    year = {2009},
-    edition={5th.},
-     publisher = {Society of Maintenance and Reliability Professionals},
-    address     = {Atlanta, GA}}
-
-    @article{Rajpathak2013,
-    author={Rajpathak, Dnyanesh G},
-    journal = {Computers in Industry},
-    number = {5},
-    pages = {565--580},
-    publisher = {Elsevier B.V.},
-    title = {{An ontology based text mining system for knowledge discovery from the diagnosis data in the automotive domain}},
-    volume = {64},
-    year = {2013}
+  title = {SMRP Best Practice - Maintenance |\& Reliability Body of Knowledge},
+  year = {2009},
+  edition={5th.},
+  publisher = {Society of Maintenance and Reliability Professionals},
+  address     = {Atlanta, GA}
 }
 
+@article{Rajpathak2013,
+  author={Rajpathak, Dnyanesh G},
+  journal = {Computers in Industry},
+  number = {5},
+  pages = {565--580},
+  publisher = {Elsevier B.V.},
+  title = {{An ontology based text mining system for knowledge discovery from the diagnosis data in the automotive domain}},
+  volume = {64},
+  year = {2013}
+}
 
-  @online{CUBRC2000,
+@online{CUBRC2000,
   author = {CUBRC},
   title = {Common Core Ontologies for Data Integration},
   year= 2014,
   url = {https://www.cubrc.org/index.php/data-science-and-information-fusion/ontology},
   urldate = {2019-01-10}
 }
+```
