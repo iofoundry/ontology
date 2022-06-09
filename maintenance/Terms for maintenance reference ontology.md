@@ -4,31 +4,298 @@ This is now the Master Working document for all terms needed by the Maintenance 
 
 __Terms in IOF MaintenanceDev ontology - draft in progress as of June 2022__
 
-## Classes
+## List of Classes
 
+__Material subclasses__
+- Qualified person
 
-- Failure Effect
-- Failure Process
-- Functioning Process
+__SDC subclasses__
+- Primary function
 - Undesireable disposition
 - Disposition to fail
-- Maintainable item role
-- Primary function
+
+__GDC subclasses__
 - Failure Mode Observation
-- Failure Event
+- Maintenance Procedure
 - Qualification
-- Maintainable item
-- Qualified person
+- Maintenance Procedure
+
+__Process subclasses__
+- Failure Effect
+- Failure Event
+- Failure Process
+- Functioning Process
 - Maintenance Activity
 - Supporting Activity
-- Maintenance Procedure
+
+__State subclasses__
 - Maintenance State
 - Degraded State
 - Failed State
 - Operating State
 
+## List of Object properties
+
+- hasState
+- stateOf
+- initiates
+
+## Proposed definitions (not yet in agreed format) - in same order as list above.
+
+### Qualified person
+- rdfs:label: 
+- superclass: material entity> object> person> qualified person
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition: a person qualified to perform a specific process or taks
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: Under discussion - see issue #7 in MaintenanceDev git
 
 
+### Primary Function
+- rdfs:altlabel: engineering function, required function
+- superclass: RE> disposition> function> primary function
+- acronym:
+- example:
+- adaptedFrom:
+- directSource: EN 13306
+ -source:
+- Natural Language Definition: function, combination of functions, or a total combination of functions of an item which are considered necessary to fulfil a given requirement
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: - This is needed as an engineering function (primary function) is different from a BFO function.  Based on BFO, a function is a disposition that a continuant (e.g., an asset) bears by design. The functions of an asset are independant of the owner's or user's needs or wants. I may want to use a screwdriver to open a can of paint but it is not the "intended" function of a screwdriver.  We need to be able to link the function back to the specific process that the asset owner desires to realise to meet a specific requirement. This is documented. The function of a  maintainable item is central to its maintenance strategy. This concept should be linked to maintenance_item_role.
+- comment: BFO Formal def: f is a function means:
+f is a disposition
+& f exists in virtue of its bearer’s physical make-up
+& this physical make-up is something that this bearer possesses because it came into being, either through evolution (in the case of natural biological entities) or through intentional design (in the case of artifacts), in order to realize processes of a certain sort. 
+Source: https://www.researchgate.net/publication/304340796_Functions_in_Basic_Formal_Ontology
+- comment: Notes to the EN13306 definition are important. 
+Note 1 to entry: “Necessary to fulfil a given requirement” may also include asset value preservation. Note 2 to entry: The given requirement may be expressed or implied and may in some cases be below the original design specifications. Note 3 to entry: The required function, by implication also covers what the item shall not do."
+comment - this NL definition used in the Maintenance State ontology under the label 'required function'
+
+### Undersireable disposition and disposition to fail
+- rdfs:label: 
+- superclass: RE> disposition> undesireable disposition> disposition to fail
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition:
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment:
+
+### Failure mode observation
+- rdfs:label: failure mode
+- superclass: ICE> decriptive ICE> failure mode observation
+- acronym:
+- example:
+- adaptedFrom:
+- directSource: EN13306
+- source:
+- Natural Language Definition: manner in which the inability of an item to perform a required function occurs
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment:  - EN 13306 definition: "manner in which the inability of an item to perform a required function occurs" includes this Note 1 to entry: A failure mode may be defined by the function lost or the state transition that occurred.
+
+### Maintenance procedure
+- rdfs:label: 
+- superclass: ICE> plan specification> maintenance procedure
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition:
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment:
+
+### Failure effect 
+see discussion  https://github.com/uwasystemhealth/IOF_Maintenance_Working_Group_Private/issues/13
+
+- rdfs:label: failure effect
+- superclass: process> failure effect
+- acronym:
+- example:
+- adaptedFrom:
+- directSource: IEC 60812:2020 \cite{IEC60812-2020}
+- source:
+- Natural Language Definition: Failure effect is the consequence of  failure, within or beyond the boundary of the failed item.
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote: Explanatory Note from IEC 60812:2020
+Note 1: for some analyses, it may be necessary to consider individual failure modes and their effects.
+Note 2: Failure effect also covers the consequence of a failure, within or beyond the boundary of the failed process.
+- comment:
+
+### Failure Event
+- rdfs:label: failure event
+- superclass: occurent> event> failure event
+- acronym:
+- example:
+- adaptedFrom:
+- directSource: EN 13306(2017)
+- source:
+- Natural Language Definition: The loss of ability of an item to perform a required function 
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: (draft) An IOF:event where some process which realizes the required function of a material artifact ceases
+- elucidation:
+- explanatoryNote:
+- comment: there are many notes in the earlier materials captured below in this md document.
+
+
+### Failure Process
+- rdfs:label: 
+- superclass: process> failure process
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition: a process that causes an item to become degraded or failed.
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: a process that causes the material artifact to fail to perform its desired function or a Process that changes some quality born by an Artifact and causes the the Artifact to become degraded or failed
+
+### Functioning Process
+- rdfs:label: 
+- superclass: process> functioning process
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition: a process that enables an item to perform its required function
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment:
+
+### Maintenance Activity
+- rdfs:label: 
+- superclass: process> planned process> maintenance activity
+- acronym:
+- example:
+- adaptedFrom:
+- directSource: EN13306 ISO 14424m IEC 60300-3-14 and 16.
+- source:
+- Natural Language Definition: actions intended to retain an item, or restore it to, a state in which it can perform a required function
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: an alternative take on this could be "he execution of work authorised by a maintenance work order" see notes on this in the sections below.
+Note to entry for EN13306: Note 1 to entry:Technical maintenance actions include observation and analyses of the item state (e.g. inspection, monitoring, testing, diagnosis, prognosis, etc.)         \ and active maintenance actions (e.g. repair, refurbishment)
+
+
+### Supporting Activity
+- rdfs:label: 
+- superclass: process> planned process> supporting activity
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition:
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: From Issue #5 - When processing data from Maintenance work orders we identified 230 unique root verbs for activities undertaken by maintenance personnel. Only a fraction of these are concerned with maintenance as defined as "actions intended to retain an item, or restore it to, a state in which it can perform a required function". The one that do not directly contribute to this definition we called supporting activities and constitute a significant portion of real world data.
+Examples include: access, applu, assist, attend, build, carry, commission, confirm, develop, disable, disconnect etc ....
+
+### Maintenance State
+- rdfs:label: 
+- superclass: process> state> maintenance state
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition:
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: a superclass to the 3 states defined below
+
+
+### Degraded State
+- rdfs:label: 
+- superclass: process> state> maintenance state> degraded state
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition: State of reduced ability to perform as required, but wuth acceptable reduced performance.
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: note the discussion under failure mode. 
+- comment: this definition used in the FOMI State paper.
+
+### Failed State
+- rdfs:label: 
+- superclass: process> state> maintenance state> failed state
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition: state of an item being unable to perform a required function.
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: note the discussion under failure mode
+
+
+### Operating State
+- rdfs:label: 
+- superclass: process> state> maintenance state> operating state
+- acronym:
+- example:
+- adaptedFrom:
+- directSource:
+- source:
+- Natural Language Definition:
+- First Order Logic Definition: 
+- Semi-Formal Natural Language Definition: 
+- elucidation:
+- explanatoryNote:
+- comment: 
+
+### hasState/ stateOf
+- superclass: participates in at some time
+- domain: 
+- range: maintenance state
+
+### initiates
+- superclass: precedes
+- domain: 
+- range: 
 
 
 
@@ -553,7 +820,7 @@ Note: this is a BFO defined term but do we need an engineering version? BFOs def
 
 rdfs:label: engineering function
 
-definition: hat the owner or user of a physical asset or system wants it to do 
+definition: what the owner or user of a physical asset or system wants it to do 
 
 acronym:
 
