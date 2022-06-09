@@ -2,10 +2,40 @@
 
 This is now the Master Working document for all terms needed by the Maintenance WG including those terms relating to maintenance management, failure events, and stasis.
 
-## However as of June 9 2022 it is currentlu OUT OF SYNC with the Maintenance terms OWL file and needs to be updated.
+__Terms in IOF MaintenanceDev ontology - draft in progress as of June 2022__
+
+## Classes
+
+
+- Failure Effect
+- Failure Process
+- Functioning Process
+- Undesireable disposition
+- Disposition to fail
+- Maintainable item role
+- Primary function
+- Failure Mode Observation
+- Failure Event
+- Qualification
+- Maintainable item
+- Qualified person
+- Maintenance Activity
+- Supporting Activity
+- Maintenance Procedure
+- Maintenance State
+- Degraded State
+- Failed State
+- Operating State
 
 
 
+
+
+
+
+
+
+## Historical materials below
 
 __Maintenance WG terms submitted to IOF Technical Oversight Board for consideration for IOF core terms (29/10/21)__
 
