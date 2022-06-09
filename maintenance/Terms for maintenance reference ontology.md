@@ -1,6 +1,11 @@
 # Terms proposed for use in the IOF Maintenance Management Reference ontology
 
-This is now the Master Working document for all terms needed by the Maintenance WG including those terms relating to maintenance management, failure events, and stasis
+This is now the Master Working document for all terms needed by the Maintenance WG including those terms relating to maintenance management, failure events, and stasis.
+
+## However as of June 9 2022 it is currentlu OUT OF SYNC with the Maintenance terms OWL file and needs to be updated.
+
+
+
 
 __Maintenance WG terms submitted to IOF Technical Oversight Board for consideration for IOF core terms (29/10/21)__
 
