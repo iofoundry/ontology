@@ -1,0 +1,75 @@
+@startuml
+
+
+class FailureModeObservation
+class MaintenanceProcedure
+class Qualification
+class MaintainableItem
+class QualifiedPerson
+
+
+
+class Disposition
+class Function
+class PrimaryFunction 
+class UndesireableDisposition 
+class DispositionToFail 
+
+Function -u-> Disposition : "subclassof"
+PrimaryFunction -u-> Function : "subclassof"
+UndesireableDisposition -u-> Disposition : "subclassof"
+DispositionToFail -u-> UndesireableDisposition : "subclassof"
+
+class Role
+class MaintainableItemRole
+
+MaintainableItemRole -u-> Role : "subclassof"
+
+class FailureEffect
+class FailureProcess
+class FunctioningProcess
+class MaintenanceActivity
+class SupportingActivity
+class State
+class MaintenanceState
+class DegradedState
+class FailedState
+class OperatingState
+
+
+MaintenanceState -u-> State : "subclassof"
+DegradedState -u-> MaintenanceState : "subclassof"
+FailedState -u-> MaintenanceState : "subclassof"
+OperatingState -u-> MaintenanceState : "subclassof"
+PrimaryFunction -u-> Function : "subClassof"
+
+class FailureEvent
+
+
+FailureModeObservation -> FailureProcess : "describes"
+MaintainableItem -u-> MaintainableItemRole : "bearerOf"
+DispositionToFail -u-> FailureProcess : "hasRealization"
+FailureProcess -u-> DispositionToFail : "realizes"
+FailureEvent -u-> FailureEffect : "precedes"
+FailureEvent -u-> MaintainableItem : "hasParticipant"
+FailureEvent -u-> FailedState : "precedes"
+
+
+MaintainableItem -u-> PrimaryFunction : "hasFunction"
+MaintainableItem -u-> DispositionToFail : "hasDisposition"
+MaintainableItem -u-> FailureProcess : "participatesInAtSomeTime"
+MaintainableItem -u-> FunctioningProcess : "participatesInAtSomeTime"
+MaintainableItem -u-> MaintenanceActivity : "participatesInAtSomeTime"
+MaintainableItem -u-> SupportingActivity : "participatesInAtSomeTime"
+
+
+FunctioningProcess -u-> Function : "realizes"
+UndesireableDisposition -> DegradedState : "realizes"
+UndesireableDisposition -> FailedState : "realizes"
+
+MaintenanceProcedure -> MaintenanceActivity : "describes"
+QualifiedPerson -> MaintenanceActivity : "participatesInAtSomeTime"
+QualifiedPerson -> Qualification : "satisfies"
+
+@enduml
+
