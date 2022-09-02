@@ -60,7 +60,7 @@ The IOF Core Ontology is licensed under the [**MIT License](http://opensource.or
 - [IOF Member Portal](https://oagiscore.atlassian.net/wiki/spaces/IOF/overview?homepageId=146047039) 
 - [IOF Mission, History and Charter](https://www.industrialontologies.org/our-mission/)
 - [IOF Technical Principles](https://www.industrialontologies.org/technical-principles/) 
-- [IOF Annotation Properties & Usage Rules](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/3884777496/IOF+Annotation+Properties) 
+- [IOF Annotation Properties Version 2](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4399431681/IOF+Annotation+Properties+Version+2) 
 - [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) 
 
 # List of “Important” Outstanding Issues
