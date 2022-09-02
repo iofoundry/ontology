@@ -18,7 +18,6 @@ __GDC subclasses__
 - Failure Mode Observation
 - Maintenance Procedure
 - Qualification
-- Maintenance Procedure
 
 __Process subclasses__
 - Failure Effect
@@ -43,19 +42,13 @@ __State subclasses__
 ## Proposed definitions (not yet in agreed format) - in same order as list above.
 
 ### Qualified person
-- rdfs:label: 
-- superclass: material entity> object> person> qualified person
-- acronym:
-- example:
-- adaptedFrom:
-- directSource:
-- source:
-- Natural Language Definition: a person qualified to perform a specific process or taks
-- First Order Logic Definition: 
-- Semi-Formal Natural Language Definition: 
-- elucidation:
-- explanatoryNote:
-- comment: Under discussion - see issue #7 in MaintenanceDev git
+rdfs:label: qualified person
+iof-av:naturalLanguageDefinition: qualified person: a person qualified to perform a specific process or task
+iof-av:isPrimitive: false
+iof-av:firstOrderLogicDefinition: to come
+iof-av:semiFormalNaturalLanguageDefinition: 'qualified person': every  instance of ‘qualified person’ is defined as exactly an instance of ‘person’ that ‘participates in at some time’ some ‘maintenance activity’ and 'satifies' some 'qualification'
+
+
 
 
 ### Primary Function
