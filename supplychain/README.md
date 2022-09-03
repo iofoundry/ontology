@@ -10,7 +10,7 @@ To open the Supply Chain ontology, perform the following steps:
 3. Open SupplyChainReferenceOntology.rdf with "Protege".
 4. Protege might prompt you to manually find some files that the ontology imports. All relevant files can be found in the "Imports" folder.
 5. You need to import Core.rdf and AnnotationVocabulary.rdf
-6. BFO 2020 is imported through Core.rdf and you don't need to import it manually 
+6. BFO 2020 is imported through Core.rdf so you don't need to import it directly 
 
 SCRO is currenlty in draft status and it is not officially released yet.
 
