@@ -71,5 +71,28 @@ MaintenanceProcedure -> MaintenanceActivity : "describes"
 QualifiedPerson -> MaintenanceActivity : "participatesInAtSomeTime"
 QualifiedPerson -> Qualification : "satisfies"
 
+class MaterialEntity
+class Object
+class MaterialArtifact
+class ObjectAggregate
+class System
+class EngineeredSystem
+
+Object -u-> MaterialEntity : "subclassof"
+MaterialArtifact -u-> Object : "subclassof"
+ObjectAggregate -u-> MaterialEntity : "subclassof"
+System -u-> ObjectAggregate : "subclassof"
+EngineeredSystem -u-> System : "subclassof"
+
+MaterialArtifact -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
+EngineeredSystem -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
+
+'For alignment only
+State -[hidden]r-> Hidden
+Hidden -[hidden]r-> Hidden2
+Hidden2 -[hidden]r-> MaterialEntity
+hide Hidden
+hide Hidden2
+
 @enduml
 
