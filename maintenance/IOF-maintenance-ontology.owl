@@ -267,6 +267,8 @@
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceState"/>
         <owl:disjointWith rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FailedState"/>
         <owl:disjointWith rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/OperatingState"/>
+        <rdfs:label>degraded state</rdfs:label>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
     </owl:Class>
     
 
@@ -300,6 +302,8 @@
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FailedState">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceState"/>
         <owl:disjointWith rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/OperatingState"/>
+        <rdfs:label>failed state</rdfs:label>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
     </owl:Class>
     
 
@@ -308,7 +312,17 @@
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FailureEffect">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <rdfs:label>Failure Effect</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000062"/>
+                <owl:someValuesFrom rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FailureEvent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Natural language definition from IEC 60812:2020</rdfs:comment>
+        <rdfs:label>failure effect</rdfs:label>
+        <AnnotationVocabulary:naturalLanguageDefinition>failure effect is the consequence of failure, within or beyond the boundary of the failed item</AnnotationVocabulary:naturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
+        <primitiveRationale>at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</primitiveRationale>
     </owl:Class>
     
 
@@ -335,10 +349,12 @@
                 <owl:someValuesFrom rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FailedState"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:label>Failure Event</rdfs:label>
+        <rdfs:label>failure event</rdfs:label>
         <AnnotationVocabulary:directSource xml:lang="en">EN13306, 2017</AnnotationVocabulary:directSource>
         <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">The loss of ability of an item to perform a required function</AnnotationVocabulary:naturalLanguageDefinition>
-        <AnnotationVocabulary:semi-formalNaturalLanguageDefinition xml:lang="en">A process boundary where some process which realizes the required function of a material artifact ceases.</AnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <AnnotationVocabulary:semiFormalNaturalLanguageDefinition xml:lang="en">A event where some process which realizes the required function of a maintainable item ceases.</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isPrimitive>
+        <primitiveRationale>Requires further analysis to make FOL definition</primitiveRationale>
     </owl:Class>
     
 
@@ -349,7 +365,7 @@
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/isOutputOf"/>
                         <owl:someValuesFrom>
@@ -380,9 +396,9 @@
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
         <rdfs:comment>natural language definition from EN:13306</rdfs:comment>
         <rdfs:label>failure mode observation</rdfs:label>
+        <AnnotationVocabulary:firstOrderLogicDefinition>DescriptiveInformationContentEntity(x) ∧ ∃y,z,s(Process(y) ^  outputOf(x,y) ^ Person(z) ^ hasParticipantAtSomeTime(y,z) ∧ FailedState(s) ∧ observesAtSomeTime(z, s) ↔ FailureModeObservation(x)</AnnotationVocabulary:firstOrderLogicDefinition>
         <AnnotationVocabulary:naturalLanguageDefinition>manner in which the inability of an item to perform a required function occurs</AnnotationVocabulary:naturalLanguageDefinition>
         <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>failure mode observation: an information content entity recorded by a person on observing the failed state of an item</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
-        <isPrimitive>InformationContentEntity(x) ∧ ∃y,z,s(Process(y) ^  outputOf(x,y) ^ Person(z) ^ hasParticipantAtSomeTime(y,z) ∧ FailedState(s) ∧ observesAtSomeTime(z, s) ↔ FailureModeObservation(x)</isPrimitive>
         <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isPrimitive>
     </owl:Class>
     
@@ -399,8 +415,12 @@
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <rdfs:label>Failure Process</rdfs:label>
-        <skos:altLabel>Functional Failure</skos:altLabel>
-        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">A Process that changes some quality born by an Artifact and causes the the Artifact to become degraded or failed</AnnotationVocabulary:naturalLanguageDefinition>
+        <rdfs:label>failure process</rdfs:label>
+        <skos:altLabel>functional failure</skos:altLabel>
+        <AnnotationVocabulary:firstOrderLogicDefinition>Process(x) ∧ ∃y(DispositionToFail(y) ∧ realizes(x,y)) ↔ FailureProcess(x)</AnnotationVocabulary:firstOrderLogicDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">A process that changes some quality born by an item and causes the the item to become degraded or failed</AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>&apos;failure process&apos;: every instance of &apos;failure process&apos; is defined as exactly an instance of &apos;process&apos; that &apos;realizes&apos; some &apos;disposition to fail&apos;</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isPrimitive>
     </owl:Class>
     
 
@@ -408,9 +428,18 @@
     <!-- https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FunctioningProcess -->
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/FunctioningProcess">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000055"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <rdfs:label>Functioning Process</rdfs:label>
-        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">A process that realises some quality or disposition of an artifact</AnnotationVocabulary:naturalLanguageDefinition>
+        <rdfs:label>functioning process</rdfs:label>
+        <AnnotationVocabulary:firstOrderLogicDefinition>Process(x) ∧ ∃y(Function(y) ∧ realizes(x,y)) ↔ FunctioningProcess(x)</AnnotationVocabulary:firstOrderLogicDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">a process that enables an item to perform a function</AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>&apos;functioning process&apos;: every instance of &apos;functioning process&apos; is defined as exactly an instance of &apos;process&apos; that &apos;realizes&apos; some &apos;function&apos;</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isPrimitive>
     </owl:Class>
     
 
@@ -418,16 +447,24 @@
     <!-- https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceActivityProcess -->
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceActivityProcess">
-        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
-        <rdfs:label>Maintenance Activity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceProcess"/>
+        <rdfs:comment>In maintenance, we consider the maintenance activity to be the most atomic unit of maintenance processes.</rdfs:comment>
+        <rdfs:label>maintenance activity</rdfs:label>
+        <isPrimitive>A maintnenance activity is a single action (e.g. restore, replace, inspect) to do with retaining or restoring the function of a maintainable item</isPrimitive>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
+        <primitiveRationale>at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</primitiveRationale>
     </owl:Class>
     
 
 
-    <!-- https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceProcedure -->
+    <!-- https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceProcess -->
 
-    <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceProcedure">
-        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+    <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceProcess">
+        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+        <rdfs:label>maintenance process</rdfs:label>
+        <AnnotationVocabulary:naturalLanguageDefinition>A maintenance process is any process to do with retaining or restoring the function of a maintainable item</AnnotationVocabulary:naturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
+        <primitiveRationale>mainteance process is used in the definition of maintainable item role</primitiveRationale>
     </owl:Class>
     
 
@@ -436,10 +473,10 @@
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceState">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/State"/>
-        <rdfs:label>Maintenance State</rdfs:label>
-        <AnnotationVocabulary:directSource xml:lang="en">IOF Maintenance Working Group</AnnotationVocabulary:directSource>
+        <rdfs:comment>This is the definition used in the Maintenance State paper</rdfs:comment>
+        <rdfs:label>maintenance state</rdfs:label>
         <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">Stasis that holds during a temporal interval when the realizable functions and capabilities of the participating item, or the grade of realization of those functions and capabilities, remain unchanged.</AnnotationVocabulary:naturalLanguageDefinition>
-        <AnnotationVocabulary:semi-formalNaturalLanguageDefinition xml:lang="en">TODO</AnnotationVocabulary:semi-formalNaturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
     </owl:Class>
     
 
@@ -448,6 +485,8 @@
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/OperatingState">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/MaintenanceState"/>
+        <rdfs:label>operating state</rdfs:label>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
     </owl:Class>
     
 
@@ -457,7 +496,7 @@
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/PrimaryFunction">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
         <rdfs:comment>The natural language definition comes from EN:13306</rdfs:comment>
-        <rdfs:label>Primary Function</rdfs:label>
+        <rdfs:label>primary function</rdfs:label>
         <AnnotationVocabulary:firstOrderLogicDefinition>Function(x) ∧ ∃y(MaintainableMaterialItem(y) ∧ FunctioningProcess(z) ∧ participatesInAtSomeTime(y,z)) ∧ functionOf(x,y) ↔ PrimaryFunction(x))</AnnotationVocabulary:firstOrderLogicDefinition>
         <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>&apos;primary function&apos;: every instance of ‘primary function’ is defined as an instance of ‘function’ that is the &apos;function of&apos; some &apos;maintainable material item&apos; that &apos;participates in at some time&apos; some &apos;functioning process&apos;</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
         <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isPrimitive>
@@ -470,6 +509,8 @@
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/Qualification">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+        <rdfs:comment>Elevating to be considered in IOF core</rdfs:comment>
+        <rdfs:label>qualification</rdfs:label>
     </owl:Class>
     
 
@@ -506,7 +547,10 @@
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/maintenance/Maintenance/SupportingActivity">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
-        <rdfs:label>Supporting Activity</rdfs:label>
+        <rdfs:label>supporting activity (maintenance)</rdfs:label>
+        <AnnotationVocabulary:naturalLanguageDefinition>A supporting activity is a single action (e.g. approve, supply, return) in support of the execution of a maintenance process.</AnnotationVocabulary:naturalLanguageDefinition>
+        <isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isPrimitive>
+        <primitiveRationale>at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</primitiveRationale>
     </owl:Class>
     
 
@@ -533,7 +577,7 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
-        <rdfs:label>Undesireable Disposition</rdfs:label>
+        <rdfs:label>undesireable disposition</rdfs:label>
         <AnnotationVocabulary:firstOrderLogicDefinition>Disposition(x) ∧ ∃y,z((DegradedState(y) ∨ FailedState(z))  ∧ (hasRealization(x,y) ∨ hasRealization(x,z)) ↔ UndesireableDisposition(x)</AnnotationVocabulary:firstOrderLogicDefinition>
         <AnnotationVocabulary:naturalLanguageDefinition>The disposition of an item to fail to perform a required function</AnnotationVocabulary:naturalLanguageDefinition>
         <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>&apos;undesireable disposition&apos;: every  instance of ‘undesireable disposition’ is defined as exactly an instance of ‘disposition’ that ‘has realization’ some ‘failed state’ or &apos;operating state&apos;</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
