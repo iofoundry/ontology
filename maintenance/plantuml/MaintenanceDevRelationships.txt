@@ -1,0 +1,101 @@
+@startuml
+hide empty members
+skinparam groupInheritance 0
+skinparam class {
+	BackgroundColor<< iof >> SkyBlue
+	BackgroundColor<< bfo >> PaleGreen
+}
+
+
+
+class DegradedState
+class Disposition <<bfo>>
+class DispositionToFail 
+class FailedState
+class FailureEffect
+class FailureEvent
+class FailureModeObservation
+class FailureProcess
+class Function <<bfo>>
+class FunctioningProcess
+class MaintainableItem <<iof>>
+class MaintainableItemRole <<iof>>
+class MaintenanceActivity
+class MaintenanceProcedure
+class MaintenanceProcess
+class MaintenanceState
+class OperatingState
+class Person <<iof>>
+class PlannedProcess <<iof>>
+class PrimaryFunction 
+class Qualification
+class QualifiedPerson
+class Role <<bfo>>
+class State <<iof>>
+class SupportingActivity
+class UndesireableDisposition 
+
+Function -u-> Disposition : "subClassOf"
+PrimaryFunction -u-> Function : "subClassOf"
+UndesireableDisposition -u-> Disposition : "subClassOf"
+DispositionToFail -u-> UndesireableDisposition : "subclassof"
+MaintainableItemRole -u-> Role : "subclassof"
+MaintenanceState -u-> State : "subclassof"
+DegradedState -u-> MaintenanceState : "subclassof"
+FailedState -u-> MaintenanceState : "subclassof"
+OperatingState -u-> MaintenanceState : "subclassof"
+PrimaryFunction -u-> Function : "subClassof"
+MaintenanceActivity -u-> MaintenanceProcess : "subclassof"
+MaintenanceProcess -u-> PlannedProcess : "subclassof"
+
+
+
+MaintainableItem -u-> MaintainableItemRole : "bearerOf"
+DispositionToFail -u-> FailureProcess : "hasRealization"
+FailureProcess -u-> DispositionToFail : "realizes"
+FailureEvent -u-> FailureEffect : "precedes"
+FailureEvent -u-> MaintainableItem : "hasParticipant"
+FailureEvent -u-> FailedState : "precedes"
+FailureModeObservation -u-> PlannedProcess : "outputOf"
+Person -u-> PlannedProcess : "participatesInAtSomeTime"
+Person -> FailedState : "observesAtSomeTime"
+
+MaintainableItem -u-> PrimaryFunction : "hasFunction"
+MaintainableItem -u-> DispositionToFail : "hasDisposition"
+MaintainableItem -u-> FailureProcess : "participatesInAtSomeTime"
+MaintainableItem -u-> FunctioningProcess : "participatesInAtSomeTime"
+MaintainableItem -u-> MaintenanceActivity : "participatesInAtSomeTime"
+MaintainableItem -u-> SupportingActivity : "participatesInAtSomeTime"
+MaintainableItemRole -u-> MaintenanceProcess : "participatesInAtSomeTime"
+
+FunctioningProcess -u-> Function : "realizes"
+UndesireableDisposition -> DegradedState : "realizes"
+UndesireableDisposition -> FailedState : "realizes"
+
+MaintenanceProcedure -u-> MaintenanceActivity : "describes"
+QualifiedPerson -u-> MaintenanceActivity : "participatesInAtSomeTime"
+QualifiedPerson -u-> Qualification : "satisfies"
+
+'MaterialArtifact -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
+'EngineeredSystem -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
+
+'class MaterialEntity
+'class MaterialArtifact
+'class Object
+'class ObjectAggregate
+'class System
+'Object -u-> MaterialEntity : "subclassof"
+'MaterialArtifact -u-> Object : "subclassof"
+'ObjectAggregate -u-> MaterialEntity : "subclassof"
+'System -u-> ObjectAggregate : "subclassof"
+'EngineeredSystem -u-> System : "subclassof"
+
+'For alignment only
+'State -[hidden]r-> Hidden
+'Hidden -[hidden]r-> Hidden2
+'Hidden2 -[hidden]r-> MaterialEntity
+'hide Hidden
+'hide Hidden2
+
+@enduml
+
