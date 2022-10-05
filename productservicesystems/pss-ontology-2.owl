@@ -21,7 +21,8 @@
      xmlns:AnnotationVocabulary="https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
      xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/"
      xmlns:IOFAnnotationVocabulary="http://www.industrialontologies.org/IOFAnnotationVocabulary/"
-     xmlns:ProductServiceSystemOntology="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#">
+     xmlns:ProductServiceSystemOntology="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#"
+     xmlns:productservicesystemontology="https://www.industrialontologies.org/ontology/productservicesystems/202201/ProductServiceSystemOntology#">
     <owl:Ontology rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology">
         <owl:versionIRI rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/202201/ProductServiceSystemOntology"/>
         <owl:imports rdf:resource="https://purl.industrialontologies.org/ontology/core/20220506/Core/"/>
@@ -55,18 +56,6 @@
     <!-- http://purl.org/dc/elements/1.1/date -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/date"/>
-    
-
-
-    <!-- http://www.industrialontologies.org/core#definition-NL -->
-
-    <owl:AnnotationProperty rdf:about="http://www.industrialontologies.org/core#definition-NL"/>
-    
-
-
-    <!-- http://www.industrialontologies.org/core#source -->
-
-    <owl:AnnotationProperty rdf:about="http://www.industrialontologies.org/core#source"/>
     
 
 
@@ -106,12 +95,6 @@
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#description -->
-
-    <owl:AnnotationProperty rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#description"/>
-    
-
-
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -144,7 +127,6 @@
     <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#owns -->
 
     <owl:ObjectProperty rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#owns">
-        <dc:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-16T07:40:45Z</dc:date>
         <skos:example>PSSProvider owns a PSS (PSS_belongsTo_PSSProvider)</skos:example>
         <AnnotationVocabulary:naturalLanguageDefinition>To have or hold as property</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:ObjectProperty>
@@ -279,6 +261,7 @@ cost reduction, eco friendliness, performance improvement, risk reduction.</rdfs
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
         <rdfs:comment>This is an interface class to other ontologies.</rdfs:comment>
         <rdfs:label>Business Model</rdfs:label>
+        <skos:changeNote>revisit natural language definition</skos:changeNote>
         <AnnotationVocabulary:naturalLanguageDefinition>Business Model is a description of a plan and implementation of the plan, aiming the successful operation of a business.</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
@@ -365,7 +348,7 @@ this was a Resource, how to solve this? PSS Source-Data is a Resource that refer
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Guideline">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/ActionSpecification"/>
-        <rdfs:label>Guideline</rdfs:label>
+        <rdfs:label>guideline</rdfs:label>
         <AnnotationVocabulary:naturalLanguageDefinition>Guideline is PSS Information referring to a statement describing a course of action aiming to reach a specific goal for the design, development or use of a PSS.</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
@@ -397,8 +380,38 @@ this was a Resource, how to solve this? PSS Source-Data is a Resource that refer
     <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ImmaterialResourceRole -->
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ImmaterialResourceRole">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000023"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/roleOf"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/isAvailableToAtSomeTime"/>
+                                        <owl:someValuesFrom>
+                                            <owl:Class>
+                                                <owl:unionOf rdf:parseType="Collection">
+                                                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/EngineeredSystem"/>
+                                                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
+                                                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/Person"/>
+                                                </owl:unionOf>
+                                            </owl:Class>
+                                        </owl:someValuesFrom>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <rdfs:label>immaterial resource role</rdfs:label>
+        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">role played by an information content entity that consists in it being available to a person or group of agents or system</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -473,7 +486,7 @@ This is an interface class to other ontologies</rdfs:comment>
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Lifecycle">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <rdfs:comment>This is an interface class to other ontologies.</rdfs:comment>
-        <rdfs:label>PSS Lifecycle</rdfs:label>
+        <rdfs:label>lifecycle</rdfs:label>
         <AnnotationVocabulary:naturalLanguageDefinition>PSS Lifecycle is a set of Processes the PSS, a product or a service uses for its activities from the idea conceptualisation to its end-of-life. It refers to the Lifecycle Model entity in conjunction with time.</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
@@ -539,12 +552,10 @@ This is an interface class to other ontologies</rdfs:comment>
             </owl:Restriction>
         </rdfs:subClassOf>
         <terms:source>3. Mont, Oksana K. &quot;Clarifying the concept of product–service system.&quot; Journal of cleaner production 10.3 (2002): 237-245.</terms:source>
-        <core1:xDefinitionOtherCommon>PSS is a system which includes at least one product and at least one service, related to this product, and may include stakeholders and infrastructure and which bears PSS Role.</core1:xDefinitionOtherCommon>
-        <core1:xDefinitionOtherCommon>PSS is a system which includes at least one product and at least one service, related to this product, and which bears PSS Role.
-PSS role is a role that borne by set of at least an entity that is the specified output of a product production process and at least an entity that is the specified output of a service development process</core1:xDefinitionOtherCommon>
-        <rdfs:label>product service system</rdfs:label>
+        <rdfs:label xml:lang="en">product service system</rdfs:label>
+        <skos:example></skos:example>
         <AnnotationVocabulary:acronym>PSS</AnnotationVocabulary:acronym>
-        <AnnotationVocabulary:naturalLanguageDefinition>system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs [3]. It must include products and service offers, and may include stakeholders and infrastructure (software or hardware).</AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs. It must include products and service offers, and may include stakeholders and infrastructure (software or hardware).</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -579,7 +590,7 @@ PSS role is a role that borne by set of at least an entity that is the specified
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/BusinessProcess"/>
         <core1:xDefinitionOtherCommon>A PSS business process is a planned process that realizes a function which is related to generation of a system which bears a PSS role</core1:xDefinitionOtherCommon>
         <rdfs:label>PSS business process</rdfs:label>
-        <AnnotationVocabulary:naturalLanguageDefinition>PSS Business Process is a process in which PSS is developed, implemented, distributed and used.</AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition>business process in which PSS is developed, implemented, and distributed</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -599,13 +610,49 @@ This was a PSS Resouce, how to solve this? PSS Data is a PSS Resource, immateria
     
 
 
+    <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSDevelopment -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSDevelopment">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSBusinessProcess"/>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSDistribution -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSDistribution">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSBusinessProcess"/>
+        <rdfs:label xml:lang="en">PSS distribution</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSImmaterialResource -->
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSImmaterialResource">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/hasRole"/>
+                        <owl:someValuesFrom rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ImmaterialResourceRole"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
         <core1:xUnresolvedIssues>This is actually an Information Content Entity or?</core1:xUnresolvedIssues>
         <rdfs:label>immaterial resource</rdfs:label>
-        <AnnotationVocabulary:naturalLanguageDefinition></AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition>information content entity which has the immaterial resource role</AnnotationVocabulary:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSImplementation -->
+
+    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSImplementation">
+        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSBusinessProcess"/>
     </owl:Class>
     
 
@@ -618,8 +665,8 @@ This was a PSS Resouce, how to solve this? PSS Data is a PSS Resource, immateria
 It was a PSS Resource, how to solve this? PSS Information is a PSS Resource, immaterial, created by processing (convert or organise or infer) objective facts or observations about PSS related entities (development, deployment and use of PSS) in order to satisfy some need of at least one Stakeholder</core1:xUnresolvedIssues>
         <rdfs:comment>- “Meaning of PSS data” is set of entities to which data are related and the relations among them
 - Give Meaning = semantically enrich</rdfs:comment>
-        <rdfs:label>PSS Information</rdfs:label>
-        <skos:example>PSS Information Discovery: searching for PSS Information  (e.g., feedback) to support developing of a new Service or PSS.</skos:example>
+        <rdfs:label xml:lang="en">PSS Information</rdfs:label>
+        <skos:example>PSS Information Discovery: searching for PSS Information  (e.g., feedback) to support developing of a new commercial service or PSS</skos:example>
         <skos:example>UC Traceability: Reconstructing the history of previous services developments and uses and finding information used and provided (e.g. feedback, origin, time etc.)</skos:example>
         <AnnotationVocabulary:naturalLanguageDefinition>information content entity, created by processing (convert or organise or infer) objective facts or observations about PSS related entities (development, deployment and use of PSS) in order to satisfy some need of at least one Stakeholder</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
@@ -795,9 +842,9 @@ it was a PSS Resource, how to solve this? PSS Knowledge is a PSS Resource, immat
     <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Product_Extension_Service -->
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Product_Extension_Service">
-        <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Service"/>
+        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/CommercialService"/>
         <rdfs:label>Product Extension Service</rdfs:label>
-        <AnnotationVocabulary:naturalLanguageDefinition>Product Extension Service is a PSS Service which adds additional value to the product.</AnnotationVocabulary:naturalLanguageDefinition>
+        <AnnotationVocabulary:naturalLanguageDefinition>commercial service which adds additional value to the product</AnnotationVocabulary:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -901,18 +948,6 @@ Here it serves as an interface class for merging with other ontologies.</rdfs:co
     
 
 
-    <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Service -->
-
-    <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Service">
-        <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/CommercialService"/>
-        <core1:xUnresolvedIssues>as of 10.05.2022: do we still need this entity or can be fully replaced by IOF:commercial service?</core1:xUnresolvedIssues>
-        <rdfs:comment>This is an interface class to other ontologies.</rdfs:comment>
-        <rdfs:label>PSS service</rdfs:label>
-        <AnnotationVocabulary:naturalLanguageDefinition>commercial service which has agents service provider and agent consumer and the business process fulfills a need of the consumer</AnnotationVocabulary:naturalLanguageDefinition>
-    </owl:Class>
-    
-
-
     <!-- https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ServiceRequirementSpecification -->
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ServiceRequirementSpecification">
@@ -926,8 +961,8 @@ Here it serves as an interface class for merging with other ontologies.</rdfs:co
 
     <owl:Class rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#ServiceResource">
         <rdfs:subClassOf rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#PSSResource"/>
-        <rdfs:label>service resource</rdfs:label>
-        <AnnotationVocabulary:semiFormalNaturalLanguageDefinition>Service Resource is a &apos;PSS Resource&apos; that &apos;has role&apos; some Service Resource Role</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
+        <rdfs:label xml:lang="en">service resource</rdfs:label>
+        <AnnotationVocabulary:semiFormalNaturalLanguageDefinition xml:lang="en">service resource is a &apos;PSS Resource&apos; that &apos;has role&apos; some Service Resource Role</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
@@ -1131,8 +1166,6 @@ check the supplier agent in the SCRO</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#computer">
         <rdf:type rdf:resource="https://www.industrialontologies.org/ontology/productservicesystems/ProductServiceSystemOntology#Hardware_Infrastructure"/>
-        <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">correia</dc:creator>
-        <dc:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-09-25T08:46:13Z</dc:date>
     </owl:NamedIndividual>
     
 
