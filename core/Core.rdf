@@ -12,7 +12,6 @@
 ]>
 <rdf:RDF xml:base="https://purl.industrialontologies.org/ontology/core/Core/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:iof-core="https://purl.industrialontologies.org/ontology/core/Core/"
@@ -37,9 +36,8 @@
 		<dcterms:title>Industrial Ontology Foundry (IOF) Core Ontology</dcterms:title>
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
-		<owl:versionIRI rdf:resource="https://purl.industrialontologies.org/ontology/core/20221003/Core/"/>
-		<owl:versionInfo>Development Version - post-Version 1 Beta - 2022-10-03</owl:versionInfo>
-		<skos:changeNote>Updated the ontology to correspond to v2 of the annotation file; introduced the classes: value specification, measurement capability, business function, encoded algorithm, agreement, identification, commitment, party and party role, as well as the defined classes for various roles; refactored the definitions for: computing process, algorithm, business organization, measurement ICE. measurement process, machine; introduced new properties: is value specification of, is measured by at some time.</skos:changeNote>
+		<owl:versionIRI rdf:resource="https://purl.industrialontologies.org/ontology/core/20221007/Core/"/>
+		<skos:changeNote>Updated the ontology to correspond to v2 of the annotation file; introduced the classes: value specification, measurement capability, business function, encoded algorithm, agreement, identification, commitment,commitment specification, party and party role, as well as the defined classes for various roles; refactored the definitions for: computing process, algorithm, business organization, measurement ICE. measurement process, machine; introduced new properties: is value specification of, is measured by at some time.</skos:changeNote>
 		<iof-av:copyright>Copyright (c) 2022 Open Applications Group</iof-av:copyright>
 	</owl:Ontology>
 	
@@ -194,24 +192,23 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;Commitment"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;CommitmentSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">agreement</rdfs:label>
 		<skos:example>prenuptial agreement; memorandum of understanding; non-disclosure agreement; employment agreement; purchase order that has been confirmed by the seller by e-mail; handshake agreement to buy something in the State of Florida, which happens to be legally-binding in that juristiction provided certain evidence can be produced</skos:example>
 		<iof-av:adaptedFrom>FIBO https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements, term by the same name</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1. As defined here, agreement embodies the assertion that it has been negotiated and that there is some understanding between the parties involved. This remains to be formalized in a future update of the IOF. It may well evolve along the lines that the only differentia between an agreement and a contract os whether or not it is legally binding in some juristiction.
-2. Each agreement has two or more commitments as is captured in the FOL and semi-formal. However, due to owl-specific constraints the axiom contains &apos;some&apos; instead of a cardinality restriction.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1. As defined here, agreement embodies the assertion that it has been negotiated and that there is some understanding between the parties involved. This remains to be formalized in a future update of the IOF. It may well evolve along the lines that the only differentia between an agreement and a contract or whether or not it is legally binding in some juristiction.
+2. Each agreement has two or more commitment specifications as is captured in the FOL and semi-formal. However, due to owl-specific constraints the axiom contains &apos;some&apos; instead of a cardinality restriction.</iof-av:explanatoryNote>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:logicAxiom>
 			<rdf:Description>
-				<iof-av:firstOrderLogicAxiom>Agreement(x) → InformationContentEntity(x) ∧ ∃c,∃c&apos;(Commitment(c) ∧ Commitment(c&apos;) ∧ hasContinuantPartAtAllTimes(x,c) hasContinuantPartAtAllTimes(x,c&apos;) ∧ ¬(c=c&apos;))</iof-av:firstOrderLogicAxiom>
-				<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;commitment&apos; then x is an &apos;information content entity&apos; that &apos;has continuant part at all times&apos; two or more &apos;commitments&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+				<iof-av:firstOrderLogicAxiom>Agreement(x) → InformationContentEntity(x) ∧ ∃c,∃c&apos;(CommitmentSpecification(c) ∧ CommitmentSpecification(c&apos;) ∧ hasContinuantPartAtAllTimes(x,c) hasContinuantPartAtAllTimes(x,c&apos;) ∧ ¬(c=c&apos;))</iof-av:firstOrderLogicAxiom>
+				<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agreement&apos; then x is an &apos;information content entity&apos; that &apos;has continuant part at all times&apos; two or more &apos;commitment specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">negotiated understanding between two or more parties that confers a set of commitments on the part of the parties</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>In addition to the general discussion provided for information content enty,there are insufficient constructs to create necessary and sufficient conditions. Namely, commitment needs to be further developed as well as the interconnection between the parties that provide the commitments.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>In addition to the general discussion provided for information content enty,there are insufficient constructs to create necessary and sufficient conditions. Namely, commitment specification needs to be further developed as well as the interconnection between the parties that provide the commitments.</iof-av:primitiveRationale>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Algorithm">
@@ -229,7 +226,6 @@
 				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;information content entity&apos; that &apos;prescribes&apos; some &apos;encoded algorithm&apos; then x is an instance of &apos;algorithm&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity that prescribes procedural or declarative steps which can be translated to computer interpretable instructions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided under information content entity.</iof-av:primitiveRationale>
 	</owl:Class>
@@ -366,7 +362,6 @@
 				<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;function&apos; that is &apos;function of&apos; some &apos;organization&apos; and that is &apos;prescribed by&apos; some &apos;objective specification&apos; and that &apos;has realization&apos; some &apos;business process&apos; then x is a &apos;business function&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">function of an organization to partake in for profit activities as prescribed by the objectives specified by that organization</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>As a function will come into its existance prior to its realization in given business processes necessary and sufficient conditions can not be created at this point due to a lack of patterns to express process types regardless of the time of their existence</iof-av:primitiveRationale>
 	</owl:Class>
@@ -390,7 +385,6 @@
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Business</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Business entities are formally organized according to the laws prevailing in the locales and countries in which it operates or conducts business, and includes company, corporation,  partnership, or sole proprietorship.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>BusinessOrganization(x) ↔ Organization(x) ∧ ∃f(BusinessFunction(f) ∧ hasFunction(x,f))</iof-av:firstOrderLogicDefinition>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">organization engaging in or intending to engage in any activity of buying and selling goods or services for a profit</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of a business organization&apos; is defined as exactly an instance of &apos;organization&apos; that &apos;has function&apos; some &apos;business function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -625,11 +619,10 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:logicAxiom>
 			<rdf:Description>
-				<iof-av:firstOrderLogicAxiom>Agreement(x) ∧ ∃c,∃c&apos;,∃r,∃s(Commitment(c) ∧ Commitment(c&apos;) ∧ CustomerRole(r) ∧ ServiceProviderRole(s) ∧ prescribes(c,r) ∧ prescribes(c&apos;,s) hasContinuantPartAtAllTimes(x,c) hasContinuantPartAtAllTimes(x,c&apos;)) → CommercialServiceAgreement(x)</iof-av:firstOrderLogicAxiom>
-				<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agreement&apos; that &apos;has continuant part at all times&apos; some &apos;commitment&apos; that &apos;prescribes&apos; a &apos;service provider role&apos; and that &apos;has continuant part at all times&apos; some &apos;commitment&apos; that &apos;prescribes&apos; a &apos;customer role&apos; then x is a &apos;commercial service agreement&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+				<iof-av:firstOrderLogicAxiom>Agreement(x) ∧ ∃c,∃c&apos;,∃r,∃s(CommitmentSpecification(c) ∧ CommitmentSpecification(c&apos;) ∧ CustomerRole(r) ∧ ServiceProviderRole(s) ∧ prescribes(c,r) ∧ prescribes(c&apos;,s) hasContinuantPartAtAllTimes(x,c) hasContinuantPartAtAllTimes(x,c&apos;)) → CommercialServiceAgreement(x)</iof-av:firstOrderLogicAxiom>
+				<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agreement&apos; that &apos;has continuant part at all times&apos; some &apos;commitment specification&apos; that &apos;prescribes&apos; a &apos;service provider role&apos; and that &apos;has continuant part at all times&apos; some &apos;commitmen specification&apos; that &apos;prescribes&apos; a &apos;customer role&apos; then x is a &apos;commercial service agreement&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">agreement between a customer and service provider that prescribes some commercial service to be provided by the service provider in exchange for compensation on the part of the customer</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
 	</owl:Class>
@@ -649,42 +642,85 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Commitment">
-		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000016"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000058"/>
-				<owl:allValuesFrom>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000016">
+							<rdf:Description rdf:about="&iof-core;PartyRole">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;dispositionOf"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;Party"/>
+								<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+								<owl:someValuesFrom rdf:resource="&iof-core;CommitmentSpecification"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-us">commitment</rdfs:label>
-		<skos:example>commitment a person makes to themself to stop smoking; verbal commitment a person makes to their spouse to stop smoking; commitment a person makes to a court to attend alcoholics anonymous classes; commitment an organization makes with a government body to file sales tax returns; committment a corporation makes to abide by local, regional and national laws when it is formed legally.</skos:example>
-		<iof-av:adaptedFrom>FIBO https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements (term by the same name)</iof-av:adaptedFrom>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;dispositionOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;Organization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-core;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-core;PartyRole">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+												<owl:someValuesFrom rdf:resource="&iof-core;CommitmentSpecification"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>commitment</rdfs:label>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:logicAxiom>
 			<rdf:Description>
-				<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃b,∃p,∃i(PartyRole(p) ∧ Party(b) ∧ InformationContentEntity(i) ∧ prescribes(x,p) ∧ hasRole(b,p) ∧ designates(i,b) ∧ hasContinuantPartAtAllTimes(x,i)) → Commitment(x)</iof-av:firstOrderLogicAxiom>
-				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specification&apos; that &apos;prescribes&apos; some &apos;party role&apos; y and that &apos;has continuant part at all times&apos; some &apos;information content entity&apos; which &apos;designates&apos; a &apos;party&apos; that &apos;has role&apos; y then x is a &apos;commitment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-			</rdf:Description>
-		</iof-av:logicAxiom>
-		<iof-av:logicAxiom>
-			<rdf:Description>
-				<iof-av:firstOrderLogicAxiom>Commitment(x) → ActionSpecification(b) ∧ ∀z(isConcretizedByAtSomeTime(x,z) → (Disposition(z) ∧ ∃b,∃p(Party(b) ∧ PartyRole(p)  ∧ hasRole(b,p) ∧ prescribes(x,p) ∧ dispositionOf(z,b))))</iof-av:firstOrderLogicAxiom>
-				<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;commitment&apos; then x is an &apos;action specification&apos; and whenever x &apos;is concretized by at some time&apos; y that y must be some &apos;disposition&apos; which is the &apos;disposition of&apos; some &apos;party&apos; which &apos;has role&apos; &apos;party role&apos; that is &apos;prescribed by&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
+				<iof-av:firstOrderLogicAxiom>Commitment(x) → Disposition(x) ∧ ∃y,∃c,∃p((Person(y) ∨ Organization(y)) ∧ CommitmentSpecification(c) ∧ PartyRole(p) ∧ hasRole(y,p) ∧ prescribes(c,p) ∧ specificallyDependsOn(x,p) ∧ dispositionOf(x,y))</iof-av:firstOrderLogicAxiom>
+				<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;commitment&apos; then x is a &apos;disposition&apos; that is the &apos;disposition of&apos; some &apos;party&apos; y and that &apos;specifically depends on&apos; some &apos;party role&apos; that is the &apos;role of&apos; y and is &apos;prescribed by&apos; some &apos;commitment specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">action specification that identifies a particular party and an intention on the part of the party to act or refrain from acting in a prescribed manner</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>disposition of an organization or person to act or refrain from acting in a manner prescribed by a commitment specification</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Specifically, the realization of the disposition in terms of refraining from acting or prefroming actions still need to be established</iof-av:primitiveRationale>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;CommitmentSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
+		<rdfs:label>commitment</rdfs:label>
+		<rdfs:label xml:lang="en-us">commitment specification</rdfs:label>
+		<skos:example>commitment a person makes to themself to stop smoking; verbal commitment a person makes to their spouse to stop smoking; commitment a person makes to a court to attend alcoholics anonymous classes; commitment an organization makes with a government body to file sales tax returns; committment a corporation makes to abide by local, regional and national laws when it is formed legally.</skos:example>
+		<iof-av:adaptedFrom>https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Commitment</iof-av:adaptedFrom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:logicAxiom>
+			<rdf:Description>
+				<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃b,∃p,∃i(PartyRole(p) ∧ Party(b) ∧ InformationContentEntity(i) ∧ prescribes(x,p) ∧ hasRole(b,p) ∧ designates(i,b) ∧ hasContinuantPartAtAllTimes(x,i)) → CommitmentSpecification(x)</iof-av:firstOrderLogicAxiom>
+				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specification&apos; that &apos;prescribes&apos; some &apos;party role&apos; y and that &apos;has continuant part at all times&apos; some &apos;information content entity&apos; which &apos;designates&apos; a &apos;party&apos; that &apos;has role&apos; y then x is a &apos;commitment specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+			</rdf:Description>
+		</iof-av:logicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">action specification that identifies a particular party and how that party should act or refrain from acting in a set of processes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>In addition to the general discussion provided for information content enty,there are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 	</owl:Class>
 	
@@ -781,7 +817,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;computing process&apos; then whenever x &apos;has input&apos; or &apos;has specified output&apos; y that y must be an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">planned process in which an encoded algorithm is realized by an agent or a machine</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;computing process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;concretizes at some time&apos; an &apos;encoded algorithm&apos; which &apos;generically depends on at some time&apos; some &apos;machine&apos; or &apos;agent&apos; which &apos;participate in at some time&apos; the &apos;computing process&apos; and &apos;computing process&apos; either &apos;achieves at some time&apos; some &apos;objective specification&apos; that is &apos;continuant part of at all times&apos; the &apos;encoded algorithm&apos; or it &apos;has specified output&apos; some &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -947,7 +982,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;computing process&apos; then x is an instance of &apos;encoded algorithm&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">plan specification that is the implementation of an algorithm encoded in a specific programming language or framework and that is readily executable</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>In addition to the general discussion provided for information content enty,there are insufficient constructs to create necessary and sufficient conditions. Namely constructs for &apos;encoded in&apos;, &apos;implementation of&apos; and &apos;programming language&apos; or &apos;framework&apos; as well as &apos;compiling process&apos; are still missing.</iof-av:primitiveRationale>
 	</owl:Class>
@@ -1077,7 +1111,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;equipment role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; a &apos;material artifact&apos; y that is either &apos;prescribed by&apos; a &apos;plan specification&apos; p or it is &apos;presribed by&apos; or &apos;satisfies&apos; an &apos;information content entity&apos; that is &apos;continuant part of at all times&apos; p and whenever x &apos;has realization&apos; z that z must be a &apos;planned process&apos;  &apos;prescribed by&apos; p or &apos;prescribed by&apos; some &apos;continuant part of at all times&apos; p and z must &apos;realize&apos; a &apos;function&apos; which is a &apos;function of&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by a material artifact when it is planned to be involved in or is involved in carrying out some part of a planned process and that is not consumed in that planned process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1163,7 +1196,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;identification&apos; then x is an &apos;information content entity&apos; that &apos;designates&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity that is used to uniquely identify an entity within a particular context</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely patterns to connect context to the identification are still missing</iof-av:primitiveRationale>
 	</owl:Class>
@@ -1843,7 +1875,6 @@ Services as products as well as software products will be considered in the next
 2. the values of the measured value specifications are generated during the measurement process that produces the measurement information content entity the measured value specification is a part of</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>MeasuredValueSpecification(x) ↔ ValueSpecification(x) ∧ ∃e((TemporalRegion(e) ∨ ProcessCharacteristic(e) ∨ SpecificallyDependentContinuant(e)) 
 ∧ isValueSpecificationOf(x,e))</iof-av:firstOrderLogicDefinition>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">value specification that contains the measured value of an attribute (specifically dependent continuant or process characteristic or temporal region)</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;measured value specification&apos; is defined exactly as an instance of &apos;information content entity&apos; that &apos;is measured value of&apos; some &apos;process characteristic&apos; or &apos;temporal region&apos; or &apos;specifically dependent continuant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -1872,7 +1903,6 @@ Services as products as well as software products will be considered in the next
 				<iof-av:semiFormalNaturalLanguageAxiom>&apos;measurement capability&apos; x implies x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material entity&apos; and if there exists some y such that x &apos;has realization&apos; y then y must be a &apos;measurement process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">capability of a material entity to measure the value of some entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions. Namely, &apos;to measure the value&apos; needs a better formalization in its connection to the capability</iof-av:primitiveRationale>
 	</owl:Class>
@@ -2019,7 +2049,6 @@ that precedes or partially coincides with the measurement process if it is an oc
 and whenever x &apos;has specified output&apos; b that b must be a &apos;measurement information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">planned process to determine the value of an attribute (specifically dependent continuant or temporal region or process characteristic) of an entity of interest</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, n-ary constructs that are able to adequately capture the relation between the process, attribute and the entity of interest are still lacking. Also formalization of being an entity of interest is lacking</iof-av:primitiveRationale>
 	</owl:Class>
@@ -2084,7 +2113,6 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 				<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;organization&apos; then whenever x &apos;has member part at some time&apos; y that y must be a &apos;peson&apos; and whenever x &apos;has continuant part at some time&apos; z that z must be a &apos;organization&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">group of persons that identifies itself by some name and pursues a common set of plans and objectives</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;organization&apos; is defined exactly as an instance of &apos;organized group of agents&apos; that is &apos;designated by&apos; some &apos;organization identification&apos; and that &apos;has member part at all times&apos; one or more &apos;person&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -2228,8 +2256,8 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<iof-av:explanatoryNote>The concept of a party in a role refers only to those contexts in which in natural English one would call someone a &apos;party&apos; for example being party to a contract or to a transaction; it does not cover entities as performing some role in some activity or process (the separate concept Actor covers that). A good test is whether the relative thing defined as PartyInRole can be sensibly said to have a part or play a part in something. Corresponds to the English (not data modeling) sense of the word &apos;Party&apos;.</iof-av:explanatoryNote>
 		<iof-av:logicAxiom>
 			<rdf:Description>
-				<iof-av:firstOrderLogicAxiom>AgentRole(x) ∧ ∃y,∃i, ∃g ((Person(y) ∨ Organization(y)) ∧ Commitment(i) ∧ Agreement(g) ∧ continuantPartOfAtAllTimes(g,i) ∧ prescribes(i,x) ∧ roleOf(x,y)) → PartyRole(x)</iof-av:firstOrderLogicAxiom>
-				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;agent role&apos; that is &apos;prescribed by&apos; a &apos;commitment&apos;  which is &apos;continuant part of at all times&apos; some agreement  and x is the &apos;role of&apos; some organization or person then x is a &apos;party role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+				<iof-av:firstOrderLogicAxiom>AgentRole(x) ∧ ∃y,∃i, ∃g ((Person(y) ∨ Organization(y)) ∧ CommitmentSpecification(i) ∧ Agreement(g) ∧ continuantPartOfAtAllTimes(g,i) ∧ prescribes(i,x) ∧ roleOf(x,y)) → PartyRole(x)</iof-av:firstOrderLogicAxiom>
+				<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;agent role&apos; that is &apos;prescribed by&apos; a &apos;commitment specification&apos;  which is &apos;continuant part of at all times&apos; some agreement  and x is the &apos;role of&apos; some organization or person then x is a &apos;party role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
 		<iof-av:logicAxiom>
@@ -2267,9 +2295,8 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 			</owl:Class>
 		</owl:equivalentClass>
 		<iof-av:counterExample>buffer designed to keep pH in a bioreactor constant</iof-av:counterExample>
-		<iof-av:explanatoryNote>See expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>See expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience. Therefore, specific kinds of equipment such as machines, devices, and tools should be asserted under Material Artifact and not directly under piece of equipment</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>PieceOfEquipment(x) ↔ MaterialArtifact(x) ∧  ∃r(EquipmentRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">material artifact which has an equipment role</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;piece of equipment&apos; is defined as exactly an instance of &apos;material artifact&apos; that &apos;has role&apos; some &apos;equipment role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -2636,7 +2663,6 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		</owl:equivalentClass>
 		<iof-av:explanatoryNote>See expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>ServiceProvider(x) ↔ (Person(x) ∨ Organization(x)) ∧ ∃r( ServiceProviderRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">person or organization which has a service provider role</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;service provider&apos; is defined as exactly an instance of (&apos;person&apos; or &apos;organization&apos;) that &apos;has role&apos; some &apos;service provider role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -2693,7 +2719,6 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 				<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;service provider role&apos; then x is an &apos;agent role&apos; that is the &apos;role of&apos; some (&apos;person&apos; or &apos;business organization&apos;) that &apos;participates in at some time&apos; a &apos;commercial service&apos; or a &apos;offering for sale business process&apos; which &apos;has participant at some time&apos; some &apos;commercial service agreement&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 			</rdf:Description>
 		</iof-av:logicAxiom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by a person or business organization when it offers to sell or provide a commercial service</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs for economic transactions and ownership are lacking</iof-av:primitiveRationale>
 	</owl:Class>
@@ -2854,7 +2879,6 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0001933</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>value specifications comprehend qualitative, semi-quantitative or quantitative values</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>ValueSpecification(x) ↔ InformationContentEntity(x) ∧ ∃e(Entity(e) ∧ isValueSpecificationOf(x,e))</iof-av:firstOrderLogicDefinition>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity that contains a value of an entity within a classification scheme or on a quantitative scale</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;value specification&apos; is defined exactly as an instance of &apos;information content entity&apos; that &apos;is value specification of&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -3208,7 +3232,6 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<rdfs:range rdf:resource="&iof-core;ValueSpecification"/>
 		<owl:inverseOf rdf:resource="&iof-core;isMeasuredValueOf"/>
 		<skos:example>&apos;80kg&apos; is the value of the weight of a male human on the 5th of October 2022; &apos;37C&apos; is the temperature inside a bioreactor in the 30th min from the process start</skos:example>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an entity to a value specification that contains the value of the entity measured at some time t</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3302,7 +3325,6 @@ category within a classification scheme
 		<rdfs:label xml:lang="en-us">has value specification at all times</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
 		<rdfs:range rdf:resource="&iof-core;ValueSpecification"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an entity to a value specification that contains the value of the entity which does not change during the entire existence of the entity</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3312,7 +3334,6 @@ category within a classification scheme
 		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
 		<rdfs:range rdf:resource="&iof-core;ValueSpecification"/>
 		<owl:inverseOf rdf:resource="&iof-core;isValueSpecificationOf"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an entity to a value specification that contains the value of the entity determined or set at some time t</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3379,7 +3400,6 @@ category within a classification scheme
 		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
 		<skos:example>&apos;80kg&apos; is the measured weight of a particular male human</skos:example>
 		<iof-av:explanatoryNote>value specification can be a measured value of exactly one entity which is why the property has been made functional</iof-av:explanatoryNote>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from a value specification to the entity indicating that it contains the value of the entity measured at some time t</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3421,7 +3441,6 @@ category within a classification scheme
 		<rdfs:domain rdf:resource="&iof-core;ValueSpecification"/>
 		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0001938</iof-av:adaptedFrom>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from a value specification to the entity that it contains the value of</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3442,7 +3461,6 @@ category within a classification scheme
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;measuresAtSomeTime"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an entity to a material entity with a measurement capability that got realized to determine the value of the entity, at some time</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3451,7 +3469,6 @@ category within a classification scheme
 		<rdfs:label xml:lang="en-us">measures at some time</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from a material entity to an entity indicating that the measurement capability of the material entity got realized to determine the value of the entity, at some time</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3655,7 +3672,7 @@ category within a classification scheme
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Commitment">
+							<rdf:Description rdf:about="&iof-core;CommitmentSpecification">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
@@ -3670,7 +3687,7 @@ category within a classification scheme
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Commitment">
+							<rdf:Description rdf:about="&iof-core;CommitmentSpecification">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
@@ -3694,7 +3711,7 @@ category within a classification scheme
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-core;Commitment"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;CommitmentSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-core;ActionSpecification">
 			</rdf:Description>
@@ -3804,7 +3821,7 @@ category within a classification scheme
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Commitment">
+							<rdf:Description rdf:about="&iof-core;CommitmentSpecification">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
@@ -3859,6 +3876,14 @@ category within a classification scheme
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
+	<rdf:Description>
+		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃b,∃p,∃i(PartyRole(p) ∧ Party(b) ∧ InformationContentEntity(i) ∧ prescribes(x,p) ∧ hasRole(b,p) ∧ designates(i,b) ∧ hasContinuantPartAtAllTimes(x,i)) → Commitment(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specification&apos; that &apos;prescribes&apos; some &apos;party role&apos; y and that &apos;has continuant part at all times&apos; some &apos;information content entity&apos; which &apos;designates&apos; a &apos;party&apos; that &apos;has role&apos; y then x is a &apos;commitment specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</rdf:Description>
+	<rdf:Description>
+		<iof-av:firstOrderLogicAxiom>Commitment(x) → ActionSpecification(b) ∧ ∀z(isConcretizedByAtSomeTime(x,z) → (Disposition(z) ∧ ∃b,∃p(Party(b) ∧ PartyRole(p)  ∧ hasRole(b,p) ∧ prescribes(x,p) ∧ dispositionOf(z,b))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;commitment&apos; then x is an &apos;action specification&apos; and whenever x &apos;is concretized by at some time&apos; y that y must be some &apos;disposition&apos; which is the &apos;disposition of&apos; some &apos;party&apos; which &apos;has role&apos; &apos;party role&apos; that is &apos;prescribed by&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
+	</rdf:Description>
 	<rdf:Description>
 		<iof-av:firstOrderLogicAxiom>MeasurementCapability(x)  Capability(x) ∧ y(hasRealization(x,y) MeasurementProcess(y))</iof-av:firstOrderLogicAxiom>
 	</rdf:Description>
