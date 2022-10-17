@@ -1,0 +1,24 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+
+##
+# banner Every class, object property and data property should have a label in American English.
+
+
+
+SELECT DISTINCT ?warning
+WHERE
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+  
+  FILTER NOT EXISTS {?resource rdfs:label ?label. FILTER (LANG(?label) = "en-US")}
+  FILTER ISIRI(?resource)
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("WARNING: Resource ", STR(?resource), " does not have an rdfs:label in American English.") as ?warning)
+}
