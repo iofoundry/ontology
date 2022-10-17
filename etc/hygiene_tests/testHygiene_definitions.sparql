@@ -1,0 +1,18 @@
+PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Every class, object property and data property should have a definition in American English.
+
+
+SELECT DISTINCT ?warning
+WHERE
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+  FILTER NOT EXISTS {?resource iof-av:naturalLanguageDefinition ?definition. FILTER (LANG(?label) = "en-US")}
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("WARNING: Resource ", STR(?resource), " does not have an iof:naturalLanguageDefinition in American English.") as ?warning)
+}
