@@ -1,0 +1,23 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+
+##
+# banner No resource may have more than one label in a given language.
+
+
+SELECT DISTINCT (concat ("WARNING: Resource ", str(?resource), " has multiple labels.") AS ?warning)
+WHERE
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+  
+  ?resource rdfs:label ?label.
+  FILTER NOT EXISTS {?resource owl:deprecated "true"^^xsd:boolean} .
+  
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+}
+GROUP BY ?resource (LANG(?label) as ?lang)
+HAVING (COUNT(?label) > 1)
