@@ -8,12 +8,15 @@ PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
 # banner All labels for data properties must end with 'value' string.
 
 
-SELECT DISTINCT (concat ("PRODERROR: Label ", str(?label), " for dataproperty ", STR(?resource) ," is ill-formed.") AS ?warning)
+SELECT DISTINCT (concat ("PRODERROR: Label ", str(?label), " for data property ", STR(?resource) ," is ill-formed.") AS ?warning)
 WHERE
 {
   ?resource rdf:type owl:DatatypeProperty.
   ?resource rdfs:label ?label.
-  FILTER (!STRENDS(?label, "value"))
+
+  {?label rdfs:range xsd:boolean. FILTER (!STRSTARTS(?label, "is"))}
+  UNION
+  {FILTER NOT EXISTS {?label rdfs:range xsd:boolean. FILTER (!STRSTARTS(?label, "has"))}}
   
 	FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 }

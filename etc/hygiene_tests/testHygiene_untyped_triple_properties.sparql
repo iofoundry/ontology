@@ -1,7 +1,6 @@
 PREFIX afn:   <http://jena.apache.org/ARQ/function#>
 PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 
 
@@ -13,10 +12,9 @@ SELECT DISTINCT ?warning
 WHERE 
 {
   ?subject ?property ?object.
-  FILTER NOT EXISTS {?property owl:deprecated "true"^^xsd:boolean} .
   FILTER NOT EXISTS {?property rdf:type []}
   
-  BIND (concat ("EDMC_WARNING: Property ", xsd:string (?property), " is used but has no type.") AS ?warning)
+  BIND (concat ("EDMC_WARNING: Property ", STR(?property), " is used but has no type.") AS ?warning)
 
   FILTER regex(str(?property), <HYGIENE_TESTS_FILTER_PARAMETER>)
 }

@@ -1,7 +1,6 @@
 PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
 
 PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
 
@@ -16,11 +15,10 @@ WHERE
   ?resource rdf:type ?type.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
 
-  FILTER NOT EXISTS {?subject owl:deprecated "true"^^xsd:boolean.} .
   ?subject iof-av:naturalLanguageDefinition ?definition .
   FILTER (REGEX(?definition, "\\W"+?label+"\\W"))
 
   FILTER regex(str(?subject), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-  BIND (concat ("EDMC_WARNING: Definition of ", str(?subject), " is immediately circular.") AS ?warning)
+  BIND (concat ("WARNING: Definition of ", str(?subject), " is immediately circular.") AS ?warning)
 }
