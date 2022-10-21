@@ -1,0 +1,24 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+
+
+
+##
+# banner Every annotation should have a language tag.
+
+
+
+SELECT DISTINCT ?warning
+WHERE
+{
+  ?annotationProperty rdf:type owl:AnnotationProperty.
+  ?resource ?annotationProperty ?annotation.
+  FILTER ISIRI(?annotation)
+
+  FILTER (STRLEN(STR(LANG(?annotation))) = 0)
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("WARNING: Annotation ", STR(?annotation), " does not have a language tag in property", STR(?annotationProperty)) as ?warning)
+}

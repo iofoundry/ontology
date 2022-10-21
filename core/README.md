@@ -15,7 +15,7 @@ The IOF’s mission is to create a suite of ontologies intended to support digit
 
 The IOF Core Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. All terms appearing in the ontology are reviewed and curated by a working group and consensus is reached by validating usage in the context of manufacturing domain use cases.
 
-WARNING: This repository contains a version 1, “beta release” of the IOF Core Ontology. As such, the contents may undergo some change as we resolve outstanding issues and drive to a first stable release. 
+PRODERROR: This repository contains a version 1, “beta release” of the IOF Core Ontology. As such, the contents may undergo some change as we resolve outstanding issues and drive to a first stable release. 
 
 # Contents of this Repository
 

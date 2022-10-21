@@ -1,0 +1,23 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+
+##
+# banner All labels for data properties must end with 'value' string.
+
+
+SELECT DISTINCT (concat ("PRODERROR: Label <", str(?label), "> for data property ", STR(?resource) ," has an ill-formed begining.") AS ?warning)
+WHERE
+{
+  ?resource rdf:type owl:DatatypeProperty.
+  ?resource rdfs:label ?label.
+
+  {?label rdfs:range xsd:boolean. FILTER (!STRSTARTS(?label, "is"))}
+  UNION
+  {FILTER NOT EXISTS {?label rdfs:range xsd:boolean. FILTER (!STRSTARTS(?label, "has"))}}
+  
+	FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+}
+

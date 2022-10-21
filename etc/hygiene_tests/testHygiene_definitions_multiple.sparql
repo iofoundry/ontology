@@ -1,7 +1,7 @@
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl:   <http://www.w3.org/2002/07/owl#>
-PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
 PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
 
 
@@ -9,14 +9,13 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 # banner No resource may have more than one definition.
 
 
-SELECT DISTINCT (concat ("WARNING: Resource ", str(?resource), " has multiple definitions.") AS ?warning)
+SELECT DISTINCT (concat ("PRODERROR: Resource ", str(?resource), " has multiple definitions.") AS ?warning)
 WHERE
 {
   ?resource rdf:type ?type.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
 
   ?resource iof-av:naturalLanguageDefinition ?definition.
-  FILTER NOT EXISTS {?resource owl:deprecated "true"^^xsd:boolean} .
   
 	FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 }
