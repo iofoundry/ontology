@@ -16,7 +16,11 @@ WHERE
   ?class rdf:type owl:Class.
   ?class iof-av:isPrimitive "true"^^xsd:boolean.
   
-  FILTER NOT EXISTS {?class iof-av:semiFormalNaturalLanguageAxiom ?axiom.}
+  FILTER NOT EXISTS 
+  {
+    ?class iof-av:logicAxiom ?axioms.
+    ?axioms iof-av:semiFormalNaturalLanguageAxiom ?axiom.
+  }
   
   FILTER REGEX(STR(?class), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
