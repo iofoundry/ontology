@@ -16,8 +16,12 @@ WHERE
   ?class rdf:type owl:Class.
   ?class iof-av:isPrimitive "true"^^xsd:boolean.
   
-  FILTER NOT EXISTS {?class iof-av:firstOrderLogicAxiom ?axiom.}
-  
+  FILTER NOT EXISTS 
+  {
+      ?class iof-av:logicAxiom ?axioms.
+      ?axioms iof-av:firstOrderLogicAxiom ?axiom.
+  }
+
   FILTER REGEX(STR(?class), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
   BIND (CONCAT("PRODERROR: A primitive class ", STR(?class), " does not have an FOL axiom.") as ?warning)
