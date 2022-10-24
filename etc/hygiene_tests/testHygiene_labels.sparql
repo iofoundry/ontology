@@ -8,13 +8,13 @@ PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE
 {
   ?resource rdf:type ?type.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
   
-  FILTER NOT EXISTS {?resource rdfs:label ?label. FILTER (LANG(?label) = "en-US")}
+  FILTER NOT EXISTS {?resource rdfs:label ?label. FILTER (langMatches(LANG(?label),"en-US"))}
   FILTER ISIRI(?resource)
   
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
