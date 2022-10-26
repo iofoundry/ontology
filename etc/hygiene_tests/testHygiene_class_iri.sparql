@@ -11,11 +11,11 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?warning
 WHERE
 {
-    ?ontology rdf:type owl:Ontology.
+    ?class rdf:type owl:Class.
 
-    FILTER (!regex(str(?ontology), 'https:\\/\\/purl\\.industrialontologies\\.org\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/'))
+    FILTER (!regex(str(?class), 'https:\\/\\/purl\\.industrialontologies\\.org\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/([A-Z][a-z]+)+'))
 
-    FILTER regex(str(?ontology), <HYGIENE_TESTS_FILTER_PARAMETER>)
+    FILTER regex(str(?class), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-    BIND (CONCAT("EDMC_WARNING:: IRI for ontology ",STR(?ontology)," is still ill-formed") as ?warning)
+    BIND (CONCAT("PRODERROR: IRI for class ",STR(?class)," is still ill-formed") as ?warning)
 }
