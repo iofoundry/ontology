@@ -1,0 +1,22 @@
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#> 
+
+
+##
+# banner IOF IRI should follow https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4385505281/IRI+Structure+and+Format+2022-02
+
+
+SELECT DISTINCT ?warning
+WHERE
+{
+    ?property rdf:type ?type.
+    VALUES ?type {owl:AnnotationProperty owl:ObjectProperty owl:DatatypeProperty}
+
+    FILTER (!regex(str(?property), 'https:\\/\\/purl\\.industrialontologies\\.org\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/[a-z]+([A-Z][a-z]+)*'))
+
+    FILTER regex(str(?property), <HYGIENE_TESTS_FILTER_PARAMETER>)
+
+    BIND (CONCAT("PRODERROR: IRI for property ",STR(?property)," is still ill-formed") as ?warning)
+}
