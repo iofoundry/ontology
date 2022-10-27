@@ -10,13 +10,13 @@ PREFIX cmns-av: <https://www.omg.org/spec/Commons/AnnotationVocabulary/>
 # banner An ontology must have a label.
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?ont a owl:Ontology .
-  FILTER NOT EXISTS {?ont rdfs:label ?label.}
+  ?resource a owl:Ontology .
+  FILTER NOT EXISTS {?resource rdfs:label ?label.}
 
-  FILTER regex(str(?ont), <HYGIENE_TESTS_FILTER_PARAMETER>)	
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)	
 
-  BIND (CONCAT("PRODERROR:: Ontology ", STR(?ont), " does not have a label.") AS ?warning)
+  BIND (CONCAT("PRODERROR: Ontology ", STR(?resource), " does not have a label.") AS ?warning)
 }

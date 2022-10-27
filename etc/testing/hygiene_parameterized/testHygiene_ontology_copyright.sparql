@@ -9,13 +9,13 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 # banner An ontology must have a copyright.
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?ont a owl:Ontology .
-  FILTER regex(str(?ont), <HYGIENE_TESTS_FILTER_PARAMETER>)	
+  ?resource a owl:Ontology .
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)	
   
-  FILTER NOT EXISTS {?ont iof-av:copyright ?copyright.}
+  FILTER NOT EXISTS {?resource iof-av:copyright ?copyright.}
   
-  BIND (CONCAT("PRODERROR:: Ontology ", STR(?ont), " does not have a copyright.") AS ?warning)
+  BIND (CONCAT("PRODERROR: Ontology ", STR(?resource), " does not have a copyright.") AS ?warning)
 }
