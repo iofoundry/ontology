@@ -15,10 +15,10 @@ WHERE
   ?annotationProperty rdf:type owl:AnnotationProperty.
   ?resource ?annotationProperty ?annotation.
   
-  
+  FILTER (DATATYPE(?annotation) != rdf:langString)
   FILTER (STRLEN(STR(DATATYPE(?annotation))) > 0)
   
   FILTER (REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>))
   
-  BIND (CONCAT("WARN: Annotation ", STR(?annotationProperty), " of ", STR(?resource),  " has the datatype defined for property ", STR(?annotationProperty)) as ?warning)
+  BIND (CONCAT("WARN: Annotation ", STR(?annotation), " of ", STR(?resource),  " has the datatype defined for property ", STR(?annotationProperty)) as ?warning)
 }
