@@ -8,15 +8,15 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 # banner IOF IRI should follow https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4385505281/IRI+Structure+and+Format+2022-02
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE
 {
-    ?property rdf:type ?type.
+    ?resource rdf:type ?type.
     VALUES ?type {owl:AnnotationProperty owl:ObjectProperty owl:DatatypeProperty}
 
-    FILTER (!regex(str(?property), 'https:\\/\\/[a-z\\/\\.]+\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/[a-z]+([A-Z][a-z]+)*'))
+    FILTER (!regex(str(?resource), 'https:\\/\\/[a-z\\/\\.]+\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/[a-z]+([A-Z][a-z]+)*'))
 
-    FILTER regex(str(?property), <HYGIENE_TESTS_FILTER_PARAMETER>)
+    FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-    BIND (CONCAT("WARN: IRI for property ",STR(?property)," may be ill-formed") as ?warning)
+    BIND (CONCAT("WARN: IRI for property ",STR(?resource)," may be ill-formed") as ?warning)
 }

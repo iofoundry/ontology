@@ -9,13 +9,13 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 # banner An ontology must have a maturity level.
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?ont a owl:Ontology .
-  FILTER NOT EXISTS {?ont iof-av:maturity ?maturityLevel.}
+  ?resource a owl:Ontology .
+  FILTER NOT EXISTS {?resource iof-av:maturity ?maturityLevel.}
 
-  FILTER regex(str(?ont), <HYGIENE_TESTS_FILTER_PARAMETER>)	
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)	
 
-  BIND (concat ("PRODERROR: Ontology ", STR(?ont), " does not have a maturity level defined.") AS ?warning)
+  BIND (concat ("PRODERROR: Ontology ", STR(?resource), " does not have a maturity level defined.") AS ?warning)
 }

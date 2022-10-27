@@ -7,13 +7,13 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 # banner An ontology must have a version IRI.
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?ont a owl:Ontology .
-  FILTER NOT EXISTS {?ont owl:versionIRI ?versionIRI.}
+  ?resource a owl:Ontology .
+  FILTER NOT EXISTS {?resource owl:versionIRI ?versionIRI.}
 
-  FILTER regex(str(?ont), <HYGIENE_TESTS_FILTER_PARAMETER>)	
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)	
 
-  BIND (concat ("PRODERROR: Ontology ", STR(?ont), " does not have a version IRI defined.") AS ?warning)
+  BIND (concat ("PRODERROR: Ontology ", STR(?resource), " does not have a version IRI defined.") AS ?warning)
 }

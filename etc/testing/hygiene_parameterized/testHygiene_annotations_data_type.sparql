@@ -9,7 +9,7 @@ PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE
 {
   ?annotationProperty rdf:type owl:AnnotationProperty.
@@ -20,5 +20,5 @@ WHERE
   
   FILTER (REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>))
   
-  BIND (CONCAT("WARN: Annotation ", STR(?annotationProperty), " does not have a language tag in property", STR(?annotationProperty)) as ?warning)
+  BIND (CONCAT("WARN: Annotation ", STR(?annotationProperty), " of ", STR(?resource),  " has the datatype defined for property ", STR(?annotationProperty)) as ?warning)
 }

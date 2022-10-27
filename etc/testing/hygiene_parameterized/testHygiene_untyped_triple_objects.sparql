@@ -8,14 +8,14 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 # banner Every object (in a triple) should have its type explicitly declared.
 
 
-SELECT DISTINCT ?warning
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?subject ?property ?object.
-  FILTER NOT EXISTS {?object rdf:type []}
-  FILTER (ISIRI (?object))
+  ?subject ?property ?resource.
+  FILTER NOT EXISTS {?resource rdf:type []}
+  FILTER (ISIRI (?resource))
   
-  BIND (concat ("EDMC_WARN:", STR(?object), " is referenced by ", afn:localname (?property), " but has no type.") AS ?warning)
+  BIND (concat ("EDMC_WARN:", STR(?resource), " is referenced by ", afn:localname (?property), " but has no type.") AS ?warning)
 
-  FILTER regex(str(?object), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 }

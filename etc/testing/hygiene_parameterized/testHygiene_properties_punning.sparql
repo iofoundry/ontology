@@ -5,13 +5,13 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 # Properties should not be punned.
 
 
-SELECT DISTINCT (concat ("EDMC_WARN: Property ", str(?property), " is incorrectly punned.") AS ?warning) ?property
+SELECT DISTINCT (concat ("EDMC_WARN: Property ", str(?resource), " is incorrectly punned.") AS ?warning) ?resource
 WHERE
 {
-    ?property rdf:type ?propertyType.
+    ?resource rdf:type ?propertyType.
     FILTER (REGEX(STR(?propertyType), "ObjectProperty|AnnotationProperty|DatatypeProperty"))
 
-    FILTER regex(str(?property), <HYGIENE_TESTS_FILTER_PARAMETER>)
+    FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 }
-GROUP BY ?property
+GROUP BY ?resource
 HAVING (COUNT(?propertyType) > 1)

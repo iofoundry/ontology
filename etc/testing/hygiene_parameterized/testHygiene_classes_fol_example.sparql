@@ -11,15 +11,15 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 # banner Every primitive class must have an example.
 
 
-SELECT DISTINCT ?warning ?class
+SELECT DISTINCT ?warning ?resource
 WHERE
 {
-  ?class rdf:type owl:Class.
-  ?class iof-av:isPrimitive "true"^^xsd:boolean.
+  ?resource rdf:type owl:Class.
+  ?resource iof-av:isPrimitive "true"^^xsd:boolean.
   
-  FILTER NOT EXISTS {?class skos:example ?example.}
+  FILTER NOT EXISTS {?resource skos:example ?example.}
   
-  FILTER REGEX(STR(?class), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
-  BIND (CONCAT("PRODERROR: A primitive class ", STR(?class), " does not have an example.") as ?warning)
+  BIND (CONCAT("PRODERROR: A primitive class ", STR(?resource), " does not have an example.") as ?warning)
 }

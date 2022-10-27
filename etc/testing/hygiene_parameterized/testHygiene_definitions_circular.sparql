@@ -9,16 +9,16 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 # banner Definitions shouldn't be circular - this finds direct circularities therein.
 
 
-SELECT DISTINCT ?warning ?definition ?label
+SELECT DISTINCT ?warning ?resource
 WHERE 
 {
   ?resource rdf:type ?type.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
 
-  ?subject iof-av:naturalLanguageDefinition ?definition .
+  ?resource iof-av:naturalLanguageDefinition ?definition .
   FILTER (REGEX(?definition, "\\W"+?label+"\\W"))
 
-  FILTER regex(str(?subject), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-  BIND (concat ("WARN: Definition of ", str(?subject), " is immediately circular.") AS ?warning)
+  BIND (concat ("WARN: Definition of ", str(?definition), " is immediately circular.") AS ?warning)
 }
