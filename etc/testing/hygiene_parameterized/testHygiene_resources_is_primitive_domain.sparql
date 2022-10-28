@@ -7,22 +7,21 @@ PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/Annotat
 
 
 ##
-# banner Every primitive class must have a semi-formal natural language axiom.
+# banner Only classes can be primitive
 
 
 SELECT DISTINCT ?warning ?resource
 WHERE
 {
-  ?resource rdf:type owl:Class.
-  ?resource iof-av:isPrimitive "true"^^xsd:boolean.
+  
+  ?resource iof-av:isPrimitive ?rationale.
   
   FILTER NOT EXISTS 
   {
-    ?resource iof-av:logicAxiom ?axioms.
-    ?axioms iof-av:semiFormalNaturalLanguageAxiom ?axiom.
+      ?resource rdf:type owl:Class.
   }
-  
+
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
-  BIND (CONCAT("PRODERROR: Primitive class ", STR(?resource), " does not have a semi-formal natural language axiom.") as ?warning)
+  BIND (CONCAT("PRODERROR: Non-class is declared primitive ", STR(?resource)) as ?warning)
 }
