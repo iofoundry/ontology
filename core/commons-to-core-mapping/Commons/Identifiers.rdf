@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY cmns-av "https://www.omg.org/spec/Commons/AnnotationVocabulary/">
+	<!ENTITY cmns-col "https://www.omg.org/spec/Commons/Collections/">
+	<!ENTITY cmns-dsg "https://www.omg.org/spec/Commons/Designators/">
+	<!ENTITY cmns-id "https://www.omg.org/spec/Commons/Identifiers/">
+	<!ENTITY dct "http://purl.org/dc/terms/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://www.omg.org/spec/Commons/Identifiers/"
+	xmlns:cmns-av="https://www.omg.org/spec/Commons/AnnotationVocabulary/"
+	xmlns:cmns-col="https://www.omg.org/spec/Commons/Collections/"
+	xmlns:cmns-dsg="https://www.omg.org/spec/Commons/Designators/"
+	xmlns:cmns-id="https://www.omg.org/spec/Commons/Identifiers/"
+	xmlns:dct="http://purl.org/dc/terms/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://www.omg.org/spec/Commons/Identifiers/">
+		<rdfs:label>Commons Identifiers Ontology</rdfs:label>
+		<dct:abstract>The identifiers ontology defines commonly used concepts for describing identifiers and the identification schemes that define them, such as various national and international identifiers for legal entities, financial instruments, and the like, derived from the patterns specified in ISO 11179-3, Metadata Registries.</dct:abstract>
+		<dct:contributor>Elisa Kendall, Thematix Partners LLC</dct:contributor>
+		<dct:contributor>Evan Wallace, U.S. National Institute of Standards and Technology (NIST)</dct:contributor>
+		<dct:contributor>Pete Rivett, agnos.ai U.K. Ltd</dct:contributor>
+		<dct:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dct:license>
+		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/AnnotationVocabulary/"/>
+		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Collections/"/>
+		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Designators/"/>
+		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20220501/Identifiers/"/>
+		<skos:note>The identifiers ontology conforms with the OWL 2 DL semantics, and is outside of OWL 2 RL due to (1) imported axioms from the designations ontology, and (2) the inclusion of local some values constraints on the Identifier class. The latter could be removed as needed to support OWL RL rule-based applications that cannot be extended to support it.</skos:note>
+		<skos:note>This ontology was originally designed for use in the OMG Languages, Countries and Codes (LCC) specification as part of the broader LanguageRepresentation ontology. The concepts have also been used in the Financial Industry Business Ontology (FIBO) for representing financial instrument, legal entity, and other identifiers.</skos:note>
+		<cmns-av:copyright>Copyright (c) 2014-2022 Thematix Partners LLC</cmns-av:copyright>
+		<cmns-av:copyright>Copyright (c) 2021-2022 EDM Council, Inc.</cmns-av:copyright>
+		<cmns-av:copyright>Copyright (c) 2021-2022 Object Management Group, Inc.</cmns-av:copyright>
+		<cmns-av:copyright>Copyright (c) 2021-2022 agnos.ai U.K. Ltd</cmns-av:copyright>
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="&cmns-id;IdentificationScheme">
+		<rdfs:subClassOf rdf:resource="&cmns-col;Arrangement"/>
+		<rdfs:label>identification scheme</rdfs:label>
+		<skos:definition>system for minting identifiers for things that specifies constraints on the structure of the identifier</skos:definition>
+		<cmns-av:adaptedFrom>ISO/IEC 11179-3 Information technology - Metadata registries (MDR) - Part 3: Registry metamodel and basic attributes, Third edition, 2013-02-15</cmns-av:adaptedFrom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cmns-id;Identifier">
+		<rdfs:subClassOf rdf:resource="&cmns-dsg;Designation"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cmns-col;compliesWith"/>
+				<owl:onClass rdf:resource="&cmns-id;IdentificationScheme"/>
+				<owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minQualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cmns-id;identifies"/>
+				<owl:someValuesFrom rdf:resource="&owl;Thing"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>identifier</rdfs:label>
+		<dct:source>ISO/IEC 11179-3 Information technology - Metadata registries (MDR) - Part 3: Registry metamodel and basic attributes, Third edition, 2013-02-15, clause 3.1.1</dct:source>
+		<owl:disjointWith rdf:resource="&cmns-dsg;Name"/>
+		<skos:definition>sequence of characters uniquely identifying that with which it is associated</skos:definition>
+		<skos:note>Note that some identifiers may be reused, or may be components of other identifiers, thus the restriction on what an identifier identifies is a &apos;some values&apos; restriction rather than an exact cardinality. Examples of reusable identifiers include ticker symbols, and in the United States, vehicle license numbers, such as vanity plates that can be reassigned and moved from one car to another. Narrower constraints can be added to specific kinds of identifiers that are not reassignable and that identify exactly one thing, such as many national identifiers for people including passport numbers and, in the United States, social security numbers. Also, not all identifiers are explicitly defined in formal schemes, although they may be created or generated according to some formula.</skos:note>
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&cmns-id;identifies">
+		<rdfs:subPropertyOf rdf:resource="&cmns-dsg;denotes"/>
+		<rdfs:label>identifies</rdfs:label>
+		<rdfs:domain rdf:resource="&cmns-id;Identifier"/>
+		<skos:definition>recognizes or establishes identity within some context</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&cmns-id;isIdentifiedBy">
+		<rdfs:subPropertyOf rdf:resource="&cmns-dsg;isSignifiedBy"/>
+		<rdfs:label>is identified by</rdfs:label>
+		<rdfs:range rdf:resource="&cmns-id;Identifier"/>
+		<owl:inverseOf rdf:resource="&cmns-id;identifies"/>
+		<skos:definition>has an identifier that is unique within some context</skos:definition>
+	</owl:ObjectProperty>
+
+</rdf:RDF>

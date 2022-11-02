@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY cmns-av "https://www.omg.org/spec/Commons/AnnotationVocabulary/">
+	<!ENTITY cmns-txt "https://www.omg.org/spec/Commons/TextDatatype/">
+	<!ENTITY dct "http://purl.org/dc/terms/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://www.omg.org/spec/Commons/TextDatatype/"
+	xmlns:cmns-av="https://www.omg.org/spec/Commons/AnnotationVocabulary/"
+	xmlns:cmns-txt="https://www.omg.org/spec/Commons/TextDatatype/"
+	xmlns:dct="http://purl.org/dc/terms/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://www.omg.org/spec/Commons/TextDatatype/">
+		<rdfs:label>Commons Text Datatype Ontology</rdfs:label>
+		<dct:abstract>The text datatype ontology defines a custom datatype that combines language tagged and plain string values. This text datatype is useful in cases where it is not clear whether string values will be tagged or not, but where it is anticipated that multilingual strings might be appropriate.</dct:abstract>
+		<dct:contributor>Elisa Kendall, Thematix Partners LLC</dct:contributor>
+		<dct:contributor>Evren Sirin, Stardog Union</dct:contributor>
+		<dct:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dct:license>
+		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/AnnotationVocabulary/"/>
+		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20220801/TextDatatype/"/>
+		<skos:changeNote>The https://www.omg.org/spec/Commons/20220501/TextDatatype.rdf version of this ontology was modified to add a note to the Text datatype that makes a stronger statement about potential adverse reasoning consequences if used (COMMONS-18).</skos:changeNote>
+		<skos:note>Note that custom datatypes are outside the OWL 2 RL profile and so its usage in applications may need to be commented out.</skos:note>
+		<cmns-av:copyright>Copyright (c) 2020-2022 Stardog Union</cmns-av:copyright>
+		<cmns-av:copyright>Copyright (c) 2020-2022 Thematix Partners LLC</cmns-av:copyright>
+		<cmns-av:copyright>Copyright (c) 2022 Object Management Group, Inc.</cmns-av:copyright>
+	</owl:Ontology>
+	
+	<rdfs:Datatype rdf:about="&rdf;langString">
+		<rdfs:label>langString</rdfs:label>
+		<dct:source>BCP 47: Tags for Identifying Languages, available at https://tools.ietf.org/search/bcp47</dct:source>
+		<dct:source>https://www.w3.org/TR/rdf11-concepts/#section-Datatypes</dct:source>
+		<skos:definition>literal with a non-empty language tag</skos:definition>
+		<skos:note>This datatype declaration is included to support language-tagged strings, as defined in RDF 1.1. The rdf:langString datatype has not been incorporated directly in OWL 2 to date, and so it must be declared in order to enable its inclusion in the declaration of the Text datatype. Language-tagged strings must be well-formed according to section 2.2.9 of [BCP47].</skos:note>
+	</rdfs:Datatype>
+	
+	<rdfs:Datatype rdf:about="&cmns-txt;Text">
+		<rdfs:label>text</rdfs:label>
+		<dct:source>ISO/IEC 11179-3 Information technology - Metadata registries (MDR) - Registry metamodel and basic attributes, Third edition, 2013-02-15</dct:source>
+		<owl:equivalentClass>
+			<rdfs:Datatype>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&xsd;string">
+					</rdf:Description>
+					<rdf:Description rdf:about="&rdf;langString">
+					</rdf:Description>
+				</owl:unionOf>
+			</rdfs:Datatype>
+		</owl:equivalentClass>
+		<skos:definition>datatype that maps to xsd:string and rdf:langString base types for string-valued data properties and annotations</skos:definition>
+		<skos:note>Text is data in the form of characters, symbols, words, phrases, paragraphs, sentences, tables, or other character arrangements, intended to convey a meaning, and whose interpretation is essentially based upon the reader&apos;s knowledge of some natural language or artificial language.</skos:note>
+		<skos:note>There are cases where the representation of certain features of something, such as a name, which might be multilingual or might not, defaults to rdfs:Literal when left unspecified, although it should be limited to plain strings or language-typed strings (i.e., exclude numbers, binary types, and so forth). There is no combined datatype available in RDF or OWL, however, which is the role that this datatype is intended to fulfill.</skos:note>
+		<skos:scopeNote>This composite datatype should be used in cases where a standard representation using one of the options in the union for string values does not work. Note that certain tools may not support rdf:langString, including, but not limited to some versions of Protege, and that custom datatypes are not supported in OWL 2 RL so it may need to be ignored or commented out in OWL 2 RL applications.</skos:scopeNote>
+		<cmns-av:usageNote>Commons users that depend on tools that lack support for rdf:langString may not want to use this datatype in their applications. Testing with specific reasoners, for example, is advised.</cmns-av:usageNote>
+	</rdfs:Datatype>
+	
+	<owl:DatatypeProperty rdf:about="&cmns-txt;hasTextValue">
+		<rdfs:label>has text value</rdfs:label>
+		<skos:definition>provides a string value for something, with or without a language tag</skos:definition>
+		<skos:note>Note that although the intended range for this property is Text, we have left the range undefined so that it can be used with tools that do not support rdf:langString.</skos:note>
+	</owl:DatatypeProperty>
+
+</rdf:RDF>
