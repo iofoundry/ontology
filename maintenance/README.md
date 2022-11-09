@@ -53,3 +53,7 @@ Lupp, D.P., Hodkiewicz, M. and Skjæveland, M.G., 2020. Template libraries for i
 ## Development of the Maintenance Reference Ontology
 
 The final version of this Maintenance Reference Ontology was compiled by Caitlin Woods and Prof. Melinda Hodkiewicz at the University of Western Australia and Dr. Matt Selway and Professor Marcus Stumptner at the University of South Australia. Other active participants in the process were Will Sobel, Chris Will and Professor Farhad Ameri, all based in the USA. This ontology is managed by the IOF Maintenance Working Group.
+
+## Current Outstanding Issues
+
+There is an issue in the definition of 'maintenance work order record'. Currently, it assumes that a work order must involve a 'maintenance process'. Therefore, a work order cannot be made up of purely 'supporting maintenance activity' tasks.
