@@ -2,17 +2,19 @@
 
 ## About the Maintenance Reference Ontology
 
-The Maintenance Reference Ontology supports modeling of concepts associated with asset reliability and maintenance management. It is relevant for data captured at the design stage of the asset life cycle (e.g. in failure modes and effects analysis) and in the operations and maintenance phase of the life cycle (e.g. asset reliability and the maintenance activities associated with delivering value from use of the assets).
+The Maintenance Reference Ontology supports modelling of concepts associated with asset reliability and maintenance management. It is relevant for data captured at the design stage of the asset life cycle (e.g. in failure modes and effects analysis) and in the operations and maintenance phase of the life cycle (e.g. asset reliability and the maintenance activities associated with delivering value from use of the assets).
 
 This Maintenance Reference Ontology is a minimal ontology aligned to IOF CORE and by extension BFO. It deliberately captures only concepts frequently captured in data in the maintenance phase of the asset life cycle. 
 
 This minimal ontology supports the use of modular ontologies for specific classes of interest and application ontologies (examples below). Proposed modular ontologies include asset functions, FMEA codes, maintenance activities. Each of these can be attached to this Reference Ontology. 
 
-This Maintenance Reference Ontology includes the following classes and object properties. Each defined class has natural language, first order logic and a semi-formal definition. Each primitive has a natural language definition and necessary or sufficient axioms.
+This Maintenance Reference Ontology includes the following classes and object properties. Each defined class has natural language, first order logic and a semi-formal definition. Each primitive has a natural language definition and necessary or sufficient axioms as appropriate.
+
+![Taxonomy and relationships of the Maintenance Reference Ontology](images/MaintenanceDevRelationships.png)
 
 ## Organisation of the folder
 
-The ontology is in the file 'maintenance.rdf'.
+The ontology is in the file 'Maintenance.rdf'.
 
 Some application ontologies may wish to import the cco and/or relations ontologies and copies of these are provided in the imports folder.
 
@@ -22,11 +24,11 @@ Images produced to illustrate the reference ontology are in the images folder.
 
 ## Version history
 
-### 2022-11-08: 
-Current development. 
+### Current development (2022-11-08):
 
 Added 
 - Classes and object properties for initial release
+- All required annotations; optional annotations where appropriate
 
 ## Contributing to this ontology
 
@@ -52,8 +54,8 @@ Lupp, D.P., Hodkiewicz, M. and Skjæveland, M.G., 2020. Template libraries for i
 
 ## Development of the Maintenance Reference Ontology
 
-The final version of this Maintenance Reference Ontology was compiled by Caitlin Woods and Prof. Melinda Hodkiewicz at the University of Western Australia and Dr. Matt Selway and Professor Marcus Stumptner at the University of South Australia. Other active participants in the process were Will Sobel, Chris Will and Professor Farhad Ameri, all based in the USA. This ontology is managed by the IOF Maintenance Working Group.
+The final version of this Maintenance Reference Ontology was compiled by Caitlin Woods and Prof. Melinda Hodkiewicz at the University of Western Australia and Dr. Matt Selway and Prof. Markus Stumptner at the University of South Australia. Other active participants in the process were Will Sobel, Chris Will and Professor Farhad Ameri, all based in the USA. This ontology is managed by the IOF Maintenance Working Group.
 
 ## Current Outstanding Issues
 
-There is an issue in the definition of 'maintenance work order record'. Currently, it assumes that a work order must involve a 'maintenance process'. Therefore, a work order cannot be made up of purely 'supporting maintenance activity' tasks.
+There is a potential issue in the definition of 'maintenance work order record'. Currently, it assumes that a work order must involve a 'maintenance process'. Therefore, a work order cannot be made up of purely 'supporting maintenance activity' tasks.
