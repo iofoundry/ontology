@@ -8,7 +8,7 @@ This Maintenance Reference Ontology is a minimal ontology aligned to IOF CORE an
 
 This minimal ontology supports the use of modular ontologies for specific classes of interest and application ontologies (examples below). Proposed modular ontologies include asset functions, FMEA codes, maintenance activities. Each of these can be attached to this Reference Ontology. 
 
-This Maintenance Reference Ontology includes the following classes and object properties. Each defined class has natural language, first order logic and a semi-formal definition. Each primite has a natural language definition and necessary or sufficient axioms.
+This Maintenance Reference Ontology includes the following classes and object properties. Each defined class has natural language, first order logic and a semi-formal definition. Each primitive has a natural language definition and necessary or sufficient axioms.
 
 ## List of classes in the Maintenance Reference Ontology
 
