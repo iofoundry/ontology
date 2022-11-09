@@ -10,27 +10,27 @@ This minimal ontology supports the use of modular ontologies for specific classe
 
 This Maintenance Reference Ontology includes the following classes and object properties. Each defined class has natural language, first order logic and a semi-formal definition. Each primitive has a natural language definition and necessary or sufficient axioms.
 
-## List of classes in the Maintenance Reference Ontology
+## Organisation of the folder
 
-- failure mode code
-- qualification specification
-- required function
-- undesireable disposition
-- disposition to fail
-- disposition to exhibit undesirable behaviour
-- failure event
-- failure effect
-- failure process
-- functioning process
-- maintenance process
-- degraded state
-- failed state
-- operating state
-- maintenance activity
-- maintenance state
-- supporting maintenance activity
-- qualified person
-- maintenance work order record
+The ontology is in the file 'maintenance.rdf'.
+
+Some application ontologies may wish to import the cco and/or relations ontologies and copies of these are provided in the imports folder.
+
+Users of plantuml can create a figure of the classes using the text file in the plant uml folder. 
+
+Images produced to illustrate the reference ontology are in the images folder.
+
+## Version history
+
+### 2022-11-08: 
+Current development. 
+
+Added 
+- Classes and object properties for initial release
+
+## Contributing to this ontology
+
+The authors welcome discussion on the future of this Reference Ontology. Contributors are requested to post an issue in this GitHub folder and use the label 'maintenance'.
 
 
 ## Associated Application Ontologies 
