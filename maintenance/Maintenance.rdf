@@ -30,6 +30,7 @@
         <dcterms:references rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
         <dcterms:title>Industrial Ontology Foundry (IOF) Maintenance Reference Ontology</dcterms:title>
         <rdfs:label xml:lang="en">Maintenance Reference Ontology</rdfs:label>
+        <iof-av:maturity>Provisional</iof-av:maturity>
     </owl:Ontology>
     
 
@@ -145,6 +146,7 @@
     <owl:ObjectProperty rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/hasState">
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
         <owl:inverseOf rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/stateOf"/>
+        <rdfs:domain rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
         <rdfs:range rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceState"/>
         <iof-av:maturity>Provisional</iof-av:maturity>
         <iof-av:naturalLanguageDefinition>inverse of &apos;stateOf&apos;</iof-av:naturalLanguageDefinition>
@@ -334,6 +336,23 @@
 
     <owl:Class rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/FailureEffect">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000063"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/FailureEffect"/>
+                            <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/FailureEvent"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label>failure effect</rdfs:label>
         <skos:example>leaking pipe, erratic operation, equipment does not run</skos:example>
         <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</iof-av:isPrimitive>
@@ -584,6 +603,18 @@
 
     <owl:Class rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/QualifiedPerson">
         <rdfs:subClassOf rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceActivity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/satisfies"/>
+                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/QualificationSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label>qualified person</rdfs:label>
         <rdfs:seeAlso>qualification specification</rdfs:seeAlso>
         <skos:example>electrician, fitter, mechanic</skos:example>
@@ -704,6 +735,25 @@
     <!-- https://purl.industrialontologies.org/ontology/core/Core/State -->
 
     <owl:Class rdf:about="https://purl.industrialontologies.org/ontology/core/Core/State"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/DegradedState"/>
+            <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/FailedState"/>
+            <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/OperatingState"/>
+        </owl:members>
+    </rdf:Description>
 </rdf:RDF>
 
 
