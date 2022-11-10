@@ -38,14 +38,33 @@
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Collections/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/ContextualDesignators/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Identifiers/"/>
-		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20220501/ContextualIdentifiers/"/>
+		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20221101/ContextualIdentifiers/"/>
+		<skos:changeNote>https://www.omg.org/spec/Commons/20220501/ContextualIdentifiers.rdf version of this ontology was modified to add a ContextualIdentificationScheme and require a ContextualIdentifier to have context (COMMONS-26).</skos:changeNote>
 		<cmns-av:copyright>Copyright (c) 2022 Object Management Group, Inc.</cmns-av:copyright>
 		<cmns-av:copyright>Copyright (c) 2022 Thematix Partners LLC</cmns-av:copyright>
 	</owl:Ontology>
 	
+	<owl:Class rdf:about="&cmns-cxtid;ContextualIdentificationScheme">
+		<rdfs:subClassOf rdf:resource="&cmns-id;IdentificationScheme"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cmns-cxtdsg;isApplicableIn"/>
+				<owl:someValuesFrom rdf:resource="&cmns-cxtdsg;Context"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>contextual identification scheme</rdfs:label>
+		<skos:definition>identification scheme that applies within one or more contexts</skos:definition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&cmns-cxtid;ContextualIdentifier">
 		<rdfs:subClassOf rdf:resource="&cmns-cxtdsg;ContextualDesignation"/>
 		<rdfs:subClassOf rdf:resource="&cmns-id;Identifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cmns-cxtdsg;isApplicableIn"/>
+				<owl:someValuesFrom rdf:resource="&cmns-cxtdsg;Context"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>contextual identifier</rdfs:label>
 		<skos:definition>sequence of characters uniquely identifying that with which it is associated, within a specified context</skos:definition>
 		<skos:note>The context within which an identifier is unique may be limited to a given data source, registry or jurisdiction, or may be designed to be globally unique such as a legal entity identifier issued by a registrar authorized by the Global LEI Foundation. Such identifiers may have other features associated with them, such as the date they were originally issued, and information related to registration, validation, recency, and so forth.</skos:note>
