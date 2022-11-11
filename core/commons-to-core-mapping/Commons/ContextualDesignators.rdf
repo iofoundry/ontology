@@ -36,8 +36,8 @@
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Collections/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/DatesAndTimes/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/Designators/"/>
-		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20220801/ContextualDesignators/"/>
-		<skos:changeNote>https://www.omg.org/spec/Commons/20220501/ContextualDesignators.rdf version of this ontology was modified to eliminate a double space in a note on ContextualName (COMMONS-6).</skos:changeNote>
+		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20221101/ContextualDesignators/"/>
+		<skos:changeNote>https://www.omg.org/spec/Commons/20220501/ContextualDesignators.rdf version of this ontology was modified to eliminate a double space in a note on ContextualName (COMMONS-6) and to require a ContextualName to have context (COMMONS-26).</skos:changeNote>
 		<skos:note>The contextual designators ontology conforms with the OWL 2 DL semantics, and is outside of OWL 2 RL due to (1) imported axioms from the designations and dates and times ontologies, and (2) the inclusion of local some values and min 0 cardinality constraints. The latter could be removed as needed to support OWL RL rule-based applications that cannot be extended to support it.</skos:note>
 		<cmns-av:copyright>Copyright (c) 2020-2022 Thematix Partners LLC</cmns-av:copyright>
 		<cmns-av:copyright>Copyright (c) 2020-2022 Working Ontologist LLC</cmns-av:copyright>
@@ -77,11 +77,17 @@
 	<owl:Class rdf:about="&cmns-cxtdsg;ContextualName">
 		<rdfs:subClassOf rdf:resource="&cmns-cxtdsg;ContextualDesignation"/>
 		<rdfs:subClassOf rdf:resource="&cmns-dsg;Name"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cmns-cxtdsg;isApplicableIn"/>
+				<owl:someValuesFrom rdf:resource="&cmns-cxtdsg;Context"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>contextual name</rdfs:label>
 		<skos:definition>designation by which someone, some place, or something is known in some context</skos:definition>
 		<skos:note>Names for people may be considered to be personally identifying information (PII), especially when other details are also available. Specifying names as string values attached directly to an individual makes name reconciliation and management, including from a privacy perspective, more challenging.</skos:note>
 		<skos:note>Names of people, places, and organizations often change over time, and may be used in a particular context, such as a DBA name for a business or legal name for a person.</skos:note>
-		<skos:note>This class is designed to be extended to include provenance details regarding the source for a particular name as well as links to the various contexts in which it is used.</skos:note>
+		<skos:scopeNote>This class is designed to be extended to include provenance details regarding the source for a particular name as well as links to the various contexts in which it is used.</skos:scopeNote>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&cmns-cxtdsg;appliesTo">

@@ -31,8 +31,8 @@
 		<dct:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dct:license>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/AnnotationVocabulary/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/TextDatatype/"/>
-		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20220801/Designators/"/>
-		<skos:changeNote>https://www.omg.org/spec/Commons/20220501/Designators.rdf version of this ontology was modified to eliminate a double space in the abstract and a note on Designation (COMMONS-6).</skos:changeNote>
+		<owl:versionIRI rdf:resource="https://www.omg.org/spec/Commons/20221101/Designators/"/>
+		<skos:changeNote>The https://www.omg.org/spec/Commons/20220501/Designators.rdf version of this ontology was modified to eliminate a double space in the abstract and a note on Designation (COMMONS-6) and to clarify the definition of designation, denotes, and name, and better align them with ISO 704 / ISO 1087 (COMMONS-26).</skos:changeNote>
 		<skos:note>The designators ontology conforms with the OWL 2 DL semantics, and is outside of OWL 2 RL due to the inclusion of one minimum cardinality constraint (which is tyically ignored, but is important - see note on the Designator class) and two value restrictions. These constraints can be removed if required to support OWL RL rule-based applications that cannot be extended to support them.</skos:note>
 		<cmns-av:copyright>Copyright (c) 2014-2022 Thematix Partners LLC</cmns-av:copyright>
 		<cmns-av:copyright>Copyright (c) 2021-2022 Mayo Clinic</cmns-av:copyright>
@@ -56,11 +56,12 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>designation</rdfs:label>
-		<dct:source>ISO 1087 Terminology work and terminology science - Vocabulary, Second edition, 2019-09, clause 3.4.1</dct:source>
-		<skos:definition>representation for someone or something by a sign that denotes it</skos:definition>
+		<skos:definition>representation for something, or for a conceptualization thereof, that denotes it in a domain or subject</skos:definition>
 		<skos:note>A designation can be a term including appellations, a proper name, or a symbol.</skos:note>
 		<skos:note>A designation can be linguistic or non-linguistic. It can consist of various types of characters, but also punctuation marks such as hyphens and parentheses, governed by domain-, subject-, or language-specific conventions.</skos:note>
 		<skos:note>Note that the use of the min 0 cardinality restriction in the definition of this class is provided as a reminder that designators are expected, in many cases, to have a text value associated with them. There are cases where this is not true, however, including symbols. And, there may be cases where the value is not known. Additionally, not all tools support rdf:langString, thus its use in the definition of the Text datatype may cause errors, for example in value and some number restrictions. Min 0 cardinality constraints are ignored by reasoners and other processors, so this allows us to say that the possible values for this property are likely either xsd:string or rdf:langString, but does not require it depending on the environment in which the ontology is deployed.</skos:note>
+		<cmns-av:adaptedFrom>ISO 1087 Terminology work and terminology science - Vocabulary, Second edition, 2019-09, clause 3.4.1</cmns-av:adaptedFrom>
+		<cmns-av:adaptedFrom>ISO 704 Terminology work - Principles and methods, Fourth edition, 2022-07, Figure 1</cmns-av:adaptedFrom>
 		<cmns-av:synonym>designator</cmns-av:synonym>
 	</owl:Class>
 	
@@ -73,8 +74,10 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>name</rdfs:label>
-		<dct:source>ISO/IEC 11179-3 Information technology - Metadata registries (MDR) - Registry metamodel and basic attributes, Third edition, 2013-02-15</dct:source>
-		<skos:definition>distinctive designation for an individual (person, organization or thing)</skos:definition>
+		<skos:definition>designation for something by a linguistic expression</skos:definition>
+		<skos:note>In ISO 1087, a name may be an appellation and is defined as a term that is applied to a group of objects whose relevant properties are identical, whereas a proper name is a designation that represents an individual object.</skos:note>
+		<cmns-av:adaptedFrom>ISO/IEC 11179-3 Information technology - Metadata registries (MDR) - Registry metamodel and basic attributes, Third edition, 2013-02-15, clause 3.2.83</cmns-av:adaptedFrom>
+		<cmns-av:explanatoryNote>Note that unlike symbols and other designations, a name is explicitly not linguistically neutral.</cmns-av:explanatoryNote>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&cmns-dsg;defines">
@@ -90,8 +93,11 @@
 		<rdfs:domain rdf:resource="&cmns-dsg;Designation"/>
 		<rdfs:seeAlso rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/semiotics.owl#"/>
 		<rdfs:seeAlso rdf:resource="https://www.w3.org/2016/05/ontolex/"/>
-		<skos:definition>serves as a sign for something</skos:definition>
+		<skos:definition>serves as a sign for something, or for a conceptualization thereof</skos:definition>
 		<skos:note>Note that in some references, such as the semiotics ontology from Ontology Design Patterns,&apos;denotes&apos; can be used to talk about e.g. entities denoted by proper nouns: the proper noun &apos;Leonardo da Vinci&apos; denotes the person Leonardo da Vinci; as well as to talk about sets of entities that can be described by a common noun: the common noun &apos;person&apos; denotes the collection of all persons in a domain of discourse. Other references that may be useful for interpreting &apos;denotes&apos; include OntoLex. The interpretation of &apos;denotes&apos; in this context is more general, but intended to reflect its usage in the semiotic triangle.</skos:note>
+		<skos:scopeNote>This property could be specialized to differentiate the notion of referring to something, i.e., a referent, from the notion of evoking a concept. Consider that in OntoLex, the term denotes is used to designate the sign referent relationship specifically, which in ISO 704:2022 is called &apos;refers to&apos; in Figure 1. This definition is also meant to cover the OntoLex notion of evokes, which in ISO 704:2022 is called designates or represents.</skos:scopeNote>
+		<cmns-av:adaptedFrom>ISO 1087 Terminology work and terminology science - Vocabulary, Second edition, 2019-09, clause 3.4.1</cmns-av:adaptedFrom>
+		<cmns-av:adaptedFrom>ISO 704 Terminology work - Principles and methods, Fourth edition, 2022-07, Figure 1</cmns-av:adaptedFrom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&cmns-dsg;describes">
