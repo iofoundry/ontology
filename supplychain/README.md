@@ -15,6 +15,8 @@ To open the Supply Chain ontology, perform the following steps:
 
 SCRO is currenlty in draft status and it is not officially released yet.
 
+![Taxonomy of SCRO Continuants](images/SCRO-continuants.png)
+
 
 ## Version history
 
