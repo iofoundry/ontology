@@ -1,5 +1,5 @@
 # Supply Chain Ontology
-Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain reference ontology can be extended to create application ontologies addressing the needs of specific use cases.
+Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain reference ontology can be extended to create application ontologies addressing the needs of specific use cases. is Developmen of SCRO was initially motivated by use cases related to supplier discovery (i.e., supplier capability matching with manufacturing requirements), logistics,  and supply chain traceability.
  
 
 SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
@@ -16,5 +16,14 @@ To open the Supply Chain ontology, perform the following steps:
 SCRO is currenlty in draft status and it is not officially released yet.
 
 > This ontology is developed in the context of IOF Supply Chain Working Group activities. The short term objectives of the SC WG are to identify the requirements of the SCM reference ontology (an IOF ontology) and to provide formal and informal definitions for the important terms in supply chain domain. In the long term, we are planning  to develop the the SCM reference ontology (RO) and to develop a few application ontologies to validate the developed reference ontology. The Supply Chain (SC) WG is motivated by use cases such as supplier discovery (i.e., supplier capability matching with manufacturing requirements) and  traceability.
+
+## Version history
+
+### Current development (2022-11-08):
+
+Added 
+- Classes and object properties for initial release
+- All required annotations; optional annotations where appropriate
+
 
 ## Current Outstanding Issues
