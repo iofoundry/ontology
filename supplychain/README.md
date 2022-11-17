@@ -1,8 +1,6 @@
 # Supply Chain Ontology
 Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain reference ontology can be extended to create application ontologies addressing the needs of specific use cases.
-
-
-SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. 
+ 
 
 SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
 
