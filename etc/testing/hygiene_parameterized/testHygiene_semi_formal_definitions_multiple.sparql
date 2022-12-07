@@ -1,0 +1,23 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+
+PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner No resource may have more than one definition.
+
+
+SELECT DISTINCT (concat ("PRODERROR: Resource ", str(?resource), " has multiple semi-formal definitions.") AS ?warning) ?resource
+WHERE
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+
+  ?resource iof-av:semiFormalNaturalLanguageDefinition ?definition.
+  
+	FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+}
+GROUP BY ?resource (LANG(?definition) as ?lang)
+HAVING (COUNT(?definition) > 1)

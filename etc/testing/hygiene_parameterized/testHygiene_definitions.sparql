@@ -1,0 +1,22 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+
+PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Every class, object property and data property must have a definition in American English.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+  FILTER NOT EXISTS {?resource iof-av:naturalLanguageDefinition ?definition. FILTER (langMatches(LANG(?definition),"en-US"))}
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: Resource ", STR(?resource), " does not have an iof:naturalLanguageDefinition in American English.") as ?warning)
+}

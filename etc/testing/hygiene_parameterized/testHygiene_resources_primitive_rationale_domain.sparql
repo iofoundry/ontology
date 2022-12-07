@@ -1,0 +1,27 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX iof-av: <https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Primitive rationales apply only to classes.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  
+  ?resource iof-av:primitiveRationale ?rationale.
+  
+  FILTER NOT EXISTS 
+  {
+      ?resource rdf:type owl:Class.
+  }
+
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: Primitive rationale is applied not to a class ", STR(?resource)) as ?warning)
+}
