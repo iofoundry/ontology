@@ -10,9 +10,9 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?warning ?resource
 WHERE 
 {
-  ?subject ?property ?resource.
-  FILTER NOT EXISTS {?resource rdf:type []}
-  FILTER (ISIRI (?resource))
+  ?subject ?property ?object.
+  FILTER NOT EXISTS {?object rdf:type []}
+  FILTER (ISIRI (?object))
   FILTER (?property != owl:versionIRI)
   
   BIND (concat ("WARN: (EDMC) Property ", STR(?resource), " is an object in triple <", STR(?subject), " ", STR(?property)," ", STR(?object), "> but has no type declared.") AS ?warning)
