@@ -583,30 +583,52 @@
     <!-- https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceProcess -->
 
     <owl:Class rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceProcess">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceActivity" />
-                    <owl:Class>
-                        <owl:intersectionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess" />
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000118" />
-                                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceActivity" />
-                            </owl:Restriction>
-                        </owl:intersectionOf>
-                    </owl:Class>
-                </owl:unionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess" />
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem" />
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput" />
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem" />
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy" />
+                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceStrategy" />
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label>maintenance process</rdfs:label>
         <skos:example>process of replacing a pump, process of calibrating a sensor</skos:example>
-        <iof-av:firstOrderLogicDefinition>MaintenanceProcess(x) ↔ MaintenanceActivity(x)  ∨ (PlannedProcess(x)  ∧ ∃y(MaintenanceActivity(x) ∧  hasProperOccurrentPart(x, y)))</iof-av:firstOrderLogicDefinition>
-        <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</iof-av:isPrimitive>
-        <iof-av:maturity>Release</iof-av:maturity>
-        <iof-av:naturalLanguageDefinition>process to do with retaining or restoring the function of a maintainable item</iof-av:naturalLanguageDefinition>
-        <iof-av:semiFormalNaturalLanguageDefinition>maintenance process&apos;: every instance of &apos;maintenance process&apos; is defined as exactly an instance of &apos;maintenance activity&apos; or an instance of &apos;planned process&apos; that &apos;has proper occurrent part&apos; some &apos;maintenance activity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+        <iof-av:firstOrderLogicAxiom>LA1: PlannedProcess(p) ∧ (∃x(MaintenanceStrategy(x) ∧ prescribes(x, p)) → MaintenanceProcess(p)</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicAxiom>LA2: MaintenanceProcess(p) → ∃x(MaintenanceStrategy(x) ∧ prescribes(x, p))</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicAxiom>LA3: MaintenanceProcess(p) → ∃x(MaintainableMaterialItem(x) ∧ hasParticipantAtAllTimes(p, x) ∧ hasInput(p, x))</iof-av:firstOrderLogicAxiom>
+        <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</iof-av:isPrimitive>
+        <iof-av:maturity>Provisional</iof-av:maturity>
+        <iof-av:naturalLanguageDefinition>process to do with retaining or restoring the function of a maintainable item under a maintenance strategy</iof-av:naturalLanguageDefinition>
+        <iof-av:primitiveRationale>Additional analysis to be performed, particularly w.r.t. the associated maintenance strategy.</iof-av:primitiveRationale>
+        <iof-av:semiFormalNaturalLanguageAxiom>LA1: if p is &apos;planned process&apos; that is prescribed by some &apos;maintenance strategy&apos; then x is a &apos;maintenance process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+        <iof-av:semiFormalNaturalLanguageAxiom>LA2: if p is &apos;maintenance process&apos; then there is some &apos;maintenance strategy&apos; that &apos;prescribes&apos; p</iof-av:semiFormalNaturalLanguageAxiom>
+        <iof-av:semiFormalNaturalLanguageAxiom>LA3: if p is &apos;maintenance process&apos; then there is some &apos;maintenanable material item&apos; x such that p &apos;has input&apos; x and p &apos;has participant at all times&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
+    </owl:Class>
+
+
+    <!-- https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceStrategy -->
+
+    <owl:Class rdf:about="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceStrategy">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+        <rdfs:label xml:lang="en">maintenance strategy</rdfs:label>
+        <skos:example>specification of a corrective strategy for maintaining a pump (or pumps) of a plant</skos:example>
+        <iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ (∃p(MaintenanceProcess(p) ∧ prescribes(x, p)) → MaintenanceStrategy(x)</iof-av:firstOrderLogicAxiom>
+        <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</iof-av:isPrimitive>
+        <iof-av:maturity>Provisional</iof-av:maturity>
+        <iof-av:naturalLanguageDefinition>maintenance (method/ approach/ actions) to enable (the/an) asset to achieve (management's/ desired) objectives</iof-av:naturalLanguageDefinition>
+        <iof-av:primitiveRationale>Additional analysis to be performed on this concept. Involves agents, organisations, and business objectives.</iof-av:primitiveRationale>
+        <iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;maintenance process&apos; then x is a &apos;maintenance strategy&apos;</iof-av:semiFormalNaturalLanguageAxiom>
     </owl:Class>
 
 
@@ -842,6 +864,26 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+     <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification" />
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes" />
+                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceProcess" />
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceStrategy" />
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess" />
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy" />
+                <owl:someValuesFrom rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceStrategy" />
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://dev.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/MaintenanceProcess" />
+    </owl:Class>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses" />
         <owl:members rdf:parseType="Collection">
