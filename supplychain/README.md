@@ -16,16 +16,6 @@ Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs 
 
 SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
 
-To open the Supply Chain ontology, perform the following steps:
-
-1. Download SupplyChainReferenceOntology.rdf file
-2. Download import folder 
-3. Open SupplyChainReferenceOntology.rdf with "Protege".
-4. Protege might prompt you to manually find some files that the ontology imports. All relevant files can be found in the "Imports" folder.
-5. You need to import Core.rdf and AnnotationVocabulary.rdf
-6. BFO 2020 is imported through Core.rdf so you don't need to import it directly 
-
-SCRO is currenlty in draft status and it is not officially released yet.
 
 ![Taxonomy of SCRO Continuants](images/SCRO-continuants.png)
 
