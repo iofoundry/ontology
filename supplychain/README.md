@@ -16,6 +16,7 @@ Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs 
 
 SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports folder). 
 
+### Taxonomy of SCRO Continuants
 
 ![Taxonomy of SCRO Continuants](images/SCRO-continuants.png)
 
