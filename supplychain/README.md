@@ -34,3 +34,6 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 
 
 ## Current Outstanding Issues
+- Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers. 
+- Representation of various states of a shipment (delayed, delivered, etc) requires some temporal interval properties (based Allen's Inverval Algebra) which are currently missing. 
+- The base ontology is large and can be split into several smaller ontologies. Once the geeral approach for using 'sub-topics' in IOF is further formalized, the based ontology will be re-architectured. 
