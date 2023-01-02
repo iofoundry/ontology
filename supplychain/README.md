@@ -27,8 +27,6 @@ SCRO.owl imports BFO-2020.owl, IOF.owl and IOF-AnnotationVocabulary.rdf (Imports
 - Farhad Ameri, Evan Wallace, Boonserm Kulvatanyou, and Chris Will, Towards a Reference Ontology for Supply Chain Management, Proceedings of International Conference on Interoperability for Enterprise Systems and Applications (I-ESA), IOF Workshop, November 2020, France, Tarbes.
 - Farhad Ameri, Evan Wallace, Reid Yoder, Enabling Traceability in Agri-Food Supply Chains Using an Ontological Approach, ASME International Design Engineering Technical Conferences and Computers and Information in Engineering Conference,  ASME IDETC2020-19995, August 2020, St. Louis, MO.
 - Farhad Ameri and Boonserm Kulvatanyou, Modeling a Supply Chain Ontology Based on a Top-Level Ontology, International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, Volume 1B: 38th Computers and Information in Engineering Conference, ASME IDETC2019-98278, Anaheim, CA,  August 2019.
-- 
-![image](https://user-images.githubusercontent.com/15256685/210249619-d0bd2f30-5092-425c-9e50-5753e02ff37c.png)
 
 
 ## Current Outstanding Issues
