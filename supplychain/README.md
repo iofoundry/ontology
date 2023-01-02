@@ -20,6 +20,10 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 > click the image to view the enlarged image in a new tab
 ![Taxonomy of SCRO Continuants](images/SCRO-continuants.png)
 
+### Taxonomy of SCRO Continuants
+> click the image to view the enlarged image in a new tab
+![Taxonomy of SCRO Continuants](images/SCRO-Occurrents.png)
+
 
 ## Related Publications
 - Farhad Ameri, Evan Wallace, Reid Yoder, Frank Riddick (2022) Enabling Traceability in Agri-Food Supply Chains Using an Ontological Approach, ASME Journal of Computing and Information Systems in Engineering (JCISE), October 2022; 22(5): 051002. https://doi.org/10.1115/1.4054092
