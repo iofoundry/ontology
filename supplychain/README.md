@@ -24,6 +24,14 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 > click the image to view the enlarged image in a new tab
 ![Taxonomy of SCRO Continuants](images/SCRO-Occurrents.png)
 
+## Example RDF Dataset
+This dataset represents a hypothetical supply chain as depicted in this image. The RDF dataset demonstrates how the class "Supply Chain Relationship' is used to represent the strucrue of a supply chain. 
+
+## Current Outstanding Issues
+- Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers. 
+- Representation of various states of a shipment (delayed, delivered, etc) requires some temporal interval properties (based Allen's Inverval Algebra) which are currently missing. 
+- The base ontology is large and can be split into several smaller ontologies. Once the geeral approach for using 'sub-topics' in IOF is further formalized, the based ontology will be re-architectured. 
+
 
 ## Related Publications
 - Farhad Ameri, Evan Wallace, Reid Yoder, Frank Riddick (2022) Enabling Traceability in Agri-Food Supply Chains Using an Ontological Approach, ASME Journal of Computing and Information Systems in Engineering (JCISE), October 2022; 22(5): 051002. https://doi.org/10.1115/1.4054092
@@ -32,8 +40,3 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 - Farhad Ameri, Evan Wallace, Reid Yoder, Enabling Traceability in Agri-Food Supply Chains Using an Ontological Approach, ASME International Design Engineering Technical Conferences and Computers and Information in Engineering Conference,  ASME IDETC2020-19995, August 2020, St. Louis, MO.
 - Farhad Ameri and Boonserm Kulvatanyou, Modeling a Supply Chain Ontology Based on a Top-Level Ontology, International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, Volume 1B: 38th Computers and Information in Engineering Conference, ASME IDETC2019-98278, Anaheim, CA,  August 2019.
 
-
-## Current Outstanding Issues
-- Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers. 
-- Representation of various states of a shipment (delayed, delivered, etc) requires some temporal interval properties (based Allen's Inverval Algebra) which are currently missing. 
-- The base ontology is large and can be split into several smaller ontologies. Once the geeral approach for using 'sub-topics' in IOF is further formalized, the based ontology will be re-architectured. 
