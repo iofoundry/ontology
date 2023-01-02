@@ -1,2 +1,2 @@
 
-![alt text](/images/FORD-SupplyChain.png)
+(/images/FORD-SupplyChain.png)
