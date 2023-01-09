@@ -1,0 +1,24 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Every non-primitive class must have a semi-formal natural language definition.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  ?resource rdf:type owl:Class.
+  FILTER NOT EXISTS {?resource iof-av:isPrimitive "true"^^xsd:boolean.}
+  
+  FILTER NOT EXISTS {?resource iof-av:semiFormalNaturalLanguageDefinition ?definition.}
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: A non-primitive class ", STR(?resource), " does not have a semi-formal natural language definition.") as ?warning)
+}
