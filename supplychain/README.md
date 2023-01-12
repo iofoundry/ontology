@@ -24,6 +24,8 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 > click the image to view the enlarged image in a new tab
 ![Taxonomy of SCRO Continuants](images/SCRO-Occurrents.png)
 
+Additional class diagrams can be found [here](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4554031140/SCRO+Class+Diagrams). 
+
 ## Glossary of Terms
 [The glossary](https://htmlpreview.github.io/?https://github.com/InfoneerTXST/Glossary/blob/master/index.html) provides the natural language definitions of SCRO classes and properties
 
