@@ -27,7 +27,7 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 ## Glossary of Terms
 [The glossary](https://htmlpreview.github.io/?https://github.com/InfoneerTXST/Glossary/blob/master/index.html) provides the natural language definitions of SCRO classes and properties
 
-## Example RDF Dataset
+## Example Data in RDF
 This dataset represents a hypothetical supply chain as depicted in [this image](https://github.com/iofoundry/ontology/blob/master/supplychain/Documentation%20&%20Resources/Terms-Patterns-Modules/Ford%20Supply%20Chain.md). The RDF dataset demonstrates how the class "Supply Chain Relationship' is used to represent the strucrue of a supply chain.
 - [RDF Dataset](https://github.com/iofoundry/ontology/blob/master/supplychain/data/SCRO_Ford.tt)
 
