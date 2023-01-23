@@ -5,19 +5,19 @@
 
 # The IOF Core Ontology
 
-Version  1, Release 2022-02
+Version  1, Release 2023-01
 
 *The IOF is an international standards group that operates under the auspices of the Open Applications Group.*
 
 # Introduction
 
-The IOF Core Ontology (Core) is a formal ontology that provides a common vocabulary for the industrial domains. Core is a "mid-level" ontology in that it resides at the top of the suite of ontologies the IOF seeks to introduce to fulfill its mission of supporting digital manufacturing by standardizing industrial terminology and improving consistency and interoperability across many operational areas of manufacturing and the product life cycle. As a mid-level ontology, Core contains terms used by, or anticipated to be used by, a plurality of ontologies in the suite. Additionally, as the IOF bases all of its ontologies on a single foundational or top-level ontology – for which the IOF has chosen the Basic Formal Ontology or BFO – the Core ontology contains generic terms found in domains beyond industry that build upon BFO and provide a consistent foundation for introducing industry-specific terminology. 
+Core is a "mid-level" ontology that resides at the top of the suite of ontologies the IOF seeks to introduce to fulfill its mission of supporting digital manufacturing by standardizing industrial terminology and improving consistency and interoperability across many operational areas of manufacturing and the product life cycle. As a mid-level ontology, Core contains terms used by, or anticipated to be used by, a plurality of ontologies in the suite. Additionally, as the IOF bases all of its ontologies on a single foundational or top-level ontology – for which the IOF has chosen the Basic Formal Ontology or BFO – the Core ontology contains generic terms found in domains beyond industry that build upon BFO and provide a consistent foundation for introducing industry-specific terminology. 
 
 The IOF Core Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Core is curated by the Core Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
 
 # Contents
 
-1. core.rdf – an OWL implementation of the IOF Core Ontology, inclusive of natural language definitions, formalizations in first-order logic, examplyes, and comments, serialized in rdf/xml.
+1. Core.rdf – an OWL implementation of the IOF Core Ontology, inclusive of natural language definitions, formalizations in first-order logic, examplyes, and comments, serialized in rdf/xml.
 1. meta – folder containing IOF-specific annotation properties used to define and formalize ontology terms, also serialized in rdf/xml, and imported by the core ontology. 
 
     * AnnotationVocabulary.rdf -- this is the released version of the IOF Annotation Vocabulary, dated 2022-09-29
