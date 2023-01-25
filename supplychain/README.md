@@ -31,7 +31,7 @@ Additional class diagrams can be found [here](https://oagiscore.atlassian.net/wi
 
 ## Example Data in RDF
 This dataset represents a hypothetical supply chain as depicted in [this image](https://github.com/iofoundry/ontology/blob/SCRO-pre-vote-branch/supplychain/Documentation%20%26%20Resources/images/FORD-SupplyChain.png). The RDF dataset demonstrates how the class "Supply Chain Relationship' is used to represent the strucrue of a supply chain.
-- [RDF Dataset](https://github.com/iofoundry/ontology/blob/master/supplychain/data/SCRO_Ford.tt)
+- [RDF Dataset](https://github.com/iofoundry/ontology/tree/SCRO-pre-vote-branch/supplychain/data)
 
 ## Current Outstanding Issues
 - Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers.
