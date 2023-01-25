@@ -2,9 +2,9 @@
 
 # Industrial Ontologies Foundry
 
-The IOF (The Industrial Ontologies Foundry) is a unit of OAGi (Open Applications Group), a non-profit organization with the mission to reduce the cost of integration by developing inter-operable, cross-functional, cross-industry, data-model-driven, and extensible standards to meet the challenge of a rapidly-changing global digital economy. [OAGi](https://OAGi.org)
+The IOF (The Industrial Ontologies Foundry) is a unit of [OAGi](https://OAGi.org) (Open Applications Group), a non-profit organization with the mission to reduce the cost of integration by developing inter-operable, cross-functional, cross-industry, data-model-driven, and extensible standards to meet the challenge of a rapidly-changing global digital economy. 
 
-IOF's mission is to create a suite of ontologies intended to support digital manufacturing by facilitating cross-system integration within the factory and across an enterprise, in commerce between suppliers, manufacturers, customers, and other trading partners, and throughout the various stages of the product life cycle. The IOF ontologies consist of a common mid-level ontology, "Core," and several domain specific ontologies.
+IOF's mission is to create a suite of ontologies intended to support digital manufacturing by facilitating cross-system integration within the factory and across an enterprise; in commerce between suppliers, manufacturers, customers, and other trading partners; and throughout the various stages of the product life cycle. The IOF ontologies consist of a common mid-level ontology, "Core," and several domain specific ontologies.
 
 The IOF Core Ontology resides at the top of this suite from an architectural perspective and contains terms found in several operational areas of manufacturing. Additionally, the architectural approach chosen by the IOF is to base all of its ontologies on a single foundational or top-level ontology–for which the IOF chose the [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) or BFO. The Core Ontology contains many intermediate-level terms that derive from BFO and from which the IOF ontologies derive domain industry terms. Core intermediate-level terms are often domain independent–meaning one can find them in other industries and fields, such as in the banking, insurance, and healthcare industries, or the sciences, as in the physics, chemistry, and biology domains. 
 
@@ -13,7 +13,7 @@ The IOF Core Ontology resides at the top of this suite from an architectural per
 ## Released and Provisional Ontologies
 
 * `core/Core` **[Released]**
-  >  The IOF Core Ontology contains notions found to be common across multiple manufacturing domains. This file is an RDF implementation of these notions. The ontology utilizes the Basic Formal Ontology or BFO as a top-level ontology but also borrows terms from various domain-independent or mid-level ontologies. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various domain-specific reference ontologies the IOF publishes.
+  >  The IOF Core Ontology contains notions found to be common across multiple manufacturing domains. This file is an RDF rendering of these notions expressed in OWL. The ontology utilizes the Basic Formal Ontology or BFO as a top-level ontology but also borrows terms from various domain-independent or mid-level ontologies. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various domain-specific reference ontologies the IOF publishes.
   * `core/meta/AnnotationVocabulary` **[Released]**
     > The IOF Annotation Vocabularyprovides a set of OWL annotation properties for annotating IOF or other content with metadata to facilitate user and ontology developer understanding.	
   * `commons-to-core-mapping/MappingCommonsToIOF` **[Released]**
@@ -21,7 +21,7 @@ The IOF Core Ontology resides at the top of this suite from an architectural per
   * `commons-to-core-mapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
     > The IOF Mapping Annotation Vocabulary to Commons maps the AV to the Object Management Group (OMG)&apos;s Annotation Vocabulary provided in the Commons Ontology Library. The Commons Annotation Vocabulary is a subset of what is included in the IOF AV, but is used across a number of OMG and other emerging standards and thus the mapping makes it easier to use other Commons library ontologies in an IOF context.
 * `maintenance/Maintenance` **[Provisional]**
-  > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperatibility through the use modular ontologies in the maintenance domain. This Ontology contains terms and concepts identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure and failure modes and effects analysis. The ontology is aligned with the IOF Core Ontology which is aligned with Basic Formal Ontology and importas terms for other domain independent ontologies.
+  > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperatibility through the use modular ontologies in the maintenance domain. This Ontology contains terms and concepts identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure, and failure modes and effects analysis. The ontology is aligned with the IOF Core Ontology which is aligned with Basic Formal Ontology and imports terms for other domain independent ontologies.
 * `supplychain/SupplyChainReferenceOntology` **[Provisional]**
   > Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies.
 
@@ -32,13 +32,13 @@ The IOF Core Ontology resides at the top of this suite from an architectural per
 
 # Installing / Getting started
 
-The minimal setup you need short of reading raw XML is a suitable ontology viewer or editing tool, installed on your client machine. IOF recommends a desktop version of the open-source tool [Protégé](https://protege.stanford.edu/), but other open source and commercial tools are known to work as well. The repository for this ontology includes the necessary files for opening the ontology in Protégé without warnings and errors. The same is not guaranteed for other tools.  
+The minimal setup you need, short of reading raw XML, is a suitable ontology viewer or editing tool, installed on your client machine. IOF recommends a desktop version of the open-source tool [Protégé](https://protege.stanford.edu/), but other open source and commercial tools are known to work as well. The repository for this ontology includes the necessary files for opening the ontology in Protégé without warnings and errors. The same is not guaranteed for other tools.  
 
 # Getting Involved
 
 ## General Discussions
 
-The IOF welcomes those organizations and persons who would like to contribute to this and other IOF ontology projects. To start contributing, or to join the general discussions, please [Getting Involved](https://oagiscore.atlassian.net/wiki/spaces/IOF/overview). 
+The IOF welcomes those organizations and persons who would like to contribute to this and other IOF ontology projects. To start contributing, or to join the general discussions, please see [Getting Involved](https://oagiscore.atlassian.net/wiki/spaces/IOF/overview). 
 
 Getting involved will also give you access to discussions on issues regarding issues not raised through GitHub, and the status of any issues posted in these release notes at time of release.
 
