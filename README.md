@@ -16,15 +16,9 @@ The following are the definitions and usage guide for the Maturity Level (excerp
 
 * **maturity** – `iof-av:maturity`
  
-  * Definition: annotation property used to indicate the development status of a resource such as an ontology or a construct
+  * The annotation property used to indicate the development status of a resource such as an ontology or a construct
 
-  * Each IOF ontology **MUST** have exactly one maturity annotation with a value of type iof-av:MaturityLevel
-
-  * Each construct within an ontology will default to the (i.e., be assumed to have the same) maturity of the ontology unless an explicit maturity annotation for the construct indicates otherwise
-
-  * Each construct **MAY** have a maturity annotation, indicating the specific construct’s status of development
-
-  * One **MUST** use the following vocabulary when specifying the maturity:
+  * IOf uses the following values when specifying the maturity:
 
       * `iof-av:Released`
 
