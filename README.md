@@ -6,11 +6,15 @@ The IOF (The Industrial Ontologies Foundry) is a unit of [OAGi](https://OAGi.org
 
 IOF's mission is to create a suite of ontologies intended to support digital manufacturing by facilitating cross-system data integration within the factory and across an enterprise; in commerce between suppliers, manufacturers, customers, and other trading partners; and throughout the various stages of the product life cycle. The IOF ontologies consist of a common mid-level ontology, "Core," and several domain specific ontologies.
 
-The IOF Core Ontology resides at the top of this suite from an architectural perspective and contains terms found in several operational areas of manufacturing. Additionally, the architectural approach chosen by the IOF is to base all of its ontologies on a single foundational or top-level ontology–for which the IOF chose the [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) or BFO. The Core Ontology contains many intermediate-level terms that derive from BFO and from which the IOF ontologies derive domain industry terms. Core intermediate-level terms are often domain independent–meaning one can find them in other industries and fields, such as in the banking, insurance, and healthcare industries, or the sciences, as in the physics, chemistry, and biology domains. 
-# Definition of Status
-Following is the detail definitions and usage guide of the Maturity Level (excerpt from [IOF Annotation Vocabulary Guide v2.1](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4532142081/IOF+Annotation+Property+Guide+V2.1#Maturity). Note that access to the guide may require [IOF membership](https://industrialontologies.org/participation-request/))
+The IOF Core Ontology resides at  the top of this suite from an architectural perspective and contains terms found in several operational areas of manufacturing. Additionally, the architectural approach chosen by the IOF is to base all of its ontologies on a single foundational or top-level ontology–for which the IOF chose the [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) or BFO. The Core Ontology contains many intermediate-level terms that derive from BFO and from which the IOF ontologies derive domain industry terms. Core intermediate-level terms are often domain independent–meaning one can find them in other industries and fields, such as in the banking, insurance, and healthcare industries, or the sciences, as in the physics, chemistry, and biology domains. 
 
-* **maturity** – `iof-av:maturity`* 
+# Definition of Status
+
+The following are the definitions and usage guide for the Maturity Level (excerpt from [IOF Annotation Vocabulary Guide v2.1](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4532142081/IOF+Annotation+Property+Guide+V2.1#Maturity). Note that access to the guide may require [IOF membership](https://industrialontologies.org/participation-request/)):
+ 
+> Note: the term _construct_ is inclusive of both classes and properties. 
+
+* **maturity** – `iof-av:maturity`
  
   * Definition: annotation property used to indicate the development status of a resource such as an ontology or a construct
 
@@ -22,7 +26,7 @@ Following is the detail definitions and usage guide of the Maturity Level (excer
 
   * One **MUST** use the following vocabulary when specifying the maturity:
 
-      * iof-av:Released 
+      * `iof-av:Released`
 
         * Will not be removed from the ontology for a reasonable length of time
 
@@ -30,7 +34,7 @@ Following is the detail definitions and usage guide of the Maturity Level (excer
 
         * Release notes will be provided for any changes concerning released content, and any revisions will be backward compatible with the prior version to the degree possible
 
-      * iof-av:Provisional 
+      * `iof-av:Provisional`
 
         * Indicates an ontology or construct that is considered to be under development
 
