@@ -24,6 +24,9 @@ The IOF Core Ontology resides at the top of this suite from an architectural per
   > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperability through the use of modular ontologies in the maintenance domain. This Ontology contains terms identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure, and failure modes and effects analysis. The ontology is based on the IOF Core Ontology.
 * `supplychain/SupplyChainReferenceOntology` **[Provisional]**
   > Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies.
+## Reasoner
+
+IOF ontologies, provisional and released, have been verified to be logically consistent and satisfiable with Hermit version 1.4.3 reasoner, plugin to Protege 5.5
 
 ## In Development
 
