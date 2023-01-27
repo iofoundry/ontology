@@ -42,9 +42,9 @@ The following are the definitions and usage guide for the Maturity Level (excerp
   >  The IOF Core Ontology contains notions found to be common across multiple manufacturing domains. This file is an RDF rendering of these notions expressed in OWL. The ontology utilizes the Basic Formal Ontology or BFO as a top-level ontology but also borrows terms from various domain-independent or mid-level ontologies. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various domain-specific reference ontologies the IOF publishes.
   * `core/meta/AnnotationVocabulary` **[Released]**
     > The IOF Annotation Vocabularyprovides a set of OWL annotation properties for annotating IOF or other content with metadata to facilitate user and ontology developer understanding.	
-  * `commons-to-core-mapping/MappingCommonsToIOF` **[Released]**
+  * `commonstocoremapping/MappingCommonsToIOF` **[Released]**
     > This ontology maps the OMG Common Ontologies concepts to those of IOF Core.
-  * `commons-to-core-mapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
+  * `commonstocoremapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
     > The IOF Mapping Annotation Vocabulary to Commons maps the AV to the Object Management Group (OMG)&apos;s Annotation Vocabulary provided in the Commons Ontology Library. The Commons Annotation Vocabulary is a subset of what is included in the IOF AV, but is used across a number of OMG and other emerging standards and thus the mapping makes it easier to use other Commons library ontologies in an IOF context.
 * `maintenance/Maintenance` **[Provisional]**
   > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperability through the use of modular ontologies in the maintenance domain. This Ontology contains terms identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure, and failure modes and effects analysis. The ontology is based on the IOF Core Ontology.
