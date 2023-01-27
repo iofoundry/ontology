@@ -43,7 +43,8 @@ IOF uses Maturity Level to describe the status of its ontological content. The f
   * `core/meta/AnnotationVocabulary` **[Released]**
     > The IOF Annotation Vocabularyprovides a set of OWL annotation properties for annotating IOF or other content with metadata to facilitate user and ontology developer understanding.	
   * `commonstocoremapping/MappingCommonsToIOF` **[Released]**
-    > This ontology maps the OMG Common Ontologies concepts to those of IOF Core.
+    > This ontology maps the OMG Common Ontologies concepts related to the notion of Identifier to those of IOF Core. Specifically, the OMG ontologies Collections, Designators and Identifiers are mapped to the IOF Core.
+The purpose of this ontology is to ensure interoperability with the listed OMG Ontologies and to enable users of IOF Core to utilize OMG constructs around identifiers that are currently lacking within the IOF Core.
   * `commonstocoremapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
     > The IOF Mapping Annotation Vocabulary to Commons maps the AV to the Object Management Group (OMG)&apos;s Annotation Vocabulary provided in the Commons Ontology Library. The Commons Annotation Vocabulary is a subset of what is included in the IOF AV, but is used across a number of OMG and other emerging standards and thus the mapping makes it easier to use other Commons library ontologies in an IOF context.
 * `maintenance/Maintenance` **[Provisional]**
