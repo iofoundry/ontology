@@ -5,9 +5,7 @@
 
 # The IOF Core Ontology
 
-Version  1, Release 2023-01
-
-*The IOF is an international standards group that operates under the auspices of the Open Applications Group.*
+Version  1, January 2023 Release
 
 # Introduction
 
@@ -36,19 +34,11 @@ The minimal setup you need short of reading raw XML is a suitable ontology viewe
 
 To use IOF Core without the need to interoperate with the OMG Commons Ontologies mentioned earlier, simply import Core.rdf into your ontology. To use both IOF Core and the OMG Commons Ontologies mentioned, only import MappingCommonsToIOF.rdf into your ontology. Doing so indirectly imports IOF Core and the applicable OMG Common Ontologies.
 
-# Getting Involved
-
-## Reporting Issues for the Core Ontology and Joining the Discussions
+# Reporting Issues for the Core Ontology and Joining the Discussions
 
 The source for Core and its evolution is managed on GitHub. Please log change requests and bugs for the ontology using the "issues tab" of the GitHub repository for this project. However, if you are a member person or organization of the IOF, we ask that you follow the normal process for reporting change requests and issues via the IOF member portal for the Core Working Group.
 
 Requests and reported bugs are monitored at least bi-weekly during which time you can expect to see a response as to next steps. 
-
-## General Discussions
-
-The IOF welcomes those organizations and persons who would like to contribute to this and other IOF ontology projects. To start contributing, or to join the general discussions, please [click here](https://oagiscore.atlassian.net/wiki/spaces/IOF/overview). 
-
-Getting involved will also give you access to discussions on issues regarding issues not raised through GitHub, and the status of any issues posted in these release notes at time of release.
 
 # External Links
 
