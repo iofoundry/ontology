@@ -8,9 +8,9 @@ IOF's mission is to create a suite of ontologies intended to support digital man
 
 The IOF Core Ontology resides at  the top of this suite from an architectural perspective and contains terms found in several operational areas of manufacturing. Additionally, the architectural approach chosen by the IOF is to base all of its ontologies on a single foundational or top-level ontology–for which the IOF chose the [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) or BFO. The Core Ontology contains many intermediate-level terms that derive from BFO and from which the IOF ontologies derive domain industry terms. Core intermediate-level terms are often domain independent–meaning one can find them in other industries and fields, such as in the banking, insurance, and healthcare industries, or the sciences, as in the physics, chemistry, and biology domains. 
 
-# Definition of Status
+# How Status is Specified for IOF Ontologies and Constructs
 
-The following are the definitions and usage guide for the Maturity Level (excerpt from [IOF Annotation Vocabulary Guide v2.1](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4532142081/IOF+Annotation+Property+Guide+V2.1#Maturity). Note that access to the guide may require [IOF membership](https://industrialontologies.org/participation-request/)):
+IOF uses Maturity Level to describe the status of its ontological content. The following are the definitions and usage guide for the Maturity Level (excerpt from [IOF Annotation Vocabulary Guide v2.1](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4532142081/IOF+Annotation+Property+Guide+V2.1#Maturity). Note that access to the guide may require [IOF membership](https://industrialontologies.org/participation-request/)):
  
 > Note: the term _construct_ is inclusive of both classes and properties. 
 
@@ -42,9 +42,10 @@ The following are the definitions and usage guide for the Maturity Level (excerp
   >  The IOF Core Ontology contains notions found to be common across multiple manufacturing domains. This file is an RDF rendering of these notions expressed in OWL. The ontology utilizes the Basic Formal Ontology or BFO as a top-level ontology but also borrows terms from various domain-independent or mid-level ontologies. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various domain-specific reference ontologies the IOF publishes.
   * `core/meta/AnnotationVocabulary` **[Released]**
     > The IOF Annotation Vocabularyprovides a set of OWL annotation properties for annotating IOF or other content with metadata to facilitate user and ontology developer understanding.	
-  * `commons-to-core-mapping/MappingCommonsToIOF` **[Released]**
-    > This ontology maps the OMG Common Ontologies concepts to those of IOF Core.
-  * `commons-to-core-mapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
+  * `commonstocoremapping/MappingCommonsToIOF` **[Released]**
+    > This ontology maps the OMG Common Ontologies concepts related to the notion of Identifier to those of IOF Core. Specifically, the OMG ontologies Collections, Designators and Identifiers are mapped to the IOF Core.
+The purpose of this ontology is to ensure interoperability with the listed OMG Ontologies and to enable users of IOF Core to utilize OMG constructs around identifiers that are currently lacking within the IOF Core.
+  * `commonstocoremapping/meta/MappingAnnotationVocabularyToCommons.rdf` **[Released]**
     > The IOF Mapping Annotation Vocabulary to Commons maps the AV to the Object Management Group (OMG)&apos;s Annotation Vocabulary provided in the Commons Ontology Library. The Commons Annotation Vocabulary is a subset of what is included in the IOF AV, but is used across a number of OMG and other emerging standards and thus the mapping makes it easier to use other Commons library ontologies in an IOF context.
 * `maintenance/Maintenance` **[Provisional]**
   > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperability through the use of modular ontologies in the maintenance domain. This Ontology contains terms identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure, and failure modes and effects analysis. The ontology is based on the IOF Core Ontology.
