@@ -50,14 +50,17 @@
 	<owl:Class rdf:about="&iof-scro;Airway">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000028"/>
 		<rdfs:label xml:lang="en-us">airway</rdfs:label>
-		<iof-av:explanatoryNote>a control area or portion thereof established in the form of a corridor equipped with radio navigation aids [EUROCONTROL EATM Glossary of Terms]
+		<skos:example>Airway #B9 (Blue 9) that connects the Southern Florida mainland to Marathon Key</skos:example>
+		<iof-av:explanatoryNote>a series of abstract GPS points that create designated routes which aeroplanes fly to aid in navigation and help with separation to avoid accidents
 
 An airway is based on a centerline that extends from one navigation aid or intersection to another navigation aid (or through several navigation aids or intersections); used to establish a known route for en route procedures between terminal areas [Federal Aviation Administration - FAA]
+
+a control area or portion thereof established in the form of a corridor equipped with radio navigation aids [EUROCONTROL EATM Glossary of Terms]
 
 Airways are defined with segments within a specific altitude block, corridor width, and between fixed geographic coordinates for satellites navigation system, or between ground-based radio transmitter navigational aids (navaids; such as VORs or NDBs) or the intersection of specific radials of two navaids (Wikipedia)</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Airway(x) → ThreeDimensionalSpatialRegion (x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">three-dimensional spatial region that connects one specified location to another at a specified altitude, along which an aircraft may be flown</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">three-dimensional spatial region that connects one specified location (navigation point) to another at a specified altitude, along which an aircraft may be flown</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;airway&apos; then x is a &apos;three-dimensional spatial region&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>air route</iof-av:synonym>
@@ -303,11 +306,10 @@ A firm which transports goods or people via land, sea or air [CSCMP].</iof-av:ex
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>A Walmart warehouse is a consignee when it receives a shipment</skos:example>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>The organisation (party) which has the intention to receive the goods [GS1].
-
 The party by whom the goods, cargo or containers are meant to be received. The actual physical receipt can take place by another party [GS1].
-
 The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>The ultimate owner of the product is the consignee, so it is important to keep in mind that shipments destined for a 3rd party logistics company would not list the 3PL as the consignee.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>Consignee (x) ↔ (BusinessOrganization(x) ∨ Person(x)) ∧ ∃r (ConsigneeRole (r) ∧ hasRole (x,r))</iof-av:firstOrderLogicDefinition>
@@ -693,9 +695,12 @@ The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryN
 		<rdfs:label xml:lang="en-us">facility</rdfs:label>
 		<skos:example>an oil refinery, a manufacturing plant, an airport</skos:example>
 		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>this definition applies to stationary facilities that have a fixed geospatial location on the ground (not mobile facilities)</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>Facility(x) → EngineeredSystem(x) ∧ ∃s(Site(s) ∧ locatedInAtAllTimes(x,s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">engineered system that consists of buildings, structures, roads, machines, and equipment desgined to provide certain capabilities</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release. Namely, the component of a facility such as &apos;buidling&apos; and &apos;road&apos; are not formally defined yet.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;facility&apos; then x is an &apos;engineered system&apos; that &apos;is located in at all times&apos; some &apos;site&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Factory">
@@ -762,7 +767,7 @@ The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryN
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProvider">
+					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProviderRole">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
@@ -801,6 +806,7 @@ The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryN
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>the role of Wagner Forwarders LLC when it picks up shipments from a shipper&apos;s warehouse, carries out customs clearance, transports the goods from the destination, and delivers them to the clients</skos:example>
 		<iof-av:explanatoryNote>A freight forwarder, or forwarding agent, is a person or company that organizes shipments for individuals or corporations to get goods from the manufacturer or producer to a market, customer or final point of distribution.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>FreightForwarderRole(x) ↔ LogisticsServiceProviderRole(x) ∧ ∃y,∃p,∃c ((BusinessOrganization(y) ∨ Person(y)) ∧ FreightForwardingService(p) ∧ (Consignor(c) ∨ Consignee(c)) ∧ agentIn(y,p) ∧ actsOnBehalfOfAtSomeTime(x,c) ∧ roleOf(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logistics service provider role held by an agent when it arranges the transportation of shipments on behalf of the shipper (consignor) or consignee</iof-av:naturalLanguageDefinition>
@@ -822,6 +828,7 @@ The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryN
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>the function of Wagner Forwarders LLC to pick up shipments from a shipper&apos;s warehouse, carries out customs clearance, transports the goods from the destination, and deliver them to the clients</skos:example>
 		<iof-av:explanatoryNote>business function that is realized in the process of planning and coordinating the transportation of material products on behalf of a shipper</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>FreightForwardingBusinessFunction(x) ↔ BusinessFunction(x) ∧ ∃s (FreightForwardingService (s) ∧ hasRealization (x,s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">business function that is realized in a freight forwarding service</iof-av:naturalLanguageDefinition>
@@ -865,10 +872,11 @@ The party to whom goods are shipped and delivered  [CSCMP].</iof-av:explanatoryN
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:explanatoryNote>Freight forwarding is the act of arranging commercial transportation for the cargo of other firms.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>FreightForwardingService(x) ↔ LogisticsService(x) ∧ ∃p (FreightForwardingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicAxiom>
+		<skos:example>the service provided by Wagner Forwarders LLC when it picks up shipments from a shipper&apos;s warehouse, carries out customs clearance, transports the goods from the destination, and delivers them to the clients</skos:example>
+		<iof-av:explanatoryNote>Freight forwarding is the act of arranging commercial transportation for the cargo/shipment of other firms.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>FreightForwardingService(x) ↔ LogisticsService(x) ∧ ∃p (FreightForwardingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logistics service that consists of at least one freight forwarding process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;freight forwarding service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;freight forwarding process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;freight forwarding service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;freight forwarding process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:NamedIndividual rdf:about="&iof-scro;GLNScheme">
@@ -1048,7 +1056,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;IndustrialInventory">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Inventory"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-us">industrial inventory</rdfs:label>
 		<owl:equivalentClass>
 			<owl:Class>
@@ -1080,7 +1088,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;IndustrialInventoryRole">
-		<rdfs:subClassOf rdf:resource="&iof-scro;InventoryRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResourceRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
@@ -1110,11 +1118,11 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<rdfs:label xml:lang="en-us">industrial inventory role</rdfs:label>
 		<skos:example>(for a tile manufacturer) role held by the boxes of tile that are ready to sell, the semi-finished stock of tiles that haven’t been packed yet, the tiles set aside for quality checking, and raw materials like silica sand, clay, and pottery stone; role held by the rolls of aluminum a manufacturer stores to be consumed laters on its bottling lines</skos:example>
 		<skos:example>role held by the rolls of aluminum a manufacturer stores to be consumed laters on its bottling lines</skos:example>
-		<iof-av:firstOrderLogicAxiom>IndustrialInventoryRole(x) → InventoryRole(x) ∧ ∃m,∃p (MaterialEntity(m) ∧ (ProductProductipnProcess(p) ∨ SupplyingBusinessProcess(p)) ∧ participatesInAtSomeTime(m,p) ∧ roleOf (x,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>IndustrialInventoryRole(x) → MaterialResourceRole(x) ∧ ∃m,∃p (MaterialEntity(m) ∧ (ProductProductipnProcess(p) ∨ SupplyingBusinessProcess(p)) ∧ participatesInAtSomeTime(m,p) ∧ ∃i(InventoryManagementProcess(i) ∧ participatesInAtSomeTime(m,pi) ∧ roleOf (x,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by some material entity when it is stored by a bussiness organization and it is intended to be supplied to a customer or to be used or consumed in some product production process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;industrial inventory role&apos; then x is an &apos;inventory role&apos; that is &apos;role of&apos; some &apos;material entity&apos; that &apos;participates in at some time&apos; some &apos;product production process&apos; or &apos;supplying business process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;industrial inventory role&apos; then x is an &apos;material resource role&apos; that is &apos;role of&apos; some &apos;material entity&apos; that &apos;participates in at some time&apos; some &apos;product production process&apos; or &apos;supplying business process&apos; and &apos;participates in at some time&apos; some &apos;inventory management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Industry">
@@ -1170,30 +1178,10 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;integrated carrier business organization&apos; is defined as exactly an instance of &apos;business organization&apos; that &apos;has function&apos; some &apos;transportation business function&apos; and &apos;has function&apos; some &apos;freight forwarding business function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-scro;Inventory">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-us">inventory</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&iof-scro;InventoryRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>stock of items kept or owned by an agent to meet external or internal need some agent might have</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>Inventory(x) ↔ MaterialEntity(x) ∧ ∃r (InventoryRole (r) ∧ hasRole (x,r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">material entity kept or owned by an agent to meet external or internal need some agent might have</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;inventory&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;inventory role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-scro;InventoryManagementProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessProcess"/>
 		<rdfs:label xml:lang="en-us">inventory management process</rdfs:label>
+		<skos:example>A collection of tasked carried out in IKEA that ensures optimal inventory levels of raw material and finished products at all times.</skos:example>
 		<iof-av:explanatoryNote>1- The process of ensuring the availability of products through inventory administration [CSCMP]
 2-The branch of business management concerned with planning and controlling inventories [APICS]</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>InventoryManagementProcess(x) → BusinessProcess(x)</iof-av:firstOrderLogicAxiom>
@@ -1201,34 +1189,6 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">business process that consists of the activities required for controlling, tracking, recording, and planning inventories</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;inventory management process&apos; then x is a &apos;business process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;InventoryRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResourceRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000040">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-								<owl:someValuesFrom rdf:resource="&iof-scro;InventoryManagementProcess"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-us">inventory role</rdfs:label>
-		<skos:example>role held by a number of valves held by Home Depot to be sold to end users</skos:example>
-		<iof-av:firstOrderLogicAxiom>InventoryRole(x) → MaterialResourceRole(x) ∧ ∃m,∃p (MaterialEntity(m) ∧ InventoryManagementProcess(p) ∧ participatesInAtSomeTime(m,p) ∧ roleOf (x,m))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">material resource role held by a number of material entities when they are kept by an agent to satisfy some need of the agent or meet some objective carried by the agent</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;inventory role&apos; then x is a &apos;material resource role&apos; that is &apos;role of&apos; some &apos;material entity&apos; that &apos;participates in at some time&apos; some &apos;inventory management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Load">
@@ -1245,6 +1205,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a portion of grain loaded on a truck and transported from a grain elevator to a food processing facility</skos:example>
 		<iof-av:explanatoryNote>collection of material entites transported or transferred together</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>Load(x) ↔ MaterialEntity(x) ∧ ∃r (LoadRole (r) ∧ hasRole (x,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">collection of material entities which share the same transportation and transfer history</iof-av:naturalLanguageDefinition>
@@ -1283,7 +1244,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-us">location identification scheme</rdfs:label>
 		<skos:example>GS1 specifications related to creating global location numbers (GLN) for physical and digital locations</skos:example>
-		<iof-av:firstOrderLogicDefinition>InformationcontEntentity(x) ∧ ∃i (Identifier(i) ∧ prescribes(x,i)) ∧ ∃g(GeospatialLocation (i) ∧ designates(i,g)) → LocationIdentificationScheme(x)</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>InformationcontEntentity(x) ∧ ∃i (Identifier(i) ∧ prescribes(x,i)) ∧ ∃g(GeospatialLocation (i) ∧ designates(i,g)) → LocationIdentificationScheme(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">identification scheme that prescribes how unique identifiers of physical locations are formulated</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
@@ -1359,15 +1320,19 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<rdfs:subClassOf rdf:resource="&iof-scro;TraceableResourceUnitRole"/>
 		<rdfs:label xml:lang="en-us">logistic unit role</rdfs:label>
 		<skos:example>role held by a ballet of softdrinks when it is stored before being shipped to a known location</skos:example>
+		<iof-av:firstOrderLogicAxiom></iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LogisticUnitRole(x) → TraceableResourceUnitRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">traceable resource unit role held by a number of material entities that are packaged together for transport or storage</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;logistic unit role&apos; then x is &apos;traceable resource unit role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;LogisticsProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessProcess"/>
 		<rdfs:label xml:lang="en-us">logistics process</rdfs:label>
-		<iof-av:firstOrderLogicAxiom>LogisticsProcess(x) → BusinessProcess(x) ∧ ∃p ((ReceivingProcess(p) ∨ ShipmentPreparationProcess(p) ∨ StorageProcess(p) ∨ FreightForwardingProcess(p) ∨ TransportProcess(p))  ∧ hasOccurrentPart (x,p))</iof-av:firstOrderLogicAxiom>
+		<skos:example>packaging process, transportation process, freight forwarding process</skos:example>
+		<iof-av:firstOrderLogicAxiom>LogisticsProcess(x) → BusinessProcess(x) ∧ ∃p ((ReceivingProcess(p) ∨ ShipmentPreparationProcess(p) ∨ StorageProcess(p) ∨ FreightForwardingProcess(p) ∨ TransportProcess(p)) ∧ hasOccurrentPart (x,p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">business process that consists of a combination of one or more transport, shipment preparation, storage or receiving processes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -1403,7 +1368,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;logistics service&apos; then x is a &apos;commercial service&apos; that &apos;has occurrent part&apos; some &apos;transport process&apos;, &apos;packaging process&apos;, &apos;freight forwarding process&apos;, or &apos;storage process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-scro;LogisticsServiceProvider">
+	<owl:Class rdf:about="&iof-scro;LogisticsServiceProviderRole">
 		<rdfs:subClassOf rdf:resource="&iof-core;ServiceProviderRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -1431,10 +1396,11 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<rdfs:label xml:lang="en-us">logistics service provider role</rdfs:label>
 		<skos:example>role of FedEx when it provides transportation services to its customers</skos:example>
 		<iof-av:explanatoryNote>Any business which provides logistics services. Includes those businesses typically referred to as 3PL, 4PL, LLP, etc. Services may include provisioning, transport, warehousing, packaging, etc [CSCMP].</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LogisticsServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y) ∧ LogisticsService(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">service provider role that is held by a business organization or person when it provides a logistics service</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition>Logistics Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person y when it is agent in&apos;&apos; some &apos;Logistics Service&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;logistics service provider role&apos; then x is a &apos;service provider role&apos; that is &apos;role of&apos; some &apos;business organization&apos; or &apos;person&apos; y when it is &apos;agent in&apos; some &apos;logistics service&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>3PL</iof-av:synonym>
 	</owl:Class>
 	
@@ -1469,6 +1435,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a batch of waterpump housings manufactured during the morning shift of diecasting plant on a certian machine</skos:example>
 		<iof-av:adaptedFrom>APICS</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A Lot can consist of portion of bulk material</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>Lot(x) ↔ MaterialEntity(x) ∧ ∃r (LotRole (r) ∧ hasRole (x,r))</iof-av:firstOrderLogicDefinition>
@@ -1542,18 +1509,45 @@ The last two digits (01) represents the product batch of that specific day</skos
 	<owl:Class rdf:about="&iof-scro;Make-To-OrderProductionCapability">
 		<rdfs:subClassOf rdf:resource="&iof-scro;ProductionCapability"/>
 		<rdfs:label xml:lang="en-us">make-to-order production capability</rdfs:label>
-		<skos:example>the capability of BMW to customize their vehicles according to customers&apos; preferences. BMW lets customers select the interior and exterior, the engine, as well as other features.</skos:example>
+		<skos:example>the capability of BMW to customize their vehicles according to customers&apos; preferences. BMW lets customers select the interior and exterior, the engine, as well as other features; Dell Computers is an example of a business that uses the MTO production strategy, wherein customers can order a fully customized computer online and receive it in a couple of weeks.</skos:example>
+		<iof-av:acronym>MTO</iof-av:acronym>
+		<iof-av:firstOrderLogicAxiom>MakeToOrderCapability(x) → ProductionCapability(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">production capability to manufacture some material artifact only after a confirmed customer order is received</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Constructs such as &apos;order&apos; and &apos;demand forecast&apos; are not available in the current version.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;make-to-order production capability&apos; then x is a &apos;production capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Make-To-StockProductionCapability">
 		<rdfs:subClassOf rdf:resource="&iof-scro;ProductionCapability"/>
 		<rdfs:label xml:lang="en-us">make-to-stock production capability</rdfs:label>
+		<skos:example>The company that manufactures t-shirts knows that it generally sells more t-shirts in the summer than any other time of year. So it will produce a certain amount of t-shirts in advance and keep them in stock until customers purchase them.</skos:example>
+		<iof-av:explanatoryNote>Make-to-stock is the traditional production approach of building up an inventory based on sales forecasts.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MakeToStockCapability(x) → ProductionCapability(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">production capability to manufacture and store some material artifact to fulfill expected incoming orders or forcasted demand</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">production capability to manufacture and store some product to fulfill the expected incoming orders or forcasted demand</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Constructs such as &apos;order&apos; and &apos;demand forecast&apos; are not available in the current version.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;make-to-stock production capability&apos; then x is a &apos;production capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-scro;ManufacturingService">
+		<rdfs:label xml:lang="en-us">manufacturing service</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;CommercialService">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>The final assembly service provided by Foxconn to Apple (Foxconn is a contract manufacturing service company that owns and operates factories in China that do the final assembly of iPhones for Apple), The machining services provided by a contract machinist</skos:example>
+		<iof-av:firstOrderLogicDefinition>ManufacturingService(x) ↔ CommercialService(x) ∧ ∃p (ManufacturingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">commercial service that consists of at least one manufacturing process</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufactuirng service&apos; is defined as exactly an instance of &apos;commercial service&apos; that &apos;has occurrent part&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;ManufacturingSupplyChain">
@@ -1582,6 +1576,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a supply chian that manufactures and delivers F-150 engines to Ford Motor Company</skos:example>
 		<iof-av:firstOrderLogicDefinition>ManufacturingSupplyChainSystem(x) ↔SupplyChainSystem(x) ∧ ∃p(MaterialProduct(p) ∧ hasSpecifiedOutput(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">supply chain system that is formed to manufacture one or more products</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufacturing supply chain system&apos; defined as exactly an instance of a &apos;supply chain system&apos; that &apos;has specified output&apos; some &apos;material product&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -1590,7 +1585,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 	<owl:Class rdf:about="&iof-scro;PackagingPlanSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
 		<rdfs:label xml:lang="en-us">packaging plan specification</rdfs:label>
-		<skos:example>plan that describes how iPhone 14 is packaged at the item-level and batch-level</skos:example>
+		<skos:example>plan that describes how iPhone 14 is packaged at the item-level and batch-level, plan that prescribes how windows are plastic wrapped and seperated using pads before transportation</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃c(PackagingProcess(p) ∧ prescribes(x,p)) → PackagingPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">plan specification that prescribes a packaging process</iof-av:naturalLanguageDefinition>
@@ -1616,13 +1611,16 @@ The last two digits (01) represents the product batch of that specific day</skos
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">packaging process</rdfs:label>
-		<iof-av:explanatoryNote>Packing is the preparation of product or commodity for proper storage and/or transportation
+		<skos:example>fillig aluminum cans with beverage; Boxing an item in an Amazon Fulfillent Center before shipping; Plastic wrappimg office furniture before shipment, putting 12 bottles of soft drink in a case and wrapping the case before transporting to the warehouse</skos:example>
+		<iof-av:explanatoryNote>1- While there are certainly packaging processes for transport or storage, another common and important packaging process prepares something for sale. An actual product that results from this process includes the package and has a different product identifier depending on that package (as with GTINs).  In batch industries like beer, the line used to package the material is completely separated from the line used to make it and runs on its own schedule
 
-packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, strapping, weather proofing, wrapping</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>PackagingProcess(x)→BusinessProcess(x) ∧ ∃m, ∃p (MaterialProduct(m) ∧ PackagingPlanSpecification(p) ∧ hasParticipantAtSomeTime (x,m) ∧ prescribedBy(x,p))</iof-av:firstOrderLogicDefinition>
+2- Logistics Packaging Process is the preparation of product or commodity for proper storage and/or transportation.
+
+3- Packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, strapping, weather proofing, wrapping processes.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PackagingProcess(x)→BusinessProcess(x) ∧ ∃m, ∃p (MaterialProduct(m) ∧ PackagingPlanSpecification(p) ∧ hasParticipantAtSomeTime (x,m) ∧ prescribedBy(x,p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">business process of providing a protective covering to a product (material products) in such a way that it protects the product during storage and movement</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">business process of putting some products or some portion of material into a package according to a packaging plan specification</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required construct (the notion of package in this case) for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;packaging process&apos; then x is a &apos;business process&apos; and &apos;has participant at some time&apos; some &apos;material procduct&apos; and x is &apos;prescribed by&apos; some &apos;packaging plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -1640,9 +1638,10 @@ packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:firstOrderLogicAxiom>PackagingService(x) ↔ LogisticsService(x) ∧ ∃p (PackagingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicAxiom>
+		<skos:example>On-site packing and knitting service provided by ABC company when they bring materials and a crew to the customer site and pack the products that need to be shipped.</skos:example>
+		<iof-av:firstOrderLogicDefinition>PackagingService(x) ↔ LogisticsService(x) ∧ ∃p (PackagingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logistics service that consists of at lest one packaging process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;packaging service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;packaging process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;packaging service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;packaging process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;PackagingServiceProviderRole">
@@ -1650,7 +1649,7 @@ packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, 
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProvider">
+					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProviderRole">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
@@ -1676,6 +1675,7 @@ packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>The role of ABC Co. when they provide on-site packing and knitting service by bringing materials and a crew to the customer site and packing the products that need to be shipped.</skos:example>
 		<iof-av:firstOrderLogicDefinition>PackagingServiceProviderRole(x) ↔ LogisticsServiceProviderRole(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y)) ∧ PackagingService(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logisitics service provider role held by a business organization or person when it provides a packaging service</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is a Packaging Service Provider Role then x is a Logistics Service Provider Role that is the &apos;role of&apos; a Business Organization or Person y when it is&apos;agent in&apos; some Packaging Service</iof-av:semiFormalNaturalLanguageDefinition>
@@ -1700,10 +1700,11 @@ packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, 
 		<rdfs:label xml:lang="en-us">piece of transport equipment</rdfs:label>
 		<skos:example>a truck, a trailer, a mobile yard crane, a towing vehicle, an intermodal container</skos:example>
 		<iof-av:explanatoryNote>Transport equipment is defined as a piece of high-value equipment used to hold, protect or secure cargo for transportation purposes [GS1].</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PieceOfTransportEquipment(x) → PieceOfEquipment(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">piece of equipment that has the function of holding, protecting, and securing a number of material entites for transportation purposes</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:primitiveRationale>The required constructs for formal definition, such as holding, protecting, and securing, are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;piece of transport equipment&apos; then x is a &apos;piece of equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;ProductionCapability">
@@ -1754,6 +1755,7 @@ packaging may entail blocking, bracing, cushioning, marking, sealing, labeling, 
 	<owl:Class rdf:about="&iof-scro;ReceivingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessProcess"/>
 		<rdfs:label xml:lang="en-us">receiving process</rdfs:label>
+		<skos:example>the process of receiving and inspecting a shipment at a Walmart warehouse</skos:example>
 		<iof-av:explanatoryNote>1- The function of taking physical receipt of material and performing initial inspection of the incoming shipment for damage and validation with respect to purchase order quantity. Typically includes some initial data
 recording, but not quality assurance or stocking [CSCMP].
 
@@ -1989,13 +1991,13 @@ recording, but not quality assurance or stocking [CSCMP].
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">retailer role</rdfs:label>
 		<skos:example>Home Depot has a retailer role when it sells construction materials to contarctors</skos:example>
-		<iof-av:firstOrderLogicAxiom>LA1: RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p, ∃r, ∃r1,∃r2, ∃m,∃f ((BusinessOrganization(y) ∨ Person(y)) ∧ roleOf (x,y) ∧ BuyerRole(r) ∧ hasRole(y,r) ∧ BuyingBusinessProcess(p) ∧ hasRealization(r,p) ∧ MaterialProductRole(r1) ∧ SupplierRole(r2) ∧ MaterialEntity(m) ∧ realizes (p,r1) ∧ roleOf (r1,m) ∧ realizes (p,r2) ∧ roleOf (r2,f) → (Manufacturer(f) ∨ Wholesaler(f))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2:RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p,∃r1,∃r2,∃m,∃e ((BusinessOrganization(y) ∨ Person(y)) ∧ roleOf (x,y) ∧ SupplyingBusinessProcess(p) ∧ agentIn(y,p) ∧ Customer (c) ∧ BuyerRole(r1) ∧ roleOf(r1,c) ∧ MaterialEntity(m) ∧ MaterialProductRole(r2)  ∧ roleOf(r2,m) ∧ realizes(p,r1) ∧ realizes(p,r2)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3:RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p,∃r, ∃m ((BusinessOrganization(y) ∨ Person(y)) ∧  roleOf (x,y) ∧ OfferingForSaleBusinessProcess(p) ∧ agentIn(y,p) ∧ MaterialProductRole(r) ∧ MaterialEntity(m) ∧ realizes(p,r) ∧ roleOf(r,m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p, ∃r, ∃r1,∃r2,∃m,∃f ((BusinessOrganization(y) ∨ Person(y)) ∧ roleOf (x,y) ∧ BuyerRole(r) ∧ hasRole(y,r) ∧ BuyingBusinessProcess(p) ∧ hasRealization(r,p) ∧ MaterialProductRole(r1) ∧ SupplierRole(r2) ∧ MaterialEntity(m) ∧ realizes (p,r1) ∧ roleOf (r1,m) ∧ realizes (p,r2) ∧ roleOf (r2,f) → (Manufacturer(f) ∨ Wholesaler(f))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2:RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p,∃r1,∃r2,∃m,∃e ((BusinessOrganization(y) ∨ Person(y)) ∧ roleOf (x,y) ∧ SupplyingBusinessProcess(p) ∧ agentIn(y,p) ∧ Customer (c) ∧ BuyerRole(r1) ∧ roleOf(r1,c) ∧ MaterialEntity(m) ∧ MaterialProductRole(r2) ∧ roleOf(r2,m) ∧ realizes(p,r1) ∧ realizes(p,r2)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3:RetailerRole(x) → AgentRole(x) ∧ ∃y,∃p,∃r, ∃m ((BusinessOrganization(y) ∨ Person(y)) ∧ roleOf (x,y) ∧ OfferingForSaleBusinessProcess(p) ∧ agentIn(y,p) ∧ MaterialProductRole(r) ∧ MaterialEntity(m) ∧ realizes(p,r) ∧ roleOf(r,m)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by a person or business organization when it buys products (material product) from manufacturers or wholesalers and offers them for sale to customers who are the end users of the product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;retailer role&apos; then x is an &apos;agent role&apos; that is &apos;role of&apos; some &apos;business organization&apos; or &apos;person&apos; y that &apos;has role&apos; some &apos;buyer role&apos; and &apos;has realization&apos; some &apos;buying business process&apos;  that &apos;realizes&apos; some &apos;material product role&apos; that is &apos;role of&apos; some &apos;material entity&apos; and &apos;realizes&apos; some &apos;supplier role&apos; that is &apos;role of&apos; some &apos;manufacturer&apos; or &apos;wholesaler&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;retailer role&apos; then x is an &apos;agent role&apos; that is &apos;role of&apos; some &apos;business organization&apos; or &apos;person&apos; y that &apos;has role&apos; some &apos;buyer role&apos; and &apos;has realization&apos; some &apos;buying business process&apos; that &apos;realizes&apos; some &apos;material product role&apos; that is &apos;role of&apos; some &apos;material entity&apos; and &apos;realizes&apos; some &apos;supplier role&apos; that is &apos;role of&apos; some &apos;manufacturer&apos; or &apos;wholesaler&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2:if x is a &apos;retailer role&apos; then x is an &apos;agent role&apos; that is &apos;role of&apos; some &apos;business organization&apos; or &apos;person&apos; y who is &apos;agent in&apos; some &apos;supplying business process&apos; p and p &apos;realizes&apos; some &apos;material product role&apos; that is &apos;role of&apos; some &apos;material entity&apos; and p &apos;realizes&apos; some &apos;buyer role&apos; that is &apos;role of&apos; some &apos;customer&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3:if x is a &apos;retailer role&apos; then x is an &apos;agent role&apos; that is &apos;role of&apos; some &apos;business organization&apos; or &apos;person&apos; who is &apos;agent in&apos; some &apos;offering for sale business process&apos; that &apos;realizes&apos; some &apos;material product role&apos; that is &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2003,6 +2005,7 @@ recording, but not quality assurance or stocking [CSCMP].
 	<owl:Class rdf:about="&iof-scro;Seaway">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000028"/>
 		<rdfs:label xml:lang="en-us">seaway</rdfs:label>
+		<skos:example>The longest shipping route in the world is the route between Asia and the East Coast of South America with approximately 19,000 nautical miles (35,000 kilometers) and about 45 days to complete.</skos:example>
 		<iof-av:explanatoryNote>A specific route that ocean liners take between ports to help traffic flow and to avoid the most dangerous areas of the ocean [APICS].</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Seaway(x) → ThreeDimensionalSpatialRegion (x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -2016,9 +2019,11 @@ recording, but not quality assurance or stocking [CSCMP].
 		<rdfs:subClassOf rdf:resource="&iof-core;CustomerRole"/>
 		<rdfs:label xml:lang="en-us">service consumer role</rdfs:label>
 		<skos:example>An AT&amp;T customer has a service consumer role when she makes a call using a phone plan provided by AT&amp;T</skos:example>
+		<iof-av:firstOrderLogicAxiom>ServiceConsumerRole(x) → CustomerRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">customer role held by a person or business organization when it receives and consumes a service</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release. in particular, the notions related to receiving or consuming services are missing.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;service consumer role&apos; then x is a &apos;customer role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;ServiceSupplyChain">
@@ -2214,6 +2219,7 @@ recording, but not quality assurance or stocking [CSCMP].
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">shipment preparation process</rdfs:label>
+		<skos:example>A tile manufacturer&apos;s warehouse receives several order and generates a picking list for each order. Then the warehouse workers pick the tile boxes from the assigned inventory location. Warehouse workers then pack, label, and sort the products by carrier before moving them to the loading dock for shipping.</skos:example>
 		<iof-av:explanatoryNote>The activities related to preparation of outgoing shipment for transport. Shipment preparation process (shipping) often includes at least one picking, internal movement, packaging, marking, labeling, weighing, or loading process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ShipmentPreparationProcess (x) → BusinessProcess(x) ∧ ∃c,∃m,∃s (Consignor(c) ∧ MaterialProduct(m) ∧ Shipment(s) ∧ hasParticipantAtSomeTime some(x,c) ∧ hasParticipantAtSomeTime (x,m) &apos; ∧ hasSpecifiedOutput (x,s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -2227,16 +2233,18 @@ recording, but not quality assurance or stocking [CSCMP].
 		<rdfs:subClassOf rdf:resource="&iof-scro;TraceableResourceUnitRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+				<owl:allValuesFrom rdf:resource="&iof-scro;TransportProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
 							<rdf:Description rdf:about="&bfo;BFO_0000040">
 							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;designatedBy"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;Identifier"/>
-							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-core;isOutputOf"/>
 								<owl:someValuesFrom>
@@ -2259,11 +2267,11 @@ recording, but not quality assurance or stocking [CSCMP].
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">shipment role</rdfs:label>
 		<skos:example>role held by a shipment of 5 Toyota Rav4s on an auto transport trailer that are intended to be delivered to a Toyota dealership</skos:example>
-		<iof-av:firstOrderLogicAxiom>ShipmentRole(x) → TraceableResouceUnitRole(x) ∧ ∃m,∃p MaterialEntity(m) ∧ ShipmentPreparationProcess(p) ∧ outputOf(m,p) ∧ ∃b(BillOfLading(b) ∧ prescribedBy(p,b)) ∧ ∃i (Identifier (i) ∧ designates (i,m)) ∧ roleOf (x,m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ShipmentRole(x) → TraceableResouceUnitRole(x) ∧ ∃m,∃p(MaterialEntity(m) ∧ ShipmentPreparationProcess(p)) ∧ outputOf(m,p) ∧ ∃b(BillOfLading(b) ∧ prescribedBy(p,b)) ∧ roleOf (x,m) ∧ (∀y(hasRealization(x,y) → (TransportProcess(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">traceable resource unit role held by material entities when they undergo the same dispatch and receipt processes as prescribed by a bill of lading</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a Shipment Role then x is a Traceable Resource Unit Role that is the &apos;role of&apos; some &apos;material entity&apos; m that is the &apos;output of&apos; some Shipment Preparation Process p and p is &apos;prescribed by&apos; some &apos;bill of lading&apos; and m is &apos;designated by&apos; some &apos;identifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a Shipment Role then x is a Traceable Resource Unit Role that is the &apos;role of&apos; some &apos;material entity&apos; m that is the &apos;output of&apos; some Shipment Preparation Process p that is &apos;prescribed by&apos; some &apos;bill of lading&apos; and whenever x &apos;has realization&apos; y that y must be a &apos;transpot process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Shipper">
@@ -2363,7 +2371,8 @@ recording, but not quality assurance or stocking [CSCMP].
 	<owl:Class rdf:about="&iof-scro;StorageProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label xml:lang="en-us">storage process</rdfs:label>
-		<skos:example>the process of storing cutting tools in a tool cabinet for future use</skos:example>
+		<skos:example>the process of storing cutting tools in a tool cabinet for future use, the process of storing dishes in my kitchen cabinet, the process of storing products by a retailer for selling them in the future</skos:example>
+		<iof-av:explanatoryNote>this class refers to the storage process in a generic sense and it is not necessarily limited to industrial storage in a factory warehouse for example.</iof-av:explanatoryNote>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">planned process of putting and keeping material entities in a specified location for future use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -2386,9 +2395,9 @@ recording, but not quality assurance or stocking [CSCMP].
 			</owl:Class>
 		</owl:equivalentClass>
 		<iof-av:explanatoryNote>logistics service in which an agent keeps a number of material artifacts in a specified location to meet the storage needs of another agent.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>StorageService(x) ↔ LogisticsService(x) ∧ ∃p (StorageProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logistics service that consists of at least one storage process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>StorageService(x) ↔ LogisticsService(x) ∧ ∃p (StorageProcess(p) ∧ hasOccurentPart(x,p))</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;storage service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;storage process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;storage service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;storage process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;StorageServiceProviderRole">
@@ -2396,7 +2405,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProvider">
+					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProviderRole">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
@@ -2568,7 +2577,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">objective specification that prescribes what the outcome of a supply chain process should be</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; and there is a &apos;continuant&apos; c that &apos;is output of&apos; some &apos;supply chain process&apos; and x &apos;prescribes&apos; c then x is a &apos;supply chain objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;objective specification&apos; that &apos;is about&apos; some &apos;supply chain process&apos; p and that &apos;prescribes&apos; some &apos;process characteristic&apos; which is a &apos;process characteristic of&apos; p or &apos;capability&apos; that is &apos;realized in&apos; p or &apos;continuant&apos; c that is &apos;output of&apos; p then x is an &apos;supply chain objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;SupplyChainPlanSpecification">
@@ -2585,6 +2594,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:firstOrderLogicAxiom>LA2:PlanSpecification(x) ∧ ∃c(SupplyChainProcess(p) ∧ prescribes(x,p)) → SupplyChainPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">plan specification that has one or more supply chain objective specifications as parts and that prescribes a supply chain process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1:if x is &apos;supply chain plan specification&apos; then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;supply chain objective specification&apos; o</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2:x if x is a &apos;plan specification&apos; and x &apos;prescribes&apos; some &apos;supply chain process&apos; then x is a &apos;supply chain plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2658,6 +2668,7 @@ recording, but not quality assurance or stocking [CSCMP].
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>the suppliers Ford Motor Company and their equipment, facilities, software systems, production systems, logistics systems that are collectively used and coordinated for production of a Ford F-150&apos;s engine</skos:example>
 		<iof-av:explanatoryNote>A related notion is Supply Chain Infrastrucutre.</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>A supply chain is a system of organizations and business procsses that are involved in manufacture, distribution, and maintenance of a product or asset [GS1].
 
@@ -2673,27 +2684,38 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-scro;TransportProcess">
+					<rdf:Description rdf:about="&iof-scro;SupplyChainProcess">
 					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-scro;TransportProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-scro;endsAt"/>
+										<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainNode"/>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-scro;startsAt"/>
+										<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainNode"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000167"/>
 						<owl:someValuesFrom rdf:resource="&iof-scro;Shipment"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-scro;endsAt"/>
-						<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainNode"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-scro;startsAt"/>
-						<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainNode"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>transporting semi-finished assemblies from one supplier to another</skos:example>
-		<iof-av:firstOrderLogicAxiom>SupplyingChainTransportProcess(x) ↔ TransportProcess(x) ∧ (∃n1,∃n2(SupplyChainNode(n1) ∧ SupplyChainNode(n2) ∧ startsAt(x,n1) ∧ endsAt(x,n2))  ∧ (∃s(Shipment(s) ∧ hasParticipantAtSomeTime (x,s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>SupplyingChainTransportProcess(x) ↔ SupplyChainProcess(x) ∧ ∃p(TransportProcess(p) ∧ hasOccurrentPart(x,p)) ∧ (∃n1,∃n2(SupplyChainNode(n1) ∧ SupplyChainNode(n2) ∧ startsAt(x,n1) ∧ endsAt(x,n2)) ∧ (∃s(Shipment(s) ∧ hasParticipantAtSomeTime (x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>every instance of &apos;supply chain transport process&apos; is defined as exactly an instance of a &apos;supply chain process&apos; that &apos;has occurrent part&apos; some &apos;transport process&apos; that &apos;starts at&apos; and &apos;ends at&apos; some &apos;supply chain node&apos; and &apos;has participant at some time&apos; some &apos;shipment&apos;</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">transport process which involves movement of goods between sending trading party’s location and receiving trading party’s locations over the public logistics pathway/infrastructure</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;supply chain transport process&apos; is defined as exactly an instance of a &apos;transport process&apos; that &apos;starts at&apos; and &apos;ends at&apos; some &apos;supply chain node&apos; and &apos;has participant at some time&apos; some &apos;shipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;SupplyRelationship">
@@ -2755,7 +2777,8 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:firstOrderLogicAxiom>Traceability(x) → SystemCapability(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">capability of a system to trace the history, application or location of an object</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release. Namely, trace and track processes are not formailized yet.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;traceability&apos; then x is a &apos;system capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;TraceableResourceUnit">
@@ -2841,6 +2864,8 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<iof-av:firstOrderLogicAxiom>TransportProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃e ((PieceOfTransportEquipment(e) ∧ hasParticipantAtSomeTime(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">material location change process involving the movement of material entities by some piece of transport equipment</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;transport process&apos; then x is a &apos;material location change process&apos; that &apos;has participant at some time&apos; some &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>act of shipping</iof-av:synonym>
 	</owl:Class>
@@ -2882,7 +2907,7 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<iof-av:explanatoryNote>logistics service in which an agent changes the location of some material entities to satisfy the transportation needs of another agent</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>TransportationService(x) ↔ LogisticsService(x) ∧ ∃p (TransportProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logistics service that consists of at least one transport process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;transportation service&apos; is defined as exactly an instance of &apos;logistic service&apos; that &apos;has occurrent part&apos; some &apos;transport process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;transportation service&apos; is defined as exactly an instance of &apos;logistic service&apos; that &apos;has occurrent part&apos; some &apos;transport process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;TransportationServiceProviderRole">
@@ -2890,7 +2915,7 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProvider">
+					<rdf:Description rdf:about="&iof-scro;LogisticsServiceProviderRole">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
@@ -2916,6 +2941,7 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<iof-av:firstOrderLogicDefinition>TransportationServiceServiceProviderRole(x) ↔ LogisticsServiceProviderRole(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y)) ∧ TransportationService(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">logisitics service provider role that is held by a business organization or person when it provides a transportation service</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;transportation service provider role&apos; then x is a &apos;service provider role&apos; that is the &apos;role of&apos; a &apos;business organization&apos; or &apos;person&apos; y when it is &apos;agent in&apos; some &apos;transportation service&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:synonym>Carrier Role</iof-av:synonym>
@@ -2941,9 +2967,11 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<rdfs:label xml:lang="en-us">travel process</rdfs:label>
 		<skos:example>the process of travelling from New York to Philadelphia by train</skos:example>
 		<iof-av:adaptedFrom>http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>Travel(​x​) → MaterialLocationChangeProcess(​x)​ ∧ ​∃​y ∃​​t ∃​​t′​​ ∃​​t&apos;&apos; ∃​s ∃​s′​ ∃​z ∃​z′(Person(​y​) ∨ GroupOfPersons(y)) ∧ TemporalInstant(t) ∧ TemporalInstant(t&apos;) ∧ TemporalRegion(t&apos;&apos;) ∧ IndependentContinuant(s) ∧ IndependentContinuant(s&apos;) ∧ Site(z)  ∧ Site(z&apos;) ∧ hasParticipantAtSomeTime(x,y) ∧ firstInstantOf(​t​, ​t&apos;&apos;​) ∧ lastInstantOf(​t&apos;​, ​t&apos;&apos;​) ∧ occupiesTemporalRegion(​x,​t&apos;&apos;)​ ∧  existsAt(s,t) ∧ existsAt(s&apos;,t&apos;) ∧  locatedInAtalltimes(s,z)  ∧ locatedInAtAlltimes(s&apos;,z&apos;) ∧  locationOfAtAlltimes(s,y)  ∧ locationOfAtAllTimes(s&apos;,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Travel(​x​) → MaterialLocationChangeProcess(​x)​ ∧ ​∃​y ∃​​t ∃​​t′​​ ∃​​t&apos;&apos; ∃​s ∃​s′​ ∃​z ∃​z′(Person(​y​) ∨ GroupOfPersons(y)) ∧ TemporalInstant(t) ∧ TemporalInstant(t&apos;) ∧ TemporalRegion(t&apos;&apos;) ∧ IndependentContinuant(s) ∧ IndependentContinuant(s&apos;) ∧ Site(z) ∧ Site(z&apos;) ∧ hasParticipantAtSomeTime(x,y) ∧ firstInstantOf(​t​, ​t&apos;&apos;​) ∧ lastInstantOf(​t&apos;​, ​t&apos;&apos;​) ∧ occupiesTemporalRegion(​x,​t&apos;&apos;)​ ∧ existsAt(s,t) ∧ existsAt(s&apos;,t&apos;) ∧ locatedInAtalltimes(s,z) ∧ locatedInAtAlltimes(s&apos;,z&apos;) ∧  locationOfAtAlltimes(s,y) ∧ locationOfAtAllTimes(s&apos;,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">material location change process wherein one or more persons move between geographical locations</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material location change process&apos; then x is a &apos;planned process&apos; in which a &apos;person&apos; or a &apos;group of persons&apos; is moved from one &apos;site&apos; to another</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;material location change process&apos; then x is a &apos;planned process&apos; in which a &apos;person&apos; or a &apos;group of persons&apos; is moved from one &apos;site&apos; to another</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Wagon">
@@ -3273,16 +3301,6 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between a process and agent when the agent participates in the process and plays a causal role</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:DatatypeProperty rdf:about="&iof-scro;hasDateTimeValue">
-		<rdfs:label xml:lang="en-us">has datetime value</rdfs:label>
-		<rdfs:range rdf:resource="&xsd;dateTime"/>
-	</owl:DatatypeProperty>
-	
-	<owl:DatatypeProperty rdf:about="&iof-scro;hasDateValue">
-		<rdfs:label xml:lang="en-us">has date value</rdfs:label>
-		<rdfs:range rdf:resource="&xsd;dateTime"/>
-	</owl:DatatypeProperty>
-	
 	<owl:ObjectProperty rdf:about="&iof-scro;hasParticipantAsTradeItem">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000057"/>
 		<rdfs:label xml:lang="en-us">has participant as trade item</rdfs:label>
@@ -3292,7 +3310,7 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 	<owl:DatatypeProperty rdf:about="&iof-scro;hasTextValue">
 		<rdfs:label xml:lang="en-us">has text value</rdfs:label>
 		<rdfs:range rdf:resource="&xsd;string"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relationship between an information entity and a string representation.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relationship between an information entity and a string representation</iof-av:naturalLanguageDefinition>
 	</owl:DatatypeProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-scro;holds">
@@ -3491,26 +3509,6 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relationship between a supplier and a customer when the supplier sells a product of service to a customer</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/service/ServiceOntology/ManufacturingService">
-		<rdfs:label xml:lang="en-us">manufacturing service</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;CommercialService">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>The final assembly service provided by Foxconn to Apple (Foxconn is a contract manufacturing service company that owns and operates factories in China that do the final assembly of iPhones for Apple), The machining services provided by a contract machinist</skos:example>
-		<iof-av:firstOrderLogicAxiom>ManufacturingService(x) ↔ CommercialService(x) ∧ ∃p (ManufacturingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">commercial service that consists of at least one manufacturing process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufactuirng service&apos; is defined as exactly an instance of &apos;commercial service&apos; that &apos;has occurrent part&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/service/ServiceOntology/ManufacturingServiceProviderRole">
 		<rdfs:subClassOf rdf:resource="&iof-core;ServiceProviderRole"/>
 		<rdfs:subClassOf>
@@ -3529,7 +3527,7 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 							</owl:Class>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-scro;agentIn"/>
-								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/service/ServiceOntology/ManufacturingService"/>
+								<owl:someValuesFrom rdf:resource="&iof-scro;ManufacturingService"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -3537,10 +3535,11 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">manufacturing service provider role</rdfs:label>
-		<skos:example>a contract machinist who machines parts for another company</skos:example>
+		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
 		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -3642,18 +3641,33 @@ Examples of traceable objects include products (e.g., consumer goods, medicines,
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-core;ObjectiveSpecification">
 			</rdf:Description>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;isOutputOf"/>
-						<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000002"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-scro;SupplyChainProcess"/>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Capability">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000002">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;isOutputOf"/>
+										<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
