@@ -11,11 +11,11 @@ Version 1 Beta, 2022-11-18
 
 # Introduction
 
-<<<<<<< HEAD
+
 Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain Reference Ontology can be extended to create application ontologies addressing the needs of specific use cases.The developmen of SCRO was initially motivated by use cases related to supplier discovery (i.e., supplier capability matching with manufacturing requirements), logistics,  and supply chain traceability. The definitions of the domain terms are extracted from widely acceoted industry standards such as GS! and APICS.
 =======
 Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain Reference Ontology can be extended to create application ontologies addressing the needs of specific use cases. The development of SCRO was initially motivated by use cases related to supplier discovery (i.e., supplier capability matching with manufacturing requirements), shipment request and fulfillment,  and agri-food supply chain traceability. While the ontology is driven by specific use cases, the definitions of terms are intended to be applicable beyond these use cases and are extracted from widely accepted industry standards such as GS1 and APICS.
->>>>>>> 68254bf1e9010fac5069e9b01787b597bcfe604e
+
 
 
 SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rdf are imported through IOF Core.  
