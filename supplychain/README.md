@@ -25,7 +25,6 @@ SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rd
 > click the image to view the enlarged image in a new tab
 ![Taxonomy of SCRO Continuants](images/SCRO-Occurrents.png)
 
-<<<<<<< HEAD
 ## Glossary of Terms
 [The glossary](https://htmlpreview.github.io/?https://github.com/InfoneerTXST/Glossary/blob/master/index.html) provides the natural language definitions of SCRO classes and properties
 
@@ -41,7 +40,7 @@ Additional class diagrams can be found [here](https://oagiscore.atlassian.net/wi
 ## Example Data in RDF
 This dataset represents a hypothetical supply chain as depicted in [this image](https://github.com/iofoundry/ontology/blob/SCRO-pre-vote-branch/supplychain/Documentation%20%26%20Resources/images/FORD-SupplyChain.png). The RDF dataset demonstrates how the class "Supply Chain Relationship' is used to represent the strucrue of a supply chain.
 - [RDF Dataset](https://github.com/iofoundry/ontology/tree/SCRO-pre-vote-branch/supplychain/data)
->>>>>>> 68254bf1e9010fac5069e9b01787b597bcfe604e
+
 
 ## Current Outstanding Issues
 - Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers.
