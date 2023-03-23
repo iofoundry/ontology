@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
@@ -11,7 +12,8 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/"
+<rdf:RDF
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
@@ -94,18 +96,23 @@
 		<rdfs:subClassOf rdf:resource="&iof-maint;MaintenanceState"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&obo;BFO_0000167"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaintainableMaterialItem"/>
+				<owl:onProperty rdf:resource="&obo;BFO_0000062"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-maint;DegradedState">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-maint;OperatingState">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty>
-					<rdf:Description>
-						<owl:inverseOf rdf:resource="&obo;BFO_0000063"/>
-					</rdf:Description>
-				</owl:onProperty>
-				<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceState"/>
+				<owl:onProperty rdf:resource="&obo;BFO_0000167"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;MaintainableMaterialItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -377,6 +384,33 @@
 		</rdfs:subClassOf>
 		<rdfs:label>qualified maintenance person</rdfs:label>
 		<rdfs:seeAlso>qualification specification</rdfs:seeAlso>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;Person">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000056"/>
+						<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceActivity"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-maint;QualificationSpecification">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+										<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceActivity"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example>electrician, fitter, mechanic</skos:example>
 		<iof-av:explanatoryNote>Qualified person on its own is not particularly useful unless reasoning is constrained to only the individuals of interest at some time. Specific subtypes of qualified person are necessary to determine if specific qualification types  are satisfied. Still, care must be taken when reasoning over temporal information as, if the critieria are met at some time, the calssification will hold.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>QualifiedPerson(x) ↔ Person(x) ∧ ∃y(MaintenanceActivity(y) ∧ partcipatesInAtSomeTime(x,y) ∧ ∃z(QualificationSpecification(z) ∧ prescribedBy(y, z) ∧ satisfiesRequirement(x,z)))</iof-av:firstOrderLogicDefinition>
@@ -439,6 +473,7 @@
 	
 	<owl:ObjectProperty rdf:about="&iof-maint;hasState">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000056"/>
+		<rdfs:label>hasMaintainableMaterialState</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-core;MaintainableMaterialItem"/>
 		<rdfs:range rdf:resource="&iof-maint;MaintenanceState"/>
 		<owl:inverseOf rdf:resource="&iof-maint;stateOf"/>
@@ -465,6 +500,7 @@
 	
 	<owl:ObjectProperty rdf:about="&iof-maint;stateOf">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000167"/>
+		<rdfs:label>maintainableMaterialStateOf</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-maint;MaintenanceState"/>
 		<rdfs:range rdf:resource="&iof-core;MaintainableMaterialItem"/>
 		<iof-av:maturity>Provisional</iof-av:maturity>
