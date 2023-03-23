@@ -379,42 +379,26 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
-				<owl:someValuesFrom rdf:resource="&iof-maint;QualificationSpecification"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-maint;QualificationSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceActivity"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>qualified maintenance person</rdfs:label>
 		<rdfs:seeAlso>qualification specification</rdfs:seeAlso>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;Person">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&obo;BFO_0000056"/>
-						<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceActivity"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-maint;QualificationSpecification">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-maint;MaintenanceActivity"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example>electrician, fitter, mechanic</skos:example>
 		<iof-av:explanatoryNote>Qualified person on its own is not particularly useful unless reasoning is constrained to only the individuals of interest at some time. Specific subtypes of qualified person are necessary to determine if specific qualification types  are satisfied. Still, care must be taken when reasoning over temporal information as, if the critieria are met at some time, the calssification will hold.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>QualifiedPerson(x) ↔ Person(x) ∧ ∃y(MaintenanceActivity(y) ∧ partcipatesInAtSomeTime(x,y) ∧ ∃z(QualificationSpecification(z) ∧ prescribedBy(y, z) ∧ satisfiesRequirement(x,z)))</iof-av:firstOrderLogicDefinition>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity>Provisional</iof-av:maturity>
 		<iof-av:naturalLanguageDefinition>person who is qualified to perform a specified process or task</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>&apos;qualified person&apos;: every  instance of &apos;qualified person&apos; is defined as exactly an instance of &apos;person&apos; that &apos;participates in at some time&apos; some &apos;maintenance activity&apos; p and that &apos;satifies&apos; some &apos;qualification specification&apos; that &apos;prescribes&apos; p</iof-av:semiFormalNaturalLanguageDefinition>
