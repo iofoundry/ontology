@@ -78,7 +78,6 @@
 		<iof-av:firstOrderLogicAxiom>LA6: ∀i,j precedes(i,j)←TemporalInstant(i)∧TemporalInterval(j)∧∃j&apos;(hasFirstInstant(j,j&apos;)∧precedes(i,j&apos;))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA7: ∀i,j precedes(i,j)←TemporalInterval(i)∧TemporalInstance(j)∧∃i&apos;(hasLastInstant(i,i&apos;)∧precedes(i&apos;,j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">comes before (something) in time</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if i precedes j then either i and j are both ‘temporal instant’, or both are ‘temporal interval’, or both are ‘process’, or both are ‘process boundary’, or i is ‘temporal interval’ and j is ‘temporal instant’, or i is ‘temporal instant’ and j is ‘temporal interval’.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If i and j are both ‘temporal instants’ and the measured value of i is less than the measured value of j, then i precedes j.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If i and j are both ‘temporal interval’ and i either ‘before’ j or ‘meets’ j then i precedes j.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: If i and j are both ‘temporal interval’ and the temporal extent of i precedes the temporal extent of j, then i precedes j.</iof-av:semiFormalNaturalLanguageAxiom>
@@ -2863,7 +2862,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;before"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is later than the first instant of the temporal extent of j.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>after(x,y) ↔ before(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is later than the first instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;before&apos; and &apos;after&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;before">
@@ -2890,13 +2891,13 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j before(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ before(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j before(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j before(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ precedes(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is earlier than the first instant of the temporal extent of j.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i is &apos;before&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;last instant of&apos; the temporal extent of i &apos;precedes&apos; the &apos;first instant of&apos; the temporal extent of j, then i is &apos;before&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies is &apos;before&apos; the &apos;temporal interval&apos; that j occupies., then i is &apos;before&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: before(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ precedes(i&apos;,j&apos;)) → before(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ before(i&apos;,j&apos;)) → before(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is earlier than the first instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i is &apos;before&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;last instant of&apos; i &apos;precedes&apos; the &apos;first instant of&apos; j then i is &apos;before&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies is &apos;before&apos; the &apos;temporal interval&apos; that j occupies then i is &apos;before&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;capabilityOf">
@@ -3002,7 +3003,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;occursDuring"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is later than the first instant of the temporal extent of i and the last instant of the temporal extent of j is earlier than the last instant of the temporal extent of i.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>containsOccurenceOf(x,y) ↔ occursDuring(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is later than the first instant of the temporal extent of i and the last instant of the temporal extent of j is earlier than the last instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;contains occurence of&apos; and &apos;occurs during&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;denotedBy">
@@ -3109,7 +3112,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;finishes"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is precedes the first instant of j.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>finishedBy(x,y) ↔ finishes(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is precedes the first instant of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;finished by&apos; and &apos;finishes&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;finishes">
@@ -3135,15 +3140,15 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j finishes(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j finishes(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos; ) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ haslastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j finishes(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ finishes(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀i,j finishes(i,j)↔∃k (meets(i,k)∧meets(j,k))∧∃l (before(l,i)∧meets(l,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j is precedes the first instant of i.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;finishes&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the last ‘Temporal Instant’ of i ‘occurs simultaneously with’ the last ‘Temporal Instant’ of j and the first ‘Temporal Instant’ of j &apos;precedes&apos; the first ‘Temporal Instant’ of i, then i &apos;finishes&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;finishes&apos; the &apos;temporal interval&apos; that j occupies., then i &apos;finishes&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;finishes&apos; j if and only if there exists k such that i &apos;meets&apos; k and j &apos;meets&apos; k, and there exists l that is &apos;before&apos; i and &apos;meets&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: finishes(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;)) → finishes(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ finishes(i&apos;,j&apos;)) → finishes(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: finishes(i,j) ↔ ∃k,∃l(meets(i,k)∧meets(j,k) ∧ before(l,i) ∧ meets(l,j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j is precedes the first instant of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;finishes&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;last instant’ of i ‘occurs simultaneously with’ the &apos;last instant of&apos; j and the &apos;first instant of&apos; j &apos;precedes&apos; the &apos;first instant’ of i, then i &apos;finishes&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;finishes&apos; the &apos;temporal interval&apos; that j occupies then i &apos;finishes&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;finishes&apos; j if and only if there exists k such that i &apos;meets&apos; k and j &apos;meets&apos; k, and there exists l that is &apos;before&apos; i and &apos;meets&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;functionOf">
@@ -3478,7 +3483,9 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;overlaps"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of j is earlier than and the last instant of the temporal extent of j is later than the first instant of the temporal extent of i, and the last instance of the temporal extent of j is earlier than the last instant of the temporal extent of i.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>isOverlappedBy(x,y) ↔ overlaps(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of j is earlier than and the last instant of the temporal extent of j is later than the first instant of the temporal extent of i, and the last instance of the temporal extent of j is earlier than the last instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;is overlapped by&apos; and &apos;overlaps&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;isSpecifiedOutputOf">
@@ -3565,13 +3572,13 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;metBy"/>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j meets(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j meets(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j meets(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ meets(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: meets(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;)) → meets(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ meets(i&apos;,j&apos;)) → meets(i,j)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the first instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;meets&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;last instant of&apos; the temporal extent of i &apos;occurs simultaneously with&apos; the &apos;first instant of&apos; the temporal extent of j, then i &apos;meets&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;meets&apos; the &apos;temporal interval&apos; that j occupies., then i &apos;meets&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;meets&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;last instant of&apos; i &apos;occurs simultaneously with&apos; the &apos;first instant of&apos; j then i &apos;meets&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;meets&apos; the &apos;temporal interval&apos; that j occupies then i &apos;meets&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;metBy">
@@ -3597,7 +3604,9 @@ category within a classification scheme of an entity that the value expression i
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the first instant of the temporal extent of i.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>metBy(x,y) ↔ meets(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the first instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;met by&apos; and &apos;meets&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;observedByAtSomeTime">
@@ -3648,21 +3657,22 @@ category within a classification scheme of an entity that the value expression i
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j occursDuring(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j occursDuring(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos; ) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ haslastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos; ))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j occursDuring(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursDuring(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀i,j occursDuring(i,j)↔∃k(finishes(i,k)∧starts(k,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of i is later than the first instant of the temporal extent of j and the last instant of the temporal extent of i is earlier than the last instant of the temporal extent of j.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;occurs during&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and first ‘Temporal Instant’ of j ‘precedes’ the first ‘Temporal Instant’ of i, and the last ‘Temporal Instant’ of i ‘precedes’ the last ‘Temporal Instant’ of j, then i &apos;occurs during&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;occurs during&apos; the &apos;temporal interval&apos; that j occupies., then i &apos;occurs during&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;occurs during&apos; j if and only if there exists k such that i finishes k and k starts j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: occursDuring(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;)) → occursDuring(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursDuring(i&apos;,j&apos;)) → occursDuring(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: occursDuring(i,j) ↔ ∃k(finishes(i,k) ∧ starts(k,j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of i is later than the first instant of the temporal extent of j and the last instant of the temporal extent of i is earlier than the last instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;occurs during&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and &apos;first instant of&apos; j ‘precedes’ the &apos;first instant of&apos; i and the &apos;last instant of&apos; i ‘precedes’ the &apos;last instant of&apos; j then i &apos;occurs during&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;occurs during&apos; the &apos;temporal interval&apos; that j occupies then i &apos;occurs during&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;occurs during&apos; j if and only if there exists k such that i finishes k and k starts j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-core;occursSimoultaneouslyWith">
+	<owl:ObjectProperty rdf:about="&iof-core;occursSimultaneouslyWith">
+		<rdf:type rdf:resource="&owl;SymmetricProperty"/>
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-us">occurs simoultaneously with</rdfs:label>
+		<rdfs:label xml:lang="en-us">occurs simultaneously with</rdfs:label>
 		<rdfs:domain>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -3691,17 +3701,17 @@ category within a classification scheme of an entity that the value expression i
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j occursSimultaneouslyWith(i,j) → (TemporalInstant(i)∧TemporalInstant(j))∨(TemporalInterval(i)∧TemporalInterval(j))∨(process(i)∨process(j))∧(ProcessBoundary(i)∧ProcessBoundary(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j occursSimultaneouslyWith(i,j) ← TemporalInstant(i) ∧ TemporalInstant(j) ∧ ∃k,l(hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes(j,l) ∧ ∃v&apos;,v&apos;&apos;(time:numericPosition(k,v&apos;) ∧ time:numericPosition (l,v&apos;&apos;) ∧ (v&apos; = v&apos;&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j occursSimultaneouslyWith(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos; (TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀i,j occursSimultaneouslyWith(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos; ))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA5: ∀i,j occursSimultaneouslyWith(i,j) ← ProcessBoundary(i) ∧ ProcessBoundary(j) ∧ ∃i&apos;,j&apos; (TemporalInstance(i&apos;) ∧ TemporalInstance(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos; ))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two time instants when they are simultaneous, or between two intervals when they have same first and last instants or between two processes when their temporal extents are same.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if i &apos;occurs simultaneously with&apos; j then either i and j are both ‘temporal instant’, or both are ‘temporal interval’, or both are ‘process’, or both are ‘process boundary’.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are both ‘Temporal Instant’ such that the measured value of i is equal than the measured value of j, then i &apos;occurs simoultaneously with&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If i and j are both ‘Temporal Interval’, the first ‘Temporal Instant’ of i  &apos;occurs simoultaneously with&apos;  the last ‘Temporal Instant’ of j, and the last ‘Temporal Instant’ of i  &apos;occurs simoultaneously with&apos;  the last ‘Temporal Instant’ of j, then i &apos;occurs simoultaneously with&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: If both i and j are ‘process’ and the ‘Temporal Region’ occupied by i ‘occurs simoultaneously with’ the ‘Temporal Region’ occupied by j then i is &apos;occurs simoultaneously with&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA5: If i and j are both ‘process boundary’ and the ‘temporal instant’ that i occupies &apos;occurs simoultaneously with&apos; ‘temporal instant’ that j occupies, then i &apos;occurs simoultaneously with&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: occursSimultaneouslyWith(i,j) → (TemporalInstant(i) ∧ TemporalInstant(j)) ∨ (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j)) ∧ (ProcessBoundary(i) ∧ ProcessBoundary(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInstant(i) ∧ TemporalInstant(j) ∧ ∃k,l(TemporalInstantValueExpression(k) ∧ TemporalInstantValueExpression(l) ∧ hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes(j,l) ∧ ∃v&apos;,v&apos;&apos;(time:numericPosition(k,v&apos;) ∧ time:numericPosition(l,v&apos;&apos;) ∧ (v&apos; = v&apos;&apos;))) → occursSimultaneouslyWith(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;)) → occursSimultaneouslyWith(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;)) → occursSimultaneouslyWith(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA5: ProcessBoundary(i) ∧ ProcessBoundary(j) ∧ ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;)) → occursSimultaneouslyWith(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two time instants when they are simultaneous or between two intervals when they have same first and last instants or between two processes or two process boundaries when their temporal extents are the same</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if i &apos;occurs simultaneously with&apos; j then either i and j are both ‘temporal instant’, or both are ‘temporal interval’ or both are ‘process’ or both are ‘process boundary’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are both ‘temporal instant’ such that the &apos;temporal instant value expression&apos; of i is equal to the &apos;temporal instant value expression&apos; of j then i &apos;occurs simoultaneously with&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If i and j are both ‘temporal interval’ and the &apos;first instant of&apos; i &apos;occurs simoultaneously with&apos; the &apos;first instant of&apos; j and the &apos;last instant of&apos; i &apos;occurs simoultaneously with&apos; the &apos;last instant of&apos; j then i &apos;occurs simoultaneously with&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: If both i and j are ‘process’ and the ‘temporal interval’ occupied by i ‘occurs simoultaneously with’ the ‘temporal interval’ occupied by j then i  &apos;occurs simoultaneously with&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA5: If i and j are both ‘process boundary’ and the ‘temporal instant’ that i occupies &apos;occurs simoultaneously with&apos; ‘temporal instant’ that j occupies then i &apos;occurs simoultaneously with&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;overlaps">
@@ -3727,15 +3737,15 @@ category within a classification scheme of an entity that the value expression i
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j overlaps(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j overlaps(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos; ) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ haslastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;&apos;) ∧ precedes(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j overlaps(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ overlaps(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀i,j overlaps(i,j)↔∃k(finishes(k,i)∧starts(k,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of i is earlier than and the last instant of the temporal extent of i is later than the first instant of the temporal extent of j, and the last instance of the temporal extent of i is earlier than the last instant of the temporal extent of j.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;overlaps&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the first ‘temporal instant’ of j ‘precedes’ the last ‘temporal instant’ of I, the first ‘temporal instant’ of i ‘precedes’ the first ‘temporal instant’ of j, and the last ‘temporal instant’ of i ‘precedes’ the last ‘temporal instant’ of j, then i &apos;overlaps&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;overlaps&apos; the &apos;temporal interval&apos; that j occupies., then i &apos;overlaps&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;overlaps&apos; j if and only if there exists k that &apos;finishes&apos; i and &apos;starts&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: overlaps(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;&apos;) ∧ precedes(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;)) → overlaps(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ overlaps(i&apos;,j&apos;)) → overlaps(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: overlaps(i,j) ↔ ∃k(finishes(k,i) ∧ starts(k,j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of i is earlier than and the last instant of the temporal extent of i is later than the first instant of the temporal extent of j, and the last instance of the temporal extent of i is earlier than the last instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;overlaps&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;first instant’ of j ‘precedes’ the &apos;last instant of&apos; i and the &apos;first instant of&apos; i ‘precedes’ the &apos;first instant’ of j and the &apos;last instant of&apos; i ‘precedes’ the &apos;last instant of&apos; j then i &apos;overlaps&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;overlaps&apos; the &apos;temporal interval&apos; that j occupies then i &apos;overlaps&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;overlaps&apos; j if and only if there exists k that &apos;finishes&apos; i and &apos;starts&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;prescribedBy">
@@ -3855,7 +3865,9 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;starts"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is the same as first the instant of the temporal extent of i and the last instant of j precedes the last instant of i.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>startedBy(x,y) ↔ starts(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is the same as first the instant of the temporal extent of i and the last instant of j precedes the last instant of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;started by&apos; and &apos;starts&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;starts">
@@ -3881,15 +3893,15 @@ category within a classification scheme of an entity that the value expression i
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀i,j starts(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (process(i) ∧ process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀i,j starts(i,j) ← TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos; ) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ haslastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀i,j starts(i,j) ← process(i) ∧ process(j) ∧ ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ starts(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀i,j starts(i,j)↔∃k (meets(k,i)∧meets(k,j))∧∃l (before(i,l)∧meets(j,l))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of i is the same as first the instant of the temporal extent of j and the last instant of i precedes the last instant of j.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;starts&apos; j  then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the first ‘Temporal Instant’ of i ‘occurs simultaneously with’ the first ‘Temporal Instant’ of j and the last ‘Temporal Instant’ of i &apos;precedes&apos; the last ‘Temporal Instant’ of j, then i &apos;starts&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;starts&apos; the &apos;temporal interval&apos; that j occupies., then i &apos;starts&apos; j.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: starts(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;)) → starts(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ starts(i&apos;,j&apos;)) → starts(i,j)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: starts(i,j) ↔ ∃k,∃l(meets(k,i) ∧ meets(k,j) ∧ before(i,l) ∧ meets(j,l))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of i is the same as first the instant of the temporal extent of j and the last instant of i precedes the last instant of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;starts&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and the &apos;first instant’ of i ‘occurs simultaneously with’ the &apos;first instant of&apos; j and the &apos;last instant of&apos; i &apos;precedes&apos; the &apos;last instant of&apos; j then i &apos;starts&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and the &apos;temporal interval&apos; that i occupies &apos;starts&apos; the &apos;temporal interval&apos; that j occupies then i &apos;starts&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:Class>
