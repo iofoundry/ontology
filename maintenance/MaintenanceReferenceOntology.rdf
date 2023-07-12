@@ -179,7 +179,7 @@
 		<rdfs:label>failure event</rdfs:label>
 		<rdfs:seeAlso>ISO81346 for examples of functions</rdfs:seeAlso>
 		<skos:example>explosion, seizure, loss of power, loss of control</skos:example>
-		<iof-av:explanatoryNote>the function can be a combination of functions</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>the event can be the loss of the primary function or a combination of functions</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>FailureEvent(e) ↔ Event(e) ∧ ∃o(FailedState(o) ∧  initiates(e, o)) ∧ ∃i,f,p1(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(e, i) ∧ PrimaryFunction(f) ∧ hasFunction(i, f) ∧ FunctioningProcess(p1) ∧ realizes(p1, f) ∧ precedes(p1, e) ∧ ¬∃p2(FunctioningProcess(p2) ∧ realizes(p2,f) ∧  precedes(p1, p2) ∧ precedes(p2, e)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:maturity>Provisional</iof-av:maturity>
@@ -254,7 +254,7 @@
 	<owl:Class rdf:about="&iof-maint;MaintenanceActivity">
 		<rdfs:subClassOf rdf:resource="&iof-maint;MaintenanceProcess"/>
 		<rdfs:label>maintenance activity</rdfs:label>
-		<skos:example>replace activity, repair activity, inspect activity</skos:example>
+		<skos:example>replace, repair, inspect, adjust, service, diagnose and calibrate activities</skos:example>
 		<iof-av:firstOrderLogicAxiom>Maintenance Activity(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity>Release</iof-av:maturity>
@@ -351,10 +351,11 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a record in a (computerised) maintenance management system that contains fields for due and actual date of the maintenance, a description of the maintenance task, actual and budget costs and other fields</skos:example>
 		<iof-av:acronym>MWO</iof-av:acronym>
 		<iof-av:explanatoryNote>the record has a number of commonly used fields including dates, task description, task codes, costs</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>this definition remains provisional because it assumes that a work order must involve a &apos;maintenance process&apos;. In the current definition, a work order cannot be made up of purely &apos;supporting maintenance activity&apos; tasks.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ descibes(x, y) ∧ isInputOfAtSomeTime(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ describes(x, y) ∧ isInputOfAtSomeTime(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:maturity>Provisional</iof-av:maturity>
 		<iof-av:naturalLanguageDefinition>information content entity that describes a maintenance process</iof-av:naturalLanguageDefinition>
@@ -456,6 +457,7 @@
 	<owl:Class rdf:about="&iof-maint;SupportingActivity">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>supporting maintenance activity</rdfs:label>
+		<skos:example>  activities that do not change the state of the asset but are done by maintenance personnel such as reporting activity, isolate activity, move activity, training activity</skos:example>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>single action in support of the execution of a maintenance process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</iof-av:primitiveRationale>
@@ -473,14 +475,15 @@
 		<iof-av:synonym>failure mode</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&iof-maint;hasState">
+	<owl:ObjectProperty rdf:about="&iof-maint;hasMaintenanceState">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000056"/>
 		<rdfs:label>has maintainable material state</rdfs:label>
+		<skos:example>has partial function or loss of function</skos:example>
 		<rdfs:domain rdf:resource="&iof-core;MaintainableMaterialItem"/>
 		<rdfs:range rdf:resource="&iof-maint;MaintenanceState"/>
-		<owl:inverseOf rdf:resource="&iof-maint;stateOf"/>
+		<owl:inverseOf rdf:resource="&iof-maint;maintenanceStateOf"/>
 		<iof-av:maturity>Provisional</iof-av:maturity>
-		<iof-av:naturalLanguageDefinition>inverse of &apos;stateOf&apos;</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>describes the maintenance state of a maintainable material item</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-maint;initiates">
@@ -496,17 +499,19 @@
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
+		<skos:example>starts, begins, commences </skos:example>
 		<iof-av:maturity>Provisional</iof-av:maturity>
 		<iof-av:naturalLanguageDefinition>comes before an event or process in time and results in beginning or creation of the event or process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-maint;stateOf">
+	<owl:ObjectProperty rdf:about="&iof-maint;maintenanceStateOf">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000167"/>
 		<rdfs:label>maintainable material state of</rdfs:label>
+		<skos:example>the physical or software asset </skos:example>
 		<rdfs:domain rdf:resource="&iof-maint;MaintenanceState"/>
 		<rdfs:range rdf:resource="&iof-core;MaintainableMaterialItem"/>
 		<iof-av:maturity>Provisional</iof-av:maturity>
-		<iof-av:naturalLanguageDefinition>describes the maintenance state of a maintainable item</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>describes the maintainable item involved in the maintenance state;</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:AllDisjointClasses>
