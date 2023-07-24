@@ -12,7 +12,7 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/"
+<rdf:RDF
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
@@ -175,7 +175,7 @@
 		<rdfs:label xml:lang="en-US">failure event</rdfs:label>
 		<rdfs:seeAlso>ISO81346 for examples of functions</rdfs:seeAlso>
 		<skos:example>explosion, seizure, loss of power, loss of control</skos:example>
-		<iof-av:explanatoryNote>the function can be a combination of functions</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>the event can be the loss of the primary function or a combination of functions</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>FailureEvent(e) ↔ Event(e) ∧ ∃o(FailedState(o) ∧ initiates(e, o)) ∧ ∃i,f,p1(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(e, i) ∧ PrimaryFunction(f) ∧ hasFunction(i, f) ∧ FunctioningProcess(p1) ∧ realizes(p1, f) ∧ precedes(p1, e) ∧ ¬∃p2(FunctioningProcess(p2) ∧ realizes(p2,f) ∧ precedes(p1, p2) ∧ precedes(p2, e)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
@@ -353,10 +353,11 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a record in a (computerised) maintenance management system that contains fields for due and actual date of the maintenance, a description of the maintenance task, actual and budget costs and other fields</skos:example>
 		<iof-av:acronym>MWO</iof-av:acronym>
 		<iof-av:explanatoryNote>the record has a number of commonly used fields including dates, task description, task codes, costs</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>this definition remains provisional because it assumes that a work order must involve a &apos;maintenance process&apos;. In the current definition, a work order cannot be made up of purely &apos;supporting maintenance activity&apos; tasks.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ descibes(x, y) ∧ isInputOfAtSomeTime(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ describes(x, y) ∧ isInputOfAtSomeTime(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that describes a maintenance process</iof-av:naturalLanguageDefinition>
@@ -462,6 +463,7 @@
 	<owl:Class rdf:about="&iof-maint;SupportingMaintenanceActivity">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">supporting maintenance activity</rdfs:label>
+    <skos:example>activities that do not change the state of the asset but are done by maintenance personnel such as reporting activity, isolate activity, move activity, training activity</skos:example>
 		<iof-av:firstOrderLogicAxiom>SupportingMaintenanceActivity(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">single action in support of the execution of a maintenance process</iof-av:naturalLanguageDefinition>
@@ -497,6 +499,7 @@
 		<rdfs:domain rdf:resource="&iof-core;MaintainableMaterialItem"/>
 		<rdfs:range rdf:resource="&iof-maint;MaintenanceState"/>
 		<owl:inverseOf rdf:resource="&iof-maint;maintenanceStateOf"/>
+    <skos:example>has partial function or loss of function</skos:example>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">inverse of &apos;stateOf&apos;</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
@@ -515,6 +518,7 @@
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
+    <skos:example>starts, begins, commences</skos:example>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">comes before an event or process in time and results in beginning or creation of the event or process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
@@ -524,6 +528,7 @@
 		<rdfs:label xml:lang="en-US">maintenance state of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-maint;MaintenanceState"/>
 		<rdfs:range rdf:resource="&iof-core;MaintainableMaterialItem"/>
+		<skos:example>the physical or software asset</skos:example>                      
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that describes the maintenance state of a maintainable item</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
