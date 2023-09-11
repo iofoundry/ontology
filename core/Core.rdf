@@ -100,12 +100,15 @@
 
 2. All actions change the universe in some fashion. That is, they have outcomes, whether desired ones or not. Since desired outcomes are reasons for the existence of an action specification, we might argue that all action specifications are, in fact, plan specifications, with desired outcomes as objectives. However, our intent here is to capture instances of action specifications wherein objectives or desired outcomes are not explicitly stated and to delinate &apos;plan specifications&apos; as cases where the objectives and the corresponding actions are explicitly stated. This is why the class is asserted directly under the information content entity.
 
-3. Although not formalized at this stage, an action specification may prescribe a kind of process in more detail by prescribing the sequence of actions one or more participants are to do or by prescribing the actions persons bearing various roles are to do in bringing about the process. The latter would be relevant in situations where a particular participant bears two (or even more roles) in a process. An example of the latter would be a particular shop floor worker bearing and realizing both the role of the operator and that of the inspector as prescribed by some action specification and as realized in today&apos;s occurrences of some punch-press process.</iof-av:explanatoryNote>
+3. Although not formalized at this stage, an action specification may prescribe a kind of process in more detail by prescribing the sequence of actions one or more participants are to do or by prescribing the actions persons bearing various roles are to do in bringing about the process. The latter would be relevant in situations where a particular participant bears two (or even more roles) in a process. An example of the latter would be a particular shop floor worker bearing and realizing both the role of the operator and that of the inspector as prescribed by some action specification and as realized in today&apos;s occurrences of some punch-press process.
+
+4.  Action specification can be used together with plan specification to create a hierarchy of work instruction composition.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>InformationContentEntity(x) ∧ ∃p (Process(p) ∧ (prescribes(x,p)) → ActionSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes what participants shall do in a process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; that &apos;prescribes&apos; some &apos;process&apos; then x is an &apos;action specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym xml:lang="en-US">actionable work instruction</iof-av:synonym>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;Agent">
@@ -862,6 +865,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>the function of a oil pump to pump oil, the function of a knife to cut stuff</skos:example>
+		<iof-av:adaptedFrom xml:lang="en-US">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicDefinition>ArtifactFunction(x) ↔ Function(x) ∧ ∃d(DesignSpecification(m)∧ prescribedBy(x,d))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">function that is intentionally designed</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;designed function&apos; is exactly an instance of &apos;function&apos; that is &apos;prescribed by&apos; some &apos;design specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -1218,6 +1222,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<iof-av:adaptedFrom xml:lang="en-US">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicDefinition>GroupOfPersons(x) ↔ ObjectAggregate(x) ∧ ∃y (Person(y) ∧ hasMemberPartAtSomeTime(x, y)) ∧ ∀z (hasMemberPartAtSomelTime(x, z) → Person(z))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">group (object aggregate) that has one or more persons as members</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;group of persons&apos; is defined as exactly an instance of &apos;object aggregate&apos; that &apos;has member part at some time&apos; some &apos;person&apos; and &apos;has member part at some time&apos; only &apos;person&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -1280,25 +1285,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 											<owl:Class>
 												<owl:unionOf rdf:parseType="Collection">
 													<owl:Restriction>
-														<owl:onProperty rdf:resource="&iof-core;temporallyFinishes"/>
-														<owl:someValuesFrom>
-															<owl:Class>
-																<owl:intersectionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="&bfo;BFO_0000202">
-																	</rdf:Description>
-																	<owl:Restriction>
-																		<owl:onProperty>
-																			<rdf:Description>
-																				<owl:inverseOf rdf:resource="&bfo;BFO_0000108"/>
-																			</rdf:Description>
-																		</owl:onProperty>
-																		<owl:someValuesFrom rdf:resource="&bfo;BFO_0000023"/>
-																	</owl:Restriction>
-																</owl:intersectionOf>
-															</owl:Class>
-														</owl:someValuesFrom>
-													</owl:Restriction>
-													<owl:Restriction>
 														<owl:onProperty rdf:resource="&iof-core;isTemporallyOverlappedBy"/>
 														<owl:someValuesFrom>
 															<owl:Class>
@@ -1319,6 +1305,25 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 													</owl:Restriction>
 													<owl:Restriction>
 														<owl:onProperty rdf:resource="&iof-core;metBy"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:intersectionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&bfo;BFO_0000202">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty>
+																			<rdf:Description>
+																				<owl:inverseOf rdf:resource="&bfo;BFO_0000108"/>
+																			</rdf:Description>
+																		</owl:onProperty>
+																		<owl:someValuesFrom rdf:resource="&bfo;BFO_0000023"/>
+																	</owl:Restriction>
+																</owl:intersectionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-core;temporallyFinishes"/>
 														<owl:someValuesFrom>
 															<owl:Class>
 																<owl:intersectionOf rdf:parseType="Collection">
@@ -1370,7 +1375,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote xml:lang="en-US">1. If only one date-time is available for some loss of role processes due to lack of data or an interval being smaller than the tick time (the smallest duration by which the time progresses) then the date-time should be asserted either only for first instant or only for last instant of every interval, for which a loss of role process occurs, uniformly for the entire knowledge base. For example, Bill Clinton lost the role of presidency on 19 December 1998 should be modeled as the process p of type ‘loss of role’ ‘occupies temporal region’ r (a ‘temporal interval’) which ‘has first instant’ i (a ‘temporal instant’) which ‘has value expression at all times’ v (a ‘temporal instant value expression’) which ‘has data-time value’ 1998-12-19T00:00:00Z.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>LossOfRole(p) ↔ Process(p) ∧∃t,∃t&apos;,∃r,∃y (TemporalInterval(t) ∧ TemporalInterval(t&apos;) ∧ Role(r)∧ (IndependentContinuant(y) ∧ ¬SpatialRegion(y)) ∧ occupiesTemporalRegion(p,t) ∧ (isTemporallyOverlappedBy(t,t&apos;)∨temporallyFinishes(t,t&apos;)∨metBy(t,t&apos;)) ∧ hasInput(p,r) ∧ existsAt(r,t&apos;) ∧ hasRole(y,r) ∧hasParticipantAtAllTimes(p,y)∧ ∀t&apos;&apos;(TemporalRegion(t&apos;&apos;) ∧ existsAt(r,t&apos;&apos;) → (occurrentPartOf(t&apos;&apos;,t&apos;) ∨ t&apos;&apos; = t&apos;)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which someone or something (independent continuant that is not a spatial region) ceases to be the bearer of a role</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘loss of role’ is defined exactly as an instance of a ‘process’ p that &apos;occupies temporal region&apos; some &apos;temporal interval&apos; t that ‘temporally finishes’ or 'is temporally overlapped by’ or is &apos;met by&apos; some &apos;temporal interval&apos; t’ and p ‘has participant at all times’ some &apos;independent continuant&apos; that is not a &apos;spatial region&apos; y, and p ‘has input’ some ‘role’ r that only ‘exists at’ t’ and y &apos;has role&apos; r</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘loss of role’ is defined exactly as an instance of a ‘process’ p that &apos;occupies temporal region&apos; some &apos;temporal interval&apos; t that ‘temporally finishes’ or &apos;is temporally overlapped by’ or is &apos;met by&apos; some &apos;temporal interval&apos; t’ and p ‘has participant at all times’ some &apos;independent continuant&apos; that is not a &apos;spatial region&apos; y, and p ‘has input’ some ‘role’ r that only ‘exists at’ t’ and y &apos;has role&apos; r</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;MaintainableMaterialItem">
@@ -2283,6 +2288,7 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; that &apos;prescribes&apos; some &apos;planned process&apos; and x &apos;has continuant part at all times&apos; some &apos;action specification&apos; and some &apos;objective specification&apos; then x is a &apos;plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">process design</iof-av:synonym>
 		<iof-av:synonym xml:lang="en-US">process specification</iof-av:synonym>
+		<iof-av:synonym xml:lang="en-US">work instruction</iof-av:synonym>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;PlannedProcess">
@@ -2840,9 +2846,11 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:label xml:lang="en-US">value expression</rdfs:label>
 		<skos:example xml:lang="en-US">1cm is the value expression of the diameter of a screw head that is specified in its design; 37C is the value expression of the temperature of a bioreactor measured during the production process; &quot;low risk&quot; is the value expression of a process parameter based on the risk analysis classification scheme; 3 g/l is the value expression of titer of an antibody generated by a process simulation</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0001933</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1. value expressions comprehend qualitative, semi-quantitative, or quantitative values.
+		<iof-av:explanatoryNote>1. Value expressions comprehend qualitative, semi-quantitative, or quantitative values.
 
-2. This class is intended to provide a single framework for representing unit-value pairs and the connection between a value and a particular classification scheme in the case of qualitative values. While currently, IOF still needs to define classification schemes and quantitative scales, this class is compatible with and thus can be mapped to external ontologies such as the QUDT and the Units Ontology to get the necessary representation of units.</iof-av:explanatoryNote>
+2. All value expressions have a value associated with them through ‘has simple expression value’. This part is not formally captured as we do not want to impose a specific datatype constraint (e.g., xsd:int,rdfs:Literal) with the value expression. Nevertheless, any instance of ‘value expression’ MUST have a ‘has simple expression value’ or its subproperty pointing to a value.
+
+3. This class is intended to provide a single framework for representing unit-value pairs and the connection between a value and a particular classification scheme in the case of qualitative values. While currently, IOF still needs to define classification schemes and quantitative scales, this class is compatible with and thus can be mapped to external ontologies such as the QUDT and the Units Ontology to get the necessary representation of units.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ValueExpression(x) → InformationContentEntity(x) ∧ ∃e(Entity(e) ∧ isValueExpressionOfAtSomeTime(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
@@ -2921,6 +2929,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;before"/>
 		<skos:example xml:lang="en-US">A metal surface is polished after the surface is cleaned to make it free from dust or grease; a product is manufactured after it is designed; March comes after January.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>after(x,y) ↔ before(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is later than the first instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;before&apos; and &apos;after&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
@@ -2951,6 +2960,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Class>
 		</rdfs:range>
 		<skos:example xml:lang="en-US">The surface of the metal is cleaned to make it free from dust or grease before polishing; a product is designed before it can be manufactured; January comes before March.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: before(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ before(i,j) → ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ precedes(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ before(i,j) → TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ before(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
@@ -3064,6 +3074,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;occursDuring"/>
 		<skos:example xml:lang="en-US">The grinding of metal contains occurrence of sparking; a storm contains occurrences of lightning.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>containsOccurenceOf(x,y) ↔ occursDuring(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is later than the first instant of the temporal extent of i and the last instant of the temporal extent of j is earlier than the last instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;contains occurence of&apos; and &apos;occurs during&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
@@ -3146,72 +3157,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>dispositionOf(x,y) → Disposition(x) ∧ IndependentContinuant(y) ∧ inheresIn(x,y)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a disposition to an independent continuant (the bearer), in which the disposition specifically depends on the bearer for its existence</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x disposition of y holds when x is a &apos;disposition&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;temporallyFinishedBy">
-		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-US">temporally finished by</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
-		<owl:inverseOf rdf:resource="&iof-core;temporallyFinishes"/>
-		<skos:example xml:lang="en-US">A delivery process is temporally finished by the generation of “proof of delivery”; a football match is temporally finished by the Referee’s final whistle; every week is temporally finished by a Sunday.</skos:example>
-		<iof-av:firstOrderLogicAxiom>temporallyFinishedBy(x,y) ↔ temporallyFinishes(y,x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is precedes the first instant of j</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>&apos;temporally finished by&apos; and &apos;temporally finishes&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;temporallyFinishes">
-		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
-		<rdfs:label xml:lang="en-US">temporally finishes</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
-		<skos:example xml:lang="en-US">The generation of “proof of delivery” temporally finishes the delivery process; Referee’s final whistle temporally finishes the football match; Sunday temporally finishes the week.</skos:example>
-		<iof-av:firstOrderLogicAxiom>LA1: temporallyFinishes(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyFinishes(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyFinishes(i,j) → ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ temporallyFinishes(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: temporallyFinishes(i,j) ↔ ∃k,∃l(meets(i,k)∧meets(j,k) ∧ before(l,i) ∧ meets(l,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j is precedes the first instant of i</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;temporally finishes&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally finishes&apos; j then the &apos;last instant’ of i ‘occurs simultaneously with’ the &apos;last instant of&apos; j and the &apos;first instant of&apos; j &apos;precedes&apos; the &apos;first instant’ of i</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally finishes&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporally finishes&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally finishes&apos; j if and only if there exists k such that i &apos;meets&apos; k and j &apos;meets&apos; k, and there exists l that is &apos;before&apos; i and &apos;meets&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;functionOf">
@@ -3527,6 +3472,27 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from someone or something physical or digital (continuant) to a process that it participates in such that it is generated or modified during the process, and it exists at the end of the process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-core;isSpecifiedOutputOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-core;isOutputOf"/>
+		<rdfs:label xml:lang="en-US">is specified output of</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000002"/>
+		<rdfs:range rdf:resource="&iof-core;PlannedProcess"/>
+		<skos:example xml:lang="en-US">antibody solution of 99.999% purity is the specified output of a biopharmaceutical production process; prediction of part porosity is a specified output of a simulation execution; temperature measurement result is the specified output of a temperature measurement process; a car is the specified output of a car manufacturing process</skos:example>
+		<iof-av:firstOrderLogicAxiom>isSpecifiedOutputOf(y,x) → PlannedProcess(x) ∧ Continuant(y) ∧ ∃o (ObjectiveSpecification(o) ∧ prescribes(o,y) ∧ achievesAtSomeTime(x,o) ∧ hasOutput(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from someone or something physical or digital (continuant) to a planned process in which it is produced or modified as prescribed by some objective</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>y &apos;has specified output&apos; x holds when x is a &apos;planned process&apos; and y is a &apos;continuant&apos; and x &apos;has output&apos; y and y is &apos;prescribed by&apos; some &apos;objective specification&apos; which x &apos;achieves at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym xml:lang="en-US">is intended output of</iof-av:synonym>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;isSubjectOf">
+		<rdfs:label xml:lang="en-US">is subject of</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
+		<rdfs:range rdf:resource="&iof-core;InformationContentEntity"/>
+		<skos:example xml:lang="en-US">temperature is subject of temperature recording; particular individual is subject of SSN; commercial service is subject of commercial service agreement</skos:example>
+		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/InformationEntityOntology</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">primitive, generic relationship between an entity and some information content entity</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-core;isTemporallyOverlappedBy">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label xml:lang="en-US">is temporally overlapped by</rdfs:label>
@@ -3552,30 +3518,10 @@ category within a classification scheme of an entity that the value expression i
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;temporallyOverlaps"/>
 		<skos:example xml:lang="en-US">When two plates are being welded at a joint, the heating of current point being welded is temporally overlapped by the cooling of a previously welded point; the receiving process is temporally overlapped by the sending process in a transaction process; Sumerian civilization (c. 3500 BCE - c. 2000 BCE) in Mesopotamia was temporally overlapped by Ancient Egyptian civilization (c. 3000 BCE - 30 BCE).</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>isTemporallyOverlappedBy(x,y) ↔ temporallyOverlaps(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of j is earlier than and the last instant of the temporal extent of j is later than the first instant of the temporal extent of i, and the last instance of the temporal extent of j is earlier than the last instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;is temporally overlapped by&apos; and &apos;temporally overlaps&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;isSpecifiedOutputOf">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;isOutputOf"/>
-		<rdfs:label xml:lang="en-US">is specified output of</rdfs:label>
-		<rdfs:domain rdf:resource="&bfo;BFO_0000002"/>
-		<rdfs:range rdf:resource="&iof-core;PlannedProcess"/>
-		<skos:example xml:lang="en-US">antibody solution of 99.999% purity is the specified output of a biopharmaceutical production process; prediction of part porosity is a specified output of a simulation execution; temperature measurement result is the specified output of a temperature measurement process; a car is the specified output of a car manufacturing process</skos:example>
-		<iof-av:firstOrderLogicAxiom>isSpecifiedOutputOf(y,x) → PlannedProcess(x) ∧ Continuant(y) ∧ ∃o (ObjectiveSpecification(o) ∧ prescribes(o,y) ∧ achievesAtSomeTime(x,o) ∧ hasOutput(x,y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from someone or something physical or digital (continuant) to a planned process in which it is produced or modified as prescribed by some objective</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>y &apos;has specified output&apos; x holds when x is a &apos;planned process&apos; and y is a &apos;continuant&apos; and x &apos;has output&apos; y and y is &apos;prescribed by&apos; some &apos;objective specification&apos; which x &apos;achieves at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:synonym xml:lang="en-US">is intended output of</iof-av:synonym>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;isSubjectOf">
-		<rdfs:label xml:lang="en-US">is subject of</rdfs:label>
-		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
-		<rdfs:range rdf:resource="&iof-core;InformationContentEntity"/>
-		<skos:example xml:lang="en-US">temperature is subject of temperature recording; particular individual is subject of SSN; commercial service is subject of commercial service agreement</skos:example>
-		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/InformationEntityOntology</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">primitive, generic relationship between an entity and some information content entity</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;isValueExpressionOfAtAllTimes">
@@ -3642,6 +3588,7 @@ category within a classification scheme of an entity that the value expression i
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;metBy"/>
 		<skos:example xml:lang="en-US">When an item is placed on a moving conveyor by a robotic arm, the process of placing the item meets the process of moving the item; summer meets fall; January meets February; the Christmas holiday period meets New Year’s holiday period.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: meets(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ meets(i,j) → ∃i&apos;,j&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ hasLastInstant(i,i&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ meets(i,j) → ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ meets(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
@@ -3675,6 +3622,7 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<skos:example xml:lang="en-US">When an item is placed on a moving conveyor by a robotic arm, the process of moving of the item is met by the process of placing the item; fall is met by summer; February is met by January; the New Year’s holiday period is met by the Christmas holiday period.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>metBy(x,y) ↔ meets(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the first instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;met by&apos; and &apos;meets&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
@@ -3729,6 +3677,7 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<skos:example xml:lang="en-US">The final inspection and removal of defective products occur during the product is being moved to the packaging station by a conveyor belt; a sensor measures the thickness of the wall during the sand-grinding process; turkey is traditionally served during dinners on Thanksgiving In the United States.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: occursDuring(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ occursDuring(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ occursDuring(i,j) → ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ occursDuring(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
@@ -3774,6 +3723,7 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<skos:example xml:lang="en-US">The rotation of the chuck in a lathe occurs simultaneously with the running of the motor.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: occursSimultaneouslyWith(i,j) → (TemporalInstant(i) ∧ TemporalInstant(j)) ∨ (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j)) ∧ (ProcessBoundary(i) ∧ ProcessBoundary(j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInstant(i) ∧ TemporalInstant(j) ∧ occursSimultaneouslyWith(i,j) → ∃k,l(TemporalInstantValueExpression(k) ∧ TemporalInstantValueExpression(l) ∧ hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes(j,l) ∧ ∃v&apos;,v&apos;&apos;(hasDateTimeStampInXSDExpression(k,v&apos;) ∧ hasDateTimeStampInXSDExpression(l,v&apos;&apos;) ∧ (v&apos; = v&apos;&apos;)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: TemporalInterval(i) ∧ TemporalInterval(j) ∧ occursSimultaneouslyWith(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
@@ -3785,41 +3735,6 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If i and j are both ‘temporal interval’ and i &apos;occurs simoultaneously with&apos; j then the &apos;first instant of&apos; i &apos;occurs simoultaneously with&apos; the &apos;first instant of&apos; j and the &apos;last instant of&apos; i &apos;occurs simoultaneously with&apos; the &apos;last instant of&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: If both i and j are ‘process’ and i &apos;occurs simoultaneously with&apos; j then the ‘temporal interval’ occupied by i ‘occurs simoultaneously with’ the ‘temporal interval’ occupied by j</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA5: If i and j are both ‘process boundary’ and i &apos;occurs simoultaneously with&apos; j then the ‘temporal instant’ that i occupies &apos;occurs simoultaneously with&apos; ‘temporal instant’ that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;temporallyOverlaps">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-US">temporally overlaps</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000202">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
-		<skos:example xml:lang="en-US">When two plates are being welded at a joint, the cooling of a previously welded point temporally overlaps the heating of the point which is currently being welded; the sending process temporally overlaps the receiving process in a transaction process; Ancient Egyptian civilization (c. 3000 BCE - 30 BCE) temporally overlapped the Sumerian civilization (c. 3500 BCE - c. 2000 BCE) in Mesopotamia and the Indus Valley Civilization (c. 2600 BCE - c. 1900 BCE) in South Asia.</skos:example>
-		<iof-av:firstOrderLogicAxiom>LA1: temporallyOverlaps(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyOverlaps(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;&apos;) ∧ precedes(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyOverlaps(i,j) → ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ temporallyOverlaps(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: temporallyOverlaps(i,j) ↔ ∃k(temporallyFinishes(k,i) ∧ starts(k,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of i is earlier than and the last instant of the temporal extent of i is later than the first instant of the temporal extent of j, and the last instance of the temporal extent of i is earlier than the last instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;temporally overlaps&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally overlaps&apos; j then the &apos;first instant’ of j ‘precedes’ the &apos;last instant of&apos; i and the &apos;first instant of&apos; i ‘precedes’ the &apos;first instant’ of j and the &apos;last instant of&apos; i ‘precedes’ the &apos;last instant of&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally overlaps&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporallyOverlaps&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally overlaps&apos; j if and only if there exists k that &apos;temporally finishes&apos; i and &apos;temporally starts&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;prescribedBy">
@@ -3914,6 +3829,110 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an entity to a requirement specification that the entity conforms to</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-core;temporallyFinishedBy">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label xml:lang="en-US">temporally finished by</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+		<owl:inverseOf rdf:resource="&iof-core;temporallyFinishes"/>
+		<skos:example xml:lang="en-US">A delivery process is temporally finished by the generation of “proof of delivery”; a football match is temporally finished by the Referee’s final whistle; every week is temporally finished by a Sunday.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>temporallyFinishedBy(x,y) ↔ temporallyFinishes(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is precedes the first instant of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>&apos;temporally finished by&apos; and &apos;temporally finishes&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;temporallyFinishes">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:label xml:lang="en-US">temporally finishes</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+		<skos:example xml:lang="en-US">The generation of “proof of delivery” temporally finishes the delivery process; Referee’s final whistle temporally finishes the football match; Sunday temporally finishes the week.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>LA1: temporallyFinishes(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyFinishes(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;&apos;,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyFinishes(i,j) → ∃i&apos;,j&apos; (TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ temporallyFinishes(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: temporallyFinishes(i,j) ↔ ∃k,∃l(meets(i,k)∧meets(j,k) ∧ before(l,i) ∧ meets(l,j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j is precedes the first instant of i</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;temporally finishes&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally finishes&apos; j then the &apos;last instant’ of i ‘occurs simultaneously with’ the &apos;last instant of&apos; j and the &apos;first instant of&apos; j &apos;precedes&apos; the &apos;first instant’ of i</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally finishes&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporally finishes&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally finishes&apos; j if and only if there exists k such that i &apos;meets&apos; k and j &apos;meets&apos; k, and there exists l that is &apos;before&apos; i and &apos;meets&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;temporallyOverlaps">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label xml:lang="en-US">temporally overlaps</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000202">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+		<skos:example xml:lang="en-US">When two plates are being welded at a joint, the cooling of a previously welded point temporally overlaps the heating of the point which is currently being welded; the sending process temporally overlaps the receiving process in a transaction process; Ancient Egyptian civilization (c. 3000 BCE - 30 BCE) temporally overlapped the Sumerian civilization (c. 3500 BCE - c. 2000 BCE) in Mesopotamia and the Indus Valley Civilization (c. 2600 BCE - c. 1900 BCE) in South Asia.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>LA1: temporallyOverlaps(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyOverlaps(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ precedes(j&apos;,i&apos;&apos;) ∧ precedes(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyOverlaps(i,j) → ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ temporallyOverlaps(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: temporallyOverlaps(i,j) ↔ ∃k(temporallyFinishes(k,i) ∧ starts(k,j))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals and processes i and j when the first instant of the temporal extent of i is earlier than and the last instant of the temporal extent of i is later than the first instant of the temporal extent of j, and the last instance of the temporal extent of i is earlier than the last instant of the temporal extent of j</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;temporally overlaps&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally overlaps&apos; j then the &apos;first instant’ of j ‘precedes’ the &apos;last instant of&apos; i and the &apos;first instant of&apos; i ‘precedes’ the &apos;first instant’ of j and the &apos;last instant of&apos; i ‘precedes’ the &apos;last instant of&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally overlaps&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporallyOverlaps&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally overlaps&apos; j if and only if there exists k that &apos;temporally finishes&apos; i and &apos;temporally starts&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-core;temporallyStartedBy">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
@@ -3940,6 +3959,7 @@ category within a classification scheme of an entity that the value expression i
 		</rdfs:range>
 		<owl:inverseOf rdf:resource="&iof-core;temporallyStarts"/>
 		<skos:example xml:lang="en-US">An internal combustion engine is temporally started (running) by the process of cranking; some machine is temporally started (running) by pressing a switch; every year is temporally started by the New Year’s Day.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>temporallyStartedBy(x,y) ↔ temporallyStarts(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is the same as first the instant of the temporal extent of i and the last instant of j precedes the last instant of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;temporally started by&apos; and &apos;temporally starts&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
@@ -3969,6 +3989,7 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Class>
 		</rdfs:range>
 		<skos:example xml:lang="en-US">the process of cranking temporally starts (the running of) an internal combustion engine; the pressing of a switch temporally starts (the running of) some machine; the New Year’s Day temporally starts a year.</skos:example>
+		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: temporallyStarts(i,j) → (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyStarts(i,j) → ∃i&apos;,i&apos;&apos;,j&apos;,j&apos;&apos;(TemporalInstant(i&apos;) ∧ TemporalInstant(i&apos;&apos;) ∧ TemporalInstant(j&apos;) ∧ TemporalInstant(j&apos;&apos;) ∧ hasFirstInstant(i,i&apos;) ∧ hasLastInstant(i,i&apos;&apos;) ∧ hasFirstInstant(j,j&apos;) ∧ hasLastInstant(j,j&apos;&apos;) ∧ occursSimultaneouslyWith(i&apos;,j&apos;) ∧ precedes(i&apos;&apos;,j&apos;&apos;))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyStarts(i,j) → ∃i&apos;,j&apos;(TemporalInterval(i&apos;) ∧ TemporalInterval(j&apos;) ∧ occupiesTemporalRegion(i,i&apos;) ∧ occupiesTemporalRegion(j,j&apos;) ∧ temporallyStarts(i&apos;,j&apos;))</iof-av:firstOrderLogicAxiom>
