@@ -12,7 +12,8 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/"
+	xmlns="https://spec.industrialontologies.org/ontology/maintenance/MaintenanceReferenceOntology/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
@@ -57,10 +58,20 @@
 	
 	<owl:Class rdf:about="&iof-maint;DispositionToExhibitUndesirableBehavior">
 		<rdfs:subClassOf rdf:resource="&iof-maint;UndesireableDisposition"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-maint;FailureProcess"/>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">disposition to exhibit undesirable behavior</rdfs:label>
 		<skos:example>overspeed, excessive noise</skos:example>
 		<iof-av:firstOrderLogicAxiom>LA1: DispositionToUndesirableBehavior(x) → UndesirableDisposition(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: DispositionToExibitUndesirableBehavior(d) ⋀ Process(p) ⋀ realizes(d, p) → ¬ FailureProcess(p)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀p(DispositionToExibitUndesirableBehavior(d) ∧ Process(p) ∧ realizes(d, p) → ¬ FailureProcess(p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">disposition of an item that would not be expected under normal operating conditions</iof-av:naturalLanguageDefinition>
@@ -432,13 +443,9 @@
 	
 	<owl:Class rdf:about="&iof-maint;RequiredFunction">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000034"/>
-		<rdfs:label xml:lang="en-US">required function</rdfs:label>
-		<rdfs:seeAlso>ISO81346 for examples of functions</rdfs:seeAlso>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&obo;BFO_0000034">
-					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000056"/>
 						<owl:someValuesFrom rdf:resource="&iof-maint;FunctioningProcess"/>
@@ -449,12 +456,14 @@
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">required function</rdfs:label>
+		<rdfs:seeAlso>ISO81346 for examples of functions</rdfs:seeAlso>
 		<skos:example>to sense, to store, to process information, to control</skos:example>
 		<iof-av:adaptedFrom>The natural language definition is adapted from EN:13306</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>the function can be a combination of functions</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>RequiredFunction(x) ↔ Function(x) ∧ ∃y,z(MaintainableMaterialItem(y) ∧ FunctioningProcess(z) ∧ participatesInAtSomeTime(y,z) ∧ functionOf(x,y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">function of a maintainable material item which is considered necessary to fulfil a process requirement</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;required function&apos; is defined as an instance of &apos;function&apos; that is the &apos;function of&apos; some &apos;maintainable material item&apos; that &apos;participates in at some time&apos; some &apos;functioning process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
