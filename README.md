@@ -1,6 +1,6 @@
 ![Industrial Ontologies Foundry](https://i0.wp.com/industrialontologies.org/wp-content/uploads/2020/01/cropped-IOF-LOGO-2-4.png)
 
-# Industrial Ontologies Foundry
+# Industrial Ontologies Foundry 
 
 The IOF (The Industrial Ontologies Foundry) is a unit of [OAGi](https://OAGi.org) (Open Applications Group), a non-profit organization with the mission to reduce the cost of integration by developing inter-operable, cross-functional, cross-industry, data-model-driven, and extensible standards to meet the challenge of a rapidly-changing global digital economy. 
 
