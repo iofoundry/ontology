@@ -2807,13 +2807,13 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-US">The time instant at which a train arrives at a station has its clock time expressed by a temporal instant value expression.</skos:example>
 		<iof-av:explanatoryNote xml:lang="en-US">1. This class was introduced as a helper class to map OWL time to IOF Core. For detailed expression of date and time in a specific calendar system, use a suitable subclass of TemporalPosition class from Time ontology (https://www.w3.org/TR/owl-time/) instead of ‘temporal instant value expression’ (see mapping file https://spec.industrialontologies.org/ontology/core/commonstocoremapping/MappingOWLTimeToIOF/)</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>TemporalIntervalValueExpression(x) ↔ ValueExpression(x) ∧ ∃y (TimeInterval(y) ∧ isValueExpressionOfAtAllTimes(x,y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>TemporalInstantValueExpression(x) ↔ ValueExpression(x) ∧ ∃y (TemporalInstant(y) ∧ isValueExpressionOfAtAllTimes(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that describes the position of a time instant in the time line</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>x is 'temporal instant value expression' if and only if x is 'value expression' and there exists some 'temporal instant' y such that x 'is value expression of at all times' y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition> every instance of 'temporal instant value expression' is defined exactly as an instance of 'value expression' that 'is value expression of at all times' some 'temporal instant'</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;TemporalIntervalValueExpression">
+	<owl:Class rdf:about="&iof-core;TemporalDurationValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
 		<rdfs:label xml:lang="en-US">temporal interval value expression</rdfs:label>
 		<owl:equivalentClass>
@@ -2828,12 +2828,12 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example xml:lang="en-US">A temporal interval value expression is the expression of the duration that is taken by an average worker to sew a garment.</skos:example>
-		<iof-av:explanatoryNote xml:lang="en-US">1. This class was introduced as a helper class to map OWL time to IOF Core. For detailed expression of a duration of a ‘temporal interval’, use a suitable subclass of TemporalDuration class from Time ontology (https://www.w3.org/TR/owl-time/) instead of ‘temporal interval value expression’ (see mapping file https://spec.industrialontologies.org/ontology/core/commonstocoremapping/MappingOWLTimeToIOF/)</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>TemporalInstanceValueExpression(x) ↔ ValueExpression(x) ∧ ∃y (TimeInstance(y) ∧ isValueExpressionOfAtAllTimes(x,y))</iof-av:firstOrderLogicDefinition>
+		<skos:example xml:lang="en-US"> the expression of the duration that is taken by an average worker to sew a garment.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1. This class was introduced as a helper class to map OWL time to IOF Core. For detailed expression of a duration of a ‘temporal interval’, use a suitable subclass of TemporalDuration class from Time ontology (https://www.w3.org/TR/owl-time/) instead of ‘temporal duration value expression’ (see mapping file https://spec.industrialontologies.org/ontology/core/commonstocoremapping/MappingOWLTimeToIOF/)</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>TemporalDurationValueExpression(x) ↔ ValueExpression(x) ∧ ∃y (TimeInterval(y) ∧ isValueExpressionOfAtAllTimes(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that describes the duration of some temporal interval</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>x is 'temporal interval value expression' if and only if x is 'value expression' and there exists some 'temporal interval' y such that x 'is value expression of at all times' y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of 'temporal duration value expression' is defined exactly as an instance of 'value expression' that 'is value expression of at all times' some 'temporal interval'</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ValueExpression">
@@ -3049,7 +3049,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>x component part of at some time y holds when x is a 'material entity' that is not a 'fiat object part' and y is a 'material entity' that is not a 'fiat object part' and x is 'proper continuant part of at some time' y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-core;containsOccurenceOf">
+	<owl:ObjectProperty rdf:about="&iof-core;containsOccurrenceOf">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label xml:lang="en-US">contains occurence of</rdfs:label>
@@ -3076,9 +3076,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<owl:inverseOf rdf:resource="&iof-core;occursDuring"/>
 		<skos:example xml:lang="en-US">The grinding of metal contains occurrence of sparking; a storm contains occurrences of lightning.</skos:example>
 		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>containsOccurenceOf(x,y) ↔ occursDuring(y,x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>containsOccurrenceOf(x,y) ↔ occursDuring(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the first instant of the temporal extent of j is later than the first instant of the temporal extent of i and the last instant of the temporal extent of j is earlier than the last instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>'contains occurence of' and 'occurs during' are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>'contains occurrence of' and 'occurs during' are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;denotedBy">
