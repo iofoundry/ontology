@@ -31,7 +31,7 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/core/rules/TemporalRelationInference">
 		<rdfs:label xml:lang="en">SWRL rules for inferring Allen&apos;s temporal relations</rdfs:label>
-		<terms:abstract xml:lang="en">The IOF Core Ontology contains a set of object properties that hold either between two &quot;temporal interval&quot; or two process instances, following the temporal relations proposed by Allen. This non-normative supplemental file contains a set of rules written in SWRL which may be used as is or with data-specific customisation to infer the aforementioned temporal properties among instances of &quot;temporal interval&quot; and process. Each of the rules R1-R7 asserts some temporal property between two instances of &quot;temporal interval&quot; in their consequent based on the precedences (precedes) or co-occurrences (occursSimultaneouslyWith) among the start and end &quot;temporal instant&quot;(s) these two intervals in their antecedent. Each of the rules R7-R14 asserts temporal properties between two instances of process in their consequent based on the type of temporal property that the intervals which these process instances occupies in their antecedent.</terms:abstract>
+		<terms:abstract xml:lang="en">The IOF Core Ontology contains a set of object properties that hold either between two temporal interval or two process instances, following the temporal relations proposed by Allen. This non-normative supplemental file contains a set of rules written in SWRL which may be used as is or with data-specific customisation to infer the aforementioned temporal properties among instances of temporal interval and process.</terms:abstract>
 		<terms:contributor xml:lang="en">Jim Logan, No Magic, Inc.</terms:contributor>
 		<terms:contributor xml:lang="en">Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
 		<terms:creator xml:lang="en">Arkopaul Sarkar, École Nationale d’Ingénieurs de Tarbes (ENIT)</terms:creator>
@@ -39,9 +39,50 @@
 		<terms:publisher xml:lang="en">Industrial Ontology Foundry</terms:publisher>
 		<terms:title>SWRL rules for inferring Allen&apos;s temporal relations among temporal interval and process instances</terms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202301/core/meta/AnnotationVocabulary/"/>
-		<AnnotationVocabulary:copyright>Copyright (c) 2022, 2023 Open Applications Group</AnnotationVocabulary:copyright>
-		<AnnotationVocabulary:usageNote xml:lang="en">The SWRL rules in this file is tested by Test Case # Allen-2 (Inferences by SWRL rules and inverse axioms).</AnnotationVocabulary:usageNote>
+		<AnnotationVocabulary:usageNote xml:lang="en">Each of the rules, having their label starting with &apos;interval&apos;, asserts one of the temporal properties between two instances of temporal interval in their consequent based on the precedences (precedes) or co-occurrences (occursSimultaneouslyWith) among the start and end temporal instant(s) of these two intervals in their antecedent. Each of the rules, having their label starting with &apos;process&apos;, asserts temporal properties between two instances of process in their consequent based on the type of temporal property that the intervals which these process instances occupies in their antecedent.</AnnotationVocabulary:usageNote>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bfo;BFO_0000015">
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&bfo;BFO_0000063">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&bfo;BFO_0000199">
+	</owl:ObjectProperty>
+	
+	<owl:Class rdf:about="&bfo;BFO_0000202">
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&bfo;BFO_0000222">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&bfo;BFO_0000224">
+	</owl:ObjectProperty>
+	
+	<owl:AnnotationProperty rdf:about="&swrla;isRuleEnabled">
+	</owl:AnnotationProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/before">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/meets">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/occursDuring">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts">
+	</owl:ObjectProperty>
 	
 	<swrl:Variable rdf:about="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1">
 	</swrl:Variable>
@@ -68,9 +109,8 @@
 	</swrl:Variable>
 	
 	<swrl:Imp>
-		<rdfs:label>R8</rdfs:label>
+		<rdfs:label>process before</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process is before another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -137,12 +177,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 is before i2, then p1 is before p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 is before i2, then p1 is before p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R9</rdfs:label>
+		<rdfs:label>process meets</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process meets another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -209,12 +248,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 meets i2, then p1 meets p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 meets i2, then p1 meets p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R13</rdfs:label>
+		<rdfs:label>process occurs during</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process occurs during another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -281,12 +319,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs during&apos; i2, then p1 &apos;occurs during&apos; p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs during&apos; i2, then p1 &apos;occurs during&apos; p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R14</rdfs:label>
+		<rdfs:label>process occurs simultaneously</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process occurs simultaneously with another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -353,12 +390,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs simultaneously with&apos; i2, then p1 &apos;occurs simultaneously with&apos; p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs simultaneously with&apos; i2, then p1 &apos;occurs simultaneously with&apos; p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R11</rdfs:label>
+		<rdfs:label>process finishes</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally finishes another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -425,12 +461,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally finishes&apos; i2, then p1 &apos;temporally finishes&apos; p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally finishes&apos; i2, then p1 &apos;temporally finishes&apos; p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R12</rdfs:label>
+		<rdfs:label>process overlaps</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally overlaps another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -497,12 +532,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally overlaps&apos; i2, then p1 &apos;temporally overlaps&apos; p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally overlaps&apos; i2, then p1 &apos;temporally overlaps&apos; p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R10</rdfs:label>
+		<rdfs:label>process starts</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally starts another instance of process</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -569,12 +603,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally starts&apos; i2, then p1 &apos;temporally starts&apos; p2.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally starts&apos; i2, then p1 &apos;temporally starts&apos; p2.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R1</rdfs:label>
+		<rdfs:label>interval before</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval is before another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -641,12 +674,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il precedes jf, then i is before j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il precedes jf, then i is before j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R2</rdfs:label>
+		<rdfs:label>interval meets</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval meets another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -713,12 +745,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il &apos;occurs simultaneously with&apos; jf, then i meets j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il &apos;occurs simultaneously with&apos; jf, then i meets j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R6</rdfs:label>
+		<rdfs:label>interval occurs during</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval occurs during another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -818,12 +849,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il precedes jl, then i &apos;occurs during&apos; j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il precedes jl, then i &apos;occurs during&apos; j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R7</rdfs:label>
+		<rdfs:label>interval occurs simulataneously</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval occurs simultaneously with another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -923,12 +953,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simultaneously with&apos; jf and il &apos;occurs simultaneously with&apos; jl, then i &apos;occurs simultaneously with&apos; j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simultaneously with&apos; jf and il &apos;occurs simultaneously with&apos; jl, then i &apos;occurs simultaneously with&apos; j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R4</rdfs:label>
+		<rdfs:label>interval finishes</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally finishes another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -1028,12 +1057,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il &apos;occurs simultaneously with&apos; jl, then i &apos;temporally finishes&apos; j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il &apos;occurs simultaneously with&apos; jl, then i &apos;temporally finishes&apos; j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R5</rdfs:label>
+		<rdfs:label>interval overlaps</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally overlaps another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -1144,12 +1172,11 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageAxiom xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if precedes jf, jf precedes il, and il precedes jl, then i &apos;temporally overlaps&apos; j.</AnnotationVocabulary:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if precedes jf, jf precedes il, and il precedes jl, then i &apos;temporally overlaps&apos; j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
-		<rdfs:label>R3</rdfs:label>
+		<rdfs:label>interval starts</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally starts another instance of temporal interval</terms:description>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
 		<swrl:body>
 			<swrl:AtomList>
 				<rdf:first>
@@ -1249,6 +1276,48 @@
 				<rdf:rest rdf:resource="&rdf;nil"/>
 			</swrl:AtomList>
 		</swrl:head>
-		<AnnotationVocabulary:semiFormalNaturalLanguageDefinition xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simulataneously with&apos; jf, and il precedes jl, then i &apos;temporally starts&apos; j.</AnnotationVocabulary:semiFormalNaturalLanguageDefinition>
+		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simulataneously with&apos; jf, and il precedes jl, then i &apos;temporally starts&apos; j.</AnnotationVocabulary:usageNote>
 	</swrl:Imp>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
+	<rdf:Description>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+	</rdf:Description>
 </rdf:RDF>
