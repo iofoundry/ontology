@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
@@ -12,6 +13,7 @@
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
@@ -43,7 +45,6 @@
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202301/core/Core/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
 	
@@ -77,7 +78,7 @@
 		<iof-av:firstOrderLogicAxiom>LA2: precedes(i,j) ∧ ProcessBoundary(i) ∧ ProcessBoundary(j) → ∃i1,j1 (TemporalInstant(i1)∧TemporalInstant(j1) ∧ occupiesTemporalRegion(i,i1) ∧ occupiesTemporalRegion(j,j1) ∧ precedes(i1,j1))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: precedes(i,j) ∧TemporalInstant(i) ∧TemporalInterval(j) → ∃j1(hasFirstInstant(j,j1)∧ precedes(i,j1))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA4: precedes(i,j) ∧ TemporalInterval(i) ∧ TemporalInstant(j) → ∃i1(hasLastInstant(i,i1) ∧ precedes(i1,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA5: precedes (i,j) ∧TemporalInstant (i) ∧ TemporalInstant(j) → ∃k,l (hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes (j,l) ∧ ∃ v1, v2(hasDateTimeStampInXSDExpression(k, v1) ∧ hasDateTimeStampInXSDExpression(l, v2) ∧ (v1 &lt; v2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA5: precedes (i,j) ∧TemporalInstant (i) ∧ TemporalInstant(j) → ∃k,l (hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes (j,l) ∧ ∃ v1, v2(hasDateTimeInstantValue(k,v1) ∧ hasDateTimeInstantValue(l,v2) ∧ (v1 &lt; v2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA6: precedes(i,j) ∧ TemporalInterval(i) ∧ TemporalInterval(j) → ∃i1,j1(TemporalInstant(i1) ∧ TemporalInstant(j1) ∧ hasLastInstant(i,i1) ∧ hasFirstInstant(j,j1) ∧ (precedes(i1,j1) ∨ occursSimultaneouslyWith(i1,j1)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">comes before (something) in time</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i and j are both ‘process’ and i &apos;precedes&apos; j then the ‘temporal instant’ that i occupies &apos;precedes&apos; ‘temporal instant’ that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
@@ -89,7 +90,7 @@
 	</rdf:Description>
 	
 	<rdf:Description rdf:about="&bfo;BFO_0000202">
-		<iof-av:explanatoryNote xml:lang="en-US">1. The ‘first instant of’ a ‘temporal interval’ should ‘precede’ the ‘last instant of’ that ‘temporal interval’. Therefore, the date-time asserted (i.e., ‘has date-time value’ of the ‘temporal instant value expression’ that ‘is value expression of at all times’ of the ‘temporal instant’) for the first instant should be before the last instant in terms their positions in the corresponding calendar and clock system. For example, the first instant and last instant of a ‘temporal interval’ are 2002-10-10T17:00:00Z and 2002-10-11T01:40:00Z. 
+		<iof-av:explanatoryNote xml:lang="en-US">1. The ‘first instant of’ a ‘temporal interval’ should ‘precede’ the ‘last instant of’ that ‘temporal interval’. Therefore, the date-time asserted (i.e., ‘has date-time instant value’ of the ‘temporal instant value expression’ that ‘is value expression of at all times’ of the ‘temporal instant’) for the first instant should be before the last instant in terms their positions in the corresponding calendar and clock system. For example, the first instant and last instant of a ‘temporal interval’ are 2002-10-10T17:00:00Z and 2002-10-11T01:40:00Z. 
 2. If only one date-time is available for the interval due to lack of data or an interval being smaller than the tick time (the smallest duration by which the time progresses) then the date-time should be asserted either only for first instant or only for last instant of every interval uniformly for the entire knowledge base. For example, Barack Obama gained the role of presidency on 20 January 2009 should be modeled as the process p of type ‘gain of role’ ‘occupies temporal region’ r (a ‘temporal interval’) which ‘has last instant’ i (a ‘temporal instant’) which ‘has value expression at all times’ v (a ‘temporal instant value expression’) which ‘has data-time value’ 2009-01-20T00:00:00Z.</iof-av:explanatoryNote>
 	</rdf:Description>
 	
@@ -2104,14 +2105,23 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<rdfs:subClassOf rdf:resource="&iof-core;OrganizedGroupOfAgents"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000174"/>
 				<owl:allValuesFrom rdf:resource="&iof-core;Organization"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:allValuesFrom rdf:resource="&iof-core;Person"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Organization">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Person">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">organization</rdfs:label>
@@ -2135,12 +2145,12 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<iof-av:adaptedFrom>https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/Organization</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote xml:lang="en-US">1. An organization may have a set of organizational rules that, among other things, prescribe a set of roles and responsibilities its members bear, how important decisions are made, and how members should behave when acting on behalf of the organization.
 2. As introduced here, the mere gathering of a group of persons does not imply the existence of an organization, unless and until such members agree to form an organization and have agreed to a common set of objectives as mentioned in point 1.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Organization(x) → ∀y(hasMemberPartAtSomeTime(x,y) → Person(y)) ∧ ∀z(hasContinuantPartAtSomeTime(x,z) → Organization(z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Organization(x) → ∀y(hasMemberPartAtSomeTime(x,y) → (Person(y) ∨ Organization(y))) ∧ ∀z(hasProperContinuantPartAtSomeTime(x,z) → Organization(z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>Organization(x) ↔ OrganizedGroupOfAgents(x) ∧ ∃p,∃i(Person(p) ∧OrganizationIdentifier(i) ∧ designatedBy(x,i) ∧ hasMemberPartAtAllTimes(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">group of persons that identifies itself by some name and pursues a common set of plans and objectives</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;organization&apos; then whenever x &apos;has member part at some time&apos; y that y must be a &apos;peson&apos; and whenever x &apos;has continuant part at some time&apos; z that z must be a &apos;organization&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;organization&apos; then whenever x &apos;has member part at some time&apos; y that y must be a &apos;peson&apos; or &apos;organization&apos; and whenever x &apos;has proper continuant part at some time&apos; z that z must be a &apos;organization&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;organization&apos; is defined exactly as an instance of &apos;organized group of agents&apos; that is &apos;designated by&apos; some &apos;organization identifier&apos; and that &apos;has member part at all times&apos; one or more &apos;person&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>Members of organizations are people. However, an organization may be composed of several sub-organizations (e.g., departments). This composition should be modeled through &apos;continuant part&apos; relations.</iof-av:usageNote>
+		<iof-av:usageNote>Members of organizations are people or other organizations. However, an organization may be composed of several sub-organizations (e.g., departments). This composition should be modeled through &apos;proper continuant part&apos; relations.</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;OrganizationIdentifier">
@@ -2795,6 +2805,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:Class rdf:about="&iof-core;TemporalDurationValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
 		<rdfs:label xml:lang="en-US">temporal interval value expression</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-core;TemporalInstantValueExpression"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -3250,12 +3261,12 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>y has component part at some time x holds when x is a &apos;material entity&apos; that is not a &apos;fiat object part&apos; and y is a &apos;material entity&apos; that is not a &apos;fiat object part&apos; and x is &apos;proper continuant part of at some time&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
-	<owl:DatatypeProperty rdf:about="&iof-core;hasDateTimeValue">
+	<owl:DatatypeProperty rdf:about="&iof-core;hasDateTimeInstantValue">
 		<rdfs:subPropertyOf rdf:resource="&iof-core;hasSimpleExpressionValue"/>
-		<rdfs:label xml:lang="en-US">has date-time value</rdfs:label>
+		<rdfs:label xml:lang="en-US">has date-time instant value</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-core;TemporalInstantValueExpression"/>
 		<rdfs:range rdf:resource="&xsd;dateTime"/>
-		<skos:example xml:lang="en-US">The time point at 16:30pm at UTC on 3rd March 2023 is asserted by the associated (‘is value expression of at all times’) ‘temporal instant value expression’ having date-time value (‘has date-time value’) 2023-03-03T16:30:00Z.</skos:example>
+		<skos:example xml:lang="en-US">The time point at 16:30pm at UTC on 3rd March 2023 is asserted by the associated (‘is value expression of at all times’) ‘temporal instant value expression’ having date-time value (‘has date-time instant value’) 2023-03-03T16:30:00Z.</skos:example>
 		<iof-av:explanatoryNote xml:lang="en-US">1. This data property may be used to specify a ‘temporal instant value expression’ in XSD date-time format (e.g., 2002-10-10T17:00:00Z). For a detailed description of xsd:DateTime, see https://www.w3.org/TR/xmlschema-2/#dateTime. 
 2. While comparing two ‘temporal instant value expression’, it is important to make sure that their date-time expressions are given in the same calendar and clock system.
 3. For detailed expression of date and time in a specific calendar system, use a suitable subclass of TemporalPosition class from Time ontology (https://www.w3.org/TR/owl-time/) instead of ‘temporal instant value expression’ (see mapping file https://spec.industrialontologies.org/ontology/core/commonstocoremapping/MappingOWLTimeToIOF/).</iof-av:explanatoryNote>
@@ -3728,7 +3739,7 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">The rotation of the chuck in a lathe occurs simultaneously with the running of the motor.</skos:example>
 		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: occursSimultaneouslyWith(i,j) → (TemporalInstant(i) ∧ TemporalInstant(j)) ∨ (TemporalInterval(i) ∧ TemporalInterval(j)) ∨ (Process(i) ∧ Process(j)) ∧ (ProcessBoundary(i) ∧ ProcessBoundary(j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: TemporalInstant(i) ∧ TemporalInstant(j) ∧ occursSimultaneouslyWith(i,j) → ∃k,l(TemporalInstantValueExpression(k) ∧ TemporalInstantValueExpression(l) ∧ hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes(j,l) ∧ ∃v1,v2(hasDateTimeStampInXSDExpression(k,v1) ∧ hasDateTimeStampInXSDExpression(l,v2) ∧ (v1 = v2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: TemporalInstant(i) ∧ TemporalInstant(j) ∧ occursSimultaneouslyWith(i,j) → ∃k,l(TemporalInstantValueExpression(k) ∧ TemporalInstantValueExpression(l) ∧ hasValueExpressionAtAllTimes(i,k) ∧ hasValueExpressionAtAllTimes(j,l) ∧ ∃v1,v2(hasDateTimeInstantValue(k,v1) ∧ hasDateTimeInstantValue(l,v2) ∧ (v1 = v2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: TemporalInterval(i) ∧ TemporalInterval(j) ∧ occursSimultaneouslyWith(i,j) → ∃i1,i2,j1,j2(TemporalInstant(i1) ∧ TemporalInstant(j1) ∧ TemporalInstant(i2) ∧ TemporalInstant(j2) ∧ hasFirstInstant(i,i1) ∧ hasLastInstant(i,i2) ∧ hasFirstInstant(j,j1) ∧ hasLastInstant(j,j2) ∧ occursSimultaneouslyWith(i1,j1) ∧ occursSimultaneouslyWith(i2,j2))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA4: Process(i) ∧ Process(j) ∧ occursSimultaneouslyWith(i,j) → ∃i1,j1(TemporalInterval(i1) ∧ TemporalInterval(j1) ∧ occupiesTemporalRegion(i,i1) ∧ occupiesTemporalRegion(j,j1) ∧ occursSimultaneouslyWith(i1,j1))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA5: ProcessBoundary(i) ∧ ProcessBoundary(j) ∧ occursSimultaneouslyWith(i,j) → ∃i1,j1(TemporalInstant(i1) ∧ TemporalInstant(j1) ∧ occupiesTemporalRegion(i,i1) ∧ occupiesTemporalRegion(j,j1) ∧ occursSimultaneouslyWith(i1,j1))</iof-av:firstOrderLogicAxiom>
@@ -4004,6 +4015,16 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-core;MaterialArtifact">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-core;Organization">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
