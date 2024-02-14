@@ -570,23 +570,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -630,8 +615,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -2519,7 +2519,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		<rdfs:subClassOf rdf:resource="&iof-core;ObjectiveSpecification"/>
 		<rdfs:label xml:lang="en-US">supply chain objective specification</rdfs:label>
 		<skos:example>an objective of a supply chain for manufacturing water pumps is to manufacture and deliver a batch of 100 water pumps per day in a given timeframe</skos:example>
-		<iof-av:firstOrderLogicAxiom>InformationContentEntity (x) ∧ (∃c∃p(Continuant (c) ∧ SupplyChainProcess(p) ∧ isOutputOf (c,p) ∧ prescribes (x,c)) → SupplyChainObjectiveSpecification (x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>InformationContentEntity(x) ∧ Continuant(c) ∧ SupplyChainProcess(p) ∧ isOutputOf(c,p) ∧ prescribes(x,c) → SupplyChainObjectiveSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">objective specification that prescribes what the outcome of a supply chain process should be</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
@@ -2686,7 +2686,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">supply relationship</rdfs:label>
 		<skos:example>the relationship between Continental and Ford Motor Company based on which Continental agrees to sell powertrain assemblies to Ford in certain volumes per year</skos:example>
-		<iof-av:firstOrderLogicAxiom>SupplyRelationship(x)→SpecificallyDependentContinuant(x) ∧ ∃r1,∃r2,∃c (CustomerRole(r1) ∧ SupplierRole(r2) ∧ agreement(c) ∧ specificallyDependsOn(x,r1) ∧ specificallyDependsOn(x,r2 ∧ prescribedBy(x,c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>SupplyRelationship(x) → SpecificallyDependentContinuant(x) ∧ ∃r1,∃r2,∃c(CustomerRole(r1) ∧ SupplierRole(r2) ∧ agreement(c) ∧ specificallyDependsOn(x,r1) ∧ specificallyDependsOn(x,r2) ∧ prescribedBy(x,c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relationship that exists between two agents when one agent supplies a product or service to another agent and that is prescribed by an agreement</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -2807,7 +2807,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">transport process</rdfs:label>
 		<skos:example>the process during with a truck transports shipments from a shipper&apos;s location to a rceiver&apos;s location</skos:example>
-		<iof-av:firstOrderLogicAxiom>TransportProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃e ((PieceOfTransportEquipment(e) ∧ hasParticipantAtSomeTime(x,e))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>TransportProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃e(PieceOfTransportEquipment(e) ∧ hasParticipantAtSomeTime(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process involving the movement of material entities by some piece of transport equipment</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
