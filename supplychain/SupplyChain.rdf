@@ -13,7 +13,6 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"
-	xmlns="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
@@ -41,9 +40,11 @@
 		<dcterms:publisher>Industrial Ontology Foundry</dcterms:publisher>
 		<dcterms:title xml:lang="en-US">Industrial Ontology Foundry (IOF) Supply Chain Ontology</dcterms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202301/supplychain/SupplyChain/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202302/supplychain/SupplyChain/"/>
+		<skos:changeNote>The https://spec.industrialontologies.org/ontology/202302/supplychain/SupplyChain/ version of this 
+ontology was modified to deprecate four constructs, namely, Gain of Role, Loss of Role, Group of Persons, and Artifact Function. These constructs are moved to the IOF Core ontology (https://spec.industrialontologies.org/ontology/202302/core/Core/). The deprecated constructs are linked to the IOF Core equivalent constructs using owl:equivalentClass.</skos:changeNote>
 		<iof-av:acronym>SCO</iof-av:acronym>
-		<iof-av:copyright>Copyright (c) 2022 Open Applications Group</iof-av:copyright>
+		<iof-av:copyright>Copyright (c) 2023 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
@@ -140,24 +141,7 @@ Airways are defined with segments within a specific altitude block, corridor wid
 	
 	<owl:Class rdf:about="&iof-scro;ArtifactFunction">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000034"/>
-		<rdfs:label xml:lang="en-US">artifact function</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000034">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;functionOf"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;MaterialArtifact"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>the function of a oil pump to pump oil, the function of a knife to cut stuff</skos:example>
-		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>ArtifactFunction(x) ↔ Function(x) ∧ ∃m(MaterialArtifact(m)∧functionOf(x,m))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">function that inheres in some material artifact in virtue of that artifact being designed to be used in processes that require that function to be realized</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;artifact function&apos; is exactly an instance of &apos;function&apos; that is the &apos;function of&apos; some &apos;material artifact&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;BillOfLading">
@@ -586,8 +570,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -631,23 +630,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -889,15 +873,7 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 	
 	<owl:Class rdf:about="&iof-scro;GainOfRole">
 		<rdfs:subClassOf rdf:resource="&iof-scro;Change"/>
-		<rdfs:label xml:lang="en-US">gain of role</rdfs:label>
-		<skos:example>the process of gaining an operator role when someone begins to operate a manual lathe</skos:example>
-		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>GainOfRole(x) → Change(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">change process in which some entity becomes the bearer of some role.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The intention is to keep this term as a primitive.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;gain of role&apos; then x is a &apos;change&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:usageNote>This class should be used to demarcate the start of the temporal interval (through &apos;occurs on&apos; property) that the entity bears the role.</iof-av:usageNote>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;GeospatialLocation">
@@ -981,26 +957,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 	
 	<owl:Class rdf:about="&iof-scro;GroupOfPersons">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:label xml:lang="en-US">group of persons</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;Person"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-						<owl:allValuesFrom rdf:resource="&iof-core;Person"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>a group of shop floor operators working for a manufacturing company</skos:example>
-		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>GroupOfPersons(x) ↔ ObjectAggregate(x) ∧ ∃y (Person(y) ∧ memberPartOfAtAllTimes(y, x)) ∧ ∀z (memberPartOfAtAllTimes(z, x) → Person(z))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">group of agents that has only persons as parts</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;group of persons&apos; is defined as exactly an instance of &apos;object aggregate&apos; that &apos;has member part at all times&apos; some &apos;person&apos; and &apos;has member part at all times&apos; only &apos;person&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;GroupOfSuppliers">
@@ -1407,15 +1364,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 	
 	<owl:Class rdf:about="&iof-scro;LossOfRole">
 		<rdfs:subClassOf rdf:resource="&iof-scro;Change"/>
-		<rdfs:label xml:lang="en-US">loss of role</rdfs:label>
-		<skos:example>the process of losing a student role when a student graduates</skos:example>
-		<iof-av:directSource>CCO</iof-av:directSource>
-		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LossOfRole(x) → Change(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">change process in which some entity ceases to be the bearer of some role.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The intention is to keep this term as a primitive.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;loss of role&apos; then x is a &apos;change&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Lot">
@@ -2178,6 +2127,17 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:synonym>Consignment</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-scro;ShipmentPlanSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:label>shipment plan specification</rdfs:label>
+		<skos:example>a shipping plan that specifies the schedule for picking up a shipment of 1000 smartphones from a certain pick up location and transporting to a certain destination and also provides details of the shipping method (sea freight for example)</skos:example>
+		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃p(ShipmentPreparationProcess(p) ∧ prescribes(x,p)) → ShipmentPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>plan specification that prescribes a shipment preparation process and a transportation process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification that &apos;prescribes&apos; some &apos;shipment preparation process&apos; then x is a &apos;shipment plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-scro;ShipmentPreparationProcess">
 		<rdfs:subClassOf>
 			<owl:Class>
@@ -2242,6 +2202,17 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">traceable resource unit role held by material entities when they undergo the same dispatch and receipt processes as prescribed by a bill of lading</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shipment role&apos; then x is a &apos;traceable resource unit role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that is the &apos;output of&apos; some &apos;shipment preparation process&apos; and whenever x &apos;has realization&apos; y that y must be a &apos;transpot process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-scro;ShipmentState">
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialState"/>
+		<rdfs:label>shipment state</rdfs:label>
+		<skos:example>delayed state, in-transit state, delivered state</skos:example>
+		<iof-av:firstOrderLogicAxiom>ShipmentState(x) → MaterialState(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>material state in which a shipment that participates in the state has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize XYZ are still lacking.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shapment state&apos; then x is a &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;Shipper">
@@ -2933,9 +2904,9 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Person">
+							<rdf:Description rdf:about="&iof-core;GroupOfPersons">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-scro;GroupOfPersons">
+							<rdf:Description rdf:about="&iof-core;Person">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -3515,6 +3486,30 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Axiom>
+		<rdfs:seeAlso>https://spec.industrialontologies.org/ontology/core/Core/DesignedFunction</rdfs:seeAlso>
+		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
+		<owl:annotatedSource rdf:resource="&iof-scro;ArtifactFunction"/>
+		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<rdfs:seeAlso>https://spec.industrialontologies.org/ontology/core/Core/GainOfRole</rdfs:seeAlso>
+		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
+		<owl:annotatedSource rdf:resource="&iof-scro;GainOfRole"/>
+		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<rdfs:seeAlso>https://spec.industrialontologies.org/ontology/core/Core/GroupOfPersons</rdfs:seeAlso>
+		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
+		<owl:annotatedSource rdf:resource="&iof-scro;GroupOfPersons"/>
+		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<rdfs:seeAlso>https://spec.industrialontologies.org/ontology/core/Core/LossOfRole</rdfs:seeAlso>
+		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
+		<owl:annotatedSource rdf:resource="&iof-scro;LossOfRole"/>
+		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
+	</owl:Axiom>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-scro;BillOfLading"/>
 		<owl:intersectionOf rdf:parseType="Collection">
