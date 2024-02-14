@@ -424,8 +424,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">consignor role</rdfs:label>
 		<skos:example>Pirelli has a consignor role when it prepares and initiates a shipment of 200 tires to a bracnch of Discount Tire in Ann Arbor, MI</skos:example>
-		<iof-av:firstOrderLogicAxiom>LA1:ConsignorRole(x) → Role(x) ∧ ∃y,∃p, ∃s((BusinessOrganization(y) ∨ Person(y)) ∧ ShipmentPreparationProcess(p) ∧ Shipment(s) ∧ agentIn(y,p) ∧ isSpecifiedOutputOf(s,p) ∧ owns(y,s) roleOf(x, y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2:ConsignorRole(x) → Role(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y) ∧ ShipmentPreparationProcess(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1:ConsignorRole(x) → Role(x) ∧ ∃y,∃p,∃s((BusinessOrganization(y) ∨ Person(y)) ∧ ShipmentPreparationProcess(p) ∧ Shipment(s) ∧ agentIn(y,p) ∧ isSpecifiedOutputOf(s,p) ∧ owns(y,s) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2:ConsignorRole(x) → Role(x) ∧ ∃y,∃p((BusinessOrganization(y) ∨ Person(y) ∧ ShipmentPreparationProcess(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a business organization or person when it prepares, initiates, and consigns a shipment it owns</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for providing necessary and sufficient conditions are not available in this release.</iof-av:primitiveRationale>
@@ -836,7 +836,7 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<rdfs:label xml:lang="en-US">freight forwarding process</rdfs:label>
 		<skos:example>Vermont Tech manufactures electric spare parts in Vermont and exports them to Canada and Mexico. Vermont Tech hired Wagner Forwarders LLC that picks up shipments from Vermont Tech&apos;s warehouse, carries out customs clearance, transports the goods from the destination, and delivers them to the clients in Mexico and Canada.</skos:example>
 		<iof-av:explanatoryNote>Freight forwarding is the process of organizing shipments for individuals or corporations to get goods from a manufacturer to a market, customer or final point of distribution.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>FreightForwardingProcess(x)→BusinessProcess(x) ∧ ∃f,∃s((FreightForwarder(f) ∧Shipment(s)) hasParticipantAtSomeTime (x,f) ∧ hasParticipantAtSomeTime (x,s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>FreightForwardingProcess(x) → BusinessProcess(x) ∧ ∃f,∃s(FreightForwarder(f) ∧ Shipment(s) ∧ hasParticipantAtSomeTime(x,f) ∧ hasParticipantAtSomeTime(x,s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process of planning and coordinating the transportation of material products on behalf of a shipper</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -1319,7 +1319,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<rdfs:label xml:lang="en-US">logistics service</rdfs:label>
 		<skos:example>the shipping service provided by a trucking company, the freight forwarding service provided by Logistix Co</skos:example>
 		<iof-av:explanatoryNote>The services related to planning, implementing, and controlling procedures for the efficient and effective transportation and storage of goods including services, and related information from the point of origin to the point of consumption for the purpose of conforming to customer requirements.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LogisticsService(x) → CommercialService(x) ∧ ∃p ((TransportationProcess(p) ∨ FreightForwardingProcess(x) ∨ PackagingProcess ∨ StorageProcess(x)) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LogisticsService(x) → CommercialService(x) ∧ ∃p((TransportationProcess(p) ∨ FreightForwardingProcess(p) ∨ PackagingProcess(p) ∨ StorageProcess(p)) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">commercial service that consists of at least one transport process, packaging process, freight forwarding, or storage process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are several other types of logistics services that are not included in the current release.</iof-av:primitiveRationale>
@@ -2162,7 +2162,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		<rdfs:label xml:lang="en-US">shipment preparation process</rdfs:label>
 		<skos:example>A tile manufacturer&apos;s warehouse receives several order and generates a picking list for each order. Then the warehouse workers pick the tile boxes from the assigned inventory location. Warehouse workers then pack, label, and sort the products by carrier before moving them to the loading dock for shipping.</skos:example>
 		<iof-av:explanatoryNote>The activities related to preparation of outgoing shipment for transport. Shipment preparation process (shipping) often includes at least one picking, internal movement, packaging, marking, labeling, weighing, or loading process.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ShipmentPreparationProcess (x) → BusinessProcess(x) ∧ ∃c,∃m,∃s (Consignor(c) ∧ MaterialProduct(m) ∧ Shipment(s) ∧ hasParticipantAtSomeTime some(x,c) ∧ hasParticipantAtSomeTime (x,m) &apos; ∧ hasSpecifiedOutput (x,s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ShipmentPreparationProcess(x) → BusinessProcess(x) ∧ ∃c,∃m,∃s(Consignor(c) ∧ MaterialProduct(m) ∧ Shipment(s) ∧ hasParticipantAtSomeTime(x,c) ∧ hasParticipantAtSomeTime(x,m) ∧ hasSpecifiedOutput(x,s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process in which some material entities are prepared to be transported together to a receiver’s location.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -2536,7 +2536,7 @@ recording, but not quality assurance or stocking [CSCMP].
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">supply chain plan specification</rdfs:label>
 		<skos:example>plan that describes the production volume and schedule for the supply chain created for production of Dell desktop computers</skos:example>
-		<iof-av:firstOrderLogicAxiom>LA1:SupplyChainPlanSpecification (x) → PlanSpecification (x) ∧ ∃o (SupplyChainObjectiveSpecification(o) ∧ hasContinuantPartAtAllTimes (x,0))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1:SupplyChainPlanSpecification(x) → PlanSpecification(x) ∧ ∃o(SupplyChainObjectiveSpecification(o) ∧ hasContinuantPartAtAllTimes(x,o))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2:PlanSpecification(x) ∧ ∃c(SupplyChainProcess(p) ∧ prescribes(x,p)) → SupplyChainPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that has one or more supply chain objective specifications as parts and that prescribes a supply chain process</iof-av:naturalLanguageDefinition>
