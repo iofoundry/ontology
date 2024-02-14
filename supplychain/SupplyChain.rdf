@@ -12,7 +12,6 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -48,7 +47,7 @@ ontology was modified to deprecate four constructs, namely, Gain of Role, Loss o
 		<iof-av:copyright>Copyright (c) 2023 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
-
+	
 	<owl:Class rdf:about="&iof-scro;Airway">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000028"/>
 		<rdfs:label xml:lang="en-US">airway</rdfs:label>
@@ -571,8 +570,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -616,23 +630,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -2660,7 +2659,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>transporting semi-finished assemblies from one supplier to another</skos:example>
-		<iof-av:firstOrderLogicDefinition>SupplyingChainTransportProcess(x) ↔ SupplyChainProcess(x) ∧ ∃p(TransportProcess(p) ∧ hasOccurrentPart(x,p)) ∧ (∃n1,∃n2(SupplyChainNode(n1) ∧ SupplyChainNode(n2) ∧ startsAt(x,n1) ∧ endsAt(x,n2)) ∧ (∃s(Shipment(s) ∧ hasParticipantAtSomeTime (x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>SupplyingChainTransportProcess(x) ↔ SupplyChainProcess(x) ∧ ∃p(TransportProcess(p) ∧ hasOccurrentPart(x,p)) ∧ ∃n1,∃n2(SupplyChainNode(n1) ∧ SupplyChainNode(n2) ∧ startsAt(x,n1) ∧ endsAt(x,n2)) ∧ ∃s(Shipment(s) ∧ hasParticipantAtSomeTime (x,s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">transport process which involves movement of goods between sending trading party’s location and receiving trading party’s locations over the public logistics pathway/infrastructure</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;supply chain transport process&apos; is defined as exactly an instance of a &apos;supply chain process&apos; that &apos;has occurrent part&apos; some &apos;transport process&apos; that &apos;starts at&apos; and &apos;ends at&apos; some &apos;supply chain node&apos; and &apos;has participant at some time&apos; some &apos;shipment&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -3511,7 +3510,6 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<owl:annotatedSource rdf:resource="&iof-scro;LossOfRole"/>
 		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
 	</owl:Axiom>
-
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-scro;BillOfLading"/>
 		<owl:intersectionOf rdf:parseType="Collection">
