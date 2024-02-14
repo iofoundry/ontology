@@ -132,7 +132,7 @@ Airways are defined with segments within a specific altitude block, corridor wid
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">arrival process</rdfs:label>
 		<skos:example>the process during which a truck enters the facility of the receiver</skos:example>
-		<iof-av:firstOrderLogicAxiom>ArrivalProcess(x) → MaterialLocationChange(x) ∧ ​∃​y(TravelProcess(y) ∨ TransportProcess(y)) ∧ occurrentPartOf(x,y) ∧ ∃​z ∃​z&apos; ∃​t(TemporalRegion(z) ∧ TemporalRegion(z&apos;) ∧ TemporalInstance(t)) ∧ occupiesTemporalRegion(​x,​z) ∧ occupiesTemporalRegion(​y,​z&apos;) ∧ lastInstanceOf(t,z&apos;) ∧ occupiesTemporalRegion(​x,​t)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ArrivalProcess(x) → MaterialLocationChange(x) ∧ ∃y(TravelProcess(y) ∨ TransportProcess(y)) ∧ occurrentPartOf(x,y) ∧ ∃z,∃z&apos; ∃t(TemporalRegion(z) ∧ TemporalRegion(z&apos;) ∧ TemporalInstance(t)) ∧ occupiesTemporalRegion(x,z) ∧ occupiesTemporalRegion(y,z&apos;) ∧ lastInstanceOf(t,z&apos;) ∧ occupiesTemporalRegion(x,t)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process that consists of the participating entity reaching its destination such that the travel or transport process which it is a part of is completed</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>To provide the necessary and sufficient conditions, the relationships representing Allen&apos;s Interval Algebra elements are needed.</iof-av:primitiveRationale>
@@ -497,7 +497,7 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">departure process</rdfs:label>
 		<skos:example>the process during which a truck (loaded with a shipment) leaves the warehouse site of the shipper</skos:example>
-		<iof-av:firstOrderLogicAxiom>DepartureProcess(x) →MaterialLocationChange(x) ∧ ​∃​y(TravelProcess(y) ∨ TransportProcess(y)) ∧ occurrentPartOf(x,y) ∧ ∃​z ∃​z&apos; ∃​t(TemporalRegion(z) ∧ TemporalRegion(z&apos;) ∧ TempotalInstance(t)) ∧ occupiesTemporalRegion(​x,​z) ∧ occupiesTemporalRegion(​y,​z&apos;) ∧ firstInstanceOf(t,z&apos;) ∧ occupiesTemporalRegion(​x,​t)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DepartureProcess(x) →MaterialLocationChange(x) ∧ ∃y(TravelProcess(y) ∨ TransportProcess(y)) ∧ occurrentPartOf(x,y) ∧ ∃z,∃z&apos; ∃t(TemporalRegion(z) ∧ TemporalRegion(z&apos;) ∧ TempotalInstance(t)) ∧ occupiesTemporalRegion(x,z) ∧ occupiesTemporalRegion(y,z&apos;) ∧ firstInstanceOf(t,z&apos;) ∧ occupiesTemporalRegion(x,t)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process that consists of the participating entity leaving its starting location such that the travel or transport process it is a part of is initiated</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>To provide the necessary and sufficient conditions, the relationships representing Allen&apos;s Interval Algebra elements are needed.</iof-av:primitiveRationale>
@@ -570,23 +570,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -630,8 +615,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -2916,7 +2916,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<rdfs:label xml:lang="en-US">travel process</rdfs:label>
 		<skos:example>the process of travelling from New York to Philadelphia by train</skos:example>
 		<iof-av:adaptedFrom>http://www.ontologyrepository.com/CommonCoreOntologies/Mid/EventOntology</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>Travel(​x​) → MaterialLocationChangeProcess(​x)​ ∧ ​∃​y ∃​​t ∃​​t′​​ ∃​​t&apos;&apos; ∃​s ∃​s′​ ∃​z ∃​z′(Person(​y​) ∨ GroupOfPersons(y)) ∧ TemporalInstant(t) ∧ TemporalInstant(t&apos;) ∧ TemporalRegion(t&apos;&apos;) ∧ IndependentContinuant(s) ∧ IndependentContinuant(s&apos;) ∧ Site(z) ∧ Site(z&apos;) ∧ hasParticipantAtSomeTime(x,y) ∧ firstInstantOf(​t​, ​t&apos;&apos;​) ∧ lastInstantOf(​t&apos;​, ​t&apos;&apos;​) ∧ occupiesTemporalRegion(​x,​t&apos;&apos;)​ ∧ existsAt(s,t) ∧ existsAt(s&apos;,t&apos;) ∧ locatedInAtalltimes(s,z) ∧ locatedInAtAlltimes(s&apos;,z&apos;) ∧locationOfAtAlltimes(s,y) ∧ locationOfAtAllTimes(s&apos;,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Travel(x) → MaterialLocationChangeProcess(x) ∧ ∃y,∃t,∃t′,∃t&apos;&apos; ∃s,∃s′,∃z,∃z′(Person(y) ∨ GroupOfPersons(y)) ∧ TemporalInstant(t) ∧ TemporalInstant(t&apos;) ∧ TemporalRegion(t&apos;&apos;) ∧ IndependentContinuant(s) ∧ IndependentContinuant(s&apos;) ∧ Site(z) ∧ Site(z&apos;) ∧ hasParticipantAtSomeTime(x,y) ∧ firstInstantOf(t,t&apos;&apos;) ∧ lastInstantOf(t&apos;,t&apos;&apos;) ∧ occupiesTemporalRegion(x,t&apos;&apos;) ∧ existsAt(s,t) ∧ existsAt(s&apos;,t&apos;) ∧ locatedInAtalltimes(s,z) ∧ locatedInAtAlltimes(s&apos;,z&apos;) ∧locationOfAtAlltimes(s,y) ∧ locationOfAtAllTimes(s&apos;,y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process wherein one or more persons move between geographical locations</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -3479,7 +3479,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">manufacturing service provider role</rdfs:label>
 		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
-		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y,∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
