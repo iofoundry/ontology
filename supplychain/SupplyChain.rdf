@@ -340,7 +340,7 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">consignee role</rdfs:label>
 		<skos:example>Discount Tire has a consignee role when it receives a shipment of 200 tires from Pirelli</skos:example>
-		<iof-av:firstOrderLogicAxiom>ConsigneeRole(x) → Role(x) ∧ ∃y,∃p ((BusinessOrganization(y) ∨ Person(y) ∧ ReceivingProcess(p) ∧ participatesInAtSomeTime(y,p) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ConsigneeRole(x) → Role(x) ∧ ∃y,∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ReceivingProcess(p) ∧ participatesInAtSomeTime(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a person or business organization when it receives a shipment from a carrier and owns the shipment after the receipt</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
@@ -570,8 +570,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -615,23 +630,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
