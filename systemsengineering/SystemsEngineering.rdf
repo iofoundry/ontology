@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY AnnotationVocabulary "https://www.omg.org/spec/Commons/AnnotationVocabulary/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
@@ -14,6 +15,7 @@
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/systemsengineering/SystemsEngineering/"
 	xmlns="http://www.w3.org/2002/07/owl#"
+	xmlns:AnnotationVocabulary="https://www.omg.org/spec/Commons/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
@@ -28,8 +30,16 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/systemsengineering/SystemsEngineering/">
 		<rdfs:label xml:lang="en-US">Systems Engineering Ontology</rdfs:label>
+		<dc:license xml:lang="en">http://opensource.org/licenses/MIT</dc:license>
+		<dcterms:abstract xml:lang="en">The IOF Systems Engineering ontology provides those notions and constructs used in and common to Systems Engineering.</dcterms:abstract>
+		<dcterms:publisher xml:lang="en">Industrial Ontology Foundry</dcterms:publisher>
+		<dcterms:title xml:lang="en">Industrial Ontology Foundry (IOF) Systems Engineering Ontology</dcterms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202308/systemsengineering/SystemsEngineering/"/>
+		<skos:changeNote xml:lang="en">&apos;Lanugage&apos; was moved to a subclass of &apos;Generically Dependent Continuant&apos;: http://purl.obolibrary.org/obo/BFO_0000031
+
+&apos;Syntax&apos; was moved to a subclass of &apos;DesignSpecification&apos;: https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification</skos:changeNote>
+		<iof-av:copyright xml:lang="en">Industrial Ontology Foundry (IOF)</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
@@ -66,7 +76,7 @@ This definition was developed for the SEBoK.</iof-av:naturalLanguageDefinition>
 	
 	<owl:Class rdf:about="&iof-se;FormalLanguage">
 		<rdfs:subClassOf rdf:resource="&iof-se;Language"/>
-		<iof-av:naturalLanguageDefinition>a formal language consists of words whose letters are taken from an alphabet and are well-formed according to a specific set of rules called a formal grammar.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>A formal language consists of words whose letters are taken from an alphabet and are well-formed according to a specific set of rules called a formal grammar.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;FormalSyntax">
@@ -80,19 +90,20 @@ Graphic composition of an image, like shape, perspective, size, scale, dimension
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;Language">
-		<iof-av:naturalLanguageDefinition>the principal method of human communication, consisting of words used in a structured and conventional way and conveyed by speech, writing, or gesture.</iof-av:naturalLanguageDefinition>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000031"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en">Language is a structured system of communication that consists of grammar and vocabulary.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;MaterialModel">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000030"/>
 		<rdfs:label xml:lang="en">Material Model</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Provisional:
+		<rdfs:comment xml:lang="en">Provisional:
 reproduction of some object
 
 Every part of a material model bears a quality that concretizes a GDC that is about some object that is part of the same object aggregate
 
-E.g., the shapes of the parts of a toy each concretize a GDC that is about some part of an airplane</iof-av:naturalLanguageDefinition>
-		<iof-av:naturalLanguageDefinition>a model that uses material objects.</iof-av:naturalLanguageDefinition>
+E.g., the shapes of the parts of a toy each concretize a GDC that is about some part of an airplane</rdfs:comment>
+		<iof-av:naturalLanguageDefinition xml:lang="en">A model made of material objects.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;MetaMetaModel">
@@ -158,7 +169,7 @@ The phrase (aspect of reality) includes future reality in the domain of planning
 	
 	<owl:Class rdf:about="&iof-se;NaturalLanguage">
 		<rdfs:subClassOf rdf:resource="&iof-se;Language"/>
-		<iof-av:naturalLanguageDefinition>a natural language or ordinary language is any language that occurs naturally in a human community by a process of use, repetition, and change without conscious planning or premeditation.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>Natural Language or ordinary language is any language that occurs naturally in a human community by a process of use, repetition, and change without conscious planning or premeditation.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;NaturalLanguageSyntax">
@@ -168,6 +179,16 @@ The phrase (aspect of reality) includes future reality in the domain of planning
 	
 	<owl:Class rdf:about="&iof-se;Prototype">
 		<rdfs:subClassOf rdf:resource="&iof-se;MaterialModel"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en">Prototype</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en">A prototype is an early sample, model, or release of a product built to test a concept or process.
+
+It is a term used in a variety of contexts, including semantics, design, electronics, and software programming. A prototype is generally used to evaluate a new design to enhance precision by system analysts and users.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;SubsystemRole">
@@ -185,6 +206,7 @@ Comments: A subsystem cannot exist as a subsystem by itself.</iof-av:naturalLang
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-se;Syntax">
+		<rdfs:subClassOf rdf:resource="&iof-core;DesignSpecification"/>
 		<iof-av:naturalLanguageDefinition>Syntax refers to the set of rules that determines the arrangement of words in a sentence</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -208,5 +230,37 @@ Comments: A subsystem cannot exist as a subsystem by itself.</iof-av:naturalLang
 	<owl:ObjectProperty rdf:about="&iof-se;models">
 		<rdfs:domain rdf:resource="&iof-se;Model"/>
 	</owl:ObjectProperty>
+	
+	<owl:Axiom>
+		<dcterms:source xml:lang="en">IOF</dcterms:source>
+		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
+		<owl:annotatedSource rdf:resource="&iof-se;MaterialModel"/>
+		<owl:annotatedTarget xml:lang="en">A model made of material objects.</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
+		<owl:annotatedSource rdf:resource="&iof-se;FormalLanguage"/>
+		<owl:annotatedTarget>A formal language consists of words whose letters are taken from an alphabet and are well-formed according to a specific set of rules called a formal grammar.</owl:annotatedTarget>
+		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">https://en.wikipedia.org/wiki/Formal_language</iof-av:adaptedFrom>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
+		<owl:annotatedSource rdf:resource="&iof-se;Language"/>
+		<owl:annotatedTarget xml:lang="en">Language is a structured system of communication that consists of grammar and vocabulary.</owl:annotatedTarget>
+		<iof-av:directSource rdf:datatype="&xsd;anyURI">https://en.wikipedia.org/wiki/Language</iof-av:directSource>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
+		<owl:annotatedSource rdf:resource="&iof-se;NaturalLanguage"/>
+		<owl:annotatedTarget>Natural Language or ordinary language is any language that occurs naturally in a human community by a process of use, repetition, and change without conscious planning or premeditation.</owl:annotatedTarget>
+		<iof-av:directSource rdf:datatype="&xsd;anyURI">https://en.wikipedia.org/wiki/Natural_language</iof-av:directSource>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
+		<owl:annotatedSource rdf:resource="&iof-se;Prototype"/>
+		<owl:annotatedTarget xml:lang="en">A prototype is an early sample, model, or release of a product built to test a concept or process.
 
+It is a term used in a variety of contexts, including semantics, design, electronics, and software programming. A prototype is generally used to evaluate a new design to enhance precision by system analysts and users.</owl:annotatedTarget>
+		<iof-av:directSource rdf:datatype="&xsd;anyURI">https://en.wikipedia.org/wiki/Prototype</iof-av:directSource>
+	</owl:Axiom>
 </rdf:RDF>
