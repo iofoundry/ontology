@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
+	<!ENTITY bmic-physical "https://spec.industrialontologies.org/ontology/physical/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY qudt "http://qudt.org/schema/qudt/">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY terms "http://purl.org/dc/terms/">
+	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/physical/"
+	xmlns:bfo="http://purl.obolibrary.org/obo/"
+	xmlns:bmic-physical="https://spec.industrialontologies.org/ontology/physical/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:qudt="http://qudt.org/schema/qudt/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:terms="http://purl.org/dc/terms/"
+	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/physical/">
+		<rdfs:label xml:lang="en-US">Physical Model Ontology</rdfs:label>
+		<terms:abstract>This module contains terms and relations to represent the physical spaces where processing and storage occurs.  Spaces are specific and bounded geographic locations which can be heirarchical and embedded.</terms:abstract>
+		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
+		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
+		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
+		<owl:imports rdf:resource="http://qudt.org/2.1/schema/qudt"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/physical/"/>
+		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>			
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bmic-physical;Enterprise">
+		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">enterprise</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">highest level of continuous process control equipment hierarchy that is responsible for determining what products will be manufactured, at which sites they will be manufactured, and in general how they will be manufactured</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;PhysicalArea">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">physical area</rdfs:label>
+		<skos:altLabel>area</skos:altLabel>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">physical, geographical, or logical grouping determined by the site</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;PhysicalSite">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">physical site</rdfs:label>
+		<skos:altLabel>site</skos:altLabel>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">physical, geographical, or logical grouping determined by the continuous process control enterprise</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;ProcessCell">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+		<rdfs:label xml:lang="en-US">process cell</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">all the equipment required for a segment of batch-fed production that operates in a relatively autonomous manner</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;ProductionLine">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+		<rdfs:label xml:lang="en-US">production line</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">composed of well-defined manufacturing capabilities and throughput capacities, for discrete manufacturing processes</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;ProductionUnit">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+		<rdfs:label xml:lang="en-US">production unit</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">all the equipment required for a segment of continuous production that operates in a relatively autonomous manner</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;StorageUnit">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+		<rdfs:label xml:lang="en-US">storage unit</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in continuous process control storage zone, to reflect equipment used in storage or movement</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;StorageZone">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+		<rdfs:label xml:lang="en-US">storage zone</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The capability of the storage zone may include the movement of materials from one work center to another work center within or between enterprises.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuous process control work center that has capability needed for the receipt, storage, retrieval, movement and shipment of materials</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;Unit">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+		<rdfs:label xml:lang="en-US">unit</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in continuous process control process cells and production units, to reflect equipment used batch and continuous production respectively</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;WorkCell">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+		<rdfs:label xml:lang="en-US">work cell</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in a continuous process control production line, to reflect equipment used repetitive or discrete production</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;WorkCenter">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">work center</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">any equipment element subordinate to an continuous process control area that may be defined by the user in an extension to the role based equipment hierarchy model</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;WorkUnit">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">work unit</rdfs:label>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy whose type depends upon the continuous process control work center used</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+
+</rdf:RDF>

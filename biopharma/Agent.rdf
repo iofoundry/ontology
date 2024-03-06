@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
+	<!ENTITY bmic-agent "https://spec.industrialontologies.org/ontology/agent/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY qudt "http://qudt.org/schema/qudt/">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY terms "http://purl.org/dc/terms/">
+	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/agent/"
+	xmlns:bfo="http://purl.obolibrary.org/obo/"
+	xmlns:bmic-agent="https://spec.industrialontologies.org/ontology/agent/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:qudt="http://qudt.org/schema/qudt/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:terms="http://purl.org/dc/terms/"
+	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/agent/">
+		<rdfs:label xml:lang="en-US">Agent Ontology</rdfs:label>
+		<terms:abstract>This module contains terms and relations necessary for representing  various types of agents (actors) in biopharmaceutical manufacturing. The actors here correspond to both human actors as well as engineered systems and organizations.</terms:abstract>
+		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
+		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
+		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
+		<owl:imports rdf:resource="http://qudt.org/2.1/schema/qudt"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/agent/"/>
+		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bmic-agent;AgentIdentification">
+		<rdfs:subClassOf rdf:resource="&iof-core;Identifier"/>
+		<rdfs:label xml:lang="en-US">agent identification</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;Identifier">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;designates"/>
+						<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier for a person, group of persons, or engineered system with an agent role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-agent;Operator">
+		<rdfs:subClassOf rdf:resource="&iof-core;Agent"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;designatedBy"/>
+				<owl:someValuesFrom rdf:resource="&bmic-agent;AgentIdentification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">operator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;GroupOfAgents">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Person">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&bmic-agent;OperatorRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">person, group of persons, or engineered system with an operator role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-agent;OperatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-core;AgentRole"/>
+		<rdfs:label xml:lang="en-US">operator role</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent role where the agent operates something</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-agent;Validator">
+		<rdfs:subClassOf rdf:resource="&iof-core;Agent"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;designatedBy"/>
+				<owl:someValuesFrom rdf:resource="&bmic-agent;AgentIdentification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">validator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;GroupOfAgents">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Person">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&bmic-agent;ValidatorRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">person, group of persons, or engineered system with an validator role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-agent;ValidatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-core;AgentRole"/>
+		<rdfs:label xml:lang="en-US">validator role</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent role where an agent validates something</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+
+</rdf:RDF>

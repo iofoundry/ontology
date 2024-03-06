@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
+	<!ENTITY bmic-manufacturingexecution "https://spec.industrialontologies.org/ontology/manufacturingexecution/">
+	<!ENTITY bmic-monitoringandcontrol "https://spec.industrialontologies.org/ontology/monitoringandcontrol/">
+	<!ENTITY bmic-recipe "https://spec.industrialontologies.org/ontology/recipe/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY qudt "http://qudt.org/schema/qudt/">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY terms "http://purl.org/dc/terms/">
+	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/manufacturingexecution/"
+	xmlns:bfo="http://purl.obolibrary.org/obo/"
+	xmlns:bmic-manufacturingexecution="https://spec.industrialontologies.org/ontology/manufacturingexecution/"
+	xmlns:bmic-monitoringandcontrol="https://spec.industrialontologies.org/ontology/monitoringandcontrol/"
+	xmlns:bmic-recipe="https://spec.industrialontologies.org/ontology/recipe/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:qudt="http://qudt.org/schema/qudt/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:terms="http://purl.org/dc/terms/"
+	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/manufacturingexecution/">
+		<rdfs:label xml:lang="en-US">Manufacturing Execution Ontology</rdfs:label>
+		<terms:abstract>This module contains terms and relations necessary for representing the actual occurrences of manufacturing processes with respect to recipes.</terms:abstract>
+		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
+		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
+		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
+		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/monitoringandcontrol/"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/recipe/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/manufacturingexecution/"/>
+		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>			
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bmic-manufacturingexecution;BatchIdentification">
+		<rdfs:subClassOf rdf:resource="&iof-core;Identifier"/>
+		<rdfs:label xml:lang="en-US">batch identification</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier for a batch run</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-manufacturingexecution;BatchRun">
+		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&bmic-monitoringandcontrol;MonitoringProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&bmic-recipe;RecipeComponent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">batch run</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;designatedBy"/>
+						<owl:someValuesFrom rdf:resource="&bmic-manufacturingexecution;BatchIdentification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:altLabel>batch process</skos:altLabel>
+		<skos:altLabel>run</skos:altLabel>
+		<iof-av:adaptedFrom>https://www.plcacademy.com/isa-88-s88-batch-control-explained/</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process that leads to the production of finite quantities of material by subjecting quantities of input materials to an ordered set of processing activities over a finite period of time using one or more pieces of equipment</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-manufacturingexecution;MaterialCombination">
+		<rdfs:subClassOf rdf:resource="&bmic-manufacturingexecution;MaterialProcess"/>
+		<rdfs:label xml:lang="en-US">material combination</rdfs:label>
+		<skos:example xml:lang="en">Mixing two fluids. Adding salt into water. Injecting a mouse with PBS.</skos:example>
+		<iof-av:adaptedFrom xml:lang="en">http://purl.obolibrary.org/obo/OBI_0000652</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>https://ontobee.org/ontology/OBI</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material process with the objective to combine two or more material entities as input into a single material entity as output</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-manufacturingexecution;MaterialComponentSeparation">
+		<rdfs:subClassOf rdf:resource="&bmic-manufacturingexecution;MaterialProcess"/>
+		<rdfs:label xml:lang="en-US">material component separation</rdfs:label>
+		<iof-av:adaptedFrom xml:lang="en">http://purl.obolibrary.org/obo/OBI_0600014</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>https://ontobee.org/ontology/OBI</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material process in which components of an input material become segregated in space</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-manufacturingexecution;MaterialProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">material process</rdfs:label>
+		<skos:altLabel xml:lang="en">material processing</skos:altLabel>
+		<skos:altLabel xml:lang="en">material transformation</skos:altLabel>
+		<iof-av:adaptedFrom xml:lang="en">http://purl.obolibrary.org/obo/OBI_0000094</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>https://ontobee.org/ontology/OBI</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process which results in physical changes in a specified input material</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&bmic-manufacturingexecution;producedBy">
+		<rdfs:label xml:lang="en-US">produced by</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
+		<owl:inverseOf rdf:resource="&bmic-manufacturingexecution;produces"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">inverse property of produces</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&bmic-manufacturingexecution;produces">
+		<rdfs:label xml:lang="en-US">produces</rdfs:label>
+		<qudt:example>hybridoma cell line produces monoclonal antibody reagent; chondroblast produces avascular GAG-rich matrix</qudt:example>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
+		<iof-av:adaptedFrom xml:lang="en">http://purl.obolibrary.org/obo/RO_0003000</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">a produces b if some process that occurs_in a has_output b, where a and b are material entities</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+
+</rdf:RDF>
