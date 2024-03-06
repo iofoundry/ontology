@@ -49,7 +49,7 @@ The purpose of this ontology is to ensure interoperability with the listed OMG O
     > The IOF Mapping Annotation Vocabulary to Commons maps the AV to the Object Management Group (OMG)&apos;s Annotation Vocabulary provided in the Commons Ontology Library. The Commons Annotation Vocabulary is a subset of what is included in the IOF AV, but is used across a number of OMG and other emerging standards and thus the mapping makes it easier to use other Commons library ontologies in an IOF context.
 * `maintenance/Maintenance` **[Provisional]**
   > The purpose of this IOF Maintenance Reference ontology is to support semantic interoperability through the use of modular ontologies in the maintenance domain. This Ontology contains terms identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure, and failure modes and effects analysis. The ontology is based on the IOF Core Ontology.
-* `supplychain/SupplyChainReferenceOntology` **[Provisional]**
+* `supplychain/SupplyChain` **[Provisional]**
   > Supply Chain Reference Ontology (SCRO) aims to extend the IOF Core with the constructs (classes and properties) related to the domain of supply chain and logistics. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics application ontologies.
 ## Reasoner
 

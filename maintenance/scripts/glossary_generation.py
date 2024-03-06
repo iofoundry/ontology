@@ -86,8 +86,8 @@ def construct_html_row(row, index):
 
 if __name__ == "__main__":
     # Get the list of classes
-    properties = get_list_of_properties("MaintenanceReferenceOntology.rdf")
-    classes = get_list_of_classes("MaintenanceReferenceOntology.rdf")
+    properties = get_list_of_properties("Maintenance.rdf")
+    classes = get_list_of_classes("Maintenance.rdf")
 
     construct_html("scripts/glossary_template.html",
                    "scripts/index.html", classes, properties)
