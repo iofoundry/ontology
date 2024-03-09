@@ -41,6 +41,10 @@
 		</rdfs:subClassOf>
 	</owl:Class>
 	
+	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Belief">
+		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/MentalMoment"/>
+	</owl:Class>
+	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Character">
 		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Symbol"/>
 	</owl:Class>
@@ -58,20 +62,34 @@
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Concretization">
 		<owl:equivalentClass>
 			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
+				<owl:unionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000020">
 					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000059"/>
-						<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Symbol"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000059"/>
+								<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Symbol"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:unionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 	</owl:Class>
 	
+	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Desire">
+		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/MentalMoment"/>
+	</owl:Class>
+	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Frequency">
 		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/RateOfChange"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Goal">
+		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/MentalMoment"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/InformationAggregate">
@@ -95,11 +113,81 @@
 		<rdfs:label xml:lang="en">Ink Blotch</rdfs:label>
 	</owl:Class>
 	
+	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Interpreting">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Person">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000196"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="http://www.semanticweb.org/logan/ontologies/language/Belief">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="http://www.semanticweb.org/logan/ontologies/language/externallyDependsOn"/>
+														<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Concretization"/>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput"/>
+						<owl:someValuesFrom rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Concretization"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasOutput"/>
+						<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000031"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+	</owl:Class>
+	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Language">
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/Letter">
 		<rdfs:subClassOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/Character"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/MentalMoment">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Person"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+								<owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Person"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="http://www.semanticweb.org/logan/ontologies/language/externallyDependsOn"/>
+						<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000001"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://www.semanticweb.org/logan/ontologies/language/NumericDigit">
@@ -206,6 +294,10 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="http://www.semanticweb.org/logan/ontologies/language/externallyDependsOn">
+		<rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000195"/>
+	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="http://www.semanticweb.org/logan/ontologies/language/informationallyMeets">
 		<rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/logan/ontologies/language/informationallyPrecedes"/>
