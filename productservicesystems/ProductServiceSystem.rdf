@@ -19,8 +19,11 @@
         <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
         <dcterms:abstract>A basis ontology for enhancing engineering of Product Service Systems (PSS) in manufacturing, by modelling all the aspects that affect, or could affect a PSS.</dcterms:abstract>
         <dcterms:creator xml:lang="en-us">PSS working group</dcterms:creator>
+        <dcterms:license></dcterms:license>
         <dcterms:title>Product Service System (PSS) Reference Ontology</dcterms:title>
         <rdfs:label xml:lang="en-us">Product Service System Ontology</rdfs:label>
+        <owl:versionInfo></owl:versionInfo>
+        <iof-av:copyright></iof-av:copyright>
         <iof-av:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
     </owl:Ontology>
     
@@ -142,6 +145,7 @@
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/AsBuiltBillOfMaterials">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
         <rdfs:label xml:lang="en-us">as-built bill of materials</rdfs:label>
+        <iof-av:naturalLanguageDefinition>bill of materials that details all BOM items of the material product that is produced</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -205,6 +209,12 @@
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification"/>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000110"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Identifier"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
                 <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
             </owl:Restriction>
@@ -212,6 +222,7 @@
         <rdfs:label xml:lang="en-us">bill of materials</rdfs:label>
         <iof-av:acronym xml:lang="en-us">BOM</iof-av:acronym>
         <iof-av:explanatoryNote>the bill of materials items can it itself refer to a bill of materials</iof-av:explanatoryNote>
+        <iof-av:explanatoryNote>The user of this ontology may use the current sub-classes now defined in the PSS ontology or define new ones in their application ontology (following the product lifecycle or production lifecycle, etc.) as needed according to how he/she is structuring their bill of materials: for instance if it&apos;s a Single-level bill of materials or a multi-level bill of materials</iof-av:explanatoryNote>
         <iof-av:naturalLanguageDefinition>a set of constituents of a bill of materials item</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
@@ -276,15 +287,6 @@
     
 
 
-    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DesignBillOfMaterials -->
-
-    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DesignBillOfMaterials">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
-        <rdfs:label xml:lang="en-us">design bill of materials</rdfs:label>
-    </owl:Class>
-    
-
-
     <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DigitalLogData -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DigitalLogData">
@@ -330,7 +332,17 @@
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EngineeringBillOfMaterials">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
         <rdfs:label xml:lang="en-us">engineering bill of materials</rdfs:label>
+        <skos:altLabel>design bill of materials</skos:altLabel>
+        <iof-av:acronym>EBOM</iof-av:acronym>
+        <iof-av:explanatoryNote>BOM from the design perspective</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>a bill of materials reflecting the product as designed by engineering</iof-av:naturalLanguageDefinition>
     </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EngineeringBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/explanatoryNote"/>
+        <owl:annotatedTarget>BOM from the design perspective</owl:annotatedTarget>
+        <rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
+    </owl:Axiom>
     
 
 
@@ -377,7 +389,7 @@
         </rdfs:subClassOf>
         <rdfs:label xml:lang="en-us">hardware infrastucture</rdfs:label>
         <skos:editorialNote>15.06.2022 - to be harmonised with facility in the Supply Chain ontology</skos:editorialNote>
-        <iof-av:naturalLanguageDefinition xml:lang="en-us">material artifact that is an Infrastructure that refers to the physical networks (resources) necessary for the design, development, delivery and operation of products and/or services</iof-av:naturalLanguageDefinition>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">material artifact that is an Infrastructure that refers to the physical networks (e.g. buildings or machines) necessary for the design, development, delivery and operation of products and/or services</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -441,7 +453,16 @@
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Infrastructure">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
         <rdfs:label xml:lang="en-us">infrastructure</rdfs:label>
-        <iof-av:naturalLanguageDefinition xml:lang="en-us">object describing the facilities (physical e.g. buildings or machines, and organisational e.g. computer networks or software applications) used to assist in development and delivering of a products and/or services</iof-av:naturalLanguageDefinition>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">object describing the facilities (physical e.g. buildings or machines), and organisational (e.g. computer networks or software applications) used to assist in development and delivering of a products and/or services</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/InfrastructureRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/InfrastructureRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en-us">infrastructure role</rdfs:label>
     </owl:Class>
     
 
@@ -1200,7 +1221,22 @@ PSS role is a role that borne by set of at least an entity that is the specified
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductionBillOfMaterials">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
         <rdfs:label xml:lang="en-us">production bill of materials</rdfs:label>
+        <skos:altLabel>manufacturing bill of materials</skos:altLabel>
+        <iof-av:explanatoryNote>BOM from the production perspective</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>contains all the parts and assemblies required to build a complete and shippable product</iof-av:naturalLanguageDefinition>
     </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductionBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/explanatoryNote"/>
+        <owl:annotatedTarget>BOM from the production perspective</owl:annotatedTarget>
+        <rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductionBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>contains all the parts and assemblies required to build a complete and shippable product</owl:annotatedTarget>
+        <rdfs:comment>https://en.wikipedia.org/wiki/Manufacturing_bill_of_materials</rdfs:comment>
+    </owl:Axiom>
     
 
 
