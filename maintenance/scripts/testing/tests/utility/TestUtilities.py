@@ -31,7 +31,6 @@ def load_ontology():
 # runs a Hermit reasoner on the ontology with owlready 2
 def run_hermit_reasoner():
     sync_reasoner(infer_property_values = True, debug = 0)
-    # sync_reasoner_pellet(infer_property_values = True, infer_data_property_values = True, debu)
 
 
 def run_query(query):
