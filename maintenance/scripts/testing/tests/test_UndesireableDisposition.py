@@ -10,7 +10,7 @@ class TestUndesireableDisposition(unittest.TestCase):
         self.ontologies = None
    
     # testing equivalence relationship 
-    def test_equivalence_case(self):
+    def test_equivalence(self):
 
         namespace = self.ontologies["maint"].get_namespace("https://spec.industrialontologies.org/ontology/maintenance/Maintenance/")
     

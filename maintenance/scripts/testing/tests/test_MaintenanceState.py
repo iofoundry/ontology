@@ -10,13 +10,12 @@ class TestMaintenanceState(unittest.TestCase):
         self.ontologies = None
    
     # testing equivalence relationship 
-    def test_equivalence_case(self):
+    def test_equivalence(self):
 
         namespace = self.ontologies["maint"].get_namespace("https://spec.industrialontologies.org/ontology/maintenance/Maintenance/")
     
         # Arrange 
         with namespace:
-            # maintenance_state1 = namespace.MaintenanceState("maintenance_state1") #TODO?
             degraded_state = namespace.DegradedState("degraded_state")
             failed_state = namespace.FailedState("failed_state")
             operating_state = namespace.OperatingState("operating_state")

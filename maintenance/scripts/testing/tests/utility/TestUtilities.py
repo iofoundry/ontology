@@ -2,7 +2,6 @@
 from owlready2 import *
 import rdflib
 import os
-# import imp
 
 # Loads ontologies 
 def load_ontology():

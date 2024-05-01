@@ -10,7 +10,7 @@ class TestFailedState(unittest.TestCase):
         self.ontologies = None
 
     # testing subclass relationship 
-    def test_subclass_case(self):
+    def test_subclass(self):
 
         namespace = self.ontologies["maint"].get_namespace("https://spec.industrialontologies.org/ontology/maintenance/Maintenance/")
  
@@ -33,7 +33,7 @@ class TestFailedState(unittest.TestCase):
         namespace.destroy()
 
         # testing disjoint relationship 
-    def test_disjoint_case(self):
+    def test_disjointness(self):
 
         namespace = self.ontologies["maint"].get_namespace("https://spec.industrialontologies.org/ontology/maintenance/Maintenance/")
  
