@@ -8,7 +8,6 @@ skinparam class {
 
 
 
-class Capability <<iof>>
 class DegradedState
 class Disposition <<bfo>>
 class DispositionToExhibitUndesirableBehavior
@@ -22,31 +21,29 @@ class FailureProcess
 class Function <<bfo>>
 class FunctioningProcess
 class InformationContentEntity <<iof>>
-class MaintainableItem <<iof>>
-class MaintainableItemRole <<iof>>
+class MaintainableMaterialItem <<iof>>
+class MaintainableMaterialItemRole <<iof>>
 class MaintenanceActivity
 class MaintenanceProcess
+class MaterialState <<iof>>
 class MaintenanceState
 class MaintenanceWorkOrderRecord
 class OperatingState
 class Person <<iof>>
 class PlannedProcess <<iof>>
+class Process <<bfo>>
 class QualificationSpecification
-class QualifiedPerson
+class QualifiedMaintenancePerson
 class Role <<bfo>>
 class RequiredFunction
 class RequirementSpecification <<iof>>
-class State <<iof>>
 class SupportingMaintenanceActivity
 class UndesirableDisposition 
 
-Function -u-> Capability : "subClassOf"
 Function -u-> Disposition : "subClassOf"
-UndesirableDisposition -u-> Disposition : "subClassOf"
-DispositionToFail -u-> UndesirableDisposition : "subclassof"
-DispositionToExhibitUndesirableBehavior -u-> UndesirableDisposition : "subclassof"
-MaintainableItemRole -u-> Role : "subclassof"
-MaintenanceState -u-> State : "subclassof"
+
+MaintainableMaterialItemRole -u-> Role : "subclassof"
+MaintenanceState -u-> MaterialState : "subclassof"
 DegradedState -u-> MaintenanceState : "subclassof"
 FailedState -u-> MaintenanceState : "subclassof"
 OperatingState -u-> MaintenanceState : "subclassof"
@@ -59,43 +56,40 @@ FailureEvent -u-> Event : "subclassof"
 FailureModeCode -u-> InformationContentEntity : "subclassof"
 FailureProcess -u-> Process : "subclassof"
 QualificationSpecification -u-> RequirementSpecification : "subclassof"
-QualifiedPerson -u-> Person: "subclassof"
+QualifiedMaintenancePerson -u-> Person: "subclassof"
 MaintenanceWorkOrderRecord -u-> InformationContentEntity: "subclassof"
 RequirementSpecification -u-> InformationContentEntity: "subclassof"
 
-MaintainableItem -u-> MaintainableItemRole : "bearerOf"
-DispositionToFail -u-> FailureProcess : "hasRealization"
+MaintainableMaterialItem -u-> MaintainableMaterialItemRole : "hasRole"
 FailureProcess -u-> DispositionToFail : "realizes"
 FailureProcess -u-> FailureEffect : "precedes"
 FailureEvent -u-> FailureEffect : "precedes"
-FailureEvent -u-> MaintainableItem : "hasParticipant"
 FailureEvent -u-> FailedState : "initiates"
-FailureState -u-> MaintenanceState : "isPrecededBy"
-FailureState -u-> MaintainableItem : "hasParticiapantAtAllTimes"
 'FailureModeCode -u-> PlannedProcess : "outputOf"
 FailureModeCode -u-> UndesirableDisposition : "describes"
 Person -u-> PlannedProcess : "participatesInAtSomeTime"
 
-MaintainableItem -u-> RequiredFunction : "hasFunction"
-MaintainableItem -u-> UndesirableDispositon : "hasDisposition"
-MaintainableItem -u-> FailureProcess : "participatesInAtSomeTime"
-MaintainableItem -u-> FunctioningProcess : "participatesInAtSomeTime"
-MaintainableItem -u-> MaintenanceActivity : "participatesInAtSomeTime"
-MaintainableItem -u-> SupportingActivity : "participatesInAtSomeTime"
-MaintainableItemRole -u-> MaintenanceProcess : "participatesInAtSomeTime"
+
+
+MaintainableMaterialItem -u-> RequiredFunction : "hasFunction"
+MaintainableMaterialItem -u-> MaintenanceProcess : "participatesInAtAllTimes"
 
 MaintenanceProcess -d-> MaintenanceActivity : "hasProperOccurrentPart"
 
 MaintenanceWorkOrderRecord -u-> MaintenanceProcess: "describes"
 MaintenanceWorkOrderRecord -u-> MaintenanceProcess: "isInputOf"
 
+UndesirableDisposition -u-> Disposition : "subClassOf"
+DispositionToFail -u-> UndesirableDisposition : "subclassof"
+DispositionToExhibitUndesirableBehavior -u-> UndesirableDisposition : "subclassof"
+FunctioningProcess -u-> Process : "subClassOf"
 FunctioningProcess -u-> Function : "realizes"
 UndesirableDisposition -> DegradedState : "realizes"
 UndesirableDisposition -> FailedState : "realizes"
-DispositionToExhibitUndesirableBehavior -u-> Process : "realizes"
 
-QualifiedPerson -u-> MaintenanceActivity : "participatesInAtSomeTime"
-QualifiedPerson -u-> QualificationSpecification : "satisfies"
+
+QualifiedMaintenancePerson -u-> MaintenanceActivity : "participatesInAtSomeTime"
+QualifiedMaintenancePerson -u-> QualificationSpecification : "satisfies"
 
 'MaterialArtifact -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
 'EngineeredSystem -l-> MaintenanceState : "hasState" <<participatesInAtSomeTime>>
