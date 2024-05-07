@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY rel "https://spec.industrialontologies.org/ontology/core/Relator/">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/Relator/"
+	xmlns="https://spec.industrialontologies.org/ontology/core/Relator/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:rel="https://spec.industrialontologies.org/ontology/core/Relator/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/core/Relator/">
+		<rdfs:label>Relator</rdfs:label>
+		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+		<owl:imports rdf:resource="http://www.industrialontologies.org/core/"/>
+	</owl:Ontology>
+	
+	<rdf:Description rdf:about="http://www.industrialontologies.org/core/CustomerRole">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;buyerIn"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<owl:disjointWith rdf:resource="http://www.industrialontologies.org/core/ProductRole"/>
+		<owl:disjointWith rdf:resource="http://www.industrialontologies.org/core/SupplierRole"/>
+		<owl:disjointWith rdf:resource="&rel;MonetaryObjectRole"/>
+	</rdf:Description>
+	
+	<rdf:Description rdf:about="http://www.industrialontologies.org/core/ProductRole">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;suppliedProductIn"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<owl:disjointWith rdf:resource="http://www.industrialontologies.org/core/SupplierRole"/>
+		<owl:disjointWith rdf:resource="&rel;MonetaryObjectRole"/>
+	</rdf:Description>
+	
+	<rdf:Description rdf:about="http://www.industrialontologies.org/core/SupplierRole">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;sellerIn"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<owl:disjointWith rdf:resource="&rel;MonetaryObjectRole"/>
+	</rdf:Description>
+	
+	<owl:Class rdf:about="&rel;ActOfSelling">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+		<rdfs:label>Act of Selling</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;CompletedPurchase">
+		<rdfs:label>Completed Purchase</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;ExternallyDependentMode">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+				<owl:allValuesFrom rdf:resource="&rel;IndependentContinuantAndNotSpatialRegion"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000137"/>
+				<owl:allValuesFrom rdf:resource="&rel;Relator"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000137"/>
+				<owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;externallyDependsOn"/>
+				<owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Externally Dependent Mode</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;IndependentContinuantAndNotSpatialRegion">
+		<rdfs:label>Independent Continuant and not Spatial Region</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;MonetaryObject">
+		<rdfs:label>Monetary Object</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="http://www.industrialontologies.org/core/RO_0000087"/>
+						<owl:someValuesFrom rdf:resource="&rel;MonetaryObjectRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;MonetaryObjectRole">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;usedMonetaryObjectIn"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Monetary Object Role</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;NegotiatedPurchase">
+		<rdfs:label>Negotiated Purchase</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;Purchase">
+		<rdfs:subClassOf rdf:resource="&rel;Relator"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;foundedBy"/>
+				<owl:allValuesFrom rdf:resource="&rel;ActOfSelling"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;buyer"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;foundedBy"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;seller"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;usedMonetaryObject"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;suppliedProduct"/>
+				<owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;mediates"/>
+				<owl:onClass rdf:resource="http://www.industrialontologies.org/core/Customer"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;mediates"/>
+				<owl:onClass rdf:resource="http://www.industrialontologies.org/core/Product"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;mediates"/>
+				<owl:onClass rdf:resource="http://www.industrialontologies.org/core/Supplier"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;mediates"/>
+				<owl:onClass rdf:resource="&rel;MonetaryObject"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="http://www.industrialontologies.org/core/isOutputOfAtSomeTime"/>
+				<owl:onClass rdf:resource="&rel;SellingProcess"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Purchase</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;Relator">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;foundedBy"/>
+				<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;mediates"/>
+				<owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&rel;summedMode"/>
+				<owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Relator</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&rel;SellingProcess">
+		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+		<rdfs:label>Selling Process</rdfs:label>
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&rel;buyer">
+		<rdfs:subPropertyOf rdf:resource="&rel;summedMode"/>
+		<rdfs:label>buyer</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Purchase"/>
+		<rdfs:range rdf:resource="http://www.industrialontologies.org/core/CustomerRole"/>
+		<owl:inverseOf rdf:resource="&rel;buyerIn"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;buyerIn">
+		<rdfs:subPropertyOf rdf:resource="&rel;summingRelator"/>
+		<rdfs:label>buyer in</rdfs:label>
+		<rdfs:domain rdf:resource="http://www.industrialontologies.org/core/CustomerRole"/>
+		<rdfs:range rdf:resource="&rel;Purchase"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;externallyDependsOn">
+		<rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000195"/>
+		<rdfs:label>externally depends on</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;ExternallyDependentMode"/>
+		<rdfs:range rdf:resource="&rel;IndependentContinuantAndNotSpatialRegion"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;foundedBy">
+		<rdfs:label>founded by</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Relator"/>
+		<rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;mediates">
+		<rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000195"/>
+		<rdfs:label>mediates</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Relator"/>
+		<rdfs:range rdf:resource="&rel;IndependentContinuantAndNotSpatialRegion"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;seller">
+		<rdfs:subPropertyOf rdf:resource="&rel;summedMode"/>
+		<rdfs:label>seller</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Purchase"/>
+		<rdfs:range rdf:resource="http://www.industrialontologies.org/core/SupplierRole"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;sellerIn">
+		<rdfs:subPropertyOf rdf:resource="&rel;summingRelator"/>
+		<rdfs:label>seller in</rdfs:label>
+		<rdfs:domain rdf:resource="http://www.industrialontologies.org/core/SupplierRole"/>
+		<rdfs:range rdf:resource="&rel;Purchase"/>
+		<owl:inverseOf rdf:resource="&rel;seller"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;summedMode">
+		<rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000111"/>
+		<rdfs:label>summed mode</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Relator"/>
+		<rdfs:range rdf:resource="&rel;ExternallyDependentMode"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;summingRelator">
+		<rdfs:label>summing relator</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;ExternallyDependentMode"/>
+		<rdfs:range rdf:resource="&rel;Relator"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;suppliedProduct">
+		<rdfs:subPropertyOf rdf:resource="&rel;summedMode"/>
+		<rdfs:label>supplied product</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Purchase"/>
+		<rdfs:range rdf:resource="http://www.industrialontologies.org/core/ProductRole"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;suppliedProductIn">
+		<rdfs:subPropertyOf rdf:resource="&rel;summingRelator"/>
+		<rdfs:label>supplied product in</rdfs:label>
+		<rdfs:domain rdf:resource="http://www.industrialontologies.org/core/ProductRole"/>
+		<rdfs:range rdf:resource="&rel;Purchase"/>
+		<owl:inverseOf rdf:resource="&rel;suppliedProduct"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;usedMonetaryObject">
+		<rdfs:subPropertyOf rdf:resource="&rel;summedMode"/>
+		<rdfs:label>used monetary object</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;Purchase"/>
+		<rdfs:range rdf:resource="&rel;MonetaryObjectRole"/>
+		<owl:inverseOf rdf:resource="&rel;usedMonetaryObjectIn"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&rel;usedMonetaryObjectIn">
+		<rdfs:subPropertyOf rdf:resource="&rel;summingRelator"/>
+		<rdfs:label>used monetary object in</rdfs:label>
+		<rdfs:domain rdf:resource="&rel;MonetaryObjectRole"/>
+		<rdfs:range rdf:resource="&rel;Purchase"/>
+	</owl:ObjectProperty>
+
+</rdf:RDF>
