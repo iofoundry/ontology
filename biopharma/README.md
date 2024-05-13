@@ -2,7 +2,7 @@
 
 ## About Biopharmaceutical Manufacturing Ontologies
 
-Biopharmaceutical Manufacturing Ontologies contain notions found to be common across biopharmaceutical manufacturing, intially developed as the National Institute for Innovation in Manufacturing Biopharmaceuticals (NIIMBL) Ontology and transfered to IOF under the MIT license. The files provided are an RDF implementation of these notions. All the ontologies are currently in the draft stage and are as such labeled as Provisional.
+Biopharmaceutical Manufacturing Ontologies contain notions found to be common across biopharmaceutical manufacturing, intially developed as the National Institute for Innovation in Manufacturing Biopharmaceuticals (NIIMBL) Ontology and transfered to IOF under the [MIT license](https://github.com/iofoundry/ontology/tree/biopharma-dev?tab=License-1-ov-file). The files provided are an RDF implementation of these notions. All the ontologies are currently in the draft stage and are as such labeled as Provisional.
 
 Biopharmaceutical Manufacturing Ontologies utilize  the  Industrial Ontologies Foundry Core ontology as its mid-level ontology. The purpose of the IOF Core ontology is to serve as a foundation for ensuring consistency and interoperability across the Biopharmaceutical Manufacturing Ontologies. Biopharmaceutical Manufacturing Ontologies also use the Quantities, Units, Dimensions and Types (QUDT) Ontologies to ensure consistent representation of unit-value pairs. The utilization of the QUDT ontology conforms to the guideline published by IOF [LINK](https://oagi.atlassian.net/wiki/spaces/IOF/pages/4679696397/Guideline+for+Using+QUDT+if+were+to+use+with+IOF+Ontologies). 
 
