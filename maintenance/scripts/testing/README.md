@@ -82,7 +82,7 @@ python maintenance/scripts/testing/tests/{TESTNAME}.py
 For example, to run the tests for the Degraded State class execute:
 
 ```
-python maintenance/scripts/testing/tests/test_DegradedState.py
+python maintenance/scripts/testing/tests/test_CQ1.py
 ```
 
 ### Running All Tests 
