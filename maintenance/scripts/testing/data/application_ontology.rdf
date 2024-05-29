@@ -1,0 +1,1088 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="https://spec.industrialontologies.org/ontology/maintenance/Maintenance/"
+         xmlns:term="http://purl.org/dc/terms/"
+         xmlns:Anno="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+         xmlns:core="http://www.w3.org/2004/02/skos/core#"
+         xmlns:Core="https://spec.industrialontologies.org/ontology/core/Core/"
+         xmlns:obo="http://purl.obolibrary.org/obo/"
+         xmlns="https://spec.industrialontologies.org/ontology/maintenance/Maintenance/">
+
+<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/maintenance/Maintenance">
+  <term:references rdf:resource="http://purl.org/dc/terms"/>
+  <term:references rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
+  <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core"/>
+  <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/maintenance/Maintenance"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">Maintenance Ontology</rdfs:label>
+  <term:abstract rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of this IOF Maintenance Reference ontology is to support semantic interoperatibility through the use modular ontologies in the maintenance domain. This Ontology contains terms and concepts identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure and failure modes and effects analysis. The ontology is aligned with the IOF Core Ontology which is aligned with Basic Formal Ontology and importas terms for other domain independent ontologies.</term:abstract>
+  <term:contributor xml:lang="en">Caitlin Woods, University of Western Australia</term:contributor>
+  <term:contributor xml:lang="en">Markus Stumptner, University of South Australia</term:contributor>
+  <term:contributor xml:lang="en">Matt Selway, University of South Australia</term:contributor>
+  <term:contributor xml:lang="en">Melinda Hodkiewicz, University of Western Australia</term:contributor>
+  <term:creator xml:lang="en">IOF Maintenance Working Group</term:creator>
+  <term:license rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://opensource.org/licenses/MIT</term:license>
+  <term:publisher xml:lang="en">Industrial Ontology Foundry</term:publisher>
+  <term:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Industrial Ontology Foundry (IOF) Maintenance Reference Ontology</term:title>
+</owl:Ontology>
+
+<owl:ObjectProperty rdf:about="initiates">
+  <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000063"/>
+  <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000003"/>
+  <rdfs:range>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Event"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:range>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">initiates</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">starts, begins, commences</core:example>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">comes before an event or process in time and results in beginning or creation of the event or process</Anno:naturalLanguageDefinition>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="hasMaintenanceState">
+  <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+  <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <rdfs:range rdf:resource="MaintenanceState"/>
+  <owl:inverseOf rdf:resource="maintenanceStateOf"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">has maintenance state</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has partial function or loss of function</core:example>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">inverse of 'stateOf'</Anno:naturalLanguageDefinition>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="maintenanceStateOf">
+  <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+  <rdfs:domain rdf:resource="MaintenanceState"/>
+  <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">maintenance state of</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the physical or software asset</core:example>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">relation that describes the maintenance state of a maintainable item</Anno:naturalLanguageDefinition>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="hasActualCost">
+  <rdfs:domain rdf:resource="MaintenanceWorkOrderRecord"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="hasCumulativeUtilizedHours">
+  <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="DegradedState">
+  <rdfs:subClassOf rdf:resource="MaintenanceState"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">degraded state</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">having a small crack, having a partial blockage, having an oscillating reading</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DegradedState(x) → MaintenanceState(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">state of reduced ability to perform as required but with acceptable reduced performance</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we do not have the terms to deal with the concepts in the 2nd half of the NL definition about 'grade of realization'</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'degraded state' then x is a 'maintenance state'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="MaintenanceState">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialState"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="DegradedState"/>
+        <rdf:Description rdf:about="FailedState"/>
+        <rdf:Description rdf:about="OperatingState"/>
+      </owl:unionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">maintenance state</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is broken in two, is running at desired speed</core:example>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MaintenanceState(x) ↔ Operating State(x) ∨ DegradedState(x) ∨ FailedState(x)</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">stasis that holds during a temporal interval when the realizable functions and capabilities of the participating item, or the grade of realization of those functions and capabilities, remain unchanged</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'maintenance state' is defined as exactly an instance of 'operating state' or exactly an instance of 'degraded state' or exactly an instance of 'failed state'.</Anno:semiFormalNaturalLanguageDefinition>
+</owl:Class>
+
+<owl:Class rdf:about="DispositionToExhibitUndesirableBehavior">
+  <rdfs:subClassOf rdf:resource="UndesireableDisposition"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
+      <owl:allValuesFrom>
+        <owl:Class>
+          <owl:complementOf rdf:resource="FailureProcess"/>
+        </owl:Class>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">disposition to exhibit undesirable behavior</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">overspeed, excessive noise</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA1: DispositionToUndesirableBehavior(x) → UndesirableDisposition(x)</Anno:firstOrderLogicAxiom>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA2: ∀p(DispositionToExibitUndesirableBehavior(d) ∧ Process(p) ∧ realizes(p, d) → ¬ FailureProcess(p))</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">disposition of an item that would not be expected under normal operating conditions</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the item may or may not exhibit this behavior hence this is difficult to define clearly</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA1: if x is a 'disposition to undesirable behavior' then x is a 'undesirable disposition'</Anno:semiFormalNaturalLanguageAxiom>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA2: if x is a 'disposition to undesirable behavior' and x 'realizes' some 'process' p then p is not a 'failure process'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="UndesireableDisposition">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="DispositionToExhibitUndesirableBehavior"/>
+        <rdf:Description rdf:about="DispositionToFail"/>
+      </owl:unionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">undesireable disposition</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">disposition to leak, disposition to overheat, disposition to vibrate</core:example>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">There are two subclasses, disposition to fail and disposition to exhibit undesirable behavior. We need to distinguish between the disposition to leak which is realised in a leaking process (regarded as a failure) and the disposition to overheat realised in a heating process (which, in this example) is not a failure process).
+We asset that disposition to exhibit undesirable behavior is the disposition of an item that would not be expected under normal operating conditions but may occur such as vibration or overheating.</Anno:explanatoryNote>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UndesirableDisposition(x) ↔ DispositionToFail(x) ∨ DispositionToExhibitUndesirableBehavior(x)</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">disposition of an item to undergo a process that leads to undesirable outcomes</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'undesirable disposition' is defined as exactly an instance of 'disposition to fail' or exactly an instance of 'disposition to exhibit undesirable behavior'</Anno:semiFormalNaturalLanguageDefinition>
+  <Anno:synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">failure mode</Anno:synonym>
+</owl:Class>
+
+<owl:Class rdf:about="FailureProcess">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000055"/>
+          <owl:someValuesFrom rdf:resource="DispositionToFail"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">failure process</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">short circuiting process, deformation process, corrosion process</core:example>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FailureProcess(x) ↔ Process(x) ∧ ∃y(DispositionToFail(y) ∧ realizes(x,y))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">process that changes some quality of an item causing the item to become degraded or failed</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'failure process' is defined as exactly an instance of 'process' that 'realizes' some 'disposition to fail'</Anno:semiFormalNaturalLanguageDefinition>
+  <Anno:synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">functional failure</Anno:synonym>
+</owl:Class>
+
+<owl:Class rdf:about="DispositionToFail">
+  <rdfs:subClassOf rdf:resource="UndesireableDisposition"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
+      <owl:someValuesFrom rdf:resource="FailureProcess"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">disposition to fail</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">disposition to explode, disposition to fracture, disposition to sieze</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DispositionToFail(x) → UndesireableDisposition(x) ∧ ∃y(FailureProcess(y) ∧ hasRealization(x,y))</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">disposition of an item to undergo a failure process</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As a disposition will come into its existance prior to its realization in a failure process necessary and sufficient conditions can not be created at this point due to a lack of patterns to express process types regardless of the time of their existence</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'disposition to fail' then x  is a 'undesireable disposition' that 'has realization' some 'failure process'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="FailedState">
+  <rdfs:subClassOf rdf:resource="MaintenanceState"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000062"/>
+      <owl:someValuesFrom>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="DegradedState"/>
+            <rdf:Description rdf:about="OperatingState"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+      <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty>
+        <rdf:Description>
+          <owl:inverseOf rdf:resource="initiates"/>
+        </rdf:Description>
+      </owl:onProperty>
+      <owl:someValuesFrom rdf:resource="FailureEvent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:disjointWith rdf:resource="OperatingState"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">failed state</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is broken in two, is burst, is failing to turn on</core:example>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FailedState(o1) ↔ MaintenanceState(o1) ∧ ∃i(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(o1, i) ∧ ∃e(FailureEvent(e) ∧ initiates(e, o1)) ∧ ∃o2((DegradedState(o2) ∨ OperatingState(o2) ∧ hasParticipantAtAllTimes(o2,i)) ∧ precedes(o2, o1)) ∧ ¬∃o3((DegradedState(o3) ∨ OperatingState(o3)) ∧ hasParticipantAtAllTimes(o3,i) ∧ precedes(o2, o3) ∧ precedes(o3, o1)))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">state of an item being unable to perform a required function due to a failure event</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"failed state': every instance of 'failed state' is defined as exactly an instance of 'maintenance state' o1 that 'has participant at all times' some 'maintainable material item' i and that is 'initiated by' some 'failure event' and is 'preceded by' some ('degraded state' or 'operating state') o2 that 'has participant at all times' i and there is no ('degraded state' or 'operating state' ) o3 such that o3 'has participant at all times' i and o2 'precedes' o3 and o3 'precedes' o1"</Anno:semiFormalNaturalLanguageDefinition>
+</owl:Class>
+
+<owl:Class rdf:about="OperatingState">
+  <rdfs:subClassOf rdf:resource="MaintenanceState"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">operating state</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">running at desired speed, producing required power, pumping desired volume</core:example>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In defining the state of an item as being able to perform a required function, we are assuming that the external resources, if required, are provided</Anno:explanatoryNote>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note that in an operating state the item may be functional (so in the operating state) and not currently operating (performing in the functioning process)</Anno:explanatoryNote>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OperatingState(x) → MaintenanceState(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">state of an item being able to perform a required function</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">generally speaking, the determination of maintenance state is determined from outside of the ontology, e.g., through analytics, other reasoning mechanims, or by reports from the device or control system, and so is not determinable from the ontology alone. The required constructs for creation of a formal definition are not available in this release.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'operating state' then x is a 'maintenance state'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="FailureEvent">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Event"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="initiates"/>
+      <owl:someValuesFrom rdf:resource="FailedState"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">failure event</rdfs:label>
+  <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO81346 for examples of functions</rdfs:seeAlso>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">explosion, seizure, loss of power, loss of control</core:example>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the event can be the loss of the primary function or a combination of functions</Anno:explanatoryNote>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FailureEvent(e) ↔ Event(e) ∧ ∃o(FailedState(o) ∧ initiates(e, o)) ∧ ∃i,f,p1(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(e, i) ∧ PrimaryFunction(f) ∧ hasFunction(i, f) ∧ FunctioningProcess(p1) ∧ realizes(p1, f) ∧ precedes(p1, e) ∧ ¬∃p2(FunctioningProcess(p2) ∧ realizes(p2,f) ∧ precedes(p1, p2) ∧ precedes(p2, e)))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">event that causes an item to lose its ability to perform a required function</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'failure event' is defined as exactly an instance of 'event' e that 'initiates' some 'failed state' and that 'has participant at all times' some 'maintainable material item' that 'has function' some 'primary function ' f that 'has realization' some 'functioning process' p1 that 'precedes' e and there is no 'functioning process' p2 such that p2 'realizes' f and p1 'precedes' p2 and p2 'precedes' e</Anno:semiFormalNaturalLanguageDefinition>
+  <Anno:synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">failure</Anno:synonym>
+</owl:Class>
+
+<owl:Class rdf:about="FailureEffect">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000062"/>
+      <owl:someValuesFrom>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="FailureEvent"/>
+            <rdf:Description rdf:about="FailureProcess"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">failure effect</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">leaking pipe, erratic operation, equipment does not run</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FailureEffect(x) → Process(x) ∧ ∃f((FailureEvent(f) ∨ FailureProcess(f)) ∧ precededBy(x, f))</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">process that is the consequence of failure, within or beyond the boundary of the failed item</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">it is not possible to determine that a process is a failure effect from the ontology alone and requires external analysis to identify such an occurrence.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'failure effect' then x is a 'process' that is 'preceded by' some 'failure event' or 'failure process'</Anno:semiFormalNaturalLanguageAxiom>
+  <Anno:usageNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Failure effect does not make any commitments to what types of BFO:process can or cannot be considered effects of (functional) failure. Therefore, failure effect can classify any BFO:process (part or whole), indicating that the process is considered the result of a failure for the purposes of maintenance.</Anno:usageNote>
+</owl:Class>
+
+<owl:Class rdf:about="FailureModeCode">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/describes"/>
+      <owl:someValuesFrom rdf:resource="UndesireableDisposition"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">failure mode code</rdfs:label>
+  <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO14224 for example list of failure modes</rdfs:seeAlso>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"high output", "leaking", "vibrating"</core:example>
+  <Anno:adaptedFrom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The natural language definition is adapted from EN:13306</Anno:adaptedFrom>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FailureModeCode(x) → InformationContentEntity(x) ∧ ∃y(UndesirableDisposition(y) ∧ describes(x,y))</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">information content entity that describes an undesireable disposition</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'failure mode code' then x is an 'information content entity' and there is some 'undesirable disposition' that 'is described by' x</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="FunctioningProcess">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000055"/>
+          <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">functioning process</rdfs:label>
+  <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO81346 for examples of functioning processes associated with functions</rdfs:seeAlso>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sensing process, controlling process, transforming process</core:example>
+  <Anno:adaptedFrom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The natural language definition is adapted from EN:13306</Anno:adaptedFrom>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FunctioningProcess(x) ↔ Process(x) ∧ ∃y(Function(y) ∧ realizes(x,y))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">process in which an item performs its function</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'functioning process' is defined as exactly an instance of 'process' that 'realizes' some 'function'</Anno:semiFormalNaturalLanguageDefinition>
+</owl:Class>
+
+<owl:Class rdf:about="MaintenanceActivity">
+  <rdfs:subClassOf rdf:resource="MaintenanceProcess"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">maintenance activity</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">replace activity, repair activity, inspect activity</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maintenance Activity(x) → MaintenanceProcess(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">maintenance process that is a single task to retain or restore the function of a maintainable material item</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'maintenance activity' then x is a 'maintenance process'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="MaintenanceProcess">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+      <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput"/>
+      <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy"/>
+      <owl:someValuesFrom rdf:resource="MaintenanceStrategy"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">maintenance process</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">process of replacing a pump, process of calibrating a sensor</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA1: PlannedProcess(p) ∧ (∃x(MaintenanceStrategy(x) ∧ prescribes(x, p)) → MaintenanceProcess(p)</Anno:firstOrderLogicAxiom>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA2: MaintenanceProcess(p) → ∃x(MaintenanceStrategy(x) ∧ prescribes(x, p))</Anno:firstOrderLogicAxiom>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA3: MaintenanceProcess(p) → ∃x(MaintainableMaterialItem(x) ∧ hasParticipantAtAllTimes(p, x) ∧ hasInput(p, x))</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">process to do with retaining or restoring the function of a maintainable material item under a maintenance strategy</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additional analysis to be performed, particularly w.r.t. the associated maintenance strategy.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA1: if p is 'planned process' that is prescribed by some 'maintenance strategy' then x is a 'maintenance process'</Anno:semiFormalNaturalLanguageAxiom>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA2: if p is 'maintenance process' then there is some 'maintenance strategy' that 'prescribes' p</Anno:semiFormalNaturalLanguageAxiom>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LA3: if p is 'maintenance process' then there is some 'maintainable material item' x such that p 'has input' x and p 'has participant at all times' x</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="MaintenanceStrategy">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">maintenance strategy</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">specification of a corrective strategy for maintaining a pump (or pumps) of a plant</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PlanSpecification(x) ∧ (∃p(MaintenanceProcess(p) ∧ prescribes(x, p)) → MaintenanceStrategy(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">maintenance (method/ approach/ actions) to enable (the/an) asset to achieve (management's/ desired) objectives</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additional analysis to be performed on this concept. Involves agents, organisations, and business objectives.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'plan specification' that 'prescribes' some 'maintenance process' then x is a 'maintenance strategy'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="MaintenanceWorkOrderRecord">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/describes"/>
+          <owl:someValuesFrom rdf:resource="MaintenanceProcess"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isInputOf"/>
+          <owl:someValuesFrom rdf:resource="MaintenanceProcess"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">maintenance work order record</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a record in a (computerised) maintenance management system that contains fields for due and actual date of the maintenance, a description of the maintenance task, actual and budget costs and other fields</core:example>
+  <Anno:acronym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MWO</Anno:acronym>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the record has a number of commonly used fields including dates, task description, task codes, costs</Anno:explanatoryNote>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">this definition remains provisional because it assumes that a work order must involve a 'maintenance process'. In the current definition, a work order cannot be made up of purely 'supporting maintenance activity' tasks.</Anno:explanatoryNote>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ describes(x, y) ∧ isInputOf(x, y))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">information content entity that describes a maintenance process</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'maintenance work order' is defined as exactly an instance of 'information content entity' that 'describes' some 'maintenance process' p and that 'is input of' p</Anno:semiFormalNaturalLanguageDefinition>
+  <Anno:synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maintenance work order</Anno:synonym>
+</owl:Class>
+
+<owl:Class rdf:about="QualificationSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">qualification specification</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">electrical trade qualification, welding qualification, registered engineer</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">QualificationSpecification(x) → RequirementSpecification(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">requirement specification that identifies the need for a person to have an assessed skill for a specific task</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">detailed analysis of this concept is incomplete and, hence, the required constructs for creation of a formal definition are not available in this release.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'qualification specification' then x is a 'requirement specification'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="QualifiedMaintenancePerson">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Person"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Person"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+          <owl:someValuesFrom rdf:resource="MaintenanceActivity"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/satisfiesRequirement"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="QualificationSpecification"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                  <owl:someValuesFrom rdf:resource="MaintenanceActivity"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+  <rdfs:label xml:lang="en-US">qualified maintenance person</rdfs:label>
+  <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string">qualification specification</rdfs:seeAlso>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">electrician, fitter, mechanic</core:example>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Qualified person on its own is not particularly useful unless reasoning is constrained to only the individuals of interest at some time. Specific subtypes of qualified person are necessary to determine if specific qualification types are satisfied. Still, care must be taken when reasoning over temporal information as, if the critieria are met at some time, the classification will hold.</Anno:explanatoryNote>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">QualifiedMaintenancePerson(x) ↔ Person(x) ∧ ∃y(MaintenanceActivity(y) ∧ partcipatesInAtSomeTime(x,y) ∧ ∃z(QualificationSpecification(z) ∧ prescribedBy(y, z) ∧ satisfiesRequirement(x,z)))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">person who is qualified to perform a specified specified maintenance activity</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of ‘qualified maintenance person’ is defined as exactly an instance of 'person' that 'participates in at some time' some 'maintenance activity' p and that 'satifies' some 'qualification specification' that 'prescribes' p</Anno:semiFormalNaturalLanguageDefinition>
+</owl:Class>
+
+<owl:Class rdf:about="RequiredFunction">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+          <owl:someValuesFrom rdf:resource="FunctioningProcess"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/functionOf"/>
+          <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <Anno:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Released"/>
+  <rdfs:label xml:lang="en-US">required function</rdfs:label>
+  <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO81346 for examples of functions</rdfs:seeAlso>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to sense, to store, to process information, to control</core:example>
+  <Anno:adaptedFrom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The natural language definition is adapted from EN:13306</Anno:adaptedFrom>
+  <Anno:explanatoryNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the function can be a combination of functions</Anno:explanatoryNote>
+  <Anno:firstOrderLogicDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RequiredFunction(x) ↔ Function(x) ∧ ∃y,z(MaintainableMaterialItem(y) ∧ FunctioningProcess(z) ∧ participatesInAtSomeTime(y,z) ∧ functionOf(x,y))</Anno:firstOrderLogicDefinition>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">function of a maintainable material item which is considered necessary to fulfil a process requirement</Anno:naturalLanguageDefinition>
+  <Anno:semiFormalNaturalLanguageDefinition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">every instance of 'required function' is defined as an instance of 'function' that is the 'function of' some 'maintainable material item' that 'participates in at some time' some 'functioning process'</Anno:semiFormalNaturalLanguageDefinition>
+  <Anno:synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">primary function</Anno:synonym>
+</owl:Class>
+
+<owl:Class rdf:about="SupportingMaintenanceActivity">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+  <rdfs:label xml:lang="en-US">supporting maintenance activity</rdfs:label>
+  <core:example rdf:datatype="http://www.w3.org/2001/XMLSchema#string">activities that do not change the state of the asset but are done by maintenance personnel such as reporting activity, isolate activity, move activity, training activity</core:example>
+  <Anno:firstOrderLogicAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SupportingMaintenanceActivity(x) → PlannedProcess(x)</Anno:firstOrderLogicAxiom>
+  <Anno:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</Anno:isPrimitive>
+  <Anno:naturalLanguageDefinition xml:lang="en-US">single action in support of the execution of a maintenance process</Anno:naturalLanguageDefinition>
+  <Anno:primitiveRationale rdf:datatype="http://www.w3.org/2001/XMLSchema#string">at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class.</Anno:primitiveRationale>
+  <Anno:semiFormalNaturalLanguageAxiom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if x is a 'supporting maintenance activity' then x is a 'planned process'</Anno:semiFormalNaturalLanguageAxiom>
+</owl:Class>
+
+<owl:Class rdf:about="ScheduledReplacement">
+  <rdfs:subClassOf rdf:resource="MaintenanceStrategy"/>
+</owl:Class>
+
+<owl:Class rdf:about="ScheduledRestoration">
+  <rdfs:subClassOf rdf:resource="MaintenanceStrategy"/>
+</owl:Class>
+
+<owl:Class rdf:about="WorkFromInspection">
+  <rdfs:subClassOf rdf:resource="MaintenanceStrategy"/>
+</owl:Class>
+
+<owl:Class rdf:about="WorkFromBreakdown">
+  <rdfs:subClassOf rdf:resource="MaintenanceStrategy"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="MWO_1">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="install_1"/>
+  <Core:isInputOf rdf:resource="install_1"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_1">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="install_1">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_2">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="unknown_2"/>
+  <Core:isInputOf rdf:resource="unknown_2"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1014</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_2">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasMaintenanceState rdf:resource="failed_engine_2"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">210</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="unknown_2">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromBreakdown_2"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_2"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromBreakdown_2">
+  <rdf:type rdf:resource="WorkFromBreakdown"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="failed_engine_2">
+  <rdf:type rdf:resource="FailedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="shutting_down_2">
+  <rdf:type rdf:resource="FailureEvent"/>
+  <initiates rdf:resource="failed_engine_2"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_3">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="repair _3"/>
+  <Core:isInputOf rdf:resource="repair _3"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_3">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasMaintenanceState rdf:resource="failed_engine_3"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1295</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="repair _3">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromBreakdown_3"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_3"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromBreakdown_3">
+  <rdf:type rdf:resource="WorkFromBreakdown"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="failed_engine_3">
+  <rdf:type rdf:resource="FailedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="error_3">
+  <rdf:type rdf:resource="FailureEvent"/>
+  <initiates rdf:resource="failed_engine_3"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_4">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="replace_4"/>
+  <Core:isInputOf rdf:resource="replace_4"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">768</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_4">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4375</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="replace_4">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_4"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_4"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_4">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_5">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="repair _5"/>
+  <Core:isInputOf rdf:resource="repair _5"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">357</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_5">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasMaintenanceState rdf:resource="failed_engine_5"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5915</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="repair _5">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromBreakdown_5"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_5"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromBreakdown_5">
+  <rdf:type rdf:resource="WorkFromBreakdown"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="failed_engine_5">
+  <rdf:type rdf:resource="FailedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="lack_of_power_5">
+  <rdf:type rdf:resource="FailureEvent"/>
+  <initiates rdf:resource="failed_engine_5"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_6">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="8000HR_midlife_6"/>
+  <Core:isInputOf rdf:resource="8000HR_midlife_6"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44235</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_6">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7683</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="8000HR_midlife_6">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="ScheduledRestoration_6"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_6"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="ScheduledRestoration_6">
+  <rdf:type rdf:resource="ScheduledRestoration"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_7">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="replace_7"/>
+  <Core:isInputOf rdf:resource="replace_7"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">159</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_7">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7683</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="replace_7">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_7"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_7"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_7">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_8">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="unknown_8"/>
+  <Core:isInputOf rdf:resource="unknown_8"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">312</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_8">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasMaintenanceState rdf:resource="failed_engine_8"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8260</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="unknown_8">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromBreakdown_8"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_8"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromBreakdown_8">
+  <rdf:type rdf:resource="WorkFromBreakdown"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="failed_engine_8">
+  <rdf:type rdf:resource="FailedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="derating_8">
+  <rdf:type rdf:resource="FailureEvent"/>
+  <initiates rdf:resource="failed_engine_8"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_9">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="unknown_9"/>
+  <Core:isInputOf rdf:resource="unknown_9"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">795</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_9">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12110</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="unknown_9">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_9"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_9"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_9">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_10">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="repair _10"/>
+  <Core:isInputOf rdf:resource="repair _10"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">323</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_10">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12618</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="repair _10">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_10"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_10"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_10">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_11">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="replace_11"/>
+  <Core:isInputOf rdf:resource="replace_11"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1279</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_11">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12653</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="replace_11">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_11"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_11"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_11">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_12">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="inspect_12"/>
+  <Core:isInputOf rdf:resource="inspect_12"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">785</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_12">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12828</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="inspect_12">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_12"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_12"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_12">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_13">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="weld_up_13"/>
+  <Core:isInputOf rdf:resource="weld_up_13"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">521</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_13">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12915</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="weld_up_13">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_13"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_13"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_13">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_14">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="inspect_14"/>
+  <Core:isInputOf rdf:resource="inspect_14"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_14">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14053</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="inspect_14">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_14"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_14"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_14">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_15">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="8000HR_changeout_15"/>
+  <Core:isInputOf rdf:resource="8000HR_changeout_15"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">225849</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_15">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14788</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="8000HR_changeout_15">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="ScheduledReplacement_15"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_15"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="ScheduledReplacement_15">
+  <rdf:type rdf:resource="ScheduledReplacement"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_16">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="repair _16"/>
+  <Core:isInputOf rdf:resource="repair _16"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">645</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_16">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14788</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="repair _16">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_16"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_16"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_16">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_17">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="8000HR_midlife_17"/>
+  <Core:isInputOf rdf:resource="8000HR_midlife_17"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_17">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15155</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="8000HR_midlife_17">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="ScheduledRestoration_17"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_17"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="ScheduledRestoration_17">
+  <rdf:type rdf:resource="ScheduledRestoration"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_18">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="replace_18"/>
+  <Core:isInputOf rdf:resource="replace_18"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6547</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_18">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15155</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="replace_18">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_18"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_18"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_18">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_19">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="unknown_19"/>
+  <Core:isInputOf rdf:resource="unknown_19"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6426</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_19">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17780</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="unknown_19">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_19"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_19"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_19">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_20">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="replace_20"/>
+  <Core:isInputOf rdf:resource="replace_20"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">312</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_20">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19075</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="replace_20">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_20"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_20"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_20">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_21">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="reseal_21"/>
+  <Core:isInputOf rdf:resource="reseal_21"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1134</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_21">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21158</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="reseal_21">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="WorkFromInspection_21"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_21"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="WorkFromInspection_21">
+  <rdf:type rdf:resource="WorkFromInspection"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="MWO_22">
+  <rdf:type rdf:resource="MaintenanceWorkOrderRecord"/>
+  <Core:describes rdf:resource="remove_22"/>
+  <Core:isInputOf rdf:resource="remove_22"/>
+  <hasActualCost rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasActualCost>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="TK001_engine_22">
+  <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaintainableMaterialItem"/>
+  <hasCumulativeUtilizedHours rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22995</hasCumulativeUtilizedHours>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="remove_22">
+  <rdf:type rdf:resource="MaintenanceActivity"/>
+  <Core:prescribedBy rdf:resource="ScheduledReplacement_22"/>
+  <obo:BFO_0000167 rdf:resource="TK001_engine_22"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="ScheduledReplacement_22">
+  <rdf:type rdf:resource="ScheduledReplacement"/>
+</owl:NamedIndividual>
+
+<owl:Class>
+  <rdfs:subClassOf rdf:resource="MaintenanceStrategy"/>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+      <owl:someValuesFrom rdf:resource="MaintenanceProcess"/>
+    </owl:Restriction>
+  </owl:intersectionOf>
+</owl:Class>
+
+<owl:Class>
+  <rdfs:subClassOf rdf:resource="MaintenanceProcess"/>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy"/>
+      <owl:someValuesFrom rdf:resource="MaintenanceStrategy"/>
+    </owl:Restriction>
+  </owl:intersectionOf>
+</owl:Class>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="DegradedState"/>
+    <rdf:Description rdf:about="FailedState"/>
+    <rdf:Description rdf:about="OperatingState"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+
+</rdf:RDF>

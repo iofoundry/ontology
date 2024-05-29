@@ -7,8 +7,9 @@ class TestCQ2(unittest.TestCase):
     query = """
     prefix maint: <https://spec.industrialontologies.org/ontology/maintenance/Maintenance/>
     prefix core: <https://spec.industrialontologies.org/ontology/core/Core/>
+    prefix bfo: <http://purl.obolibrary.org/obo/>
 
-    SELECT distinct ?mwo ?cum_hours ?activity ?strategy
+    SELECT distinct ?mwo ?item ?cum_hours ?activity ?strategy
     WHERE {
         ?mwo a maint:MaintenanceWorkOrderRecord .
         ?mwo core:describes ?activity .
@@ -20,7 +21,8 @@ class TestCQ2(unittest.TestCase):
         {
             ?strategy a maint:ScheduledRestoration .
         }
-        ?mwo maint:hasCumulativeUtilizedHours ?cum_hours.FILTER(?cum_hours<16000) .
+        ?activity bfo:BFO_0000167 ?item .
+        ?item maint:hasCumulativeUtilizedHours ?cum_hours.FILTER(?cum_hours<16000) .
     } 
     """
 

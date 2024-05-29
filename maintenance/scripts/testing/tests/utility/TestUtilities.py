@@ -31,14 +31,14 @@ def load_ontology():
 
 def create_application_model(maint, core, bfo):
 
+    # import MWO data
+    mwo_df = pd.read_csv("maintenance/scripts/testing/data/ROMAIN_paper_data_original_modified4IOFCQs.csv")
+
+    # select data for TK001 engine
+    mwo_df = mwo_df[mwo_df['Asset_ID'] == "TK001"]
+
     # Arrange 
     with maint:
-        
-        # import MWO data
-        mwo_df = pd.read_csv("maintenance/scripts/testing/data/ROMAIN_paper_data_original_modified4IOFCQs.csv")
-
-        # select data for TK001 engine
-        mwo_df = mwo_df[mwo_df['Asset_ID'] == "TK001"]
 
         # firstly create two new data properties - hasActualCost & hasCumulativeUtilisedHours
 
@@ -49,7 +49,7 @@ def create_application_model(maint, core, bfo):
 
         # Data Property to connect MWO with number of hours cost - I think this is wrong ! it would be the engine at that point in time?
         class hasCumulativeUtilizedHours(DataProperty):
-            domain   = [maint.MaintenanceWorkOrderRecord]
+            domain   = [core.MaintainableMaterialItem]
             range    = [int]
 
         # New subclasses of maintenanceStrategy
@@ -112,7 +112,7 @@ def create_application_model(maint, core, bfo):
 
             # DATA PROPERTIES
             # add number of cumulative hours 
-            mwo.hasCumulativeUtilizedHours.append(0 if pd.isna(row['Cum_Utilized_Hours']) else int(row['Cum_Utilized_Hours']))
+            maintenanceItem.hasCumulativeUtilizedHours.append(0 if pd.isna(row['Cum_Utilized_Hours']) else int(row['Cum_Utilized_Hours']))
 
             # add actual cost 
             # whats the best way to deal with this? it wasnt actually exeucted so costs would be 0?
@@ -125,7 +125,7 @@ def create_application_model(maint, core, bfo):
                 mwo.hasActualCost.append(0)
             
     
-    # maint.save(file = "maintenance/scripts/testing/data/application_ontology.rdf", format = "rdfxml")
+    maint.save(file = "maintenance/scripts/testing/data/application_ontology.rdf", format = "rdfxml")
 
 
 # runs a Hermit reasoner on the ontology with owlready 2
