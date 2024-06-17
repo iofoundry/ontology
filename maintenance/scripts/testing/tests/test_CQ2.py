@@ -14,13 +14,7 @@ class TestCQ2(unittest.TestCase):
         ?mwo a maint:MaintenanceWorkOrderRecord .
         ?mwo core:describes ?activity .
         ?activity core:prescribedBy ?strategy .
-        {
-            ?strategy a maint:ScheduledReplacement .
-        }
-        UNION
-        {
-            ?strategy a maint:ScheduledRestoration .
-        }
+        ?strategy a maint:ScheduledReplacement .
         ?activity bfo:BFO_0000167 ?item .
         ?item maint:hasCumulativeUtilizedHours ?cum_hours.FILTER(?cum_hours<16000) .
     } 
@@ -32,7 +26,7 @@ class TestCQ2(unittest.TestCase):
     def tearDown(self):
         self.ontologies = None
 
-    # Did any scheduled repairs or restoration occur before the target interval of ⟨x⟩ operating hours?
+    # Did any scheduled repairs occur before the target interval of ⟨x⟩ operating hours?
     def test_premature_repairs(self):
 
         namespace = self.ontologies["maint"].get_namespace("https://spec.industrialontologies.org/ontology/maintenance/Maintenance/")
@@ -50,13 +44,12 @@ class TestCQ2(unittest.TestCase):
             # Act
             result = tu.run_query(self.query)
             
-            # Assert that list has three entries
-            self.assertEqual(len(result), 3)
+            # Assert that list has two entries
+            self.assertEqual(len(result), 2)
 
-            # assert that the MWOs found are MWO_6, MWO_15, MWO_17
-            self.assertEqual(result[0][0], namespace.MaintenanceWorkOrderRecord("MWO_6"))
-            self.assertEqual(result[1][0], namespace.MaintenanceWorkOrderRecord("MWO_15"))
-            self.assertEqual(result[2][0], namespace.MaintenanceWorkOrderRecord("MWO_17"))
+            # assert that the MWOs found are MWO_15, MWO_17
+            self.assertEqual(result[0][0], namespace.MaintenanceWorkOrderRecord("MWO_15"))
+            self.assertEqual(result[1][0], namespace.MaintenanceWorkOrderRecord("MWO_17"))
 
         namespace.destroy()
 
