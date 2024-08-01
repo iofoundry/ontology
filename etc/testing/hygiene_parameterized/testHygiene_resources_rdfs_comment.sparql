@@ -1,0 +1,19 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+
+##
+# banner A resource must not have an RDFS comment.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  ?resource rdfs:comment ?comment.
+
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: A resource ", STR(?resource), " has an RDFS comment.") as ?warning)
+}

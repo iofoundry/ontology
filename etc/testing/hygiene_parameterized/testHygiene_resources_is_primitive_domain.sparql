@@ -1,0 +1,27 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Only classes can be primitive
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  
+  ?resource iof-av:isPrimitive ?rationale.
+  
+  FILTER NOT EXISTS 
+  {
+      ?resource rdf:type owl:Class.
+  }
+
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: Non-class is declared primitive ", STR(?resource)) as ?warning)
+}

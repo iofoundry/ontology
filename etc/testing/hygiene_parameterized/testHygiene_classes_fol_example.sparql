@@ -1,0 +1,25 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Every primitive class must have an example.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  ?resource rdf:type owl:Class.
+  ?resource iof-av:isPrimitive "true"^^xsd:boolean.
+  
+  FILTER NOT EXISTS {?resource skos:example ?example.}
+  
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("PRODERROR: Primitive class ", STR(?resource), " does not have an example.") as ?warning)
+}

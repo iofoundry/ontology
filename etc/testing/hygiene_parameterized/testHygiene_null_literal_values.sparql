@@ -1,0 +1,21 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+
+##
+# banner A resource should not have a null value for any property.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE
+{
+  ?resource ?property ?object.
+  FILTER (ISLITERAL(?object))
+  FILTER (STRLEN(STR(?object)) = 0)
+
+  FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+  
+  BIND (CONCAT("WARN: (EDMC) A resource ", STR(?resource), " has a null value for property ", STR(?property)) as ?warning)
+}

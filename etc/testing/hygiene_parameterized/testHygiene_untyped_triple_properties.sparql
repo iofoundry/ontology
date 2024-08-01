@@ -1,0 +1,19 @@
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+
+#
+# banner Every property (in a triple) should have its type explicitly declared.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE 
+{
+  ?subject ?resource ?object.
+  FILTER NOT EXISTS {?resource rdf:type []}
+  
+  BIND (concat ("WARN: (EDMC) Property ", STR(?resource), " is a predicate in triple <", STR(?subject), " ", STR(?property)," ", STR(?object), "> but has no type declared.") AS ?warning)
+  
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+}
