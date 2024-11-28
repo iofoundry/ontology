@@ -1872,6 +1872,12 @@ Services as products as well as software products will be considered in the next
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000003"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:allValuesFrom rdf:resource="&iof-core;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000199"/>
 				<owl:allValuesFrom>
 					<owl:Class>
@@ -1899,7 +1905,7 @@ Services as products as well as software products will be considered in the next
 2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
 
 3. The term as introduced here is not intended to be used for modeling what we might call the &quot;state of a process&quot; (e.g., equilibrium state for chemical, physical and biological processes or steady-state or discrete or continuous production processes), nor for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition). Extensions to the BFO framework as well as further work on &apos;process characteristic&apos; may be first needed to handle these use cases and such specialized state classes will be introduced in a future release.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Occurrent(x) ∧ ∃m(MaterialEntity(m) ∧ isMaterialStateOf(x,m)) ∧ ∀t(OccupiesTemporalRegion(x,t) → (TemporalInterval(t) ∨ TemporalInstant(t)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Occurrent(x) ∧ ∃m(MaterialEntity(m) ∧ isMaterialStateOf(x,m)) ∧ ∀t(OccupiesTemporalRegion(x,t) → (TemporalInterval(t) ∨ TemporalInstant(t)))  ∧ ∀y(hasOccurrentPart(x,y) → MaterialState(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">occurrent during which the associated material entity has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
@@ -1940,10 +1946,11 @@ Services as products as well as software products will be considered in the next
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:firstOrderLogicAxiom>MaterialStateDescription(x) → InformationContentEntity(x) ∧ ∃s∃m∃t(MaterialState(s) ∧ describes(x,s) ∧ MaterialEntity(m) ∧ hasMaterialState(m,s)  ∧ (TemporalInterval(t) ∨ TemporalInstant(t)) ∧ occupiesTemporalRegion(s,t) ∧ ∀y(hasContinuantPartAtSomeTime(x,y)  → 
-(PhysicalLocationIdentifier(y) ∧ ∃z(locationOfAtSomeTime(z,m,t) ∧ designates(y,z))) ∨ 
-(ValueExpression(y) ∧ ∃g(SpecificallyDependentContinuant(g) ∧  isValueExpressionOfAtSomeTime(y,g,t) ∧ specificallyDependsOn(g,m))) ∨ 
-(ProcessCharacteristicDescription(y) ∧ ∃c∃p(ProcessCharacteristic(c)∧ Process(p) ∧ processCharacteristicOf(c,p) ∧ hasParticipantAtAllTimes(p,m) ∧ describes(y,c) ∧ occupiesTemporalRegion(p,t) ∧ TemporalInterval(t)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y)→ (ProcessCharacteristicDescription(y) ∨ ValueExpression(y) ∨ PhysicalLocationIdentifier(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ PhysicalLocationIdentifier(y) ∧  MaterialState(s) ∧ describes(x,s) → ∃m ∃t ∃z(MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ (TemporalInterval(t) ∨ TemporalInstant(t)) ∧ occupiesTemporalRegion(s,t) ∧ locationOfAtSomeTime(z,m,t) ∧ designates(y,z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ ProcessCharacteristicDescription(y) ∧ MaterialState(s) ∧ describes(x,s)→ ∃m ∃t ∃c ∃p(MaterialState(s) ∧ describes(x,s) ∧ MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ TemporalInterval(t) ∧ occupiesTemporalRegion(s,t) ∧  ProcessCharacteristic(c) ∧ Process(p) ∧ processCharacteristicOf(c,p) ∧ hasParticipantAtAllTimes(p,m) ∧ describes(y,c) ∧ occupiesTemporalRegion(p,t))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ ValueExpression(y) ∧ MaterialState(s) ∧ describes(x,s) → (∃m ∃t ∃g(MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ (TemporalInterval(t) ∨ TemporalInstant(t)) ∧ occupiesTemporalRegion(s,t) ∧ SpecificallyDependentContinuant(g) ∧  isValueExpressionOfAtSomeTime(y,g,t) ∧ specificallyDependsOn(g,m))
+∨ ProcessCharacteristicDescription(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>MaterialStateDescription(x) ↔ InformationContentEntity(x) ∧ ∃s(MaterialState(s) ∧ describes(x,s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>information content entity that characterizes a state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
