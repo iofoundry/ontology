@@ -430,6 +430,14 @@
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/core/Core/filledBy -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/filledBy">
+        <owl:inverseOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/fills"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/core/Core/fills -->
 
     <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/fills">
@@ -2088,6 +2096,51 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+                        <owl:allValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/describes"/>
+                                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialComponent"/>
+                            </owl:Restriction>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/slotOf"/>
+                        <owl:allValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/describes"/>
+                                <owl:someValuesFrom>
+                                    <owl:Class>
+                                        <owl:intersectionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004"/>
+                                            <owl:Class>
+                                                <owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
+                                            </owl:Class>
+                                        </owl:intersectionOf>
+                                    </owl:Class>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+        <rdfs:label xml:lang="en">component slot</rdfs:label>
+        <iof-av:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → componentPartOfAtSomeTime(a, b))) → ComponentSlot(s)</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicDefinition>ComponentSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → componentPartOfAtSomeTime(a, b)))</iof-av:firstOrderLogicDefinition>
+    </owl:Class>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/core/Core/ComputingProcess -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ComputingProcess">
@@ -2826,6 +2879,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+        <rdfs:label xml:lang="en">location slot</rdfs:label>
+        <iof-av:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → locatedInAtSomeTimes(a, b))) → LocationSlot(s)</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicDefinition>LocationSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → locatedInAtSomeTimes(a, b)))</iof-av:firstOrderLogicDefinition>
     </owl:Class>
     
 
@@ -4685,6 +4741,39 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
             </owl:Restriction>
         </owl:intersectionOf>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialComponent"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/slotOf"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004"/>
+                                    <owl:Class>
+                                        <owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
+                                    </owl:Class>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
     </owl:Class>
     <owl:Class>
         <owl:intersectionOf rdf:parseType="Collection">
