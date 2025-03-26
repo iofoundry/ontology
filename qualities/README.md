@@ -15,8 +15,8 @@ Additionally, this module features German translations of the quality terms. The
 - **Major Quality Categories:**  
   - **Biological Quality:** Includes organismal and cellular qualities.  
   - **Chemical Quality:** Encompasses qualities related to chemical properties.  
-  - **Physical Quality:** Captures physical properties and measurements.  
-  - **Performance Quality:** Focuses on qualities that measure performance aspects.
+  - **Physical Quality:** Captures physical properties and capabilities.  
+  - **MeasurementPerformance Quality:** Focuses on qualities that describe measurement devices and processes.
   - **Morphological Quality:** Enriched with many mechanical qualities and reuse of key PATO concepts (size, shape, texture, structure, color, odor, spatial pattern).
 
 - **Translation Information:**  
@@ -31,7 +31,7 @@ Additionally, this module features German translations of the quality terms. The
   The harvested qualities are organized as a subclass hierarchy under [BFO:Quality](http://purl.obolibrary.org/obo/BFO_0000019).
 
 - **Imported Annotations:**  
-  Quality terms include references marked with [Imported From](http://purl.obolibrary.org/obo/IAO_0000412).
+  Quality terms include references marked with [adaptedFrom](https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/adaptedFrom).
 
 ## Usage
 
