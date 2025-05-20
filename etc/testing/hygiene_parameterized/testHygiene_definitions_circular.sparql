@@ -1,0 +1,24 @@
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+
+
+##
+# banner Definitions shouldn't be circular - this finds direct circularities therein.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE 
+{
+  ?resource rdf:type ?type.
+  VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+
+  ?resource iof-av:naturalLanguageDefinition ?definition .
+  FILTER (REGEX(?definition, "\\W"+?label+"\\W"))
+
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+
+  BIND (concat ("WARN: Definition of ", str(?definition), " is immediately circular.") AS ?warning)
+}
