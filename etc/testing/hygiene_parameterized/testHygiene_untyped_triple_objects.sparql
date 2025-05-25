@@ -1,0 +1,22 @@
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+
+##
+# banner Every object (in a triple) should have its type explicitly declared.
+
+
+SELECT DISTINCT ?warning ?resource
+WHERE 
+{
+  ?subject ?property ?object.
+  FILTER NOT EXISTS {?object rdf:type []}
+  FILTER (ISIRI (?object))
+  FILTER (?property != owl:versionIRI)
+  
+  BIND (concat ("WARN: (EDMC) Property ", STR(?resource), " is an object in triple <", STR(?subject), " ", STR(?property)," ", STR(?object), "> but has no type declared.") AS ?warning)
+
+
+  FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+}
