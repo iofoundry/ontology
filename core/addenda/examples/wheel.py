@@ -1,7 +1,7 @@
 from owlready2 import *
 import owlready2
 from owlready2 import default_world
-
+# from rdf2puml import RdfToPumlConverter
 if __name__ == "__main__":
 
     print("start program")
@@ -170,22 +170,35 @@ if __name__ == "__main__":
         relate_specs_with_slot(tire_bead1, tire_mounting_rim1, core.ConnectionSlot("connection-slot-1"))
 
         # # connect each tire mounting hole to bolt hole using a lug bolt (Joint specification)
-        joint_spec = types.new_class("FastenedJointSpecification", (core.DesignSpecification,))
+        FastenerSpec = types.new_class("FastenedJointSpecification", (core.DesignSpecification,))
+        joint_spec = FastenerSpec("tire-hub-joint-spec")
         relate_specs_with_slot(joint_spec, lug_bolt_spec1, core.FastenerSlot("fastener-slot-1"))
         relate_specs_with_slot(joint_spec, bolt_hole1, core.InformationSlot("connected-part-slot-1"))
         relate_specs_with_slot(joint_spec, tire_mounting_hole1, core.InformationSlot("connected-part-slot-2"))
+        relate_specs_with_slot(wheel_hub_assembly_spec1, joint_spec, core.ComponentSlot("joint-slot"))
 
-    onto.save(file = "wheel.owl", format = "rdfxml")
+onto.save(file = "wheel.rdf", format = "rdfxml")
 
-    owlready2.JAVA_EXE = r"C:\Program Files\Java\jdk-17\bin\java.exe"
+print(*tire_bead_slot_1.get_properties())
 
-    try:
-        # close_world(onto)
-        with onto:
-            sync_reasoner(infer_property_values = True)
+# converter = RdfToPumlConverter(
+#         iofcore="https://spec.industrialontologies.org/ontology/core/Core/",
+#         bfo="http://purl.obolibrary.org/obo/")
+# converter.convert("wheel.rdf", output_puml)
+
+# print(output_puml)
+
+owlready2.JAVA_EXE = r"C:\Program Files\Java\jdk-17\bin\java.exe"
+
+try:
+    # close_world(onto)
+    with onto:
+        sync_reasoner(infer_property_values = True)
         print("Reasoning completed successfully.")
         
-    except OwlReadyInconsistentOntologyError as e:
+except OwlReadyInconsistentOntologyError as e:
         print("Inconsistency detected in the ontology!")
         print(e)
         print(*list(default_world.inconsistent_classes()))
+
+

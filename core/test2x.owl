@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="https://spec.industrialontologies.org/ontology/testaction/"
+         xmlns="https://spec.industrialontologies.org/ontology/testaction/">
+
+<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/testaction">
+  <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core"/>
+</owl:Ontology>
+
+<owl:Class rdf:about="TireBead">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+</owl:Class>
+
+<owl:Class rdf:about="TireBeadSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:someValuesFrom rdf:resource="TireBead"/>
+        </owl:Restriction>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="Tire">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+</owl:Class>
+
+<owl:Class rdf:about="TireSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:allValuesFrom rdf:resource="Tire"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="TireBeadSlot"/>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="TireMountingRim">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+</owl:Class>
+
+<owl:Class rdf:about="TireMountingRimSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:someValuesFrom rdf:resource="TireMountingRim"/>
+        </owl:Restriction>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="MountingHole">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+</owl:Class>
+
+<owl:Class rdf:about="MountingHoleSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:someValuesFrom rdf:resource="MountingHole"/>
+        </owl:Restriction>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="Wheel">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+</owl:Class>
+
+<owl:Class rdf:about="WheelSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:allValuesFrom rdf:resource="Wheel"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="TireMountingRimSlot"/>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="MountingHoleSlot"/>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">5</owl:qualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="BeadSeatingSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Assembly"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="WheelSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom rdf:resource="WheelSpecification"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="TireSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom rdf:resource="TireSpecification"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="WheelAssemblySpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Assembly"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:allValuesFrom rdf:resource="WheelSlot"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="WheelSlot"/>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="TireSlot"/>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="BoltHole">
+  <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+</owl:Class>
+
+<owl:Class rdf:about="BoltHoleSlot">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+      <owl:allValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:someValuesFrom rdf:resource="BoltHole"/>
+        </owl:Restriction>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="HubSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:allValuesFrom rdf:resource="BoltHoleSlot"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass rdf:resource="BoltHoleSlot"/>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">5</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="Lugbolt">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+</owl:Class>
+
+<owl:Class rdf:about="LugboltSpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+      <owl:allValuesFrom rdf:resource="Lugbolt"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="WheelHubAssemblySpecification">
+  <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+          <owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Assembly"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass>
+            <owl:Restriction>
+              <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+              <owl:allValuesFrom rdf:resource="WheelAssemblySpecification"/>
+            </owl:Restriction>
+          </owl:onClass>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass>
+            <owl:Restriction>
+              <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+              <owl:allValuesFrom rdf:resource="HubSpecification"/>
+            </owl:Restriction>
+          </owl:onClass>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasSlot"/>
+          <owl:onClass>
+            <owl:Restriction>
+              <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+              <owl:allValuesFrom rdf:resource="LugboltSpecification"/>
+            </owl:Restriction>
+          </owl:onClass>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">5</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+
+</rdf:RDF>
