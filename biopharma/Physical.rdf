@@ -12,7 +12,6 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
-	<!ENTITY terms "http://purl.org/dc/terms/">
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
@@ -29,143 +28,308 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:terms="http://purl.org/dc/terms/"
 	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/physical/">
 		<rdfs:label xml:lang="en-US">Physical Model Ontology</rdfs:label>
-		<terms:abstract>This module contains terms and relations to represent the physical spaces where processing and storage occurs.  Spaces are specific and bounded geographic locations which can be heirarchical and embedded.</terms:abstract>
-		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
-		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
-		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:abstract>This module contains terms and relations to represent the physical spaces where processing and storage occurs.  Spaces are specific and bounded geographic locations which can be heirarchical and embedded.</dcterms:abstract>
+		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
+		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</dcterms:contributor>
+		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
-		<owl:imports rdf:resource="http://qudt.org/2.1/schema/qudt/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/physical/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>			
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bmic-physical;ControlModule">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
+		<rdfs:label xml:lang="en-US">control module</rdfs:label>
+		<skos:example>a control valve module that manages the operation of a single control valve, including opening, closing, and positioning the valve based on a given setpoint or control signal; a motor starter module, which is responsible for starting, stopping, and monitoring the status of the motor of a pump or an agitator, and includes the logic for interlocks, overload protection, and feedback signals; a level control module that monitors the level inside a tank and provides an alarm or initiates control actions when a certain level is reached</skos:example>
+		<iof-av:explanatoryNote>A control module can consider a human as its member. For example, a human operator can open and close valves.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a lowest level grouping that can carry out basic control</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;Enterprise">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
+		<rdfs:label xml:lang="en-US">enterprise</rdfs:label>
+		<skos:example>oil and gas company that explores, extracts, refines, and distributes petroleum products; aerospace alliance that produces aircraft components, assembles them into final products and provides services to these aircrafts; multinational automotive manufacturer; pharmaceutical company that develops, manufactures, and supplies prescription medicines, vaccines, and animal health products</skos:example>
+		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA-95 and ISA-88 business organization that coordinates the operation of one or more physical sites or areas
+
+one or more organizations sharing missions and objectives to offer a product and or service</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">business organization that is at the highest decision-making and control to achieve the common mission, goals, and objectives of manufacturing or providing products or services by coordinating one or more physical sites</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;EquipmentModule">
+		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PieceOfEquipment"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">enterprise</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">highest level of continuous process control equipment hierarchy that is responsible for determining what products will be manufactured, at which sites they will be manufactured, and in general how they will be manufactured</iof-av:naturalLanguageDefinition>
+		<rdfs:label xml:lang="en-US">equipment module</rdfs:label>
+		<skos:example>a heating or cooling system of a reactor or bioreactor that includes the reactor’s jacket, temperature sensors, control valves, and the control logic needed to regulate the heating or cooling process; an agitator system in a mixing tank, which consists of the agitator, its motor, the speed controller, associated sensors, and the control logic that manages starting, stopping, and speed adjustment; a liquids dosing system of a mixer, blender, or reactor that includes pumps, flowmeters, valves, and control logic to ensure accurate dosing; a solids dosing system of a mixer, blender, or reactor that includes feeders, a weigh tank, valves, and control logic to ensure accurate dosing; a CIP (Clean-In-Place) skid that automates the cleaning of equipment and piping in a process cell, including tanks for fluids, pumps, valves, sensors, and control logic to sequence cleaning steps; and a venting system of a reactor or vessel that includes pressure sensors, vent valves, and the logic to safely evacuate the unit as needed</skos:example>
+		<iof-av:adaptedFrom>ISA88 Part 1</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA88: functional group of equipment that can carry out a number of specific minor processing activities</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">enginereed system typically centered around a piece of equipment that carries out some phase</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;PhysicalArea">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bmic-physical;WorkCenter">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
+				<owl:someValuesFrom rdf:resource="&bmic-physical;PhysicalSite"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">physical area</rdfs:label>
-		<skos:altLabel>area</skos:altLabel>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">physical, geographical, or logical grouping determined by the site</iof-av:naturalLanguageDefinition>
+		<skos:example>dock area of an oil terminal; fuselage assembly area of an aircraft factory; ground testing area of a facility that performs maintenance, repair, and overhaul services on an aircraft line; liquid effluent treatment plant that is part of an antibiotic manufacturing facility; utilities area of an oral liquids manufacturing plant</skos:example>
+		<iof-av:adaptedFrom>ISA95 and ISA88 Part 1</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The boundaries (scope) of the site is typically determined by business/organizational criteria and not technical criteria
+Within the manufacturing domain, area typically serves as a way to organize manufacturing operations (ISA95 operation) within a site</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a physical, geographical, or logical grouping of one or more work centers or work units within a physical site</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;PhysicalSite">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bmic-physical;PhysicalArea">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-physical;WorkCenter">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000084"/>
+								<owl:someValuesFrom rdf:resource="&bmic-physical;Enterprise"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">physical site</rdfs:label>
-		<skos:altLabel>site</skos:altLabel>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">physical, geographical, or logical grouping determined by the continuous process control enterprise</iof-av:naturalLanguageDefinition>
+		<skos:example>refinery located in Houston, TX, which belongs to an oil and gas company;   oil terminal located at the coast of Houston, TX,  which belongs to an oil and gas company; factory that produces an aircraft line and belongs to an aerospace alliance; facility that performs maintenance, repair, and overhaul services on an aircraft line and belongs to an aerospace alliance; antibiotic production facility that belongs to a pharmaceutical company;  oral liquids manufacturing plant that belongs to a pharmaceutical company; factory that produces SUV cars and belongs to a multinational automotive manufacturer; proving ground facility where a multinational automotive manufacturer tests its vehicles</skos:example>
+		<iof-av:adaptedFrom>ISA95 and ISA88 part 1</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A geographical location and the main manufacturing capability typically define a physical site
+A site usually has a manufacturing capability associated to a particular family of products
+The boundaries (scope) of the site is typically determined by business/organizational criteria and not technical criteria</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a physical, geographical, or logical grouping of physical areas, work centers or work units determined by the enterprise</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-physical;PhysicalUnit">
+		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&bmic-physical;PhysicalUnit"/>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">physical unit</rdfs:label>
+		<skos:example>a vessel that can carry out a fermentation; a ribbon blender, double cone blender, or V blender that can perform a variety of blending or mixing operations; an evaporative crystallizer or cooling crystallizer; a spray dryer or tray dryer; a shell and tube heat exchanger; a distillation tower; a fixed-bed catalytic reactor; and a flash unit</skos:example>
+		<iof-av:adaptedFrom>ISA 88 Part 1</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA-88: collection of associated equipment modules and/or control modules that can carry out one or more  major processing activities
+In rare cases, a unit can carry out an entire procedure. Since a procedure is associated with process cell, this should be modeled as a process cell having a single unit as its member part and then carrying a procedure.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that carries out an operation or unit procedure</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;ProcessCell">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+				<owl:someValuesFrom rdf:resource="&bmic-physical;PhysicalUnit"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">process cell</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">all the equipment required for a segment of batch-fed production that operates in a relatively autonomous manner</iof-av:naturalLanguageDefinition>
+		<skos:example>equipment involved in the production of chocolate paste, including mixers, calendaring and conching equipment, as well as dosing and weighing systems and control equipment; a polyvinyl chloride (PVC) batch production process cell containing several batch reactors, venting and steam stripping units, and spray dryers; a medicine pills production cell including blending units with feeders, granulation units, drying units, grinders, tableting presses, and coaters</skos:example>
+		<iof-av:adaptedFrom>ISA 88 part 1</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA88: logical grouping of equipment that includes the equipment required for production of one or more batches</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center that is required for carrying out some control recipe</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;ProductionLine">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">production line</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">composed of well-defined manufacturing capabilities and throughput capacities, for discrete manufacturing processes</iof-av:naturalLanguageDefinition>
+		<skos:example>an automotive assembly line having a series of workstations or work cells where car bodies move along a conveyor, and at each station, specific components—such as engines, doors, or seats—are installed by workers and/or robots; a smartphone model production line that includes stations or work cells for mounting circuit boards, installing screens, assembling casings, and performing quality checks; a washing machine production line where the chassis is assembled, components like motors, drums, pipes, and electronic circuits are installed, and the final product is tested and packaged; a candy production line composed of an oven or cooker, forming machines, a cooling tunnel, wrapping machines, and packaging machines</skos:example>
+		<iof-av:adaptedFrom>ISA 95 and oxford dictionary</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center dedicated to the manufacture of a specific product or product family in which the member work units are organized in a sequential manner</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;ProductionUnit">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">production unit</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">all the equipment required for a segment of continuous production that operates in a relatively autonomous manner</iof-av:naturalLanguageDefinition>
+		<skos:example>a hydrochloric acid production unit, consisting of a combustion chamber where hydrogen and chlorine react, a cooling system to condense the HCl gas, and an absorption tower where the gas is dissolved in water to form hydrochloric acid; a styrene production unit via catalytic dehydrogenation of ethylbenzene, which includes preheating units, a catalytic reactor, and a separation train comprising a liquid-vapor separator and two distillation towers; a toluene hydrodealkylation production unit that converts toluene into benzene and methane by reacting it with hydrogen in the presence of a catalyst at high temperatures, comprising a furnace, chemical reactor, flash unit, separation columns, compressor, and multiple heat exchangers</skos:example>
+		<iof-av:adaptedFrom>ISA 95 and https://www.sciencedirect.com/topics/computer-science/production-unit</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center within a broader production system that has specific tasks allocated to it</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;StorageUnit">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
 		<rdfs:label xml:lang="en-US">storage unit</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in continuous process control storage zone, to reflect equipment used in storage or movement</iof-av:naturalLanguageDefinition>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
+						<owl:someValuesFrom rdf:resource="&bmic-physical;StorageZone"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>a tank in a tank farm; a silo in a silo farm; a storage bay or rack in a warehouse or depot; a designated surface in a holding area intended for the storage of a particular product or family of products, such as logs within a certain diameter range and conicity</skos:example>
+		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA 95: work unit that is part of a storage zone that is designated physical space and/or equipment 
+Work unit that is a subdivision of a storage zone</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that is a member part of a storage zone</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;StorageZone">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">storage zone</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>The capability of the storage zone may include the movement of materials from one work center to another work center within or between enterprises.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuous process control work center that has capability needed for the receipt, storage, retrieval, movement and shipment of materials</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-physical;Unit">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
-		<rdfs:label xml:lang="en-US">unit</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in continuous process control process cells and production units, to reflect equipment used batch and continuous production respectively</iof-av:naturalLanguageDefinition>
+		<skos:example>a tank farm dedicated to gasoline storage; a silo farm devoted to the storage of different grains; a warehouse or depot intended for the storage of a family of products; a holding area in an open space intended for the storage of bulk products, such as iron ore, coal, or logs</skos:example>
+		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The capability of the storage zone may include the movement of materials from one work center to another work center within or between enterprises.
+
+The ISA-95 specifies that storage zone can either be a designated physical space or equipment for storage of equipment or material. Within the IOF/BFO framework a physical space would be fiat object part, while the equipment is represented by the same IOF Concept - piece of equipment.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center dedicated to the storage of materials or equipment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;WorkCell">
 		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000129"/>
+				<owl:someValuesFrom rdf:resource="&bmic-physical;ProductionLine"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">work cell</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy used in a continuous process control production line, to reflect equipment used repetitive or discrete production</iof-av:naturalLanguageDefinition>
+		<skos:editorialNote>To check what the appropriate terms for discrete intermediaries are - we used manufacturing parts here but any alteratnive would be appreciated</skos:editorialNote>
+		<skos:example>an automotive assembly line with a series of workstations or work cells where car bodies move along a conveyor, and at each station, specific components—such as engines, doors, or seats—are installed by workers and/or robots; a smartphone production line that includes stations or work cells for mounting circuit boards, installing screens, assembling casings, and performing quality checks; a washing machine production line where the chassis is assembled, components such as motors, drums, pipes, and electronic circuits are installed, and the final product is tested and packaged; a candy production line composed of an oven or cooker, forming machines, a cooling tunnel, wrapping machines, and packaging machines</skos:example>
+		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA95: work unit within a production line that consists of equipment grouped together to produce a family of parts having similar manufacturing requirements.
+
+While production lines can be used in discrete or continous manufacturing - work cells are only considered as parts of production lines that are used for discrete manufacturing</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that is a member part of a production line and is used to manufacture some material parts that share manufacturing requirements</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;WorkCenter">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Agent">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Capability">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000218"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-core;Agent">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">work center</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">any equipment element subordinate to an continuous process control area that may be defined by the user in an extension to the role based equipment hierarchy model</iof-av:naturalLanguageDefinition>
+		<owl:disjointWith rdf:resource="&bmic-physical;WorkUnit"/>
+		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1. A work center&apos;s capabilities are determined by one or more of its constituent members, which is formally represented using the &apos;has material basis&apos; axiom.
+
+2. Work centers are typically  within (member parts of)  a  physical area or physical site, reflecting their spatial and organizational context.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that has piece of equipment or agent as its member parts</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-physical;WorkUnit">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;denotedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PhysicalLocationIdentifier"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:label xml:lang="en-US">work unit</rdfs:label>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">lowest level of continuous process control equipment hierarchy whose type depends upon the continuous process control work center used</iof-av:naturalLanguageDefinition>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000027">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
+						<owl:someValuesFrom rdf:resource="&bmic-physical;WorkCenter"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:adaptedFrom>ISA 95</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA 95: any element in the equipment hierarchy under the work center</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a member of a work center</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 
 </rdf:RDF>
