@@ -12,7 +12,6 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
-	<!ENTITY terms "http://purl.org/dc/terms/">
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
@@ -29,85 +28,30 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:terms="http://purl.org/dc/terms/"
 	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/material/">
 		<rdfs:label xml:lang="en-US">Material Ontology</rdfs:label>
-		<terms:abstract>This module contains terms and relations enabling representation of material types and their associated properties. Terms for characterizing material usages in internal operation systems are also included (e.g., consumable, process intermediate, final product…).</terms:abstract>
-		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
-		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
-		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:abstract>This module contains terms and relations enabling representation of material types and their associated properties. Terms for characterizing material usages in internal operation systems are also included (e.g., consumable, process intermediate, final product…).</dcterms:abstract>
+		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
+		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</dcterms:contributor>
+		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
-		<owl:imports rdf:resource="http://qudt.org/2.1/schema/qudt/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/material/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>					
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
-	
+		
 	<owl:Class rdf:about="&bmic-material;Consumable">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-US">consumable</rdfs:label>
-		<terms:contributor xml:lang="en">Merck KGaA</terms:contributor>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/voc/afo/REC/2022/03/afo</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that exists at the start of the process but no longer exists at the end of the process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-material;MaterialName">
-		<rdfs:subClassOf rdf:resource="&iof-core;DesignativeInformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">material name</rdfs:label>
-		<terms:contributor xml:lang="en">Merck KGaA</terms:contributor>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">common wording used to identify a material</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-material;MaterialRequirementSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bmic-material;PortionOfMaterial">
-							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000020">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-										<owl:someValuesFrom rdf:resource="&bmic-material;PortionOfMaterial"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">material requirement specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification which specifies an information object that has the contextual role of a material in the realized process.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-material;PortionOfMaterial">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">portion of material</rdfs:label>
-		<skos:prefLabel xml:lang="en">portion of material</skos:prefLabel>
-		<iof-av:adaptedFrom xml:lang="en">http://purl.obolibrary.org/obo/CHMO_0000993</iof-av:adaptedFrom>
-		<iof-av:adaptedFrom>https://www.ebi.ac.uk/ols/ontologies/chmo</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is self-connected and retains its identity over time</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-material;ProcessIntermediateMaterial">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">process intermediate material</rdfs:label>
-		<terms:contributor xml:lang="en">Merck KGaA</terms:contributor>
+		<dcterms:contributor xml:lang="en">Merck KGaA</dcterms:contributor>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -115,51 +59,125 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&bmic-material;ProcessIntermediateMaterialRole"/>
+						<owl:someValuesFrom rdf:resource="&bmic-material;ConsumableRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that serves the role of a process intermediate in a process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the consumable role</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-material;ProcessIntermediateMaterialRole">
+	<owl:Class rdf:about="&bmic-material;ConsumableRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:label xml:lang="en-US">process intermediate material role</rdfs:label>
-		<terms:contributor xml:lang="en">Merck KGaA</terms:contributor>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity where it serves as as intermediate-level component</iof-av:naturalLanguageDefinition>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/InputSpecification">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:intersectionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&iof-core;PlanSpecification">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+																		<owl:someValuesFrom>
+																			<owl:Restriction>
+																				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+																				<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+																			</owl:Restriction>
+																		</owl:someValuesFrom>
+																	</owl:Restriction>
+																</owl:intersectionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000040">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
+												<owl:someValuesFrom>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+														<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+													</owl:Restriction>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-core;Capability">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+														<owl:someValuesFrom>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+																<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+															</owl:Restriction>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+				<owl:allValuesFrom>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+					</owl:Restriction>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">consumable role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/voc/afo/REC/2022/03/afo</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1.  &apos;Used up&apos; in this context means  that either a) the material entity no longer exist at the end of the process or b) the material entity has reduced or lost capability as a result of the process.
+2.  In many cases, organizations monitor the number of hours or frequency with which such consumables are used. 
+3. Consumables includes resources that are typically not specified in recipes, not included in the bill of materials, and not lot-tracked.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is planned to be, or is partially or fully consumed in a process that is part of a product production process, and that is not incorporated into the final product or any material intermediate</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&bmic-material;hasRequiredMaterial">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
-		<rdfs:label xml:lang="en-US">has required material</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-material;MaterialRequirementSpecification"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between material requirement specification and a required material</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&bmic-material;hasRequiredQuantity">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
-		<rdfs:label xml:lang="en-US">has required quantity</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-material;MaterialRequirementSpecification"/>
-		<rdfs:range rdf:resource="&qudt;Quantity"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a material requirement specification and a required quantity for a material</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&bmic-material;hasState">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
-		<rdfs:label xml:lang="en-US">has state</rdfs:label>
-		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:range rdf:resource="&iof-core;MaterialState"/>
-		<owl:inverseOf rdf:resource="&bmic-material;stateOf"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a material entity and a material state</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&bmic-material;stateOf">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000057"/>
-		<rdfs:label xml:lang="en-US">state of</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-core;MaterialState"/>
-		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a material state and a material entity</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-
 </rdf:RDF>
