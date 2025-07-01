@@ -37,7 +37,7 @@
 		<terms:license>http://opensource.org/licenses/MIT</terms:license>
 		<terms:title xml:lang="en-US">IOF Production Planning Reference Ontology</terms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
-		<AnnotationVocabulary1:copyright>Copyright (c) 2022, 2023, Open Applications Group</AnnotationVocabulary1:copyright>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/meta/AnnotationVocabulary/"/>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&obo;BFO_0000004">
@@ -114,12 +114,6 @@
 	<owl:AnnotationProperty rdf:about="&skos;note">
 	</owl:AnnotationProperty>
 	
-	<owl:Class rdf:about="https://purl.industrialontologies.org/ontology/core/Core/PieceOfEquipment">
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://purl.industrialontologies.org/ontology/core/Core/PlannedProcess">
-	</owl:Class>
-	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Agent">
 	</owl:Class>
 	
@@ -173,15 +167,6 @@
 		<AnnotationVocabulary1:naturalLanguageDefinition>Capability c is a disposition which inheres in an artifact a, such that: a) c demarcates the extent by which some function f, inhering in artifact a, is realized when the a participates in some process p, and b) predicts some change of state for a or some other object a’, which also participate in process.</AnnotationVocabulary1:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/CombinedCapability">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
-		<rdfs:label>combined capability</rdfs:label>
-		<skos:example></skos:example>
-		<AnnotationVocabulary1:explanatoryNote>Multiple objects collaberating to do one thing, each object has its own capability but the whole process has the combined capability</AnnotationVocabulary1:explanatoryNote>
-		<AnnotationVocabulary1:isPrimitive rdf:datatype="&xsd;boolean">false</AnnotationVocabulary1:isPrimitive>
-		<AnnotationVocabulary1:naturalLanguageDefinition>Capability which is collaboration of multiple entities to achieve one goal, where each enitity has its own capability</AnnotationVocabulary1:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/CuttingTool">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionTool"/>
 		<rdfs:label xml:lang="en">cutting tool</rdfs:label>
@@ -214,6 +199,119 @@
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachineTransferProcess">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialLocationChangeProcess"/>
 		<rdfs:label xml:lang="en">machine transfer process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&obo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty>
+									<rdf:Description>
+										<owl:inverseOf rdf:resource="&obo;BFO_0000170"/>
+									</rdf:Description>
+								</owl:onProperty>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionMachine">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&obo;BFO_0000082"/>
+												<owl:someValuesFrom rdf:resource="&obo;BFO_0000029"/>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&obo;BFO_0000108"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&obo;BFO_0000203">
+															</rdf:Description>
+															<owl:Class>
+																<owl:intersectionOf rdf:parseType="Collection">
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&obo;BFO_0000221"/>
+																		<owl:someValuesFrom rdf:resource="&obo;BFO_0000008"/>
+																	</owl:Restriction>
+																	<owl:Restriction>
+																		<owl:onProperty>
+																			<rdf:Description>
+																				<owl:inverseOf rdf:resource="&obo;BFO_0000199"/>
+																			</rdf:Description>
+																		</owl:onProperty>
+																		<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+																	</owl:Restriction>
+																</owl:intersectionOf>
+															</owl:Class>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty>
+									<rdf:Description>
+										<owl:inverseOf rdf:resource="&obo;BFO_0000170"/>
+									</rdf:Description>
+								</owl:onProperty>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionMachine">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&obo;BFO_0000082"/>
+												<owl:someValuesFrom rdf:resource="&obo;BFO_0000029"/>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&obo;BFO_0000108"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&obo;BFO_0000203">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&obo;BFO_0000223"/>
+																<owl:someValuesFrom>
+																	<owl:Class>
+																		<owl:intersectionOf rdf:parseType="Collection">
+																			<rdf:Description rdf:about="&obo;BFO_0000008">
+																			</rdf:Description>
+																			<owl:Restriction>
+																				<owl:onProperty>
+																					<rdf:Description>
+																						<owl:inverseOf rdf:resource="&obo;BFO_0000199"/>
+																					</rdf:Description>
+																				</owl:onProperty>
+																				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+																			</owl:Restriction>
+																		</owl:intersectionOf>
+																	</owl:Class>
+																</owl:someValuesFrom>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</owl:equivalentClass>
+		<AnnotationVocabulary1:firstOrderLogicAxiom>MachineTransferProcess(​x​) → PlannedProcess(​x)​ ∧ ​∃​y∃​​t∃​​t​1∃​​t2∃​s∃​s1∃​z∃​z1(MaterialEntity(​y​) ∧ TemporalInstant(t) ∧ TemporalInstant(t1) ∧ TemporalRegion(t2) ∧ ProductionMachine(s) ∧ ProductionMachine(s1) ∧ Site(z) ∧ Site(z1) ∧ hasParticipantAtSomeTime(x,y)
+∧ firstInstantOf(​t​, ​t2) ∧ lastInstantOf(​t1​, ​t2​) ∧ occupiesTemporalRegion(​x,​t2)​ ∧ existsAt(s,t) ∧ existsAt(s1,t1) ∧ locatedInAtalltimes(s,z) ∧ locatedInAtAlltimes(s1,z1) ∧ locationOfAtAlltimes(s,y) ∧ locationOfAtAllTimes(s1,y))</AnnotationVocabulary1:firstOrderLogicAxiom>
+		<AnnotationVocabulary1:isPrimitive rdf:datatype="&xsd;boolean">false</AnnotationVocabulary1:isPrimitive>
+		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">A material location change process that involves moving work-in-progress parts between different machines or workstations in between two manufacturing operations.</AnnotationVocabulary1:naturalLanguageDefinition>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>if x is a &apos;machine transfer process&apos; then x is a &apos;material location change process&apos; in which a &apos;material entity&apos; is moved from one &apos;production machine&apos; to another.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningFunction">
@@ -252,19 +350,11 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<AnnotationVocabulary1:firstOrderLogicAxiom>∀o, x1, x2 (Steps(x1) ∧ Steps(x2) ∧ Operation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</AnnotationVocabulary1:firstOrderLogicAxiom>
-		<AnnotationVocabulary1:firstOrderLogicDefinition>ManufacturingOperation(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p))</AnnotationVocabulary1:firstOrderLogicDefinition>
+		<AnnotationVocabulary1:firstOrderLogicDefinition>ManufacturingOperation(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p))</AnnotationVocabulary1:firstOrderLogicDefinition>
 		<AnnotationVocabulary1:isPrimitive rdf:datatype="&xsd;boolean">false</AnnotationVocabulary1:isPrimitive>
 		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</AnnotationVocabulary1:naturalLanguageDefinition>
 		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>For every operation o and every pair of steps x1 and x2, if x1 and x2 are distinct steps and both are occurrent parts of o at some time, then for every pair of manufacturing processes p1 and p2, there exist resources r1 and r2 such that: if p1 and p2 are manufacturing processes that are occurrent parts of x1 and x2, respectively, and if p1 uses r1 as a resource and p2 uses r2 as a resource, then r1 and r2 are the same resource.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
-		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingProcessualFunction">
-		<rdfs:subClassOf rdf:resource="&CommonCoreOntologies;ArtifactFunction"/>
-		<rdfs:label xml:lang="en">manufacturing processual function</rdfs:label>
-		<obo:IAO_0000115 xml:lang="en">Artifact function, that is borne by a combination of manufacturing resources, such as machine, tool, and fixture, and is realized in a Machining Process, when these resources jointly participate in that process under a suitable arrangement and configuration (normative).</obo:IAO_0000115>
-		<obo:IAO_0000600 xml:lang="en">Manufacturing Processual Function is enabled by a number of Machining or Tooling Function. In other words, Machining and Tooling Functions that are borne by the individual machine and tool, participating in a process, are sub-functions of the Manufacturing Processual Function they jointly bear. Neither the machine nor the tool can realize the Manufacturing Processual Function individually. For example, neither a CNC drill machine or a drill bit can drill a hole alone. The drill machine provides rotational motion to the drill bit and the drill bit cuts by pressing its sharpened edges against the material. Here, the Machining Function of &apos;Spindle Rotation&apos; and Tooling Function of &apos;Chip Removal&apos; enables the Manufacturing Processual Function of &apos;Hole Making&apos; as its sub-functions.</obo:IAO_0000600>
-		<obo:IAO_0000602 xml:lang="en">forall x (ManufacturingProcessualFunction(x) = ArtifactFunction(x) and exists m t (MachineElement(m) and Tool(t) and inheres_in(x, m) and inheres_in(t, x)))</obo:IAO_0000602>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>x is a &apos;manufacturing operation&apos; if and only if x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingResourceFunction">
@@ -275,12 +365,12 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MaterialAdditionFunction">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingProcessualFunction"/>
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionSystemFunction"/>
 		<rdfs:label xml:lang="en">material addition function</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MaterialDeformationFunction">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingProcessualFunction"/>
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionSystemFunction"/>
 		<rdfs:label xml:lang="en">material deformation function</rdfs:label>
 	</owl:Class>
 	
@@ -288,17 +378,18 @@
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
 		<rdfs:label xml:lang="en">material product specification</rdfs:label>
 		<AnnotationVocabulary1:firstOrderLogicAxiom>DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y)) → MaterialProductSpecification(x)</AnnotationVocabulary1:firstOrderLogicAxiom>
-		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">A design specifcation containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</AnnotationVocabulary1:naturalLanguageDefinition>
-		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
+		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">A design specifcation containing the structure, dimensions, and other characteristics of a product that satisfies the requirement of a customer.</AnnotationVocabulary1:naturalLanguageDefinition>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MaterialRemovalFunction">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingProcessualFunction"/>
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionSystemFunction"/>
 		<rdfs:label xml:lang="en">material removal function</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MaterialTransferPlan">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+		<rdfs:label xml:lang="en">material transfer plan</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/Mold">
@@ -309,9 +400,9 @@
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/OperationSpecification">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ActionSpecification"/>
 		<rdfs:label xml:lang="en">operation specification</rdfs:label>
-		<AnnotationVocabulary1:firstOrderLogicDefinition>ActionSpecification(x) ∧ ∃y (ManufacturingOperation(y)∧prescribes(x,y)) → OperationSpecification(x)</AnnotationVocabulary1:firstOrderLogicDefinition>
+		<AnnotationVocabulary1:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ManufacturingOperation(y)∧prescribes(x,y)) → OperationSpecification(x)</AnnotationVocabulary1:firstOrderLogicAxiom>
 		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">An action specification that prescribes some operation.</AnnotationVocabulary1:naturalLanguageDefinition>
-		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>If x is an &apos;action specifciation&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/Operator">
@@ -367,6 +458,9 @@ role which is realized by //planned process where machine participates //product
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessSpecification">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ActionSpecification"/>
 		<rdfs:label xml:lang="en">process specification</rdfs:label>
+		<AnnotationVocabulary1:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</AnnotationVocabulary1:firstOrderLogicAxiom>
+		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">An action specification that prescribes some steps.</AnnotationVocabulary1:naturalLanguageDefinition>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessingStep">
@@ -386,9 +480,9 @@ role which is realized by //planned process where machine participates //product
 		</owl:equivalentClass>
 		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
 		<AnnotationVocabulary1:firstOrderLogicAxiom></AnnotationVocabulary1:firstOrderLogicAxiom>
-		<AnnotationVocabulary1:firstOrderLogicDefinition>ProcessingStep(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀p&apos; ((ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) → (p = p&apos;))</AnnotationVocabulary1:firstOrderLogicDefinition>
+		<AnnotationVocabulary1:firstOrderLogicDefinition>ProcessingStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀p&apos; ((ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) → (p = p&apos;))</AnnotationVocabulary1:firstOrderLogicDefinition>
 		<AnnotationVocabulary1:isPrimitive rdf:datatype="&xsd;boolean">false</AnnotationVocabulary1:isPrimitive>
-		<AnnotationVocabulary1:naturalLanguageDefinition>A unit subprocess of an operation which does not have any other subprocess as an occurrent part</AnnotationVocabulary1:naturalLanguageDefinition>
+		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">A unit subprocess of an operation or production process having only one manufacturing process as a subprocess.</AnnotationVocabulary1:naturalLanguageDefinition>
 		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>If x is a processing step then x is a manufacturing enterprise operation and there exists a manufacturing process p which is occurrent part of x and for all other manufacturing process p&apos; which is occurrent part of x is same as p.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -416,8 +510,10 @@ role which is realized by //planned process where machine participates //product
 			</owl:Class>
 		</owl:equivalentClass>
 		<AnnotationVocabulary1:firstOrderLogicAxiom>ObjectiveSpecification(x) ∧ ∃y (isAchievedByAtSomeTime(x, y) ∧ ProductProductionProcess(y)) → ProductionOrder(x)</AnnotationVocabulary1:firstOrderLogicAxiom>
+		<AnnotationVocabulary1:firstOrderLogicDefinition>ProductionOrder(x) ↔ ObjectiveSpecification(x) ∧  ∃y (MaterialProductSpecification(y) ∧ hasContinuantPartAtAllTimes(x, y))</AnnotationVocabulary1:firstOrderLogicDefinition>
 		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">A production order is a document that states the number of units to be manufactured, the date when the order is released for production, and where the units should be delivered once they have been completed. A production order may be triggered by a long-term plan to maintain certain inventory levels, or by the receipt of an order from a customer.</AnnotationVocabulary1:naturalLanguageDefinition>
 		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>If x is an &apos;objective specification&apos; and there exists a &apos;product production process&apos; y that x is achieved by at some time, then x is a &apos;production order&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>x is a &apos;production order&apos; if and only if x &apos;has continuant part at all times&apos; some  y which is a &apos;material product specification&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionPlan">
@@ -456,6 +552,23 @@ role which is realized by //planned process where machine participates //product
 		<AnnotationVocabulary1:naturalLanguageDefinition xml:lang="en">Plan that aims at producing one or multiple products as specified or fulfills some production order.</AnnotationVocabulary1:naturalLanguageDefinition>
 		<AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>if a &apos;plan specifcation&apos; x prescribes a &apos;product production process&apos; then x is a &apos;production plan&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageAxiom>
 		<AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>if x is a &apos;production plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; as part of x is a &apos;production order&apos; and every &apos;plan specification&apos; as part of x is of one of the types: &apos;process plan&apos;, &apos;inspection plan&apos;, and &apos;transfer plan&apos;.</AnnotationVocabulary1:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionSystemCapability">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
+		<rdfs:label>production system capability</rdfs:label>
+		<skos:example></skos:example>
+		<AnnotationVocabulary1:explanatoryNote>Multiple objects collaberating to do one thing, each object has its own capability but the whole process has the combined capability</AnnotationVocabulary1:explanatoryNote>
+		<AnnotationVocabulary1:isPrimitive rdf:datatype="&xsd;boolean">false</AnnotationVocabulary1:isPrimitive>
+		<AnnotationVocabulary1:naturalLanguageDefinition>Capability which is collaboration of multiple entities to achieve one goal, where each enitity has its own capability</AnnotationVocabulary1:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionSystemFunction">
+		<rdfs:subClassOf rdf:resource="&CommonCoreOntologies;ArtifactFunction"/>
+		<rdfs:label xml:lang="en">production system function</rdfs:label>
+		<obo:IAO_0000115 xml:lang="en">Artifact function, that is borne by a combination of manufacturing resources, such as machine, tool, and fixture, and is realized in a Machining Process, when these resources jointly participate in that process under a suitable arrangement and configuration (normative).</obo:IAO_0000115>
+		<obo:IAO_0000600 xml:lang="en">Manufacturing Processual Function is enabled by a number of Machining or Tooling Function. In other words, Machining and Tooling Functions that are borne by the individual machine and tool, participating in a process, are sub-functions of the Manufacturing Processual Function they jointly bear. Neither the machine nor the tool can realize the Manufacturing Processual Function individually. For example, neither a CNC drill machine or a drill bit can drill a hole alone. The drill machine provides rotational motion to the drill bit and the drill bit cuts by pressing its sharpened edges against the material. Here, the Machining Function of &apos;Spindle Rotation&apos; and Tooling Function of &apos;Chip Removal&apos; enables the Manufacturing Processual Function of &apos;Hole Making&apos; as its sub-functions.</obo:IAO_0000600>
+		<obo:IAO_0000602 xml:lang="en">forall x (ManufacturingProcessualFunction(x) = ArtifactFunction(x) and exists m t (MachineElement(m) and Tool(t) and inheres_in(x, m) and inheres_in(t, x)))</obo:IAO_0000602>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionTool">
@@ -555,17 +668,6 @@ role which is realized by //planned process where machine participates //product
 	
 	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasResource">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000057"/>
-		<rdfs:domain rdf:resource="https://purl.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="https://purl.industrialontologies.org/ontology/core/Core/PieceOfEquipment">
-					</rdf:Description>
-					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/Operator">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/objectiveSpecificationAtAllTimes">
@@ -639,32 +741,34 @@ role which is realized by //planned process where machine participates //product
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessSpecification"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ActionSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessingStep"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionOrder"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ObjectiveSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAchievedByAtSomeTime"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ProductProductionProcess"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionPlan"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification">
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
-				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ProductProductionProcess"/>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessPlan">
-					</rdf:Description>
-					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionOrder">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ObjectiveSpecification">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAchievedByAtSomeTime"/>
 				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ProductProductionProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
