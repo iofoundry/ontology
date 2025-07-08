@@ -2,6 +2,7 @@
 <!DOCTYPE rdf:RDF [
 	<!ENTITY AnnotationVocabulary "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY CommonCoreOntologies "http://www.ontologyrepository.com/CommonCoreOntologies/">
+	<!ENTITY Core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY obo "http://purl.obolibrary.org/obo/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
@@ -12,8 +13,10 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="http://simpom.ohio.edu/capability"
+	xmlns="http://simpom.ohio.edu/capability/"
 	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/"
+	xmlns:Core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:obo="http://purl.obolibrary.org/obo/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -40,7 +43,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/CNCSystem">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&Core;EngineeredSystem"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/CuttingEdge">
@@ -52,19 +55,31 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/EnabledCapability">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
+		<rdfs:subClassOf rdf:resource="&Core;Capability"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/LinearMotionCapability">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachineCapability"/>
 	</owl:Class>
 	
+	<owl:NamedIndividual rdf:about="http://simpom.ohio.edu/capability/Mazak">
+		<rdf:type rdf:resource="http://simpom.ohio.edu/capability/CNCMill"/>
+	</owl:NamedIndividual>
+	
+	<owl:Class rdf:about="http://simpom.ohio.edu/capability/RotationalCapability">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachineCapability"/>
+	</owl:Class>
+	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/Spindle">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+		<rdfs:subClassOf rdf:resource="&Core;MaterialArtifact"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/SpindleRotationCapability">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachineCapability"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="http://simpom.ohio.edu/capability/ToleranceCapability">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ToolCapability"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/ToolBody">
@@ -74,5 +89,23 @@
 	<owl:Class rdf:about="http://simpom.ohio.edu/capability/ToolShank">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000024"/>
 	</owl:Class>
+	
+	<owl:Class rdf:about="http://simpom.ohio.edu/capability/TruePositionCapability">
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/capability/ToleranceCapability"/>
+	</owl:Class>
+	
+	<owl:DatatypeProperty rdf:about="http://simpom.ohio.edu/capability/capabilityValue">
+	</owl:DatatypeProperty>
+	
+	<owl:NamedIndividual rdf:about="http://simpom.ohio.edu/capability/drillTruePositionCapability">
+		<rdf:type rdf:resource="http://simpom.ohio.edu/capability/TruePositionCapability"/>
+		<capabilityValue rdf:datatype="&xsd;decimal">0.008</capabilityValue>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://simpom.ohio.edu/capability/twistDrill-6.35mmx31mmx70mmCarbide">
+		<rdf:type rdf:resource="http://simpom.ohio.edu/capability/DrillingTool"/>
+		<skos:note xml:lang="en-us">from https://guhring.com/BrowseProducts/Products/0-25-diameter-decimal-inch-general-purpose-carbide-drills</skos:note>
+		<Core:hasCapability rdf:resource="http://simpom.ohio.edu/capability/drillTruePositionCapability"/>
+	</owl:NamedIndividual>
 
 </rdf:RDF>
