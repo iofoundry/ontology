@@ -340,13 +340,6 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;machine transfer process&apos; then x is a &apos;material location change process&apos; in which a &apos;material entity&apos; is moved from one &apos;production machine&apos; to another.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-pps;MachiningFunction">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingResourceFunction"/>
-		<rdfs:label xml:lang="en">machining function</rdfs:label>
-		<iof-av:firstOrderLogicAxiom xml:lang="en">forall x (MachiningFunction(x) = ManufacturingResourceFunction(x) and exists m (MachineElement(m) and inheres_in(m,x)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Artifact Function that is borne by a Production Machine in virtue of its internal structure, which is composed of mechanical or electrical components or both, intentionally arranged to gain mechanical advantage, when connected to a source of power.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-pps;MachiningProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
 		<rdfs:label xml:lang="en">machining process</rdfs:label>
@@ -383,48 +376,12 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-pps;ManufacturingProcessualFunction">
-		<rdfs:subClassOf rdf:resource="&cco;ArtifactFunction"/>
-		<rdfs:label xml:lang="en">manufacturing processual function</rdfs:label>
-		<iof-av:firstOrderLogicAxiom xml:lang="en">forall x (ManufacturingProcessualFunction(x) = ArtifactFunction(x) and exists m t (MachineElement(m) and Tool(t) and inheres_in(x, m) and inheres_in(t, x)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (Steps(x1) ∧ Steps(x2) ∧ Operation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>ManufacturingOperation(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p))</iof-av:firstOrderLogicDefinition>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Artifact function, that is borne by a combination of manufacturing resources, such as machine, tool, and fixture, and is realized in a Machining Process, when these resources jointly participate in that process under a suitable arrangement and configuration (normative).</iof-av:naturalLanguageDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>For every operation o and every pair of steps x1 and x2, if x1 and x2 are distinct steps and both are occurrent parts of o at some time, then for every pair of manufacturing processes p1 and p2, there exist resources r1 and r2 such that: if p1 and p2 are manufacturing processes that are occurrent parts of x1 and x2, respectively, and if p1 uses r1 as a resource and p2 uses r2 as a resource, then r1 and r2 are the same resource.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition>x is a &apos;manufacturing operation&apos; if and only if x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time.</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:subjectMatterExpertExplanation xml:lang="en">Manufacturing Processual Function is enabled by a number of Machining or Tooling Function. In other words, Machining and Tooling Functions that are borne by the individual machine and tool, participating in a process, are sub-functions of the Manufacturing Processual Function they jointly bear. Neither the machine nor the tool can realize the Manufacturing Processual Function individually. For example, neither a CNC drill machine or a drill bit can drill a hole alone. The drill machine provides rotational motion to the drill bit and the drill bit cuts by pressing its sharpened edges against the material. Here, the Machining Function of &apos;Spindle Rotation&apos; and Tooling Function of &apos;Chip Removal&apos; enables the Manufacturing Processual Function of &apos;Hole Making&apos; as its sub-functions.</iof-av:subjectMatterExpertExplanation>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;ManufacturingResourceFunction">
-		<rdfs:subClassOf rdf:resource="&cco;ArtifactFunction"/>
-		<rdfs:label xml:lang="en">manufacturing resource function</rdfs:label>
-		<iof-av:firstOrderLogicAxiom xml:lang="en">forall x (ManufacturingResourceFunction(x) = ArtifactFunction(x) and exists m t (MachineElement(m) and Tool(t) and (inheres_in(x, m) or inheres_in(t, x))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Artifact Function that is borne by a manufacturing resource, such as machine, tool, and fixture in virtue of its structure, intentionally designed for the purpose manufactuirng.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;MaterialAdditionFunction">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingProcessualFunction"/>
-		<rdfs:label xml:lang="en">material addition function</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;MaterialDeformationFunction">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingProcessualFunction"/>
-		<rdfs:label xml:lang="en">material deformation function</rdfs:label>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-pps;MaterialProductSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-core;DesignSpecification"/>
 		<rdfs:label xml:lang="en">material product specification</rdfs:label>
 		<iof-av:firstOrderLogicAxiom>DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y)) → MaterialProductSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">A design specifcation containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;MaterialRemovalFunction">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingProcessualFunction"/>
-		<rdfs:label xml:lang="en">material removal function</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;MaterialTransferPlan">
@@ -609,14 +566,6 @@ role which is realized by //planned process where machine participates //product
 		<iof-av:naturalLanguageDefinition>Capability which is collaboration of multiple entities to achieve one goal, where each enitity has its own capability</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-pps;ProductionSystemFunction">
-		<rdfs:subClassOf rdf:resource="&cco;ArtifactFunction"/>
-		<rdfs:label xml:lang="en">production system function</rdfs:label>
-		<obo:IAO_0000115 xml:lang="en">Artifact function, that is borne by a combination of manufacturing resources, such as machine, tool, and fixture, and is realized in a Machining Process, when these resources jointly participate in that process under a suitable arrangement and configuration (normative).</obo:IAO_0000115>
-		<obo:IAO_0000600 xml:lang="en">Manufacturing Processual Function is enabled by a number of Machining or Tooling Function. In other words, Machining and Tooling Functions that are borne by the individual machine and tool, participating in a process, are sub-functions of the Manufacturing Processual Function they jointly bear. Neither the machine nor the tool can realize the Manufacturing Processual Function individually. For example, neither a CNC drill machine or a drill bit can drill a hole alone. The drill machine provides rotational motion to the drill bit and the drill bit cuts by pressing its sharpened edges against the material. Here, the Machining Function of &apos;Spindle Rotation&apos; and Tooling Function of &apos;Chip Removal&apos; enables the Manufacturing Processual Function of &apos;Hole Making&apos; as its sub-functions.</obo:IAO_0000600>
-		<obo:IAO_0000602 xml:lang="en">forall x (ManufacturingProcessualFunction(x) = ArtifactFunction(x) and exists m t (MachineElement(m) and Tool(t) and inheres_in(x, m) and inheres_in(t, x)))</obo:IAO_0000602>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-pps;ProductionTool">
 		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
 		<rdfs:label xml:lang="en">production tool</rdfs:label>
@@ -648,13 +597,6 @@ role which is realized by //planned process where machine participates //product
 		<rdfs:label xml:lang="en">tool capability</rdfs:label>
 		<iof-av:firstOrderLogicAxiom xml:lang="en">forall c (ToolCapability(c) = ArtifactCapability(c) and exists t f (Tool(t) and ToolingFunction(f) and inheres_in(c,t) and demarcates(c,f)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">an Artifact Capability that is borne by a Production Tool and demarcates a Tool Function.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;ToolFunction">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingResourceFunction"/>
-		<rdfs:label xml:lang="en">tooling function</rdfs:label>
-		<iof-av:firstOrderLogicAxiom xml:lang="en">forall x (ToolingFunction(x) = ManufacturingResourceFunction(x) and  exists t (Tool(t) and inheres_in(t,x)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Artifact Function that is borne by a Production Tool in virtue of its shape, which is intentionally designed to deform, remove, move, or hold some material when attached to a Production Machine or used by an agent.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;WorkHolder">
@@ -752,16 +694,6 @@ role which is realized by //planned process where machine participates //product
 			<rdf:Description rdf:about="&iof-pps;Mold">
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-pps;WorkHolder">
-			</rdf:Description>
-		</owl:members>
-	</owl:AllDisjointClasses>
-	<owl:AllDisjointClasses>
-		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-pps;MaterialAdditionFunction">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-pps;MaterialDeformationFunction">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-pps;MaterialRemovalFunction">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
