@@ -16,6 +16,7 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
+	xmlns="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
 	xmlns:cco="http://www.ontologyrepository.com/cco/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:foaf="http://xmlns.com/foaf/0.1/"
@@ -37,7 +38,7 @@
 		<dc:contributor>Dusan Sormaz, Ohio University</dc:contributor>
 		<terms:abstract>abstract</terms:abstract>
 		<terms:license>http://opensource.org/licenses/MIT</terms:license>
-		<terms:title xml:lang="en-US">IOF Production Planning Reference Ontology</terms:title>
+		<terms:title xml:lang="en-us">IOF Production Planning Reference Ontology</terms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/productionplanning/ProductionPlanning/"/>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
@@ -195,11 +196,18 @@
 	<owl:Class rdf:about="&iof-pps;InspectionPlan">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
 		<rdfs:label xml:lang="en">inspection plan</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;InspectionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:label xml:lang="en">inspection process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;PlanSpecification">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-pps;hasActionSpecification"/>
+						<owl:allValuesFrom rdf:resource="&iof-pps;ProductInspectionProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;Machine">
@@ -518,6 +526,12 @@ role which is realized by //planned process where machine participates //product
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is a processing step then x is a manufacturing enterprise operation and there exists a manufacturing process p which is occurrent part of x and for all other manufacturing process p&apos; which is occurrent part of x is same as p.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-pps;ProductInspectionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingEnterpriseProcess"/>
+		<rdfs:label xml:lang="en">product inspection process</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">Product inspection is a systematic process of evaluating goods during and after production to ensure they meet specified quality standards.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-pps;ProductionMachine">
 		<rdfs:subClassOf rdf:resource="&iof-pps;Machine"/>
 		<rdfs:label xml:lang="en">production machine</rdfs:label>
@@ -617,6 +631,7 @@ role which is realized by //planned process where machine participates //product
 		<iof-av:explanatoryNote>The work required to change a specific machine, resource, work center, or line from making the last good piece of item A to making the first good piece of item B</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>Setup process is a planned process where  tools are attached   between two manufactruing operations on the same resource  (for example machine) such that the output of the first is different from the output of the second</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale></iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-us">I want to say that previous and next processes have different output but te same machine</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;TearDown">
