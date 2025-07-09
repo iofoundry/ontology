@@ -445,6 +445,7 @@ role which is realized by //planned process where machine participates //product
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example xml:lang="en">test</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧ ∀y ((continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y))) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ ActionSpecification(z) → ManufacturingOperation(z) V ProcessingStep(z))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">Plan which include steps and sequence required to produce a product or service at the required quality level and cost.</iof-av:naturalLanguageDefinition>
@@ -512,6 +513,7 @@ role which is realized by //planned process where machine participates //product
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example xml:lang="en-us">order to produce 100 brackets</skos:example>
 		<iof-av:firstOrderLogicAxiom>ObjectiveSpecification(x) ∧ ∃y (isAchievedByAtSomeTime(x, y) ∧ ProductProductionProcess(y)) → ProductionOrder(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProductionOrder(x) ↔ ObjectiveSpecification(x) ∧  ∃y (MaterialProductSpecification(y) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">A production order is a document that states the number of units to be manufactured, the date when the order is released for production, and where the units should be delivered once they have been completed. A production order may be triggered by a long-term plan to maintain certain inventory levels, or by the receipt of an order from a customer.</iof-av:naturalLanguageDefinition>
@@ -549,6 +551,7 @@ role which is realized by //planned process where machine participates //product
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example xml:lang="en-us">production of a batch of 1000 plastic containers and 100 lids in one week,</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
@@ -697,6 +700,17 @@ role which is realized by //planned process where machine participates //product
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-pps;InspectionPlan"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-core;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:allValuesFrom rdf:resource="&iof-pps;ProductInspectionProcess"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-pps;MaterialProductSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
