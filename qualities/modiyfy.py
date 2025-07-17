@@ -3,7 +3,7 @@ OBO=Namespace("http://purl.obolibrary.org/obo/")
 
 # Load the old and new RDF files
 def do_stuff():
-    old_rdf_file = "IOF_Qualities-Morphologic.rdf"
+    old_rdf_file = "Qualities-Morphologic.rdf"
     new_rdf_file = "new.rdf"
     g_old = Graph()
     g_new = Graph()
@@ -153,9 +153,9 @@ def restore_reference(input_file, backup_file):
                 print(subject)
     # Serialize and save the modified graph to a new file
     g_new.serialize("modified.rdf", "pretty-xml")
-#merge_g("IOF_Qualities-Morphologic.rdf","IOF_Qualities-Morphologic copy.rdf")
+#merge_g("Qualities-Morphologic.rdf","Qualities-Morphologic copy.rdf")
 
 #move_owl_classes_with_skos_definition('mod2.rdf', 'mod2-sort.rdf')
-restore_reference("IOF_Qualities-Morphologic.rdf","morph_old.rdf")
-#add_rdfs_label_to_classes("IOF_Qualities-Morphologic.rdf")
+restore_reference("Qualities-Morphologic.rdf","morph_old.rdf")
+#add_rdfs_label_to_classes("Qualities-Morphologic.rdf")
 #remove_labels_from_file("merged.rdf", "merged2.rdf")
