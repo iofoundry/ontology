@@ -213,9 +213,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 
 ---
 
-## Module: Qualities-Morphologic.rdf
+## Module: Qualities-Morphological.rdf
 
-**Abstract:** The IOF Morphologic Qualities Ontology represents Qualities of material entities that describe the look and feel.
+**Abstract:** The IOF Morphological Qualities Ontology represents Qualities of material entities that describe the look and feel.
 
 The following metrics were computed for this ontology module:
 
