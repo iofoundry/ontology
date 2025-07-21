@@ -11,12 +11,12 @@ This report summarizes the metrics computed across all processed ontology module
 - **Total Comments:** Count of rdfs:comment annotations attached to entities.
 - **Total Imports:** Number of owl:imports statements indicating reuse of external ontologies.
 
-- **Total Modules Processed:** **6**
+- **Total Modules Processed:** **7**
 - **Total Classes:** **1139**
-- **Total Properties:** **43**
-- **Total Labels:** **2259**
+- **Total Properties:** **45**
+- **Total Labels:** **2261**
 - **Total Comments:** **2**
-- **Total Imports:** **7**
+- **Total Imports:** **9**
 
 ### AdaptedFrom Sources (Aggregated by Namespace)
 The adaptedFrom property indicates the provenance or source from which parts of the ontology were adapted. To provide a concise overview, these sources have been aggregated by their namespace (the common base URI).
@@ -40,31 +40,60 @@ These metrics describe the structure of the ontologies based on subclass relatio
 - **Average Hierarchy Breadth:** The average number of direct subclasses per class.
 
 - **Maximum Hierarchy Depth:** 9
-- **Average Hierarchy Depth:** 5.50
+- **Average Hierarchy Depth:** 4.71
 - **Maximum Hierarchy Breadth:** 102
-- **Average Hierarchy Breadth:** 22.83
+- **Average Hierarchy Breadth:** 19.57
 
 ### Graph Connectivity Metrics (Overall)
 These metrics are derived by modeling each ontology as an undirected graph, where nodes represent entities and edges represent relationships. - **Average Node Degree:** Reflects the average number of connections per entity, indicating overall interconnectedness.
 - **Maximum Node Degree:** The maximum number of connections that any single entity has.
 
-- **Average Node Degree:** 2.36
+- **Average Node Degree:** 2.29
 - **Maximum Node Degree:** 707
-
-### Specified Subclass Counts (Transitive)
-For each specified IRI, this metric counts all subclasses (both direct and indirect) in the ontology hierarchy.
-
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Morphologic/Color**: 119
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Morphologic/Shape**: 326
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities/DimensionQuality**: 14
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/PhysicalQuality**: 34
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/PhysicalRateQuality**: 7
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/PhysicalCapability**: 69
-- **https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/PhysicalRelationalQuality**: 43
 
 ---
 
-## Module: IOF_Qualities-Biological.rdf
+## Module: Metadataqualities.rdf
+
+**Abstract:** The IOF (common) Quality Ontology is an architectural construct allowing separate Quality ontologies for different domains e.g., Physical, Chemical, Biological, etc.
+        This ontology also contains those qualities that may be considered 'common'
+
+The following metrics were computed for this ontology module:
+
+- **Classes Count:** Number of defined ontology concepts (owl:Class and rdfs:Class).
+- **Properties Count:** Number of properties (rdf:Property and owl:AnnotationProperty).
+- **Labels Count:** Number of rdfs:label annotations.
+- **Comments Count:** Number of rdfs:comment annotations.
+- **Imports Count:** Number of owl:imports (external ontology references).
+
+- **Classes Count:** 0
+- **Properties Count:** 0
+- **Labels Count:** 2
+- **Comments Count:** 0
+- **Imports Count:** 2
+
+### Hierarchy Metrics
+These metrics describe the subclass structure of the ontology:
+
+- **Maximum Depth:** 0 (Longest chain of subclass relationships)
+- **Average Depth:** 0.00 (Typical number of levels in the hierarchy)
+- **Maximum Breadth:** 0 (Highest number of direct subclasses)
+- **Average Breadth:** 0.00 (Average direct subclasses per class)
+
+### Graph Connectivity Metrics
+These metrics are derived from modeling the ontology as an undirected graph:
+
+- **Average Node Degree:** 1.87 (Average connections per entity)
+- **Maximum Node Degree:** 9 (Highest connections on a single entity)
+
+### Aggregated AdaptedFrom Sources (by Namespace)
+This section shows the provenance of adapted content, aggregated by the common base URI.
+
+- None found
+
+---
+
+## Module: Qualities-Biological.rdf
 
 **Abstract:** The IOF Biological Qualities Ontology aims to represent the generic constructs (including classes and properties) related to biological qualities.
 
@@ -102,14 +131,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 - **http://purl.obolibrary.org/obo/**: 197
 - **https://en.wikipedia.org/wiki/**: 2
 
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Inconsistent: Cannot download 'https://spec.industrialontologies.org/ontology/qualities/Qualities/'!
-
 ---
 
-## Module: IOF_Qualities-Chemical.rdf
+## Module: Qualities-Chemical.rdf
 
 **Abstract:** The IOF Qualities-Chemical Ontology aims to represent Qualities relevant to chemicals and chemical processes
 
@@ -147,14 +171,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 - **http://purl.obolibrary.org/obo/**: 3
 - **https://en.wikipedia.org/wiki/**: 1
 
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Inconsistent: Cannot download 'https://spec.industrialontologies.org/ontology/qualities/Qualities/'!
-
 ---
 
-## Module: IOF_Qualities-MeasurementPerformance.rdf
+## Module: Qualities-MeasurementPerformance.rdf
 
 **Abstract:** This Submodule, Measurement Performance Qualities, of the IOF Qualities Ontology aims to represent the generic constructs (including classes and properties) related bfo qualities covering Measurement Performance.
 
@@ -184,7 +203,7 @@ These metrics describe the subclass structure of the ontology:
 These metrics are derived from modeling the ontology as an undirected graph:
 
 - **Average Node Degree:** 2.13 (Average connections per entity)
-- **Maximum Node Degree:** 11 (Highest connections on a single entity)
+- **Maximum Node Degree:** 12 (Highest connections on a single entity)
 
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
@@ -192,14 +211,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 - **https://en.wikipedia.org/wiki/**: 1
 - **“Precision.” Merriam-Webster.com Dictionary, Merriam-Webster, https://www.merriam-webster.com/dictionary/**: 1
 
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Inconsistent: Cannot download 'https://spec.industrialontologies.org/ontology/qualities/Qualities/'!
-
 ---
 
-## Module: IOF_Qualities-Morphologic.rdf
+## Module: Qualities-Morphologic.rdf
 
 **Abstract:** The IOF Morphologic Qualities Ontology represents Qualities of material entities that describe the look and feel.
 
@@ -236,14 +250,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 
 - **http://purl.obolibrary.org/obo/**: 690
 
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Inconsistent: Cannot download 'https://spec.industrialontologies.org/ontology/qualities/Qualities/'!
-
 ---
 
-## Module: IOF_Qualities-Physical.rdf
+## Module: Qualities-Physical.rdf
 
 **Abstract:** The IOF Physical Qualities Ontology represents Qualities found in material entities (e.g., Mass).
 
@@ -256,7 +265,7 @@ The following metrics were computed for this ontology module:
 - **Imports Count:** Number of owl:imports (external ontology references).
 
 - **Classes Count:** 191
-- **Properties Count:** 11
+- **Properties Count:** 13
 - **Labels Count:** 381
 - **Comments Count:** 2
 - **Imports Count:** 1
@@ -288,14 +297,9 @@ This section shows the provenance of adapted content, aggregated by the common b
 - **https://www.nrc.gov/reading-rm/basic-ref/glossary/**: 1
 - **https://www.oxfordreference.com/display/10.1093/oi/**: 1
 
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Inconsistent: Cannot download 'https://spec.industrialontologies.org/ontology/qualities/Qualities/'!
-
 ---
 
-## Module: IOF_Qualities.rdf
+## Module: Qualities.rdf
 
 **Abstract:** The IOF (common) Quality Ontology is an architectural construct allowing separate Quality ontologies for different domains e.g., Physical, Chemical, Biological, etc.
         This ontology also contains those qualities that may be considered 'common'.
@@ -325,17 +329,12 @@ These metrics describe the subclass structure of the ontology:
 ### Graph Connectivity Metrics
 These metrics are derived from modeling the ontology as an undirected graph:
 
-- **Average Node Degree:** 2.37 (Average connections per entity)
-- **Maximum Node Degree:** 14 (Highest connections on a single entity)
+- **Average Node Degree:** 2.32 (Average connections per entity)
+- **Maximum Node Degree:** 15 (Highest connections on a single entity)
 
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
 - None found
-
-### Logical Consistency
-The ontology was checked for logical consistency using a reasoner.
-
-- **Status:** Consistent
 
 ---
