@@ -12,11 +12,11 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
-	<!ENTITY terms "http://purl.org/dc/terms/">
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/parameter/"
+	xmlns="https://spec.industrialontologies.org/ontology/parameter/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-parameter="https://spec.industrialontologies.org/ontology/parameter/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -29,189 +29,409 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:terms="http://purl.org/dc/terms/"
 	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/parameter/">
 		<rdfs:label xml:lang="en-US">Parameter Ontology</rdfs:label>
-		<terms:abstract>This module contains terms and relations necessary for representing  process intermediate and product quality attributes, process indicators and process parameters.</terms:abstract>
-		<terms:contributor>Adlane Rebai, Millipore Sigma</terms:contributor>
-		<terms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Melissa Weller, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</terms:contributor>
-		<terms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</terms:contributor>
-		<terms:creator>NIIMBL BD-1 Ontology Group</terms:creator>
+		<dcterms:abstract>This module contains terms and relations necessary for representing  process intermediate and product quality attributes, process indicators and process parameters.</dcterms:abstract>
+		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
+		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</dcterms:contributor>
+		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
-		<owl:imports rdf:resource="http://qudt.org/2.1/schema/qudt/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/parameter/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>			
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&bmic-parameter;CriticalProcessParameter">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;ProcessParameter"/>
+		<rdfs:label>critical process parameter</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-parameter;ProcessProfile">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&bmic-parameter;CriticalProcessParameterSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"process characteristic or process profile or temporal region prescribed by a critical process parameter specification</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-parameter;CriticalProcessParameterSpecification">
 		<rdfs:subClassOf rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&bmic-parameter;CriticalQualityAttributeSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">critical process parameter specification</rdfs:label>
+		<owl:disjointWith rdf:resource="&bmic-parameter;KeyProcessParameterSpecification"/>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q8%28R2%29%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter specification whose variability has an impact on a critical quality attribute and, therefore, should be monitored or controlled to ensure the process obtains the desired quality</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>FROM ICH: process parameter specification whose variability has an impact on a critical quality attribute and, therefore, should be monitored or controlled to ensure the process obtains the desired quality</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter specification that prescribes a variable which has an impact on a critical quality attribute</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-parameter;CriticalQualityAttributeSpecification">
 		<rdfs:subClassOf rdf:resource="&bmic-parameter;QualityAttributeSpecification"/>
 		<rdfs:label xml:lang="en-US">critical quality attribute specification</rdfs:label>
-		<terms:source>https://database.ich.org/sites/default/files/Q8%28R2%29%20Guideline.pdf</terms:source>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q8%28R2%29%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality attribute specification that is a physical, chemical, biological or microbiological property or characteristic that should be within an appropriate limit, range, or distribution to ensure the desired product quality</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>From ICH: critical quality attribute is a physical, chemical, biological or microbiological property or characteristic that should be within an appropriate limit, range, or distribution to ensure the desired product quality.
+The  deviations of CQAs beyond defined limits have significant adverse impacts on product quality and, therefore, mandate stringent control, monitoring, and validation measures.
+
+This specification serves as a formal constraint on a quality attribute that is critical to product performance, safety, or efficacy, and is used to assess the acceptability of materials or products in manufacturing and quality control processes.
+
+A crticial quality attribute specification may constrain various dependent or componential aspects of a material product. This includes intrinsic qualities, functional dispositions, constitutive material presence, or the defined identity and proportion of uniquely differentiable components that together determine product performance and quality
+
+Critical quality attributes are monitored throghout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated or used during the product production process .</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality attribute specifications that prescribes some quality, disposition, constitution, or composition deemed critical to ensuring safety, efficacy, or performance of a material product</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-parameter;CriticalRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:label xml:lang="en-US">critical role</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role for something that is vital to what is occurring</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&bmic-parameter;KeyPerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;PerformanceIndicator"/>
+		<rdfs:label>key performance indicator</rdfs:label>
+		<iof-av:adaptedFrom>ISO-22400</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Per the ISO-22400 standard a good KPI has certain criteria which ensure its usefulness in achieving various goals in the manufacturing operation. For more details the user should take a look at the standard. Also the KPI specification should contain information about its context, including timing, audience, production methodology, effect model diagram, and notes</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"performance indicator that reflects the performance with respect to objectives that are determined as key by the organization</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:NamedIndividual rdf:about="&bmic-parameter;HighMannose">
-		<rdf:type rdf:resource="&bmic-parameter;ParameterKind"/>
-		<rdfs:label xml:lang="en-US">high mannose</rdfs:label>
-		<terms:contributor>Merck KGaA</terms:contributor>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">High-mannose glycans contain unsubstituted terminal mannose sugars. Glycan moieties attached to the proteins can directly affect protein stability, bioactivity, and immunogenicity.</iof-av:naturalLanguageDefinition>
-	</owl:NamedIndividual>
-	
-	<owl:NamedIndividual rdf:about="&bmic-parameter;HighMolecularWeight">
-		<rdf:type rdf:resource="&bmic-parameter;ParameterKind"/>
-		<rdfs:label xml:lang="en-US">high molecular weight</rdfs:label>
-		<terms:contributor>Merck KGaA</terms:contributor>
-		<iof-av:abbreviation>HMW</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://www.industrialchemicals.gov.au/glossary/high-molecular-weight-polymer</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">A polymer that has a number average molecular weight that is greater than or equal to 1,000 g/mol. HMW species within a therapeutic mAb drug product as a result of protein aggregation can potentially compromise both drug efficacy and safety.</iof-av:naturalLanguageDefinition>
-	</owl:NamedIndividual>
-	
-	<owl:Class rdf:about="&bmic-parameter;KeyPerformanceIndicatorSpecification">
-		<rdfs:subClassOf rdf:resource="&bmic-parameter;PerformanceIndicatorSpecification"/>
-		<rdfs:label xml:lang="en-US">key performance indicator specification</rdfs:label>
-		<skos:altLabel xml:lang="en">key process indicator</skos:altLabel>
-		<skos:altLabel xml:lang="en">process performance indicator</skos:altLabel>
-		<iof-av:adaptedFrom>White Paper: Biopharma PATQuality Attributes, Critical Process Parameters &amp; Key Performance Indicators at the Bioreactor</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>kpis are related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">metric for the status of each production step</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&bmic-parameter;KeyProcessParameter">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;ProcessParameter"/>
+		<rdfs:label>key process parameter</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-parameter;ProcessProfile">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&bmic-parameter;KeyProcessParameterSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"process characteristic or process profile or temporal region prescribed by a key process parameter specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-parameter;KeyProcessParameterSpecification">
 		<rdfs:subClassOf rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
 		<rdfs:label xml:lang="en-US">key process parameter specification</rdfs:label>
 		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>key process parameter does not meaningfully affect critical product quality attributes.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">adjustable process parameter (variable) specification that, when maintained within a narrow range, ensures optimum process performance</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter specification that prescribes a variable which must be tightly controlled to ensure process consistency and that does not directly impact any critical quality attribute</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-parameter;ParameterKind">
-		<rdfs:subClassOf rdf:resource="&iof-core;DescriptiveInformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">parameter kind</rdfs:label>
-		<terms:contributor xml:lang="en">Merck KGaA</terms:contributor>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">descriptive information content entity to denote the kind of parameter being described</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&bmic-parameter;KeyProcessPerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;KeyPerformanceIndicator"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;describes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-core;ProductProductionProcess">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;ProductProductionProcess">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">key process performance indicator</rdfs:label>
+		<rdfs:comment>indicator (3.8) of performance deemed by an organization (3.16) to be significant and giving prominence and attention to certain aspects</rdfs:comment>
+		<skos:altLabel xml:lang="en">key process indicator</skos:altLabel>
+		<skos:editorialNote>pharma specific interpretation where the key objective is consistency and reproduciblity</skos:editorialNote>
+		<iof-av:adaptedFrom>White Paper: Biopharma PATQuality Attributes, Critical Process Parameters &amp; Key Performance Indicators at the Bioreactor and https://www.gmp-compliance.org/gmp-news/fdas-current-thinking-on-kpis-and-quality-metrics</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>KPIs are indirectly related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too.</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"performance indicator that reflects the consistency or reproducibility of a part or the whole of a product production process or manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-parameter;ParameterObjectiveSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;ObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-US">parameter objective specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">objective specification for a parameter in an ISA-88 recipe component</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&bmic-parameter;NormalOperatingRangeValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&bmic-parameter;SetpointValueExpression"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>normal operating range value expression</rdfs:label>
+		<skos:altLabel>normal operating range</skos:altLabel>
+		<iof-av:acronym>NOR</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/179081/download and https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-improving-understanding-normal-operating-range-nor-proven-acceptable-range-par-design-space-dsp-and-normal-variability-process-parameters_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>NOR is the span within which process is designed to function under typical conditions. This range is distinct from the broader ranges, which may include values associated with abnormal operation or alarm conditions. When a process parameter remains within the normal operating range, no alarm is expected to trigger, as the process parameter is considered to be under control.</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"value expression that is a range around a set point within which a particular process parameter is expected to vary during normal operation of a process process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-parameter;ParameterRequirementSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
-		<rdfs:label xml:lang="en-US">parameter requirement specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification which specifies an information object that has the contextual role of a parameter in the realized process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-parameter;PerformanceIndicatorSpecification">
-		<rdfs:subClassOf rdf:resource="&bmic-parameter;ParameterObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-US">performance indicator specification</rdfs:label>
-		<skos:altLabel>process indicator</skos:altLabel>
+	<owl:Class rdf:about="&bmic-parameter;PerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;MeasuredValueExpression"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;describes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;Agent">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Organization">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;PlannedProcess">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;System">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;ObjectiveSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">performance indicator</rdfs:label>
+		<skos:altLabel>performance metric</skos:altLabel>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Performance indicator specification is also known as “performance metrics” in some regions.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">measurable values used to quantify quality objectives to reflect the performance of an organization, process or system</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) Performance indicators are:
+Measurable: It’s based on quantifiable data (e.g. percentages, counts, ratios).
+Goal-oriented: It reflects progress toward a defined objective.
+Actionable: It provides insight into what’s working and what might need improvement.
+2) Also they are typically:
+S: Specific
+M: Measurable
+A: Achievable
+R: Relevant
+T: Time bound</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that consists of one or more measured value expressions and that reflects the performance of an agent, planned process, organization, piece of equipment or system with respect to a particular objective over a specified time interval or at a particular time point</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-parameter;ProcessParameter">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000001"/>
+		<rdfs:label>process parameter</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bmic-parameter;ProcessProfile">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"process characteristic or process profile or temporal region prescribed by a process parameter specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&bmic-parameter;ProcessParameterSpecification">
-		<rdfs:subClassOf rdf:resource="&bmic-parameter;ParameterObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-US">process parameter specification</rdfs:label>
-		<skos:altLabel xml:lang="en">parameter</skos:altLabel>
-		<skos:altLabel xml:lang="en">process value</skos:altLabel>
-		<skos:altLabel xml:lang="en">process variable</skos:altLabel>
-		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote xml:lang="en">1) The variable may or may not have a critical effect on product quality or process performance.
-    2) Ranges for GPPs are established during process development, and changes to operating ranges will be managed within the quality system.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">parameter objective specification that specifies (prescribes) the range of values that an adjustable parameter (variable) of the process should have</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-parameter;QualityAttributeSpecification">
-		<rdfs:subClassOf rdf:resource="&bmic-parameter;ParameterObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-US">quality attribute specification</rdfs:label>
-		<skos:altLabel xml:lang="en">non-functional requirement</skos:altLabel>
-		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>collectively, the quality attributes define the purity, potency, identity, and stability of the product.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">parameter objective specification of a molecular or product characteristic that is selected for its ability to help indicate the quality of the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bmic-parameter;SystemParameterSpecification">
-		<rdfs:subClassOf rdf:resource="&bmic-parameter;ParameterRequirementSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PlanSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;System">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000020">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;System"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">system parameter specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">parameter requirement specification that prescribes a system or an attribute of the system and that has quantity whose value influences the behavior of the system or the attribute</iof-av:naturalLanguageDefinition>
+		<rdfs:label>process parameter specification</rdfs:label>
+		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf; https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-manufacture-finished-dosage-form-revision-1_en.pdf and ISA88</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1)  Process parameters must be defined with its target value or acceptable range. A process parameter may be critical or non-critical.
+2) Ranges for process parameters are established during process development, and changes to operating ranges will be managed within the quality system.
+3) Process parameters are used to describe and control the conditions under which a process operates, ensuring that the process achieves its intended results. 
+4) Process parameters are essential for defining how a process should be carried out and are typically specified in process documentation or recipes. They provide the necessary details for operators and control systems to maintain the process within desired conditions, supporting consistent product quality and process performance.
+5)  In IOF/BFO, process parameters may take the form of process profiles, process characteristics, or temporal regions. Process profiles may reflect qualities of material entities that participate in the process or serve as its environment—for example, the temperature of a culture medium or the pH of a reaction mixture. They may also represent the realization of capabilities inhering in equipment or consumables used during the process, such as the achievable agitation speed of an impeller or the filtration capacity of a membrane. Additionally, process profiles may capture dynamic properties of participating material entities, such as the flow rate of a fluid, which is a rate process profile associated with that fluid. Process characteristics, such as flow direction or mixing mode, are intrinsic (unchanging) features of the process that are also typically associated with some participant of the process. Finally, temporal parameters, such as incubation time or residence time, are modeled as temporal regions corresponding to the duration of the process or subprocess.</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"information content entity that prescribes a monitorable or controllable variable associated with some planned process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&bmic-parameter;hasNormalOperatingRange">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;isAbout"/>
-		<rdfs:label xml:lang="en-US">has normal operating range</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
-		<rdfs:range rdf:resource="&qudt;Quantity"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">defined range, within the proven acceptable range, specified in the manufacturing instructions as the target and range at which a process parameter is controlled, while producing unit operation material or final product meeting release criteria and critical quality attributes</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
+	<owl:Class rdf:about="&bmic-parameter;ProcessPerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;PerformanceIndicator"/>
+		<rdfs:label>process performance indicator</rdfs:label>
+		<skos:altLabel>process indicator</skos:altLabel>
+		<skos:example>viable cell density, yield, titer, clearance factor</skos:example>
+		<iof-av:explanatoryNote>1) Process indicators serve as observable characteristics of process behavior (e.g., cell viability, column backpressure) and are used to assess the reproducibility and consistency of the process. While they are not directly controlled, they may correlate with critical quality or performance outcomes. 
+2)  In case of manufacturing, process performance indicators  can be indirectly related to the quality of the product and/or
+the performance of the process and is used to demonstrate the reproducibility and consistency of the manufacturing process
+3) In case of pharma, they are used to monitor the effectiveness of processes within the pharmaceutical quality system</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"performance indicator which reflects the performance of a planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&bmic-parameter;hasParameterKind">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;isAbout"/>
-		<rdfs:label xml:lang="en-US">has parameter kind</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-parameter;ParameterRequirementSpecification"/>
-		<rdfs:range rdf:resource="&bmic-parameter;ParameterKind"/>
-	</owl:ObjectProperty>
+	<owl:Class rdf:about="&bmic-parameter;ProcessProfile">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:label>process profile</rdfs:label>
+		<iof-av:directSource>http://purl.obolibrary.org/obo/BFO_0000144</iof-av:directSource>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"B is a process profile if there is some process c such that b is process profile of c. B is process profile of c holds when b is a proper occurrent part of c and there is some proper occurrent part d of c which has no parts in common with b and is mutually dependent on b and is such that b, c and d occupy the same temporal region.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&bmic-parameter;hasProvenAcceptableRange">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;isAbout"/>
-		<rdfs:label xml:lang="en-US">has proven acceptable range</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
-		<rdfs:range rdf:resource="&qudt;Quantity"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">characterized range of a process parameter for which operation within this range, while keeping other parameters constant, will result in producing a material meeting relevant quality criteria</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
+	<owl:Class rdf:about="&bmic-parameter;ProvenAcceptableRangeValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:label>proven acceptable range value expression</rdfs:label>
+		<skos:altLabel>proven acceptable range</skos:altLabel>
+		<iof-av:acronym>PAR</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/71535/download (Guidance for Industry Q8 R2 Development)</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The PAR is established based on process development and validation activities, and it is typically narrower than the full instrument span. It defines the boundaries for making saleable product, and excursions outside this range are considered process deviations that may require investigation and corrective action.</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"value expression range that has been validated through testing or documented experience and that is a prescribed range within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&bmic-parameter;hasSetpoint">
-		<rdfs:subPropertyOf rdf:resource="&iof-core;isAbout"/>
-		<rdfs:label xml:lang="en-US">has set point</rdfs:label>
-		<rdfs:domain rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
-		<rdfs:range rdf:resource="&qudt;Quantity"/>
-	</owl:ObjectProperty>
+	<owl:Class rdf:about="&bmic-parameter;QualityAttributeSpecification">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/OutputObjectiveSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;MaterialComponent">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;componentPartOfAtAllTimes"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-core;MaterialProduct">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000016">
+											</rdf:Description>
+											<rdf:Description rdf:about="&bfo;BFO_0000019">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-core;MaterialProduct">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">quality attribute specification</rdfs:label>
+		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf
+“https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>In case of drug product may include identity, assay, content uniformity, degradation products, residual solvents, drug release or dissolution, moisture content, microbial limits, and physical attributes such as color, shape, size, odor, score configuration, and friability. These attributes can be critical or not critical. Criticality of an attribute is primarily based upon the severity of harm to the patient should the product fall outside the acceptable range for that attribute. Probability of occurrence, detectability, or controllability does not impact criticality of an attribute.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">output objective specification that prescribes some quality, disposition, constitution, or composition that a material product or process intermediate material must possess in order to satisfy predefined quality requirements</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-parameter;SetpointValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&bmic-parameter;ProcessParameterSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>setpoint value expression</rdfs:label>
+		<skos:altLabel>setpoint</skos:altLabel>
+		<skos:example>for a residential dwelling temperature control process, the set point might be 72 degrees Fahrenheit during the day and 68 degrees Fahrenheit during the day</skos:example>
+		<iof-av:explanatoryNote>The setpoint represents the value of a physical condition that a control system aims to achieve and maintain. The set point is used by the control system as a reference for comparison against the actual measured value of the process parameter. Specifically, a control system performs regulation by actuating one or more final control devices to modify process parameters, thereby driving the process variable toward the set point. Representation of this control behavior will be included in a future version of the ontology</iof-av:explanatoryNote>
+		iof-av:naturalLanguageDefinition xml:lang="en-US"value expression which is a prescribed value that a process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 
 </rdf:RDF>
