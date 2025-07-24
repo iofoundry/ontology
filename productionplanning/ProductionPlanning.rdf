@@ -278,7 +278,9 @@
     <!-- https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasResource -->
 
     <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasResource">
-        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000057"/>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000167"/>
+        <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResource"/>
+        <rdfs:comment xml:lang="en-us">has resource</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -630,17 +632,24 @@
                         <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000118"/>
                         <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessingStep"/>
                     </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasResource"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResource"/>
+                    </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingEnterpriseProcess"/>
         <rdfs:label>manufacturing operation</rdfs:label>
+        <iof-av:explanatoryNote xml:lang="en-us">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
+
+In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
         <iof-av:firstOrderLogicAxiom>∀o, x1, x2 (Steps(x1) ∧ Steps(x2) ∧ Operation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</iof-av:firstOrderLogicAxiom>
-        <iof-av:firstOrderLogicDefinition>ManufacturingOperation(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p))</iof-av:firstOrderLogicDefinition>
+        <iof-av:firstOrderLogicDefinition>ManufacturingOperation(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p)) ∧ ∃r (ManufacturingResource(r) ∧ hasParticipantAtAllTimes(x, r))</iof-av:firstOrderLogicDefinition>
         <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</iof-av:isPrimitive>
         <iof-av:naturalLanguageDefinition xml:lang="en">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
         <iof-av:semiFormalNaturalLanguageAxiom>For every operation o and every pair of steps x1 and x2, if x1 and x2 are distinct steps and both are occurrent parts of o at some time, then for every pair of manufacturing processes p1 and p2, there exist resources r1 and r2 such that: if p1 and p2 are manufacturing processes that are occurrent parts of x1 and x2, respectively, and if p1 uses r1 as a resource and p2 uses r2 as a resource, then r1 and r2 are the same resource.</iof-av:semiFormalNaturalLanguageAxiom>
-        <iof-av:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time.</iof-av:semiFormalNaturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time and a &apos;material resource&apos; that the manufacturing operation has as participant at all time it occurs.</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
@@ -683,6 +692,7 @@
         <iof-av:firstOrderLogicDefinition>ActionSpecification(x) ∧ ∃y (ManufacturingOperation(y) ∧ prescribes(x,y)) → OperationSpecification(x)</iof-av:firstOrderLogicDefinition>
         <iof-av:naturalLanguageDefinition xml:lang="en">An action specification that prescribes some operation.</iof-av:naturalLanguageDefinition>
         <iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;action specifciation&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+        <iof-av:usageNote xml:lang="en-us">This part of the plan specifies one or many steps, each of which are to be performed using one or more specific manufacturing resource or  parallely or consecutively.</iof-av:usageNote>
     </owl:Class>
     
 
@@ -752,7 +762,7 @@ role which is realized by //planned process where machine participates //product
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessSpecification">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ActionSpecification"/>
         <rdfs:label xml:lang="en-us">process specification</rdfs:label>
-        <iof-av:explanatoryNote xml:lang="en-us">The specification of a processing stap may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for in the input materials, product design, recipe?, various and measurements, steps to operate the machine, configurations.</iof-av:explanatoryNote>
+        <iof-av:explanatoryNote xml:lang="en-us">The specification of a processing stap may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for in the input materials, product design, recipe?, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
         <iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
         <iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some steps.</iof-av:naturalLanguageDefinition>
         <iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
