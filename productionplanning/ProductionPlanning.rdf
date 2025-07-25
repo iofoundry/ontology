@@ -708,9 +708,22 @@ As the natural language suggests, planning in warehouse will require a more deta
     <!-- https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/Operator -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/Operator">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasRole"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/OperatorRole"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
         <rdfs:label xml:lang="en">operator</rdfs:label>
+        <iof-av:firstOrderLogicDefinition>Agent(x) ∧ ∃y (OperatorRole(y) ∧ hasRole(x, y))</iof-av:firstOrderLogicDefinition>
         <iof-av:naturalLanguageDefinition xml:lang="en">person or organization which has an operator role</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;agent&apos; that &apos;has role&apos; some &apos;operator role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
@@ -729,8 +742,28 @@ As the natural language suggests, planning in warehouse will require a more deta
                                 <owl:intersectionOf rdf:parseType="Collection">
                                     <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
                                     <owl:Restriction>
-                                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
-                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+                                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasCapability"/>
+                                        <owl:someValuesFrom>
+                                            <owl:Class>
+                                                <owl:intersectionOf rdf:parseType="Collection">
+                                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/AgentialCapability"/>
+                                                    <owl:Restriction>
+                                                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/enables"/>
+                                                        <owl:someValuesFrom>
+                                                            <owl:Class>
+                                                                <owl:intersectionOf rdf:parseType="Collection">
+                                                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
+                                                                    <owl:Restriction>
+                                                                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/capabilityOf"/>
+                                                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PieceOfEquipment"/>
+                                                                    </owl:Restriction>
+                                                                </owl:intersectionOf>
+                                                            </owl:Class>
+                                                        </owl:someValuesFrom>
+                                                    </owl:Restriction>
+                                                </owl:intersectionOf>
+                                            </owl:Class>
+                                        </owl:someValuesFrom>
                                     </owl:Restriction>
                                 </owl:intersectionOf>
                             </owl:Class>
@@ -742,9 +775,11 @@ As the natural language suggests, planning in warehouse will require a more deta
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/AgentRole"/>
         <rdfs:label xml:lang="en">operator role</rdfs:label>
         <skos:example xml:lang="en">CNC Operator has an operator role of operating, mantaining, and utilizing the assigned CNC machine before, during, and after a MANUFACTURING PROCESS</skos:example>
-        <iof-av:naturalLanguageDefinition xml:lang="en">role held by a person or organization when it utilizes and maintains machinery OR/AND PIECE OF EQUIPMENT during a product production process OR MANUFACTURING PROCESS
-
-role which is realized by //planned process where machine participates //product production process where a production machine is paticipated in</iof-av:naturalLanguageDefinition>
+        <iof-av:firstOrderLogicAxiom>AgentRole(x) ∧ ∃a (Agent(a) ∧ roleOf(x, a) ∧ participatesIn(a, p) ∧ ManufacturingProcess(p)) → OperatorRole(x)</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicDefinition>AgentRole(x) → Role(x) ∧ ∃a ∃s ∃c ∃e ( Agent(a) ∧ roleOf(x,a) ∧  skill(s) ∧ hasCapability(a,s) ∧ Capability(c) ∧ PieceOfEquipment(e) ∧ capabilityOf(c,e) ∧ enables(s,c))</iof-av:firstOrderLogicDefinition>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role held by an agent when it possesses a skill that enables a capability of a piece of equipment.</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;participates in&apos; a &apos;manufacturing process&apos;, then x is an &apos;operator role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+        <iof-av:semiFormalNaturalLanguageDefinition>if x is an &apos;agent role&apos;, then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;has capability&apos; some &apos;skill&apos; s, and s &apos;enables&apos; some &apos;capability&apos; c that is the &apos;capability of&apos; some &apos;piece of equipment&apos; e.</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
@@ -1024,6 +1059,26 @@ role which is realized by //planned process where machine participates //product
             </owl:Restriction>
         </owl:intersectionOf>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessSpecification"/>
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/AgentRole"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/roleOf"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/OperatorRole"/>
     </owl:Class>
     <owl:Class>
         <owl:intersectionOf rdf:parseType="Collection">
