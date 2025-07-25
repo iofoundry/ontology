@@ -191,6 +191,19 @@ version 202401</owl:versionInfo>
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/enables -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/enables">
+        <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
+        <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
+        <rdfs:label>enables</rdfs:label>
+        <iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∃p1 ∃p2 ((realizes(p1, c1) ∧ realizes(p2, c2)) ∧ (p1 = p2 ∨ hasProperOccurrentPart(p1, p2)))</iof-av:firstOrderLogicDefinition>
+        <iof-av:naturalLanguageDefinition>capability enables another capability implies that either both are realized by the process or the process realizing the latter is a part of the process realizing the former.</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 and p2 &apos;realizes&apos; c2, and either p1 is the same as p2 or p2 is a &apos;proper occurrent part&apos; of p1</iof-av:semiFormalNaturalLanguageDefinition>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasActionSpecification -->
 
     <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/hasActionSpecification">
@@ -377,7 +390,7 @@ version 202401</owl:versionInfo>
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/AgentialCapability">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Capability"/>
-        <rdfs:label xml:lang="en">agential capability</rdfs:label>
+        <rdfs:label xml:lang="en">skill</rdfs:label>
         <iof-av:naturalLanguageDefinition xml:lang="en">A capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
@@ -705,6 +718,27 @@ As the natural language suggests, planning in warehouse will require a more deta
     <!-- https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/OperatorRole -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/OperatorRole">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/AgentRole"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/roleOf"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/AgentRole"/>
         <rdfs:label xml:lang="en">operator role</rdfs:label>
         <skos:example xml:lang="en">CNC Operator has an operator role of operating, mantaining, and utilizing the assigned CNC machine before, during, and after a MANUFACTURING PROCESS</skos:example>
@@ -782,10 +816,11 @@ role which is realized by //planned process where machine participates //product
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingEnterpriseProcess"/>
         <rdfs:label>processing step</rdfs:label>
         <skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
-        <iof-av:firstOrderLogicAxiom></iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicAxiom>LA1: ∀x (ManufacturingEnterpriseProcess(x) ∧ ∃y ((ProductInspectionProcess(y) ∨ SetupProcess(y)) ∧ hasProperOccurrentPart(x, y)) → ProcessingStep(x))</iof-av:firstOrderLogicAxiom>
         <iof-av:firstOrderLogicDefinition>ProcessingStep(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀p&apos; ((ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) → (p = p&apos;))</iof-av:firstOrderLogicDefinition>
         <iof-av:isPrimitive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</iof-av:isPrimitive>
         <iof-av:naturalLanguageDefinition>A unit subprocess of an operation which does not have any other subprocess as an occurrent part</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;manufacturing enterprise process&apos; that &apos;has proper occurrent part&apos; some &apos;product inspection process&apos; or &apos;setup process&apos;, then x is a &apos;processing step&apos;</iof-av:semiFormalNaturalLanguageAxiom>
         <iof-av:semiFormalNaturalLanguageDefinition>If x is a processing step then x is a manufacturing enterprise operation and there exists a manufacturing process p which is occurrent part of x and for all other manufacturing process p&apos; which is occurrent part of x is same as p.</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
@@ -1049,6 +1084,23 @@ role which is realized by //planned process where machine participates //product
             </owl:Restriction>
         </owl:intersectionOf>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/InspectionPlan"/>
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingEnterpriseProcess"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000118"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductInspectionProcess"/>
+                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/SetupProcess"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProcessingStep"/>
     </owl:Class>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
