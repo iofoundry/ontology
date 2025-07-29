@@ -148,6 +148,18 @@ version 202401</owl:versionInfo>
 	<owl:Class rdf:about="&iof-pps;AgentialCapability">
 		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
 		<rdfs:label xml:lang="en">skill</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;Capability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<iof-av:naturalLanguageDefinition xml:lang="en">A capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -648,10 +660,11 @@ As the natural language suggests, planning in warehouse will require a more deta
 	<owl:Class rdf:about="&iof-pps;SetupProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>setup process</rdfs:label>
-		<skos:example>applying die for one car type</skos:example>
+		<skos:example xml:lang="en-us">replacing the die for toyota camry engine hood by the die for camry trunk hood, replacing the fixture for the new part being machined, cleaning the vessel of the mixer in food production when changing the product to be mixed.</skos:example>
 		<iof-av:explanatoryNote>The work required to change a specific machine, resource, work center, or line from making the last good piece of item A to making the first good piece of item B</iof-av:explanatoryNote>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>Setup process is a planned process where  tools are attached between two manufactruing operations on the same resource  (for example machine) such that the output of the first is different from the output of the second</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale></iof-av:primitiveRationale>
+		<iof-av:primitiveRationale xml:lang="en-us">not all conditions can be specified at this point for a wide range of industrial examples</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-us">I want to say that previous and next processes have different output but te same machine</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -752,11 +765,25 @@ As the natural language suggests, planning in warehouse will require a more deta
 	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&iof-pps;resource_capability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:subClassOf rdf:resource="&iof-pps;ArtifactCapability"/>
 		<rdfs:label>resource capability</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-pps;ArtifactCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-pps;ProductionMachine"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example></skos:example>
+		<iof-av:explanatoryNote xml:lang="en-us">describes what operations resources can do. During scheduling, the requirements of each job and operation are matched against the capabilities of the available resources.</iof-av:explanatoryNote>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition></iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">refers to the ability of a particular machine, equipment, or human resource to perform specific tasks or operations efficiently and effectively, taking into account factors like capacity, skill, and availability to ensure optimal production planning</iof-av:naturalLanguageDefinition>
+		<iof-av:subjectMatterExpertExplanation xml:lang="en-us">refers to the ability of a particular machine, equipment, or human resource to perform specific tasks or operations efficiently and effectively, taking into account factors like capacity, skill, and availability to ensure optimal production planning</iof-av:subjectMatterExpertExplanation>
 	</owl:Class>
 	
 	<owl:AllDisjointClasses>
