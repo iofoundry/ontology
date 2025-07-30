@@ -160,7 +160,10 @@ version 202401</owl:versionInfo>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>making nice slides, cooking indian food, changing tools on CNC machine, NC programmer</skos:example>
+		<iof-av:firstOrderLogicDefinition>Capability(x)∧∃y(Agent(y)∧capabilityOf(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">A capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;capability&apos; is an instance of &apos;capability&apos; that is the &apos;capability of&apos; some &apos;agent&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;ArtifactCapability">
@@ -180,31 +183,9 @@ version 202401</owl:versionInfo>
 		<iof-av:naturalLanguageDefinition>Capability which is collaboration of multiple entities to achieve one goal, where each enitity has its own capability</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-pps;CuttingTool">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ProductionTool"/>
-		<rdfs:label xml:lang="en">cutting tool</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;Die">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ProductionTool"/>
-		<rdfs:label xml:lang="en">die</rdfs:label>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-pps;InspectionPlan">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
 		<rdfs:label xml:lang="en">inspection plan</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlanSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-pps;hasActionSpecification"/>
-						<owl:allValuesFrom rdf:resource="&iof-pps;ProductInspectionProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">set of instructions specifying the process of verification including appropriate resources and sequence of inspections to be referenced by the manufacturing plan
 from  inspection plan ,noun
 set of instructions specifying the process of verification including appropriate resources and sequence of inspections to be referenced by the manufacturing plan (3.3.13)
@@ -214,11 +195,24 @@ ISO/ASTM 52900:2021</iof-av:naturalLanguageDefinition>
 	<owl:Class rdf:about="&iof-pps;Machine">
 		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
 		<rdfs:label xml:lang="en">machine</rdfs:label>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;MachineCapability">
 		<rdfs:subClassOf rdf:resource="&iof-pps;ArtifactCapability"/>
 		<rdfs:label xml:lang="en">machine capability</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-pps;ArtifactCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-pps;ProductionMachine"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<iof-av:firstOrderLogicAxiom xml:lang="en">forall c (MachineCapability(c) = ArtifactCapability(c) and exists m f (MachineElement(m) and MachiningFunction(f) and inheres_in(c,m) and demarcates(c,f)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">An Artifact Capability that is borne by a Machine Element and demarcates a Machining Function.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -353,6 +347,7 @@ ISO/ASTM 52900:2021</iof-av:naturalLanguageDefinition>
 	<owl:Class rdf:about="&iof-pps;ManufacturingEnterpriseProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label xml:lang="en">manufacturing enterprise process</rdfs:label>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">business process that contains at least one manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;ManufacturingOperation">
@@ -404,11 +399,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>A specification (PlanSpecification) that prescribes one or more material handling operations—sequences of actions, resource allocations, and constraints—designed to govern the efficient, safe, and controlled movement of materials or entities within production, storage, or distribution contexts.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;has part of plan at all times&apos; some &apos;action specification&apos; that &apos;prescribes&apos; some &apos;machine transfer process&apos;, then x is a &apos;material handling plan&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;Mold">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ProductionTool"/>
-		<rdfs:label xml:lang="en">mold</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;OperationSpecification">
@@ -526,10 +516,12 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</owl:equivalentClass>
 		<skos:example xml:lang="en">test</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧ ∀y ((continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y))) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ ActionSpecification(z) → ManufacturingOperation(z) V ProcessingStep(z))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧
+∀y ((continuantPartAtAllTimes(y, x) ∧ ObjectiveSpecification(y)) → ProductionOrder(y)) ∧
+∀z ((continuantPartAtAllTimes(z, x) ∧ ActionSpecification(z)) → (OperationSpecification(z) ∨ ProcessSpecification(z)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">Plan which include steps and sequence required to produce a product or service at the required quality level and cost.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specifcation&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;process plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition>If x is &apos;process plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; which is a continuant part of x is a &apos;production order&apos;, and every &apos;action specification&apos;, which is a continuant part of x is either a &apos;manufacturing operation&apos; or &apos;processing step&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>If x is &apos;process plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; which is a continuant part of x is a &apos;production order&apos;, and every &apos;action specification&apos;, which is a continuant part of x is either a &apos;operation specification&apos; or &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;ProcessSpecification">
@@ -568,7 +560,12 @@ As the natural language suggests, planning in warehouse will require a more deta
 	<owl:Class rdf:about="&iof-pps;ProductInspectionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-pps;ManufacturingEnterpriseProcess"/>
 		<rdfs:label xml:lang="en">product inspection process</rdfs:label>
+		<skos:example xml:lang="en-us">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
+		<iof-av:explanatoryNote></iof-av:explanatoryNote>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">Product inspection is a systematic process of evaluating goods during and after production to ensure they meet specified quality standards.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>something</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">if x is product inspection process then  x is prescribed by some inspection plan y</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-pps;ProductionMachine">
@@ -576,6 +573,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en">production machine</rdfs:label>
 		<skos:example xml:lang="en">CNC (Computer Numerical Control) milling machines are widely used in manufacturing to precisely cut and shape various materials, including metal, plastic, and wood.</skos:example>
 		<skos:note xml:lang="en">To be merged with top level definition</skos:note>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en">machine which participates in manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -673,11 +671,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en">tool capability</rdfs:label>
 		<iof-av:firstOrderLogicAxiom xml:lang="en">forall c (ToolCapability(c) = ArtifactCapability(c) and exists t f (Tool(t) and ToolingFunction(f) and inheres_in(c,t) and demarcates(c,f)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">an Artifact Capability that is borne by a Production Tool and demarcates a Tool Function.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-pps;WorkHolder">
-		<rdfs:subClassOf rdf:resource="&iof-pps;ProductionTool"/>
-		<rdfs:label xml:lang="en">work holder</rdfs:label>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-pps;actionSpecificationAtAllTimes">
@@ -786,18 +779,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:subjectMatterExpertExplanation xml:lang="en-us">refers to the ability of a particular machine, equipment, or human resource to perform specific tasks or operations efficiently and effectively, taking into account factors like capacity, skill, and availability to ensure optimal production planning</iof-av:subjectMatterExpertExplanation>
 	</owl:Class>
 	
-	<owl:AllDisjointClasses>
-		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-pps;CuttingTool">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-pps;Die">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-pps;Mold">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-pps;WorkHolder">
-			</rdf:Description>
-		</owl:members>
-	</owl:AllDisjointClasses>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-pps;InspectionPlan"/>
 		<owl:intersectionOf rdf:parseType="Collection">
@@ -872,6 +853,17 @@ As the natural language suggests, planning in warehouse will require a more deta
 						</owl:intersectionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-pps;ProcessPlan"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-core;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
