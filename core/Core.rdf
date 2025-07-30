@@ -12,7 +12,6 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/Core/"
-	xmlns="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
@@ -47,9 +46,8 @@
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
+		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
-  
 	
 	<rdf:Description rdf:about="&bfo;BFO_0000029">
 		<skos:example xml:lang="en-US">location of a container, floor area in a factory building, location of a machine (relative to the coordinate of a factory floor), location on a shelf in a warehouse</skos:example>
@@ -96,138 +94,6 @@
 		<iof-av:explanatoryNote xml:lang="en-US">1. The ‘first instant of’ a ‘temporal interval’ should ‘precede’ the ‘last instant of’ that ‘temporal interval’. Therefore, the date-time asserted (i.e., ‘has date-time instant value’ of the ‘temporal instant value expression’ that ‘is value expression of at all times’ of the ‘temporal instant’) for the first instant should be before the last instant in terms their positions in the corresponding calendar and clock system. For example, the first instant and last instant of a ‘temporal interval’ are 2002-10-10T17:00:00Z and 2002-10-11T01:40:00Z. 
 2. If only one date-time is available for the interval due to lack of data or an interval being smaller than the tick time (the smallest duration by which the time progresses) then the date-time should be asserted either only for first instant or only for last instant of every interval uniformly for the entire knowledge base. For example, Barack Obama gained the role of presidency on 20 January 2009 should be modeled as the process p of type ‘gain of role’ ‘occupies temporal region’ r (a ‘temporal interval’) which ‘has last instant’ i (a ‘temporal instant’) which ‘has value expression at all times’ v (a ‘temporal instant value expression’) which ‘has data-time value’ 2009-01-20T00:00:00Z.</iof-av:explanatoryNote>
 	</rdf:Description>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Consumable">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">consumable</rdfs:label>
-		<dcterms:contributor xml:lang="en">Merck KGaA</dcterms:contributor>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/ConsumableRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the consumable role</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ConsumableRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000040">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/InputSpecification">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-														<owl:someValuesFrom>
-															<owl:Class>
-																<owl:intersectionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="&iof-core;PlanSpecification">
-																	</rdf:Description>
-																	<owl:Restriction>
-																		<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-																		<owl:someValuesFrom>
-																			<owl:Restriction>
-																				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-																				<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
-																			</owl:Restriction>
-																		</owl:someValuesFrom>
-																	</owl:Restriction>
-																</owl:intersectionOf>
-															</owl:Class>
-														</owl:someValuesFrom>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000040">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-												<owl:someValuesFrom>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-														<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
-													</owl:Restriction>
-												</owl:someValuesFrom>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&iof-core;Capability">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-														<owl:someValuesFrom>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-																<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
-															</owl:Restriction>
-														</owl:someValuesFrom>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">consumable role</rdfs:label>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/voc/afo/REC/2022/03/afo</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1.  &apos;Used up&apos; in this context means  that either a) the material entity no longer exist at the end of the process or b) the material entity has reduced or lost capability as a result of the process.
-2.  In many cases, organizations monitor the number of hours or frequency with which such consumables are used. 
-3. Consumables includes resources that are typically not specified in recipes, not included in the bill of materials, and not lot-tracked.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is planned to be, or is partially or fully consumed in a process that is part of a product production process, and that is not incorporated into the final product or any material intermediate</iof-av:naturalLanguageDefinition>
-	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ActionSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
@@ -2003,34 +1869,7 @@ Services as products as well as software products will be considered in the next
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;MaterialState">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000003"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:allValuesFrom rdf:resource="&iof-core;MaterialState"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000199"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000202">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000203">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isMaterialStateOf"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
 		<rdfs:label xml:lang="en-US">material state</rdfs:label>
 		<skos:example xml:lang="en-US">the lightswitch in the off state from 9 PM to 8 AM; the machine in fail state from 4 PM to 5 PM; perfusion bioreactor was run in steady state for two days, a truck is in a stop state because its position has been unchanged</skos:example>
 		<iof-av:adaptedFrom>Oxford Languages, term by the name ‘state’</iof-av:adaptedFrom>
@@ -2039,54 +1878,13 @@ Services as products as well as software products will be considered in the next
 2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
 
 3. The term as introduced here is not intended to be used for modeling what we might call the &quot;state of a process&quot; (e.g., equilibrium state for chemical, physical and biological processes or steady-state or discrete or continuous production processes), nor for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition). Extensions to the BFO framework as well as further work on &apos;process characteristic&apos; may be first needed to handle these use cases and such specialized state classes will be introduced in a future release.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Occurrent(x) ∧ ∃m(MaterialEntity(m) ∧ isMaterialStateOf(x,m)) ∧ ∀t(OccupiesTemporalRegion(x,t) → (TemporalInterval(t) ∨ TemporalInstant(t)))  ∧ ∀y(hasOccurrentPart(x,y) → MaterialState(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Process(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">occurrent during which the associated material entity has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize range,limits and constant values over a period of time are still lacking.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material state&apos; then x is an &apos;occurrent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material state&apos; then x is a &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">stasis</iof-av:synonym>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;MaterialStateDescription">
-		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;PhysicalLocationIdentifier">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;ProcessCharacteristicDescription">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;ValueExpression">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">material state description</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;InformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;describes"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;MaterialState"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:firstOrderLogicAxiom>LA1: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y)→ (ProcessCharacteristicDescription(y) ∨ ValueExpression(y) ∨ PhysicalLocationIdentifier(y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ PhysicalLocationIdentifier(y) ∧  MaterialState(s) ∧ describes(x,s) → ∃m ∃t ∃z(MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ (TemporalInterval(t) ∨ TemporalInstant(t)) ∧ occupiesTemporalRegion(s,t) ∧ locationOfAtSomeTime(z,m,t) ∧ designates(y,z))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ ProcessCharacteristicDescription(y) ∧ MaterialState(s) ∧ describes(x,s)→ ∃m ∃t ∃c ∃p(MaterialState(s) ∧ describes(x,s) ∧ MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ TemporalInterval(t) ∧ occupiesTemporalRegion(s,t) ∧  ProcessCharacteristic(c) ∧ Process(p) ∧ processCharacteristicOf(c,p) ∧ hasParticipantAtAllTimes(p,m) ∧ describes(y,c) ∧ occupiesTemporalRegion(p,t))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: MaterialStateDescription(x) ∧ hasContinuantPartAtSomeTime(x,y) ∧ ValueExpression(y) ∧ MaterialState(s) ∧ describes(x,s) → (∃m ∃t ∃g(MaterialEntity(m) ∧ hasMaterialState(m,s) ∧ (TemporalInterval(t) ∨ TemporalInstant(t)) ∧ occupiesTemporalRegion(s,t) ∧ SpecificallyDependentContinuant(g) ∧  isValueExpressionOfAtSomeTime(y,g,t) ∧ specificallyDependsOn(g,m))
-∨ ProcessCharacteristicDescription(y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>MaterialStateDescription(x) ↔ InformationContentEntity(x) ∧ ∃s(MaterialState(s) ∧ describes(x,s))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that characterizes a state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;MeasuredValueExpression">
@@ -2538,25 +2336,6 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">attribute of a process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive as it is highly unlikely that a a set of conditions will be created such that no circularity is introduced.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process characteristic&apos; then x is an &apos;occurrent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;ProcessCharacteristicDescription">
-		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">process characteristic description</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;InformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;describes"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;ProcessCharacteristic"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:firstOrderLogicDefinition>ProcessCharacteristicDescription(x) ↔ InformationContentEntity ∧ ∃c(ProcessCharacteristic(c)  ∧ describes(x,c))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that characterizes a process characteristic</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ProcuringBusinessProcess">
@@ -3526,14 +3305,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-core;hasMaterialState">
-		<rdfs:label xml:lang="en-US">has material state</rdfs:label>
-		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:range rdf:resource="&iof-core;MaterialState"/>
-		<owl:inverseOf rdf:resource="&iof-core;isMaterialStateOf"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">inverse property of is material state of</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
 	<owl:ObjectProperty rdf:about="&iof-core;hasMeasuredValueAtSomeTime">
 		<rdfs:subPropertyOf rdf:resource="&iof-core;hasValueExpressionAtSomeTime"/>
 		<rdfs:label xml:lang="en-US">has measured value at some time</rdfs:label>
@@ -3690,13 +3461,6 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">a dataset is an input of a machine learning execution process; growth medium is an input of a fermentation process; metal powder is an input of an additive manufacturing process;</skos:example>
 		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relates someone or something physical or digital (continuant) to a process that it is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;isMaterialStateOf">
-		<rdfs:label xml:lang="en-US">is material state of</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-core;MaterialState"/>
-		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a material state and its material entity</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;isMeasuredValueOfAtSomeTime">
@@ -4247,336 +4011,16 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/InputSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PlanSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">input specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes the entities to be used as inputs to a planned process or the attributes they must posses to serve as valid inputs</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ManufacturingCapability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-							</owl:Restriction>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing capability</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of an agent or a piece of equipment that is realizable in a manufacturing process or its part</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ManufacturingProcessInputSpecification">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/InputSpecification"/>
-		<rdfs:label xml:lang="en-US">manufacturing process input specification</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/InputSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-core;PlanSpecification">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000016">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000019">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<owl:Class>
-																<owl:unionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
-																	</rdf:Description>
-																	<rdf:Description rdf:about="&iof-core;MaterialComponent">
-																	</rdf:Description>
-																	<rdf:Description rdf:about="&iof-core;RawMaterial">
-																	</rdf:Description>
-																</owl:unionOf>
-															</owl:Class>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-core;MaterialComponent">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-core;RawMaterial">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-												<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>This specification may define specific materials or describe constraints such as composition, purity, or form that candidate materials must satisfy to qualify as inputs to a given manufacturing process.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">input specification that prescribes the raw materials, material components, or material intermediates to be used as inputs in a manufacturing process, or the attributes those inputs must possess to be considered acceptable</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ManufacturingProcessOutputSpecification">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/OutputObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-US">manufacturing process output specification</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/OutputObjectiveSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-core;PlanSpecification">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000016">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000019">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<owl:Class>
-																<owl:unionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
-																	</rdf:Description>
-																	<rdf:Description rdf:about="&iof-core;MaterialProduct">
-																	</rdf:Description>
-																</owl:unionOf>
-															</owl:Class>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-core;MaterialProduct">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-												<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>This specification may identify particular material products or intermediates, or define criteria such as composition, performance, purity, or physical characteristics that the outputs must meet to satisfy process requirements or quality standards</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">output specification that prescribes the material intermediates or material products that are specified outputs of a manufacturing process, or the attributes the specified outputs must possess to be considered acceptable</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/OutputObjectiveSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;ObjectiveSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PlanSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">output objective specification</rdfs:label>
-		<iof-av:explanatoryNote>As a subclass of objective specification, the output specification defines the intended results of a planned process and axiomatically requires the presence of at least one specified output. This excludes waste and unintended products (e.g., byproducts or impurities generated during synthesis) that are not part of the process objective.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">objective specification that prescribes the entities to be produced or modified in  a planned process or the attributes they must posses to serve as valid outputs</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterial">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">process intermediate material</rdfs:label>
-		<dcterms:contributor>Merck KGaA</dcterms:contributor>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterialRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the process intermediate material role</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/ProcessIntermediateMaterialRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000040">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000040">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-										<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/ManufacturingProcessInputSpecification"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasInput"/>
-								<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">process intermediate material role</rdfs:label>
-		<dcterms:contributor xml:lang="en">Merck KGaA</dcterms:contributor>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is an output of a manufacturing process and is input of a subsequent manufacturing process or planned to be an input of a subsequent manufacturing process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-core;MaterialArtifact">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-core;Organization">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
@@ -4775,141 +4219,4 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/ManufacturingCapability"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-core;Capability">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-							</owl:Restriction>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/InputSpecification"/>
-		<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-		<owl:someValuesFrom>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;InformationContentEntity">
-					</rdf:Description>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000002">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000020">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000002">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-														<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;PlanSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:someValuesFrom>
-	</owl:Restriction>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/OutputObjectiveSpecification"/>
-		<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-		<owl:someValuesFrom>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;ObjectiveSpecification">
-					</rdf:Description>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000002">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000020">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000002">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
-														<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;PlanSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:someValuesFrom>
-	</owl:Restriction>
 </rdf:RDF>
