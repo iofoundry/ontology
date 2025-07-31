@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
-	<!ENTITY bmic-physical "https://spec.industrialontologies.org/ontology/physical/">
+	<!ENTITY bmic-physical "https://spec.industrialontologies.org/ontology/biopharma/Physical/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
@@ -15,14 +16,14 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/physical/"
-	xmlns="https://spec.industrialontologies.org/ontology/physical/"
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Physical/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
-	xmlns:bmic-physical="https://spec.industrialontologies.org/ontology/physical/"
+	xmlns:bmic-physical="https://spec.industrialontologies.org/ontology/biopharma/Physical/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
@@ -32,7 +33,7 @@
 	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
-	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/physical/">
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/Physical/">
 		<rdfs:label xml:lang="en-US">Physical Model Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations to represent the physical spaces where processing and storage occurs.  Spaces are specific and bounded geographic locations which can be heirarchical and embedded.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
@@ -44,31 +45,38 @@
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/physical/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/Physical/"/>
+		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&bmic-physical;ControlModule">
+	<owl:Class rdf:about="&iof-construct;ControlModule">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:label>control module</rdfs:label>
+		<rdfs:label xml:lang="en-US">control module</rdfs:label>
 		<skos:example>a control valve module that manages the operation of a single control valve, including opening, closing, and positioning the valve based on a given setpoint or control signal; a motor starter module, which is responsible for starting, stopping, and monitoring the status of the motor of a pump or an agitator, and includes the logic for interlocks, overload protection, and feedback signals; a level control module that monitors the level inside a tank and provides an alarm or initiates control actions when a certain level is reached</skos:example>
-		<iof-av:explanatoryNote>A control module can consider a human as its member. For example, a human operator can open and close valves.</iof-av:explanatoryNote>
+		<iof-av:adaptedFrom>ISA88</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A control module can consider a person as its member. For example, a human operator can open and close valves.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ControlModule(x) → ObjectAggregate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a lowest level grouping that can carry out basic control</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are currently insufficient constructs to adequately model carrying out basic control.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control module&apos; then x is an &apos;object aggregate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;Enterprise">
+	<owl:Class rdf:about="&iof-construct;Enterprise">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
 		<rdfs:label xml:lang="en-US">enterprise</rdfs:label>
 		<skos:example>oil and gas company that explores, extracts, refines, and distributes petroleum products; aerospace alliance that produces aircraft components, assembles them into final products and provides services to these aircrafts; multinational automotive manufacturer; pharmaceutical company that develops, manufactures, and supplies prescription medicines, vaccines, and animal health products</skos:example>
-		<iof-av:adaptedFrom>https://docs.servicenow.com/bundle/rome-manufacturing/page/product/mftg-manufacturing-process-mgr/concept/continuous process control-equipment-model.html</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>ISA-95 and ISA-88 business organization that coordinates the operation of one or more physical sites or areas
-
-one or more organizations sharing missions and objectives to offer a product and or service</iof-av:explanatoryNote>
+		<iof-av:adaptedFrom>ISA95 and ISA88</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>ISA-95 and ISA-88 business organization that coordinates the operation of one or more physical sites or areas</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>Enterprise(x) → BusinessOrganization(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business organization that is at the highest decision-making and control to achieve the common mission, goals, and objectives of manufacturing or providing products or services by coordinating one or more physical sites</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to fully define enterprise at this moment.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;enterprise&apos; then x is a &apos;business organization&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;EquipmentModule">
+	<owl:Class rdf:about="&iof-construct;EquipmentModule">
 		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -76,14 +84,21 @@ one or more organizations sharing missions and objectives to offer a product and
 				<owl:someValuesFrom rdf:resource="&iof-core;PieceOfEquipment"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>equipment module</rdfs:label>
+		<rdfs:label xml:lang="en-US">equipment module</rdfs:label>
 		<skos:example>a heating or cooling system of a reactor or bioreactor that includes the reactor’s jacket, temperature sensors, control valves, and the control logic needed to regulate the heating or cooling process; an agitator system in a mixing tank, which consists of the agitator, its motor, the speed controller, associated sensors, and the control logic that manages starting, stopping, and speed adjustment; a liquids dosing system of a mixer, blender, or reactor that includes pumps, flowmeters, valves, and control logic to ensure accurate dosing; a solids dosing system of a mixer, blender, or reactor that includes feeders, a weigh tank, valves, and control logic to ensure accurate dosing; a CIP (Clean-In-Place) skid that automates the cleaning of equipment and piping in a process cell, including tanks for fluids, pumps, valves, sensors, and control logic to sequence cleaning steps; and a venting system of a reactor or vessel that includes pressure sensors, vent valves, and the logic to safely evacuate the unit as needed</skos:example>
 		<iof-av:adaptedFrom>ISA88 Part 1</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>ISA88: functional group of equipment that can carry out a number of specific minor processing activities</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: EquipmentModule(x) → EngineeredSystem(x) ∧ ∃y(PieceOfEquipment(y) ∧ hasMemberPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: EngineeredSystem(x) ∧ ∃a (isCarrierOfAtSomeTime(x, a) ∧ RecipePhase(a)) ∧ ∃b (memberPartOfAtSomeTime(x, b) ∧ PhysicalUnit(b)) ∧ ∃c (hasMemberPartAtAllTimes(x, c) ∧ PieceOfEquipment(c)) → EquipmentModule(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">enginereed system typically centered around a piece of equipment that carries out some phase</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive, as identifying a set of necessary conditions that consistently hold and align with the given sufficient condition is challenging.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is an &apos;equipment module&apos; then x is an &apos;engineered system&apos; that &apos;has member part at all times&apos; some &apos;piece of equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is an &apos;engineered system&apos; that &apos;is carrier of at some time&apos; some &apos;recipe phase&apos;, &apos;is member part of at some time&apos; some &apos;physical unit&apos;, and &apos;has member part at all times&apos; some &apos;piece of equipment&apos;, then x is an &apos;equipment module&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:usageNote>The OWL formalization of LA2 relies on classes defined within the recipe module. Accordingly, the sufficient condition for LA2 is implemented in OWL as part of the recipe module, rather than within the physical module.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;PhysicalArea">
+	<owl:Class rdf:about="&iof-construct;PhysicalArea">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -91,9 +106,9 @@ one or more organizations sharing missions and objectives to offer a product and
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bmic-physical;WorkCenter">
+							<rdf:Description rdf:about="&iof-construct;WorkCenter">
 							</rdf:Description>
-							<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+							<rdf:Description rdf:about="&iof-construct;WorkUnit">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -103,7 +118,7 @@ one or more organizations sharing missions and objectives to offer a product and
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
-				<owl:someValuesFrom rdf:resource="&bmic-physical;PhysicalSite"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PhysicalSite"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">physical area</rdfs:label>
@@ -111,10 +126,14 @@ one or more organizations sharing missions and objectives to offer a product and
 		<iof-av:adaptedFrom>ISA95 and ISA88 Part 1</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The boundaries (scope) of the site is typically determined by business/organizational criteria and not technical criteria
 Within the manufacturing domain, area typically serves as a way to organize manufacturing operations (ISA95 operation) within a site</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PhysicalArea(x) → ObjectAggregate(x) ∧ ∀y(hasMemberPartAtSomeTime(x,y) → (WorkCenter(y) ∨ WorkUnit(y))) ∧ ∃z(PhysicalSite(z) ∧ memberPartOfAtAllTimes(x,z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a physical, geographical, or logical grouping of one or more work centers or work units within a physical site</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as the exact grouping criteria are ogranization specific</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;physical area&apos;, then x is an &apos;object aggregate&apos;, every entity that x &apos;has member part at some time&apos; is a &apos;work center&apos; or &apos;work unit&apos;, and x is &apos;member part of at all times&apos; some &apos;physical site&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;PhysicalSite">
+	<owl:Class rdf:about="&iof-construct;PhysicalSite">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -122,11 +141,11 @@ Within the manufacturing domain, area typically serves as a way to organize manu
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bmic-physical;PhysicalArea">
+							<rdf:Description rdf:about="&iof-construct;PhysicalArea">
 							</rdf:Description>
-							<rdf:Description rdf:about="&bmic-physical;WorkCenter">
+							<rdf:Description rdf:about="&iof-construct;WorkCenter">
 							</rdf:Description>
-							<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+							<rdf:Description rdf:about="&iof-construct;WorkUnit">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -143,7 +162,7 @@ Within the manufacturing domain, area typically serves as a way to organize manu
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000084"/>
-								<owl:someValuesFrom rdf:resource="&bmic-physical;Enterprise"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Enterprise"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -156,17 +175,21 @@ Within the manufacturing domain, area typically serves as a way to organize manu
 		<iof-av:explanatoryNote>A geographical location and the main manufacturing capability typically define a physical site
 A site usually has a manufacturing capability associated to a particular family of products
 The boundaries (scope) of the site is typically determined by business/organizational criteria and not technical criteria</iof-av:explanatoryNote>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a physical, geographical, or logical grouping of physical areas, work centers or work units determined by the enterprise</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as the exact grouping criteria are ogranization specific</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>PhysicalSite(x) → ObjectAggregate(x) ∧ ∀y(hasMemberPartAtSomeTime(x, y) → (PhysicalArea(y) ∨ WorkCenter(y) ∨ WorkUnit(y))) ∧ ∃i,e(InformationContentEntity(i) ∧ prescribedBy(x, i) ∧ Enterprise(e) ∧ genericallyDependsOnAtSomeTime(i, e))</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;physical site&apos; then x is an &apos;object aggregate&apos; that &apos;has member part at some time&apos; only a &apos;physical area&apos;, &apos;work center&apos;, or &apos;work unit&apos;, and is &apos;prescribed by&apos; some &apos;information content entity&apos; that &apos;generically depends on at some time&apos; some &apos;enterprise&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;PhysicalUnit">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+	<owl:Class rdf:about="&iof-construct;PhysicalUnit">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkUnit"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
 				<owl:allValuesFrom>
 					<owl:Class>
-						<owl:complementOf rdf:resource="&bmic-physical;PhysicalUnit"/>
+						<owl:complementOf rdf:resource="&iof-construct;PhysicalUnit"/>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
@@ -176,51 +199,72 @@ The boundaries (scope) of the site is typically determined by business/organizat
 		<iof-av:adaptedFrom>ISA 88 Part 1</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>ISA-88: collection of associated equipment modules and/or control modules that can carry out one or more  major processing activities
 In rare cases, a unit can carry out an entire procedure. Since a procedure is associated with process cell, this should be modeled as a process cell having a single unit as its member part and then carrying a procedure.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1:PhysicalUnit(x) → WorkUnit(x) ∧ ¬∃y(PhysicalUnit(y) ∧ hasMemberPartAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: WorkUnit(x) ∧ ∃y (isCarrierOfAtSomeTime(x, y) ∧ (RecipeProcedure(y) ∨ RecipeUnitProcedure(y))) → PhysicalUnit(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that carries out an operation or unit procedure</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive, as identifying a set of necessary conditions that consistently hold and align with the given sufficient condition is challenging.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;physical unit&apos;, then x is a &apos;work unit&apos; and x does not have as a &apos;member part at some time&apos; any other &apos;physical unit&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;work unit&apos; that &apos;is carrier of at some time&apos; some &apos;recipe procedure&apos; or &apos;recipe unit procedure&apos;, then x is a &apos;physical unit&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;ProcessCell">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+	<owl:Class rdf:about="&iof-construct;ProcessCell">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkCenter"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-				<owl:someValuesFrom rdf:resource="&bmic-physical;PhysicalUnit"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PhysicalUnit"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">process cell</rdfs:label>
 		<skos:example>equipment involved in the production of chocolate paste, including mixers, calendaring and conching equipment, as well as dosing and weighing systems and control equipment; a polyvinyl chloride (PVC) batch production process cell containing several batch reactors, venting and steam stripping units, and spray dryers; a medicine pills production cell including blending units with feeders, granulation units, drying units, grinders, tableting presses, and coaters</skos:example>
 		<iof-av:adaptedFrom>ISA 88 part 1</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>ISA88: logical grouping of equipment that includes the equipment required for production of one or more batches</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1:ProcessCell(x) → WorkCenter(x) ∧ ∃y(PhysicalUnit(y) ∧ hasMemberPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: WorkCenter(x) ∧ ∃y (isCarrierOfAtSomeTime(x, y) ∧ ControlRecipe(y)) → ProcessCell(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center that is required for carrying out some control recipe</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive, as identifying a set of necessary conditions that consistently hold and align with the given sufficient condition is challenging.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1:if x is a &apos;process cell&apos; then x is a &apos;work center&apos; that &apos;has member part at all times&apos; some &apos;physical unit&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;work center&apos; that &apos;is carrier of at some time&apos; some &apos;control recipe&apos;, then x is a &apos;process cell&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:usageNote>The OWL formalization of LA2 relies on classes defined within the recipe module. Accordingly, the sufficient condition for LA2 is implemented in OWL as part of the recipe module, rather than within the physical module.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;ProductionLine">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+	<owl:Class rdf:about="&iof-construct;ProductionLine">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">production line</rdfs:label>
 		<skos:example>an automotive assembly line having a series of workstations or work cells where car bodies move along a conveyor, and at each station, specific components—such as engines, doors, or seats—are installed by workers and/or robots; a smartphone model production line that includes stations or work cells for mounting circuit boards, installing screens, assembling casings, and performing quality checks; a washing machine production line where the chassis is assembled, components like motors, drums, pipes, and electronic circuits are installed, and the final product is tested and packaged; a candy production line composed of an oven or cooker, forming machines, a cooling tunnel, wrapping machines, and packaging machines</skos:example>
 		<iof-av:adaptedFrom>ISA 95 and oxford dictionary</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ProductionLine(x) → WorkCenter(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center dedicated to the manufacture of a specific product or product family in which the member work units are organized in a sequential manner</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient construct to represent the sequential organization of the members that are parts of the production line</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production line&apos; then x is a &apos;work center&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;ProductionUnit">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+	<owl:Class rdf:about="&iof-construct;ProductionUnit">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">production unit</rdfs:label>
 		<skos:example>a hydrochloric acid production unit, consisting of a combustion chamber where hydrogen and chlorine react, a cooling system to condense the HCl gas, and an absorption tower where the gas is dissolved in water to form hydrochloric acid; a styrene production unit via catalytic dehydrogenation of ethylbenzene, which includes preheating units, a catalytic reactor, and a separation train comprising a liquid-vapor separator and two distillation towers; a toluene hydrodealkylation production unit that converts toluene into benzene and methane by reacting it with hydrogen in the presence of a catalyst at high temperatures, comprising a furnace, chemical reactor, flash unit, separation columns, compressor, and multiple heat exchangers</skos:example>
 		<iof-av:adaptedFrom>ISA 95 and https://www.sciencedirect.com/topics/computer-science/production-unit</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ProductionUnit(x) → WorkCenter(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center within a broader production system that has specific tasks allocated to it</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to represent task allocation at this point.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production unit&apos; then x is a &apos;work center&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;StorageUnit">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+	<owl:Class rdf:about="&iof-construct;StorageUnit">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkUnit"/>
 		<rdfs:label xml:lang="en-US">storage unit</rdfs:label>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bmic-physical;WorkUnit">
+					<rdf:Description rdf:about="&iof-construct;WorkUnit">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
-						<owl:someValuesFrom rdf:resource="&bmic-physical;StorageZone"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;StorageZone"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -229,39 +273,46 @@ In rare cases, a unit can carry out an entire procedure. Since a procedure is as
 		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>ISA 95: work unit that is part of a storage zone that is designated physical space and/or equipment 
 Work unit that is a subdivision of a storage zone</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>StorageUnit(x) ↔ WorkUnit(x) ∧ ∃y(StorageZone(y) ∧ memberPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that is a member part of a storage zone</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of a &apos;storage unit&apos; is defined as exactly an instance of &apos;work unit&apos; that is the &apos;member part of at all times&apos; some &apos;storage zone&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;StorageZone">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkCenter"/>
+	<owl:Class rdf:about="&iof-construct;StorageZone">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkCenter"/>
 		<rdfs:label xml:lang="en-US">storage zone</rdfs:label>
 		<skos:example>a tank farm dedicated to gasoline storage; a silo farm devoted to the storage of different grains; a warehouse or depot intended for the storage of a family of products; a holding area in an open space intended for the storage of bulk products, such as iron ore, coal, or logs</skos:example>
 		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The capability of the storage zone may include the movement of materials from one work center to another work center within or between enterprises.
-
 The ISA-95 specifies that storage zone can either be a designated physical space or equipment for storage of equipment or material. Within the IOF/BFO framework a physical space would be fiat object part, while the equipment is represented by the same IOF Concept - piece of equipment.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>StorageZone(x) → WorkCenter(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work center dedicated to the storage of materials or equipment</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>A clear modeling pattern is needed to define the specific meaning of the term &apos;dedicated to&apos;. Its formalization will likely require leveraging the concept of &apos;storage process&apos; from the Supply Chain Ontology.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;storage zone&apos; then x is a &apos;work center&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;WorkCell">
-		<rdfs:subClassOf rdf:resource="&bmic-physical;WorkUnit"/>
+	<owl:Class rdf:about="&iof-construct;WorkCell">
+		<rdfs:subClassOf rdf:resource="&iof-construct;WorkUnit"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000129"/>
-				<owl:someValuesFrom rdf:resource="&bmic-physical;ProductionLine"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ProductionLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">work cell</rdfs:label>
-		<skos:editorialNote>To check what the appropriate terms for discrete intermediaries are - we used manufacturing parts here but any alteratnive would be appreciated</skos:editorialNote>
 		<skos:example>an automotive assembly line with a series of workstations or work cells where car bodies move along a conveyor, and at each station, specific components—such as engines, doors, or seats—are installed by workers and/or robots; a smartphone production line that includes stations or work cells for mounting circuit boards, installing screens, assembling casings, and performing quality checks; a washing machine production line where the chassis is assembled, components such as motors, drums, pipes, and electronic circuits are installed, and the final product is tested and packaged; a candy production line composed of an oven or cooker, forming machines, a cooling tunnel, wrapping machines, and packaging machines</skos:example>
 		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>ISA95: work unit within a production line that consists of equipment grouped together to produce a family of parts having similar manufacturing requirements.
-
-While production lines can be used in discrete or continous manufacturing - work cells are only considered as parts of production lines that are used for discrete manufacturing</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1) ISA95: work unit within a production line that consists of equipment grouped together to produce a family of parts having similar manufacturing requirements.
+2) While production lines can be used in discrete or continous manufacturing - work cells are only considered as parts of production lines that are used for discrete manufacturing</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>WorkCell(x) → WorkUnit(x) ∧ ∃y(ProductionLine(y) ∧ memberPartOfAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">work unit that is a member part of a production line and is used to manufacture some material parts that share manufacturing requirements</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to provide a set of necessary and sufficient conditions. Specifically the construct &apos;manufacturing requirement&apos; is missing.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;work cell&apos; then x is a &apos;work unit&apos; and x is a &apos;member part of at some time&apos; some &apos;production line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;WorkCenter">
+	<owl:Class rdf:about="&iof-construct;WorkCenter">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -305,15 +356,18 @@ While production lines can be used in discrete or continous manufacturing - work
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">work center</rdfs:label>
-		<owl:disjointWith rdf:resource="&bmic-physical;WorkUnit"/>
+		<skos:example>process cell; production line; production unit; storage zone</skos:example>
 		<iof-av:adaptedFrom>ISA95</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1. A work center&apos;s capabilities are determined by one or more of its constituent members, which is formally represented using the &apos;has material basis&apos; axiom.
-
 2. Work centers are typically  within (member parts of)  a  physical area or physical site, reflecting their spatial and organizational context.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>WorkCenter(x) → ObjectAggregate(x) ∧ ∃y((Agent(y) ∨ PieceOfEquipment(y)) ∧ hasMemberPartAtSomeTime(x,y) ∧ ∃c(Capability(c) ∧ hasCapability(x,c) ∧ hasMaterialBasisAtSomeTime(c,y)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that has piece of equipment or agent as its member parts</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as it will be challenging to specify the exact grouping criteria that would unambigously differentiate the work center from any other grouping of agents or equipment</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;work center&apos;, then x is an &apos;object aggregate&apos; that &apos;has member part at some time some&apos; y, where y is either an &apos;agent&apos; or a &apos;piece of equipment&apos;, and x &apos;has capability&apos; some &apos;capability&apos; that &apos;has material basis at some time&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-physical;WorkUnit">
+	<owl:Class rdf:about="&iof-construct;WorkUnit">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
 		<rdfs:label xml:lang="en-US">work unit</rdfs:label>
 		<owl:equivalentClass>
@@ -323,14 +377,31 @@ While production lines can be used in discrete or continous manufacturing - work
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
-						<owl:someValuesFrom rdf:resource="&bmic-physical;WorkCenter"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;WorkCenter"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>physical unit; storage unit; work cell</skos:example>
 		<iof-av:adaptedFrom>ISA 95</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>ISA 95: any element in the equipment hierarchy under the work center</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>WorkUnit(x) ↔ ObjectAggregate(x) ∧ ∃y(WorkCenter(y) ∧ memberPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a member of a work center</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of a &apos;work unit&apos; is defined as exactly an instance of &apos;object aggregate&apos; that is the &apos;member part of at all times&apos; some &apos;work center&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
-
+	
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;Enterprise">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;PhysicalArea">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;PhysicalSite">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;WorkCenter">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;WorkUnit">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
 </rdf:RDF>

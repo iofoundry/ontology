@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
-	<!ENTITY bmic-agent "https://spec.industrialontologies.org/ontology/agent/">
+	<!ENTITY bmic-agent "https://spec.industrialontologies.org/ontology/biopharma/Agent/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
@@ -15,14 +16,14 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/agent/"
-	xmlns="https://spec.industrialontologies.org/ontology/agent/"
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Agent/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
-	xmlns:bmic-agent="https://spec.industrialontologies.org/ontology/agent/"
+	xmlns:bmic-agent="https://spec.industrialontologies.org/ontology/biopharma/Agent/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
@@ -32,7 +33,7 @@
 	xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
-	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/agent/">
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/Agent/">
 		<rdfs:label xml:lang="en-US">Agent Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations necessary for representing  various types of agents (actors) in biopharmaceutical manufacturing. The actors here correspond to both human actors as well as engineered systems and organizations.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
@@ -44,12 +45,12 @@
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/agent/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/Agent/"/>
+		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&bmic-agent;AgentIdentification">
+	<owl:Class rdf:about="&iof-construct;AgentIdentification">
 		<rdfs:subClassOf rdf:resource="&iof-core;Identifier"/>
 		<rdfs:label xml:lang="en-US">agent identification</rdfs:label>
 		<owl:equivalentClass>
@@ -64,10 +65,14 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:altLabel>agent identifier</skos:altLabel>
+		<skos:example>Contractor ID code used to reference a quality audit team in batch release documentation; Employee ID badge number assigned to a technician responsible for operating a bioreactor</skos:example>
+		<iof-av:firstOrderLogicDefinition>AgentIdentification(x) ↔ Identifier(x) ∧ ∃y(Agent(y) ∧ designates(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier for a person, group of persons, or engineered system with an agent role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;agent identification&apos; is defined as exactly an instance of &apos;identifier&apos; that &apos;designates&apos; some &apos;agent&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-agent;ManufacturingOperator">
+	<owl:Class rdf:about="&iof-construct;ManufacturingOperator">
 		<rdfs:subClassOf rdf:resource="&iof-core;Agent"/>
 		<rdfs:label xml:lang="en-US">manufacturing operator</rdfs:label>
 		<owl:equivalentClass>
@@ -83,15 +88,19 @@
 					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&bmic-agent;ManufacturingOperatorRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingOperatorRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>trained person that uses thawing equipment to initiate the thawing of a vial retrieved from liquid nitrogen storage; a skid-mounted dosing unit with integrated sensors and actuators that controls a solid feeder to dispense a specified amount of Benzoyl Peroxide into a polymerization reactor as part of a PVC resin production process; a person who is planned to operate a centrifuge during a cell harvest step in a biomanufacturing process</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ManufacturingOperator(x) ↔ (Person(x) ∨ EngineeredSystem(x)) ∧ ∃r(ManufacturingOperatorRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">person, or engineered system with an operator role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufacturing operator&apos; is defined as exactly an instance of &apos;person&apos; or &apos;engineered system&apos; that &apos;has role&apos; some &apos;manufacturing operator role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-agent;ManufacturingOperatorRole">
+	<owl:Class rdf:about="&iof-construct;ManufacturingOperatorRole">
 		<rdfs:subClassOf rdf:resource="&iof-core;AgentRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -118,7 +127,16 @@
 							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;Person">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -141,10 +159,15 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">manufacturing operator role</rdfs:label>
+		<skos:example>role of a trained person that  uses thawing equipment to initiate the thawing of a vial retrieved from liquid nitrogen storage; role held by a skid-mounted dosing unit with integrated sensors and actuators when it controls a solid feeder to dispense a specified amount of Benzoyl Peroxide into a polymerization reactor as part of a PVC resin production process;  role held by a person who is planned to operate a centrifuge during a cell harvest step</skos:example>
+		<iof-av:firstOrderLogicAxiom>ManufacturingOperatorRole(x) → AgentRole(x) ∧ ∃y((EngineeredSystem(y) ∨ Person(y)) ∧ roleOf(x, y) ∧ ∀z(hasRealization(x, z) → (ManufacturingProcess(z) ∧ ∃c∃e(Capability(c) ∧ PieceOfEquipment(e) ∧ capabilityOf(c, e) ∧ realizes(z, c)) ∧ hasParticipantAtSomeTime(z, y))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent role held by a person or engineered system when it uses, controls, or is planned to use or control one or more pieces of equipment to carry out some manufacturing process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions. Namely, patterns for useing or controlling the equipment need to be developed further.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;manufacturing operator role&apos;, then x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;engineered system&apos; or &apos;person&apos; y, and whenever x is &apos;realized by&apos; some z, then z must be a &apos;manufacturing process&apos; that &apos;realizes&apos; a &apos;capability&apos; which is a &apos;capability of&apos; some &apos;piece of equipment&apos;, and z must &apos;have as participant at some time&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-agent;Validator">
+	<owl:Class rdf:about="&iof-construct;Validator">
 		<rdfs:subClassOf rdf:resource="&iof-core;Agent"/>
 		<rdfs:label xml:lang="en-US">validator</rdfs:label>
 		<owl:equivalentClass>
@@ -162,15 +185,19 @@
 					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&bmic-agent;ValidatorRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ValidatorRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>Head of the Process and Product Control Laboratory who signs the gas chromatography analysis of a PVC lot, confirming its conformance to specification criteria; Quality Assurance Department that issues in-process control reports for production batches based on automated test results and predefined acceptance criteria, without requiring individual sign-off</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Validator(x) ↔ (Person(x) ∨ Organization(x) ∨ EngineeredSystem(x)) ∧ ∃r(ValidatorRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">person, organization, or engineered system with an validator role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>Every instance of &apos;validator&apos; is defined as exactly an instance of &apos;person&apos;, &apos;organization&apos;, or &apos;engineered system&apos; that &apos;has role&apos; some &apos;validator role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&bmic-agent;ValidatorRole">
+	<owl:Class rdf:about="&iof-construct;ValidatorRole">
 		<rdfs:subClassOf rdf:resource="&iof-core;AgentRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -190,7 +217,12 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">validator role</rdfs:label>
+		<skos:example>role held by the Head of the Process and Product Control Laboratory when they sign the gas chromatography analysis of a PVC lot, confirming its conformance to specification criteria; role held by a Quality Assurance Department when it issues in-process control reports for production batches based on automated test results and predefined acceptance criteria, without requiring individual sign-off</skos:example>
+		<iof-av:firstOrderLogicAxiom>ValidatorRole(x) → AgentRole(x) ∧ ∃y((EngineeredSystem(y) ∨ Organization(y) ∨ Person(y)) ∧ roleOf(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent role held by a person, organization, or engineered system when it assesses the conformance or acceptability of an information artifact, material entity, or planned process against specified criteria</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, a full set of constructs for representing assesing the conformance or accebtability of all the entities in the definition are lacking.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;validator role&apos;, then x is an &apos;agent role&apos; that is the &apos;role of&apos; an &apos;engineered system&apos;, &apos;organization&apos;, or &apos;person&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 
 </rdf:RDF>
