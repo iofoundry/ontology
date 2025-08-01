@@ -313,6 +313,7 @@
 		<rdfs:label xml:lang="en-US">cell culture expansion process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Shake flask expansion of CHO cells with controlled feeding and monitoring; seed train expansion of hematopoietic stem cells under GMP conditions; fed-batch bioreactor expansion of hybridoma cells with automated pH and DO control; scale-up culture of mammalian cells in wave bioreactors with defined agitation parameters; T cell expansion in gas-permeable bags with scheduled media additions</skos:example>
+		<iof-av:explanatoryNote>Implicit in cell culture expansion is the assumption that cells in culture remain healthy and proliferative. This assumption is typically evaluated by monitoring cell viability, which serves as a key indicator of culture fitness.</iof-av:explanatoryNote>
 		<iof-av:adaptedFrom>OBI:0001147</iof-av:adaptedFrom>
 		<iof-av:counterExample>proliferation of cells caused by a contamination</iof-av:counterExample>
 		<iof-av:firstOrderLogicAxiom>if x is a &apos;cell culture expansion process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;cell culture&apos; and &apos;has occurrent part&apos; some &apos;cell population proliferation&apos;</iof-av:firstOrderLogicAxiom>
@@ -385,12 +386,11 @@
 		<skos:altLabel>establishing cell line</skos:altLabel>
 		<skos:example>Cell line development that starts with transfecting a CHO population with a vector containing the genetic sequence for the cNIST mAb and ends with banking the cell line stemming from a clone that had the highest mAb productivity</skos:example>
 		<iof-av:adaptedFrom>https://www.sartorius.com/en/applications/biopharmaceutical-manufacturing/cell-line-development/what-is-cell-line-development and from OBI:establishing cell lines</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Cell line development involves as part one or more clonal selection processes which is captured in the axiom
+		<iof-av:explanatoryNote>1) Cell line development involves one or more clonal selection processes to isolate and expand a genetically stable monoclonal population with desirable traits. 
 2) Cell line development process ends with the banking of the particular cell line
 3) Cell line development is one of the first steps in the process of developing a biopharmaceutical product. This step is time consuming and resource-intense.
-4) The cell line is often a mammalian cell line
-5) Engineering in this context means that the cell line is created, either through passaging of a primary cell culture to relative genetic stability and compositional homogeneity, or through some experimental modification of an existing cell line to produce a new line with novel characteristics (e.g. immortalization or some other stable genetic modification).
-6) Regulatory standards in biologics require proof of monoclonality for a production cell line. This implies that it originates from a single progenitor cell, regardless of whether one calls it a clone or a line. In practice, a clone is the starting point for development: once selected and scaled, it becomes a permanent cell line with specific attributes used for product manufacture.</iof-av:explanatoryNote>
+4) Engineering in this context means that the cell line is created, either through passaging of a primary cell culture to relative genetic stability and compositional homogeneity, or through some experimental modification of an existing cell line to produce a new line with novel characteristics (e.g. immortalization or some other stable genetic modification).
+5) Regulatory standards in biologics require proof of monoclonality for a production cell line. This implies that it originates from a single progenitor cell, regardless of whether one calls it a clone or a line. In practice, a clone is the starting point for development: once selected and scaled, it becomes a permanent cell line with specific attributes used for product manufacture.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → ManufacturingProcess(x) ∧ ∃g ∃c (GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ ∃r (RecipeProcess(r) ∧ prescribes(r, x)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which a cell line is engineered to produce a therapeutic biomolecule or biologic</iof-av:naturalLanguageDefinition>
@@ -500,7 +500,7 @@
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>using microscope images from clone experiments as input to a predictive model to prioritize clones, followed by selecting candidates with optimal morphology and expression levels; selecting clones based on functional assays confirming high target protein activity and long-term culture stability; manually screening clones under a microscope and selecting those with optimal morphology and growth behavior</skos:example>
-		<iof-av:explanatoryNote>Desriable characeristics can be things such as high protein expression levels, consistent product quality, and robust growth</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Desirable characteristics can be things such as high protein expression levels, consistent product quality, and robust growth</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CloneSelectionProcess(x) → PlannedProcess(x) ∧ ∃y (ClonedCellLine(y) ∧ hasSpecifiedOutput(x, y)) ∧ ∃z (RecipeProcessStage(z) ∧ prescribes(z, x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned processs in which an optimal set of cell clones is identified and isolated based on the clones exibiting desirable characteristics</iof-av:naturalLanguageDefinition>
@@ -535,6 +535,7 @@
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Assessing the stability of a CHO cell clone by monitoring titer and cell growth during a 14-day fed-batch culture in a 5 L bioreactor; : Evaluating the genetic, phenotypic, and productivity stability of CHO-K1 clone 3B7 producing anti-TNFα antibody over 70 days of continuous culture (equivalent to ~140 generations).</skos:example>
+		<iof-av:explanatoryNote> The results of such a study are often process dependent. Best practice would be to consider the results applicable only for the process that is used to obtain the data. </iof-av:explanatoryNote>		
 		<iof-av:firstOrderLogicAxiom>CloneStabilityStudy(x) → PlannedProcess(x) ∧ ∃y (ClonedCellLine(y) ∧ hasInput(x, y)) ∧ ∃z ((MeasurementProcess(z) ∨ MonitoringProcess(z)) ∧ hasOccurrentPart(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process composed of one or more measurement or monitoring processes, designed to evaluate whether a selected cell clone maintains its key phenotypic characteristics, genotypic traits, and genetic integrity over time and across multiple generations of cell division</iof-av:naturalLanguageDefinition>
@@ -713,7 +714,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>depth filtration; TFF filtration; direct flow filtration; membrane filtration</skos:example>
 		<iof-av:explanatoryNote>1) Passing can be conducted by using gravity or by using pressure.
-2) Sccording to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal,direct, perpendicular) l filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration are modeled as defined subclasses of filtration.
+2) According to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal, direct, perpendicular) l filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration are modeled as defined subclasses of filtration.
 3) Filtration is a separation technique predominantly based on particle size, where components are retained or passed through a porous medium depending on their dimensions relative to the pore size. However, in some cases, additional characteristics such as particle shape and electrostatic charge can significantly influence retention behavior and selectivity of the filter used in the process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (Filter(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (RecipeProcessOperation(z) ∧ prescribes(z, x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -870,7 +871,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>A nanofiltration process is used to remove endotoxins while allowing most proteins to pass through; A nanofiltration process concentrates therapeutic peptides while separating out small salts and solvents; A nanofiltration process is applied after viral inactivation to clear potential viral contaminants; A nanofiltration process is used to reduce water content and impurities in antibiotic purification;</skos:example>
 		<iof-av:firstOrderLogicAxiom>NanofiltrationProcess(x) → MembraneFiltrationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter is used that has pore size in the range of  0.001 to 0.01 μm</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter that is used has pore size in the range of  0.001 to 0.01 μm</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;nanofiltration process&apos; then x is a &apos;membrane filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1278,7 +1279,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<iof-av:explanatoryNote>Ultrafiltration (UF) is a variety of membrane filtration in which forces such as pressure or concentration gradients lead to a separation through a semipermeable membrane. Suspended solids and solutes of high molecular weight are retained in the so-called retentate, while water and low molecular weight solutes pass through the membrane in the permeate (filtrate).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>UltrafiltrationProcess(x) → MembraneFiltrationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter is used that has pore size in the range of  0.01 to 0.1 μm</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter that is used has pore size in the range of  0.01 to 0.1 μm</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;ultrafiltration process&apos; then x is a &apos;membrane filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
