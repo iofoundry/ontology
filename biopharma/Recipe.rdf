@@ -17,7 +17,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-physical="https://spec.industrialontologies.org/ontology/biopharma/Physical/"
 	xmlns:bmic-recipe="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"
@@ -184,13 +184,12 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"/>
 		<skos:example>control recipe;general recipe;master recipe; site recipe</skos:example>
 		<iof-av:adaptedFrom>https://www.plcacademy.com/isa-88-s88-batch-control-explained/</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote xml:lang="en-US">1) plan specification that contains the minimum set of information that uniquely defines the manufacturing requirements for a specific product (from ISA-88).
-2) A recipe contains an essential and comprehensive set of information required to uniquely define the manufacturing requirements for a specific product. This information typically includes: Product identification and version, List of raw materials and their quantities, Equipment requirements, Process parameters (e.g., temperatures, pressures, speeds), Step-by-step production instructions, Quality control specifications, Safety precautions, Packaging and labeling instructions.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃y (prescribes(x, y) ∧ BatchRun(y) ∧ ∃z (hasSpecifiedOutput(y, z) ∧ MaterialProduct(z))) → Recipe(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote xml:lang="en-US">A recipe contains an essential and comprehensive set of information required to uniquely define the manufacturing requirements for a specific product or process intermediate. This information typically includes: Product identification and version, List of raw materials and their quantities, Equipment requirements, Process parameters (e.g., temperatures, pressures, speeds), Step-by-step production instructions, Quality control specifications, Safety precautions, Packaging and labeling instructions.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃y (prescribes(x, y) ∧ BatchRun(y)) ∧ ∃z ((RecipeProcedure(z) ∨ RecipeProcess(z)) ∧ hasContinuantPartAtAllTimes(x, z)) → Recipe(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes some batch runs for a specific product or process intermediate</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are currently insufficient constructs available to create a set of conditions that would reliably differentiate a recipe from &apos;recipe process elements&apos; or &apos;recipe procedural elements&apos; for the case when the output is a process intermediate.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;batch run&apos;, and that &apos;batch run&apos; &apos;has specified output&apos; some &apos;material product&apos;, then x is a &apos;recipe&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:primitiveRationale>There are currently insufficient constructs available to create a set of necesary and sufficient conditions. In particular recipe structural elements like the header are missing</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;batch run&apos; and &apos;has continuant part at all times&apos; some &apos;recipe procedure&apos; or &apos;recipe process&apos; then x is a &apos;recipe&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RecipeCreationProcess">
@@ -982,9 +981,9 @@ has continuant part at all times&apos; some &apos;recipe unit procedure&apos; an
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;site recipe&apos;, then x is a &apos;recipe&apos; and x &apos;prescribes planned process location&apos; some &apos;physical site&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;recipe&apos; that &apos;has continuant part at all times&apos; some &apos;recipe process element&apos; and &apos;prescribes planned process location&apos; some &apos;physical site&apos;, then x is a &apos;site recipe&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-		
+	
 	<owl:ObjectProperty rdf:about="&iof-construct;prescribedToPrecede">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-core;isAbout"/>
 		<rdfs:label xml:lang="en-US">prescribed to precede</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-core;PlanSpecification"/>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"/>
@@ -1116,19 +1115,21 @@ has continuant part at all times&apos; some &apos;recipe unit procedure&apos; an
 			<rdf:Description rdf:about="&iof-core;PlanSpecification">
 			</rdf:Description>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
 				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;BatchRun">
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;RecipeProcedure">
 							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
+							<rdf:Description rdf:about="&iof-construct;RecipeProcess">
+							</rdf:Description>
+						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BatchRun"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
