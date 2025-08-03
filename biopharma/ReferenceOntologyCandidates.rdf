@@ -89,9 +89,9 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 	</owl:AnnotationProperty>
 	
-	<owl:Class rdf:about="&iof-construct;Consumable">
+	<owl:Class rdf:about="&iof-construct;ProductionConsumable">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">consumable</rdfs:label>
+		<rdfs:label xml:lang="en-US">production consumable</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:equivalentClass>
@@ -101,19 +101,19 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ConsumableRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProductionConsumableRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Benzoyl Peroxide used as a free-radical initiator in vinyl chloride polymerization; Deionized water used as a suspension medium in PVC polymerization and partially lost through evaporation; High-speed steel drill bits used in drilling operations and consumed after 200–400 drilling cycles; Single-use bioreactor bag used for mammalian cell culture and discarded after use; sterile filter used for media sterilization and discarded after filtration; Disposable depth filter used in harvest clarification and discarded post-use;</skos:example>
 		<iof-av:counterExample>Water employed in the Steam Reforming Process of Methane. Steam reacts with Methane at very high temperature in the presence of a Ni catalyst to produce Hydrogen and a CO/CO2 mixture. Though steam is fed in excess to avoid the carbonization of the catalyst, and is partly lost, certain amount of it is converted into Hydrogen. Therefore, water plays a raw material role;Water inside a closed-loop cooling system circuit that is part of a chemical reaction process. Since it is a closed system, water is not lost through evaporation, and it does not need a chemical/biological treatment. In consequence, it does not need to be recovered.</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>Consumable(x) ↔ MaterialEntity(x) ∧ ∃r(ConsumableRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the consumable role</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;consumable&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;consumable role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:firstOrderLogicDefinition>ProductionConsumable(x) ↔ MaterialEntity(x) ∧ ∃r(ProductionConsumableRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the production consumable role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;production consumable&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;production consumable role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ConsumableRole">
+	<owl:Class rdf:about="&iof-construct;ProductionConsumableRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
 		<rdfs:subClassOf>
 			<owl:Class>
@@ -218,18 +218,18 @@
 				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">consumable role</rdfs:label>
+		<rdfs:label xml:lang="en-US">production consumable role</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<skos:example>Benzoyl Peroxide in the role of a consumable in the polymerization of vinyl chloride; Deionized water in the role of a consumable in PVC polymerization as a suspension medium; Sterile filter in the role of a consumable in media sterilization; Single-use bioreactor bag in the role of a consumable in mammalian cell culture; Disposable depth filter in the role of a consumable in harvest clarification</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/voc/afo/REC/2022/03/afo</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1.  &apos;Used up&apos; in this context means  that either a) the material entity no longer exist at the end of the process or b) the material entity has reduced or lost capability as a result of the process.
 2.  In many cases, organizations monitor the number of hours or frequency with which such consumables are used. 
 3. Consumables includes resources that are typically not specified in recipes, not included in the bill of materials, and not lot-tracked.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ConsumableRole(x) → (∀y (HasRealization(x, y) → ∃z (OccurrentPartOf(y, z) ∧ ProductProductionProcess(z)))) ∧ (∃a (RoleOf(x, a) ∧ MaterialEntity(a) ∧ ∃b (PrescribedBy(a, b) ∧ InputSpecification(b) ∧ ∃c (ContinuantPartOfAtAllTimes(b, c) ∧ PlanSpecification(c) ∧ ∃d (Prescribes(c, d) ∧ ∃z (OccurrentPartOf(d, z) ∧ ProductProductionProcess(z)))))) ∨ ∃a (RoleOf(x, a) ∧ ((MaterialEntity(a) ∧ ∃e (IsInputOf(a, e) ∧ ∃z (OccurrentPartOf(e, z) ∧ ProductProductionProcess(z)))) ∨ (HasCapability(a, f) ∧ Capability(f) ∧ ∃g (HasRealization(f, g) ∧ ∃z (OccurrentPartOf(g, z) ∧ ProductProductionProcess(z)))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ProductionConsumableRole(x) → (∀y (HasRealization(x, y) → ∃z (OccurrentPartOf(y, z) ∧ ProductProductionProcess(z)))) ∧ (∃a (RoleOf(x, a) ∧ MaterialEntity(a) ∧ ∃b (PrescribedBy(a, b) ∧ InputSpecification(b) ∧ ∃c (ContinuantPartOfAtAllTimes(b, c) ∧ PlanSpecification(c) ∧ ∃d (Prescribes(c, d) ∧ ∃z (OccurrentPartOf(d, z) ∧ ProductProductionProcess(z)))))) ∨ ∃a (RoleOf(x, a) ∧ ((MaterialEntity(a) ∧ ∃e (IsInputOf(a, e) ∧ ∃z (OccurrentPartOf(e, z) ∧ ProductProductionProcess(z)))) ∨ (HasCapability(a, f) ∧ Capability(f) ∧ ∃g (HasRealization(f, g) ∧ ∃z (OccurrentPartOf(g, z) ∧ ProductProductionProcess(z)))))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is planned to be, or is partially or fully consumed in a process that is part of a product production process and that is not incorporated into the final product or any material intermediate</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is planned to be, or is partially or fully consumed in a process that is part of a product production process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;consumable role&apos; then x &apos;has realization&apos; only in some &apos;occurrent part of&apos; a &apos;product production process&apos; and x is a &apos;role of&apos; either a &apos;material entity&apos; that is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;is input of&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;occurrent part of&apos; a &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production consumable role&apos; then x &apos;has realization&apos; only in some &apos;occurrent part of&apos; a &apos;product production process&apos; and x is a &apos;role of&apos; either a &apos;material entity&apos; that is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;is input of&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;occurrent part of&apos; a &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InputSpecification">
