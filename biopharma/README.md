@@ -1,7 +1,7 @@
 # Biopharmaceutical Manufacturing Ontologies
 
 ## Change to IOF Term IRI Convention
-Term IRIs are decoupled from the ontology IRI. Term IRIs now have this pattern `https://spec.industrialontologies.org/ontology/construct/[Term]` such as `https://spec.industrialontologies.org/ontology/construct/Bioreactor`. This allows for a flexibility in relocating the term between ontologies.
+Term IRIs are decoupled from the ontology IRI. Term IRIs now have this pattern `https://spec.industrialontologies.org/ontology/construct/[Term]` such as `https://spec.industrialontologies.org/ontology/construct/Bioreactor`. This allows for a flexibility in relocating the term between ontologies. The rdfs:isDefinedBy annotation within the term is a source of truth to the ontology module the term is physically located.
 
 Industry-specific ontology IRIs have this pattern `https://spec.industrialontologies.org/ontology/[industry]/[ontology]/` such as `https://spec.industrialontologies.org/ontology/biopharma/Agent/`. 
 
