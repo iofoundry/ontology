@@ -1,5 +1,10 @@
 # Biopharmaceutical Manufacturing Ontologies
 
+## Change to IOF Term IRI Convention
+Term IRIs are decoupled from the ontology IRI. Term IRIs now have this pattern https://spec.industrialontologies.org/ontology/construct/[Term] such as https://spec.industrialontologies.org/ontology/construct/Bioreactor. This allows for a flexibility in relocating the term between ontologies.
+
+Industry-specific ontology IRIs have this pattern https://spec.industrialontologies.org/ontology/[industry]/[ontology]/ such as https://spec.industrialontologies.org/ontology/biopharma/Agent/. 
+
 ## About Biopharmaceutical Manufacturing Ontologies
 
 Biopharmaceutical Manufacturing Ontologies contain notions found to be common across biopharmaceutical manufacturing, intially developed as the National Institute for Innovation in Manufacturing Biopharmaceuticals (NIIMBL) Ontology and transfered to IOF under the [MIT license](https://github.com/iofoundry/ontology/tree/biopharma-dev?tab=License-1-ov-file). The files provided are an RDF implementation of these notions. All the ontologies are currently in the draft stage and are as such labeled as Provisional.
@@ -54,4 +59,4 @@ The authors welcome discussion on the future of this Biopharma Ontology. Contrib
 
 ## Current Outstanding Issues
 
-Please refer to the list kept on the IOF Confluence site for potential improvements/ additions for a v2 and the Issues list here on GitHub.
+Please refer to the list kept on the [IOF Jira site](https://oagi.atlassian.net/jira/software/c/projects/BMIR/issues) for potential improvements/ additions.
