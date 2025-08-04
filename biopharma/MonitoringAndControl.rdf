@@ -18,7 +18,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF 
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bmic-monitoringandcontrol="https://spec.industrialontologies.org/ontology/biopharma/MonitoringAndControl/"
@@ -55,7 +55,7 @@
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
-		
+	
 	<owl:Class rdf:about="&iof-construct;ControlStrategy">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
 		<rdfs:subClassOf>
@@ -64,20 +64,12 @@
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PerformanceIndicatorSpecification">
+							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;ProcessParameterSpecification">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;QualityAttributeSpecification">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-core;InformationContentEntity">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;PerformanceIndicator"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
 						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
@@ -91,11 +83,11 @@ A control strategy for fed-batch cell culture includes specifying a gas controll
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf and ISA88</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Per ICH: A planned set of controls, derived from current product and process understanding, that assures process performance and product quality. Control strategy can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in-process controls, finished product specifications, and the associated methods and frequency of monitoring and control.
 Per ICH: Quality risk management is used to establish the control strategy. This can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in process controls, finished product specifications, and the associated methods and frequency of monitoring and control. The control strategy should facilitate timely feedback / feedforward and appropriate corrective action and preventive action.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ControlStrategy(x) → PlanSpecification(x) ∧ ∃y((ProcessParameterSpecification(y) ∨ QualityAttributeSpecification(y) ∨ (InformationContentEntity(y) ∧ ∃z(PerformanceIndicator(z) ∧ prescribes(y, z)))) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ControlStrategy(x) → PlanSpecification(x) ∧ ∃y((ProcessParameterSpecification(y) ∨ QualityAttributeSpecification(y) ∨PerformanceIndicatorSpecification(y)) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators associated with a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a control strategy.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or an &apos;information content entity&apos; that &apos;prescribes&apos; some &apos;performance indicator&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialQualityPlan">
@@ -233,7 +225,7 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<skos:example>UV absorbance and conductivity monitoring during column loading; continous monitoring of temperature and humidity in a clean room; Tablet weight is measured in-line every 30 minutes during compression using an integrated balance; During a fed-batch cell culture process, at-line nutrient monitoring is performed using a Nova BioProfile® FLEX analyzer to measure glucose, lactate, glutamine, and ammonia levels; Flow rate is continuously monitored during tangential flow filtration to ensure consistent membrane performance</skos:example>
 		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/monitoring-biopharmaceutical-processes-present-and-future-approaches</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1)Each monitoring process is an execution of a monitoring plan that prescribes it
-2) In case a monitoring process is responsible for monitoring the attribute/parameter/indicator in multiple processes (e.g., multiple unit operations) it is a part of the 'larger process' which has the 'occurrent part' the unit operations and it does not imply that it is an occurrent part of the unit operations themselves".</iof-av:explanatoryNote>
+2) In case a monitoring process is responsible for monitoring the attribute/parameter/indicator in multiple processes (e.g., multiple unit operations) it is a part of the &apos;larger process&apos; which has the &apos;occurrent part&apos; the unit operations and it does not imply that it is an occurrent part of the unit operations themselves&quot;.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>MonitoringProcess(x) ↔ PlannedProcess(x) ∧ ∃m(MeasurementProcess(m) ∧ hasOccurrentPart(x, m)) ∧ ∃p(PlannedProcess(p) ∧ occurrentPartOf(x, p)) ∧ ∃mp(MonitoringPlan(mp) ∧ prescribedBy(x, mp))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is a part of another planned process and that consists of one or more observation or measurement processes in which a particular attribute (specifically dependent continuant or temporal region or process characteristic or process profile) of some entity of interest is measured or observed</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;monitoring process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;measurement process&apos;, is &apos;occurrent part of&apos; some &apos;planned process&apos;, and is &apos;prescribed by&apos; some &apos;monitoring plan&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -321,26 +313,5 @@ The sampling process is designed to ensure that the test results subsequently co
 	
 	<owl:Class rdf:about="&iof-core;PlannedProcess">
 	</owl:Class>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;describes">
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-core;prescribes">
-	</owl:ObjectProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-av;adaptedFrom">
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-av;copyright">
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-av;explanatoryNote">
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-av;maturity">
-	</owl:AnnotationProperty>
-	
-	<owl:AnnotationProperty rdf:about="&iof-av;naturalLanguageDefinition">
-	</owl:AnnotationProperty>
 
 </rdf:RDF>

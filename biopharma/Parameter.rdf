@@ -99,6 +99,70 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"/>
 	</owl:AnnotationProperty>
 	
+	<owl:Class rdf:about="&bmic-parameter;KeyPerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bmic-parameter;PerformanceIndicator"/>
+		<rdfs:label xml:lang="en-US">key performance indicator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;KeyPerformanceIndicator"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>average deviation rate per production step due to CPP excursions; yield consistency over successive purification runs; final harvest titer for a specific production batch; Viral clearance log reduction amount for the purification step; batch release time within the specified regulatory window</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>KeyPerformanceIndicator(x) ↔ ∃s(KeyPerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a key performance indicator specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;key performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;key performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&bmic-parameter;PerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000001"/>
+		<rdfs:label xml:lang="en-US">performance indicator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Yearly sales, monthly throughput, quarterly overall equipment effectiveness, 12-month on-time delivery percentage.</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>PerformanceIndicator(x) ↔ ∃s(PerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a performance indicator specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CriticalProcessParameter">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameter"/>
 		<rdfs:label xml:lang="en-US">critical process parameter</rdfs:label>
@@ -193,25 +257,25 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 2) This specification serves as a formal constraint on a quality attribute that is critical to product performance, safety, or efficacy, and is used to assess the acceptability of materials or products in manufacturing and quality control processes.
 3) Critical quality attributes are monitored throghout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated or used during the product production process .</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CriticalQualityAttributeSpecification(x) → QualityAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>		
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality attribute specifications that prescribes some quality, capability, constitution, or composition deemed critical to ensuring safety, efficacy, or performance of a material product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. In particular criticality determination is missing</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;critical quality attribute specification&apos; then x is a &apos;quality attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicator">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicator"/>
-		<rdfs:label xml:lang="en-US">key performance indicator</rdfs:label>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
+		<rdfs:label xml:lang="en-US">key performance indicator specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"/>
-		<skos:example>percentage of batches passing all CQA release tests on first attempt; average deviation rate per production step due to CPP excursions; lot-to-lot variability in protein titer at harvest; percentage of upstream runs meeting predefined viability and density targets at harvest; standard deviation of drug substance purity across production campaigns; yield consistency over successive purification runs; average harvest titer across upstream production batches over a campaign</skos:example>
+		<skos:example>Target final harvest titer for the production batch;Target viral clearance log reduction value for purification step; Target batch release time within specified regulatory window</skos:example>
 		<iof-av:adaptedFrom>ISO-22400 and https://www.gmp-compliance.org/gmp-news/fdas-current-thinking-on-kpis-and-quality-metrics</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Per the ISO-22400 standard a good KPI has certain criteria which ensure its usefulness in achieving various goals in the manufacturing operation. For more details the user should take a look at the standard. Also the KPI specification should contain information about its context, including timing, audience, production methodology, effect model diagram, and notes.
 2) In case of KPIs for (bio)pharmaceutical manufacturing processes  KPIs are indirectly related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too. Also, KPIs reflects the consistency or reproducibility of the associated manufacturing process.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>KeyPerformanceIndicator(x) → PerformanceIndicator(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>KeyPerformanceIndicatorSpecification(x) → PerformanceIndicatorSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">performance indicator that reflects the performance with respect to objectives that are determined as key by the organization</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">performance indicator specification that prescribes a measurable characteristic whose measurements reflect effectiveness with respect to some objective determined as important by a person or organization</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive as different organizations have different criteria for establishing what is key.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;key performance indicator&apos; then x is a &apos;performance indicator&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;key performance indicator specification&apos; then x is a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;KeyProcessParameter">
@@ -286,55 +350,49 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
+	<owl:Class rdf:about="&iof-construct;PerformanceIndicatorSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MeasuredValueExpression"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;describes"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;Organization">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PlannedProcess">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;System">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
 				<owl:someValuesFrom rdf:resource="&iof-core;ObjectiveSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">performance indicator</rdfs:label>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">performance indicator specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"/>
-		<skos:altLabel>performance metric</skos:altLabel>
-		<skos:example>bioreactor viability trend over a 10-day production run; final harvest titer measured against expected production yield; deviation count per batch for a fill–finish process over one month; mean time between equipment failure (MTBF) for chromatography skid; percentage of batches released on time per manufacturing site over a quarter;</skos:example>
+		<skos:example>Target sales this year, target throughput this month, taraget overall equipment effectiveness this quarter, target 12-month on-time delivery percentage.</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Performance indicators are:
 Measurable: It’s based on quantifiable data (e.g. percentages, counts, ratios). Goal-oriented: It reflects progress toward a defined objective.
 Actionable: It provides insight into what’s working and what might need improvement.
-2) Also they are typically: S: Specific M: Measurable A: Achievable R: Relevant T: Time bound</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PerformanceIndicator(x) → InformationContentEntity(x) ∧ ∃y (MeasuredValueExpression(y) ∧ hasContinuantPartAtAllTimes(x, y)) ∧ ∃z (ObjectiveSpecification(z) ∧ isAbout(x, z)) ∧ ∃w ((Agent(w) ∨ Organization(w) ∨ PieceOfEquipment(w) ∨ PlannedProcess(w) ∨ System(w)) ∧ describes(x, w))</iof-av:firstOrderLogicAxiom>
+2) Also they are typically: S: Specific M: Measurable A: Achievable R: Relevant T: Time bound
+3) A performance indicator differs from a process parameter in that it is typically not directly controllable. Instead, it often reflects the combined effect of multiple process parameters. For example, production yield is a performance indicator that may be influenced by parameters such as temperature, pH, and agitation speed.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PerformanceIndicatorSpecification(x) → InformationContentEntity(x) ∧ 
+∃y ( (TemporalRegion(y) ∨ Quality(y) ∨ ProcessProfile(y) ∨ProcessCharacteristic(y)) ∧ prescribes(x, y) ) ∧ ∃z ( ObjectiveSpecification(z) ∧ isAbout(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that consists of one or more measured value expressions and that reflects the performance of an agent, planned process, organization, piece of equipment or system with respect to a particular objective over a specified time interval or at a particular time point</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;performance indicator&apos; then x is an &apos;information content entity&apos; and x &apos;has continuant part at all times&apos; some &apos;measured value expression&apos; and x &apos;is about&apos; some &apos;objective specification&apos; and x &apos;describes&apos; some &apos;agent&apos; or &apos;organization&apos; or &apos;piece of equipment&apos; or &apos;planned process&apos; or &apos;system&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes some measurable characteristic whose measurements reflect the effectiveness of an agent, planned process, organization, or piece of equipment with respect to a particular objective</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. As an example there is currently no construct to reflect if a characteristic is measurable</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;performance indicator specification&apos; then x is an &apos;information content entity&apos; and x &apos;prescribes&apos; some &apos;temporal region&apos; or &apos;quality&apos; or &apos;process profile&apos; or &apos;process characteristic&apos; and x &apos;is about&apos; some &apos;objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:usageNote>Measurable characteritics in this case can be some quality,  temporal region, process profile or process characteristic which is reflected in the axiom.</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameter">
