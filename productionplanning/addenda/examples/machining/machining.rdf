@@ -3,6 +3,7 @@
 	<!ENTITY AnnotationVocabulary "https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY AnnotationVocabulary1 "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY CommonCoreOntologies "http://www.ontologyrepository.com/CommonCoreOntologies/">
+	<!ENTITY cco "http://www.ontologyrepository.com/cco/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY obo "http://purl.obolibrary.org/obo/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
@@ -17,6 +18,7 @@
 	xmlns:AnnotationVocabulary="https://purl.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:AnnotationVocabulary1="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/"
+	xmlns:cco="http://www.ontologyrepository.com/cco/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:obo="http://purl.obolibrary.org/obo/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -39,7 +41,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/Broaching">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningProcess"/>
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/machining/MachiningProcess"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/CNCDrill">
@@ -111,7 +113,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/HoleMaking">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningProcess"/>
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/machining/MachiningProcess"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/HoleMakingTools">
@@ -136,6 +138,15 @@
 		<owl:equivalentClass rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingOperation"/>
 	</owl:Class>
 	
+	<owl:Class rdf:about="http://simpom.ohio.edu/machining/MachiningProcess">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+		<rdfs:label xml:lang="en">machining process</rdfs:label>
+		<rdfs:comment>do we need this term?</rdfs:comment>
+		<skos:note>This term is more specific to metal industry. Do we need it in the reference ontology? We can just use Manufacturing Process</skos:note>
+		<AnnotationVocabulary:firstOrderLogicDefinition xml:lang="en">∀p (MachiningProcess(p) → Process(p) and exists m (ProductionMachine(m) and participateIn(m, p)) and ∃t (ProductionTool(t) and participateIn(t, p)) and ∃f (ArtifactFunction(f) and realizes(p,f)))</AnnotationVocabulary:firstOrderLogicDefinition>
+		<AnnotationVocabulary:naturalLanguageDefinition xml:lang="en">An Act of manufacturing wherein Artifacts or parts of an Artifact are processed using both production machine and production tool, at least one of each kind, and realizes some function, which is conjugally borne by the participating machines and tools.</AnnotationVocabulary:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/MfgActivity">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ManufacturingEnterpriseProcess"/>
 	</owl:Class>
@@ -153,7 +164,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/Milling">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningProcess"/>
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/machining/MachiningProcess"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/MillingTools">
@@ -169,7 +180,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/Planing">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningProcess"/>
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/machining/MachiningProcess"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/PrecisionBoring">
@@ -225,7 +236,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/Turning">
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/MachiningProcess"/>
+		<rdfs:subClassOf rdf:resource="http://simpom.ohio.edu/machining/MachiningProcess"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/machining/Twist-DrillingTool">
@@ -306,6 +317,15 @@
 	
 	<owl:Class rdf:about="http://simpom.ohio.edu/mfg-planning/CNCMill">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/ProductionMachine"/>
+	</owl:Class>
+	
+	<owl:AnnotationProperty rdf:about="&AnnotationVocabulary;firstOrderLogicDefinition">
+	</owl:AnnotationProperty>
+	
+	<owl:AnnotationProperty rdf:about="&AnnotationVocabulary;naturalLanguageDefinition">
+	</owl:AnnotationProperty>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/CuttingTool">
 	</owl:Class>
 	
 	<owl:AllDisjointClasses>
