@@ -1,1005 +1,1383 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE rdf:RDF [
-	<!ENTITY CommonCoreOntologies "http://www.ontologyrepository.com/CommonCoreOntologies/">
-	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
-	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
-	<!ENTITY dcterms "http://purl.org/dc/terms/">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
-	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
-	<!ENTITY iof-scro "https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/">
-	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
-	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
-	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
-	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
-]>
-<rdf:RDF
-	xmlns="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/"
-	xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/"
-	xmlns:bfo="http://purl.obolibrary.org/obo/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:dcterms="http://purl.org/dc/terms/"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
-	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
-	xmlns:iof-scro="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/"
-	xmlns:owl="http://www.w3.org/2002/07/owl#"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-	
-	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/">
-		<rdfs:label xml:lang="en-US">Product Service System Ontology</rdfs:label>
-		<dcterms:abstract>A basis ontology for enhancing engineering of Product Service Systems (PSS) in manufacturing, by modelling all the aspects that affect, or could affect a PSS.</dcterms:abstract>
-		<dcterms:creator xml:lang="en-US">PSS working group</dcterms:creator>
-		<dcterms:license></dcterms:license>
-		<dcterms:title>Product Service System (PSS) Reference Ontology</dcterms:title>
-		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202301/productservicesystems/ProductServiceSystem/"/>
-		<owl:versionInfo></owl:versionInfo>
-		<iof-av:copyright></iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
-	</owl:Ontology>
-	
-	<owl:AnnotationProperty rdf:about="&owl;minQualifiedCardinality">
-	</owl:AnnotationProperty>
-	
-	<rdf:Description rdf:about="&iof-core;MaterialProduct">
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000129"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamily"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000129"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductVariantSet"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-	</rdf:Description>
-	
-	<owl:Class rdf:about="&iof-scro;AsBuiltBillOfMaterials">
-		<rdfs:subClassOf rdf:resource="&iof-scro;BillOfMaterials"/>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;BillOfMaterialItem">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Specification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000002"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-scro;hasNameValue"/>
-				<owl:someValuesFrom rdf:resource="&xsd;string"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="https://www.omg.org/spec/Commons/Collections/isPartOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;BillOfMaterials"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">bill of materials item</rdfs:label>
-		<rdfs:comment>A &apos;Bill of Materials Item&apos; can also have relations/properties for
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/"
+     xml:base="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:bfo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+     xmlns:iof-scro="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/"
+     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
+    <owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/">
+        <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202301/productservicesystems/ProductServiceSystem/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/Core/"/>
+        <dcterms:abstract>A basis ontology for enhancing engineering of Product Service Systems (PSS) in manufacturing, by modelling all the aspects that affect, or could affect a PSS.</dcterms:abstract>
+        <dcterms:creator xml:lang="en-us">PSS working group</dcterms:creator>
+        <dcterms:license></dcterms:license>
+        <dcterms:title>Product Service System (PSS) Reference Ontology</dcterms:title>
+        <rdfs:label xml:lang="en-us">Product Service System Ontology</rdfs:label>
+        <owl:versionInfo></owl:versionInfo>
+        <iof-av:copyright></iof-av:copyright>
+        <iof-av:maturity rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/Provisional"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#minQualifiedCardinality -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#minQualifiedCardinality"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/owns -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/owns">
+        <rdfs:label xml:lang="en-us">owns</rdfs:label>
+        <skos:example>PSSProvider owns a PSS (inverse to PSS belongsTo PSSProvider)</skos:example>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">to have or hold as property</iof-av:naturalLanguageDefinition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/specialization -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/specialization">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:label xml:lang="en-us">specialization</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://www.omg.org/spec/Commons/Collections/isPartOf -->
+
+    <owl:ObjectProperty rdf:about="https://www.omg.org/spec/Commons/Collections/isPartOf">
+        <rdfs:label>is part of</rdfs:label>
+        <iof-av:naturalLanguageDefinition>relates something to another thing that it is some component or portion of, regardless of how that whole-part relationship is manifested</iof-av:naturalLanguageDefinition>
+    </owl:ObjectProperty>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://www.omg.org/spec/Commons/Collections/isPartOf"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>relates something to another thing that it is some component or portion of, regardless of how that whole-part relationship is manifested</owl:annotatedTarget>
+        <rdfs:comment>Stanford Encyclopedia of Philosophy at http://plato.stanford.edu/entries/mereology/</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/hasNameValue -->
+
+    <owl:DatatypeProperty rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/hasNameValue">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct -->
+
+    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000129"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamily"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000129"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/AsBuiltBillOfMaterials -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/AsBuiltBillOfMaterials">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterialItem -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterialItem">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.omg.org/spec/Commons/Collections/isPartOf"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/hasNameValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
+        <rdfs:comment>A &apos;Bill of Materials Item&apos; can also have relations/properties for
 - cost and unit of measure (e.g. Euro, U.S. Dollar, etc,)
 - Identifier (e.g., part number, model number, or product identifier)
 - Magnitude/Quantity (i.e., how many or how much, for bulk materials)
 - Source, if the item is to be purchased from a supplier
 - Date/Times</rdfs:comment>
-		<owl:disjointWith rdf:resource="&iof-scro;BillOfMaterials"/>
-		<iof-av:explanatoryNote>The intent of this class is to provide a representation of the entries/item that comprise of make up a Bill of Materials.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>An entry in, or description of an entry (i.e. an item), in a Bill of Materials (e.g., a line item).</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;BillOfMaterials">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Specification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;Identifier"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000002"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">bill of materials</rdfs:label>
-		<iof-av:acronym xml:lang="en-US">BOM</iof-av:acronym>
-		<iof-av:explanatoryNote>The user of this ontology may use the current sub-classes now defined in the PSS ontology or define new ones in their application ontology (following the product lifecycle or production lifecycle, etc.) as needed according to how he/she is structuring their bill of materials: for instance if it&apos;s a Single-level bill of materials or a multi-level bill of materials</iof-av:explanatoryNote>
-		<iof-av:explanatoryNote>the bill of materials items can it itself refer to a bill of materials</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>a set of constituents of a bill of materials item</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;BusinessModel">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
-		<rdfs:label xml:lang="en-US">business model</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a plan specification to fulfill objectives of a business organisation</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;BusinessResourceRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;BusinessProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">business resource role</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">business resource role is a role that inheres in an independent continuant where that continuant bears a disposition that, if realized, is realized in a business enterprise process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;CommercialServiceComponent">
-		<rdfs:subClassOf rdf:resource="&iof-scro;ProcessDefinition"/>
-		<rdfs:label xml:lang="en-US">commercial service component</rdfs:label>
-		<skos:editorialNote>see questions from 29.04.2024</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a process definition which is part of a commercial service specification. It can be itself a service, but for the offered service within the scope of PSS, its existence only has a meaning as part of the commercial service</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ConsumableResourceRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResourceRole"/>
-		<rdfs:label xml:lang="en-US">consumable resource role</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role that is borne by a material entity, when that entity is intended to be consumed/transformed in a planned process. The quantities of resources is reduced after use</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;DigitalLogData">
-		<rdfs:subClassOf rdf:resource="&iof-scro;ProductData"/>
-		<rdfs:label xml:lang="en-US">digital log data</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">product data generated from a software element, part of the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;EmbeddedData">
-		<rdfs:subClassOf rdf:resource="&iof-scro;ProductData"/>
-		<rdfs:label xml:lang="en-US">embedded data</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">product data generated from embedded data-source components (e.g. sensors)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;EmbeddedDataSourceComponent">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSProductComponent"/>
-		<rdfs:label xml:lang="en-US">embedded data source component</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a PSS product component that refers to product-embedded information devices / parts (e.g. sensors), which allows for (additional) services to be offered for the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;EngineeringBillOfMaterials">
-		<rdfs:subClassOf rdf:resource="&iof-scro;BillOfMaterials"/>
-		<rdfs:label xml:lang="en-US">engineering bill of materials</rdfs:label>
-		<skos:altLabel>design bill of materials</skos:altLabel>
-		<iof-av:acronym>EBOM</iof-av:acronym>
-		<iof-av:explanatoryNote>BOM from the design perspective</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>a bill of materials reflecting the product as designed by engineering</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Feedback">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSInformation"/>
-		<rdfs:label xml:lang="en-US">feedback</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">PSS Information that represents any opinion on PSS, product or service (e.g. comments on social media, opinion expression in online questionnaires, etc.), coming from any agent or group of agents (e.g. Customer, Business Organisation)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Firmware">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSProductComponent"/>
-		<rdfs:label xml:lang="en-US">firmware</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a PSS Product Component which is software, i.e. control software of a machine that exists only in combination with specific hardware product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;HardwareInfrastructure">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialResourceRole"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">hardware infrastucture</rdfs:label>
-		<skos:editorialNote>15.06.2022 - to be harmonised with facility in the Supply Chain ontology</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact that is an Infrastructure that refers to the physical networks (e.g. buildings or machines) necessary for the design, development, delivery and operation of products and/or services</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ImmaterialResourceRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">immaterial resource role</rdfs:label>
-		<skos:editorialNote>I think the NLD is contradictory to the class role, to be checked</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role played by an information content entity when that entity is intended to be used in a planned process as a resource for some process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Infrastructure">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000030"/>
-		<rdfs:label xml:lang="en-US">infrastructure</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">object describing the facilities (physical e.g. buildings or machines), and organisational (e.g. computer networks or software applications) used to assist in development and delivering of a products and/or services</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;InfrastructureRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:label xml:lang="en-US">infrastructure role</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;KeyPerformanceIndicator">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSIndicator"/>
-		<rdfs:label xml:lang="en-US">product service system key performance indicator</rdfs:label>
-		<rdfs:comment>This is an interface class to other ontologies</rdfs:comment>
-		<skos:example>Various types of KPIs can be defined: manufacturing KPI, environmental KPI etc.</skos:example>
-		<iof-av:acronym>PSS KPI</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a PSS indicator referring to (a set of) measurement(s) that evaluates the performance (or success) of a PSS (concept), and is business relevant</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Lifecycle">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
-		<rdfs:label xml:lang="en-US">lifecycle</rdfs:label>
-		<rdfs:comment>This is an interface class to other ontologies. Needs to be reworked</rdfs:comment>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a set of processes that a product, a service or a product service system uses for its activities from the idea conceptualisation to its end-of-life</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;LifecycleModel">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000017"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;Lifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">lifecycle model</rdfs:label>
-		<rdfs:comment>This is an interface class to other ontologies - NLD to be revisited</rdfs:comment>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a (set of) process definition(s) which includes different activities in the life of PSS, product, service etc. from the idea conceptualisation to its end-of life (beginning-of -life, middle-of-life, end-of-life)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ManufacturingBillOfMaterials">
-		<rdfs:subClassOf rdf:resource="&iof-scro;BillOfMaterials"/>
-		<rdfs:label xml:lang="en-US">manufacturing bill of materials</rdfs:label>
-		<skos:altLabel>production bill of materials</skos:altLabel>
-		<iof-av:acronym>EBOM</iof-av:acronym>
-		<iof-av:explanatoryNote>BOM from the production perspective</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>contains all the parts and assemblies required to build a complete and shippable product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ManufacturingResource">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResource"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ManufacturingResourceRole"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing resource</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isInputOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</owl:equivalentClass>
-		<iof-av:semiFormalNaturalLanguageDefinition>a material resource that bears some manufacturing resource role</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ManufacturingResourceRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing resource role</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role that inheres in an independent continuant where that continuant bears a disposition that, if realized, is realized in a manufacturing enterprise process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;NonConsumableResourceRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResourceRole"/>
-		<rdfs:label xml:lang="en-US">non-consumable resource role</rdfs:label>
-		<skos:example>infrastructure, machines</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role that is borne by a material entity, when that entity is intended to be used but quantity is not reduced in a planned process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSBusinessCustomer">
-		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-scro;owns"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystem"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system business customer</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS business customer</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">business organization that buys and uses the products, services or PSS. It is the (group/company) customer of the PSS, using the PSS for their own business.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSBusinessProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;BusinessProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;PSSRequirementSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system business process</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS business process</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a business process in which PSS is developed, implemented, distributed and used</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSCondition">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000141"/>
-		<rdfs:label xml:lang="en-US">product service system condition</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS condition</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">an immaterial entity that describes the situation around a PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSGuideline">
-		<rdfs:subClassOf rdf:resource="&iof-core;ActionSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystemLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system guideline</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS guideline</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">action specification referring to a statement describing a course of action aiming to reach a specific goal for the design, development or use of a PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSIndicator">
-		<rdfs:subClassOf rdf:resource="&iof-core;MeasurementInformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">product service system indicator</rdfs:label>
-		<iof-av:acronym>PSS indicator</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">measurement information content entity used to measure/evaluate any aspect within the scope of PSS, namely a process, a PSS, a product, a service, etc.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSInformation">
-		<rdfs:subClassOf rdf:resource="&iof-core;DirectiveInformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">product service system information</rdfs:label>
-		<skos:example>PSS Information Discovery: searching for PSS Information  (e.g., feedback) to support developing of a new Service or PSS.</skos:example>
-		<skos:example>UC Traceability: Reconstructing the history of previous services developments and uses and finding information used and provided (e.g. feedback, origin, time etc.)</skos:example>
-		<iof-av:abbreviation xml:lang="en-US">PSS information</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity created by processing (convert or organise or infer) objective facts or observations about PSS related entities (development, deployment and use of PSS) in order to satisfy some need of at least one agent or group of agents</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSKnowledge">
-		<rdfs:subClassOf rdf:resource="&iof-core;DirectiveInformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystemLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system knowledge</rdfs:label>
-		<iof-av:acronym>PSS knowledge</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity which describes the understanding of PSS entities (PSS information, PSS data, product, commercial services…) and can be applied to a current PSS Process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSProductComponent">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialComponent"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000173"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system product component</rdfs:label>
-		<iof-av:acronym xml:lang="en-US">PSS product component</iof-av:acronym>
-		<iof-av:explanatoryNote>It can be itself a manufactured product, but for the offered product within the scope of PSS, its existence only has a meaning as part of the product</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a material component which is part of the material product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSQuality">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystem"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system quality</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS quality</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a quality that describes an aspect or attribute related to the PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSRequirementSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;GroupOfAgents"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystem"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system requirement specification</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS requirement specification</iof-av:abbreviation>
-		<iof-av:explanatoryNote>requirement specification that depicts the aspects which are necessary for the design, development or offer of PSS and is defined by an agent or group of agents</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that prescribes a product service system</iof-av:naturalLanguageDefinition>
-		<iof-av:usageNote>it serves as an interface class for merging with other ontologies</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSService">
-		<rdfs:subClassOf rdf:resource="&iof-core;CommercialService"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ServiceRequirementSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">PSS service</rdfs:label>
-		<skos:altLabel xml:lang="en-US">product service system service</skos:altLabel>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">commercial service which has agents service provider and agent consumer and the business process fulfills a need of the consumer</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSSourceData">
-		<rdfs:subClassOf rdf:resource="&iof-scro;ProductServiceSystemData"/>
-		<rdfs:label xml:lang="en-US">product service system source data</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS source data</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that refers to the digitalised information coming as input from the product or the service, specifically for the scope of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSSupplierOrganization">
-		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-scro;owns"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystem"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system supplier organization</rdfs:label>
-		<skos:altLabel xml:lang="en-US">PSS provider organization</skos:altLabel>
-		<skos:altLabel xml:lang="en-US">PSS vendor organization</skos:altLabel>
-		<iof-av:abbreviation xml:lang="en-US">PSS supplier organization</iof-av:abbreviation>
-		<iof-av:explanatoryNote>Additional subclasses are possible, e.g. in material supplier, component supplier etc.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">business organisation that both produces and sells something (product, service, PSS), or only sells it</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;PSSTypeQuality">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSQuality"/>
-		<rdfs:label xml:lang="en-US">product service system type quality</rdfs:label>
-		<skos:example>to engage the customer with services; or to increase the sales of a product</skos:example>
-		<skos:example>typical examples of PSS with a different type quality are e.g. the product- oriented PSS, the result-oriented PSS and the use-oriented PSS.</skos:example>
-		<iof-av:abbreviation xml:lang="en-US">PSS type quality</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">PSS type quality that refers to quality that define the subgroup where a PSS belongs to, and describe the specific focus (orientation or aim) of a PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProcessDefinition">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
-		<rdfs:label xml:lang="en-US">process definition</rdfs:label>
-		<dcterms:source>4. Wikipedia contributors, &apos;Business process&apos;, Wikipedia, The Free Encyclopaedia, 17 July 2017, 11:25 UTC, &lt;https://en.wikipedia.org/w/index.php?title=Business_process&amp;oldid=790986805&gt; [accessed 20 July 2017]</dcterms:source>
-		<skos:example>The Process Definition can be the manufacturing process where the equipment is manufactured, or the process where the equipment is used, or the development process where products, services or PSS are being developed etc.</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification which is a structured set of activities designed to accomplish a specific objective</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductData">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSSourceData"/>
-		<rdfs:label xml:lang="en-US">product data</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">PSS source data used in the scope of PSS, and refer specifically to the product part of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductDesignSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;DesignSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product design specification</rdfs:label>
-		<iof-av:explanatoryNote>In the industrial context they can be also understood as normative prescriptions, defined by a blueprint/recipe</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">design specification that is a set of characteristics essential for a type of material products and that have to be jointly taken into account to describe the material product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductExtensionService">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSService"/>
-		<rdfs:label xml:lang="en-US">product extension service</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a Service which adds additional value to the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductExtensionServiceSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;CommercialServiceSpecification"/>
-		<rdfs:label xml:lang="en-US">product extension service specification</rdfs:label>
-		<skos:editorialNote>entity not clear at the moment - this should be a type of PSS</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">commercial service specification that adds value to the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductFamily">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductVariantSet"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamilyDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product family</rdfs:label>
-		<iof-av:naturalLanguageDefinition>a group of related goods produced by the same company under the same brand</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductFamilyChange">
-		<rdfs:subClassOf rdf:resource="&iof-core;DescriptiveInformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamilyChangeSet"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamilyDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product family change</rdfs:label>
-		<iof-av:naturalLanguageDefinition>a modification that a product variant set design specification applies to the structure of the product family design specification from which it belongs</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductFamilyChangeSet">
-		<rdfs:subClassOf rdf:resource="&iof-core;DescriptiveInformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamilyChange"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamilyDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product family change set</rdfs:label>
-		<iof-av:naturalLanguageDefinition>a descriptive information content entity that groups all the changes that are applied to the product family design specification structure in order to obtain a product variant set design specification</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductFamilyDesignSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;DesignSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductVariantSetDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamily"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product family design specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">design specification that is a set of characteristics essential to group material products based on design and / or production processes and / or value proposition of the business organisation</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductIntegratedSet">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:label xml:lang="en-US">product integrated set</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">an object aggregate that consists of a set of products needed to jointly fulfil users’ needs</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductLifecycle">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Lifecycle"/>
-		<rdfs:label xml:lang="en-US">product lifecycle</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a  lifecycle that includes only the product specific processes, in the scope of PSS. It refers to the Product Lifecycle Model in conjunction with time.</iof-av:naturalLanguageDefinition>
-		<iof-av:naturalLanguageDefinition>a set of processes that a product uses for its activities from the idea conceptualisation to its end-of-life</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductLifecycleModel">
-		<rdfs:subClassOf rdf:resource="&iof-scro;LifecycleModel"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product lifecycle model</rdfs:label>
-		<skos:editorialNote>NLD to be revisited</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a lifecycle model that refers to the product within the scope of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductProvider">
-		<rdfs:subClassOf rdf:resource="&iof-core;Supplier"/>
-		<rdfs:label xml:lang="en-US">product provider</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">supplier (or provider or vendor) that both produces and sells a product, or only sells it</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductQuality">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:label xml:lang="en-US">product quality</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a quality that describes an aspect, or attribute, related to the product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductRequirementSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product requirement specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that prescribes a material product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystem">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;CommercialServiceSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;GroupOfAgents"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;SoftwareInfrastructure"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
-				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Facility"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;PSSRequirementSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system</rdfs:label>
-		<skos:editorialNote>PSS is a system which includes at least one material product and at least one commercial service, related to this product, and may include agents or groups of agents and infrastructure and which bears a PSS Role.</skos:editorialNote>
-		<skos:editorialNote>PSS is a system which includes at least one product and at least one service, related to this product, and which bears PSS Role.
+        <rdfs:label xml:lang="en-us">bill of materials item</rdfs:label>
+        <iof-av:explanatoryNote>The intent of this class is to provide a representation of the entries/item that comprise of make up a Bill of Materials.</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>An entry in, or description of an entry (i.e. an item), in a Bill of Materials (e.g., a line item).</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterialItem"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>An entry in, or description of an entry (i.e. an item), in a Bill of Materials (e.g., a line item).</owl:annotatedTarget>
+        <rdfs:comment>Engineering Semantics</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000110"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Identifier"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">bill of materials</rdfs:label>
+        <iof-av:acronym xml:lang="en-us">BOM</iof-av:acronym>
+        <iof-av:explanatoryNote>The user of this ontology may use the current sub-classes now defined in the PSS ontology or define new ones in their application ontology (following the product lifecycle or production lifecycle, etc.) as needed according to how he/she is structuring their bill of materials: for instance if it&apos;s a Single-level bill of materials or a multi-level bill of materials</iof-av:explanatoryNote>
+        <iof-av:explanatoryNote>the bill of materials items can it itself refer to a bill of materials</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>a set of constituents of a bill of materials item</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BusinessModel -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BusinessModel">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+        <rdfs:label xml:lang="en-us">business model</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a plan specification to fulfill objectives of a business organisation</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BusinessResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BusinessResourceRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/BusinessProcess"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">business resource role</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">business resource role is a role that inheres in an independent continuant where that continuant bears a disposition that, if realized, is realized in a business enterprise process</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/CommercialServiceComponent -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/CommercialServiceComponent">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProcessDefinition"/>
+        <rdfs:label xml:lang="en-us">commercial service component</rdfs:label>
+        <skos:editorialNote>see questions from 29.04.2024</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a process definition which is part of a commercial service specification. It can be itself a service, but for the offered service within the scope of PSS, its existence only has a meaning as part of the commercial service</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ConsumableResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ConsumableResourceRole">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResourceRole"/>
+        <rdfs:label xml:lang="en-us">consumable resource role</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role that is borne by a material entity, when that entity is intended to be consumed/transformed in a planned process. The quantities of resources is reduced after use</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DigitalLogData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/DigitalLogData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductData"/>
+        <rdfs:label xml:lang="en-us">digital log data</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">product data generated from a software element, part of the product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EmbeddedData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EmbeddedData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductData"/>
+        <rdfs:label xml:lang="en-us">embedded data</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">product data generated from embedded data-source components (e.g. sensors)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EmbeddedDataSourceComponent -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EmbeddedDataSourceComponent">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSProductComponent"/>
+        <rdfs:label xml:lang="en-us">embedded data source component</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a PSS product component that refers to product-embedded information devices / parts (e.g. sensors), which allows for (additional) services to be offered for the product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EngineeringBillOfMaterials -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EngineeringBillOfMaterials">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
+        <rdfs:label xml:lang="en-us">engineering bill of materials</rdfs:label>
+        <skos:altLabel>design bill of materials</skos:altLabel>
+        <iof-av:acronym>EBOM</iof-av:acronym>
+        <iof-av:explanatoryNote>BOM from the design perspective</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>a bill of materials reflecting the product as designed by engineering</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/EngineeringBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/explanatoryNote"/>
+        <owl:annotatedTarget>BOM from the design perspective</owl:annotatedTarget>
+        <rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Feedback -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Feedback">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSInformation"/>
+        <rdfs:label xml:lang="en-us">feedback</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">PSS Information that represents any opinion on PSS, product or service (e.g. comments on social media, opinion expression in online questionnaires, etc.), coming from any agent or group of agents (e.g. Customer, Business Organisation)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Firmware -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Firmware">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSProductComponent"/>
+        <rdfs:label xml:lang="en-us">firmware</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a PSS Product Component which is software, i.e. control software of a machine that exists only in combination with specific hardware product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/HardwareInfrastructure -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/HardwareInfrastructure">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasRole"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResourceRole"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">hardware infrastucture</rdfs:label>
+        <skos:editorialNote>15.06.2022 - to be harmonised with facility in the Supply Chain ontology</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">material artifact that is an Infrastructure that refers to the physical networks (e.g. buildings or machines) necessary for the design, development, delivery and operation of products and/or services</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ImmaterialResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ImmaterialResourceRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">immaterial resource role</rdfs:label>
+        <skos:editorialNote>I think the NLD is contradictory to the class role, to be checked</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role played by an information content entity when that entity is intended to be used in a planned process as a resource for some process</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Infrastructure -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Infrastructure">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
+        <rdfs:label xml:lang="en-us">infrastructure</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">object describing the facilities (physical e.g. buildings or machines), and organisational (e.g. computer networks or software applications) used to assist in development and delivering of a products and/or services</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/InfrastructureRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/InfrastructureRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en-us">infrastructure role</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/KeyPerformanceIndicator -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/KeyPerformanceIndicator">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSIndicator"/>
+        <rdfs:comment>This is an interface class to other ontologies</rdfs:comment>
+        <rdfs:label xml:lang="en-us">product service system key performance indicator</rdfs:label>
+        <skos:example>Various types of KPIs can be defined: manufacturing KPI, environmental KPI etc.</skos:example>
+        <iof-av:acronym>PSS KPI</iof-av:acronym>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a PSS indicator referring to (a set of) measurement(s) that evaluates the performance (or success) of a PSS (concept), and is business relevant</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:comment>This is an interface class to other ontologies. Needs to be reworked</rdfs:comment>
+        <rdfs:label xml:lang="en-us">lifecycle</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a set of processes that a product, a service or a product service system uses for its activities from the idea conceptualisation to its end-of-life</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/LifecycleModel -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/LifecycleModel">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000017"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>This is an interface class to other ontologies - NLD to be revisited</rdfs:comment>
+        <rdfs:label xml:lang="en-us">lifecycle model</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a (set of) process definition(s) which includes different activities in the life of PSS, product, service etc. from the idea conceptualisation to its end-of life (beginning-of -life, middle-of-life, end-of-life)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingBillOfMaterials -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingBillOfMaterials">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/BillOfMaterials"/>
+        <rdfs:label xml:lang="en-us">manufacturing bill of materials</rdfs:label>
+        <skos:altLabel>production bill of materials</skos:altLabel>
+        <iof-av:acronym>EBOM</iof-av:acronym>
+        <iof-av:explanatoryNote>BOM from the production perspective</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>contains all the parts and assemblies required to build a complete and shippable product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/explanatoryNote"/>
+        <owl:annotatedTarget>BOM from the production perspective</owl:annotatedTarget>
+        <rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingBillOfMaterials"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>contains all the parts and assemblies required to build a complete and shippable product</owl:annotatedTarget>
+        <rdfs:comment>https://en.wikipedia.org/wiki/Manufacturing_bill_of_materials</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingResource -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingResource">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isInputOf"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResource"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasRole"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingResourceRole"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">manufacturing resource</rdfs:label>
+        <iof-av:semiFormalNaturalLanguageDefinition>a material resource that bears some manufacturing resource role</iof-av:semiFormalNaturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ManufacturingResourceRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">manufacturing resource role</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role that inheres in an independent continuant where that continuant bears a disposition that, if realized, is realized in a manufacturing enterprise process</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/NonConsumableResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/NonConsumableResourceRole">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResourceRole"/>
+        <rdfs:label xml:lang="en-us">non-consumable resource role</rdfs:label>
+        <skos:example>infrastructure, machines</skos:example>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role that is borne by a material entity, when that entity is intended to be used but quantity is not reduced in a planned process</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSBusinessCustomer -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSBusinessCustomer">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/BusinessOrganization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/owns"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system business customer</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS business customer</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">business organization that buys and uses the products, services or PSS. It is the (group/company) customer of the PSS, using the PSS for their own business.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSBusinessProcess -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSBusinessProcess">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/BusinessProcess"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSRequirementSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system business process</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS business process</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a business process in which PSS is developed, implemented, distributed and used</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSCondition -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSCondition">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000141"/>
+        <rdfs:label xml:lang="en-us">product service system condition</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS condition</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">an immaterial entity that describes the situation around a PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSGuideline -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSGuideline">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ActionSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system guideline</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS guideline</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">action specification referring to a statement describing a course of action aiming to reach a specific goal for the design, development or use of a PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSIndicator -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSIndicator">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MeasurementInformationContentEntity"/>
+        <rdfs:label xml:lang="en-us">product service system indicator</rdfs:label>
+        <iof-av:acronym>PSS indicator</iof-av:acronym>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">measurement information content entity used to measure/evaluate any aspect within the scope of PSS, namely a process, a PSS, a product, a service, etc.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSInformation -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSInformation">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DirectiveInformationContentEntity"/>
+        <rdfs:label xml:lang="en-us">product service system information</rdfs:label>
+        <skos:example>PSS Information Discovery: searching for PSS Information  (e.g., feedback) to support developing of a new Service or PSS.</skos:example>
+        <skos:example>UC Traceability: Reconstructing the history of previous services developments and uses and finding information used and provided (e.g. feedback, origin, time etc.)</skos:example>
+        <iof-av:abbreviation xml:lang="en-us">PSS information</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity created by processing (convert or organise or infer) objective facts or observations about PSS related entities (development, deployment and use of PSS) in order to satisfy some need of at least one agent or group of agents</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSKnowledge -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSKnowledge">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DirectiveInformationContentEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system knowledge</rdfs:label>
+        <iof-av:acronym>PSS knowledge</iof-av:acronym>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity which describes the understanding of PSS entities (PSS information, PSS data, product, commercial services…) and can be applied to a current PSS Process</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSProductComponent -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSProductComponent">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialComponent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000173"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system product component</rdfs:label>
+        <iof-av:acronym xml:lang="en-us">PSS product component</iof-av:acronym>
+        <iof-av:explanatoryNote>It can be itself a manufactured product, but for the offered product within the scope of PSS, its existence only has a meaning as part of the product</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a material component which is part of the material product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSQuality -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSQuality">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system quality</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS quality</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a quality that describes an aspect or attribute related to the PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSRequirementSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSRequirementSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000057"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/recognizedByAtSomeTime"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/recognizedByAtSomeTime"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system requirement specification</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS requirement specification</iof-av:abbreviation>
+        <iof-av:explanatoryNote>requirement specification that depicts the aspects which are necessary for the design, development or offer of PSS and is defined by an agent or group of agents</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">requirement specification that prescribes a product service system</iof-av:naturalLanguageDefinition>
+        <iof-av:usageNote>it serves as an interface class for merging with other ontologies</iof-av:usageNote>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSService -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSService">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/CommercialService"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/satisfiesRequirement"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceRequirementSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">PSS service</rdfs:label>
+        <skos:altLabel xml:lang="en-us">product service system service</skos:altLabel>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">commercial service which has agents service provider and agent consumer and the business process fulfills a need of the consumer</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSourceData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSourceData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemData"/>
+        <rdfs:label xml:lang="en-us">product service system source data</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS source data</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">information content entity that refers to the digitalised information coming as input from the product or the service, specifically for the scope of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSupplierOrganization -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSupplierOrganization">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/BusinessOrganization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/owns"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system supplier organization</rdfs:label>
+        <skos:altLabel xml:lang="en-us">PSS provider organization</skos:altLabel>
+        <skos:altLabel xml:lang="en-us">PSS vendor organization</skos:altLabel>
+        <iof-av:abbreviation xml:lang="en-us">PSS supplier organization</iof-av:abbreviation>
+        <iof-av:explanatoryNote>Additional subclasses are possible, e.g. in material supplier, component supplier etc.</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">business organisation that both produces and sells something (product, service, PSS), or only sells it</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSTypeQuality -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSTypeQuality">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSQuality"/>
+        <rdfs:label xml:lang="en-us">product service system type quality</rdfs:label>
+        <skos:example>to engage the customer with services; or to increase the sales of a product</skos:example>
+        <skos:example>typical examples of PSS with a different type quality are e.g. the product- oriented PSS, the result-oriented PSS and the use-oriented PSS.</skos:example>
+        <iof-av:abbreviation xml:lang="en-us">PSS type quality</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">PSS type quality that refers to quality that define the subgroup where a PSS belongs to, and describe the specific focus (orientation or aim) of a PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProcessDefinition -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProcessDefinition">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification"/>
+        <dcterms:source>4. Wikipedia contributors, &apos;Business process&apos;, Wikipedia, The Free Encyclopaedia, 17 July 2017, 11:25 UTC, &lt;https://en.wikipedia.org/w/index.php?title=Business_process&amp;oldid=790986805&gt; [accessed 20 July 2017]</dcterms:source>
+        <rdfs:label xml:lang="en-us">process definition</rdfs:label>
+        <skos:example>The Process Definition can be the manufacturing process where the equipment is manufactured, or the process where the equipment is used, or the development process where products, services or PSS are being developed etc.</skos:example>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">plan specification which is a structured set of activities designed to accomplish a specific objective</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSourceData"/>
+        <rdfs:label xml:lang="en-us">product data</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">PSS source data used in the scope of PSS, and refer specifically to the product part of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductDesignSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductDesignSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product design specification</rdfs:label>
+        <iof-av:explanatoryNote>In the industrial context they can be also understood as normative prescriptions, defined by a blueprint/recipe</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">design specification that is a set of characteristics essential for a type of material products and that have to be jointly taken into account to describe the material product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductExtensionService -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductExtensionService">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSService"/>
+        <rdfs:label xml:lang="en-us">product extension service</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a Service which adds additional value to the product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductExtensionServiceSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductExtensionServiceSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/CommercialServiceSpecification"/>
+        <rdfs:label xml:lang="en-us">product extension service specification</rdfs:label>
+        <skos:editorialNote>entity not clear at the moment - this should be a type of PSS</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">commercial service specification that adds value to the product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamily -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamily">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product family</rdfs:label>
+        <iof-av:naturalLanguageDefinition>a group of related goods produced by the same company under the same brand</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChange -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChange">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000176"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChangeSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product family change</rdfs:label>
+        <iof-av:naturalLanguageDefinition>a modification that a product variant set design specification applies to the structure of the product family design specification from which it belongs</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChangeSet -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChangeSet">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyChange"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product family change set</rdfs:label>
+        <iof-av:naturalLanguageDefinition>a descriptive information content entity that groups all the changes that are applied to the product family design specification structure in order to obtain a product variant set design specification</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyDesignSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamilyDesignSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSetDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamily"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product family design specification</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">design specification that is a set of characteristics essential to group material products based on design and / or production processes and / or value proposition of the business organisation</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductIntegratedSet -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductIntegratedSet">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+        <rdfs:label xml:lang="en-us">product integrated set</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">an object aggregate that consists of a set of products needed to jointly fulfil users’ needs</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductLifecycle -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductLifecycle">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle"/>
+        <rdfs:label xml:lang="en-us">product lifecycle</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a  lifecycle that includes only the product specific processes, in the scope of PSS. It refers to the Product Lifecycle Model in conjunction with time.</iof-av:naturalLanguageDefinition>
+        <iof-av:naturalLanguageDefinition>a set of processes that a product uses for its activities from the idea conceptualisation to its end-of-life</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductLifecycleModel -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductLifecycleModel">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/LifecycleModel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product lifecycle model</rdfs:label>
+        <skos:editorialNote>NLD to be revisited</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a lifecycle model that refers to the product within the scope of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductProvider -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductProvider">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Supplier"/>
+        <rdfs:label xml:lang="en-us">product provider</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">supplier (or provider or vendor) that both produces and sells a product, or only sells it</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductQuality -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductQuality">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:label xml:lang="en-us">product quality</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a quality that describes an aspect, or attribute, related to the product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductRequirementSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductRequirementSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product requirement specification</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">requirement specification that prescribes a material product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/EngineeredSystem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000172"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/GroupOfAgents"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/SoftwareInfrastructure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Facility"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/satisfiesRequirement"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSRequirementSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system</rdfs:label>
+        <skos:editorialNote>PSS is a system which includes at least one material product and at least one commercial service, related to this product, and may include agents or groups of agents and infrastructure and which bears a PSS Role.</skos:editorialNote>
+        <skos:editorialNote>PSS is a system which includes at least one product and at least one service, related to this product, and which bears PSS Role.
 PSS role is a role that borne by set of at least an entity that is the specified output of a product production process and at least an entity that is the specified output of a service development process</skos:editorialNote>
-		<iof-av:acronym>PSS</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs [3]. It must include material products and commercial service specification, and may include agents or group of agents and infrastructure (software or hardware)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemData">
-		<rdfs:subClassOf rdf:resource="&iof-core;DescriptiveInformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystemLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system data</rdfs:label>
-		<skos:example>the number 50 coming out of a temperature sensor</skos:example>
-		<iof-av:abbreviation xml:lang="en-US">PSS Data</iof-av:abbreviation>
-		<iof-av:explanatoryNote>raw data without context</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">descriptive information content entity, which are objective facts or observations about PSS related entities (in development, deployment and use of PSS)</iof-av:naturalLanguageDefinition>
-		<iof-av:usageNote>we do not need to know to which entity it is but this is related to some entity in the design, development or use of a PSS</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemDevelopmentCondition">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSCondition"/>
-		<rdfs:label xml:lang="en-US">product service system development condition</rdfs:label>
-		<rdfs:comment>It may serve as an interface class for merging with other ontologies (e.g. in DIVERSITY to user-centric ontology [7]).</rdfs:comment>
-		<iof-av:abbreviation xml:lang="en-US">PSS Development Condition</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a PSS Condition which describes the situation under which the PSS is being developed (e.g. cultural characteristics of the development teams, corporate orientation preferences, etc.)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemLifecycle">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Lifecycle"/>
-		<rdfs:label xml:lang="en-US">product service system lifecycle</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS lifecycle</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a lifecycle that includes the PSS processes from the idea conceptualisation to its end-of-life, referring to the PSS Lifecycle Model in conjunction with time</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemLifecycleModel">
-		<rdfs:subClassOf rdf:resource="&iof-scro;LifecycleModel"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystemLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system lifecycle model</rdfs:label>
-		<skos:editorialNote>NLD to be revisited</skos:editorialNote>
-		<iof-av:abbreviation xml:lang="en-US">PSS Lifecycle Model</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">the lifecycle model that refers to the different stages of the life of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemProvider">
-		<rdfs:subClassOf rdf:resource="&iof-core;Supplier"/>
-		<rdfs:label xml:lang="en-US">product service system provider</rdfs:label>
-		<iof-av:abbreviation xml:lang="en-US">PSS provider</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">supplier that offers PSS and owns intellectual property rights (IPR) on the commercial service specification</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemResource">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialResource"/>
-		<rdfs:label xml:lang="en-US">product service system resource</rdfs:label>
-		<dcterms:source>2.  Wikipedia contributors, &apos;Resource&apos;, Wikipedia, The Free Encyclopaedia, 27 June 2017, 08:20 UTC, &lt;https://en.wikipedia.org/w/index.php?title=Resource&amp;oldid=787741678&gt; [accessed 20 July 2017]</dcterms:source>
-		<skos:editorialNote>is a PSS Resource only a material resource or can it have also immaterial parts?</skos:editorialNote>
-		<iof-av:abbreviation xml:lang="en-US">PSS resource</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">PSS Resource is a mean (source) that can be used for the design, development, offer and delivery of a PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductServiceSystem"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system role</rdfs:label>
-		<rdfs:comment>PSS Role is an optional characteristic of a system combining products and services, aiming to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs).</rdfs:comment>
-		<iof-av:abbreviation>PSS role</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role that borne by set of at least an entity that is the specified output of a product production process and at least an entity that is the specified output of a service development process, and may include material entity that is used in PSS processes and actors that are involved in PSS processes. This set is intended to satisfy a need of the market, to be competitive, and jointly fulfil customer’s needs.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>PSS role x implies x is a &apos;role&apos; that is the &apos;role of&apos; some product service system p</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemType">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:label xml:lang="en-US">product service system type</rdfs:label>
-		<skos:example>use-oriented PSS, service-oriented PSS, product-oriented PSS, result-oriented PSS</skos:example>
-		<iof-av:acronym>PSS type</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition>set of product service systems that share some qualities and describe the specific focus (orientation or aim) of a PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductServiceSystemUseCondition">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSCondition"/>
-		<rdfs:label xml:lang="en-US">product service system use condition</rdfs:label>
-		<rdfs:comment>It may serve as an interface class for merging with other ontologies.</rdfs:comment>
-		<iof-av:abbreviation xml:lang="en-US">PSS use condition</iof-av:abbreviation>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a PSS Condition which describes the situation under which the PSS is being used (e.g. environment aspects, cultural aspect, geographical location, etc.)</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductType">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:label>product type</rdfs:label>
-		<iof-av:naturalLanguageDefinition>set of products that share some qualities</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductTypeQuality">
-		<rdfs:subClassOf rdf:resource="&iof-scro;ProductQuality"/>
-		<rdfs:label xml:lang="en-US">product type quality</rdfs:label>
-		<rdfs:comment>Product type is sector or company specific. These are features which characterise the specific type (subgroup) of the product.</rdfs:comment>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a product quality that refers to quality that define the subgroup where a product belongs to</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductVariantSet">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductVariantSetDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-scro;specialization"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductFamily"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product variant set</rdfs:label>
-		<skos:example>Product variants are versions of products with variations in attributes such as color, size, material, features, pricing, etc.</skos:example>
-		<skos:example>a specific item that is bundled in with related variants to form one distinguishable product</skos:example>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ProductVariantSetDesignSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;DesignSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductDesignSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ProductVariantSet"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product variant set design specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US"></iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Recipe">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Specification"/>
-		<rdfs:label xml:lang="en-US">recipe</rdfs:label>
-		<iof-av:explanatoryNote>It includes information about the product, the ingredients required, and the manufacturing process. It&apos;s not just a recipe for cooking, but also a detailed plan for producing a specific batch of a product. It also includes a control recipe, which is a specific instance of the planned process.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>a plan that specifies the requirements and details necessary to produce a specific product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceComponent">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
-		<rdfs:label xml:lang="en-US">service component</rdfs:label>
-		<skos:editorialNote>04.2024: Components of material entities are the entity with a role but I don&apos;t think we can arribute a role to a process, is this correct? How to solve this?</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a process, part of a commercial service</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceData">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PSSSourceData"/>
-		<rdfs:label xml:lang="en-US">service data</rdfs:label>
-		<skos:example>data generated during a call in the service centre</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">PSS source data used in the scope of PSS, and are generated specifically in the service part of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceLifecycle">
-		<rdfs:subClassOf rdf:resource="&iof-scro;Lifecycle"/>
-		<rdfs:label xml:lang="en-US">service lifecycle</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a lifecycle that includes only the service specific processes, in the scope of PSS. It refers to the service lifecycle model in conjunction with time</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceLifecycleModel">
-		<rdfs:subClassOf rdf:resource="&iof-scro;LifecycleModel"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ServiceLifecycle"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">service lifecycle model</rdfs:label>
-		<skos:editorialNote>NLD to be revisited</skos:editorialNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">a lifecycle model that refers to the commercial service specification within the scope of PSS</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceRequirementSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
-		<rdfs:label xml:lang="en-US">service requirement specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition>requirement specification that prescribes a commercial service</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;ServiceResourceRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;CommercialService"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">service resource role</rdfs:label>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role that inheres in a material entity where that material entity bears a disposition that, if realized, is realized in a service development and deploy/use processes</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;SoftwareInfrastructure">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasRole"/>
-				<owl:someValuesFrom rdf:resource="&iof-scro;ImmaterialResourceRole"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">software infrastucture</rdfs:label>
-		<skos:editorialNote>this is not clear if this is the correct sub-class</skos:editorialNote>
-		<iof-av:explanatoryNote>material entity that refers to the non-material aspects (resources) necessary for the design, development, delivery and operation of a product, and/or a service</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>material entity that bears an immaterial resource role</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;Specification">
-		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
-		<rdfs:label xml:lang="en-US">specification</rdfs:label>
-		<iof-av:naturalLanguageDefinition>A detailed description of how something should be done, made, etc.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-scro;StakeholderRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;AgentRole"/>
-		<rdfs:label xml:lang="en-US">stakeholder role</rdfs:label>
-		<skos:editorialNote>Open is “bear certain needs” and “satisfying some needs”</skos:editorialNote>
-		<skos:example>The supplier of a certain product component is a stakeholder</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by an person or business organisation having the capability of realizing the disposition of a person or group of persons on whose behalf the agent acts, has interest in, and if realized is satisfying some of the needs that the person or group of persons bear</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:NamedIndividual rdf:about="&iof-scro;computer">
-		<rdf:type rdf:resource="&iof-scro;HardwareInfrastructure"/>
-	</owl:NamedIndividual>
-	
-	<owl:DatatypeProperty rdf:about="&iof-scro;hasNameValue">
-		<rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
-	</owl:DatatypeProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-scro;owns">
-		<rdfs:label xml:lang="en-US">owns</rdfs:label>
-		<skos:example>PSSProvider owns a PSS (inverse to PSS belongsTo PSSProvider)</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">to have or hold as property</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-scro;specialization">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-US">specialization</rdfs:label>
-	</owl:ObjectProperty>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Facility">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
-		<rdfs:label xml:lang="en-US">facility</rdfs:label>
-		<iof-av:directSource>SCRO</iof-av:directSource>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system that consists of buildings, structures, roads, machines, and equipment desgined to provide certain capabilities</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:ObjectProperty rdf:about="https://www.omg.org/spec/Commons/Collections/isPartOf">
-		<rdfs:label>is part of</rdfs:label>
-		<iof-av:naturalLanguageDefinition>relates something to another thing that it is some component or portion of, regardless of how that whole-part relationship is manifested</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:Axiom>
-		<rdfs:comment>Engineering Semantics</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;BillOfMaterialItem"/>
-		<owl:annotatedTarget>An entry in, or description of an entry (i.e. an item), in a Bill of Materials (e.g., a line item).</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<rdfs:comment>Stanford Encyclopedia of Philosophy at http://plato.stanford.edu/entries/mereology/</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
-		<owl:annotatedSource rdf:resource="https://www.omg.org/spec/Commons/Collections/isPartOf"/>
-		<owl:annotatedTarget>relates something to another thing that it is some component or portion of, regardless of how that whole-part relationship is manifested</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<rdfs:comment>https://dictionary.cambridge.org/dictionary/english/specification</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;Specification"/>
-		<owl:annotatedTarget>A detailed description of how something should be done, made, etc.</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<rdfs:comment>https://en.wikipedia.org/wiki/Manufacturing_bill_of_materials</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;ManufacturingBillOfMaterials"/>
-		<owl:annotatedTarget>contains all the parts and assemblies required to build a complete and shippable product</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;explanatoryNote"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;EngineeringBillOfMaterials"/>
-		<owl:annotatedTarget>BOM from the design perspective</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<rdfs:comment>https://www.iso.org/obp/ui/#iso:std:iso:18828:-2:ed-1:v1:en</rdfs:comment>
-		<owl:annotatedProperty rdf:resource="&iof-av;explanatoryNote"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;ManufacturingBillOfMaterials"/>
-		<owl:annotatedTarget>BOM from the production perspective</owl:annotatedTarget>
-	</owl:Axiom>
-	<owl:Axiom>
-		<owl:annotatedProperty rdf:resource="&iof-av;naturalLanguageDefinition"/>
-		<owl:annotatedSource rdf:resource="&iof-scro;ProductServiceSystem"/>
-		<owl:annotatedTarget xml:lang="en-US">engineered system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs [3]. It must include material products and commercial service specification, and may include agents or group of agents and infrastructure (software or hardware)</owl:annotatedTarget>
-		<iof-av:adaptedFrom>3. Mont, Oksana K. &quot;Clarifying the concept of product–service system.&quot; Journal of cleaner production 10.3 (2002): 237-245.</iof-av:adaptedFrom>
-	</owl:Axiom>
-	<rdf:Description>
-		<owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality>
-	</rdf:Description>
+        <iof-av:acronym>PSS</iof-av:acronym>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">engineered system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs [3]. It must include material products and commercial service specification, and may include agents or group of agents and infrastructure (software or hardware)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget xml:lang="en-us">engineered system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), to be competitive, and jointly fulfil customer’s needs [3]. It must include material products and commercial service specification, and may include agents or group of agents and infrastructure (software or hardware)</owl:annotatedTarget>
+        <iof-av:adaptedFrom>3. Mont, Oksana K. &quot;Clarifying the concept of product–service system.&quot; Journal of cleaner production 10.3 (2002): 237-245.</iof-av:adaptedFrom>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system data</rdfs:label>
+        <skos:example>the number 50 coming out of a temperature sensor</skos:example>
+        <iof-av:abbreviation xml:lang="en-us">PSS Data</iof-av:abbreviation>
+        <iof-av:explanatoryNote>raw data without context</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">descriptive information content entity, which are objective facts or observations about PSS related entities (in development, deployment and use of PSS)</iof-av:naturalLanguageDefinition>
+        <iof-av:usageNote>we do not need to know to which entity it is but this is related to some entity in the design, development or use of a PSS</iof-av:usageNote>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemDevelopmentCondition -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemDevelopmentCondition">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSCondition"/>
+        <rdfs:comment>It may serve as an interface class for merging with other ontologies (e.g. in DIVERSITY to user-centric ontology [7]).</rdfs:comment>
+        <rdfs:label xml:lang="en-us">product service system development condition</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS Development Condition</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a PSS Condition which describes the situation under which the PSS is being developed (e.g. cultural characteristics of the development teams, corporate orientation preferences, etc.)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle"/>
+        <rdfs:label xml:lang="en-us">product service system lifecycle</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS lifecycle</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a lifecycle that includes the PSS processes from the idea conceptualisation to its end-of-life, referring to the PSS Lifecycle Model in conjunction with time</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycleModel -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycleModel">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/LifecycleModel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product service system lifecycle model</rdfs:label>
+        <skos:editorialNote>NLD to be revisited</skos:editorialNote>
+        <iof-av:abbreviation xml:lang="en-us">PSS Lifecycle Model</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">the lifecycle model that refers to the different stages of the life of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemProvider -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemProvider">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Supplier"/>
+        <rdfs:label xml:lang="en-us">product service system provider</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS provider</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">supplier that offers PSS and owns intellectual property rights (IPR) on the commercial service specification</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemResource -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemResource">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialResource"/>
+        <dcterms:source>2.  Wikipedia contributors, &apos;Resource&apos;, Wikipedia, The Free Encyclopaedia, 27 June 2017, 08:20 UTC, &lt;https://en.wikipedia.org/w/index.php?title=Resource&amp;oldid=787741678&gt; [accessed 20 July 2017]</dcterms:source>
+        <rdfs:label xml:lang="en-us">product service system resource</rdfs:label>
+        <skos:editorialNote>is a PSS Resource only a material resource or can it have also immaterial parts?</skos:editorialNote>
+        <iof-av:abbreviation xml:lang="en-us">PSS resource</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">PSS Resource is a mean (source) that can be used for the design, development, offer and delivery of a PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/roleOf"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>PSS Role is an optional characteristic of a system combining products and services, aiming to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs).</rdfs:comment>
+        <rdfs:label xml:lang="en-us">product service system role</rdfs:label>
+        <iof-av:abbreviation>PSS role</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role that borne by set of at least an entity that is the specified output of a product production process and at least an entity that is the specified output of a service development process, and may include material entity that is used in PSS processes and actors that are involved in PSS processes. This set is intended to satisfy a need of the market, to be competitive, and jointly fulfil customer’s needs.</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>PSS role x implies x is a &apos;role&apos; that is the &apos;role of&apos; some product service system p</iof-av:semiFormalNaturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemType -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemType">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+        <rdfs:label xml:lang="en-us">product service system type</rdfs:label>
+        <skos:example>use-oriented PSS, service-oriented PSS, product-oriented PSS, result-oriented PSS</skos:example>
+        <iof-av:acronym>PSS type</iof-av:acronym>
+        <iof-av:naturalLanguageDefinition>set of product service systems that share some qualities and describe the specific focus (orientation or aim) of a PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemUseCondition -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductServiceSystemUseCondition">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSCondition"/>
+        <rdfs:comment>It may serve as an interface class for merging with other ontologies.</rdfs:comment>
+        <rdfs:label xml:lang="en-us">product service system use condition</rdfs:label>
+        <iof-av:abbreviation xml:lang="en-us">PSS use condition</iof-av:abbreviation>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a PSS Condition which describes the situation under which the PSS is being used (e.g. environment aspects, cultural aspect, geographical location, etc.)</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductType -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductType">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+        <rdfs:label>product type</rdfs:label>
+        <iof-av:naturalLanguageDefinition>set of products that share some qualities</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductTypeQuality -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductTypeQuality">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductQuality"/>
+        <rdfs:comment>Product type is sector or company specific. These are features which characterise the specific type (subgroup) of the product.</rdfs:comment>
+        <rdfs:label xml:lang="en-us">product type quality</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a product quality that refers to quality that define the subgroup where a product belongs to</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSet -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSet">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MaterialProduct"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribedBy"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSetDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/specialization"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductFamily"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product variant set</rdfs:label>
+        <skos:example>Product variants are versions of products with variations in attributes such as color, size, material, features, pricing, etc.</skos:example>
+        <skos:example>a specific item that is bundled in with related variants to form one distinguishable product</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSetDesignSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSetDesignSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/DesignSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductDesignSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ProductVariantSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">product variant set design specification</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us"></iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Recipe -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Recipe">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification"/>
+        <rdfs:label xml:lang="en-us">recipe</rdfs:label>
+        <iof-av:explanatoryNote>It includes information about the product, the ingredients required, and the manufacturing process. It&apos;s not just a recipe for cooking, but also a detailed plan for producing a specific batch of a product. It also includes a control recipe, which is a specific instance of the planned process.</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>a plan that specifies the requirements and details necessary to produce a specific product</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceComponent -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceComponent">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:label xml:lang="en-us">service component</rdfs:label>
+        <skos:editorialNote>04.2024: Components of material entities are the entity with a role but I don&apos;t think we can arribute a role to a process, is this correct? How to solve this?</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a process, part of a commercial service</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceData -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceData">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/PSSSourceData"/>
+        <rdfs:label xml:lang="en-us">service data</rdfs:label>
+        <skos:example>data generated during a call in the service centre</skos:example>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">PSS source data used in the scope of PSS, and are generated specifically in the service part of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceLifecycle -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceLifecycle">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Lifecycle"/>
+        <rdfs:label xml:lang="en-us">service lifecycle</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a lifecycle that includes only the service specific processes, in the scope of PSS. It refers to the service lifecycle model in conjunction with time</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceLifecycleModel -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceLifecycleModel">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/LifecycleModel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceLifecycle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">service lifecycle model</rdfs:label>
+        <skos:editorialNote>NLD to be revisited</skos:editorialNote>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">a lifecycle model that refers to the commercial service specification within the scope of PSS</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceRequirementSpecification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceRequirementSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification"/>
+        <rdfs:label xml:lang="en-us">service requirement specification</rdfs:label>
+        <iof-av:naturalLanguageDefinition>requirement specification that prescribes a commercial service</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceResourceRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ServiceResourceRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/CommercialService"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">service resource role</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role that inheres in a material entity where that material entity bears a disposition that, if realized, is realized in a service development and deploy/use processes</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/SoftwareInfrastructure -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/SoftwareInfrastructure">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasRole"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/ImmaterialResourceRole"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">software infrastucture</rdfs:label>
+        <skos:editorialNote>this is not clear if this is the correct sub-class</skos:editorialNote>
+        <iof-av:explanatoryNote>material entity that refers to the non-material aspects (resources) necessary for the design, development, delivery and operation of a product, and/or a service</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>material entity that bears an immaterial resource role</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
+        <rdfs:label xml:lang="en-us">specification</rdfs:label>
+        <iof-av:naturalLanguageDefinition>A detailed description of how something should be done, made, etc.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/Specification"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>A detailed description of how something should be done, made, etc.</owl:annotatedTarget>
+        <rdfs:comment>https://dictionary.cambridge.org/dictionary/english/specification</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/StakeholderRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/StakeholderRole">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/AgentRole"/>
+        <rdfs:label xml:lang="en-us">stakeholder role</rdfs:label>
+        <skos:editorialNote>Open is “bear certain needs” and “satisfying some needs”</skos:editorialNote>
+        <skos:example>The supplier of a certain product component is a stakeholder</skos:example>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">role held by an person or business organisation having the capability of realizing the disposition of a person or group of persons on whose behalf the agent acts, has interest in, and if realized is satisfying some of the needs that the person or group of persons bear</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Facility -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Facility">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/EngineeredSystem"/>
+        <rdfs:label xml:lang="en-us">facility</rdfs:label>
+        <iof-av:directSource>SCRO</iof-av:directSource>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">engineered system that consists of buildings, structures, roads, machines, and equipment desgined to provide certain capabilities</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/computer -->
+
+    <owl:NamedIndividual rdf:about="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/computer">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystems/ProductServiceSystem/HardwareInfrastructure"/>
+    </owl:NamedIndividual>
+    <rdf:Description>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </rdf:Description>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
