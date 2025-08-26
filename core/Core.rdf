@@ -90,6 +90,31 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>LA6: If both i and j are &apos;temporal intervals&apos; and i is &apos;precedes&apos; j then the &apos;last instant of&apos; i &apos;precedes&apos; the &apos;first instant of&apos; j or the &apos;last instant of&apos; i &apos;occurs simultaneously with&apos; the &apos;first instant of&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 	</rdf:Description>
 	
+	<owl:Class rdf:about="&bfo;BFO_0000144">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:label xml:lang="en">process profile</rdfs:label>
+		<owl:disjointWith rdf:resource="&bfo;BFO_0000182"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;processProfileOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:adaptedFrom>BFO 2.0</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) the attributes of the process, which are represented by &apos;process profile&apos; instances, are described as &quot;structural dimensions&quot; in BFO, which are the basis of comparing (fundamentum comparationis) two process instances.
+
+2) the &apos;process profile&apos; universals are described as &quot;shared determinable&quot; in BFO. Therefore, the subclasses of &apos;process profile&apos; may capture many of these universals, e.g., temperature of the gas in a heating process, pressure in a piston cycle, speed of a car during a journey, heart rate in a cardiac cycle, wheel rotation rate in a milling operation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ProcessProfile(x) ↔ ∃y (Process(y) ∧ processProfileOf(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en">A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, typically expressed as a time-series of measurements, where the profile of any temporal part of the process is itself a temporal part of the profile of the whole, since both instantiate the same profile universal.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process profile&apos; is defined as exactly an instance that is &apos;process profile of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<rdf:Description rdf:about="&bfo;BFO_0000202">
 		<iof-av:explanatoryNote xml:lang="en-US">1. The ‘first instant of’ a ‘temporal interval’ should ‘precede’ the ‘last instant of’ that ‘temporal interval’. Therefore, the date-time asserted (i.e., ‘has date-time instant value’ of the ‘temporal instant value expression’ that ‘is value expression of at all times’ of the ‘temporal instant’) for the first instant should be before the last instant in terms their positions in the corresponding calendar and clock system. For example, the first instant and last instant of a ‘temporal interval’ are 2002-10-10T17:00:00Z and 2002-10-11T01:40:00Z. 
 2. If only one date-time is available for the interval due to lack of data or an interval being smaller than the tick time (the smallest duration by which the time progresses) then the date-time should be asserted either only for first instant or only for last instant of every interval uniformly for the entire knowledge base. For example, Barack Obama gained the role of presidency on 20 January 2009 should be modeled as the process p of type ‘gain of role’ ‘occupies temporal region’ r (a ‘temporal interval’) which ‘has last instant’ i (a ‘temporal instant’) which ‘has value expression at all times’ v (a ‘temporal instant value expression’) which ‘has data-time value’ 2009-01-20T00:00:00Z.</iof-av:explanatoryNote>
@@ -2327,15 +2352,27 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ProcessCharacteristic">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000003"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000002"/>
 		<rdfs:label xml:lang="en-US">process characteristic</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000002">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;processCharacteristicOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example xml:lang="en-US">the rate of production of a product production process, heart rate, the rate of temperature change resulting from a heating process</skos:example>
 		<iof-av:explanatoryNote>Here ‘attribute’ is not a technical term.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProcessCharacteristic(x) → Occurrent(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ProcessCharacteristic(x) ↔ Continuant(x) ∧ ∃p(Process(p) ∧ processCharacteristicOf(x, p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">attribute of a process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuant that summarizes an attribute of a process over its entire duration, providing a time-independent description of the process as a whole, where the characteristic of any temporal part of the process is determined independently and is not a part of the characteristic of the whole.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive as it is highly unlikely that a a set of conditions will be created such that no circularity is introduced.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process characteristic&apos; then x is an &apos;occurrent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>every instance of ‘process characteristic’ is defined as exactly an instance of ‘continuant’ that is ‘process characteristic of’ some ‘process’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;ProcuringBusinessProcess">
@@ -2435,6 +2472,19 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<iof-av:firstOrderLogicDefinition>ProductProductionProcess(x) ↔ BusinessProcess(x) ∧ ∃m(ManufacturingProcess(m) ∧ occurentPartOf(m,x)) ∧ ∃y∃t∃t1(MaterialProduct(y) ∧ TemporalRegion(t) ∧ TemporalRegion(t1) ∧ hasSpecifiedOutput(x, y) ∧ occupiesTemporalRegion(x, t) ∧ temporallyOverlaps(t, t1) ∧ existsAt(y, t1))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process that consists of at least one manufacturing process through which raw materials and components are transformed or modified to create a material product</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;product production process&apos; is defined as exactly an instance of &apos;business process&apos; that &apos;has occurrent part&apos;, some &apos;manufacturing process&apos;, and &apos;has specified output&apos; some &apos;material product&apos; which did not &apos;exist at&apos; the beginning of the &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;QualityProcessProfile">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:label>quality process profile</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-core;RateProcessProfile"/>
+		<iof-av:explanatoryNote>The simplest type of process profiles are what we shall call ‘quality process profiles’, which are the process profiles which serve as the foci of the sort of selective abstraction that is involved when measurements are made of changes in single qualities, as illustrated, for example, by process profiles of mass, temperature, aortic pressure, and so on.</iof-av:explanatoryNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-core;RateProcessProfile">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:label>rate process profile</rdfs:label>
+		<iof-av:explanatoryNote>On a somewhat higher level of complexity are what we shall call rate process profiles, which are the targets of selective abstraction focused not on determinate quality magnitudes plotted over time, but rather on certain ratios between these magnitudes and elapsed times. A speed process profile, for example, is represented by a graph plotting against time the ratio of distance covered per unit of time. Since rates may change, and since such changes, too, may have rates of change, we have to deal here with a hierarchy of process profile universals at successive levels</iof-av:explanatoryNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;RawMaterial">
@@ -3337,6 +3387,14 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process and its characteristic</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-core;hasProcessProfile">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000118"/>
+		<rdfs:label>has process profile</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<iof-av:naturalLanguageDefinition>relation that holds between a process and a process profile that is part of the process such that the part is temporally coextensive with another proper part that is mutually dependent on it and has no parts in common with it</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-core;hasQuality">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000196"/>
 		<rdfs:label xml:lang="en-US">has quality</rdfs:label>
@@ -3775,6 +3833,17 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
 		<skos:example xml:lang="en-US">constant production rate is the process characteristic of a product production process; temperature change of 1C/min is the process characteristic of a heating process</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a characteristic and the process it is a characteristic of</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;processProfileOf">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000138"/>
+		<rdfs:label>process profile of</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<iof-av:adaptedFrom>axiom label in BFO2 Reference (094-005) in http://purl.obolibrary.org/obo/BFO_0000144 from BFO 2.0</iof-av:adaptedFrom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>relation that holds between a process profile and a process that it is part of such that the source process is a proper part of the target process and is temporally coextensive with another proper part of the target process that is mutually dependent on it and shares no parts with it.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The axiom for process profile is retrieved from BFO 2.0 but no definition of mutual dependence is available in both BFO 2.0 and current version of core</iof-av:primitiveRationale>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;qualityOf">
