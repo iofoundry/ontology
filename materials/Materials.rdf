@@ -15,12 +15,15 @@
      xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
      xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+     xmlns:Qualities-Physical="https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/"
      xmlns:AnnotationVocabulary="https://www.omg.org/spec/Commons/AnnotationVocabulary/">
     <owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/">
         <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202308/materials/Materials/"/>
-        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/qualities/Qualities/"/>
         <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202301/AboutIOFProd/"/>
         <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202301/core/meta/AnnotationVocabulary/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/pr-101/latest/qualities/Qualities-Chemical/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/pr-101/latest/qualities/Qualities-MeasurementPerformance/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/pr-101/latest/qualities/Qualities-Physical/"/>
         <dcterms:abstract xml:lang="en-us">The IOF Materials Ontology aims to represent the generic constructs (including classes and properties) related to the domain of material science and engineering. The Materials Ontology uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various material science and engineering ontologies that use IOF reference ontologies.</dcterms:abstract>
         <dcterms:contributor xml:lang="de">Christoph Schweizer, Fraunhofer IWM</dcterms:contributor>
         <dcterms:contributor xml:lang="en">Martin Huschka,Fraunhofer EMI</dcterms:contributor>
@@ -68,6 +71,12 @@
     <!-- http://purl.obolibrary.org/obo/IAO_0000119 -->
 
     <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000119"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000412 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000412"/>
     
 
 
@@ -133,9 +142,118 @@
     <!-- http://purl.obolibrary.org/obo/CHEBI_24431 -->
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_24431">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/MatterObject"/>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMatter"/>
         <rdfs:label xml:lang="en">chemical entity</rdfs:label>
         <iof-av:naturalLanguageDefinition xml:lang="en">chemical entity is a physical entity of interest in chemistry including molecular entities, parts thereof, and chemical substances.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_33250 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_33250">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+        <rdfs:label>atom</rdfs:label>
+        <iof-av:naturalLanguageDefinition>A chemical entity constituting the smallest component of an element having the chemical properties of the element.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_33521 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_33521">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CHEBI_33250"/>
+        <rdfs:label>metal atom</rdfs:label>
+        <iof-av:naturalLanguageDefinition>An atom of an element that exhibits typical metallic properties, being typically shiny, with high electrical and thermal conductivity.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_59999 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_59999">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000110"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_23367"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:label>chemical substance</rdfs:label>
+        <iof-av:naturalLanguageDefinition>A chemical substance is a portion of matter of constant composition, composed of molecular entities of the same type or of different types.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_60003 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_60003">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_59999"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000172"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_23367"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:label>pure substance</rdfs:label>
+        <iof-av:naturalLanguageDefinition>A pure substance is a chemical substance composed of multiple molecules, which are all of the same kind.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_23367 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_23367">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000110"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_33250"/>
+                                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_24433"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:label>molecular entity</rdfs:label>
+        <iof-av:naturalLanguageDefinition>Any constitutionally or isotopically distinct atom, molecule, ion, ion pair, radical, radical ion, complex, conformer etc., identifiable as a separately distinguishable entity.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_24433 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/CHEBI_24433">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                        <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CHEBI_33250"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+        <rdfs:label>atom group</rdfs:label>
+        <iof-av:naturalLanguageDefinition>A defined linked collection of atoms or a single atom within a molecular entity.</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -248,6 +366,27 @@
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/materials/Materials/Alloy -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/Alloy">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_59999"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000172"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                        <owl:onClass rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/Metal"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:label>alloy</rdfs:label>
+        <iof-av:naturalLanguageDefinition>chemical substance that consists many of a least 2 metals</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/materials/Materials/AnnealingProcess -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/AnnealingProcess">
@@ -323,6 +462,22 @@
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/Experiment">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MeasurementProcess"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasRole"/>
+                                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/SpecimenRole"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="de">Versuch</rdfs:label>
         <rdfs:label xml:lang="en">experiment</rdfs:label>
         <iof-av:naturalLanguageDefinition xml:lang="en">experiments are a primary component of the scientific method. They are used to test theories and hypotheses about how physical processes work under particular conditions (e.g., whether a particular engineering process can produce a desired chemical compound). Typically, experiments in these fields focus on replication of identical procedures in hopes of producing identical results in each replication. Random assignment is uncommon.</iof-av:naturalLanguageDefinition>
@@ -439,26 +594,26 @@
     
 
 
-    <!-- https://spec.industrialontologies.org/ontology/materials/Materials/MatterObject -->
-
-    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/MatterObject">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
-        <rdfs:label xml:lang="de">Materieobject</rdfs:label>
-        <rdfs:label xml:lang="en">matter object</rdfs:label>
-        <iof-av:naturalLanguageDefinition xml:lang="en">object that consist of matter and is disjuct from living objects in such a way the living or non livng state of the object is not relevant for its use</iof-av:naturalLanguageDefinition>
-    </owl:Class>
-    
-
-
     <!-- https://spec.industrialontologies.org/ontology/materials/Materials/MeasurementDevice -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/MeasurementDevice">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/MaterialArtifact"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasCapability"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/MeasurementCapability"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PieceOfEquipment"/>
         <rdfs:label xml:lang="de">Messgerät</rdfs:label>
         <rdfs:label xml:lang="en">measurement device</rdfs:label>
         <skos:altLabel xml:lang="de">Messinstrument</skos:altLabel>
-        <skos:definition xml:lang="de">Ein Artefakt, das eine Messartefaktfunktion besitzt</skos:definition>
-        <skos:definition xml:lang="en">material artifact inhering a measurement artifact function</skos:definition>
+        <skos:definition xml:lang="de">Material-Artefakt, das eine Messfahigkeit besitzt</skos:definition>
+        <skos:definition xml:lang="en">material artifact inhering a MeasurementCapability</skos:definition>
         <iof-av:naturalLanguageDefinition_source rdf:resource="https://en.wikipedia.org/wiki/Measurement_device"/>
     </owl:Class>
     
@@ -487,11 +642,53 @@
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/materials/Materials/Metal -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/Metal">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CHEBI_59999"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000177"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CHEBI_33521"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:label>metal</rdfs:label>
+        <iof-av:naturalLanguageDefinition>chemical substance consist mostly of metal atoms</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/materials/Materials/PhysicsModel -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/PhysicsModel">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Algorithm"/>
         <rdfs:label xml:lang="en">physics model</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMaterial -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMaterial">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMatter"/>
+        <rdfs:label>portion of material</rdfs:label>
+        <iof-av:naturalLanguageDefinition>portion of matter that is defined by complex compositions and or necessities on manufacturing</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMatter -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMatter">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <obo:IAO_0000412>https://w3id.org/pmd/co/PMD_0000001</obo:IAO_0000412>
+        <rdfs:label xml:lang="de">Materialportion</rdfs:label>
+        <rdfs:label xml:lang="en">portion of matter</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en">A material entity that is not demarcated by any physical discontinuities. At some finer level of granularity it is an object aggregate, at some coarser level of granularity it is a fiat object part,but at this level of granularity it is neither.</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -566,6 +763,30 @@
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/materials/Materials/SpecimenRole">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasDisposition"/>
+                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/MeasurementSpecimenFunction"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isInputOf"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/Experiment"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">specimen role</rdfs:label>
         <iof-av:naturalLanguageDefinition xml:lang="en">role of an artifact manufactured with the purpose to be the scope act of observation or Measurement.</iof-av:naturalLanguageDefinition>
     </owl:Class>
@@ -603,6 +824,43 @@
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/MeasurementDevice"/>
         <rdfs:label xml:lang="en">universal testing machine</rdfs:label>
         <iof-av:naturalLanguageDefinition xml:lang="en">machine capitable of performing komplex mechanical experiments, by applying force or displacement controlled regimes on specimen.</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/ChemicalComposition -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/ChemicalComposition">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/MaterialComposition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/qualityOf"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CHEBI_24431"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/qualityOf"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040"/>
+                                    <owl:Class>
+                                        <owl:complementOf rdf:resource="https://spec.industrialontologies.org/ontology/materials/Materials/PortionOfMatter"/>
+                                    </owl:Class>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/qualityOf"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/MaterialComposition"/>
     </owl:Class>
 </rdf:RDF>
 
