@@ -2264,8 +2264,14 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;MaterialArtifact">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
 						<owl:someValuesFrom rdf:resource="&iof-core;EquipmentRole"/>
@@ -2276,9 +2282,9 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<skos:example xml:lang="en-US">wrench when it is used in the maintenance process of a car; chromatography column that is planned to be used in a protein purification process; r truck that is used to transport goods to the buyer; single-use bioreactor when it is planned to be used in the upstream phase of a biomanufacturing process</skos:example>
 		<iof-av:counterExample>buffer designed to keep pH in a bioreactor constant</iof-av:counterExample>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience. Therefore, specific kinds of equipment such as machines, devices, and tools should be asserted under &apos;material artifact&apos; or &apos;engineered system&apos; as appropriate and not directly under &apos;piece of equipment&apos;.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>PieceOfEquipment(x) ↔ MaterialEntity(x) ∧ ∃r(EquipmentRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has an equipment role</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;piece of equipment&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;equipment role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:firstOrderLogicDefinition>PieceOfEquipment(x) ↔  (MaterialArtifact(x) ∨ EngineeredSystem(x)) ∧ ∃r(EquipmentRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact or engineered system with an equipment role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;piece of equipment&apos; is defined as exactly an instance of &apos;material artifact&apos; or &apos;engineered system&apos; that &apos;has role&apos; some &apos;equipment role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-core;PlanSpecification">
