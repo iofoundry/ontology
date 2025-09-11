@@ -16,7 +16,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-equipment="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -37,14 +37,14 @@
 		<rdfs:label xml:lang="en-US">Equipment Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations enabling representation of equipment types, properties (qualities, capabilities, and functions), equipment specifications and validation (e.g., methods, testing, reporting, etc.).</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -96,7 +96,7 @@
 		<iof-av:explanatoryNote>positively charged molecules that are chemically bound to the matrix serve as functional groups as they provide the material basis of the resin function</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>AnionExchangeChromatographyMedium(x) → ChromatographyMedium(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of a matrix and positively charged molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of an insoluble matrix and positively charged molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;anion exchange chromatography medium&apos; then x is a &apos;chromatography medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -125,34 +125,36 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:equivalentClass>
 			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:unionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Stainless steel production bioreactor with integrated agitation and feed control; 2000 L single-use production bioreactor for monoclonal antibody manufacturing;Stirred-tank seed bioreactor with automated pH and DO control; single-use seed bioreactor for mammalian cell expansion; small-scale glass seed bioreactor with temperature regulation; perfusion seed bioreactor with cell retention system</skos:example>
@@ -161,6 +163,14 @@
 		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ( ∃c1∃f1 (BioproductionEnvironmentCapability(c1) ∧ hasCapability(x, c1) ∧ CultivationEnvironmentCapability(f1) ∧ hasFunction(x, f1)) ∨ ∃c2∃f2 (CultivationEnvironmentCapability(c2) ∧ hasCapability(x, c2) ∧ BioproductionEnvironmentCapability(f2) ∧ hasFunction(x, f2)) )</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to provide a controlled environment for the cultivation of cells, tissues, or microorganisms, or for the production of material products or process intermediate materials by those biological entities</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that either has capability some &apos;bioproduction environment capability&apos; and has function some &apos;cultivation environment capability&apos;, or has capability some &apos;cultivation environment capability&apos; and has function some &apos;bioproduction environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BioreactorVessel">
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:label>bioreactor vessel</rdfs:label>
+		<skos:example>A 200 L single-use polymer bioreactor vessel; A 2 L borosilicate glass bioreactor vessel with a stainless steel headplate</skos:example>
+		<iof-av:explanatoryNote>The vessel is the primary containment unit of a bioreactor. It provides the physical space for cultivation (growth, maintenance, expansion) or production (of products or intermediates) while relying on integration with the bioreactor system for controlled conditions. Typical features include impellers, spargers, probes, and ports that allow interaction with system-level functions. Vessels may be constructed from stainless steel, glass, or single-use polymers depending on scale and application.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material artifact designed to hold cells, tissues, or microorganisms for cultivation, or for product or intermediate production, and to interface with mixing, aeration, monitoring, and control components of the bioreactor</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CationExchangeChromatographyMedium">
@@ -173,7 +183,7 @@
 		<iof-av:explanatoryNote>negatively charged molecules that are chemically bound to the matrix serve as functional groups as they provide the material basis of the resin function</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CationExchangeChromatographyMedium(x) → ChromatographyMedium(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of a matrix and negatively charged molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of an insoluble matrix and negatively charged molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cation exchange chromatography medium&apos; then x is a &apos;chromatography medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -243,6 +253,15 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;chromatography system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;stationary phase&apos;, &apos;has capability&apos; some &apos;measurement capability&apos;, and &apos;has function&apos; some &apos;flow rate controlling capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Cryovial">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Vial"/>
+		<rdfs:label>cryovial</rdfs:label>
+		<skos:example>A 2 mL polypropylene cryovial with an O-ring screw cap designed for storing samples in vapor-phase liquid nitrogen.</skos:example>
+		<iof-av:adaptedFrom>https://www.fishersci.com/us/en/browse/90168052/cryogenic-storage-vials</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Cryovials are specialized small, sealable containers typically made of plastics (e.g., polypropylene) or glass designed to withstand liquid nitrogen or −80 °C conditions without compromising sample integrity. They are commonly used in biomanufacturing and research to preserve cells, tissues, nucleic acids, or proteins.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>vial designed for storage of material at ultra-low temperatures</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CultivationEnvironmentCapability">
 		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
 		<rdfs:subClassOf>
@@ -298,6 +317,15 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filter&apos; then x is a &apos;material artifact&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Flask">
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:label>flask</rdfs:label>
+		<iof-av:explanatoryNote>1) Flasks are often made of glass or plastic. 
+2) They are commonly conical (e.g., Erlenmeyer flask) or spherical (e.g., round-bottom flask) in form. 
+3) They are used to hold reagents, samples, or cultures in laboratory processes. 4) Many flasks are designed to allow heating, cooling, or shaking during use.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material artifact that has a narrow opening and a wider body and is designed for holding, mixing, or culturing material</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;FlowRateControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
 		<rdfs:subClassOf>
@@ -341,9 +369,21 @@
 		<iof-av:explanatoryNote>In this case hydrophobic molecules that are chemically bound to the matrix serve as functional groups as they provide the material basis of the medium function</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>HydrophobicChromatographyMedium(x) → ChromatographyMedium(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of a matrix and hydrophobic molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium consisting of an insoluble matrix and hydrophobic molecules that are chemically bound to it</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hydrophobic chromatography medium&apos; then x is a &apos;chromatography medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Incubator">
+		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
+		<rdfs:label>incubator</rdfs:label>
+		<skos:example>CO₂ incubator for mammalian cell culture. A stainless-steel laboratory incubator with HEPA filtration and automated humidity control, maintaining 37 °C and 5 percent CO₂, used for cultivating CHO cells in research and production.</skos:example>
+		<iof-av:counterExample>shaking water bath is used to heat and mix samples in tubes, it does not provide the enclosed, sterile, and carefully regulated atmosphere of an incubator; Bioreactor which itself provides the controlled environment for the growth of cells or microorganisms. Unlike an incubator, which maintains conditions around vessels placed inside it, the bioreactor has the vessel where cultivation occurs integrated, with control of parameters such as pH, dissolved oxygen, agitation, and temperature.</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) Incubators regulate parameters such as temperature, humidity, CO₂, oxygen, and light cycles.
+2) They require separate material artifacts (e.g., flasks, plates, or vials) to contain the material being cultivated or stored.
+3) Incubators differ from bioreactors in that they do not include an integrated culture vessel and are not used for production; instead, they provide environmental control for vessels placed inside.
+4) An incubator provides a controlled environment for cultivation or storage but lacks a bioproduction environment capability, whereas a bioreactor combines cultivation environment capability with bioproduction environment capability.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>engineered system that is designed to maintain controlled environmental conditions to support the cultivation or storage of material in vessels placed within it, without serving as the cultivation vessel itself</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MembraneFilter">
@@ -442,6 +482,24 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;preparative chromatography system&apos; then x is a &apos;chromatography system&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ProductionBioreactor">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Bioreactor"/>
+		<rdfs:label>production bioreactor</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Bioreactor">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>boreactor designed with the primary function of supporting the formation of material products or process intermediate materials</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ProteinAChromatographyMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;AffinityChromatographyMedium"/>
 		<rdfs:subClassOf>
@@ -481,6 +539,49 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein binding capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;RockerBag">
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:label>rocker bag</rdfs:label>
+		<skos:example>Flexsafe RM bag</skos:example>
+		<iof-av:adaptedFrom>https://link.springer.com/chapter/10.1007/10_2008_15 and https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Rocker bags are single-use or disposable flexible culture chambers typically made from inert plastic film.
+2) They may be used with full rocker-motion bioreactors, as well as simpler incubator rockers or trays
+3) Their design enables mixing and gas transfer by wave or rocking motion rather than by impellers, reducing shear stress.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material artifact that is a flexible, sterile bag designed for rocking or wave-motion mixing, gently agitating its contents to provide mixing and gas transfer that enable controlled cultivation of cells or microorganisms under low-shear conditions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SeedBioreactor">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Bioreactor"/>
+		<rdfs:label>seed bioreactor</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Bioreactor">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:explanatoryNote>Seed bioreactors are configured and operated with the primary purpose of cell growth and viability, not product formation. They support controlled mixing, aeration, temperature, and pH conditions optimized to increase viable cell density. Multiple seed bioreactors may be used sequentially to scale from early-stage cultures (e.g., shake flasks) to production scale (e.g., N–2, N–1 stages).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>bioreactor designed with the primary function of expanding biomass from a smaller inoculum to prepare inoculum for the next stage or for production</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ShakeFlask">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Flask"/>
+		<rdfs:label>shake flask</rdfs:label>
+		<skos:example>A 2 L baffled PETG Erlenmeyer flask used in mammalian cell culture, with vented cap and controlled shaking at 100 rpm, is a well-established small-scale cultivation system for recombinant protein expression in CHO cells.</skos:example>
+		<iof-av:counterExample>Test tubes placed on a shaker: although agitation is present, test tubes lack the flask geometry, venting options, and mixing dynamics of shake flasks. They can be used for cultivation, but they are not shake flasks as defined in laboratory and regulatory practice.</iof-av:counterExample>
+		<iof-av:explanatoryNote>1)Shake flasks are often based on Erlenmeyer flask geometry. 
+2) They may include baffles to improve mixing and oxygen transfer.
+3) They are usually closed with breathable stoppers, foam plugs, or vented caps to allow gas exchange while limiting contamination.
+4) They are commonly used for inoculum preparation, strain screening, and preliminary optimization of process parameters before scaling up to bioreactors. The geometry of the flask (e.g., baffled vs. non-baffled) and the shaking conditions influence oxygen transfer rates, mixing efficiency, and overall culture performance.
+5) They are typically made of glass or plastic and range in volume from milliliters to liters.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>flask designed for cultivating biological material or conducting chemical reactions that require aeration and mixing under agitated conditions with a shape that minimizes spillage during shaking</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SizeExclusionChromatographyMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ChromatographyMedium"/>
 		<rdfs:label xml:lang="en-US">size exclusion chromatography medium</rdfs:label>
@@ -493,6 +594,15 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography medium designed to selectively and reversibly retain molecules based on differences in their size, shape, or molecular weight</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;size exclusion chromatography medium&apos; then x is a &apos;chromatography medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SpinnerFlask">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Flask"/>
+		<rdfs:label>spinner flask</rdfs:label>
+		<skos:example>A 250 mL glass spinner flask with a magnetic stirring bar</skos:example>
+		<iof-av:counterExample>T-flask for adherent cell culture, which lacks any internal component with a mixing function</iof-av:counterExample>
+		<iof-av:explanatoryNote>The mixing component is typically a magnetic stir bar, paddle, or impeller built into the vessel and externally driven to keep cells and medium evenly agitated. This prevents cell settling and improves oxygen and nutrient distribution. Spinner flasks are commonly used for small-scale suspension cultures (e.g., hybridomas, CHO cells) prior to scale-up into bioreactors.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>flask designed for cultivating cells in suspension that has as part a component with a mixing function to keep the culture uniformly agitated</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StationaryPhase">
@@ -538,6 +648,14 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a solid, gel, or liquid that is planned to be or used in a chromatography process as the immobilized material which selectively and reversibly retains solutes in the mobile phase</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. In particular modeling of solid,gel or liquid is required.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;stationary phase role&apos; then x is a &apos;role&apos; and x is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TFlask">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Flask"/>
+		<rdfs:label>T-flask</rdfs:label>
+		<skos:example>A T75 polystyrene tissue culture flask with vented cap, used for adherent HEK293 cell expansion.</skos:example>
+		<iof-av:counterExample>A spinner flask for suspension cell culture, which lacks a flat surface for cell attachment and instead has an internal stirring element</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>flask designed for cultivating adherent cells that has as part a flat growth surface for cell attachment and a narrow neck for adding or removing material while reducing contamination risk</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingCapability">
@@ -596,6 +714,17 @@
 		<iof-av:firstOrderLogicDefinition>ThawingSystem(x) ↔ EngineeredSystem(x) ∧ ∃f(ThawingCapability(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to raise the temperature of a material in a controlled manner to reach a specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;thawing system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has function&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Vial">
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:label>vial</rdfs:label>
+		<iof-av:explanatoryNote>1)Vials are often cylindrical in form. 
+2) They are typically made of glass or plastic.
+ 3) They are commonly used to hold pharmaceutical preparations, injectable drugs, biological products, cryopreserved cell aliquots, or laboratory samples. 
+4) Some vials are used for headspace analysis, containing gas or the gaseous headspace above a liquid or solid. 
+5) They are usually sealed with a stopper, screw cap, or crimp closure to protect the contents.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material artifact that is small, sealable, and designed for holding, storing, or dispensing small quantities of material</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:AllDisjointClasses>
