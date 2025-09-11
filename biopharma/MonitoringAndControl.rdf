@@ -18,7 +18,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF 
+<rdf:RDF
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bmic-monitoringandcontrol="https://spec.industrialontologies.org/ontology/biopharma/MonitoringAndControl/"
@@ -41,14 +41,14 @@
 		<rdfs:label xml:lang="en-US">Monitoring And Control Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations necessary for representing the planning and execution of monitoring and/or controlling for both laboratory and manufacturing scale.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -60,6 +60,22 @@
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&iof-construct;AliquotingProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SamplingProcess"/>
+		<rdfs:label>aliquoting process</rdfs:label>
+		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/A00218 and http://purl.obolibrary.org/obo/NCIT_C124326</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Because the source material is assumed to be homogeneous, the resulting aliquots represent the whole with negligible sampling error.
+2) The process produces multiple portions that can be uniquely identified, stored, or used independently</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>sampling process in which a homogeneous material entity is subdivided into multiple portions of defined amount, each portion representing the composition of the source</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;AtlineMonitoringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:label>atline monitoring process</rdfs:label>
+		<iof-av:explanatoryNote>At-line monitoring involves withdrawal of material from the process stream, thereby creating a sample that represents the entity of interest. The sample is analyzed outside the process equipment, typically in benchtop analyzers located near the process. Unlike on-line monitoring, the withdrawn sample is not returned, making this an inherently extractive approach.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a sampling process, in which material representing the entity of interest is withdrawn from the process stream and transported away from the process environment for analysis in a separate laboratory setting</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ControlStrategy">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
@@ -93,6 +109,42 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators associated with a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a control strategy.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CultureFeedingStrategy">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:label>culture feeding strategy</rdfs:label>
+		<iof-av:explanatoryNote>A feeding strategy specifies how feeding processes are to be executed, rather than performing them. It defines not only the scheduling, frequency but also the control logic by which feeding decisions are made (e.g., fixed pre-set schedules, feedback adjustments based on process measurements, or model-predictive rules). As a plan specification, it serves as a template guiding execution of one or more feeding processes.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>plan specification that prescribes the scheduling, frequency, and control logic of feeding processes applied during cultivation, with the aim of maintaining favorable culture conditions, sustaining cell growth, or optimizing product accumulation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InlineMonitoringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:label>inline monitoring process</rdfs:label>
+		<iof-av:explanatoryNote>In-line monitoring provides real-time measurement of process attributes under actual operating conditions. Examples include pH, dissolved oxygen, or spectroscopic probes placed inside a bioreactor. No physical separation of sample from process stream occurs.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes using sensors or probes integrated with the process equipment, such that the entity of interest remains within the process stream and is neither removed nor diverted</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialAliquot">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialSample"/>
+		<rdfs:label>material aliquot</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MaterialSample">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;AliquotingProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:adaptedFrom>https://docs.gdc.cancer.gov/Encyclopedia/pages/Aliquot/ and https://goldbook.iupac.org/terms/view/A00218</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) By assumption, aliquots are produced from a homogeneous source material, so each aliquot is considered to represent the composition of the whole with negligible sampling error.
+2) In practice, aliquots are typically assigned unique identifiers (e.g., IDs, barcodes) to enable independent use and traceability.
+3) In laboratory and biobanking contexts, an aliquot is typically a sub-sample taken from a primary biospecimen or analyte, prepared so that it can be distributed, stored, or analyzed independently.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material entity that is the specified output of some aliquoting process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialQualityPlan">
@@ -230,10 +282,25 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<skos:example>UV absorbance and conductivity monitoring during column loading; continous monitoring of temperature and humidity in a clean room; Tablet weight is measured in-line every 30 minutes during compression using an integrated balance; During a fed-batch cell culture process, at-line nutrient monitoring is performed using a Nova BioProfile® FLEX analyzer to measure glucose, lactate, glutamine, and ammonia levels; Flow rate is continuously monitored during tangential flow filtration to ensure consistent membrane performance</skos:example>
 		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/monitoring-biopharmaceutical-processes-present-and-future-approaches</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1)Each monitoring process is an execution of a monitoring plan that prescribes it
-2) In case a monitoring process is responsible for monitoring the attribute/parameter/indicator in multiple processes (e.g., multiple unit operations) it is a part of the &apos;larger process&apos; which has the &apos;occurrent part&apos; the unit operations and it does not imply that it is an occurrent part of the unit operations themselves&quot;.</iof-av:explanatoryNote>
+2) In case a monitoring process is responsible for monitoring the attribute/parameter/indicator in multiple processes (e.g., multiple unit operations) it is a part of the &apos;larger process&apos; which has the &apos;occurrent part&apos; the unit operations and it does not imply that it is an occurrent part of the unit operations themselves&quot;.
+3) In the context of monitoring, the “entity of interest” denotes the material entity, process, or quality attribute on which measurements are conducted (e.g., dissolved oxygen in a culture, glucose concentration in medium, product titer). It is distinct from a “sample,” which refers to a portion withdrawn from the process stream for the purpose of analysis. In in-line and on-line monitoring, measurements target the entity of interest directly within the process stream without generating an independent sample. In at-line and off-line monitoring, the entity of interest is assessed through measurements performed on a withdrawn sample, which serves as a proxy for the process entity of interest.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>MonitoringProcess(x) ↔ PlannedProcess(x) ∧ ∃m(MeasurementProcess(m) ∧ hasOccurrentPart(x, m)) ∧ ∃p(PlannedProcess(p) ∧ occurrentPartOf(x, p)) ∧ ∃mp(MonitoringPlan(mp) ∧ prescribedBy(x, mp))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is a part of another planned process and that consists of one or more observation or measurement processes in which a particular attribute (specifically dependent continuant or temporal region or process characteristic or process profile) of some entity of interest is measured or observed</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;monitoring process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;measurement process&apos;, is &apos;occurrent part of&apos; some &apos;planned process&apos;, and is &apos;prescribed by&apos; some &apos;monitoring plan&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OfflineMonitoringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:label>offline monitoring process</rdfs:label>
+		<iof-av:explanatoryNote>Off-line monitoring involves withdrawal of material from the process stream, thereby creating a sample that represents the entity of interest. The sample is transferred outside the manufacturing area, often to a QC laboratory, for analysis. Unlike at-line monitoring, off-line analyses are not performed in proximity to the process, and results may involve longer turnaround times. This approach often supports confirmatory, detailed, or regulatory testing that cannot be performed with integrated or near-process methods.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a sampling process, in which material representing the entity of interest is withdrawn from the process stream and transported away from the process environment for analysis in a separate laboratory setting</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OnlineMonitoringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:label>online monitoring process</rdfs:label>
+		<iof-av:explanatoryNote>On-line monitoring involves diversion of the entity of interest from the process stream to an external measurement device, with the option for the diverted material to be returned afterward. This minimizes material loss while still allowing real-time or near real-time measurement. The defining distinction from in-line monitoring is the presence of a diversion step.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes in which the entity of interest, or a sample representing it, is diverted from the process stream to an external measurement device, with the option that the diverted material may subsequently be returned to the stream</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SamplePlan">
@@ -302,21 +369,6 @@ The sampling process is designed to ensure that the test results subsequently co
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process of selecting and collecting a limited amount or number of some material entity in a manner which ensures it is representative of the input material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions. In particular, pattern and all the constructs for representing that the sample is taken in a manner which ensures it is representative of the input are missing</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;sampling process&apos;, then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;material entity&apos; m and &apos;has specified output&apos; some s, where s is either a &apos;member part of at some time&apos; or a &apos;proper continuant part of at some time&apos; of m</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;ActionSpecification">
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;MeasurementInformationContentEntity">
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;MeasurementProcess">
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;PlanSpecification">
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-core;PlannedProcess">
 	</owl:Class>
 
 </rdf:RDF>
