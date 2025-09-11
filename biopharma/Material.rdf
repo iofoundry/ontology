@@ -16,7 +16,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -37,14 +37,14 @@
 		<rdfs:label xml:lang="en-US">Material Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations enabling representation of material types and their associated properties. Terms for characterizing material usages in internal operation systems are also included (e.g., consumable, process intermediate, final product…).</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -56,6 +56,26 @@
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&iof-construct;BufferSolution">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Solution"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapacity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>buffer solution</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C70815 and https://www.fda.gov/files/drugs/published/pH-Adjuster-Webinar-Slides.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>solution consisting of a mixture of a weak acid and its conjugate base or a weak base and its conjugate acid which is resistant to pH changes upon addition of an acidic or basic component</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BufferingCapacity">
+		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:label>buffering capacity</rdfs:label>
+		<iof-av:explanatoryNote>Buffering capacity is influenced by the concentration of the buffering species, the proximity of their pKₐ values, and the relationship between solution pH and pKₐ. In mixtures of weak acids and bases, buffering capacities are additive, and higher overall concentrations confer greater resistance to pH changes. Buffer effectiveness is maximal when the pH of the solution equals the pKₐ of the buffering species, where the acid and its conjugate base are present in equal proportion. Effective buffering is generally maintained within ±1 pH unit of the pKₐ; beyond this range, the capacity to resist pH change diminishes significantly.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>capability of a solution to resist changes in hydrogen ion concentration (pH) when an acid or base is added.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Cell">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000030"/>
@@ -70,6 +90,12 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object of anatomical origin (part of or deriving from an organism) that has as its parts a maximally connected cell compartment surrounded by a plasma membrane</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are currently insufficient constructs to represent cellular components or cell derivation</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell&apos; then x is an &apos;object&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CellBank">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
+		<rdfs:label>cell bank</rdfs:label>
+		<iof-av:naturalLanguageDefinition>object aggregate that has as parts cryopreserved cell aliquots derived from a single source culture, prepared and stored under defined conditions, and maintained as a referenceable lot to provide consistent starting material for research, development, manufacturing, or the generation of new cell banks</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCulture">
@@ -182,6 +208,11 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cloned cell line&apos; then x is a &apos;cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Concentration">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:label>concentration</rdfs:label>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-US">culture medium</rdfs:label>
@@ -204,9 +235,9 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Material/"/>
 		<skos:example>CHO-K1 cell;HeLa cell</skos:example>
 		<iof-av:adaptedFrom>https://www.thermofisher.com/rs/en/home/references/gibco-cell-culture-basics/introduction-to-cell-culture.html and http://purl.obolibrary.org/obo/CL_0000010</iof-av:adaptedFrom>
+		<iof-av:counterExample>Freshly isolated hepatocyte; Hematopoietic stem cell isolated from bone marrow</iof-av:counterExample>
 		<iof-av:explanatoryNote xml:lang="en-US">1)Cultured cells are typically immortalized, meaning they retain the capacity to proliferate indefinitely under suitable growth conditions; in contrast, primary cells such as those directly isolated from a patient without genetic or oncogenic modification undergo a limited number of mitotic divisions before entering senescence or undergoing cell death
 		2) A blurred line would be the case of the CAR-T cell therapy situation where the cells are often taken directly from the patient, modified (not immortalized), expanded in a bioreactor and then infused back into the patient. In this case, CAR-T cells are still considered cultured cells because they are subjected to ex vivo cultivation under controlled, artificial conditions. After being isolated from a patient (typically as primary T cells), they are genetically modified and then expanded in bioreactors or culture vessels using defined media, gas control, and temperature regulation. Although they are not immortalized, they undergo proliferation outside their native environment. This fulfills the defining criteria of a cultured cell as one that grows in an artificial, controlled setting. Their classification as cultured reflects the environmental and procedural context, not the permanence or origin of the cell line.</iof-av:explanatoryNote>
-		<iof-av:counterExample>Freshly isolated hepatocyte; Hematopoietic stem cell isolated from bone marrow</iof-av:counterExample>
 		<iof-av:firstOrderLogicAxiom>CulturedCell(x) → Cell(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell that is grown, maintained, or adapted to grow in a controlled artificial environment that supports its survival and proliferation</iof-av:naturalLanguageDefinition>
@@ -241,6 +272,166 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;cultured cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;cultured cell&apos; and &apos;has member part at some time&apos; only &apos;cultured cell&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;GrowthMedium">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
+		<rdfs:label>growth medium</rdfs:label>
+		<iof-av:naturalLanguageDefinition>culture medium that provides nutrients and suitable conditions to support the growth or maintenance of microorganisms or cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;HostCell">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Cell"/>
+		<rdfs:label>host cell</rdfs:label>
+		<skos:example>A HEK293 cell that has been infected by an adenovirus vector; MDCK cell infected by influenza virus; A CHO cell infected by vesicular stomatitis virus (VSV)</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C93037</iof-av:adaptedFrom>
+		<iof-av:counterExample>A HEK293T cell that has been transduced with a replication-deficient AAV vector to express a therapeutic gene</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>cell that is infected by a virus or another type of microorganism</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;IntermediateStockSolution">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Solution"/>
+		<rdfs:label>intermediate stock solution</rdfs:label>
+		<skos:example>A 0.1 M NaCl solution prepared from a 1 M stock and used to prepare a 1 mM NaCl solution for an assay</skos:example>
+		<iof-av:adaptedFrom>http://champ-project.org/images/ontology/cao.owl#CAO_000142</iof-av:adaptedFrom>
+		<iof-av:counterExample>A 50 mM Tris-HCl buffer prepared from a 1 M stock and used directly in an assay</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>solution prepared by diluting a stock solution and subsequently used to prepare additional dilutions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MasterCellBank">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellBank"/>
+		<rdfs:label>master cell bank</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-d-derivation-and-characterisation-cell-substrates-used-production-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The master cell bank is the definitive, long-term preserved reference lot of a cell line. It serves as the primary source for the generation of working cell banks, but it may also be used directly as a production or study starting material when required. Preparation and characterization of the master cell bank must comply with ICH Q5D requirements, including full documentation of cell origin and banking procedures, and rigorous testing to confirm identity, purity (absence of microbial, viral, or other adventitious agents), and stability. Depending on the cell type and intended use, additional evaluations such as tumorigenicity or karyology are also required.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>cell bank produced in a single preparation event from a well-characterized cell line or clone, stored under validated cryogenic conditions, and established as the authoritative reference lot for direct use or the generation of further banks</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialDifferentiationInducer">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducer"/>
+		<rdfs:label>material differentiation inducer</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MaterialFunctionalInducer">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialDifferentiationInducerRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>material entity with a material differentiation inducer role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialDifferentiationInducerRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducerRole"/>
+		<rdfs:label>material differentiation inducer role</rdfs:label>
+		<skos:example>IL-7 and IL-15 solution bearing a differentiation inducer role when added to CAR-T cell cultures to promote memory T-cell phenotype; Activin A bearing a differentiation inducer role when added to human pluripotent stem cell cultures to direct differentiation toward definitive endoderm lineage</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC10215625/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9043864/</iof-av:adaptedFrom>
+		<iof-av:counterExample>Glucose feed added to sustain T-cell metabolism</iof-av:counterExample>
+		<iof-av:explanatoryNote>Differentiation inducers are commonly cytokines, growth factors, or small molecules that alter developmental programs in culture</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture to activate signaling pathways that drive cell fate decisions, lineage commitment, or functional specialization</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialFunctionalInducer">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label>material functional inducer</rdfs:label>
+		<iof-av:naturalLanguageDefinition>material entity with a material functional inducer role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialFunctionalInducerRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>material functional inducer role</rdfs:label>
+		<iof-av:explanatoryNote>Functional inducers are distinct from standard nutrients or media supplements. They do not merely sustain viability or growth, but instead initiate or modulate a specific cellular function. In other words while media supplements support or maintain inherent cellular activities; they do not by themselves activate new pathways. In contrast, functional inducers are used to trigger or redirect specific pathways or functions (e.g., IPTG induction of the lac operon, tetracycline induction of recombinant protein expression).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture, organism, or microbial community in order to trigger, enhance, or repress a specific cellular activity or pathway beyond baseline nutrient support</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialMetabolicInducer">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducer"/>
+		<rdfs:label>material metabolic inducer</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MaterialFunctionalInducer">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialMetabolicInducerRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>material entity with a material metabolic inducer role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialMetabolicInducerRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducerRole"/>
+		<rdfs:label>material metabolic inducer role</rdfs:label>
+		<skos:example>Lactose as a metabolic inducer in E. coli cell culture via lac operon activation.; Arabinose serving as a metabolic inducer in gut microbial communities.;Hydrocarbons acting as metabolic inducers in soil bacteria activating catabolic pathways.</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3815394/</iof-av:adaptedFrom>
+		<iof-av:counterExample>Sodium butyrate added to a HEK293 culture to boost viral vector yield</iof-av:counterExample>
+		<iof-av:explanatoryNote>Metabolic inducers are most often substrates, substrate analogues, or related metabolites that relieve repression or otherwise activate transcription of genes for metabolic activity. They serve to adapt cellular metabolism to nutrient availability or environmental conditions, whether in controlled laboratory cultures, whole organisms, or natural microbial communities (e.g., soil, gut, biofilms).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture, organism, or microbial community to activate expression of enzymes or pathways involved in the utilization or regulation of metabolites</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialProductionInducer">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducer"/>
+		<rdfs:label>material production inducer</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MaterialFunctionalInducer">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialProductionInducerRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>material entity with a material production inducer role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialProductionInducerRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialFunctionalInducerRole"/>
+		<rdfs:label>material production inducer role</rdfs:label>
+		<skos:example>Tetracycline bearing a production inducer role when added to a mammalian cell culture to activate a Tet-regulated promoter driving recombinant protein expression.</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC8015268/pdf/nihms-1685084.pdf and https://microbialcellfactories.biomedcentral.com/articles/10.1186/s12934-024-02523-w</iof-av:adaptedFrom>
+		<iof-av:counterExample>Glucose feed added to sustain metabolism and cell viability, which supports growth but does not trigger synthesis of a specific target product.</iof-av:counterExample>
+		<iof-av:explanatoryNote>Production inducers are used in engineered culture systems to control when and how product formation occurs. They may be chemical compounds (e.g., tetracycline, arabinose, sodium butyrate) or environmental triggers (e.g., temperature shift, pH, light). The same compound may bear other roles in different contexts (for example, tetracycline as a therapeutic antibiotic). Environmental triggers such as temperature shifts, pH changes, oxygen limitation, or nutrient depletion can also induce product formation, but these are not material entities and do not bear a production inducer role.These will be modeled separately in a future version.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture to trigger the synthesis of a target product</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MediaSupplement">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label>media supplement</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MediaSupplementRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>material entity with a media supplement role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MediaSupplementRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>media supplement role</rdfs:label>
+		<skos:example>Albumin stock solution bearing a media supplement role when added to serum-free medium to stabilize cells; ITS+3 Liquid Media Supplement (100×), a defined mixture of insulin, human transferrin, sodium selenite, linoleic acid, oleic acid ) added to serum-free medium to support viability and specialized functions; G418 (geneticin) added to impose selective pressure on a stable CHO line; 10% DMSO added to a cryopreservation medium for cell banking</skos:example>
+		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html and https://www.thermofisher.com/rs/en/home/life-science/cell-culture/mammalian-cell-culture/media-supplements.html</iof-av:adaptedFrom>
+		<iof-av:counterExample>Albumin used as a blocking agent in immunoassays; Dulbecco’s Modified Eagle Medium (DMEM), a complete culture medium formulation providing baseline nutrients, is a culture medium and not a media supplement; Sterile water used as a solvent to reconstitute culture medium powder</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) This role is context-dependent: a substance only counts as a media supplement when it is actually used or planned to be used to supplement culture media. The same chemical could serve other purposes in other settings (for example, insulin as a therapeutic drug). However, many commercial products (such as ITS mixes, lipid concentrates, or amino acid solutions) are specifically formulated and sold for use as media supplements. In practice, these preparations almost always bear a media supplement role.
+2) Role may be held by single components and their solutions (such as insulin, transferrin, or glutamine) or prepared mixtures supplied as concentrated supplement solutions (e.g., ITS+3, MEM non-essential amino acids).
+3) Media supplements are  distinct from the medium itself (basal/complete formulations are not “supplements”). A component that is part of a basal recipe does not bear this role but a component added on top of a basal medium does.
+4) Media supplements are separate from nutrient replenishement feeds and the additions during cultivation specifically to replenish depleted nutrients should be modeled under nutrient replenishment role</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added or planned to be added to culture media to enrich or modify the medium composition or functional properties</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MolarMass">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:label xml:lang="en-US">molar mass</rdfs:label>
@@ -258,11 +449,90 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;molar mass&apos; then x is a &apos;quality&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;NutrientFeed">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label>nutrient feed</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;NutrientFeedRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>material entity with a nutrient feed role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;NutrientFeedRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>nutrient feed role</rdfs:label>
+		<skos:example>concentrated glucose feed pumped to maintain glucose above a target setpoint; galactose feed added to modulate glycosylation; feed solution containing glucose, amino acids, vitamins, trace metals, and lipids added during cultivation to support high cell density and balanced metabolism</skos:example>
+		<iof-av:adaptedFrom>https://www.bioprocessintl.com/biochemicals-raw-materials/nutrient-supplementation-strategies-for-biopharmaceutical-production</iof-av:adaptedFrom>
+		<iof-av:counterExample>IPTG induction; glucose already present in the medium</iof-av:counterExample>
+		<iof-av:explanatoryNote>This role applies to additions that are part of a controlled feeding strategy after inoculation. The purpose of nutrient feeds can include sustaining cell growth and viability, preventing nutrient depletion, extending the productive phase, optimizing productivity, or steering metabolic activity to achieve desired product quality attributes (e.g., modulating glycosylation). Feeds are often chemically defined solutions and can be single or multicomponent solutioncontaining glucose, amino acids, vitamins, trace elements, and sometimes lipids, but may also be provided as powders or slurries in some settings.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added or planned to be added to a cell cuture during cultivation or production to maintain or modulate nutrients</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PH">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:label>pH</rdfs:label>
+		<iof-av:naturalLanguageDefinition>molar concentration that is the amount of moles of hydrogen ions in a solution</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProductionMedium">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
+		<rdfs:label>production medium</rdfs:label>
+		<iof-av:naturalLanguageDefinition>culture medium that provides nutrients and conditions to support product formation or other desired metabolic activities of microorganisms or cells during the production phase</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Solution">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label>solution</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;StockSolution">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Solution"/>
+		<rdfs:label>stock solution</rdfs:label>
+		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/09050 and https://www.sciencedirect.com/topics/mathematics/stock-solution</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) A stock solution is usually of a greater concentration than is needed for the chemical purpose and is diluted to give the required concentration before use.
+2) Because the solute concentration is accurately known, stock solutions allow reproducible preparation of dilutions or direct additions in planned processes. Their reliability depends on correct preparation and appropriate storage conditions, since degradation or evaporation can introduce concentration errors over time.
+3) Dilutions of a stock solution result in creating of a working solution or an intermediate stock solution</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>solution with an accurately known solute concentration prepared so that smaller volumes can be used directly or diluted as needed for use in a planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VirusSeed">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000027"/>
+		<rdfs:label>virus seed</rdfs:label>
+		<iof-av:naturalLanguageDefinition>object aggregate that has as parts aliquots of a virus preparation derived from a single, well-defined virus source, prepared and stored under controlled conditions, and maintained as a referenceable lot to provide consistent starting material for research, development, manufacturing, or the generation of new virus seeds</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;WorkingCellBank">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellBank"/>
+		<rdfs:label>working cell bank</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-d-derivation-and-characterisation-cell-substrates-used-production-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The source cells are expanded into a homogeneous suspension from one or more vials of the master cell bank, dispensed into multiple uniform containers, and cryopreserved under validated long-term storage conditions. The resulting working cell bank serves as the routine production cell source, allowing repeated use while minimizing the need to access the master cell bank directly.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>cell bank that has as members cryopreserved cell aliquots prepared from one or more aliqots of a master cell bank and stored under validated cryogenic conditions for routine operational use in research development or manufacturing</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;WorkingSolution">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Solution"/>
+		<rdfs:label>working solution</rdfs:label>
+		<skos:example>50 mM Tris-HCl prepared by diluting a 1 M Tris stock solution for use in an enzymatic assay</skos:example>
+		<iof-av:adaptedFrom>https://www.fda.gov/regulatory-information/search-fda-guidance-documents/m10-bioanalytical-method-validation-and-study-sample-analysis and http://champ-project.org/images/ontology/cao.owl#CAO_000214</iof-av:adaptedFrom>
+		<iof-av:counterExample>A 1 M Tris-HCl stock solution stored for later dilutions</iof-av:counterExample>
+		<iof-av:explanatoryNote>Working solutions are derived from stock solutions and adjusted to the concentrations required for assays, buffer systems, culture additives, or other procedures. They are intended for immediate or short-term use and are usually less concentrated than the stock from which they are prepared.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>solution prepared by diluting a stock or intermediate stock solution to the concentration required for direct use in a planned process that is not itself a dilution process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-construct;CellCulture">
-			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;Cell">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;CellCulture">
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;CultureMedium">
 			</rdf:Description>
