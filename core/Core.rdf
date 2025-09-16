@@ -563,6 +563,20 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:synonym xml:lang="en-US">ability</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-core;Classifier">
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;classifies"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Classifier</rdfs:label>
+		<iof-av:firstOrderLogicAxiom>Classifier(x) → InformationContentEntity(x) ∧ ∃e (classifies(x, e))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>Information content entity that uniquely denotes some type.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘classifier’ then x is an ‘information content entity’ that ‘classifies’ some entity</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-core;CommercialService">
 		<rdfs:subClassOf rdf:resource="&iof-core;BusinessProcess"/>
 		<rdfs:subClassOf>
@@ -2990,6 +3004,22 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>capabilityOf(x,y) → Capability(x) ∧ IndependentContinuant(y) ∧ inheresIn(x,y)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a capability to an independent continuant (the bearer), in which the capability specifically depends on the bearer for its existence</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x capability of y holds when x is a &apos;capability&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;classifiedBy">
+		<rdfs:subPropertyOf rdf:resource="&iof-core;denotedBy"/>
+		<owl:inverseOf rdf:resource="&iof-core;classifies"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-core;classifies">
+		<rdfs:subPropertyOf rdf:resource="&iof-core;denotes"/>
+		<rdfs:label>classifies</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-core;Classifier"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
+		<skos:example>UNSPSC code 44121706 classifies all sorts of wooden pencils</skos:example>
+		<iof-av:firstOrderLogicAxiom>classifies(c,e) ∧ classifies(c,e′)→∃!T (subClassOf(T, Entity) ∧ Type(e,T) ∧ Type(e′,T))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>relation from an information content entity to an entity that the information content entity uniquely denote the type of the entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>For every two entities classified by the same &apos;information content entity&apos; there exist a unique class of which both entities are instances.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-core;componentPartOfAtAllTimes">
