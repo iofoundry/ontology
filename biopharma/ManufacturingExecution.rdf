@@ -20,7 +20,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF 
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-manufacturingexecution="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
@@ -67,6 +67,10 @@
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
 	
+	<owl:ObjectProperty rdf:about="&bfo;BFO_0000110">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+	</owl:ObjectProperty>
+	
 	<owl:Class rdf:about="&iof-construct;AerationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>aeration process</rdfs:label>
@@ -81,86 +85,6 @@
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Excessive foam disrupts gas transfer, alters mixing, and may cause cell damage or contamination risks. To manage this, an antifoam solution is periodically added during cultivation. Its function is not to alter metabolism or growth directly, but to stabilize the culture environment by preventing excessive foam accumulation.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material addition process in which an antifoam agent is introduced into a defined environment to suppress, reduce, or prevent foam formation</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<rdf:Description rdf:about="&iof-construct;CultureFeedingStrategy">
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CultureFeedAdditionProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-	</rdf:Description>
-	
-	<owl:Class rdf:about="&iof-construct;FeedAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>feed addition process</rdfs:label>
-		<iof-av:explanatoryNote>1) Feed additions may increase the material balance, as in fed-batch processes, or maintain it in conjunction with an outflow, as in continuous processes.
-2) A feed addition process is always part of a larger manufacturing process or one of its subprocesses. In upstream processing, feeds may include medium, nutrient supplements, or functional additives. In downstream processing, feeds may include buffers, reagents, or excipients. Feed additions are distinguished from supporting additions such as aeration, antifoam, pH adjustment, or inoculation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process in which material is introduced into a defined environment in order to alter or maintain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CultureFeedAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;FeedAdditionProcess"/>
-		<rdfs:label>culture feed addition process</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;FeedAdditionProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;NutrientFeed">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-construct;CultureMedium">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition>feed addition process in which culture medium or nutrient feed is added during cultivation or production to maintain or modulate the nutrient environment of the culture, supporting cell viability, growth, metabolic activity, or product quality attributes</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:label>material addition process</rdfs:label>
-		<iof-av:explanatoryNote>Defined environment in this case encompasses any engineered or controlled context into which materials are intentionally introduced, such as vessels, media, hosts, apparatus, or other designed settings</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process in which a material is introduced into a defined environment</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;OutflowProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>outflow process</rdfs:label>
-		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger manufacturing process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which alter material balance and have different objectives.
-2) In continuous processes, material removed by an outflow may subsequently serve as input to a downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>material removal process in which material is withdrawn from a defined environment in order to sustain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;PHAdjustmentAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
-		<rdfs:label>pH adjustment addition process</rdfs:label>
-		<skos:example>Controlled dosing of sodium hydroxide (NaOH) into a mammalian cell culture bioreactor during production scale to neutralize acidity from lactate accumulation.</skos:example>
-		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S1871678424005533 and https://pmc.ncbi.nlm.nih.gov/articles/PMC10818583/</iof-av:adaptedFrom>
-		<iof-av:counterExample>Addition of nutrient feeds (e.g., glucose, amino acids) might indirectly affect pH, their purpose is metabolic, not direct pH control.</iof-av:counterExample>
-		<iof-av:naturalLanguageDefinition>material addition process in which an acid, base, or gas is introduced into a defined environment to modify pH</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BatchManufacturingProcess">
@@ -641,6 +565,42 @@
 		<iof-av:naturalLanguageDefinition>purification process that has as input culture fluid obtained from a cultivation process and produces clarified harvest material by removing suspended cells, debris, or other particulates under controlled condition</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CultureFeedAdditionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;FeedAdditionProcess"/>
+		<rdfs:label>culture feed addition process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;FeedAdditionProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;CultureMedium">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;NutrientFeed">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>feed addition process in which culture medium or nutrient feed is added during cultivation or production to maintain or modulate the nutrient environment of the culture, supporting cell viability, growth, metabolic activity, or product quality attributes</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<rdf:Description rdf:about="&iof-construct;CultureFeedingStrategy">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CultureFeedAdditionProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+	</rdf:Description>
+	
 	<owl:Class rdf:about="&iof-construct;CultureMediumExchangeProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>culture medium exchange process</rdfs:label>
@@ -654,10 +614,25 @@
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;MaterialRemovalProcess">
+									<rdf:Description rdf:about="&iof-construct;CultureFeedAdditionProcess">
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MaterialRemovalProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
 										<owl:someValuesFrom>
 											<owl:Class>
 												<owl:unionOf rdf:parseType="Collection">
@@ -681,21 +656,6 @@
 							</owl:Class>
 						</owl:someValuesFrom>
 					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;CultureFeedAdditionProcess">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasInput"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
@@ -703,6 +663,13 @@
 		<iof-av:counterExample>Addition of fresh medium without removal of existing culture fluid</iof-av:counterExample>
 		<iof-av:explanatoryNote>Distinct from feeding, which adds fresh material without removal. Media exchange may be partial (e.g., half-media exchange) or complete, and is commonly applied in mammalian cell culture, virus production, and cell therapy to control metabolite accumulation, nutrient balance, or remove inhibitory compounds.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>planned process in which part or all of the culture medium in a vessel is removed and replaced with fresh medium to maintain or alter the metabolic environment of a cell culture</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DegassingProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>degassing process</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0000593</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process during which the adsorbed (dissolved) gas is removed from a solid or liquid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DepthFiltrationProcess">
@@ -877,6 +844,20 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition>batch manufacturing process mode that includes planned additions of material after initiation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;FeedAdditionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>feed addition process</rdfs:label>
+		<iof-av:explanatoryNote>1) Feed additions may increase the material balance, as in fed-batch processes, or maintain it in conjunction with an outflow, as in continuous processes.
+2) A feed addition process is always part of a larger manufacturing process or one of its subprocesses. In upstream processing, feeds may include medium, nutrient supplements, or functional additives. In downstream processing, feeds may include buffers, reagents, or excipients. Feed additions are distinguished from supporting additions such as aeration, antifoam, pH adjustment, or inoculation.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process in which material is introduced into a defined environment in order to alter or maintain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;FiltrationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -1014,10 +995,17 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;liquid chromatography process&apos; then x is a &apos;chromatography process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>material addition process</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+		<iof-av:explanatoryNote>Defined environment in this case encompasses any engineered or controlled context into which materials are intentionally introduced, such as vessels, media, hosts, apparatus, or other designed settings</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process in which a material is introduced into a defined environment</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MaterialRemovalProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>material removal process</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<iof-av:naturalLanguageDefinition>planned process in which material is withdrawn from a defined environment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1116,6 +1104,29 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">liquid chromatography process in which the stationary phase is polar and the mobile phase is nonpolar, resulting in the separation of components based on their relative polarity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal phase chromatography process&apos; then x is a &apos;liquid chromatography process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OutflowProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>outflow process</rdfs:label>
+		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger manufacturing process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which alter material balance and have different objectives.
+2) In continuous processes, material removed by an outflow may subsequently serve as input to a downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material removal process in which material is withdrawn from a defined environment in order to sustain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PHAdjustmentAdditionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+		<rdfs:label>pH adjustment addition process</rdfs:label>
+		<skos:example>Controlled dosing of sodium hydroxide (NaOH) into a mammalian cell culture bioreactor during production scale to neutralize acidity from lactate accumulation.</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S1871678424005533 and https://pmc.ncbi.nlm.nih.gov/articles/PMC10818583/</iof-av:adaptedFrom>
+		<iof-av:counterExample>Addition of nutrient feeds (e.g., glucose, amino acids) might indirectly affect pH, their purpose is metabolic, not direct pH control.</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>material addition process in which an acid, base, or gas is introduced into a defined environment to modify pH</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerpendicularlFlowOrientation">
@@ -1536,6 +1547,12 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	
 	<owl:Class rdf:about="&iof-construct;SolutionPreparationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">solution preparation process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
@@ -1796,11 +1813,11 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;CellCultureExpansionProcess">
+			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;CellCultureProductionPhase">
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;RecoveryCultivationProcess">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;CellCultureExpansionProcess">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>

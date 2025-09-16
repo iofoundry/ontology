@@ -16,7 +16,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -59,13 +59,19 @@
 	
 	<owl:Class rdf:about="&iof-construct;BufferSolution">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Solution"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapacity"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label>buffer solution</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Solution">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapacity"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C70815 and https://www.fda.gov/files/drugs/published/pH-Adjuster-Webinar-Slides.pdf</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>solution consisting of a mixture of a weak acid and its conjugate base or a weak base and its conjugate acid which is resistant to pH changes upon addition of an acidic or basic component</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -73,6 +79,7 @@
 	<owl:Class rdf:about="&iof-construct;BufferingCapacity">
 		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
 		<rdfs:label>buffering capacity</rdfs:label>
+		<iof-av:adaptedFrom>https://www.med.unc.edu/pharm/sondeklab/wp-content/uploads/sites/868/2018/10/buffers_calbiochem.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Buffering capacity is influenced by the concentration of the buffering species, the proximity of their pKₐ values, and the relationship between solution pH and pKₐ. In mixtures of weak acids and bases, buffering capacities are additive, and higher overall concentrations confer greater resistance to pH changes. Buffer effectiveness is maximal when the pH of the solution equals the pKₐ of the buffering species, where the acid and its conjugate base are present in equal proportion. Effective buffering is generally maintained within ±1 pH unit of the pKₐ; beyond this range, the capacity to resist pH change diminishes significantly.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>capability of a solution to resist changes in hydrogen ion concentration (pH) when an acid or base is added.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -438,7 +445,7 @@
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>mixed material</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0001038</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>material is a material entity that consists of different kinds of grains if you inspect it at a higher level of granularity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material entity that consists of different kinds of grains if you inspect it at a higher level of granularity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MolarMass">
