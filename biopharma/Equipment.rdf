@@ -142,15 +142,23 @@
 					</owl:Class>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
-							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;BioreactorVessel"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -160,9 +168,9 @@
 		<skos:example>Stainless steel production bioreactor with integrated agitation and feed control; 2000 L single-use production bioreactor for monoclonal antibody manufacturing;Stirred-tank seed bioreactor with automated pH and DO control; single-use seed bioreactor for mammalian cell expansion; small-scale glass seed bioreactor with temperature regulation; perfusion seed bioreactor with cell retention system</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/earth-and-planetary-sciences/bioreactor and https://www.sciencedirect.com/topics/immunology-and-microbiology/bioreactor and https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/bioreactor</iof-av:adaptedFrom>
 		<iof-av:counterExample>Empty stainless steel vessel without integrated agitation, control skid, or single-use bag system; refrigerated storage unit maintaining cell viability;Incubator designed to maintain temperature and CO₂ for cell culture without agitation, feeding, or waste removal functions;  static cell culture flask lacking active environmental controls</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ( ∃c1∃f1 (BioproductionEnvironmentCapability(c1) ∧ hasCapability(x, c1) ∧ CultivationEnvironmentCapability(f1) ∧ hasFunction(x, f1)) ∨ ∃c2∃f2 (CultivationEnvironmentCapability(c2) ∧ hasCapability(x, c2) ∧ BioproductionEnvironmentCapability(f2) ∧ hasFunction(x, f2)) )</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ∃b(BioreactorVessel  ∧ hasMemberPartAtSomeTime(x,b))  ( ∃c1∃f1 (BioproductionEnvironmentCapability(c1) ∧ hasCapability(x, c1) ∧ CultivationEnvironmentCapability(f1) ∧ hasFunction(x, f1)) ∨ ∃c2∃f2 (CultivationEnvironmentCapability(c2) ∧ hasCapability(x, c2) ∧ BioproductionEnvironmentCapability(f2) ∧ hasFunction(x, f2)) )</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to provide a controlled environment for the cultivation of cells, tissues, or microorganisms, or for the production of material products or process intermediate materials by those biological entities</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that either has capability some &apos;bioproduction environment capability&apos; and has function some &apos;cultivation environment capability&apos;, or has capability some &apos;cultivation environment capability&apos; and has function some &apos;bioproduction environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;bioreactor vessel&apos; and either &apos;has capability&apos; some &apos;bioproduction environment capability&apos; and has function some &apos;cultivation environment capability&apos;, or has capability some &apos;cultivation environment capability&apos; and has function some &apos;bioproduction environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BioreactorVessel">
@@ -497,7 +505,7 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition>boreactor designed with the primary function of supporting the formation of material products or process intermediate materials</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>bioreactor designed with the primary function of supporting the formation of material products or process intermediate materials</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinAChromatographyMedium">
