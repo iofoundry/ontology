@@ -1,0 +1,368 @@
+@prefix : <https://spec.industrialontologies.org/ontology/mpdo/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://spec.industrialontologies.org/ontology/mpdo/core> .
+
+<https://spec.industrialontologies.org/ontology/mpdo/core> rdf:type owl:Ontology ;
+                                                            owl:imports <http://purl.obolibrary.org/obo/bfo.owl> ,
+                                                                        <https://spec.industrialontologies.org/ontology/core/Core/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/manufacturingexecution/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/material/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/monitoringandcontrol/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/parameter/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/physical/> ,
+                                                                        <https://spec.industrialontologies.org/ontology/recipe/> ,
+                                                                        <https://www.w3id.org/sco> ;
+                                                            <http://purl.org/dc/terms/title> "Manufacturing Process Design Optimization Ontology" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://spec.industrialontologies.org/ontology/ce/core#hasPartCradletoGate
+<https://spec.industrialontologies.org/ontology/ce/core#hasPartCradletoGate> rdf:type owl:ObjectProperty ;
+                                                                             rdfs:subPropertyOf <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                             rdfs:domain <https://spec.industrialontologies.org/ontology/ce/core#CradletocradleSystemBoundary> ,
+                                                                                         <https://spec.industrialontologies.org/ontology/lca/core#CradletograveSystemBoundary> ;
+                                                                             rdfs:range <https://spec.industrialontologies.org/ontology/lca/core#CradletoGateSystemBoundary> ;
+                                                                             <http://purl.org/dc/terms/title> "has part Cradle-to-Gate" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#isMemberPartOfCradletograveSystemBoundryAtAllTimes
+<https://spec.industrialontologies.org/ontology/lca/core#isMemberPartOfCradletograveSystemBoundryAtAllTimes> rdf:type owl:ObjectProperty ;
+                                                                                                             rdfs:subPropertyOf <http://purl.obolibrary.org/obo/BFO_0000173> ;
+                                                                                                             rdfs:domain <https://spec.industrialontologies.org/ontology/lca/core#CradletoGateSystemBoundary> ;
+                                                                                                             rdfs:range <https://spec.industrialontologies.org/ontology/lca/core#CradletograveSystemBoundary> ;
+                                                                                                             <http://purl.org/dc/terms/title> "is Member Part of Cradle-to-Grave System Boundary at all times" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://spec.industrialontologies.org/ontology/ce/core#CradletocradleSystemBoundary
+<https://spec.industrialontologies.org/ontology/ce/core#CradletocradleSystemBoundary> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <https://www.w3id.org/sco#SCO_0000024> ;
+                                                                                      owl:disjointWith <https://spec.industrialontologies.org/ontology/lca/core#CradletograveSystemBoundary> ;
+                                                                                      <http://purl.org/dc/terms/title> "cradle-to-cradle system boundary" .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityAssessment
+<https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityAssessment> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/lca/core#ImpactAssessment> ,
+                                                                                                     [ rdf:type owl:Restriction ;
+                                                                                                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000059> ;
+                                                                                                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/ce/core#NetWasteCalculationFormula>
+                                                                                                     ] ;
+                                                                                     <http://purl.org/dc/terms/title> "material intensity assessment" .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityQuality
+<https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityQuality> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ;
+                                                                                  <http://purl.org/dc/terms/title> "material intensity quality" .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#NetWasteCalculationFormula
+<https://spec.industrialontologies.org/ontology/ce/core#NetWasteCalculationFormula> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/Algorithm> ,
+                                                                                                    [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000058> ;
+                                                                                                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityAssessment>
+                                                                                                    ] ;
+                                                                                    <http://purl.org/dc/terms/title> "net waste calculation formula" ;
+                                                                                    <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/adaptedFrom> "https://unstats.un.org/unsd/post-2015/activities/egm-on-indicator-framework/docs/Background notes on material intensity.pdf" ;
+                                                                                    <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/explanatoryNote> "sum (material input values)/sum (material output values)" ;
+                                                                                    <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "the amount of raw materials needed to produce a unit of output, service, or economic sector" .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#PortionOfMaterialQuality
+<https://spec.industrialontologies.org/ontology/ce/core#PortionOfMaterialQuality> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ;
+                                                                                  <http://purl.org/dc/terms/title> "portion of material quality" .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess
+<https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess> rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000117> ;
+                                                                                                  owl:someValuesFrom <https://spec.industrialontologies.org/ontology/core/Core/MeasurementProcess>
+                                                                                                ] ,
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000117> ;
+                                                                                                  owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#AssessmentProcess>
+                                                                                                ] .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/MeasuredValueExpression
+<https://spec.industrialontologies.org/ontology/core/Core/MeasuredValueExpression> rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty <https://spec.industrialontologies.org/ontology/core/Core/isMeasuredValueOfAtSomeTime> ;
+                                                                                                     owl:someValuesFrom <https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityQuality>
+                                                                                                   ] ,
+                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty <https://spec.industrialontologies.org/ontology/core/Core/isMeasuredValueOfAtSomeTime> ;
+                                                                                                     owl:someValuesFrom <https://spec.industrialontologies.org/ontology/ce/core#PortionOfMaterialQuality>
+                                                                                                   ] .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/MeasurementProcess
+<https://spec.industrialontologies.org/ontology/core/Core/MeasurementProcess> rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                                owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000063> ;
+                                                                                                owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#AssessmentProcess>
+                                                                                              ] .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#AnalysisObjectiveSpecification
+<https://spec.industrialontologies.org/ontology/lca/core#AnalysisObjectiveSpecification> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/ObjectiveSpecification> ;
+                                                                                         <http://purl.org/dc/terms/title> "analysis objective specification" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#AnalysisSpecification
+<https://spec.industrialontologies.org/ontology/lca/core#AnalysisSpecification> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/PlanSpecification> ;
+                                                                                <http://purl.org/dc/terms/title> "analysis specification" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#AssessmentProcess
+<https://spec.industrialontologies.org/ontology/lca/core#AssessmentProcess> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess> ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000117> ;
+                                                                                              owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#ImpactAssessment>
+                                                                                            ] ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000117> ;
+                                                                                              owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#InventoryAnalysis>
+                                                                                            ] ;
+                                                                            <http://purl.org/dc/terms/title> "assessment process" ;
+                                                                            <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "compilation and evaluation of the inputs, outputs and the potential impacts of a product system" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#CradletoGateSystemBoundary
+<https://spec.industrialontologies.org/ontology/lca/core#CradletoGateSystemBoundary> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <https://www.w3id.org/sco#SCO_0000024> ;
+                                                                                     <http://purl.org/dc/terms/title> "cradle-to-gate system boundary" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#CradletograveSystemBoundary
+<https://spec.industrialontologies.org/ontology/lca/core#CradletograveSystemBoundary> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <https://www.w3id.org/sco#SCO_0000024> ;
+                                                                                      <http://purl.org/dc/terms/title> "cradle-to-grave system boundary" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#EnergyIntensity
+<https://spec.industrialontologies.org/ontology/lca/core#EnergyIntensity> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf <https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator> ;
+                                                                          <http://purl.org/dc/terms/title> "energy intensity" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#EngineeredSystemRequirementSpecification
+<https://spec.industrialontologies.org/ontology/lca/core#EngineeredSystemRequirementSpecification> rdf:type owl:Class ;
+                                                                                                   rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/RequirementSpecification> ;
+                                                                                                   <http://purl.org/dc/terms/title> "engineered system requirement specification" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#FlowIdentification
+<https://spec.industrialontologies.org/ontology/lca/core#FlowIdentification> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess> ;
+                                                                             <http://purl.org/dc/terms/title> "flow identification" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#FlowRole
+<https://spec.industrialontologies.org/ontology/lca/core#FlowRole> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000023> ;
+                                                                   <http://purl.org/dc/terms/title> "flow role" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#FunctionalUnit
+<https://spec.industrialontologies.org/ontology/lca/core#FunctionalUnit> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/ValueExpression> ;
+                                                                         <http://purl.org/dc/terms/title> "functional unit" ;
+                                                                         <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "A quantitative expression of the product being studied, addressing the function, the quantity, the performance, and the time. The functional unit is the same across alternatives being studied." .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#ImpactAssessment
+<https://spec.industrialontologies.org/ontology/lca/core#ImpactAssessment> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess> ;
+                                                                           <http://purl.org/dc/terms/title> "impact assessment" ;
+                                                                           <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "understanding and evaluating the magnitude and significance of the potential impacts for a product system " .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator
+<https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity> ;
+                                                                          <http://purl.org/dc/terms/title> "impact indicator" ;
+                                                                          <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "quantifiable representation of an impact category" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#InventoryAnalysis
+<https://spec.industrialontologies.org/ontology/lca/core#InventoryAnalysis> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess> ;
+                                                                            <http://purl.org/dc/terms/title> "inventory analysis" ;
+                                                                            <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "phase of life cycle assessment involving the compilation and quantifica-tion of inputs and outputs for a product throughout its life cycle" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#InventoryResult
+<https://spec.industrialontologies.org/ontology/lca/core#InventoryResult> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity> ,
+                                                                                          [ rdf:type owl:Restriction ;
+                                                                                            owl:onProperty <https://spec.industrialontologies.org/ontology/core/Core/isOutputOf> ;
+                                                                                            owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#InventoryAnalysis>
+                                                                                          ] ;
+                                                                          <http://purl.org/dc/terms/title> "inventory result" ;
+                                                                          <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "outcome of an inventory analysis that catalogues the flows crossing the system boundary and provides the starting point for an impact assessment" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#MaterialEfficiency
+<https://spec.industrialontologies.org/ontology/lca/core#MaterialEfficiency> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator> ;
+                                                                             <http://purl.org/dc/terms/title> "material efficiency" ;
+                                                                             <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "the ratio of output of products to input of raw materials" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#MaterialIntensity
+<https://spec.industrialontologies.org/ontology/lca/core#MaterialIntensity> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator> ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <https://spec.industrialontologies.org/ontology/core/Core/isOutputOf> ;
+                                                                                              owl:someValuesFrom <https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityAssessment>
+                                                                                            ] ;
+                                                                            <http://purl.org/dc/terms/title> "material intensity" ;
+                                                                            <http://www.w3.org/2004/02/skos/core#example> "For methanol carbonylation, raw materials input is methanol 13,612 kg/h   CO 12,273 kg/h,for an acetic acid production of 25,000 kg/h. The material intensity is: wasted materials = 0.0354 kg/kg." ;
+                                                                            <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/adaptedFrom> """Ritthoff, M., Rohn, H & Liedtke, C., (2002). Calculating MIPS: Resource productivity of products and services. Wuppertal Spezial, Wuppertal Institute for Climate, Environment and Energy, volume 27, number 27e. 
+
+Dimian, A, & Kiss, A., (2022). Novel energy efficient process for acetic acidproduction by methanol carbonylation.  Chemical Engineering Research and Design, 159, 1-12.""" ;
+                                                                            <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "the mass of wasted materials per unit output" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#ProgramOperatorRole
+<https://spec.industrialontologies.org/ontology/lca/core#ProgramOperatorRole> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <https://spec.industrialontologies.org/ontology/core/Core/AgentRole> ;
+                                                                              <http://purl.org/dc/terms/title> "program operator role" .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#StoichiometricYield
+<https://spec.industrialontologies.org/ontology/lca/core#StoichiometricYield> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <https://spec.industrialontologies.org/ontology/monitoringandcontrol/PerformanceIndicatorMeasurement> ;
+                                                                              <http://purl.org/dc/terms/title> "stoichiometric yield" ;
+                                                                              <http://www.w3.org/2004/02/skos/core#example> """The stoichiometric yield was evaluated by calculating the moles of acetic acid produced per mole of ethanol consumed in the liquid
+medium.""" ;
+                                                                              <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/adaptedFrom> """https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/12:_Stoichiometry/12.09:_Theoretical_Yield_and_Percent_Yield
+
+Ndoye, B., Shafiei, R., Sanaei, N. S., Cleenwerck, I., Somda, M. K., Dicko, M. H., Tounkara, L. S., Guiro, A. T., Delvigne, F., & Thonart, P. (2022). Acetobacter senegalensis            isolated from mango fruits: Its polyphasic characterization and adaptation to protect against stressors in the industrial production of vinegar: A Review. Journal of Applied Microbiology, 132(6), 4130–4149. https://doi.org/10.1111/jam.15495""" ;
+                                                                              <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/naturalLanguageDefinition> "A theoretical yield based upon the stoichiometry of the experiment." .
+
+
+###  https://spec.industrialontologies.org/ontology/lca/core#WaterConsumption
+<https://spec.industrialontologies.org/ontology/lca/core#WaterConsumption> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <https://spec.industrialontologies.org/ontology/lca/core#ImpactIndicator> ;
+                                                                           <http://purl.org/dc/terms/title> "water consumption" .
+
+
+###  https://spec.industrialontologies.org/ontology/material/PortionOfMaterial
+<https://spec.industrialontologies.org/ontology/material/PortionOfMaterial> rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <https://spec.industrialontologies.org/ontology/core/Core/hasRole> ;
+                                                                                              owl:someValuesFrom <https://spec.industrialontologies.org/ontology/lca/core#FlowRole>
+                                                                                            ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://spec.industrialontologies.org/ontology/ce/core#Concentrated_Grape_Must
+<https://spec.industrialontologies.org/ontology/ce/core#Concentrated_Grape_Must> rdf:type owl:NamedIndividual ,
+                                                                                          <https://spec.industrialontologies.org/ontology/core/Core/RawMaterial> ;
+                                                                                 <http://purl.obolibrary.org/obo/BFO_0000178> <https://spec.industrialontologies.org/ontology/ce/core#Glucose> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GainOfGlucoseRole
+<https://spec.industrialontologies.org/ontology/ce/core#GainOfGlucoseRole> rdf:type owl:NamedIndividual ,
+                                                                                    <https://spec.industrialontologies.org/ontology/core/Core/GainOfRole> ;
+                                                                           <http://purl.obolibrary.org/obo/BFO_0000063> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryAnalysis> ;
+                                                                           <https://spec.industrialontologies.org/ontology/core/Core/hasOutput> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseRole> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#Glucose
+<https://spec.industrialontologies.org/ontology/ce/core#Glucose> rdf:type owl:NamedIndividual ,
+                                                                          <https://spec.industrialontologies.org/ontology/material/PortionOfMaterial> ;
+                                                                 <http://purl.obolibrary.org/obo/RO_0000087> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseRole> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryAnalysis
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryAnalysis> rdf:type owl:NamedIndividual ,
+                                                                                           <https://spec.industrialontologies.org/ontology/lca/core#InventoryAnalysis> ;
+                                                                                  <http://purl.obolibrary.org/obo/BFO_0000063> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> ;
+                                                                                  <https://spec.industrialontologies.org/ontology/core/Core/hasSpecifiedOutput> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryResult> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryResult
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryResult> rdf:type owl:NamedIndividual ,
+                                                                                         <https://spec.industrialontologies.org/ontology/lca/core#InventoryResult> ;
+                                                                                <https://spec.industrialontologies.org/ontology/core/Core/isInputOf> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensity
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensity> rdf:type owl:NamedIndividual ,
+                                                                                           <https://spec.industrialontologies.org/ontology/lca/core#MaterialIntensity> ;
+                                                                                  <https://spec.industrialontologies.org/ontology/core/Core/isAbout> <https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousManufacturingExecution> ;
+                                                                                  <https://spec.industrialontologies.org/ontology/core/Core/isOutputOf> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> rdf:type owl:NamedIndividual ,
+                                                                                                     <https://spec.industrialontologies.org/ontology/ce/core#MaterialIntensityAssessment> ;
+                                                                                            <http://purl.obolibrary.org/obo/BFO_0000059> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseNetWasteCalculationFormula> ;
+                                                                                            <https://spec.industrialontologies.org/ontology/core/Core/hasSpecifiedOutput> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensity> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseMeasuredValueExpression
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseMeasuredValueExpression> rdf:type owl:NamedIndividual ,
+                                                                                                 <https://spec.industrialontologies.org/ontology/core/Core/MeasuredValueExpression> ;
+                                                                                        <https://spec.industrialontologies.org/ontology/core/Core/isMeasuredValueOfAtSomeTime> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseQuality> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseNetWasteCalculationFormula
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseNetWasteCalculationFormula> rdf:type owl:NamedIndividual ;
+                                                                                           <http://purl.obolibrary.org/obo/BFO_0000058> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseQuality
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseQuality> rdf:type owl:NamedIndividual ,
+                                                                                 <https://spec.industrialontologies.org/ontology/ce/core#PortionOfMaterialQuality> ;
+                                                                        <https://spec.industrialontologies.org/ontology/core/Core/hasMeasuredValueAtSomeTime> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMeasuredValueExpression> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#GlucoseRole
+<https://spec.industrialontologies.org/ontology/ce/core#GlucoseRole> rdf:type owl:NamedIndividual ,
+                                                                              <https://spec.industrialontologies.org/ontology/lca/core#FlowRole> ;
+                                                                     <http://purl.obolibrary.org/obo/RO_0000081> <https://spec.industrialontologies.org/ontology/ce/core#Glucose> ;
+                                                                     <https://spec.industrialontologies.org/ontology/core/Core/isOutputOf> <https://spec.industrialontologies.org/ontology/ce/core#GainOfGlucoseRole> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousManufacturingExecution
+<https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousManufacturingExecution> rdf:type owl:NamedIndividual ,
+                                                                                                        <https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess> ;
+                                                                                               <http://purl.obolibrary.org/obo/BFO_0000117> <https://spec.industrialontologies.org/ontology/ce/core#GainOfGlucoseRole> ,
+                                                                                                                                            <https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousMeasurementProcess> .
+
+
+###  https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousMeasurementProcess
+<https://spec.industrialontologies.org/ontology/ce/core#Semi-ContinuousMeasurementProcess> rdf:type owl:NamedIndividual ,
+                                                                                                    <https://spec.industrialontologies.org/ontology/core/Core/MeasurementProcess> ;
+                                                                                           <http://purl.obolibrary.org/obo/BFO_0000063> :GlucoseAssessmentProcess ;
+                                                                                           <https://spec.industrialontologies.org/ontology/core/Core/hasOutput> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMeasuredValueExpression> .
+
+
+###  https://spec.industrialontologies.org/ontology/mpdo/core#GlucoseAssessmentProcess
+:GlucoseAssessmentProcess rdf:type owl:NamedIndividual ,
+                                   <https://spec.industrialontologies.org/ontology/lca/core#AssessmentProcess> ;
+                          <http://purl.obolibrary.org/obo/BFO_0000117> <https://spec.industrialontologies.org/ontology/ce/core#GlucoseInventoryAnalysis> ,
+                                                                       <https://spec.industrialontologies.org/ontology/ce/core#GlucoseMaterialIntensityAssessment> .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
