@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+<rdf:RDF
 	xmlns:dcterms="http://purl.org/dc/terms/"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
+	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -36,7 +38,7 @@
 		<skos:changeNote xml:lang="en-US">2022-10-31: revised the IRI structure to correspond to the approved approach to IRI representation documented in https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/3564372109/IRI+Structure+and+Format and ran the RDF serialiser (from FIBO) over the content.</skos:changeNote>
 		<skos:changeNote xml:lang="en-US">2022-11-30: changed various annotations properties to match revised guidance for formalizing terms as per &quot;Annotations Vocabulary Version 2.1&quot;</skos:changeNote>
 		<iof-av:copyright>Copyright (c) 2022, 2023, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Released"/>
+		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 		<iof-av:usageNote xml:lang="en-US">1. The intention of using annotations is to 
  a) help a potential user decide if the ontology or a notion therein meets his or her needs and 
  b) help a user or developer understand the &apos;elements&apos; in the ontology and how to interpret them consistent with the intended interpretation of the IOF.
@@ -222,32 +224,21 @@ This annotation MUST NOT be used in IOF ontologies. IOF authors SHOULD use expla
 	
 	<owl:Class rdf:about="&iof-av;MaturityLevel">
 		<rdfs:label xml:lang="en-US">maturity level</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">classifier used to specify the state of a resource in its development process</skos:definition>
 	</owl:Class>
-	
-	<owl:NamedIndividual rdf:about="&iof-av;Provisional">
-		<rdf:type rdf:resource="&iof-av;MaturityLevel"/>
-		<rdfs:label xml:lang="en-US">provisional</rdfs:label>
-		<skos:definition xml:lang="en-US">construct or ontology development state in which content is subject to change and may change considerably</skos:definition>
-		<iof-av:explanatoryNote xml:lang="en-US">IOF users should be aware that the resource is not dependable, but can be used for reference and for further work.</iof-av:explanatoryNote>
-	</owl:NamedIndividual>
-	
-	<owl:NamedIndividual rdf:about="&iof-av;Released">
-		<rdf:type rdf:resource="&iof-av;MaturityLevel"/>
-		<rdfs:label xml:lang="en-US">released</rdfs:label>
-		<skos:definition xml:lang="en-US">construct or ontology development state in which the resource is stable, usable, and has been made available to external users</skos:definition>
-		<iof-av:explanatoryNote xml:lang="en-US">Release notes will be provided for any changes concerning released content, and any revisions will be backward compatible with the prior version to the degree possible.</iof-av:explanatoryNote>
-	</owl:NamedIndividual>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;abbreviation">
 		<rdfs:subPropertyOf rdf:resource="&skos;altLabel"/>
 		<rdfs:label xml:lang="en-US">abbreviation</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">synonym that is an alternate short label for the resource</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;acronym">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;abbreviation"/>
 		<rdfs:label xml:lang="en-US">acronym</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">an abbreviation usually formed from the initial components of a longer name or phrase</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">Use this annotation when there is a commonly accepted acronym.
 
@@ -257,12 +248,14 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;adaptedFrom">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;source"/>
 		<rdfs:label xml:lang="en-US">adapted from</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">source for the resource that was modified to create the subject resource</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;copyright">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;rights"/>
 		<rdfs:label xml:lang="en-US">copyright</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">exclusive legal right, given to an originator or an assignee to print, publish, perform, film, or record literary, artistic, or musical material, and to authorize others to do the same</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">This annotation is to be used for an entire ontology and not individual elements.</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -270,6 +263,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;counterExample">
 		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
 		<rdfs:label>counter example</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>example that refutes or disproves a concept in some scenario and is intended to demonstrate how the concept might be misused</skos:definition>
 		<iof-av:usageNote>Use of this annotation is optional, but recommended if it will help a user understand the intended interpretation(s).
 - This annotation should use at most twice with/on a notion.
@@ -279,12 +273,14 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;directSource">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;source"/>
 		<rdfs:label xml:lang="en-US">direct source</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">definitive source of the subject resource</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;elucidation">
 		<rdfs:subPropertyOf rdf:resource="&skos;definition"/>
 		<rdfs:label xml:lang="en-US">elucidation</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
 		<skos:example xml:lang="en-US">&apos;Agent&apos; is a subclass of the BFO class &apos;material entity&apos;, which in turn is a subclass of the BFO class &apos;independent continuant&apos;, which in turn is a subclass of the BFO class &apos;continuant&apos;. So the position of &apos;Agent&apos; is &apos;material entity ← independent continuant ← continuant&apos;.</skos:example>
 		<iof-av:usageNote xml:lang="en-US">This annotation is no longer used. The isPrimitive annotation is now set to true to indicate a primitive class when necessary and sufficient conditions can not be provided.</iof-av:usageNote>
@@ -293,6 +289,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;excerptedFrom">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;source"/>
 		<rdfs:label xml:lang="en-US">excerpted from</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>source of a resource that was imported unmodified from an external ontology</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">This annotation is to be used when an element from a non-IOF ontology is used in an IOF ontology (and the source ontology is not imported in its entirety).</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -300,12 +297,14 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;explanatoryNote">
 		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
 		<rdfs:label xml:lang="en-US">explanatory note</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">note that provides additional explanatory information about a given notion or resource</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;firstOrderLogicAxiom">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;logicAxiom"/>
 		<rdfs:label xml:lang="en-US">first-order logic axiom</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">logic axiom annotation written in first order logic</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">First-order logic axioms MAY be provided if the term is primitive (&apos;is primitive&apos; is true ) or non-primitive. A construct MAY include more than one first-order logic axiom annotation.</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -313,6 +312,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;firstOrderLogicDefinition">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;logicDefinition"/>
 		<rdfs:label xml:lang="en-US">first order logic definition</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>logic definition that expresses the axioms of a class or an object property in first order logic</skos:definition>
 		<skos:example xml:lang="en-US">An example of a First Order Logic definition for &apos;Product&apos; might be (again bearing in mind the natural language terms appearing should be regarded as symbols in the IOF signature):
  - Continuant(x) ∧ ¬(SpecificallyDependentContinuant(x) ∨ Person(x) ∨ Organization(x)) ∧ ∃r (ProductRole(r) ∧ hasRole(x, r))</skos:example>
@@ -327,6 +327,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;isPrimitive">
 		<rdfs:label xml:lang="en-US">is primitive</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">boolean flag indicating that necessary and sufficient conditions are not provided</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">&apos;is primitive&apos; must be present if the term does not have necessary and sufficient conditions and the value of the annotation must be set to true. When &apos;is primitive&apos; is set to true, a value for a &apos;primitive rationale&apos; annotation must also be provided.</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -334,6 +335,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;logicAxiom">
 		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
 		<rdfs:label xml:lang="en-US">logic axiom</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">logical statements constraining the interpretation of the notion represented by the construct that do not provide necessary and sufficient conditions</skos:definition>
 		<iof-av:explanatoryNote xml:lang="en-US">This annotation property is an abstraction of the more specialized logic axiom annotations used in IOF. However, this annotation property can also be used to group together the logic axiom annotation values of different forms (such as FOL and natural language) that express the same meaning for a particular construct.</iof-av:explanatoryNote>
 		<iof-av:usageNote xml:lang="en-US">A first order logic axiom expression and a semi-formal natural language axiom expression should be added as Property values for each logic axiom annotation using 1 of each of the corresponding logic axiom annotation subproperties.</iof-av:usageNote>
@@ -342,18 +344,21 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;logicDefinition">
 		<rdfs:subPropertyOf rdf:resource="&skos;definition"/>
 		<rdfs:label xml:lang="en-US">logic definition</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">definition in the form of a logical expression</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;maintainer">
 		<rdfs:subPropertyOf rdf:resource="&dcterms;contributor"/>
 		<rdfs:label xml:lang="en-US">maintainer</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>entity responsible for maintaining the resource</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">This annotation applies to an entire IOF ontology (i.e. the file) and not to individual elements.</iof-av:usageNote>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;maturity">
 		<rdfs:label xml:lang="en-US">maturity</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">annotation property used to indicate the development status of a resource</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">Any value for maturity MUST be an instance of MaturityLevel. All IOF ontologies MUST include exactly one maturity annotation. IOF constructs may include a maturity annotation.</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -361,6 +366,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;naturalLanguageDefinition">
 		<rdfs:subPropertyOf rdf:resource="&skos;definition"/>
 		<rdfs:label xml:lang="en-US">natural language definition</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">definition written in plain text for human understanding</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">This annotation is Required for each non-primitive or non-axiomatic class of an IOF (OWL or Common Logic) ontology. 
  - It is optional for primitive (aka axiomatic) classes since such the Elucidation annotation is required and will satisfy the role of a natural language definition.
@@ -375,20 +381,23 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;primitiveRationale">
 		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
 		<rdfs:label xml:lang="en-US">primitive rationale</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">reason why necessary and sufficient conditions could not be provided</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">When &apos;is primitive&apos; is set to true, a value for &apos;primitive rationale&apos; must be provided. The rationale should indicate what is missing if additional work is required to define necessary and sufficient conditions.</iof-av:usageNote>
 	</owl:AnnotationProperty>
-
+	
 	<owl:AnnotationProperty rdf:about="&iof-av;replacedBy">
 		<rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
 		<rdfs:label xml:lang="en-US">replaced by</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">reference to the IRI of the target of a deprecated construct</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">The value of an iof-av:replacedBy annotation must be the IRI which replaces the target construct.</iof-av:usageNote>
 	</owl:AnnotationProperty>
-
+	
 	<owl:AnnotationProperty rdf:about="&iof-av;semiFormalNaturalLanguageAxiom">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;logicAxiom"/>
 		<rdfs:label xml:lang="en-US">semi-formal natural language axiom</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">logic axiom expressed in natural language</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">Semi-formal natural language axioms MAY be provided if the term is primitive (is primitive is true). A construct MAY include more than one semi-formal natural language axiom annotation.</iof-av:usageNote>
 	</owl:AnnotationProperty>
@@ -396,6 +405,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;semiFormalNaturalLanguageDefinition">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;logicDefinition"/>
 		<rdfs:label xml:lang="en-US">semi-formal natural language definition</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>logic definition that expresses a first order logic definition or common logic definition in natural language</skos:definition>
 		<iof-av:usageNote xml:lang="en-US">This annotation is required if an element in an IOF OWL ontology has a First Order Logic definition or in a IOF Common Logic (where the element is defined using Common Logic).
  - The intent of this annotation to provide a transition or bridge from the First Order Logic definition of a notion to the natural language definition. This definition is intended to help a user understand the intended interpretation of the notion.
@@ -406,6 +416,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;subjectMatterExpertExplanation">
 		<rdfs:subPropertyOf rdf:resource="&skos;definition"/>
 		<rdfs:label>subject matter expert explanation</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition>definition of the term expressed in natural language that has the minimal usage of ontological terms and is intended to be a self-standing explanation</skos:definition>
 		<iof-av:usageNote>Usage of this annotation is optional but is recommended in cases where:
 - the natural language definition or elucidation rely heavily on the terms defined in the ontology
@@ -415,6 +426,7 @@ HOWEVER: While acronyms and other abbreviations may be provided as annotations t
 	<owl:AnnotationProperty rdf:about="&iof-av;symbol">
 		<rdfs:subPropertyOf rdf:resource="&iof-av;abbreviation"/>
 		<rdfs:label xml:lang="en-US">symbol</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">abbreviation that is a design, mark, or charaters(s) used conventionally to represent something, such as currency, quantity, or variable in an expression</skos:definition>
 		<skos:example xml:lang="en-US">Chemical Symbols: H, O, Mg
 Units of Measure: Km, Kg, G</skos:example>
@@ -424,14 +436,32 @@ Units of Measure: Km, Kg, G</skos:example>
 	<owl:AnnotationProperty rdf:about="&iof-av;synonym">
 		<rdfs:subPropertyOf rdf:resource="&skos;altLabel"/>
 		<rdfs:label xml:lang="en-US">synonym</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">alternative label (designation) used for the resource in some community</skos:definition>
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&iof-av;usageNote">
 		<rdfs:subPropertyOf rdf:resource="&skos;note"/>
 		<rdfs:label xml:lang="en-US">usage note</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
 		<skos:definition xml:lang="en-US">note that provides information about how a given notion or resource is used in the ontology&apos;s context</skos:definition>
 	</owl:AnnotationProperty>
+	
+	<owl:NamedIndividual rdf:about="&iof-ind;Provisional">
+		<rdf:type rdf:resource="&iof-av;MaturityLevel"/>
+		<rdfs:label xml:lang="en-US">provisional</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
+		<skos:definition xml:lang="en-US">construct or ontology development state in which content is subject to change and may change considerably</skos:definition>
+		<iof-av:explanatoryNote xml:lang="en-US">IOF users should be aware that the resource is not dependable, but can be used for reference and for further work.</iof-av:explanatoryNote>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-ind;Released">
+		<rdf:type rdf:resource="&iof-av;MaturityLevel"/>
+		<rdfs:label xml:lang="en-US">released</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/</rdfs:isDefinedBy>
+		<skos:definition xml:lang="en-US">construct or ontology development state in which the resource is stable, usable, and has been made available to external users</skos:definition>
+		<iof-av:explanatoryNote xml:lang="en-US">Release notes will be provided for any changes concerning released content, and any revisions will be backward compatible with the prior version to the degree possible.</iof-av:explanatoryNote>
+	</owl:NamedIndividual>
 	
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&skos;definition"/>
