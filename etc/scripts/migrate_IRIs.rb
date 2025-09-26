@@ -29,8 +29,12 @@ doc.doctype.add(ind)
 # Clean up the entities by replace the prefixes with the new IRIs
 puts "Changing entity IRIs..."
 if ontology_iri != 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/'
-  core = doc.doctype.find { |e| e.value == ontology_iri }
-  core.replace_with(REXML::Entity.new(core.name, 'https://spec.industrialontologies.org/ontology/construct/'))
+  prefix = doc.doctype.find { |e| e.value == ontology_iri }
+  if prefix.nil?
+    puts "Error: IRI entity for prefix could not be found, ontolgy probably already converted."
+    exit
+  end
+  prefix.replace_with(REXML::Entity.new(prefix.name, 'https://spec.industrialontologies.org/ontology/construct/'))
 end
 
 av = doc.doctype.find { |e| e.value == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/' }
@@ -46,7 +50,7 @@ puts doc.doctype.to_s
 
 puts "Updating namespace declarations..."
 
-root.add_namespace(core.name, 'https://spec.industrialontologies.org/ontology/construct/') if core
+root.add_namespace(prefix.name, 'https://spec.industrialontologies.org/ontology/construct/') if prefix
 root.add_namespace(ind.name, ind.value) if ind
 root.add_namespace(av.name, 'https://spec.industrialontologies.org/ontology/annotation/')
 
