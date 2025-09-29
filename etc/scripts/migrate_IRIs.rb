@@ -22,7 +22,8 @@ ontology = ontologies.first
 ontology_iri = ontology.attributes["rdf:about"]
 puts "Ontology IRI: #{ontology_iri}"
 
-# Collect the iris for the IOF related ontologies 
+# Collect the iris for the IOF related ontologies and create the new doctype with non-IOF entities. We will also 
+# remove the old IOF namespaces from the root element.
 iof_iris = {}
 onto_prefix = ''
 new_doctype = REXML::DocType.new(doc.doctype.clone)
@@ -37,7 +38,7 @@ doc.doctype.each do |ent|
 end
 doc.add(new_doctype)
 
-# Determine if there are any named individuals
+# Add new IOF entities for construct, individual, and annotation vocabulary
 ind = REXML::Entity.new('iof-ind', 'https://spec.industrialontologies.org/ontology/individual/')
 doc.doctype.add(ind)
 
@@ -50,6 +51,7 @@ doc.doctype.add(av)
 puts doc.doctype.to_s
 puts "Updating namespace declarations..."
 
+# Add the new namespaces to the root element
 root.add_namespace(const.name, const.value)
 root.add_namespace(ind.name, ind.value)
 root.add_namespace(av.name, av.value)
@@ -62,10 +64,12 @@ end
 
 puts "Adding rdfs:isDefinedBy to entities..."
 
+# Add the rdfs:isDefinedBy annotation to all entities with an IRI starting with &iof-
 root.each_element("//owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:DatatypeProperty | /rdf:RDF/owl:NamedIndividual | /rdf:RDF/owl:AnnotationProperty") do |elem|
   about = elem.attributes['rdf:about']
   puts "Checking #{elem.name} IRI: #{about}"
   if about && about.start_with?('&iof-')
+    # We handle NamedIndividuals differently because they share the same IRI prefix as the constructs
     if elem.name == 'NamedIndividual'
       iri = about.sub(onto_prefix, 'iof-ind')
       puts " * Updating NamedIndividual IRI: #{about} to #{iri}"
@@ -78,20 +82,20 @@ root.each_element("//owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:Data
   end
 end
 
+# Write the modified XML to a string. It is easier to do string replacements than manipulate the REXML structure.
 new_onto = ""
 doc.write(output: new_onto, indent: -1, transitive: false)
 
+# Replace old IOF prefixes with new ones based on the IRI
 mappings = iof_iris.map do |prefix, iri| 
   if iri == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/'
     [prefix, 'iof-av'] if prefix != 'iof-av'
   else
     [prefix, 'iof-const']
   end
-end.compact
-
-mappings.each do |old_prefix, new_prefix|
+end.compact.each do |old_prefix, new_prefix|
   puts "Replacing prefix #{old_prefix} with #{new_prefix}"
-  new_onto.gsub!(/#{old_prefix}/, new_prefix)
+  new_onto.gsub!(old_prefix, new_prefix)
 end
 
 # Write the modified XML back to the file
