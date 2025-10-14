@@ -70,12 +70,20 @@
 	<owl:Class rdf:about="&iof-construct;AerationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>aeration process</rdfs:label>
+		<skos:example>sparging of air into a bioreactor to supply oxygen for mammalian cell culture; surface aeration of shake flask culture through agitation</skos:example>
+		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Aeration</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Objectives of aeration include supplying oxygen for biological activity, supporting chemical or enzymatic reactions, or facilitating gas transfer. Aeration differs from carbon dioxide addition for pH adjustment and from inert gas addition for overlay or atmosphere control. Defined environment may include vessels, reactors, flasks, or other engineered settings.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material addition process in which an oxygen containing gas is introduced into a defined environment to provide oxygen or promote gas exchange</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntifoamAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;AntifoamingAgent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>antifoam addition process</rdfs:label>
 		<skos:example>Polypropylene glycol (PPG) addition in microbial fermentation (e.g., E. coli) to prevent foam overflow and ensure stable dissolved oxygen control.</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
@@ -121,20 +129,6 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which biological entities such as cells, enzymes, or organisms are used to synthesize, secrete, accumulate, or themselves serve as the target product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomanufacturing production process&apos; then x is a &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;BleedingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>bleeding process</rdfs:label>
-		<skos:example>In a perfusion culture of CHO cells producing a monoclonal antibody, a controlled daily bleed of 10% of the reactor volume is performed to maintain cell density within the target range (e.g., 20–30 × 10⁶ cells/mL). This prevents overgrowth, stabilizes residence time distribution, and avoids excessive accumulation of lactate and ammonia that could impair productivity or product quality.</skos:example>
-		<iof-av:counterExample>At the end of a fed-batch run, the entire bioreactor contents are removed to recover product (harvesting). Although this involves material removal, it is not considered bleeding because the goal is not to regulate culture properties during an ongoing process, but rather to terminate the culture and collect the final product.</iof-av:counterExample>
-		<iof-av:naturalLanguageDefinition>material removal process in which a portion of culture material is removed from a defined environment to regulate culture properties such as cell density, residence time, or metabolite accumulation, without finishing the manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CaptureStep">
@@ -186,6 +180,30 @@
 `</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CellBleedProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;BiomanufacturingProductionProcess">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;CellCultureCultivationProcess">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>cell bleed process</rdfs:label>
+		<skos:example>In a perfusion culture of CHO cells producing a monoclonal antibody, a controlled daily bleed of 10% of the reactor volume is performed to maintain cell density within the target range (e.g., 20–30 × 10⁶ cells/mL). This prevents overgrowth, stabilizes residence time distribution, and avoids excessive accumulation of lactate and ammonia that could impair productivity or product quality.</skos:example>
+		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
+		<iof-av:counterExample>At the end of a fed-batch run, the entire bioreactor contents are removed to recover product (harvesting). Although this involves material removal, it is not considered bleeding because the goal is not to regulate culture properties during an ongoing process, but rather to terminate the culture and collect the final product.</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>material removal process in which a portion of culture material is removed from a defined environment to regulate culture properties such as cell density, residence time, or metabolite accumulation, without finishing the process it is a part of</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CellCultureCultivationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -195,6 +213,7 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>cell culture cultivation process</rdfs:label>
+		<skos:example>Shake flask expansion of CHO cells with controlled feeding and monitoring; Recovery of cryopreserved CHO Cells after thawing</skos:example>
 		<iof-av:naturalLanguageDefinition>planned process in which cells within a cell culture are maintained in a controlled environment with the aim of supporting their survival, adaptation or growth</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -206,23 +225,17 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulationProliferation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell culture expansion process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Shake flask expansion of CHO cells with controlled feeding and monitoring; seed train expansion of hematopoietic stem cells under GMP conditions; fed-batch bioreactor expansion of hybridoma cells with automated pH and DO control; scale-up culture of mammalian cells in rocking bioreactors with defined agitation parameters; T cell expansion in gas-permeable bags with scheduled media additions</skos:example>
 		<iof-av:adaptedFrom>OBI:0001147</iof-av:adaptedFrom>
 		<iof-av:counterExample>proliferation of cells caused by a contamination</iof-av:counterExample>
 		<iof-av:explanatoryNote>Implicit in cell culture expansion is the assumption that cells in culture remain healthy and proliferative. This assumption is typically evaluated by monitoring cell viability, which serves as a key indicator of culture fitness.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>if x is a &apos;cell culture expansion process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;cell culture&apos; and &apos;has occurrent part&apos; some &apos;cell population proliferation&apos;</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>if x is a &apos;cell culture expansion process&apos; then x is a &apos;cell culture cultivation process&apos; that &apos;has occurrent part&apos; some &apos;cell population proliferation&apos;</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which cells within a cell culture proliferate, resulting in an increase in the total cell number</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell culture cultivation process in which cells within a cell culture proliferate, resulting in an increase in the total cell number</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>CellCultureExpansionProcess(x) → PlannedProcess(x) ∧ ∃y (CellCulture(y) ∧ hasInput(x, y)) ∧ ∃z (CellPopulationProliferation(z) ∧ hasOccurrentPart(x, z))</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>CellCultureExpansionProcess(x) → CellCultureCultivationProcess(x) ∧ ∃z (CellPopulationProliferation(z) ∧ hasOccurrentPart(x, z))</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureInoculationProcess">
@@ -250,7 +263,7 @@
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label>cell culture inoculation process</rdfs:label>
-		<skos:example>introducing the resuspended cells into a shake flask containing fresh medium to initiate cultivation; Taking a vial of ultra-high cell density CHO cells from a working cell bank and directly adding the thawed cells into a 1-L wave-mixed perfusion bioreactor to start growth; using the cells to seed an N-1 perfusion bioreactor; inoculating the fed-batch bioreactors with cells stemming from the N-1 perfusion bioreactor</skos:example>
+		<skos:example>introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Taking a vial of ultra-high cell density CHO cells from a working cell bank and directly adding the thawed cells into a wave-mixed perfusion bioreactor to start growth; using the cells to seed an N-1 perfusion bioreactor; inoculating the fed-batch bioreactors with cells stemming from the N-1 perfusion bioreactor</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process typically involves transferring cells from a cryovial, seed culture, or intermediate vessel into fresh culture medium under controlled environmental conditions. It marks the beginning of a new cultivation stage within the seed train or production process, and is distinct from microbiological inoculation used in QC or testing, and from immunological inoculation in clinical contexts.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>inoculation process in which cells are introduced into a fermentation or cell culture vessel to initiate a cell culture cultivation process</iof-av:naturalLanguageDefinition>
@@ -277,33 +290,6 @@
 		</owl:equivalentClass>
 		<iof-av:explanatoryNote>This phase begins once the cell population in the production vessel has expanded to the desired level and extends until harvest or transition to another operational mode. Unlike the preceding expansion phase, where monitoring and control focus on promoting cell growth and maintaining viability, the emphasis in this phase shifts toward controlling conditions that maximize product formation and ensure product quality. Although cell division and adaptation may still occur, the predominant activity of the culture is the synthesis, secretion, or accumulation of the intended product.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>biomanufacturing production process that is a part of a cell culture production culture process in which the cultured cells predominantly synthesize, secrete or accumulate the target product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CellExpansionProductionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
-		<rdfs:label>cell expansion production process</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;BiomanufacturingProductionProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureExpansionProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CulturedCellPopulation"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>This process refers specifically to ex vivo culture of patient or donor derived cells in systems such as bags, flasks, or bioreactors. Culture conditions include defined medium, nutrients, and functional additives (e.g., cytokines or growth factors) to promote survival, proliferation, and maintenance of desired phenotype. Unlike production culture processes in which cells synthesize or secrete a separate product, in a cell expansion culture process the cells themselves constitute the target product for therapeutic administration.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>biomanufacturing production process during which cells are expanded under controlled conditions with the expanded cells themselves serving as the intended product</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellLineDevelopment">
@@ -399,6 +385,35 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which cells reproduce or multiply, resulting in an increase in the number of cells</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive. Details of cellular reproduction or multiplications are out of scope and should be utilized if needed from a biological ontology.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell population proliferation&apos; then x is a &apos;process&apos; that &apos;has participant at all times&apos; some &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CellTherapyProductionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
+		<rdfs:label>cell therapy production process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;BiomanufacturingProductionProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureExpansionProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;CulturedCellPopulation"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>manufacturing of autologous CAR-T cell therapy through patient-derived T-cell activation and expansion in culture bags; large-scale allogeneic NK-cell expansion in single-use bioreactors for immunotherapy</skos:example>
+		<iof-av:adaptedFrom>https://www.cellandgene.com/topic/cell-therapy-manufacturing and https://www.fda.gov/media/156896/download</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This process refers specifically to ex vivo culture of patient or donor derived cells in systems such as bags, flasks, or bioreactors. Culture conditions include defined medium, nutrients, and functional additives (e.g., cytokines or growth factors) to promote survival, proliferation, and maintenance of desired phenotype. Unlike production culture processes in which cells synthesize or secrete a separate product, in a cell expansion culture process the cells themselves constitute the target product for therapeutic administration.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>biomanufacturing production process during which cells are expanded under controlled conditions with the expanded cells themselves serving as the intended product</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CentrifugationProcess">
@@ -536,11 +551,11 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;FeedAdditionProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialInflowProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;OutflowProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialOutflowProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -566,12 +581,12 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureFeedAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;FeedAdditionProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialInflowProcess"/>
 		<rdfs:label>culture feed addition process</rdfs:label>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;FeedAdditionProcess">
+					<rdf:Description rdf:about="&iof-construct;MaterialInflowProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
@@ -589,7 +604,8 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition>feed addition process in which culture medium or nutrient feed is added during cultivation or production to maintain or modulate the nutrient environment of the culture, supporting cell viability, growth, metabolic activity, or product quality attributes</iof-av:naturalLanguageDefinition>
+		<skos:example>addition of carbohydrate and amino acid feed to a CHO fed-batch culture; bolus addition of nutrient mix to maintain viable cell density during CHO production; controlled exponential glucose feeding in an E. coli high-cell-density culture; perfusion feed supplying fresh medium to a CHO bioreactor</skos:example>
+		<iof-av:naturalLanguageDefinition>material inflow process in which culture medium or nutrient feed is added during cultivation or production to maintain or modulate the nutrient environment of the culture, supporting cell viability, growth, metabolic activity, or product quality attributes</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<rdf:Description rdf:about="&iof-construct;CultureFeedingStrategy">
@@ -599,6 +615,8 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;CultureFeedAdditionProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<skos:example>periodic bolus feeding strategy for CHO fed-batch cultures; dual-feed strategy combining separate carbohydrate and amino acid/vitamin feeds in CHO cultivation; exponential feeding strategy maintaining a defined specific growth rate in E. coli fed-batch process; model-predictive feeding strategy controlling nutrient supply in CHO perfusion culture</skos:example>
+		<iof-av:adaptedFrom>https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/315/296/t099.pdf?srsltid=AfmBOorDj4GQApYbLofXthe35elxKxxnoghM-lzOSFnGvMAqW5HEJnG1 and https://pubmed.ncbi.nlm.nih.gov/20014108/ and   https://www.tandfonline.com/doi/full/10.1080/10826068.2021.1998112</iof-av:adaptedFrom>
 	</rdf:Description>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumExchangeProcess">
@@ -660,16 +678,18 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Partial medium exchange in a T-cell expansion culture to restore nutrient levels and reduce lactate; Complete media change in adherent Vero cells before virus inoculation.</skos:example>
+		<iof-av:adaptedFrom>https://www.corning.com/worldwide/en/products/life-sciences/resources/stories/at-the-bench/cell-culture-media-change-protocol.html#:~:text=As%20a%20starting%20point%20for,Cell%20Culture%20Success%20with%20Corning and https://cellculturecompany.com/best-practices-for-media-preparation-and-exchange-in-mammalian-cell-culture/#:~:text=When%20and%20How%20to%20Perform,scale%2Dup%20and%20regulatory%20compliance.</iof-av:adaptedFrom>
 		<iof-av:counterExample>Addition of fresh medium without removal of existing culture fluid</iof-av:counterExample>
 		<iof-av:explanatoryNote>Distinct from feeding, which adds fresh material without removal. Media exchange may be partial (e.g., half-media exchange) or complete, and is commonly applied in mammalian cell culture, virus production, and cell therapy to control metabolite accumulation, nutrient balance, or remove inhibitory compounds.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>planned process in which part or all of the culture medium in a vessel is removed and replaced with fresh medium to maintain or alter the metabolic environment of a cell culture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DegassingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<rdfs:label>degassing process</rdfs:label>
+		<skos:example>vacuum degassing of culture medium prior to sterilization; nitrogen sparging to remove dissolved oxygen from buffer solution</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0000593</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>planned process during which the adsorbed (dissolved) gas is removed from a solid or liquid</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material removal process during which the adsorbed (dissolved) gas is withdrawn (desorbed) from a solid or liquid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DepthFiltrationProcess">
@@ -834,7 +854,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;FeedAdditionProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialInflowProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -842,22 +862,8 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>CHO culture with bolus glucose feeds to maintain viable cell density, harvested in a single terminal step; Semi-batch polymerization where monomer is added gradually to control heat release, then reactor is emptied;</skos:example>
 		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/news-center/what-are-the-different-bioreactor-processes-10001 and https://gmpua.com/Process/ContinuousManufacturing/ContinuousManufacturing.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>Simple batch bioreactor run with no feeding; Perfusion culture</iof-av:counterExample>
-		<iof-av:explanatoryNote>Planned feeds are introduced to sustain or extend performance, but no balance-sustaining outflow is present; the process still concludes with a single terminal removal</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Planned inflows (feeds) are introduced to sustain or extend performance, but no balance-sustaining outflow is present; the process still concludes with a single terminal removal</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>batch manufacturing process mode that includes planned additions of material after initiation</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;FeedAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>feed addition process</rdfs:label>
-		<iof-av:explanatoryNote>1) Feed additions may increase the material balance, as in fed-batch processes, or maintain it in conjunction with an outflow, as in continuous processes.
-2) A feed addition process is always part of a larger manufacturing process or one of its subprocesses. In upstream processing, feeds may include medium, nutrient supplements, or functional additives. In downstream processing, feeds may include buffers, reagents, or excipients. Feed additions are distinguished from supporting additions such as aeration, antifoam, pH adjustment, or inoculation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process in which material is introduced into a defined environment in order to alter or maintain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FiltrationProcess">
@@ -898,15 +904,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile that is the orientation of fluid movement in a process with respect to a reference surface or spatial axis</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;fluid flow orientation&apos; then x is a &apos;process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;FunctionalInductionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:label>functional induction process</rdfs:label>
-		<skos:example>IPTG addition to induce recombinant protein expression under a lac promoter;Temperature downshift from 37 °C to 32 °C to initiate production phase;Serum withdrawal to induce differentiation in a stem cell culture</skos:example>
-		<iof-av:counterExample>galactose addition to shift glycosylation profile</iof-av:counterExample>
-		<iof-av:explanatoryNote>A functional induction process is intentionally designed to push the culture into a new physiological or metabolic state. This may include activation or repression of gene expression, initiation of a production phase, promotion of differentiation, or induction of a stress response that enhances productivity. The mechanism of induction can vary and may involve material addition (e.g., IPTG, tetracycline, retinoic acid), material depletion or starvation (e.g., serum withdrawal, nutrient limitation), environmental changes (e.g., temperature shift, pH shift), or physical stimuli (e.g., light pulse for optogenetic activation).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that is a part of a cultivation or production process and triggers a defined change in cellular function, pathway activity, production phase, or differentiation state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GasChromatographyProcess">
@@ -974,14 +971,24 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;harvesting process&apos; is defined exactly as an instance of &apos;purification process&apos; that &apos;has input&apos; some &apos;process intermediate material&apos; which &apos;is specified output of&apos; some &apos;biomanufacturing production process&apos; and that &apos;is prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;InductionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>induction process</rdfs:label>
+		<skos:example>IPTG addition to induce recombinant protein expression under a lac promoter;Temperature downshift from 37 °C to 32 °C to initiate production phase</skos:example>
+		<iof-av:adaptedFrom>https://www.genscript.com/biology-glossary/1499/induction and https://www.healthcare.nikon.com/en/ss/cell-image-lab/glossary/induction.html</iof-av:adaptedFrom>
+		<iof-av:counterExample>galactose addition to shift glycosylation profile</iof-av:counterExample>
+		<iof-av:explanatoryNote>An induction process is intentionally designed to push the culture into a new physiological or metabolic state. This may include activation or repression of gene expression, initiation of a production phase, promotion of differentiation, or induction of a stress response that enhances productivity. The mechanism of induction can vary and may involve material addition (e.g., IPTG, tetracycline, retinoic acid), material depletion or starvation (e.g., serum withdrawal, nutrient limitation), environmental changes (e.g., temperature shift, pH shift), or physical stimuli (e.g., light pulse for optogenetic activation).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that is a part of a cultivation or production process and triggers a defined change in cellular function, pathway activity, production phase, or differentiation state</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;InoculationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>inoculation process</rdfs:label>
-		<skos:example>A cryovial of CHO cells is thawed and the cells are introduced into a shake flask containing fresh medium to initiate expansion; A starter culture of Saccharomyces cerevisiae is added to a fermenter to begin beer production; A viral stock is added to a mammalian cell culture to study infection dynamics; An inactivated influenza vaccine preparation is injected into a host organism to stimulate an immune response.</skos:example>
+		<skos:example>After thawing, CHO cells are introduced into a shake flask containing fresh medium to initiate expansion; A starter culture of Saccharomyces cerevisiae is added to a fermenter to begin beer production; A viral stock is added to a mammalian cell culture to study infection dynamics; An inactivated influenza vaccine preparation is injected into a host organism to stimulate an immune response.</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C68774 and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In the context of inoculation, biological preparations refers to non-living, biologically derived materials that are intentionally introduced to elicit a response or initiate a process. This category includes vaccines (live-attenuated, inactivated, or subunit), purified antigens, toxoids, inactivated microorganisms, viral particles, and similar immunobiological products. Unlike cells, microorganisms, or viruses, biological preparations do not replicate autonomously but are used to stimulate, test, or modulate biological systems.
 2) Defined environment in this case encompasses medium, host, or vessel.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process of deliberately introducing cells, microorganisms, viruses, or biological preparations into a defined environment to initiate growth, testing, or a biological response</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material addition process of deliberately introducing cells, microorganisms, viruses, or biological preparations into a defined environment to initiate growth, testing, or a biological response</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;LiquidChromatographyProcess">
@@ -1001,13 +1008,38 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>material addition process</rdfs:label>
 		<owl:disjointWith rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+		<skos:example>Addition of a concentrated glucose-amino-acid feed solution to a mammalian cell bioreactor during a fed-batch cultivation to replenish nutrients; Introduction of a wash or elution buffer into a chromatography column to remove unbound material or release the target product; Introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Polypropylene glycol (PPG) addition in microbial fermentation (e.g., E. coli) to prevent foam overflow and ensure stable dissolved oxygen control; sparging of air into a bioreactor to supply oxygen for mammalian cell culture;</skos:example>
 		<iof-av:explanatoryNote>Defined environment in this case encompasses any engineered or controlled context into which materials are intentionally introduced, such as vessels, media, hosts, apparatus, or other designed settings</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>planned process in which a material is introduced into a defined environment</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialInflowProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+		<rdfs:label>material inflow process</rdfs:label>
+		<skos:example>Addition of a concentrated glucose-amino-acid feed solution to a mammalian cell bioreactor during a fed-batch cultivation to replenish nutrients; Introduction of a wash or elution buffer into a chromatography column to remove unbound material or release the target product; Continuous introduction of reactants into a stirred-tank reactor while product is simultaneously withdrawn to maintain steady-state operation.</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/state-mass-balance</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Material inflow processes may increase the material balance, as in fed-batch processes, or maintain it in conjunction with an outflow, as in continuous processes.
+2)  In upstream processing, material inflows may include medium, nutrient supplements, or functional additives. In downstream processing, material inflows may include buffers, reagents, or excipients. 
+3) Inflows are distinct from supporting additions such as aeration, antifoam, or pH adjustment, which primarily modify process conditions rather than the material balance.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material addition process in which material is introduced into a defined environment in order to alter or maintain the material balance</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialOutflowProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+		<rdfs:label>material outflow process</rdfs:label>
+		<skos:example>continuous removal of culture broth from a chemostat at a rate equal to feed addition to maintain steady-state operation; withdrawal of permeate from a perfusion bioreactor through a cell retention device as part of continuous production flow; continuous permeate removal from a tangential-flow filtration loop maintaining constant retentate volume during steady-state diafiltration; continuous elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/state-mass-balance</iof-av:adaptedFrom>
+		<iof-av:counterExample>cell bleed from a perfusion bioreactor to control viable cell density; terminal harvest of fed-batch culture fluid; sampling of culture fluid for off-line testing</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which alter material balance and have different objectives.
+2) In continuous processes, material removed by an outflow may subsequently serve as input to a downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material removal process in which material is withdrawn from a defined environment in order to sustain the material balance</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialRemovalProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>material removal process</rdfs:label>
+		<skos:example>cell bleed process in a perfusion culture process; harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003574</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>planned process in which material is withdrawn from a defined environment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1026,7 +1058,10 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>media charging process</rdfs:label>
-		<iof-av:explanatoryNote>Media charging is carried out prior to inoculation to establish the initial culture environment. It differs from feed addition, which introduces material during culture to maintain or alter the process, and from harvest, which removes material at the end of culture.</iof-av:explanatoryNote>
+		<skos:example>filling a bioreactor with medium prior to inoculation; charging of single-use bioreactor bag with medium prior to inoculation</skos:example>
+		<iof-av:adaptedFrom>https://www.emerson.com/documents/automation/article-electronic-workflow-for-a-bioreactor-deltav-en-56666.pdf and https://www.eppendorf.com/product-media/doc/en/897339/Fermentors-Bioreactors_Publication_Bioprocess_Bioprocessing-basics.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Media charging is carried out prior to inoculation to establish the initial culture environment. It differs from feed addition, which introduces material during culture to maintain or alter the process, and from harvest, which removes material at the end of culture.
+2) Media charging differs from inflow processes, which introduce material into an ongoing process to alter or maintain the material balance. It also differs from harvest, which removes material at the end of a process.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material addition process in which culture medium is introduced into a culture vessel preceding a cell culture inoculation process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1108,20 +1143,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal phase chromatography process&apos; then x is a &apos;liquid chromatography process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;OutflowProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>outflow process</rdfs:label>
-		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger manufacturing process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which alter material balance and have different objectives.
-2) In continuous processes, material removed by an outflow may subsequently serve as input to a downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>material removal process in which material is withdrawn from a defined environment in order to sustain the material balance of a manufacturing process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;PHAdjustmentAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>pH adjustment addition process</rdfs:label>
@@ -1147,30 +1168,34 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	
 	<owl:Class rdf:about="&iof-construct;PlannedCellInfectionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;VirusInoculationProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;CellPopulation">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;HostCell"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label>planned cell infection process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;VirusInoculationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;CellPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;HostCell"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example>Infecting HEK293 cells with an adenovirus vector at MOI 5, incubating for 2 hours at 37 °C for adsorption, replacing medium, and culturing for 48 hours to produce infected HEK293 cells</skos:example>
 		<iof-av:adaptedFrom>https://www.thermofisher.com/rs/en/home/references/protocols/proteins-expression-isolation-and-analysis/adenovirus-protocol/virapower-adenoviral-expression-system.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>Transfecting cells with plasmid DNA</iof-av:counterExample>
@@ -1232,30 +1257,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which two or more batches of a product or intermediate are combined to produce a single, larger volume that is more homogenous</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pooling process&apos; then x is a &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;PostThawRecoveryCultivationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RecoveryCultivationProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;ThawingProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>post thaw recovery cultivation process</rdfs:label>
-		<iof-av:explanatoryNote>At this point, cells are more fragile than at any other time in the subsequent expansion processes and require careful handling under controlled conditions. Also, cells in post-thaw recovery are not in exponential growth; instead, the focus is on stabilizing viability and ensuring adaptation to the culture environment. Acceptance criteria for advancing out of this stage are therefore specific and often differ from those applied during exponential expansion, reflecting the unique physiological state of the cells during recovery.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>recovery cultivation process that occurs after the thawing of cryopreserved cells, during which cells are seeded into fresh medium and maintained under controlled conditions to restore viability and adapt to the culture environment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionCultureProcess">
@@ -1453,10 +1454,13 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;RecoveryCultivationProcess">
+	<owl:Class rdf:about="&iof-construct;RecoveryCellCultureCultivationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CellCultureCultivationProcess"/>
-		<rdfs:label>recovery cultivation process</rdfs:label>
-		<iof-av:explanatoryNote>Recovery cultivation is applied when cells have experienced physiological stress that compromises viability or growth potential. Thawing from cryopreservation is a common example, as ice crystal formation, osmotic imbalance, and cryoprotectant toxicity impose stress that requires time for cells to stabilize. Similar recovery may be needed after other stress-inducing manipulations such as shear forces or nutrient deprivation.</iof-av:explanatoryNote>
+		<rdfs:label>recovery cell culture cultivation process</rdfs:label>
+		<skos:example>Recovery of cryopreserved CHO Cells after thawing; Recovery of mammalian cells after transfer to serum-free medium</skos:example>
+		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BID/Handbooks/gibco-cell-culture-basics-handbook.pdf and https://www.atcc.org/the-science/culturing-cells/reviving-cells#:~:text=The%20viability%20for%20most%20cells,recover%20and%20enter%20exponential%20growth. and https://www.thermofisher.com/rs/en/home/life-science/cloning/cloning-learning-center/invitrogen-school-of-molecular-biology/molecular-cloning/transformation/bacterial-transformation-workflow.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Recovery cultivation is applied when cells have experienced physiological stress that compromises viability or growth potential. Thawing from cryopreservation is a common example, as ice crystal formation, osmotic imbalance, and cryoprotectant toxicity impose stress that requires time for cells to stabilize. Similar recovery may be needed after other stress-inducing manipulations such as shear forces or nutrient deprivation.
+2) In case of post-thaw recovery cultivation, cells are more fragile than at any other time in the subsequent expansion processes and require careful handling under controlled conditions. Also, cells in post-thaw recovery are not in exponential growth; instead, the focus is on stabilizing viability and ensuring adaptation to the culture environment. Acceptance criteria for advancing out of this step are therefore specific and often differ from those applied during exponential expansion, reflecting the unique physiological state of the cells during recovery.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>cell culture cultivation process in which cells are maintained under controlled conditions to restore viability, metabolic activity, or growth potential after undergoing a stress-inducing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1571,6 +1575,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;SterilizationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>sterilization process</rdfs:label>
+		<skos:example>steam sterilization of stainless-steel bioreactor vessel prior to culture; autoclave sterilization of glassware and stainless-steel fittings used in upstream processing; filtration sterilization of culture medium through 0.22 µm membrane filter before inoculation; gamma irradiation of single-use tubing assemblies prior to installation</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-and-format-premarket-notification-510k-submissions-liquid-chemical-sterilantshigh-level</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>planned process in which a material entity is rendered free of all viable microorgansims</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -1619,18 +1624,20 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;temporallyFinishes"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>terminal removal process</rdfs:label>
-		<iof-av:explanatoryNote>A terminal removal process occurs once and finishes the larger manufacturing process of which it is a part. It is distinguished from continuous outflow processes, which remove material concurrently with ongoing processing.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>material removal process that finishes the manufacturing process of which it is a part of</iof-av:naturalLanguageDefinition>
+		<skos:example>harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; collection of elution pool from a batch chromatography column after completion of the purification cycle; final collection of bulk drug substance from an ultrafiltration skid after target concentration is reached; collection of final retentate from a tangential-flow filtration system after completion of diafiltration</skos:example>
+		<iof-av:counterExample>continuous collection of permeate during ongoing diafiltration; sampling of in-process material for quality control;  bleed stream removal from a perfusion bioreactor to control cell density during ongoing culture; continuous collection of product fractions from a periodic counter-current chromatography system during steady-state operation</iof-av:counterExample>
+		<iof-av:explanatoryNote>A terminal removal process occurs once and finishes the larger process of which it is a part. It is distinguished from continuous outflow processes, which remove material concurrently with ongoing processing.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material removal process that finishes the planned process of which it is a part of</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingProcess">
@@ -1712,8 +1719,11 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:explanatoryNote>In some industrial practices, upstream process includes the harvest step that removes material from the production culture; in others, harvest is treated as the starting point of downstream processing. This variability reflects organizational conventions rather than technical differences</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>biomanufacturing production process that begins with the preparation or recovery of biological material and encompasses its establishment and cultivation under controlled conditions to generate process intermediates or products</iof-av:naturalLanguageDefinition>
+		<skos:example>upstream process for monoclonal antibody production in CHO cells involving cell thaw, recovery, seed expansion, and production culture; upstream process for recombinant enzyme production in E. coli including inoculum preparation, fermentation, and harvest; upstream process of lentiviral vector manufacturing in HEK293 cells covering producer cell expansion, infection, and culture;</skos:example>
+		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/solutions/emerging-biotech/knowledge-center/biopharma-process-development-introduction and https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-process-validation-manufacture-biotechnology-derived-active-substances-and-data-be-provided-regulatory-submission_en.pdf and https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Upstream processing produces material intended for subsequent downstream processing or final use.
+2) In some industrial practices, upstream process includes the harvest step that removes material from the production culture; in others, harvest is treated as the starting point of downstream processing. This variability reflects organizational conventions rather than technical differences</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>biomanufacturing production process that encompasses the preparation or recovery of biological material and its cultivation under controlled conditions to produce process intermediates or biological products</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ViralClearance">
@@ -1794,8 +1804,32 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	
 	<owl:Class rdf:about="&iof-construct;VirusInoculationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InoculationProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;VirusSeed">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;CellPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;HostCell"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>virus inoculation process</rdfs:label>
-		<rdfs:comment>to expand with inoc with infected cells. Also, to add infected cell and virus seed</rdfs:comment>
+		<skos:example>addition of working virus seed to a confluent Vero cell culture to initiate viral propagation; inoculation of Sf9 insect cells with baculovirus seed stock in a production bioreactor; infection of HEK293 cells with adenoviral vector for recombinant protein expression; co-culture of producer and target cells for lentivirus amplification</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S0166093422002099 and https://www.bioprocessintl.com/assays/nucleic-acid-impurity-reduction-in-viral-vaccine-manufacturing and https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/165/693/vaccine-handbook-process-br5237en-mk.pdf?srsltid=AfmBOopAab20MIAUvkPCifVu5keJOr4OPkvV65xNUwgIB9Ji9xExNOPn</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The virus inoculation process establishes the start of viral replication by adding a characterized master or working virus seed into a cell culture under controlled parameters (e.g., multiplicity of infection, temperature, pH, agitation). It is the initiating step of a viral propagation in biopharmaceutical manufacturing.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>inoculation process in which either a defined virus seed stock or infected host cells are deliberately introduced into a cell culture to initiate viral propagation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -1819,7 +1853,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;CellCultureProductionPhase">
 			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;RecoveryCultivationProcess">
+			<rdf:Description rdf:about="&iof-construct;RecoveryCellCultureCultivationProcess">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
