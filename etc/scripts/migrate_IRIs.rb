@@ -1,7 +1,7 @@
 require 'rexml/document'
 
 if ARGV.length != 1
-  puts "Usage: migrate_IRIs.rb <path to xml file>"
+  puts "Usage: migrate_IRIs.rb <path to rdf file>"
   exit
 end
 
@@ -65,7 +65,7 @@ end
 puts "Adding rdfs:isDefinedBy to entities..."
 
 # Add the rdfs:isDefinedBy annotation to all entities with an IRI starting with &iof-
-root.each_element("//owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:DatatypeProperty | /rdf:RDF/owl:NamedIndividual | /rdf:RDF/owl:AnnotationProperty") do |elem|
+root.each_element("/rdf:RDF/owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:DatatypeProperty | /rdf:RDF/owl:NamedIndividual | /rdf:RDF/owl:AnnotationProperty") do |elem|
   about = elem.attributes['rdf:about']
   puts "Checking #{elem.name} IRI: #{about}"
   if about && about.start_with?('&iof-')
