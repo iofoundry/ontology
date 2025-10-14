@@ -432,17 +432,6 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2:if x is a Consignor Role then x is an Agent Role that is the &apos;role of&apos; a Business Organization or Person y when it &apos;agent in&apos; some Shipment Preparation Process p</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-scro;Container">
-		<rdfs:subClassOf rdf:resource="&iof-scro;PieceofTransportEquipment"/>
-		<rdfs:label xml:lang="en-US">container</rdfs:label>
-		<skos:example>an intermodal container, a shipping container</skos:example>
-		<iof-av:firstOrderLogicAxiom>Container(x) → PieceOfTransportEquipment(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of transport equipment that is designed to contain some material entities</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular, the semantics of &apos;containing&apos; is not precisely defined yet.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;container&apos; then x is a &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-scro;DepartureProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;MaterialLocationChangeProcess"/>
 		<rdfs:subClassOf>
@@ -569,23 +558,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-core;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -629,8 +603,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-core;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-core;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-scro;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -710,6 +699,17 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;factory&apos; then x is a &apos;facility&apos; that &apos;has capability&apos; some &apos;production capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>manufacturing plant</iof-av:synonym>
 		<iof-av:synonym>plant</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-scro;FreightContainer">
+		<rdfs:subClassOf rdf:resource="&iof-scro;PieceofTransportEquipment"/>
+		<rdfs:label xml:lang="en-US">freight container</rdfs:label>
+		<skos:example>an intermodal container, a shipping container, cargo container, multimodal container, or a freight container</skos:example>
+		<iof-av:firstOrderLogicAxiom>Container(x) → PieceOfTransportEquipment(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of transport equipment that is designed to contain some material entities</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular, the semantics of &apos;containing&apos; is not precisely defined yet.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;container&apos; then x is a &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-scro;FreightForwarder">
@@ -1646,12 +1646,12 @@ The last two digits (01) represents the product batch of that specific day</skos
 	
 	<owl:Class rdf:about="&iof-scro;PieceofTransportEquipment">
 		<rdfs:subClassOf rdf:resource="&iof-core;PieceOfEquipment"/>
-		<rdfs:label xml:lang="en-US">piece of transport equipment</rdfs:label>
+		<rdfs:label xml:lang="en">piece of transport equipment</rdfs:label>
 		<skos:example>a truck, a trailer, a mobile yard crane, a towing vehicle, an intermodal container</skos:example>
 		<iof-av:explanatoryNote>Transport equipment is defined as a piece of high-value equipment used to hold, protect or secure cargo for transportation purposes [GS1].</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>PieceOfTransportEquipment(x) → PieceOfEquipment(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of equipment that has the function of holding, protecting, and securing a number of material entites for transportation purposes</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of equipment that has the function of holding, protecting, and securing a number of material entities for transportation purposes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for formal definition, such as holding, protecting, and securing, are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;piece of transport equipment&apos; then x is a &apos;piece of equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
