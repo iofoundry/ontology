@@ -51,6 +51,7 @@ rdf_prefix = nil
 owl_ns = 'http://www.w3.org/2002/07/owl#'
 owl_prefix = nil
 root.namespaces.each do |prefix, uri|
+  next if prefix == 'xmlns'
   equiv_root.add_namespace(prefix, uri)
   rdf_prefix = prefix if uri == rdf_ns
   owl_prefix = prefix if uri == owl_ns
@@ -100,23 +101,29 @@ root.each_element("//owl:Ontology") do |ont|
   end
 end
 
-{ "/#{rdf_prefix}:RDF/#{owl_prefix}:Class" => ["Class", 'equivalentClass'],
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:ObjectProperty" => ["ObjectProperty", 'equivalentProperty'],
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:DatatypeProperty" => ["DatatypeProperty", 'equivalentProperty'],
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:AnnotationProperty" => ["AnnotationProperty", 'equivalentProperty'],
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:NamedIndividual" => ["NamedIndividual", 'sameAs'] }.each do |xpath, equiv_tags|
+{ "/#{rdf_prefix}:RDF/#{owl_prefix}:Class" => "#{owl_prefix}:equivalentClass",
+  "/#{rdf_prefix}:RDF/#{owl_prefix}:ObjectProperty" => "#{owl_prefix}:equivalentProperty",
+  "/#{rdf_prefix}:RDF/#{owl_prefix}:DatatypeProperty" => "#{owl_prefix}:equivalentProperty",
+  "/#{rdf_prefix}:RDF/#{owl_prefix}:AnnotationProperty" => "iof-av:replacedBy",
+  "/#{rdf_prefix}:RDF/#{owl_prefix}:NamedIndividual" => "#{owl_prefix}:sameAs" }.each do |xpath, equiv_tag|
   root.each_element(xpath) do |elem|
+    type = "#{elem.prefix}:#{elem.name}"
     iri = elem.attributes["rdf:about"]
-    next if iri.nil? || iri.empty?
+    next if iri.nil? || iri.empty? || iri !~ %r{^https://spec.industrialontologies.org/ontology/}
     puts "Processing #{elem.name}: #{iri}"
 
     name = iri.split('/').last
 
-    desc = REXML::Element.new("#{owl_prefix}:#{equiv_tags[0]}")
+    desc = REXML::Element.new(type)
     desc.add_attribute("#{rdf_prefix}:about", "#{ontology_iri}#{name}")
 
-    equiv = REXML::Element.new("#{owl_prefix}:#{equiv_tags[1]}")
-    equiv.add_attribute("#{rdf_prefix}:resource", iri)
+    equiv = REXML::Element.new(equiv_tag)
+    if equiv_tag == "iof-av:replacedBy"
+      equiv.add_attribute("#{rdf_prefix}:datatype", 'http://www.w3.org/2001/XMLSchema#anyURI')
+      equiv.text = iri
+    else
+      equiv.add_attribute("#{rdf_prefix}:resource", iri)
+    end
 
     dep = REXML::Element.new("#{owl_prefix}:deprecated")
     dep.add_attribute("#{rdf_prefix}:datatype", 'http://www.w3.org/2001/XMLSchema#boolean')
