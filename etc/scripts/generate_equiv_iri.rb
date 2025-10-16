@@ -46,7 +46,9 @@ NS = {
  "http://www.w3.org/2000/01/rdf-schema#" => :rdfs,
  "http://www.w3.org/2004/02/skos/core#" => :skos,
  "http://www.w3.org/2001/XMLSchema#" => :xsd,
- "https://spec.industrialontologies.org/ontology/annotation/" => :iof_av
+ "https://spec.industrialontologies.org/ontology/annotation/" => :iof_av,
+ "https://spec.industrialontologies.org/ontology/construct/" => :iof_const,
+ "https://spec.industrialontologies.org/ontology/individual/" => :iof_ind
 }
 
 doc.doctype.each do |ent|
@@ -58,8 +60,10 @@ PR = {}
 
 root.namespaces.each do |prefix, uri|
   next if prefix == 'xmlns'
-  PR[NS[uri]] = prefix if NS.key?(uri)
-  equiv_root.add_namespace(prefix, uri)
+  if NS.key?(uri)
+    PR[NS[uri]] = prefix
+    equiv_root.add_namespace(prefix, uri)
+  end
 end
 
 { 
