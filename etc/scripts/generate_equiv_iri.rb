@@ -81,7 +81,7 @@ if ontology_iri !~ %r{^https://spec.industrialontologies.org/ontology/core/}
 end
 
 uri = URI.parse(ontology_iri)
-equiv_iri = "#{uri.origin}/migration/#{version}/#{uri.path.split('/').last}/"
+equiv_iri = "#{uri.origin}/migration/#{version}/#{uri.path.split('/').last}Replacements/"
 
 # Add an ontology declaration to the new equivalence file
 equiv_ont = equiv_root.add_element("#{PR[:owl]}:Ontology", { "#{PR[:rdf]}:about" => equiv_iri })
