@@ -14,8 +14,7 @@ if ARGV.length != 2
   exit
 end
 
-ontology_file = ARGV[0]
-version = ARGV[1]
+ontology_file, version = ARGV
 
 context = { raw: :all }
 doc = REXML::Document.new(File.read(ontology_file), context)
@@ -40,21 +39,27 @@ equiv_doc = REXML::Document.new
 equiv_doc.add(REXML::XMLDecl.new('1.0', 'UTF-8'))
 equiv_doc.add(doctype_clone = REXML::DocType.new(doc.doctype.clone))
 
+NS = {
+ "http://purl.org/dc/terms/" => :dc,
+ "http://www.w3.org/2002/07/owl#" => :owl,
+ "http://www.w3.org/1999/02/22-rdf-syntax-ns#" => :rdf,
+ "http://www.w3.org/2000/01/rdf-schema#" => :rdfs,
+ "http://www.w3.org/2004/02/skos/core#" => :skos,
+ "http://www.w3.org/2001/XMLSchema#" => :xsd,
+ "https://spec.industrialontologies.org/ontology/annotation/" => :iof_av
+}
+
 doc.doctype.each do |ent|
   doctype_clone.add(ent.clone)
 end
 
 equiv_root = REXML::Element.new('rdf:RDF')
+PR = {}
 
-rdf_ns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-rdf_prefix = nil
-owl_ns = 'http://www.w3.org/2002/07/owl#'
-owl_prefix = nil
 root.namespaces.each do |prefix, uri|
   next if prefix == 'xmlns'
+  PR[NS[uri]] = prefix if NS.key?(uri)
   equiv_root.add_namespace(prefix, uri)
-  rdf_prefix = prefix if uri == rdf_ns
-  owl_prefix = prefix if uri == owl_ns
 end
 
 { 
@@ -75,30 +80,30 @@ uri = URI.parse(ontology_iri)
 equiv_iri = "#{uri.origin}/migration/#{version}/#{uri.path.split('/').last}/"
 
 # Add an ontology declaration to the new equivalence file
-equiv_ont = equiv_root.add_element("#{owl_prefix}:Ontology", { "#{rdf_prefix}:about" => equiv_iri })
-equiv_ont.add_element("#{owl_prefix}:imports", { "#{rdf_prefix}:resource" => ontology_iri })
+equiv_ont = equiv_root.add_element("#{PR[:owl]}:Ontology", { "#{PR[:rdf]}:about" => equiv_iri })
+equiv_ont.add_element("#{PR[:owl]}:imports", { "#{PR[:rdf]}:resource" => ontology_iri })
 
-root.each_element("//#{owl_prefix}:Ontology") do |ont|
-  ["dcterms:title", "dcterms:license", "dcterms:publisher", 
-  "iof-av:copyright", "iof-av:maturity"].each do |tag|
+root.each_element("//#{PR[:owl]}:Ontology") do |ont|
+  ["#{PR[:dc]}:title", "#{PR[:dc]}:license", "#{PR[:dc]}:publisher", 
+  "#{PR[:iof_av]}:copyright", "#{PR[:iof_av]}:maturity"].each do |tag|
     ont.each_element(tag) do |elem|
       if elem.text && !elem.text.strip.empty?
         equiv_ont.add_element(elem.clone).text = elem.text
       end
     end
   end
-  ont.each_element("rdfs:label") do |elem|
+  ont.each_element("#{PR[:rdfs]}:label") do |elem|
     if elem.text && !elem.text.strip.empty?
       equiv_ont.add_element(elem.clone).text = "#{elem.text.strip} Replacements"
     end
   end
 end
 
-{ "/#{rdf_prefix}:RDF/#{owl_prefix}:Class" => "#{owl_prefix}:equivalentClass",
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:ObjectProperty" => "#{owl_prefix}:equivalentProperty",
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:DatatypeProperty" => "#{owl_prefix}:equivalentProperty",
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:AnnotationProperty" => "iof-av:replacedBy",
-  "/#{rdf_prefix}:RDF/#{owl_prefix}:NamedIndividual" => "#{owl_prefix}:sameAs" }.each do |xpath, equiv_tag|
+{ "/#{PR[:rdf]}:RDF/#{PR[:owl]}:Class" => "#{PR[:owl]}:equivalentClass",
+  "/#{PR[:rdf]}:RDF/#{PR[:owl]}:ObjectProperty" => "#{PR[:owl]}:equivalentProperty",
+  "/#{PR[:rdf]}:RDF/#{PR[:owl]}:DatatypeProperty" => "#{PR[:owl]}:equivalentProperty",
+  "/#{PR[:rdf]}:RDF/#{PR[:owl]}:AnnotationProperty" => "#{PR[:iof_av]}:replacedBy",
+  "/#{PR[:rdf]}:RDF/#{PR[:owl]}:NamedIndividual" => "#{PR[:owl]}:sameAs" }.each do |xpath, equiv_tag|
   root.each_element(xpath) do |elem|
     type = "#{elem.prefix}:#{elem.name}"
     iri = elem.attributes["rdf:about"]
@@ -106,18 +111,18 @@ end
     puts "Processing #{elem.name}: #{iri}"
 
     name = iri.split('/').last
-    node = equiv_root.add_element(type, { "#{rdf_prefix}:about" => "#{ontology_iri}#{name}" })
+    node = equiv_root.add_element(type, { "#{PR[:rdf]}:about" => "#{ontology_iri}#{name}" })
 
     equiv = node.add_element(equiv_tag)
-    if equiv_tag == "iof-av:replacedBy"
-      equiv.add_attribute("#{rdf_prefix}:datatype", 'http://www.w3.org/2001/XMLSchema#anyURI')
+    if equiv_tag == "#{PR[:iof_av]}:replacedBy"
+      equiv.add_attribute("#{PR[:rdf]}:datatype", 'http://www.w3.org/2001/XMLSchema#anyURI')
       equiv.text = iri
     else
-      equiv.add_attribute("#{rdf_prefix}:resource", iri)
+      equiv.add_attribute("#{PR[:rdf]}:resource", iri)
     end
 
-    node.add_element("#{owl_prefix}:deprecated", 
-      { "#{rdf_prefix}:datatype" => 'http://www.w3.org/2001/XMLSchema#boolean' }).
+    node.add_element("#{PR[:owl]}:deprecated", 
+      { "#{PR[:rdf]}:datatype" => 'http://www.w3.org/2001/XMLSchema#boolean' }).
       text = 'true'
   end
 end
