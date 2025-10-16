@@ -75,28 +75,21 @@ uri = URI.parse(ontology_iri)
 equiv_iri = "#{uri.origin}/migration/#{version}/#{uri.path.split('/').last}/"
 
 # Add an ontology declaration to the new equivalence file
-equiv_ont = REXML::Element.new("#{owl_prefix}:Ontology")
-equiv_ont.add_attribute("#{rdf_prefix}:about", equiv_iri)
+equiv_ont = equiv_root.add_element("#{owl_prefix}:Ontology", { "#{rdf_prefix}:about" => equiv_iri })
 equiv_ont.add_element("#{owl_prefix}:imports", { "#{rdf_prefix}:resource" => ontology_iri })
 
-equiv_root.add_element(equiv_ont)
-
-root.each_element("//owl:Ontology") do |ont|
+root.each_element("//#{owl_prefix}:Ontology") do |ont|
   ["dcterms:title", "dcterms:license", "dcterms:publisher", 
   "iof-av:copyright", "iof-av:maturity"].each do |tag|
     ont.each_element(tag) do |elem|
       if elem.text && !elem.text.strip.empty?
-        e = elem.clone
-        e.text = elem.text.strip
-        equiv_ont.add_element(e)
+        equiv_ont.add_element(elem.clone).text = elem.text
       end
     end
   end
   ont.each_element("rdfs:label") do |elem|
     if elem.text && !elem.text.strip.empty?
-      e = elem.clone
-      e.text = "#{elem.text.strip} Replacements"
-      equiv_ont.add_element(e)
+      equiv_ont.add_element(elem.clone).text = "#{elem.text.strip} Replacements"
     end
   end
 end
@@ -113,11 +106,9 @@ end
     puts "Processing #{elem.name}: #{iri}"
 
     name = iri.split('/').last
+    node = equiv_root.add_element(type, { "#{rdf_prefix}:about" => "#{ontology_iri}#{name}" })
 
-    desc = REXML::Element.new(type)
-    desc.add_attribute("#{rdf_prefix}:about", "#{ontology_iri}#{name}")
-
-    equiv = REXML::Element.new(equiv_tag)
+    equiv = node.add_element(equiv_tag)
     if equiv_tag == "iof-av:replacedBy"
       equiv.add_attribute("#{rdf_prefix}:datatype", 'http://www.w3.org/2001/XMLSchema#anyURI')
       equiv.text = iri
@@ -125,13 +116,9 @@ end
       equiv.add_attribute("#{rdf_prefix}:resource", iri)
     end
 
-    dep = REXML::Element.new("#{owl_prefix}:deprecated")
-    dep.add_attribute("#{rdf_prefix}:datatype", 'http://www.w3.org/2001/XMLSchema#boolean')
-    dep.text = 'true'
-
-    desc.add_element(equiv)
-    desc.add_element(dep)
-    equiv_root.add_element(desc)
+    node.add_element("#{owl_prefix}:deprecated", 
+      { "#{rdf_prefix}:datatype" => 'http://www.w3.org/2001/XMLSchema#boolean' }).
+      text = 'true'
   end
 end
 
