@@ -11,11 +11,11 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?warning ?resource
 WHERE
 {
-    ?resource rdf:type owl:Ontology.
+    ?resource rdf:type owl:AnnotationProperty .
 
-    FILTER (!regex(str(?resource), 'https:\\/\\/[a-z\\/\\.]+\\/ontology\\/([a-z]+\\/)+([A-Z][a-z]+)+\\/'))
+    FILTER (!regex(str(?resource), 'https:\\/\\/[a-z\\/\\.]+\\/ontology\\/annotation\\/[a-z]+([A-Z][a-z]+)*'))
 
     FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-    BIND (CONCAT("WARN: IRI for ontology ",STR(?resource)," may be ill-formed") as ?warning)
+    BIND (CONCAT("WARN: IRI for property ",STR(?resource)," may be ill-formed") as ?warning)
 }

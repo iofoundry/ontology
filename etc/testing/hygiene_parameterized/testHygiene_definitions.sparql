@@ -13,12 +13,14 @@ SELECT DISTINCT ?warning ?resource
 WHERE
 {
   ?resource rdf:type ?type.
+  ?resource rdfs:isDefinedBy ?source .
+
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
   FILTER NOT EXISTS {?resource iof-av:naturalLanguageDefinition ?definition. FILTER (LANG(?definition) = "en-US")}
   
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
-  FILTER (!CONTAINS(STR(?resource),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
+  FILTER (!CONTAINS(STR(?source),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
   
   BIND (CONCAT("PRODERROR: Resource ", STR(?resource), " does not have an iof:naturalLanguageDefinition in American English.") as ?warning)
 }
