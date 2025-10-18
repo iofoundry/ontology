@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
-	<!ENTITY AnnotationVocabulary "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY core "https://spec.industrialontologies.org/ontology/202401/core/Core/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
@@ -14,11 +14,11 @@
 	<!ENTITY terms "http://purl.org/dc/terms/">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/core/rules/TemporalRelationInference/"
-	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+<rdf:RDF
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:core="https://spec.industrialontologies.org/ontology/202401/core/Core/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -39,7 +39,7 @@
 		<terms:publisher xml:lang="en">Industrial Ontology Foundry</terms:publisher>
 		<terms:title>SWRL rules for inferring Allen&apos;s temporal relations among temporal interval and process instances</terms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202401/core/meta/AnnotationVocabulary/"/>
-		<AnnotationVocabulary:usageNote xml:lang="en">Each of the rules, having their label starting with &apos;interval&apos;, asserts one of the temporal properties between two instances of temporal interval in their consequent based on the precedences (precedes) or co-occurrences (occursSimultaneouslyWith) among the start and end temporal instant(s) of these two intervals in their antecedent. Each of the rules, having their label starting with &apos;process&apos;, asserts temporal properties between two instances of process in their consequent based on the type of temporal property that the intervals which these process instances occupies in their antecedent.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">Each of the rules, having their label starting with &apos;interval&apos;, asserts one of the temporal properties between two instances of temporal interval in their consequent based on the precedences (precedes) or co-occurrences (occursSimultaneouslyWith) among the start and end temporal instant(s) of these two intervals in their antecedent. Each of the rules, having their label starting with &apos;process&apos;, asserts temporal properties between two instances of process in their consequent based on the type of temporal property that the intervals which these process instances occupies in their antecedent.</iof-av:usageNote>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&bfo;BFO_0000015">
@@ -111,1172 +111,600 @@
 	<swrl:Imp>
 		<rdfs:label>process before</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process is before another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 is before i2, then p1 is before p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 is before i2, then p1 is before p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process meets</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process meets another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 meets i2, then p1 meets p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 meets i2, then p1 meets p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process occurs during</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process occurs during another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs during&apos; i2, then p1 &apos;occurs during&apos; p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs during&apos; i2, then p1 &apos;occurs during&apos; p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process occurs simultaneously</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process occurs simultaneously with another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs simultaneously with&apos; i2, then p1 &apos;occurs simultaneously with&apos; p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;occurs simultaneously with&apos; i2, then p1 &apos;occurs simultaneously with&apos; p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process finishes</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally finishes another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally finishes&apos; i2, then p1 &apos;temporally finishes&apos; p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally finishes&apos; i2, then p1 &apos;temporally finishes&apos; p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process overlaps</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally overlaps another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally overlaps&apos; i2, then p1 &apos;temporally overlaps&apos; p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally overlaps&apos; i2, then p1 &apos;temporally overlaps&apos; p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>process starts</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of process temporally starts another instance of process</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000015"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000199"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#process2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally starts&apos; i2, then p1 &apos;temporally starts&apos; p2.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two process p1 and p2, if p1 &apos;occupies temporal region&apos; i1, p2 &apos;occupies temporal region&apos; i2, and i1 &apos;temporally starts&apos; i2, then p1 &apos;temporally starts&apos; p2.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval before</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval is before another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/before"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il precedes jf, then i is before j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il precedes jf, then i is before j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval meets</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval meets another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest rdf:resource="&rdf;nil"/>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/meets"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il &apos;occurs simultaneously with&apos; jf, then i meets j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, and il &apos;occurs simultaneously with&apos; jf, then i meets j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval occurs during</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval occurs during another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest>
-													<swrl:AtomList>
-														<rdf:first>
-															<swrl:IndividualPropertyAtom>
-																<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-																<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-															</swrl:IndividualPropertyAtom>
-														</rdf:first>
-														<rdf:rest>
-															<swrl:AtomList>
-																<rdf:first>
-																	<swrl:IndividualPropertyAtom>
-																		<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																		<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-																		<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																	</swrl:IndividualPropertyAtom>
-																</rdf:first>
-																<rdf:rest>
-																	<swrl:AtomList>
-																		<rdf:first>
-																			<swrl:IndividualPropertyAtom>
-																				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																			</swrl:IndividualPropertyAtom>
-																		</rdf:first>
-																		<rdf:rest rdf:resource="&rdf;nil"/>
-																	</swrl:AtomList>
-																</rdf:rest>
-															</swrl:AtomList>
-														</rdf:rest>
-													</swrl:AtomList>
-												</rdf:rest>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursDuring"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il precedes jl, then i &apos;occurs during&apos; j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il precedes jl, then i &apos;occurs during&apos; j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval occurs simulataneously</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval occurs simultaneously with another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest>
-													<swrl:AtomList>
-														<rdf:first>
-															<swrl:IndividualPropertyAtom>
-																<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-																<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-															</swrl:IndividualPropertyAtom>
-														</rdf:first>
-														<rdf:rest>
-															<swrl:AtomList>
-																<rdf:first>
-																	<swrl:IndividualPropertyAtom>
-																		<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-																		<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																		<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-																	</swrl:IndividualPropertyAtom>
-																</rdf:first>
-																<rdf:rest>
-																	<swrl:AtomList>
-																		<rdf:first>
-																			<swrl:IndividualPropertyAtom>
-																				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-																			</swrl:IndividualPropertyAtom>
-																		</rdf:first>
-																		<rdf:rest rdf:resource="&rdf;nil"/>
-																	</swrl:AtomList>
-																</rdf:rest>
-															</swrl:AtomList>
-														</rdf:rest>
-													</swrl:AtomList>
-												</rdf:rest>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simultaneously with&apos; jf and il &apos;occurs simultaneously with&apos; jl, then i &apos;occurs simultaneously with&apos; j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simultaneously with&apos; jf and il &apos;occurs simultaneously with&apos; jl, then i &apos;occurs simultaneously with&apos; j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval finishes</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally finishes another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest>
-													<swrl:AtomList>
-														<rdf:first>
-															<swrl:IndividualPropertyAtom>
-																<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-																<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-															</swrl:IndividualPropertyAtom>
-														</rdf:first>
-														<rdf:rest>
-															<swrl:AtomList>
-																<rdf:first>
-																	<swrl:IndividualPropertyAtom>
-																		<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																		<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-																		<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																	</swrl:IndividualPropertyAtom>
-																</rdf:first>
-																<rdf:rest>
-																	<swrl:AtomList>
-																		<rdf:first>
-																			<swrl:IndividualPropertyAtom>
-																				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-																			</swrl:IndividualPropertyAtom>
-																		</rdf:first>
-																		<rdf:rest rdf:resource="&rdf;nil"/>
-																	</swrl:AtomList>
-																</rdf:rest>
-															</swrl:AtomList>
-														</rdf:rest>
-													</swrl:AtomList>
-												</rdf:rest>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyFinishes"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il &apos;occurs simultaneously with&apos; jl, then i &apos;temporally finishes&apos; j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, jf precedes if and il &apos;occurs simultaneously with&apos; jl, then i &apos;temporally finishes&apos; j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval overlaps</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally overlaps another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest>
-													<swrl:AtomList>
-														<rdf:first>
-															<swrl:IndividualPropertyAtom>
-																<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-																<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-															</swrl:IndividualPropertyAtom>
-														</rdf:first>
-														<rdf:rest>
-															<swrl:AtomList>
-																<rdf:first>
-																	<swrl:IndividualPropertyAtom>
-																		<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-																		<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																		<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																	</swrl:IndividualPropertyAtom>
-																</rdf:first>
-																<rdf:rest>
-																	<swrl:AtomList>
-																		<rdf:first>
-																			<swrl:IndividualPropertyAtom>
-																				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																			</swrl:IndividualPropertyAtom>
-																		</rdf:first>
-																		<rdf:rest>
-																			<swrl:AtomList>
-																				<rdf:first>
-																					<swrl:IndividualPropertyAtom>
-																						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																						<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																					</swrl:IndividualPropertyAtom>
-																				</rdf:first>
-																				<rdf:rest rdf:resource="&rdf;nil"/>
-																			</swrl:AtomList>
-																		</rdf:rest>
-																	</swrl:AtomList>
-																</rdf:rest>
-															</swrl:AtomList>
-														</rdf:rest>
-													</swrl:AtomList>
-												</rdf:rest>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyOverlaps"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if precedes jf, jf precedes il, and il precedes jl, then i &apos;temporally overlaps&apos; j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if precedes jf, jf precedes il, and il precedes jl, then i &apos;temporally overlaps&apos; j.</iof-av:usageNote>
 	</swrl:Imp>
 	<swrl:Imp>
 		<rdfs:label>interval starts</rdfs:label>
 		<terms:description xml:lang="en">Infers an instance of temporal interval temporally starts another instance of temporal interval</terms:description>
-		<swrl:body>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:ClassAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-					</swrl:ClassAtom>
-				</rdf:first>
-				<rdf:rest>
-					<swrl:AtomList>
-						<rdf:first>
-							<swrl:ClassAtom>
-								<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-								<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
-							</swrl:ClassAtom>
-						</rdf:first>
-						<rdf:rest>
-							<swrl:AtomList>
-								<rdf:first>
-									<swrl:IndividualPropertyAtom>
-										<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-										<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-										<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-									</swrl:IndividualPropertyAtom>
-								</rdf:first>
-								<rdf:rest>
-									<swrl:AtomList>
-										<rdf:first>
-											<swrl:IndividualPropertyAtom>
-												<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-												<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-												<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-											</swrl:IndividualPropertyAtom>
-										</rdf:first>
-										<rdf:rest>
-											<swrl:AtomList>
-												<rdf:first>
-													<swrl:IndividualPropertyAtom>
-														<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-														<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-														<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
-													</swrl:IndividualPropertyAtom>
-												</rdf:first>
-												<rdf:rest>
-													<swrl:AtomList>
-														<rdf:first>
-															<swrl:IndividualPropertyAtom>
-																<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-																<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
-															</swrl:IndividualPropertyAtom>
-														</rdf:first>
-														<rdf:rest>
-															<swrl:AtomList>
-																<rdf:first>
-																	<swrl:IndividualPropertyAtom>
-																		<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
-																		<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
-																		<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
-																	</swrl:IndividualPropertyAtom>
-																</rdf:first>
-																<rdf:rest>
-																	<swrl:AtomList>
-																		<rdf:first>
-																			<swrl:IndividualPropertyAtom>
-																				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
-																				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
-																				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
-																			</swrl:IndividualPropertyAtom>
-																		</rdf:first>
-																		<rdf:rest rdf:resource="&rdf;nil"/>
-																	</swrl:AtomList>
-																</rdf:rest>
-															</swrl:AtomList>
-														</rdf:rest>
-													</swrl:AtomList>
-												</rdf:rest>
-											</swrl:AtomList>
-										</rdf:rest>
-									</swrl:AtomList>
-								</rdf:rest>
-							</swrl:AtomList>
-						</rdf:rest>
-					</swrl:AtomList>
-				</rdf:rest>
-			</swrl:AtomList>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:classPredicate rdf:resource="&bfo;BFO_0000202"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000222"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000224"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#firstInstant2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/occursSimultaneouslyWith"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#lastInstant2"/>
+				<swrl:propertyPredicate rdf:resource="&bfo;BFO_0000063"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:body>
-		<swrl:head>
-			<swrl:AtomList>
-				<rdf:first>
-					<swrl:IndividualPropertyAtom>
-						<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
-						<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
-						<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
-					</swrl:IndividualPropertyAtom>
-				</rdf:first>
-				<rdf:rest rdf:resource="&rdf;nil"/>
-			</swrl:AtomList>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval1"/>
+				<swrl:argument2 rdf:resource="https://spec.industrialontologies.org/rules/core/TemporalRelations02#interval2"/>
+				<swrl:propertyPredicate rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/temporallyStarts"/>
+			</swrl:IndividualPropertyAtom>
 		</swrl:head>
-		<AnnotationVocabulary:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simulataneously with&apos; jf, and il precedes jl, then i &apos;temporally starts&apos; j.</AnnotationVocabulary:usageNote>
+		<iof-av:usageNote xml:lang="en">For every two &apos;temporal interval&apos; i and j, if i &apos;has first instant&apos; if, i  &apos;has last instant&apos; il, j &apos;has first instant&apos; jf, j &apos;has last instant&apos; jl, if &apos;occurs simulataneously with&apos; jf, and il precedes jl, then i &apos;temporally starts&apos; j.</iof-av:usageNote>
 	</swrl:Imp>
 	<rdf:Description>
 		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
