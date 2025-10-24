@@ -16,6 +16,8 @@ WHERE
   ?resource rdfs:isDefinedBy ?source .
 
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
+
+  FILTER NOT EXISTS {?resource owl:deprecated "true"^^xsd:boolean .}
   FILTER NOT EXISTS {?resource iof-av:naturalLanguageDefinition ?definition. FILTER (LANG(?definition) = "en-US")}
   
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)

@@ -68,18 +68,37 @@ puts "Adding rdfs:isDefinedBy to entities..."
 root.each_element("/rdf:RDF/owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:DatatypeProperty | /rdf:RDF/owl:NamedIndividual | /rdf:RDF/owl:AnnotationProperty") do |elem|
   about = elem.attributes['rdf:about']
   puts "Checking #{elem.name} IRI: #{about}"
-  if about && about.start_with?('&iof-')
+  if about && (about.start_with?('&iof-') or about.start_with?('https://spec.industrialontologies.org/ontology/'))
     # We handle NamedIndividuals differently because they share the same IRI prefix as the constructs
     if elem.name == 'NamedIndividual'
       iri = about.sub(onto_prefix, 'iof-ind')
       puts " * Updating NamedIndividual IRI: #{about} to #{iri}"
       elem.attributes['rdf:about'] = iri
+    elsif about.start_with?('https://spec.industrialontologies.org/ontology/')
+      if about.include?('/individual/') 
+        rep = 'https://spec.industrialontologies.org/ontology/individual/\1' 
+      else 
+        rep = 'https://spec.industrialontologies.org/ontology/construct/\1' 
+      end
+      iri = about.sub(%r{https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/([A-Za-z]+)$}, rep)
+      puts "  * Updating IRI: #{about} to #{iri}"
+      elem.attributes['rdf:about'] = iri
     end
     puts " * Adding rdfs:isDefinedBy to #{elem.name} IRI: #{about}"
+    REXML::Text.new("  ", true, elem)
     defined_by = REXML::Element.new('rdfs:isDefinedBy', elem)
     defined_by.text = ontology_iri
     defined_by.add_attribute('rdf:datatype', 'http://www.w3.org/2001/XMLSchema#anyURI')
+    REXML::Text.new("\n  ", true, elem)
   end
+end
+
+# Replace iof-av:replacedBy annotations to point to the new IRI
+root.each_element("//iof-av:replacedBy") do |replaced_by|
+  iri = replaced_by.text
+  new_iri = iri.sub(%r{https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/([A-Za-z]+)$}, 'https://spec.industrialontologies.org/ontology/construct/\1')
+  puts "  * iof-av:replacedBy: replacing #{iri} with new IRI #{new_iri}"
+  replaced_by.text = new_iri
 end
 
 # Write the modified XML to a string. It is easier to do string replacements than manipulate the REXML structure.
@@ -87,7 +106,7 @@ new_onto = ""
 doc.write(output: new_onto, indent: -1, transitive: false)
 
 # Replace old IOF prefixes with new ones based on the IRI
-mappings = iof_iris.map do |prefix, iri| 
+iof_iris.map do |prefix, iri| 
   if iri == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/'
     [prefix, 'iof-av'] if prefix != 'iof-av'
   else

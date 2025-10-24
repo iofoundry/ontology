@@ -959,7 +959,7 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-const;prescribedBy"/>
-								<owl:hasValue rdf:resource="&iof-ind;GLNScheme"/>
+								<owl:hasValue rdf:resource="&iof-const;GLNScheme"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -1543,6 +1543,41 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:firstOrderLogicDefinition>ManufacturingService(x) ↔ CommercialService(x) ∧ ∃p(ManufacturingProcess(p) ∧ hasOccurentPart(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">commercial service that consists of at least one manufacturing process</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufactuirng service&apos; is defined as exactly an instance of &apos;commercial service&apos; that &apos;has occurrent part&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;ManufacturingServiceProviderRole">
+		<rdfs:subClassOf rdf:resource="&iof-const;ServiceProviderRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-const;agentIn"/>
+								<owl:someValuesFrom rdf:resource="&iof-const;ManufacturingService"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">manufacturing service provider role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
+		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ManufacturingSupplyChain">
@@ -2194,12 +2229,12 @@ recording, but not quality assurance or stocking [CSCMP].
 	
 	<owl:Class rdf:about="&iof-const;ShipmentPlanSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
-		<rdfs:label>shipment plan specification</rdfs:label>
+		<rdfs:label xml:lang="en-US">shipment plan specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>a shipping plan that specifies the schedule for picking up a shipment of 1000 smartphones from a certain pick up location and transporting to a certain destination and also provides details of the shipping method (sea freight for example)</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃p(ShipmentPreparationProcess(p) ∧ prescribes(x,p)) → ShipmentPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>plan specification that prescribes a shipment preparation process and a transportation process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes a shipment preparation process and a transportation process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification that &apos;prescribes&apos; some &apos;shipment preparation process&apos; then x is a &apos;shipment plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2274,12 +2309,12 @@ recording, but not quality assurance or stocking [CSCMP].
 	
 	<owl:Class rdf:about="&iof-const;ShipmentState">
 		<rdfs:subClassOf rdf:resource="&iof-const;MaterialState"/>
-		<rdfs:label>shipment state</rdfs:label>
+		<rdfs:label xml:lang="en-US">shipment state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>delayed state, in-transit state, delivered state</skos:example>
 		<iof-av:firstOrderLogicAxiom>ShipmentState(x) → MaterialState(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>material state in which a shipment that participates in the state has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state in which a shipment that participates in the state has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize XYZ are still lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shapment state&apos; then x is a &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -3574,7 +3609,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relationship between a supplier and a customer when the supplier sells a product of service to a customer</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:NamedIndividual rdf:about="&iof-ind;GLNScheme">
+	<owl:NamedIndividual rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/&amp;iof-ind;GLNScheme">
 		<rdf:type rdf:resource="&iof-const;LocationIdentificationScheme"/>
 		<rdfs:label xml:lang="en-US">GS1 GLN Specifications</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
@@ -3582,63 +3617,29 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">identification scheme that specifies constraints on the structure of a GLN (global location number)</iof-av:naturalLanguageDefinition>
 	</owl:NamedIndividual>
 	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/service/ServiceOntology/ManufacturingServiceProviderRole">
-		<rdfs:subClassOf rdf:resource="&iof-const;ServiceProviderRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;Person">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-const;agentIn"/>
-								<owl:someValuesFrom rdf:resource="&iof-const;ManufacturingService"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing service provider role</rdfs:label>
-		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
-		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
 		<owl:annotatedSource rdf:resource="&iof-const;ArtifactFunction"/>
 		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
-		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/core/Core/DesignedFunction</iof-av:replacedBy>
+		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/construct/DesignedFunction</iof-av:replacedBy>
 	</owl:Axiom>
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
 		<owl:annotatedSource rdf:resource="&iof-const;GainOfRole"/>
 		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
-		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/core/Core/GainOfRole</iof-av:replacedBy>
+		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/construct/GainOfRole</iof-av:replacedBy>
 	</owl:Axiom>
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
 		<owl:annotatedSource rdf:resource="&iof-const;GroupOfPersons"/>
 		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
-		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/core/Core/GroupOfPersons</iof-av:replacedBy>
+		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/construct/GroupOfPersons</iof-av:replacedBy>
 	</owl:Axiom>
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
 		<owl:annotatedSource rdf:resource="&iof-const;LossOfRole"/>
 		<owl:annotatedTarget rdf:datatype="&xsd;boolean">true</owl:annotatedTarget>
-		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/core/Core/LossOfRole</iof-av:replacedBy>
+		<iof-av:replacedBy>https://spec.industrialontologies.org/ontology/construct/LossOfRole</iof-av:replacedBy>
 	</owl:Axiom>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-const;BillOfLading"/>
