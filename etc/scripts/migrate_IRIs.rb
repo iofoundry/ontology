@@ -71,7 +71,7 @@ root.each_element("/rdf:RDF/owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/o
   if about && (about.start_with?('&iof-') or about.start_with?('https://spec.industrialontologies.org/ontology/'))
     # We handle NamedIndividuals differently because they share the same IRI prefix as the constructs
     if elem.name == 'NamedIndividual'
-      iri = about.sub(onto_prefix, 'iof-ind')
+      iri = about.sub(/\&[^;]+;([A-Za-z]+)/, 'https://spec.industrialontologies.org/ontology/individual/\1')
       puts " * Updating NamedIndividual IRI: #{about} to #{iri}"
       elem.attributes['rdf:about'] = iri
     elsif about.start_with?('https://spec.industrialontologies.org/ontology/')
