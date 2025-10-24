@@ -2017,6 +2017,40 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;service consumer role&apos; then x is a &apos;customer role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/ServiceOntology/ManufacturingServiceProviderRole">
+		<rdfs:subClassOf rdf:resource="&iof-core;ServiceProviderRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;BusinessOrganization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-core;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-scro;agentIn"/>
+								<owl:someValuesFrom rdf:resource="&iof-scro;ManufacturingService"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">manufacturing service provider role</rdfs:label>
+		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
+		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-scro;ServiceSupplyChain">
 		<rdfs:subClassOf rdf:resource="&iof-scro;SupplyChainSystem"/>
 		<rdfs:label xml:lang="en-US">service supply chain system</rdfs:label>
@@ -3501,40 +3535,6 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<skos:example>a suppliers of airbag systems suppliers airbags to Honda</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relationship between a supplier and a customer when the supplier sells a product of service to a customer</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/service/ServiceOntology/ManufacturingServiceProviderRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;ServiceProviderRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-core;BusinessOrganization">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-core;Person">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-scro;agentIn"/>
-								<owl:someValuesFrom rdf:resource="&iof-scro;ManufacturingService"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing service provider role</rdfs:label>
-		<skos:example>a contract machinist who machines parts owned by another company</skos:example>
-		<iof-av:firstOrderLogicAxiom>ManufacturingServiceProviderRole(x) → ServiceProviderRole(x) ∧ ∃y∃p((BusinessOrganization(y) ∨ Person(y)) ∧ ManufacturingService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">service provider role that is held by a person or business organization when it provides a manufacturing service</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>Manufacturing Service Provider Role x implies that x is a Service Provider Role that is &apos;role of&apos; some Business Organization or Person when it is &apos;agent in&apos; some Manufacturing Service</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
 	
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&owl;deprecated"/>
