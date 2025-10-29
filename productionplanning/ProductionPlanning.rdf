@@ -415,6 +415,31 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
 		<rdfs:label xml:lang="en-us">process plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-const;PlanSpecification">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000111"/>
+						<owl:allValuesFrom rdf:resource="&iof-const;ProductionOrder"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000111"/>
+						<owl:allValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;ManufacturingOperation">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;ProcessingStep">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:allValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">IKEA instructions to assemble furniture such as tables and chairs, and a step-by-step recipe for preparing a cake.</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧
@@ -512,6 +537,33 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
 		<rdfs:label xml:lang="en-us">production plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-const;PlanSpecification">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000110"/>
+						<owl:allValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;InspectionPlan">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;MaterialTransferPlan">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;ProcessPlan">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:allValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000111"/>
+						<owl:allValuesFrom rdf:resource="&iof-const;ProductionOrder"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">Production of a batch of 1,000 plastic containers and 100 lids in one week, production of 200 wooden chairs at the wood workshop to be completed by August 9. In the first quarter of 2025, the sewing department will produce 500 shirts.</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
