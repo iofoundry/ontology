@@ -415,31 +415,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
 		<rdfs:label xml:lang="en-us">process plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;PlanSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;hasActionSpecificationAtAllTimes"/>
-						<owl:allValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;ManufacturingOperation">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;ProcessingStep">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;hasObjectiveSpecificationAtAllTimes"/>
-						<owl:allValuesFrom rdf:resource="&iof-const;ProductionOrder"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">IKEA instructions to assemble furniture such as tables and chairs, and a step-by-step recipe for preparing a cake.</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧
@@ -537,33 +512,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
 		<rdfs:label xml:lang="en-us">production plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;PlanSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;hasObjectiveSpecificationAtAllTimes"/>
-						<owl:allValuesFrom rdf:resource="&iof-const;ProductionOrder"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;hasPartOfPlanAtAllTimes"/>
-						<owl:allValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;InspectionPlan">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;MaterialTransferPlan">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;ProcessPlan">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">Production of a batch of 1,000 plastic containers and 100 lids in one week, production of 200 wooden chairs at the wood workshop to be completed by August 9. In the first quarter of 2025, the sewing department will produce 500 shirts.</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
@@ -611,18 +559,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">an Artifact Capability that is borne by a Production Tool and demarcates a Tool Function.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;actionSpecificationAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000137"/>
-		<rdfs:label xml:lang="en-us">proper continuant part at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;ActionSpecification"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;InformationContentEntity"/>
-		<owl:inverseOf rdf:resource="&iof-const;hasActionSpecificationAtAllTimes"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">actionSpecifciationAtAllTimes(x,y) → ActionSpecification(x) ∧ properContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an action specification to an entity of which it is proper part at all times</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x action specifciation at all times y holds when x is a &apos;obejctive specification&apos; and x &apos; proper continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
 	<owl:ObjectProperty rdf:about="&iof-const;capabilityOf">
 	</owl:ObjectProperty>
 	
@@ -636,42 +572,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 and p2 &apos;realizes&apos; c2, and either p1 is the same as p2 or p2 is a &apos;proper occurrent part&apos; of p1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;hasActionSpecificationAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000111"/>
-		<rdfs:label xml:lang="en-us">has proper continuant part at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;InformationContentEntity"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;ActionSpecification"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">hasActionSpecificationAtAllTimes(x,y) → ActionSpecification(y) ∧ hasProperContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation to an action specification as its  proper part at all times it exists</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x has proper continuant part at all times y holds when y is a &apos;action specification&apos; and x &apos;has proper continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
 	<owl:ObjectProperty rdf:about="&iof-const;hasCapability">
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-const;hasObjectiveSpecificationAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000111"/>
-		<rdfs:label xml:lang="en-us">has proper continuant part at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;InformationContentEntity"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;ObjectiveSpecification"/>
-		<owl:inverseOf rdf:resource="&iof-const;objectiveSpecificationAtAllTimes"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">hasObejctiveSpecificationAtAllTimes(x,y) → ObjectiveSpecification(y) ∧ hasProperContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation to an objective specification as its  proper part at all times it exists</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x has proper continuant part at all times y holds when y is a &apos;objective specification&apos; and x &apos;has proper continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-const;hasPartOfPlanAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000110"/>
-		<rdfs:label xml:lang="en-us">has continuant part at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;PlanSpecification"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;PlanSpecification"/>
-		<owl:inverseOf rdf:resource="&iof-const;partOfPlanAtAllTimes"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">hasPartOfPlanAtAllTimes(x,y) → PlanSpecification(y) ∧ hasProperContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation to an plan specification as its proper part at all times it exists</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x has continuant part at all times y holds when y is a &apos;plan specification&apos; and x &apos;has proper continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-const;hasResource">
@@ -679,28 +580,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:comment xml:lang="en-us">has resource</rdfs:comment>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-const;MaterialResource"/>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-const;objectiveSpecificationAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000137"/>
-		<rdfs:label xml:lang="en-us">proper continuant partproper continuant part at all times at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;ObjectiveSpecification"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;InformationContentEntity"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">objectiveSpecifciationAtAllTimes(x,y) → ObjectiveSpecification(x) ∧ properContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an objective specification to an entity of which it is proper part at all times</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x objective specifciation at all times y holds when x is a &apos;obejctive specification&apos; and x &apos; proper continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-const;partOfPlanAtAllTimes">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000177"/>
-		<rdfs:label xml:lang="en-us">continuant part of at all times</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;PlanSpecification"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;PlanSpecification"/>
-		<iof-av:firstOrderLogicDefinition xml:lang="en-us">partOfPlanAtAllTimes(x,y) → PlanSpecification(x) ∧ properContinuantPartAtAllTimes(x,y)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from an plan specification to an entity of which it is proper part at all times</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-us">x continuant part of at all times y holds when x is a &apos;plan specification&apos; and x &apos; continuant part at all times&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&iof-const;resource_capability">
