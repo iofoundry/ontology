@@ -9,9 +9,8 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
-	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -20,7 +19,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
+<rdf:RDF
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-manufacturingexecution="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
@@ -30,9 +29,8 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
-	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -70,6 +68,7 @@
 	<owl:Class rdf:about="&iof-construct;AerationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>aeration process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>sparging of air into a bioreactor to supply oxygen for mammalian cell culture; surface aeration of shake flask culture through agitation</skos:example>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Aeration</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Objectives of aeration include supplying oxygen for biological activity, supporting chemical or enzymatic reactions, or facilitating gas transfer. Aeration differs from carbon dioxide addition for pH adjustment and from inert gas addition for overlay or atmosphere control. Defined environment may include vessels, reactors, flasks, or other engineered settings.</iof-av:explanatoryNote>
@@ -80,11 +79,12 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;AntifoamingAgent"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>antifoam addition process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Polypropylene glycol (PPG) addition in microbial fermentation (e.g., E. coli) to prevent foam overflow and ensure stable dissolved oxygen control.</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Excessive foam disrupts gas transfer, alters mixing, and may cause cell damage or contamination risks. To manage this, an antifoam solution is periodically added during cultivation. Its function is not to alter metabolism or growth directly, but to stabilize the culture environment by preventing excessive foam accumulation.</iof-av:explanatoryNote>
@@ -92,19 +92,20 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BatchManufacturingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label>batch manufacturing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+					<rdf:Description rdf:about="&iof-construct;ManufacturingProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;TerminalRemovalProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;temporallyFinishedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;temporallyFinishedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;TerminalRemovalProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -117,7 +118,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiomanufacturingProductionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label xml:lang="en-US">biomanufacturing production process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<owl:disjointWith rdf:resource="&iof-construct;SeedTrain"/>
@@ -135,7 +136,7 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -162,7 +163,7 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -198,6 +199,7 @@
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>cell bleed process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>In a perfusion culture of CHO cells producing a monoclonal antibody, a controlled daily bleed of 10% of the reactor volume is performed to maintain cell density within the target range (e.g., 20–30 × 10⁶ cells/mL). This prevents overgrowth, stabilizes residence time distribution, and avoids excessive accumulation of lactate and ammonia that could impair productivity or product quality.</skos:example>
 		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>At the end of a fed-batch run, the entire bioreactor contents are removed to recover product (harvesting). Although this involves material removal, it is not considered bleeding because the goal is not to regulate culture properties during an ongoing process, but rather to terminate the culture and collect the final product.</iof-av:counterExample>
@@ -205,14 +207,15 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureCultivationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>cell culture cultivation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Shake flask expansion of CHO cells with controlled feeding and monitoring; Recovery of cryopreserved CHO Cells after thawing</skos:example>
 		<iof-av:naturalLanguageDefinition>planned process in which cells within a cell culture are maintained in a controlled environment with the aim of supporting their survival, adaptation or growth</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -250,19 +253,20 @@
 								<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureCultivationProcess"/>
 							</owl:Restriction>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;temporallyStarts"/>
+								<owl:onProperty rdf:resource="&iof-construct;temporallyStarts"/>
 								<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureCultivationProcess"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;meets"/>
+						<owl:onProperty rdf:resource="&iof-construct;meets"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureCultivationProcess"/>
 					</owl:Restriction>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label>cell culture inoculation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Taking a vial of ultra-high cell density CHO cells from a working cell bank and directly adding the thawed cells into a wave-mixed perfusion bioreactor to start growth; using the cells to seed an N-1 perfusion bioreactor; inoculating the fed-batch bioreactors with cells stemming from the N-1 perfusion bioreactor</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process typically involves transferring cells from a cryovial, seed culture, or intermediate vessel into fresh culture medium under controlled environmental conditions. It marks the beginning of a new cultivation stage within the seed train or production process, and is distinct from microbiological inoculation used in QC or testing, and from immunological inoculation in clinical contexts.</iof-av:explanatoryNote>
@@ -272,6 +276,7 @@
 	<owl:Class rdf:about="&iof-construct;CellCultureProductionPhase">
 		<rdfs:subClassOf rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
 		<rdfs:label>cell culture production phase</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -282,7 +287,7 @@
 						<owl:someValuesFrom rdf:resource="&iof-construct;ProductionCultureProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -293,16 +298,16 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellLineDevelopment">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;meets"/>
+						<owl:onProperty rdf:resource="&iof-construct;meets"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellBanking"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;temporallyOverlaps"/>
+						<owl:onProperty rdf:resource="&iof-construct;temporallyOverlaps"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellBanking"/>
 					</owl:Restriction>
 				</owl:unionOf>
@@ -333,19 +338,19 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;temporallyStartedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;temporallyStartedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;GeneticTransformationProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -390,6 +395,7 @@
 	<owl:Class rdf:about="&iof-construct;CellTherapyProductionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
 		<rdfs:label>cell therapy production process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -400,11 +406,11 @@
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureExpansionProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CulturedCellPopulation"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -417,10 +423,10 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CentrifugationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -436,7 +442,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChemicalSynthesisProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label xml:lang="en-US">chemical synthesis process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Benzene is produced by hydrodealkylation of toluene with hydrogen, yielding benzene and methane, and diphenyl as a by-product; Hydrogen chloride is produced by reacting chlorine and hydrogen in an exothermic process; Phthalic anhydride is synthesized by oxidizing ortho-xylene with oxygen at 320–400 °C, producing phthalic anhydride, water, and minor by-products like maleic anhydride and CO₂</skos:example>
@@ -449,7 +455,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChromatographyProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
@@ -464,7 +470,7 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -481,16 +487,16 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CloneSelectionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;ClonedCellLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -507,7 +513,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CloneStabilityStudy">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
@@ -516,7 +522,7 @@
 						<owl:unionOf rdf:parseType="Collection">
 							<rdf:Description rdf:about="&iof-construct;MonitoringProcess">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;MeasurementProcess">
+							<rdf:Description rdf:about="&iof-construct;MeasurementProcess">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -525,7 +531,7 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;ClonedCellLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -542,12 +548,13 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ContinuousManufacturingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label>continuous manufacturing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+					<rdf:Description rdf:about="&iof-construct;ManufacturingProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
@@ -570,11 +577,12 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>culture clarification process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Depth filtration of CHO cell culture harvest to remove cells and debris</skos:example>
 		<iof-av:adaptedFrom>https://www.sigmaaldrich.com/US/en/products/pharma-and-biopharma-manufacturing/clarification-harvest?srsltid=AfmBOor4nhSPJSgHQlZoYDs8L31nMFeklHKUOHLBaDH-JsSpASgA2QUI and https://www.sartorius.com/en/products/process-filtration/cell-harvesting</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>purification process that has as input culture fluid obtained from a cultivation process and produces clarified harvest material by removing suspended cells, debris, or other particulates under controlled condition</iof-av:naturalLanguageDefinition>
@@ -583,13 +591,14 @@
 	<owl:Class rdf:about="&iof-construct;CultureFeedAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialInflowProcess"/>
 		<rdfs:label>culture feed addition process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-construct;MaterialInflowProcess">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
@@ -611,7 +620,7 @@
 	<rdf:Description rdf:about="&iof-construct;CultureFeedingStrategy">
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;CultureFeedAdditionProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -620,12 +629,13 @@
 	</rdf:Description>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumExchangeProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>culture medium exchange process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
@@ -635,7 +645,7 @@
 									<rdf:Description rdf:about="&iof-construct;CultureFeedAdditionProcess">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+										<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 										<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
@@ -650,7 +660,7 @@
 									<rdf:Description rdf:about="&iof-construct;MaterialRemovalProcess">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+										<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 										<owl:someValuesFrom>
 											<owl:Class>
 												<owl:unionOf rdf:parseType="Collection">
@@ -687,6 +697,7 @@
 	<owl:Class rdf:about="&iof-construct;DegassingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<rdfs:label>degassing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>vacuum degassing of culture medium prior to sterilization; nitrogen sparging to remove dissolved oxygen from buffer solution</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0000593</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>material removal process during which the adsorbed (dissolved) gas is withdrawn (desorbed) from a solid or liquid</iof-av:naturalLanguageDefinition>
@@ -711,7 +722,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DiafiltrationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -723,7 +734,7 @@
 									<rdf:Description rdf:about="&iof-construct;DilutionProcess">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;before"/>
+										<owl:onProperty rdf:resource="&iof-construct;before"/>
 										<owl:someValuesFrom rdf:resource="&iof-construct;FiltrationProcess"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
@@ -738,7 +749,7 @@
 									<rdf:Description rdf:about="&iof-construct;DilutionProcess">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;occursSimultaneouslyWith"/>
+										<owl:onProperty rdf:resource="&iof-construct;occursSimultaneouslyWith"/>
 										<owl:someValuesFrom rdf:resource="&iof-construct;FiltrationProcess"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
@@ -762,7 +773,7 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -784,7 +795,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;SolutionPreparationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -825,10 +836,10 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DrugProductFormulationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -847,6 +858,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;FedBatchManufacturingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;BatchManufacturingProcess"/>
 		<rdfs:label>fed batch manufacturing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -867,7 +879,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FiltrationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
@@ -876,7 +888,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -920,7 +932,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GeneticTransformationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">genetic transformation process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>transfection of a mammalian cell; transduction of a CHO cell  by a retrovirus containing a genetic sequence of a particular mAb; Gene deletion by CRISPR-CAS9; introducing mutation in the cells by error prone PCR</skos:example>
@@ -942,14 +954,14 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					<rdf:Description rdf:about="&iof-construct;PurificationProcess">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
+										<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
 										<owl:someValuesFrom rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
@@ -957,7 +969,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 						</owl:someValuesFrom>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -972,8 +984,9 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InductionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>induction process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>IPTG addition to induce recombinant protein expression under a lac promoter;Temperature downshift from 37 °C to 32 °C to initiate production phase</skos:example>
 		<iof-av:adaptedFrom>https://www.genscript.com/biology-glossary/1499/induction and https://www.healthcare.nikon.com/en/ss/cell-image-lab/glossary/induction.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>galactose addition to shift glycosylation profile</iof-av:counterExample>
@@ -984,6 +997,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;InoculationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>inoculation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>After thawing, CHO cells are introduced into a shake flask containing fresh medium to initiate expansion; A starter culture of Saccharomyces cerevisiae is added to a fermenter to begin beer production; A viral stock is added to a mammalian cell culture to study infection dynamics; An inactivated influenza vaccine preparation is injected into a host organism to stimulate an immune response.</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C68774 and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In the context of inoculation, biological preparations refers to non-living, biologically derived materials that are intentionally introduced to elicit a response or initiate a process. This category includes vaccines (live-attenuated, inactivated, or subunit), purified antigens, toxoids, inactivated microorganisms, viral particles, and similar immunobiological products. Unlike cells, microorganisms, or viruses, biological preparations do not replicate autonomously but are used to stimulate, test, or modulate biological systems.
@@ -1005,8 +1019,9 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>material addition process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<skos:example>Addition of a concentrated glucose-amino-acid feed solution to a mammalian cell bioreactor during a fed-batch cultivation to replenish nutrients; Introduction of a wash or elution buffer into a chromatography column to remove unbound material or release the target product; Introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Polypropylene glycol (PPG) addition in microbial fermentation (e.g., E. coli) to prevent foam overflow and ensure stable dissolved oxygen control; sparging of air into a bioreactor to supply oxygen for mammalian cell culture;</skos:example>
 		<iof-av:explanatoryNote>Defined environment in this case encompasses any engineered or controlled context into which materials are intentionally introduced, such as vessels, media, hosts, apparatus, or other designed settings</iof-av:explanatoryNote>
@@ -1016,6 +1031,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;MaterialInflowProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>material inflow process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Addition of a concentrated glucose-amino-acid feed solution to a mammalian cell bioreactor during a fed-batch cultivation to replenish nutrients; Introduction of a wash or elution buffer into a chromatography column to remove unbound material or release the target product; Continuous introduction of reactants into a stirred-tank reactor while product is simultaneously withdrawn to maintain steady-state operation.</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/state-mass-balance</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Material inflow processes may increase the material balance, as in fed-batch processes, or maintain it in conjunction with an outflow, as in continuous processes.
@@ -1027,6 +1043,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;MaterialOutflowProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<rdfs:label>material outflow process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>continuous removal of culture broth from a chemostat at a rate equal to feed addition to maintain steady-state operation; withdrawal of permeate from a perfusion bioreactor through a cell retention device as part of continuous production flow; continuous permeate removal from a tangential-flow filtration loop maintaining constant retentate volume during steady-state diafiltration; continuous elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/state-mass-balance</iof-av:adaptedFrom>
 		<iof-av:counterExample>cell bleed from a perfusion bioreactor to control viable cell density; terminal harvest of fed-batch culture fluid; sampling of culture fluid for off-line testing</iof-av:counterExample>
@@ -1036,8 +1053,9 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialRemovalProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>material removal process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>cell bleed process in a perfusion culture process; harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003574</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>planned process in which material is withdrawn from a defined environment</iof-av:naturalLanguageDefinition>
@@ -1053,11 +1071,12 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>media charging process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>filling a bioreactor with medium prior to inoculation; charging of single-use bioreactor bag with medium prior to inoculation</skos:example>
 		<iof-av:adaptedFrom>https://www.emerson.com/documents/automation/article-electronic-workflow-for-a-bioreactor-deltav-en-56666.pdf and https://www.eppendorf.com/product-media/doc/en/897339/Fermentors-Bioreactors_Publication_Bioprocess_Bioprocessing-basics.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Media charging is carried out prior to inoculation to establish the initial culture environment. It differs from feed addition, which introduces material during culture to maintain or alter the process, and from harvest, which removes material at the end of culture.
@@ -1069,14 +1088,14 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;SolutionPreparationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
 							<rdf:Description rdf:about="&iof-construct;CultureMedium">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
+								<owl:onProperty rdf:resource="&iof-construct;satisfiesRequirement"/>
 								<owl:someValuesFrom rdf:resource="&iof-construct;InputSpecification"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
@@ -1146,6 +1165,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;PHAdjustmentAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:label>pH adjustment addition process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Controlled dosing of sodium hydroxide (NaOH) into a mammalian cell culture bioreactor during production scale to neutralize acidity from lactate accumulation.</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S1871678424005533 and https://pmc.ncbi.nlm.nih.gov/articles/PMC10818583/</iof-av:adaptedFrom>
 		<iof-av:counterExample>Addition of nutrient feeds (e.g., glucose, amino acids) might indirectly affect pH, their purpose is metabolic, not direct pH control.</iof-av:counterExample>
@@ -1167,19 +1187,20 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PlannedCellInfectionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>planned cell infection process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;VirusInoculationProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
@@ -1208,6 +1229,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;PlannedTransductionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;GeneticTransformationProcess"/>
 		<rdfs:label>planned transduction process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Lentiviral transduction of primary human T cells in CAR-T manufacturing; AAV-mediated delivery of a therapeutic gene to retinal cells in gene therapy; Engineered phage transduction of E. coli in a laboratory setting</skos:example>
 		<iof-av:adaptedFrom>http://id.nlm.nih.gov/mesh/D014161 and https://www.sciencedirect.com/topics/medicine-and-dentistry/genetic-transduction</iof-av:adaptedFrom>
 		<iof-av:counterExample>Lipofection of plasmid DNA into CHO cells; Natural bacteriophage transfer of genes between gut bacteria</iof-av:counterExample>
@@ -1219,7 +1241,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1237,10 +1259,10 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PoolingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1281,7 +1303,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 						<owl:someValuesFrom rdf:resource="&iof-construct;SeedTrain"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1296,7 +1318,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PurificationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label xml:lang="en-US">purification process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>capture stage; harvesting process;polishing process</skos:example>
@@ -1331,7 +1353,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessAction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1345,16 +1367,16 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">recipe process element occurrence</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessElement"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1383,7 +1405,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1412,7 +1434,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1441,7 +1463,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1457,6 +1479,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	<owl:Class rdf:about="&iof-construct;RecoveryCellCultureCultivationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CellCultureCultivationProcess"/>
 		<rdfs:label>recovery cell culture cultivation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Recovery of cryopreserved CHO Cells after thawing; Recovery of mammalian cells after transfer to serum-free medium</skos:example>
 		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BID/Handbooks/gibco-cell-culture-basics-handbook.pdf and https://www.atcc.org/the-science/culturing-cells/reviving-cells#:~:text=The%20viability%20for%20most%20cells,recover%20and%20enter%20exponential%20growth. and https://www.thermofisher.com/rs/en/home/life-science/cloning/cloning-learning-center/invitrogen-school-of-molecular-biology/molecular-cloning/transformation/bacterial-transformation-workflow.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Recovery cultivation is applied when cells have experienced physiological stress that compromises viability or growth potential. Thawing from cryopreservation is a common example, as ice crystal formation, osmotic imbalance, and cryoprotectant toxicity impose stress that requires time for cells to stabilize. Similar recovery may be needed after other stress-inducing manipulations such as shear forces or nutrient deprivation.
@@ -1480,32 +1503,32 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SeedTrain">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label xml:lang="en-US">seed train</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;ManufacturingProcess">
+					<rdf:Description rdf:about="&iof-construct;ManufacturingProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureExpansionProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-construct;CellCulture">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;satisfiesRequirement"/>
+										<owl:onProperty rdf:resource="&iof-construct;satisfiesRequirement"/>
 										<owl:someValuesFrom>
 											<owl:Class>
 												<owl:intersectionOf rdf:parseType="Collection">
@@ -1516,10 +1539,10 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 														<owl:someValuesFrom>
 															<owl:Class>
 																<owl:intersectionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="&iof-core;PlanSpecification">
+																	<rdf:Description rdf:about="&iof-construct;PlanSpecification">
 																	</rdf:Description>
 																	<owl:Restriction>
-																		<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+																		<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
 																		<owl:someValuesFrom rdf:resource="&iof-construct;ProductionCultureProcess"/>
 																	</owl:Restriction>
 																</owl:intersectionOf>
@@ -1535,7 +1558,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 						</owl:someValuesFrom>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1552,10 +1575,10 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolutionPreparationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1573,8 +1596,9 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SterilizationProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>sterilization process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>steam sterilization of stainless-steel bioreactor vessel prior to culture; autoclave sterilization of glassware and stainless-steel fittings used in upstream processing; filtration sterilization of culture medium through 0.22 µm membrane filter before inoculation; gamma irradiation of single-use tubing assemblies prior to installation</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-and-format-premarket-notification-510k-submissions-liquid-chemical-sterilantshigh-level</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>planned process in which a material entity is rendered free of all viable microorgansims</iof-av:naturalLanguageDefinition>
@@ -1624,16 +1648,17 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;temporallyFinishes"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+				<owl:onProperty rdf:resource="&iof-construct;temporallyFinishes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>terminal removal process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; collection of elution pool from a batch chromatography column after completion of the purification cycle; final collection of bulk drug substance from an ultrafiltration skid after target concentration is reached; collection of final retentate from a tangential-flow filtration system after completion of diafiltration</skos:example>
 		<iof-av:counterExample>continuous collection of permeate during ongoing diafiltration; sampling of in-process material for quality control;  bleed stream removal from a perfusion bioreactor to control cell density during ongoing culture; continuous collection of product fractions from a periodic counter-current chromatography system during steady-state operation</iof-av:counterExample>
 		<iof-av:explanatoryNote>A terminal removal process occurs once and finishes the larger process of which it is a part. It is distinguished from continuous outflow processes, which remove material concurrently with ongoing processing.</iof-av:explanatoryNote>
@@ -1641,17 +1666,17 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+							<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+								<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
 								<owl:someValuesFrom rdf:resource="&iof-construct;ThawingCapability"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
@@ -1661,7 +1686,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1707,13 +1732,14 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	<owl:Class rdf:about="&iof-construct;UpstreamBiomanufacturingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
 		<rdfs:label>upstream biomanufacturing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-construct;BiomanufacturingProductionProcess">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -1727,10 +1753,10 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ViralClearance">
-		<rdfs:subClassOf rdf:resource="&iof-core;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -1806,7 +1832,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:subClassOf rdf:resource="&iof-construct;InoculationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
@@ -1828,6 +1854,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>virus inoculation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>addition of working virus seed to a confluent Vero cell culture to initiate viral propagation; inoculation of Sf9 insect cells with baculovirus seed stock in a production bioreactor; infection of HEK293 cells with adenoviral vector for recombinant protein expression; co-culture of producer and target cells for lentivirus amplification</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S0166093422002099 and https://www.bioprocessintl.com/assays/nucleic-acid-impurity-reduction-in-viral-vaccine-manufacturing and https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/165/693/vaccine-handbook-process-br5237en-mk.pdf?srsltid=AfmBOopAab20MIAUvkPCifVu5keJOr4OPkvV65xNUwgIB9Ji9xExNOPn</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The virus inoculation process establishes the start of viral replication by adding a characterized master or working virus seed into a cell culture under controlled parameters (e.g., multiplicity of infection, temperature, pH, agitation). It is the initiating step of a viral propagation in biopharmaceutical manufacturing.</iof-av:explanatoryNote>
@@ -1835,7 +1862,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/StorageProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">storage process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>the process of storing cutting tools in a tool cabinet for future use, the process of storing dishes in my kitchen cabinet, the process of storing products by a retailer for selling them in the future</skos:example>

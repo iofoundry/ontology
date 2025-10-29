@@ -5,9 +5,8 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
-	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -22,9 +21,8 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
-	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -37,14 +35,14 @@
 		<rdfs:label xml:lang="en-US">Physical Model Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations to represent the physical spaces where processing and storage occurs.  Spaces are specific and bounded geographic locations which can be heirarchical and embedded.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -71,7 +69,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Enterprise">
-		<rdfs:subClassOf rdf:resource="&iof-core;BusinessOrganization"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;BusinessOrganization"/>
 		<rdfs:label xml:lang="en-US">enterprise</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Physical/"/>
 		<skos:example>oil and gas company that explores, extracts, refines, and distributes petroleum products; aerospace alliance that produces aircraft components, assembles them into final products and provides services to these aircrafts; multinational automotive manufacturer; pharmaceutical company that develops, manufactures, and supplies prescription medicines, vaccines, and animal health products</skos:example>
@@ -85,11 +83,11 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EquipmentModule">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;EngineeredSystem"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;PieceOfEquipment"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PieceOfEquipment"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">equipment module</rdfs:label>
@@ -164,11 +162,11 @@ Within the manufacturing domain, area typically serves as a way to organize manu
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;InformationContentEntity">
+							<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000084"/>
@@ -186,10 +184,10 @@ Within the manufacturing domain, area typically serves as a way to organize manu
 		<iof-av:explanatoryNote>A geographical location and the main manufacturing capability typically define a physical site
 A site usually has a manufacturing capability associated to a particular family of products
 The boundaries (scope) of the site is typically determined by business/organizational criteria and not technical criteria</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PhysicalSite(x) → ObjectAggregate(x) ∧ ∀y(hasMemberPartAtSomeTime(x, y) → (PhysicalArea(y) ∨ WorkCenter(y) ∨ WorkUnit(y))) ∧ ∃i,e(InformationContentEntity(i) ∧ prescribedBy(x, i) ∧ Enterprise(e) ∧ genericallyDependsOnAtSomeTime(i, e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">object aggregate that is a physical, geographical, or logical grouping of physical areas, work centers or work units determined by the enterprise</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive as the exact grouping criteria are ogranization specific</iof-av:primitiveRationale>
-		<iof-av:firstOrderLogicAxiom>PhysicalSite(x) → ObjectAggregate(x) ∧ ∀y(hasMemberPartAtSomeTime(x, y) → (PhysicalArea(y) ∨ WorkCenter(y) ∨ WorkUnit(y))) ∧ ∃i,e(InformationContentEntity(i) ∧ prescribedBy(x, i) ∧ Enterprise(e) ∧ genericallyDependsOnAtSomeTime(i, e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;physical site&apos; then x is an &apos;object aggregate&apos; that &apos;has member part at some time&apos; only a &apos;physical area&apos;, &apos;work center&apos;, or &apos;work unit&apos;, and is &apos;prescribed by&apos; some &apos;information content entity&apos; that &apos;generically depends on at some time&apos; some &apos;enterprise&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -338,9 +336,9 @@ The ISA-95 specifies that storage zone can either be a designated physical space
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
+							<rdf:Description rdf:about="&iof-construct;Agent">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+							<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -349,20 +347,20 @@ The ISA-95 specifies that storage zone can either be a designated physical space
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Capability">
+							<rdf:Description rdf:about="&iof-construct;Capability">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000218"/>
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-core;Agent">
+											<rdf:Description rdf:about="&iof-construct;Agent">
 											</rdf:Description>
-											<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+											<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
 											</rdf:Description>
 										</owl:unionOf>
 									</owl:Class>
