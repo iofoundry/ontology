@@ -29,11 +29,10 @@
 		<rdfs:label xml:lang="en-US">Supply Chain Ontology</rdfs:label>
 		<dcterms:abstract xml:lang="en-US">The IOF Supply Chain Ontology aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. The Supply Chain Ontology uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontologies.</dcterms:abstract>
 		<dcterms:contributor xml:lang="en-US">Boonserm Kulvatanyou, NIST</dcterms:contributor>
-		<dcterms:contributor xml:lang="en-US">Chris Will, National Center for Ontological Research (NCOR)</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Dusan Sormaz, Ohio University</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Evan Wallace, NIST</dcterms:contributor>
-		<dcterms:contributor>Farhad Ameri, Texas State University</dcterms:contributor>
-		<dcterms:contributor xml:lang="en-US">Jim Logan, No Magic Inc.</dcterms:contributor>
+		<dcterms:contributor>Farhad Ameri, Arizona State University</dcterms:contributor>
+		<dcterms:contributor xml:lang="en-US">Jim Logan, Ontogenesis</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Milos Drobnjakovic, NIST</dcterms:contributor>
 		<dcterms:creator xml:lang="en-US">IOF Supply Chain Working Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
@@ -45,7 +44,7 @@
 ontology was modified to deprecate four constructs, namely, Gain of Role, Loss of Role, Group of Persons, and Artifact Function. These constructs are moved to the IOF Core ontology (https://spec.industrialontologies.org/ontology/202401/core/Core/). The deprecated constructs are linked to the IOF Core equivalent constructs using owl:equivalentClass.</skos:changeNote>
 		<iof-av:acronym>SCO</iof-av:acronym>
 		<iof-av:copyright>Copyright (c) 2023 Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-ind;Provisional"/>
+		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-const;Airway">
@@ -447,15 +446,16 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;Container">
-		<rdfs:subClassOf rdf:resource="&iof-const;PieceofTransportEquipment"/>
+		<rdfs:subClassOf rdf:resource="&iof-const;MaterialArtifact"/>
 		<rdfs:label xml:lang="en-US">container</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>an intermodal container, a shipping container</skos:example>
-		<iof-av:firstOrderLogicAxiom>Container(x) → PieceOfTransportEquipment(x)</iof-av:firstOrderLogicAxiom>
+		<skos:example>tank container, ISO 20-foot container, ISO 40-foot container, high cube container, refrigerated container (reefer), open-top container, flat rack container, tank container, dry cargo container, bulk container, pallet-wide container, double-door container, ventilated container, insulated container</skos:example>
+		<iof-av:explanatoryNote>Shipping Container (for transport): article of transport equipment, strong enough to be suitable for repeated use and specially designed to facilitate the carriage of goods by one or more means of transport without breakage of load [ISO 21067-1: Packaging — Vocabulary].</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Container (x) → MaterialArtifact(x)</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of transport equipment that is designed to contain some material entities</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular, the semantics of &apos;containing&apos; is not precisely defined yet.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;container&apos; then x is a &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact designed to hold, protect, and facilitate the transport of goods across one or more modes of transportation</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to provide necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;container&apos; then x is a &apos;material artifcat&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;DepartureProcess">
@@ -587,23 +587,8 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-const;SupplyingBusinessProcess">
+											<rdf:Description rdf:about="&iof-const;SellingBusinessProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
-												<owl:someValuesFrom>
-													<owl:Class>
-														<owl:intersectionOf rdf:parseType="Collection">
-															<rdf:Description rdf:about="&iof-const;BuyerRole">
-															</rdf:Description>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&iof-const;roleOf"/>
-																<owl:someValuesFrom rdf:resource="&iof-const;Wholesaler"/>
-															</owl:Restriction>
-														</owl:intersectionOf>
-													</owl:Class>
-												</owl:someValuesFrom>
-											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -647,8 +632,23 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-const;SellingBusinessProcess">
+											<rdf:Description rdf:about="&iof-const;SupplyingBusinessProcess">
 											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-const;BuyerRole">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-const;roleOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-const;Wholesaler"/>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000055"/>
 												<owl:someValuesFrom>
@@ -731,6 +731,25 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;factory&apos; then x is a &apos;facility&apos; that &apos;has capability&apos; some &apos;production capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>manufacturing plant</iof-av:synonym>
 		<iof-av:synonym>plant</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;FreightContainer">
+		<rdfs:subClassOf rdf:resource="&iof-const;Container"/>
+		<rdfs:label xml:lang="en-US">freight container</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>an intermodal container, a shipping container, cargo container, multimodal container, or a freight container</skos:example>
+		<iof-av:explanatoryNote>According to ISO 668:1995(E): “a shipping container means an article of transport equipment which is:
+(a) of a permanent character and accordingly strong enough to be suitable for repeated use;
+(b) specially designed to facilitate the carriage of goods, by one or more mode of transport, without intermediate reloading;
+(c) fitted with devices permitting its ready handling, particularly its transfer from one mode of transport to another;
+(d) so designed as to be easy to fill and empty;
+(e) stackable; and,
+(f) having an internal volume of 1 cubic metre or mor</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FreightContainer(x) → Container(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">A container that is designed to enclose, protect, and enable the transport of one or more material entities across multiple modes of transportation</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular, the semantics of &apos;containing&apos; is not precisely defined yet.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;freight container&apos; then x is a &apos;container&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;FreightForwarder">
@@ -1322,13 +1341,39 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;LogisticsProcess">
-		<rdfs:subClassOf rdf:resource="&iof-const;BusinessProcess"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-const;BusinessProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;FreightForwardingProcess">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;ReceivingProcess">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;ShipmentPreparationProcess">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;StorageProcess">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;TransportProcess">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">logistics process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>packaging process, transportation process, freight forwarding process</skos:example>
+		<skos:example>Inbound Raw Material Delivery, Finished Goods Shipment to Distributor, Work-in-Progress (WIP) Transfer Between Production Sites, Third-Party Logistics (3PL) Coordination, Return Logistics (Reverse Supply Chain)</skos:example>
 		<iof-av:firstOrderLogicAxiom>LogisticsProcess(x) → BusinessProcess(x) ∧ ∃p((ReceivingProcess(p) ∨ ShipmentPreparationProcess(p) ∨ StorageProcess(p) ∨ FreightForwardingProcess(p) ∨ TransportProcess(p)) ∧ hasOccurrentPart (x,p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process that consists of a combination of one or more transport, shipment preparation, storage or receiving processes</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process composed of one or more processes such as transport, shipment preparation, storage, or receiving that are coordinated to enable the movement, handling, or distribution of material entities across one or more locations within a supply chain</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;logistics process&apos; then x is an &apos;business process&apos; that &apos;has occurrent part&apos; some &apos;receiving process&apos; or &apos;shipment preparation process&apos; or &apos;storage process&apos; or &apos;transport process&apos; or &apos;freight forwarding process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1416,7 +1461,7 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-const;designatedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;LotNumber"/>
+						<owl:someValuesFrom rdf:resource="&iof-const;LotIdentifier"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-const;hasRole"/>
@@ -1433,9 +1478,9 @@ GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference
 		<iof-av:semiFormalNaturalLanguageDefinition>every instannce of &apos;lot&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;lot role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;LotNumber">
+	<owl:Class rdf:about="&iof-const;LotIdentifier">
 		<rdfs:subClassOf rdf:resource="&iof-const;Identifier"/>
-		<rdfs:label xml:lang="en-US">lot number</rdfs:label>
+		<rdfs:label xml:lang="en-US">lot identifier</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
@@ -1459,7 +1504,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 2- A sequence number associated with a specific batch or production run of products and used for tracking purposes [CSCMP].
 3- A Lot can consist of portion of bulk material</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>it is often used interchangeably with Batch Number</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>LotNumber(x) ↔ Identifier(x) ∧ ∃y(Lot(y) ∧ designates(x,y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>LotIdentifier(x) ↔ Identifier(x) ∧ ∃y(Lot(y) ∧ designates(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that uniquely denotes a particular quantity of material entities that have shared production or transformation history</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>&apos;lot number&apos; is a &apos;code identifier&apos; that &apos;designates&apos; some &apos;lot&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -1480,7 +1525,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-const;designatedBy"/>
-								<owl:someValuesFrom rdf:resource="&iof-const;LotNumber"/>
+								<owl:someValuesFrom rdf:resource="&iof-const;LotIdentifier"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -1716,21 +1761,6 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is a Packaging Service Provider Role then x is a Logistics Service Provider Role that is the &apos;role of&apos; a Business Organization or Person y when it is&apos;agent in&apos; some Packaging Service</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;PartNumber">
-		<rdfs:subClassOf rdf:resource="&iof-const;Identifier"/>
-		<rdfs:label xml:lang="en-US">part number</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>100-440-0.750-3434-A is the part number for a pin used in a compressor</skos:example>
-		<iof-av:explanatoryNote>candidate IOF Core construct</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Identifier(x) ∧ ∃y((MaterialComponent(y) ∨ RawMaterial(y) ∨ Assembly(y)) ∧ designates(x,y)) → PartNumber(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that uniquely identifies an artifact (material artifact) and that is created according to some part numbering system</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>See the rationale for Identifier. In particular, the construct related to &apos;part numbering system&apos; is not available yet.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;identifier&apos; that &apos;designates&apos; some &apos;material component&apos; or &apos;raw material&apos; or &apos;assembly&apos; then x is a &apos;part number&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:synonym>item number</iof-av:synonym>
-		<iof-av:usageNote>a part/item number can be applied to raw materials, fluids, component parts, subassemblies, finished assemblies, packaging, etc.</iof-av:usageNote>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-const;PieceofTransportEquipment">
 		<rdfs:subClassOf rdf:resource="&iof-const;PieceOfEquipment"/>
 		<rdfs:label xml:lang="en-US">piece of transport equipment</rdfs:label>
@@ -1739,7 +1769,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:explanatoryNote>Transport equipment is defined as a piece of high-value equipment used to hold, protect or secure cargo for transportation purposes [GS1].</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>PieceOfTransportEquipment(x) → PieceOfEquipment(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of equipment that has the function of holding, protecting, and securing a number of material entites for transportation purposes</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact which has a ransport equipment role</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for formal definition, such as holding, protecting, and securing, are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;piece of transport equipment&apos; then x is a &apos;piece of equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2059,6 +2089,17 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:synonym>shipping lane</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-const;SerialIdentifier">
+		<rdfs:subClassOf rdf:resource="&iof-const;Identifier"/>
+		<rdfs:label xml:lang="en-US">serial identifier</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>serial number, batch number, container ID, tracking number, invoice number, order number, production run number, part number, device ID, asset tag, vehicle identification number (VIN), equipment ID, sensor ID</skos:example>
+		<iof-av:firstOrderLogicAxiom>SerialIdentifier(x) → Identifer(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that designates an entity and represents a series or sequence.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-const;ServiceConsumerRole">
 		<rdfs:subClassOf rdf:resource="&iof-const;CustomerRole"/>
 		<rdfs:label xml:lang="en-US">service consumer role</rdfs:label>
@@ -2224,7 +2265,6 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:firstOrderLogicDefinition>Shipment(x) ↔ MaterialEntity(x) ∧ ∃r(ShipmentRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">collection of material entities delivered to a receiver&apos;s location that have undergone the same dispatch and receipt processes</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;shipment&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;shipment role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:synonym>Consignment</iof-av:synonym>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ShipmentPlanSpecification">
@@ -2914,15 +2954,27 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;Trailer">
-		<rdfs:subClassOf rdf:resource="&iof-const;PieceofTransportEquipment"/>
+		<rdfs:subClassOf rdf:resource="&iof-const;Container"/>
 		<rdfs:label xml:lang="en-US">trailer</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>a carry-on trailer used at a farm</skos:example>
 		<iof-av:firstOrderLogicAxiom>Trailer(x) → PieceOfTransportEquipment(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of transport equipment that is unpowered and is pulled by a powered vehicle</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">container that is unpowered and is pulled by a powered vehicle</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;trailer&apos; then x is a &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;trailer&apos; then x is a &apos;container&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;TranspoortEquipmentRole">
+		<rdfs:subClassOf rdf:resource="&iof-const;EquipmentRole"/>
+		<rdfs:label xml:lang="en-US">transport equipment role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>role of my car that is used to transport goods to the buyer, role of a mobile robot that navigates factory floors independently to transport materials</skos:example>
+		<iof-av:firstOrderLogicDefinition>TransportEquipmentRole(x) → Role(x) ∧ ∃m∃p(MaterialEntity(m) ∧ TransportProcess(p) ∧ participatesInAtSomeTime(m,p) ∧ roleOf (x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">equipment role held by a material artifact when it is planned to be involved in or is involved in carrying out some part of a transport process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;transport equipment role&apos; then x is a &apos;role&apos; that is a &apos;role of&apos; some &apos;material entity&apos; that &apos;participates in at some time&apos; some &apos;material location change process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;TransportProcess">
@@ -2938,7 +2990,7 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<skos:example>the process during with a truck transports shipments from a shipper&apos;s location to a rceiver&apos;s location</skos:example>
 		<iof-av:firstOrderLogicAxiom>TransportProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃e(PieceOfTransportEquipment(e) ∧ hasParticipantAtSomeTime(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process involving the movement of material entities by some piece of transport equipment</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process involving the movement of material entities from one location to another as part of a planned logistics process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;transport process&apos; then x is a &apos;material location change process&apos; that &apos;has participant at some time&apos; some &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
@@ -3057,13 +3109,13 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;Wagon">
-		<rdfs:subClassOf rdf:resource="&iof-const;PieceofTransportEquipment"/>
+		<rdfs:subClassOf rdf:resource="&iof-const;Container"/>
 		<rdfs:label xml:lang="en-US">wagon</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>freight wagons, freight cars</skos:example>
 		<iof-av:firstOrderLogicAxiom>Wagon(x) → PieceOfTransportEquipment(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">piece of transport equipment in a rail transport system used for carrying cargo or passengers</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">container in a rail transport system used for carrying cargo or passengers</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;wagon&apos; then x is a &apos;piece of transport equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -3690,28 +3742,6 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-const;prescribes"/>
 				<owl:someValuesFrom rdf:resource="&iof-const;PackagingProcess"/>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-const;PartNumber"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-const;Identifier">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;designates"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-const;Assembly">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-const;MaterialComponent">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-const;RawMaterial">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
