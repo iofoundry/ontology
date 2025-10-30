@@ -38,6 +38,9 @@ doc.doctype.each do |ent|
 end
 doc.add(new_doctype)
 
+iri_pattern = iof_iris.map { |prefix, iri| "\\&#{prefix};" }.join('|')
+p iri_pattern
+
 # Add new IOF entities for construct, individual, and annotation vocabulary
 ind = REXML::Entity.new('iof-ind', 'https://spec.industrialontologies.org/ontology/individual/')
 doc.doctype.add(ind)
@@ -68,20 +71,42 @@ puts "Adding rdfs:isDefinedBy to entities..."
 root.each_element("/rdf:RDF/owl:Class | /rdf:RDF/owl:ObjectProperty | /rdf:RDF/owl:DatatypeProperty | /rdf:RDF/owl:NamedIndividual | /rdf:RDF/owl:AnnotationProperty") do |elem|
   about = elem.attributes['rdf:about']
   puts "Checking #{elem.name} IRI: #{about}"
-  if about && (about.start_with?('&iof-') or about.start_with?('https://spec.industrialontologies.org/ontology/'))
+  if about && (about =~ /#{iri_pattern}/ or about.start_with?('https://spec.industrialontologies.org/ontology/'))
     # We handle NamedIndividuals differently because they share the same IRI prefix as the constructs
+    puts " * Found IOF IRI to update: #{about}"
     if elem.name == 'NamedIndividual'
-      iri = about.sub(/\&[^;]+;([A-Za-z]+)/, 'https://spec.industrialontologies.org/ontology/individual/\1')
+      iri = about.sub(/#{iri_pattern};([A-Za-z0-9]+)/, 'https://spec.industrialontologies.org/ontology/individual/\1')
       puts " * Updating NamedIndividual IRI: #{about} to #{iri}"
       elem.attributes['rdf:about'] = iri
-    elsif about.start_with?('https://spec.industrialontologies.org/ontology/')
-      if about.include?('/individual/') 
-        rep = 'https://spec.industrialontologies.org/ontology/individual/\1' 
-      else 
-        rep = 'https://spec.industrialontologies.org/ontology/construct/\1' 
+
+      # Changed the resources referenced in the named individuals
+      elem.each_element_with_attribute("rdf:resource") do |sub|
+        resource = sub.attributes['rdf:resource']
+        if resource && (resource.start_with?('https://spec.industrialontologies.org/ontology/') or resource =~ /#{iri_pattern}/)
+          if sub.name == 'type'
+            rep = 'https://spec.industrialontologies.org/ontology/construct/\2'
+          else
+            rep = 'https://spec.industrialontologies.org/ontology/individual/\2'
+          end
+          new_resource = resource.sub(%r{(#{iri_pattern}|https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/)([A-Za-z0-9]+)$}, 
+            rep)
+          puts "   * Updating #{sub.prefix} : #{sub.name} resource #{resource} to #{new_resource}"
+          if iof_iris.key?(sub.prefix)
+            puts "     - Changing prefix #{sub.prefix} to iof-const"
+            sub.name = "iof-const:#{sub.name}"
+          end
+          p sub
+          sub.attributes['rdf:resource'] = new_resource
+        end
       end
-      iri = about.sub(%r{https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/([A-Za-z]+)$}, rep)
-      puts "  * Updating IRI: #{about} to #{iri}"
+    elsif about.start_with?('https://spec.industrialontologies.org/ontology/') or about =~ /#{iri_pattern}/
+      if about.include?('/individual/') 
+        rep = 'https://spec.industrialontologies.org/ontology/individual/\2' 
+      else 
+        rep = 'https://spec.industrialontologies.org/ontology/construct/\2' 
+      end
+      iri = about.sub(%r{(#{iri_pattern}|https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/)([A-Za-z]+)$}, rep)
+      puts "   * Updating IRI: #{about} to #{iri}"
       elem.attributes['rdf:about'] = iri
     end
     puts " * Adding rdfs:isDefinedBy to #{elem.name} IRI: #{about}"
@@ -102,33 +127,31 @@ root.each_element("//iof-av:replacedBy") do |replaced_by|
 end
 
 # Check for all resource references for onProperty, someValuesFrom, allValuesFrom, and equivalentClass
-root.each_element("//owl:onProperty | //owl:someValuesFrom | //owl:allValuesFrom | //owl:equivalentClass | //rdfs:domain | //rdfs:range | //owl:inverseOf") do |elem|
+puts "\nUpdating resource references..."
+root.each_element("//rdfs:subClassOf |//owl:onProperty | //owl:someValuesFrom | //owl:allValuesFrom | //owl:equivalentClass | //rdfs:domain | //rdfs:range | //owl:inverseOf | //owl:annotatedSource") do |elem|
   resource = elem.attributes['rdf:resource']
-  if resource && resource.start_with?('https://spec.industrialontologies.org/ontology/')
-    new_resource = resource.sub(%r{https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/([A-Za-z]+)$}, 'https://spec.industrialontologies.org/ontology/construct/\1')
-    puts "  * Updating resource reference #{resource} to #{new_resource}"
+  if resource && (resource.start_with?('https://spec.industrialontologies.org/ontology/') or resource =~ /#{iri_pattern}/)
+    new_resource = resource.sub(%r{(#{iri_pattern}|https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/)([A-Za-z]+)$}, 'https://spec.industrialontologies.org/ontology/construct/\2')
+    puts "  * Updating #{elem.name} resource #{resource} to #{new_resource}"
     elem.attributes['rdf:resource'] = new_resource
   end
 end
 
-# Write the modified XML to a string. It is easier to do string replacements than manipulate the REXML structure.
-new_onto = ""
-doc.write(output: new_onto, indent: -1, transitive: false)
-
-# Replace old IOF prefixes with new ones based on the IRI
-iof_iris.map do |prefix, iri| 
-  if iri == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/' or 
-    iri == 'https://spec.industrialontologies.org/ontology/annotation/'
-    [prefix, 'iof-av'] if prefix != 'iof-av'
-  else
-    [prefix, 'iof-const']
+# Check for all resource references for onProperty, someValuesFrom, allValuesFrom, and equivalentClass
+puts "\nUpdating resource references..."
+root.each_element("//rdf:Description") do |elem|
+  resource = elem.attributes['rdf:about']
+  if resource && (resource.start_with?('https://spec.industrialontologies.org/ontology/') or resource =~ /#{iri_pattern}/)
+    new_resource = resource.sub(%r{(#{iri_pattern}|https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/)([A-Za-z]+)$}, 'https://spec.industrialontologies.org/ontology/construct/\2')
+    puts "  * Updating #{elem.name} about #{resource} to #{new_resource}"
+    elem.attributes['rdf:about'] = new_resource
   end
-end.compact.each do |old_prefix, new_prefix|
-  puts "Replacing prefix #{old_prefix} with #{new_prefix}"
-  new_onto.gsub!(old_prefix, new_prefix)
 end
 
 # Write the modified XML back to the file
-File.open(File.basename(ontology_file, '.rdf') + '_new.rdf', 'w') do |file|
-  file.write(new_onto)
+output_file = File.dirname(ontology_file) + '/' + File.basename(ontology_file, '.rdf') + '_new.rdf'
+File.open(output_file, 'w') do |file|
+  doc.write(output: file, indent: -1, transitive: false)
 end
+
+exec("serialize #{output_file}")
