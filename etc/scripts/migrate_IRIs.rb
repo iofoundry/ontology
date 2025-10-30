@@ -101,13 +101,24 @@ root.each_element("//iof-av:replacedBy") do |replaced_by|
   replaced_by.text = new_iri
 end
 
+# Check for all resource references for onProperty, someValuesFrom, allValuesFrom, and equivalentClass
+root.each_element("//owl:onProperty | //owl:someValuesFrom | //owl:allValuesFrom | //owl:equivalentClass | //rdfs:domain | //rdfs:range | //owl:inverseOf") do |elem|
+  resource = elem.attributes['rdf:resource']
+  if resource && resource.start_with?('https://spec.industrialontologies.org/ontology/')
+    new_resource = resource.sub(%r{https://spec.industrialontologies.org/ontology/[a-z/]+/[A-Za-z]+/([A-Za-z]+)$}, 'https://spec.industrialontologies.org/ontology/construct/\1')
+    puts "  * Updating resource reference #{resource} to #{new_resource}"
+    elem.attributes['rdf:resource'] = new_resource
+  end
+end
+
 # Write the modified XML to a string. It is easier to do string replacements than manipulate the REXML structure.
 new_onto = ""
 doc.write(output: new_onto, indent: -1, transitive: false)
 
 # Replace old IOF prefixes with new ones based on the IRI
 iof_iris.map do |prefix, iri| 
-  if iri == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/'
+  if iri == 'https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/' or 
+    iri == 'https://spec.industrialontologies.org/ontology/annotation/'
     [prefix, 'iof-av'] if prefix != 'iof-av'
   else
     [prefix, 'iof-const']
