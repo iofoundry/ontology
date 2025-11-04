@@ -17,7 +17,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bmic-parameter="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"
@@ -39,14 +39,14 @@
 		<rdfs:label xml:lang="en-US">Parameter Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations necessary for representing  process intermediate and product quality attributes, process indicators and process parameters.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -58,69 +58,50 @@
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
-		
-	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicator">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicator"/>
-		<rdfs:label xml:lang="en-US">key performance indicator</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000008">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000019">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000144">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;KeyPerformanceIndicatorSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>average deviation rate per production step due to CPP excursions; yield consistency over successive purification runs; final harvest titer for a specific production batch; Viral clearance log reduction amount for the purification step; batch release time within the specified regulatory window</skos:example>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>KeyPerformanceIndicator(x) ↔ ∃s(KeyPerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a key performance indicator specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;key performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;key performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	
+	<rdf:Description rdf:about="&bfo;BFO_0000144">
+		<bfo:IAO_0000115 xml:lang="en-US">b is a process_profile =Def. there is some process c such that b process_profile_of c (axiom label in BFO2 Reference: [093-002])</bfo:IAO_0000115>
+		<bfo:IAO_0000600 xml:lang="en-US">b process_profile_of c holds when b proper_occurrent_part_of c&amp; there is some proper_occurrent_part d of c which has no parts in common with b &amp; is mutually dependent on b&amp; is such that b, c and d occupy the same temporal region (axiom label in BFO2 Reference: [094-005])</bfo:IAO_0000600>
+		<bfo:IAO_0000602>(forall (x y) (if (processProfileOf x y) (and (properOccurrentPartOf x y) (exists (z t) (and (properOccurrentPartOf z y) (TemporalRegion t) (occupiesSpatioTemporalRegion x t) (occupiesSpatioTemporalRegion y t) (occupiesSpatioTemporalRegion z t) (not (exists (w) (and (occurrentPartOf w x) (occurrentPartOf w z))))))))) // axiom label in BFO2 CLIF: [094-005]</bfo:IAO_0000602>
+		<bfo:IAO_0000602>(iff (ProcessProfile a) (exists (b) (and (Process b) (processProfileOf a b)))) // axiom label in BFO2 CLIF: [093-002]</bfo:IAO_0000602>
+	</rdf:Description>
+	
+	<owl:Class rdf:about="&iof-construct;ActionLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:label>action limit value expression</rdfs:label>
+		<skos:altLabel>action limit</skos:altLabel>
+		<skos:example>Chromatography column pressure has a control range of 1.0–2.0 bar and an action limit of 2.0 bar. When pressure reaches 2.0 bar, the process is considered out of control, and corrective action is required to reduce pressure and prevent potential column damage or product loss; Dissolved oxygen (DO) in a bioreactor has a setpoint of 40 % air saturation and a control range of 35–45 %. The lower action limit is 35 % and the upper action limit is 45 %. Crossing either boundary requires immediate adjustment of aeration or agitation to restore DO control and maintain cell metabolism</skos:example>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) An action limit defines the boundary at which a process parameter has moved outside its controlled operating conditions. It is positioned above the alert limit and below any critical or specification limit. When crossed, it triggers investigation and corrective action within the quality system to restore the parameter within its control range. 
+2) Action limits are part of the internal process control framework and are not regulatory reporting limits.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which corrective action is required to bring the process back under control and to prevent potential impact on process performance or product quality</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000001"/>
-		<rdfs:label xml:lang="en-US">performance indicator</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000008">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000019">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000144">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>Yearly sales, monthly throughput, quarterly overall equipment effectiveness, 12-month on-time delivery percentage.</skos:example>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>PerformanceIndicator(x) ↔ ∃s(PerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a performance indicator specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;AlertLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:label>alert limit value expression</rdfs:label>
+		<skos:altLabel>alert limit</skos:altLabel>
+		<skos:example>Chromatography column pressure has a control range of 1.0–2.0 bar and an alert limit of 1.8 bar. When pressure exceeds 1.8 bar, the alert signals potential fouling or blockage that could soon reach the action limit of 2.0 bar</skos:example>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.gmp-publishing.com/content/en/gmp-questionoftheday/what-is-an-alert-limit#:~:text=Alert%20limit:%20A%20pre%2Ddetermined,to%20a%20predefined%20action%20plan. and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1)An alert limit serves as an early warning indicator of process drift. It is typically established from process data using statistical methods such as control charts or capability analysis and is periodically reassessed during continued process verification (CPV).
+2)The alert limit does not represent a specification or regulatory boundary. Instead, it supports proactive control by identifying trends or variations that may lead toward an action limit or out-of-specification condition if not corrected.
+3) In the hierarchy of limits, alert limits are sitting below Action and Critical Limits.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ControlLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:label>control limit value expression</rdfs:label>
+		<skos:altLabel>control limit</skos:altLabel>
+		<skos:example>For a temperature setpoint of 37 °C, the normal operating range is 36.5–37.5 °C. Control limits are set at 36 °C (lower) and 38 °C (upper). As long as the temperature stays within these limits, the process is considered stable. Readings beyond 38 °C or below 36 °C show that the process is no longer in control and should be checked and corrected as needed.</skos:example>
+		<iof-av:acronym>CL</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.6sigma.us/cause-variation/what-are-control-limits/ and https://www.sigmaaldrich.com/RS/en/technical-documents/technical-article/pharmaceutical-and-biopharmaceutical-manufacturing/monoclonal-antibody-manufacturing/continued-process-verification</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) A control limit is a boundary used in statistical or operational monitoring to detect abnormal variation in a process parameter.It may lie inside, at the edge of, or outside the Normal Operating Range (NOR), depending on the control strategy.
+2) A statistical threshold is derived from process data (for example, mean ± 3 σ) and represents the natural variability of a stable process.
+3) An operational threshold is set from process knowledge, equipment capability, or risk assessment, and is applied when statistical data are limited or when physical constraints govern control.
+4) Exceeding a control limit indicates loss of statistical control and requires investigation or corrective action according to the control strategy.
+5) In biopharmaceutical manufacturing, control limits are established and refined during Continued Process Verification (CPV) to maintain a validated state of control.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process parameter limit value expression that is a statistical or operational threshold beyond which the process is considered out of control</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticalProcessParameter">
@@ -223,6 +204,49 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;critical quality attribute specification&apos; then x is a &apos;quality attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;InitialControlLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ControlLimitValueExpression"/>
+		<rdfs:label>initial control limit value expression</rdfs:label>
+		<skos:altLabel>initial control limit</skos:altLabel>
+		<skos:altLabel>provisional control limit</skos:altLabel>
+		<skos:example>After installing a new sparger system, dissolved oxygen is monitored using initial control limits of 33 %–47 %, pending evaluation of pilot-scale data to confirm established control limits of 35 %–45 %.; During first 10 batches post-scale-up, temperature control limits set at 36–38 °C until enough data exist to establish statistical limits.</skos:example>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>An initial (provisional) control limit is used at the start of continued process verification or after process changes when process history is still limited. It provides monitored boundaries for continued manufacturing while additional data are collected to confirm process stability and variability. Once adequate data are available, the initial control limits are replaced by control limits that represent the long-term state of control.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>control limit established from limited process data or process knowledge and applicable only until sufficient information is available to establish statistically justified control limits</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicator"/>
+		<rdfs:label xml:lang="en-US">key performance indicator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;KeyPerformanceIndicatorSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>average deviation rate per production step due to CPP excursions; yield consistency over successive purification runs; final harvest titer for a specific production batch; Viral clearance log reduction amount for the purification step; batch release time within the specified regulatory window</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>KeyPerformanceIndicator(x) ↔ ∃s(KeyPerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a key performance indicator specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;key performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;key performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicatorSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
 		<rdfs:label xml:lang="en-US">key performance indicator specification</rdfs:label>
@@ -282,6 +306,16 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;key process parameter specification&apos; then x is a &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;LongTermControlLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ControlLimitValueExpression"/>
+		<rdfs:label>long-term control limit value expression</rdfs:label>
+		<skos:altLabel>long-term control limit</skos:altLabel>
+		<skos:example>After one year of commercial production, temperature control limits of 36–38 °C are defined as long-term control limits based on statistical analysis of 40 validated manufacturing batches.</skos:example>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.kbibiopharma.com/our-resources/continued-process-verification#:~:text=Continued%20Process%20Verification%20 and https://www.biopharminternational.com/view/continued-process-verification-biopharma-manufacturing</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A long-term control limit is established after sufficient manufacturing data have been collected to characterize normal process variability with statistical confidence.It serves as the boundary for routine monitoring, trend evaluation, and process capability assessment, replacing provisional control limits once stable operation is demonstrated. Long-term control limits are periodically reviewed and re-established as part of lifecycle maintenance.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>control limit established from statistically sufficient process data and used for routine monitoring and evaluation of stable long-term process performance</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;NormalOperatingRangeValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
 		<rdfs:subClassOf>
@@ -308,6 +342,38 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that is a range around a set point within which a particular process parameter is expected to vary during normal operation of a process process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000001"/>
+		<rdfs:label xml:lang="en-US">performance indicator</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Yearly sales, monthly throughput, quarterly overall equipment effectiveness, 12-month on-time delivery percentage.</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>PerformanceIndicator(x) ↔ ∃s(PerfornanceIndicatorSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x) v ProcessCharacteristic(x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile, temporal region, quality or process characteristic prescribed by a performance indicator specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;performance indicator&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; or &apos;process characterstic&apos; and that is &apos;prescribed by&apos; some &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerformanceIndicatorSpecification">
@@ -384,6 +450,19 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:firstOrderLogicDefinition>ProcessParameter(x) ↔ ∃s(ProcessParameterSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile or temporal region or quality prescribed by a process parameter specification</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process parameter&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; and that is &apos;prescribed by&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessParameterLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;ProcessParameter"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process parameter limit value expression</rdfs:label>
+		<skos:example>action limit, control limit, alert limit</skos:example>
+		<iof-av:naturalLanguageDefinition>value expression which is a threshold for a process parameter associated with process monitoring or control</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameterSpecification">
