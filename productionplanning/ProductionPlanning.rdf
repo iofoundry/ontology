@@ -300,6 +300,19 @@ In some latter type of cases, the primary equipments may need to be reconfigured
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time and a &apos;material resource&apos; that the manufacturing operation has as participant at all time it occurs.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-const;MaterialHandlingPlan">
+		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
+		<rdfs:label xml:lang="en-us">material handling plan</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<iof-av:explanatoryNote>The class is open to be further constrained by different kinds of material handling types. At this point only machine transfer process is included. The term can be overloaded by users with other general class axioms, e.g., some part of it describing the raw material sourcing process. 
+
+As the natural language suggests, planning in warehouse will require a more detailed characterization, this term needs to be shared between two modules by some upper level mapping, however such proposal are yet to be made.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀x (PlanSpecification(x) ∧ ∃y,z (prescribes(y, z) ∧ MachineTransferProcess(z)) ∧ hasContinuantPartAtAllTimes(x, y) → MaterialHandlingPlan(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">A specification (PlanSpecification) that prescribes one or more material handling operations—sequences of actions, resource allocations, and constraints—designed to govern the efficient, safe, and controlled movement of materials or entities within production, storage, or distribution contexts.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;action specification&apos; that &apos;prescribes&apos; some &apos;machine transfer process&apos;, then x is a &apos;material handling plan&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-const;MaterialProductSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-const;DesignSpecification"/>
 		<rdfs:label xml:lang="en-us">material product specification</rdfs:label>
@@ -308,19 +321,6 @@ In some latter type of cases, the primary equipments may need to be reconfigured
 		<iof-av:firstOrderLogicAxiom>DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y)) → MaterialProductSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">A design specification containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-const;MaterialTransferPlan">
-		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
-		<rdfs:label xml:lang="en-us">material handling plan</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote>The class is open to be further constrained by different kinds of material handling types. At this point only machine transfer process is included. The term can be overloaded by users with other general class axioms, e.g., some part of it describing the raw material sourcing process. 
-
-As the natural language suggests, planning in warehouse will require a more detailed characterization, this term needs to be shared between two modules by some upper level mapping, however such proposal are yet to be made.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀x (PlanSpecification(x) ∧ ∃y (ActionSpecification(y) ∧ prescribes(y, z) ∧ MachineTransferProcess(z)) ∧ hasPartOfPlanAtAllTimes(x, y) → MaterialHandlingPlan(x))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">A specification (PlanSpecification) that prescribes one or more material handling operations—sequences of actions, resource allocations, and constraints—designed to govern the efficient, safe, and controlled movement of materials or entities within production, storage, or distribution contexts.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;action specification&apos; that &apos;prescribes&apos; some &apos;machine transfer process&apos;, then x is a &apos;material handling plan&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;OperationSpecification">
@@ -489,7 +489,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-const;ActionSpecification"/>
 		<rdfs:label xml:lang="en-us">processing step specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-us">The specification of a processing stap may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for in the input materials, product design, recipe?, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote xml:lang="en-us">The specification of a processing step may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step specification can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for the input materials, product design, recipe, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some processing steps.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
@@ -560,7 +560,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 								<owl:unionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-const;InspectionPlan">
 									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;MaterialTransferPlan">
+									<rdf:Description rdf:about="&iof-const;MaterialHandlingPlan">
 									</rdf:Description>
 									<rdf:Description rdf:about="&iof-const;ProcessPlan">
 									</rdf:Description>
@@ -676,6 +676,22 @@ As the natural language suggests, planning in warehouse will require a more deta
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-const;prescribes"/>
 				<owl:allValuesFrom rdf:resource="&iof-const;ProductInspectionProcess"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-const;MaterialHandlingPlan"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-const;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-const;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&iof-const;MachineTransferProcess"/>
+					</owl:Restriction>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
