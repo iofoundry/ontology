@@ -12,7 +12,7 @@
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
@@ -1775,7 +1775,7 @@ This is addressed by output in the axiom. Setup =&gt; does not have output. Tear
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that results in a material entity moving from one physical location to another</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Patterns for adequate reification of the n-ary pattern that is change of location need further refinement and testing.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material location change process&apos; then x is a &apos;planned process&apos; in which a &apos;material entity&apos; is moved from one &apos;site&apos; to another.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material location change process&apos; then x is a &apos;planned process&apos; in which a &apos;material entity&apos; is moved from one &apos;site&apos; to another</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;MaterialProduct">
@@ -1806,6 +1806,62 @@ Services as products as well as software products will be considered in the next
 		<iof-av:firstOrderLogicDefinition>MaterialProduct(x) ↔ MaterialEntity(x) ∧ ∃r(MaterialProductRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the material product role</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material product&apos; is defined as exactly an instance of &apos;material entity&apos; that is the &apos;has role&apos; some &apos;material product role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;MaterialProductLifecycle">
+		<rdfs:subClassOf rdf:resource="&iof-const;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-const;DesignSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-const;DesignSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-const;ProductProductionProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-const;ProductProductionProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty>
+					<rdf:Description>
+						<owl:inverseOf rdf:resource="&bfo;BFO_0000166"/>
+					</rdf:Description>
+				</owl:onProperty>
+				<owl:someValuesFrom rdf:resource="&iof-const;MaterialProduct"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty>
+					<rdf:Description>
+						<owl:inverseOf rdf:resource="&bfo;BFO_0000166"/>
+					</rdf:Description>
+				</owl:onProperty>
+				<owl:someValuesFrom rdf:resource="&iof-const;MaterialProduct"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material product lifecycle</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<skos:example xml:lang="en-US">Designing and planning a smartphone model, manufacturing it in a factory, utilizing it by consumers, maintaining it through software updates and repairs, and finally disposing or recycling it at end-of-life; designing and planning a monoclonal antibody drug, manufacturing it through cell culture and purification steps, utilizing it as a therapeutic in patients, maintaining it through cold-chain storage and periodic quality testing, and finally disposing of expired vials as pharmaceutical waste</skos:example>
+		<iof-av:firstOrderLogicAxiom>MaterialProductLifecycle(x) → PlannedProcess(x) ∧ ∃y∃z∃w(MaterialProduct(y) ∧ DesignSpecification(z) ∧ productProductionProcess(w) ∧ participatesInAtAllTimes(y,x) ∧ hasParticipantAtSomeTime(x,z) ∧ hasOccurrentPart(x,w) ∧ prescribes(z,y) ∧ hasSpecifiedOutput(w,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of an ordered set of processes, including processes such as the design, planning, manufacture, utilization, maintenance, and disposal of a particular material product</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as many of the processes that are a part of the product lifecycle are modeled in different IOF modules and can get added there as additional restrictions accordingly</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material product lifecycle&apos; then x is a &apos;planned process&apos; in which a &apos;material product&apos; y &apos;participates in at all times&apos; x and that &apos;has participant at some time&apos; some &apos;design specification&apos; that &apos;prescribes&apos; y and x &apos;has occurrent part&apos; some &apos;product production process&apos; that &apos;has specified output&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;MaterialProductRole">
