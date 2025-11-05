@@ -292,7 +292,7 @@ ISO/ASTM 52900:2021</iof-av:naturalLanguageDefinition>
 		<iof-av:explanatoryNote xml:lang="en-us">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
 
 In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (Steps(x1) ∧ Steps(x2) ∧ Operation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessingStep(x1) ∧ ProcessingStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ManufacturingOperation(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p)) ∧ ∃r (ManufacturingResource(r) ∧ hasParticipantAtAllTimes(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
@@ -306,7 +306,7 @@ In some latter type of cases, the primary equipments may need to be reconfigured
 		<rdfs:comment xml:lang="en-us">specification of a product may contain a simple description of a product to a detailed CAD design, including geometry, structure, dimension, and tolerances. It may also contain reference to PLM system entity.</rdfs:comment>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:firstOrderLogicAxiom>DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y)) → MaterialProductSpecification(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">A design specifcation containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">A design specification containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -328,8 +328,8 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en-us">operation specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:firstOrderLogicDefinition>ActionSpecification(x) ∧ ∃y (ManufacturingOperation(y) ∧ prescribes(x,y)) → OperationSpecification(x)</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some operation.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;action specifciation&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some manufacturing operation.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;action specification&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote xml:lang="en-us">This part of the plan specifies one or many steps, each of which are to be performed using one or more specific manufacturing resource or  parallely or consecutively.</iof-av:usageNote>
 	</owl:Class>
 	
@@ -422,7 +422,18 @@ As the natural language suggests, planning in warehouse will require a more deta
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000111"/>
-						<owl:allValuesFrom rdf:resource="&iof-const;ProductionOrder"/>
+						<owl:allValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;ObjectiveSpecification">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&obo;BFO_0000110"/>
+										<owl:someValuesFrom rdf:resource="&iof-const;MaterialProductSpecification"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:allValuesFrom>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000111"/>
@@ -441,23 +452,13 @@ As the natural language suggests, planning in warehouse will require a more deta
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">IKEA instructions to assemble furniture such as tables and chairs, and a step-by-step recipe for preparing a cake.</skos:example>
-		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProcessPlan(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessPlan(x) ↔ PlanSpecification(x) ∧
 ∀y ((continuantPartAtAllTimes(y, x) ∧ ObjectiveSpecification(y)) → ProductionOrder(y)) ∧
 ∀z ((continuantPartAtAllTimes(z, x) ∧ ActionSpecification(z)) → (OperationSpecification(z) ∨ ProcessSpecification(z)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">Plan which include steps and sequence required to produce a product or service at the required quality level and cost.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specifcation&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;process plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specification&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;process plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is &apos;process plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; which is a continuant part of x is a &apos;production order&apos;, and every &apos;action specification&apos;, which is a continuant part of x is either a &apos;operation specification&apos; or &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-const;ProcessSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-const;ActionSpecification"/>
-		<rdfs:label xml:lang="en-us">process specification</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-us">The specification of a processing stap may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for in the input materials, product design, recipe?, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some steps.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProcessingStep">
@@ -482,6 +483,16 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">A unit subprocess of an operation which does not contain any other processing step and at least one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has exactly one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote>Along with the instance of manufacturing process, processing step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;ProcessingStepSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-const;ActionSpecification"/>
+		<rdfs:label xml:lang="en-us">processing step specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<iof-av:explanatoryNote xml:lang="en-us">The specification of a processing stap may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for in the input materials, product design, recipe?, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some processing steps.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProductInspectionProcess">
@@ -511,9 +522,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 	
 	<owl:Class rdf:about="&iof-const;ProductionOrder">
 		<rdfs:subClassOf rdf:resource="&iof-const;ObjectiveSpecification"/>
-		<rdfs:label xml:lang="en-us">production order</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-const;ObjectiveSpecification">
@@ -524,7 +533,9 @@ As the natural language suggests, planning in warehouse will require a more deta
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-us">production order</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-us">order to produce 100 brackets</skos:example>
 		<iof-av:firstOrderLogicAxiom>ObjectiveSpecification(x) ∧ ∃y (isAchievedByAtSomeTime(x, y) ∧ ProductProductionProcess(y)) → ProductionOrder(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProductionOrder(x) ↔ ObjectiveSpecification(x) ∧  ∃y (MaterialProductSpecification(y) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicDefinition>
@@ -565,8 +576,8 @@ As the natural language suggests, planning in warehouse will require a more deta
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">Production of a batch of 1,000 plastic containers and 100 lids in one week, production of 200 wooden chairs at the wood workshop to be completed by August 9. In the first quarter of 2025, the sewing department will produce 500 shirts.</skos:example>
-		<iof-av:firstOrderLogicAxiom>PlanSpecifciation(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecifciation(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecification(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">Plan that aims at producing one or multiple products as specified or fulfills some production order.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specifcation&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;production plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
@@ -719,12 +730,17 @@ As the natural language suggests, planning in warehouse will require a more deta
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-const;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;ProductProductionProcess"/>
+				<owl:someValuesFrom>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-const;ProductProductionProcess"/>
+					</owl:Restriction>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-const;ProcessSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-const;ProcessingStepSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-const;ActionSpecification">
 			</rdf:Description>
