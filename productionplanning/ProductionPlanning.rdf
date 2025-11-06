@@ -89,7 +89,20 @@ version 202401</owl:versionInfo>
 		<rdfs:subClassOf rdf:resource="&iof-const;MaterialArtifact"/>
 		<rdfs:label xml:lang="en-US">machine</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<skos:editorialNote>There is a strong argument to move this class to IOF Core.</skos:editorialNote>
+		<iof-av:adaptedFrom>- ISO 12100 defines “machine” as an “assembly, fitted with or intended to be fitted with a drive system other than directly applied human or animal effort, consisting of linked parts or components, at least one of which moves” NIST.
+- IEC 60050‑151 defines “machine” as “a system or device that uses energy to perform a specific task, often automatically” (Electropedia).
+- NIST (Smart Manufacturing Ontology) treats a machine as an “equipment unit that executes physical transformations autonomously or semi‑autonomously using power and control systems.”
+(see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis)</iof-av:adaptedFrom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>physical artefact or system that transforms energy or material through guided mechanical, electrical or fluid power for performing one or more processes.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Many of the core characterizations of machine captured in the trait analysis (see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis) cannot be formally expressed, especially energy transformation, power, control, motion and mechanical structures.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>Many of the core characterizations of tool captured in the trait analysis (see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis) cannot be formally expressed, especially energy transformation, power, control, motion and mechanical structures.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a machine then x is a physical artefact and x transforms energy or material through guided mechanical, electrical or fluid power in order to perform one or more processes</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:subjectMatterExpertExplanation>- “physical artefact” emphasises that the entity is a concrete built thing.
+- “transforms energy or material” captures the notion of machines doing work (e.g., moving parts, powering machining, mixing, conveying).
+- “guided mechanical, electrical or fluid power” property points at machine having power, motion, and control (mechanical structure + power source + actuation).
+- “performing one or more processes” allows for generality (manufacturing, handling, processing, etc).</iof-av:subjectMatterExpertExplanation>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;MachineTransferProcess">
@@ -478,13 +491,38 @@ As the natural language suggests, planning in warehouse will require a more deta
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProductionMachine">
-		<rdfs:subClassOf rdf:resource="&iof-const;Machine"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-const;Machine">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-const;hasRole"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;EquipmentRole">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
+										<owl:allValuesFrom rdf:resource="&iof-const;ManufacturingProcess"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production machine</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">CNC (Computer Numerical Control) milling machines are widely used in manufacturing to precisely cut and shape various materials, including metal, plastic, and wood.</skos:example>
 		<skos:note xml:lang="en-US">To be merged with top level definition</skos:note>
+		<iof-av:firstOrderLogicAxiom>∀x (Machine(x) ∧ ∃r (hasRole(x, r) ∧ EquipmentRole(r) ∧ ∀p (realizes(p, r) → ManufacturingProcess(p))) → EquipmentMachine(x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine which are used in manufacturing process as equipments.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>see primitive rationale of Machine.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘machine’ that ‘has role’ some ‘equipment role’ and for all y, if y ‘realizes’ that role then y is a ‘manufacturing process’, then x is an ‘equipment machine’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProductionOrder">
@@ -553,10 +591,38 @@ As the natural language suggests, planning in warehouse will require a more deta
 	
 	<owl:Class rdf:about="&iof-const;ProductionTool">
 		<rdfs:subClassOf rdf:resource="&iof-const;MaterialArtifact"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-const;hasRole"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-const;EquipmentRole">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
+								<owl:allValuesFrom rdf:resource="&iof-const;ManufacturingProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production tool</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:note xml:lang="en-US">piece of equipment include all special tooling, patterns, molds, templates that paticipates in manufacturing processes.</skos:note>
-		<skos:note xml:lang="en-US">to be merged with top level definition</skos:note>
+		<iof-av:adaptedFrom>- ISO 15531‑1 (resource definitions) refers to tools as devices used in manufacturing (implicit) NIST+11Iteh Standards+11ISO+11.
+- IEC 60050‑851 (Electropedia) defines “tool” as “an implement, usually manually controlled, used to perform work” machinerysafety101.com.
+- NIST Dictionary of Metrology describes a tool as “a hand‑held or mechanically actuated item used to apply force or precision to a workpiece” (NIST work) — general metrological usage.
+- Other references (Shumaker et al. 2011; Jones &amp; Kamil 1973; Hauser 2000; Britannica; Merriam‑Webster; Oxford; Dictionary.com | Meanings &amp; Definitions of English Words ) define a tool as a physical instrument (often hand‑held), used to extend an agent’s ability to modify environment or material.
+(see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis)</iof-av:adaptedFrom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>physical artefact designed to be held, guided or affixed to facilitate execution of a task by a human, machine or mechanism.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Many of the core characterizations of production tool (more broadly tool) captured in the trait analysis (see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis) cannot be formally expressed, especially energy transformation, power, control, motion and mechanical structures.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a tool then x is a physical artefact and x is designed to be held, guided or affixed by a human, machine or mechanism to facilitate execution of a task</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:subjectMatterExpertExplanation>- “designed to be held, guided or affixed” distinguishes tools from machines: often simpler, may require manual or machine guidance.
+- “facilitate execution of a task” covers uses ranging from hand‑tools (hammer, wrench) to machine‑tools (cutting insert, fixture) in the broader sense.
+- By stating “by a human, machine or mechanism,” the definition remains flexible to tools used both manually and in automated contexts.</iof-av:subjectMatterExpertExplanation>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;SetupProcess">
