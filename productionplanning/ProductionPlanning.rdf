@@ -223,7 +223,7 @@ version 202401</owl:versionInfo>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:firstOrderLogicDefinition>machineTransferProcess(x) ↔ plannedProcess(x) ∧ ∃y ∃t ∃t1 ∃t2 ∃s ∃s1 ∃z ∃z1 (materialEntity(y) ∧ temporalInstant(t) ∧ temporalInstant(t1) ∧ temporalRegion(t2) ∧ productionMachine(s) ∧ productionMachine(s1) ∧ site(z) ∧ site(z1) ∧ hasParticipantAtSomeTime(x,y) ∧ firstInstantOf(t,t2) ∧ lastInstantOf(t1,t2) ∧ occupiesTemporalRegion(x,t2) ∧ existsAt(s,t) ∧ existsAt(s1,t1) ∧ locatedInAtAllTimes(s,z) ∧ locatedInAtAllTimes(s1,z1) ∧ locationOfAtAllTimes(s,y) ∧ locationOfAtAllTimes(s1,y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>MachineTransferProcess(x) ↔ PlannedProcess(x) ∧ ∃y ∃t ∃t1 ∃t2 ∃s ∃s1 ∃z ∃z1 (MaterialEntity(y) ∧ TemporalInstant(t) ∧ TemporalInstant(t1) ∧ TemporalRegion(t2) ∧ ProductionMachine(s) ∧ ProductionMachine(s1) ∧ Site(z) ∧ Site(z1) ∧ hasParticipantAtSomeTime(x, y) ∧ firstInstantOf(t, t2) ∧ lastInstantOf(t1, t2) ∧ occupiesTemporalRegion(x, t2) ∧ existsAt(s, t) ∧ existsAt(s1, t1) ∧ locatedInAtAllTimes(s, z) ∧ locatedInAtAllTimes(s1, z1) ∧ locationOfAtAllTimes(s, y) ∧ locationOfAtAllTimes(s1, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">A material location change process that involves moving work-in-progress parts between different machines.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>every instance of &apos;machine transfer process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; and &apos;occupies temporal region&apos; some &apos;temporal region&apos; whose &apos;first instant&apos; is some &apos;temporal instant&apos; t and &apos;last instant&apos; is some &apos;temporal instant&apos; t1, and there exist two distinct &apos;production machines&apos; s and s1 such that s &apos;exists at&apos; t and s1 &apos;exists at&apos; t1, and s is &apos;located in at all times&apos; some &apos;site&apos; z, s1 is &apos;located in at all times&apos; some &apos;site&apos; z1, and both s and s1 are &apos;location of at all times&apos; the same &apos;material entity&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -245,33 +245,43 @@ version 202401</owl:versionInfo>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ManufacturingOperation">
-		<rdfs:subClassOf rdf:resource="&iof-const;ManufacturingEnterpriseProcess"/>
-		<rdfs:label xml:lang="en-US">manufacturing operation</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-const;ManufacturingEnterpriseProcess">
 					</rdf:Description>
 					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000057"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&obo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-const;hasRole"/>
+										<owl:someValuesFrom rdf:resource="&iof-const;MaterialResourceRole"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000118"/>
 						<owl:someValuesFrom rdf:resource="&iof-const;ProcessingStep"/>
 					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;hasResource"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;MaterialResource"/>
-					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">manufacturing operation</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:explanatoryNote xml:lang="en-US">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
 
 In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessingStep(x1) ∧ ProcessingStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2 ∃r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasResource(p1, r1) ∧ hasResource(p2, r2) → (r1 = r2)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>ManufacturingOperation(x) → ManufacturingEnterpriseProcess(x) ∧ ∃p (ProcessingStep(p) ∧ hasProperOccurrentPartOf(x, p)) ∧ ∃r (ManufacturingResource(r) ∧ hasParticipantAtAllTimes(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessingStep(x1) ∧ ProcessingStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>For every operation o and every pair of steps x1 and x2, if x1 and x2 are distinct steps and both are occurrent parts of o at some time, then for every pair of manufacturing processes p1 and p2, there exist resources r1 and r2 such that: if p1 and p2 are manufacturing processes that are occurrent parts of x1 and x2, respectively, and if p1 uses r1 as a resource and p2 uses r2 as a resource, then r1 and r2 are the same resource.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition>If x is a &apos;manufacturing operation&apos; then x is a &apos;manufacturing enterprise process&apos; and there exists a &apos;processing step&apos; y, which is an &apos;proper occurrent part of&apos; x at some time and a &apos;material resource&apos; that the manufacturing operation has as participant at all time it occurs.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>The common grouping criteria cannot be formalized for this class and therefore only a necessary condition could be derived which does not check the &quot;common resource for all step&quot; condition. Furthermore, the use of operation in batch and continuous manufacturing many provide some more refinement on the role of the common participant.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>For any two distinct processing steps within the same manufacturing operation, if those steps are realized by two manufacturing processes that each have a participant playing an equipment role, then those two participants (equipment) must be the same individual.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;MaterialHandlingPlan">
@@ -441,10 +451,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProcessingStep">
-		<rdfs:subClassOf rdf:resource="&iof-const;ManufacturingEnterpriseProcess"/>
-		<rdfs:label xml:lang="en-US">processing step</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-const;ManufacturingEnterpriseProcess">
@@ -455,11 +462,15 @@ As the natural language suggests, planning in warehouse will require a more deta
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">processing step</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
 		<iof-av:firstOrderLogicDefinition>processingStep(x) ↔ manufacturingEnterpriseProcess(x) ∧ ∃p (manufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processingStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">A unit subprocess of an operation which does not contain any other processing step and at least one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has exactly one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>The class may contain many other varieties of processes along with a manufacturing process. The clause of &quot;no further decomposition of step using step&quot; is avoided to keep OWL axioms negation-free.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote>Along with the instance of manufacturing process, processing step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
 	</owl:Class>
 	
@@ -646,18 +657,13 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-const;Capability"/>
 		<iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∃p1 ∃p2 ((realizes(p1, c1) ∧ realizes(p2, c2)) ∧ (p1 = p2 ∨ hasProperOccurrentPart(p1, p2)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability enables another capability implies that either both are realized by the process or the process realizing the latter is a part of the process realizing the former.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This object property is under development.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 and p2 &apos;realizes&apos; c2, and either p1 is the same as p2 or p2 is a &apos;proper occurrent part&apos; of p1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-const;hasCapability">
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-const;hasResource">
-		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000167"/>
-		<rdfs:comment xml:lang="en-US">has resource</rdfs:comment>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;MaterialResource"/>
 	</owl:ObjectProperty>
 	
 	<owl:Class>
