@@ -58,8 +58,17 @@
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;AminoAcid">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>amino acid</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:33709</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that contains a carboxyl group and one or more amino groups</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Anion">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Ion"/>
+		<rdfs:label>anion</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:22563</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that is a monoatomic or polyatomic species having one or more elementary charges of the electron</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntifoamingAgent">
@@ -93,13 +102,20 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntimicrobialAgentRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
 		<rdfs:label>antimicrobial agent role</rdfs:label>
+		<skos:example>Gentamicin added to cell culture media to prevent bacterial contamination; Benzalkonium chloride included in formulations as a preservative.</skos:example>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:33281</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role held by a molecular entity when it is added or planned to be added to an environment to kill or inhibit the growth of microorganisms</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntioxidantRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
 		<rdfs:label>antioxidant role</rdfs:label>
+		<skos:example>Ascorbic acid (vitamin C) added to media or formulations to prevent oxidation of sensitive components; α-Tocopherol (vitamin E) used to inhibit lipid peroxidation and maintain stability of cell culture supplements or product formulations</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_22586</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Some molecules naturally possess antioxidant activity as a result of their chemical structure. In manufacturing contexts the role is typically recognized (asserted) when that activity is intentionally used, for example when a compound is added to a medium, buffer, or formulation to protect materials, nutrients, or products from oxidation during processing or storage. Such compounds are often included in formulations to maintain the stability of media components, extend product shelf life, or prevent loss of potency during storage.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a molecular entity that is realized in chemical or physiological processes where it counteracts oxidation or inhibits reactions initiated by dioxygen or peroxides</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BasalCultureMedium">
@@ -141,8 +157,45 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BufferingAgentRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialComponentRole"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000127"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapacity"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000194"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapacity"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>buffering agent role</rdfs:label>
+		<skos:example>mixture of sodium phosphate monobasic and dibasic salts playing a buffer role in cell-culture medium to maintain pH near neutrality; combination of Tris base and Tris-HCl playing a buffer role in electrophoretic buffer solution to maintain pH around 8; pair of HEPES and its conjugate acid playing a buffer role in tissue-culture medium to maintain physiological pH; combination of carbon dioxide and sodium bicarbonate playing a buffer role in mammalian cell-culture medium to stabilize pH under CO₂ atmosphere; mixture of histidine and histidine hydrochloride playing a buffer role in monoclonal-antibody formulation to stabilize pH during storage;</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_35225</iof-av:adaptedFrom>
+		<iof-av:counterExample>sodium chloride solution adjusting ionic strength but not buffering pH;
+phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lacking conjugate base and unable to resist pH change; hydrochloric acid solution changing rather than maintaining pH</iof-av:counterExample>
+		<iof-av:explanatoryNote>A buffer role inheres in a material entity that serves as the material basis of buffering capacity in a system. The role connects the substance or combination of substances to the capacity by which the system resists a change in hydrogen-ion concentration when small amounts of acid or base are added. The role may also be assigned to powders or concentrated materials before they are dissolved, reflecting the planned use of those substances to establish buffering capacity once introduced into a solution.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a material entity when it is added or planned to be added to a solution, typically aqueous, to resist changes in pH upon the introduction of small amounts of acid or base</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BufferingCapacity">
@@ -154,13 +207,27 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Carbohydrate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>carbohydrate</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:16646</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Carbohydrates include simple sugars (monosaccharides) such as glucose and fructose, and compounds formed by their condensation, such as disaccharides, oligosaccharides, and polysaccharides. They can also occur in reduced (alditols) or oxidized (acids, aldehydes, ketones) forms, or as modified derivatives in which one or more hydroxy groups are replaced or substituted. Carbohydrates serve as energy sources, structural materials, and signaling molecules in living organisms. Cyclitols, although similar in composition, are generally not considered carbohydrates.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular entity composed of carbon, hydrogen, and oxygen that consists of or is derived from polyhydroxy aldehydes, ketones, or their condensation products</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CarbonSourceRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetabolicNutrientRole"/>
 		<rdfs:label>carbon source role</rdfs:label>
+		<skos:example>Glucose as the main carbon source in DMEM or CD-CHO media; Galactose used to control lactate accumulation in CHO cell cultures; Methanol serving as the carbon source in Pichia pastoris expression systems</skos:example>
+		<iof-av:adaptedFrom>https://www.thermofisher.com/ba/en/home/references/gibco-cell-culture-basics/cell-culture-environment/culture-media.html and  https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf and https://link.springer.com/article/10.1007/s11626-017-0186-6</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Carbon sources provide the essential carbon that forms the backbone of cellular structures and fuels metabolic energy production. In mammalian-cell culture, glucose is the primary carbon source, supporting both energy generation and biosynthesis. Alternative substrates such as galactose, fructose, or pyruvate may be used to adjust metabolic fluxes or reduce lactate buildup. In microbial and yeast cultures, carbon sources can include glycerol, sucrose, acetate, or methanol, depending on the organism and process objectives. The selection and concentration of the carbon source directly affect growth, productivity, and by-product formation in manufacturing processes</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that supplies carbon atoms used by cells to build biomolecules and to generate energy through metabolic pathways such as glycolysis and the tricarboxylic acid (TCA) cycle</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Cation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Ion"/>
+		<rdfs:label>cation</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:36916</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>ion that is a monoatomic or polyatomic species having one or more elementary charges of the proton</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Cell">
@@ -289,8 +356,14 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChelatingAgentRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialComponentRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
 		<rdfs:label>chelating agent role</rdfs:label>
+		<skos:example>EDTA in buffer to remove trace metal ions; EGTA in calcium-sensitive assays; citric acid regulating iron in culture media; NTA resin in affinity chromatography for protein purification.</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_38161 and https://www.sigmaaldrich.com/RS/en/technical-documents/technical-article/protein-biology/protein-purification/chelators?srsltid=AfmBOooXIbg6UbKJhWf8NjXdHt19Ktk2E5gud8zwrHR5iuqvICV2jrN8 and https://www.merckmillipore.com/CH/en/products/chemistry-and-biochemicals/biochemicals/chelating-reducing-agents</iof-av:adaptedFrom>
+		<iof-av:counterExample>Histidine added as a buffering component rather than for chelation; citrate added to adjust pH or provide a carbon source rather than to bind metals; magnesium ions acting as cofactors</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) The environment may be a solution, resin, gel, or other medium in which a metal ion can form coordination bonds.
+2) Chelating agents are used for different purposes, such as preventing metal-catalyzed degradation, removing or masking trace metals, maintaining metal ion availability, or supporting analytical and purification steps where metal ions or metal ion bound biomolecules are captured, removed, or released.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a molecular entity when it is added or planned to be added to an environment to bind a particular metal ion through two or more separate coordination sites</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChemicallyDefinedCultureMedium">
@@ -319,11 +392,6 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cloned cell line&apos; then x is a &apos;cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CofactorRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
-		<rdfs:label>cofactor role</rdfs:label>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;CompleteCultureMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
 		<rdfs:subClassOf>
@@ -345,9 +413,20 @@
 		<iof-av:naturalLanguageDefinition>cell culture medium that consists of a basal medium supplemented with additional components, such as serum, proteins, growth factors, hormones, or other nutrients, sufficient to support robust cell growth, proliferation, and metabolic activity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CryoprotectantRole">
+	<owl:Class rdf:about="&iof-construct;Concentration">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:label>concentration</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CryoprotectiveAgentRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProtectiveAgentRole"/>
-		<rdfs:label>cryoprotectant role</rdfs:label>
+		<rdfs:label>cryoprotective agent role</rdfs:label>
+		<skos:example>Dimethyl sulfoxide (DMSO) added to freezing medium for cell preservation; Glycerol solution protecting microbial cultures during storage at low temperatures</skos:example>
+		<iof-av:adaptedFrom>http://id.nlm.nih.gov/mesh/D003451 and http://purl.obolibrary.org/obo/NCIT_C53306</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) This role is realized through collective physicochemical effects that stabilize water structure, maintain osmotic and hydration balance, and preserve molecular or cellular integrity during cooling and thawing, largely by preventing the formation of large ice crystals and reducing other forms of cold-induced damage. 
+2) The term “environment” covers any relevant physical or chemical setting such as a solution, suspension, or culture medium. 
+3) The role applies to both single substances and formulated mixtures such as cryoprotective solutions.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to an environment to protect other materials from the harmful effects of freezing temperatures</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
@@ -364,16 +443,6 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is a liquid or solid aqueous formulation that provides essential nutrients (such as carbon, nitrogen, vitamins, and minerals) and controlled physicochemical conditions (such as pH and osmotic balance) required for the growth, maintenance, or specific metabolic activity of microorganisms or cells</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to accurately represent the structure and the capabilities that the media has in this release. They will be treated in great detail for a subsequent release orienting around upstream.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium&apos; then x is a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CultureMediumComponentRole">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialComponentRole"/>
-		<rdfs:label>culture medium component role</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CultureMediumFunctionalRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumComponentRole"/>
-		<rdfs:label>culture medium component functional role</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumSpecializedFunction">
@@ -403,7 +472,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumSupplementRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumComponentRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;MaterialComponentRole"/>
 		<rdfs:label>culture medium supplement role</rdfs:label>
 		<skos:example>Albumin stock solution bearing a media supplement role when added to serum-free medium to stabilize cells; ITS+3 Liquid Media Supplement (100×), a defined mixture of insulin, human transferrin, sodium selenite, linoleic acid, oleic acid ) added to serum-free medium to support viability and specialized functions; G418 (geneticin) added to impose selective pressure on a stable CHO line; 10% DMSO added to a cryopreservation medium for cell banking</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html and https://www.thermofisher.com/rs/en/home/life-science/cell-culture/mammalian-cell-culture/media-supplements.html</iof-av:adaptedFrom>
@@ -411,8 +480,8 @@
 		<iof-av:explanatoryNote>1) This role is context-dependent: a substance only counts as a media supplement when it is actually used or planned to be used to supplement culture media. The same chemical could serve other purposes in other settings (for example, insulin as a therapeutic drug). However, many commercial products (such as ITS mixes, lipid concentrates, or amino acid solutions) are specifically formulated and sold for use as media supplements. In practice, these preparations almost always bear a media supplement role.
 2) Role may be held by single components and their solutions (such as insulin, transferrin, or glutamine) or prepared mixtures supplied as concentrated supplement solutions (e.g., ITS+3, MEM non-essential amino acids).
 3) Media supplements are  distinct from the medium itself (basal/complete formulations are not “supplements”). A component that is part of a basal recipe does not bear this role but a component added on top of a basal medium does.
-4) Media supplements are separate from nutrient replenishement feeds and the additions during cultivation specifically to replenish depleted nutrients should be modeled under nutrient replenishment role</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added or planned to be added to culture media to enrich or modify the medium composition or functional properties</iof-av:naturalLanguageDefinition>
+4) Media supplements are separate from nutrient feeds and the additions during cultivation specifically to replenish depleted nutrients should be modeled under nutrient feed role</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material component role held by a material entity when it is added or planned to be added to culture media to enrich or modify the medium composition or functional properties</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CulturePreservationFunction">
@@ -466,6 +535,53 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;cultured cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;cultured cell&apos; and &apos;has member part at some time&apos; only &apos;cultured cell&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;DissolutionRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>dissolution role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000274</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role held by a material entity that is realized in a dissolution process in which it participates in forming a solution</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;EnergySubstrateRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetabolicNutrientRole"/>
+		<rdfs:label>energy substrate role</rdfs:label>
+		<skos:example>Glucose serving as the main energy substrate in DMEM or RPMI 1640 cell-culture media; Glutamine acting as both an energy and nitrogen source in chemically defined CHO-cell feeds; Glycerol used as an energy substrate in E. coli fermentation media</skos:example>
+		<iof-av:adaptedFrom>https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf and https://aiche.onlinelibrary.wiley.com/doi/10.1021/bp00036a010 and https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/energy-metabolism</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>In manufacturing and culture systems, glucose and glutamine are the most common energy substrates supporting mammalian cell growth and productivity. Depending on process conditions, other compounds such as lactate, pyruvate, or specific amino acids may also serve as energy sources. The type and concentration of energy substrates influence cell metabolism, product quality, and process performance, making their control a key part of medium and feed design.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that serves as a source of metabolic energy by undergoing enzymatic conversion in cellular pathways that generate adenosine triphosphate (ATP) or reducing equivalents required for growth, maintenance, and biosynthesis</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;EnzymeActivatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;EnzymeRegulatorRole"/>
+		<rdfs:label>enzyme activator role</rdfs:label>
+		<skos:example>Magnesium ions enhancing the activity of DNA and RNA polymerases; Chloride ions activating salivary amylase; Potassium ions increasing pyruvate kinase activity; Calcium ions promoting protease and phospholipase activation</skos:example>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:195252</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role held by a molecular entity that is realized in an enzyme-catalyzed reaction through increasing the catalytic activity of the enzyme</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;EnzymeCofactorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;EnzymeRegulatorRole"/>
+		<rdfs:label>enzyme cofactor role</rdfs:label>
+		<skos:example>Magnesium ions stabilizing ATP in kinase reactions; Zinc ions required for the catalytic activity of alcohol dehydrogenase; Flavin adenine dinucleotide (FAD) acting as an electron carrier in redox enzymes; Heme supporting oxidation reactions within cytochrome oxidase</skos:example>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:23357</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>enzyme functional regulator role held by a molecular entity that is realized in an enzymatic reaction through enabling the catalytic activity of a particular enzyme</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;EnzymeInhibitorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;EnzymeRegulatorRole"/>
+		<rdfs:label>enzyme inhibitor role</rdfs:label>
+		<skos:example>Aprotinin added to cell culture media to inhibit serine proteases and prevent product degradation; Sodium fluoride inhibiting enolase in glycolytic pathways; Cyanide binding to cytochrome oxidase and blocking electron transport</skos:example>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:23924</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role held by a material entity that is realized in an enzyme-catalyzed reaction through decreasing or preventing the catalytic activity of the enzyme</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;EnzymeRegulatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularActivityRegulatorRole"/>
+		<rdfs:label>enzyme regulator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/TXPO_0003722 and http://purl.obolibrary.org/obo/GO_0030234</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that binds to an enzyme and modulates its catalytic activity without causing covalent modification of the enzyme</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ExpansionCultureMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SpecializedCultureMedium"/>
 		<rdfs:label>expansion culture medium</rdfs:label>
@@ -488,13 +604,54 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GrowthFactor">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>growth factor</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;GrowthFactorRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Vascular endothelial growth factor (VEGF) promoting endothelial proliferation; Insulin-like growth factor 1 (IGF-1) enhancing recombinant protein production in mammalian cells</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/GO_0008083</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>protein or peptide with a growth factor role</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GrowthFactorRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularMessengerRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>growth factor role</rdfs:label>
+		<skos:example>Vascular endothelial growth factor (VEGF) promoting endothelial proliferation; Insulin-like growth factor 1 (IGF-1) enhancing recombinant protein production in mammalian cells</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/GO_0008083</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>In culture media and biomanufacturing formulations, this role is typically recognized (asserted) when a protein or peptide is intentionally added to support proliferation, maintain viability, or enhance productivity</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a protein or peptide that is realized in signaling processes where it stimulates cellular growth or proliferation through receptor-mediated mechanisms.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HomogenousMixture">
@@ -505,13 +662,40 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Hormone">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>hormone</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;OrganicMolecularEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;HormoneRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Insulin acting as a regulator of glucose metabolism and anabolic activity; Hydrocortisone included in formulations to maintain epithelial cell differentiation and reduce stress responses; Triiodothyronine (T₃) supplemented to stimulate protein synthesis and enhance metabolic activity; Estradiol incorporated to regulate gene expression in hormone-responsive production cell lines</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_24621</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>organic molecular entity with a hormone role</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HormoneRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularMessengerRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>hormone role</rdfs:label>
+		<skos:example>Insulin acting as a regulator of glucose metabolism and anabolic activity; Hydrocortisone included in formulations to maintain epithelial cell differentiation and reduce stress responses; Triiodothyronine (T₃) supplemented to stimulate protein synthesis and enhance metabolic activity; Estradiol incorporated to regulate gene expression in hormone-responsive production cell lines</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_24621</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Some molecules naturally act as hormones in living systems by binding to receptors and influencing cell metabolism, growth, or gene expression. . In  formulation and culture contexts the role is typically recognized (asserted) when that activity is intentionally used. For example when a compound is added to a medium, buffer, or formulation to promote cell proliferation, maintain differentiation, or regulate metabolic balance.
+2) Although originally defined as endogenous substances synthesized by specialized cells or glands and transported to target sites, the term now also includes semi-synthetic and fully synthetic compounds that mimic or modify natural hormonal activity.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by an organic molecular entity that is realized in cellular signaling or regulatory processes where it modulates the activity or metabolism of cells or tissues through receptor-mediated mechanisms</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HostCell">
@@ -526,11 +710,24 @@
 	<owl:Class rdf:about="&iof-construct;ImpurityRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
 		<rdfs:label>impurity role</rdfs:label>
+		<skos:example>residual solvent remaining after synthesis; oxidation product formed during storage of a biologic; trace contaminant present in a raw material lot</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000364 and http://purl.obolibrary.org/obo/CHEBI_143130</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role of a material enity l that is present within a substance, mixture, or product but is not part of its defined composition or specification at a particular stage of manufacture, processing, or storage</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;InorganicSalt">
+	<owl:Class rdf:about="&iof-construct;InorganicIon">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Ion"/>
+		<rdfs:label>inorganic ion</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_36914</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>ion that is an inorganic molecular entity with a net electric charge</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InorganicMolecularEntity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
-		<rdfs:label>inorganic salt</rdfs:label>
+		<rdfs:label>inorganic molecular entity</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:24835</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that contains no carbon</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;IntermediateStockSolution">
@@ -545,11 +742,25 @@
 	<owl:Class rdf:about="&iof-construct;Ion">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
 		<rdfs:label>ion</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;Salt"/>
+		<iof-av:directSource>https://www.ebi.ac.uk/chebi/CHEBI:24870</iof-av:directSource>
+		<iof-av:naturalLanguageDefinition>molecular entity having a net electric charge</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Lipid">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>lipid</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_18059</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that is a biologically derived organic compound that is soluble in nonpolar solvents and includes fats, oils, phospholipids, steroids, and related molecule</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;LipidPrecursorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetabolicNutrientRole"/>
+		<rdfs:label>lipid precursor role</rdfs:label>
+		<skos:example>Ethanolamine serving as a precursor for phosphatidylethanolamine synthesis in mammalian cells; Choline functioning as a precursor for phosphatidylcholine</skos:example>
+		<iof-av:adaptedFrom>https://pub.uni-bielefeld.de/record/2943695 and https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Lipid precursors are small metabolites that serve as the starting materials for lipid biosynthesis. Their availability determines the rate and composition of lipid formation, influencing membrane structure, energy storage, and signaling balance. In cell culture and biomanufacturing, maintaining sufficient lipid precursor supply supports membrane biogenesis, cell growth, and product secretion.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that provides carbon or functional groups required for the biosynthetic formation of complex lipids such as fatty acids, phospholipids, or sterols</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MasterCellBank">
@@ -701,6 +912,15 @@
 		<iof-av:naturalLanguageDefinition>material entity with a media supplement role</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MetabolicNutrientRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
+		<rdfs:label>metabolic nutrient role</rdfs:label>
+		<skos:example>Glucose serving as a carbon and energy source in mammalian cell-culture media;Choline acting as a lipid precursor in the synthesis of phosphatidylcholine for membrane formation;Ammonium ion serving as a nitrogen source in microbial fermentation media</skos:example>
+		<iof-av:adaptedFrom>This role narrows the CHEBI concept of a nutrient to the molecular level. It applies to individual chemical entities that participate directly in cellular metabolism and are typically provided externally through culture media, feed formulations, or the surrounding environment to sustain metabolic activity, growth, and maintenance.</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_33284</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that supports cellular metabolism, growth, or maintenance through its participation in biochemical processes and that is typically supplied from an external source</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MixedMaterial">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>mixed material</rdfs:label>
@@ -725,26 +945,84 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;molar mass&apos; then x is a &apos;quality&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MolecularActivityRegulatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
+		<rdfs:label>molecular activity regulator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/GO_0098772 and http://purl.obolibrary.org/obo/TXPO_0003713</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This role applies to molecular entities that alter or fine-tune the activity of enzymes, receptors, channels, or other molecular targets by mechanisms such as allosteric binding, competitive inhibition, or conformational stabilization.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that modulates the activity of another molecule through non-covalent interactions that do not result in covalent modification of the target</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MolecularCarrierRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>molecular carrier role</rdfs:label>
+		<skos:example>serum albumin carrying fatty acids in extracellular fluid; ferritin carrying iron atoms in its core; liposome encapsulating siRNA for cellular uptake; polyethylene glycol (PEG) acting as a carrier to improve drug solubility</skos:example>
+		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html and https://pub.uni-bielefeld.de/record/2943695 and https://pubmed.ncbi.nlm.nih.gov/30290072/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This role applies to molecular or particulate materials such as proteins, lipids, polymers, or engineered nanoparticles that transiently associate with other molecular entities to facilitate their distribution, solubility, or localization. It is distinct from logistical or container-level carriers used in supply chain contexts, which operate at the level of physical object transport.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role held by a material entity that enables the transport, stabilization, or delivery of one or more molecular entities within a physical, chemical, or biological system without undergoing permanent chemical transformation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MolecularEntity">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>molecular entity</rdfs:label>
+		<skos:example>ion; salt; amino acid; protein; antibody</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_23367</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>material entity that is a constitutionally or isotopically distinct atom, molecule, ion, ion pair, radical, radical ion, complex, conformer etc., identifiable as a separately distinguishable entity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MolecularEntityRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MolecularEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>molecular entity role</rdfs:label>
+		<skos:example>EDTA acting as a chelating agent in buffers to remove trace metal ions; Vitamin C acting as an antioxidant in media or formulations to prevent oxidation of sensitive components.</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_50906</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This role represents context-dependent behaviors of molecules such as binding, catalysis, inhibition, or signaling. It corresponds to the use of “role” in CHEBI and is used to describe realizable molecular behaviors in chemical or biological environments.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that reflects a specific chemical or biochemical behavior it may exhibit under certain condition</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MolecularMessengerRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
+		<rdfs:label>molecular messenger role</rdfs:label>
+		<skos:example>Insulin added to cell culture medium to promote glucose uptake and anabolic metabolism; epidermal growth factor (EGF) added to serum-free media to stimulate cell proliferation</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_33280 and https://www.ncbi.nlm.nih.gov/books/NBK538154/</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that transmits signals between cells, tissues, or organs, enabling communication and coordination of biological processes</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;NitrogenSourceRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetabolicNutrientRole"/>
 		<rdfs:label>nitrogen source role</rdfs:label>
+		<skos:example>Glutamine acting as the primary nitrogen source in CHO and hybridoma culture media; Ammonium ion serving as a nitrogen source in microbial fermentation media</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/abs/pii/0168165689900096 and https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Nitrogen sources provide the assimilable nitrogen required to build cellular macromolecules and maintain metabolic activity. In mammalian-cell culture, amino acids and glutamine are typically the main nitrogen sources, supporting both biosynthesis and energy metabolism. In microbial and yeast media, nitrogen sources commonly include ammonium salts, nitrates, or urea. The type and concentration of nitrogen source influence growth kinetics, intracellular pH, energy demand, and by-product formation, making nitrogen management critical in media and feed formulation.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a molecular entity that supplies usable nitrogen atoms for the synthesis of amino acids, nucleotides, and other nitrogen-containing biomolecules essential for cell growth and function</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;NonProteinogenicAminoAcid">
+		<rdfs:subClassOf rdf:resource="&iof-construct;AminoAcid"/>
+		<rdfs:label>non-proteinogenic amino acid</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:83820</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>amino acid that is not encoded by the genetic code of any organism and therefore cannot be incorporated into a polypeptide chain during translation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Nucleoside">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>nucleoside</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:33838</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The nucleobase is typically adenine, guanine, cytosine, thymine, uracil, or xanthine. The sugar component is usually ribose or deoxyribose, forming an N-glycosidic bond.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular entity that consists of a nucleobase linked through a nitrogen atom to a sugar such as ribose or deoxyribose.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Nucleotide">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>nucleotide</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:36976</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A nucleotide includes three structural components: a nitrogen-containing base, a pentose sugar (ribose or deoxyribose), and one or more phosphate groups linked to the sugar, typically at the 5′ position.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular entity that consists of a nucleoside having one or more phosphate groups attached to its sugar moiety</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NutrientFeed">
@@ -770,37 +1048,78 @@
 	
 	<owl:Class rdf:about="&iof-construct;NutrientFeedRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;MolecularEntity">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:unionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-construct;MetabolicNutrientRole">
+															</rdf:Description>
+															<rdf:Description rdf:about="&iof-construct;TraceElementRole">
+															</rdf:Description>
+														</owl:unionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>nutrient feed role</rdfs:label>
 		<skos:example>concentrated glucose feed pumped to maintain glucose above a target setpoint; galactose feed added to modulate glycosylation; feed solution containing glucose, amino acids, vitamins, trace metals, and lipids added during cultivation to support high cell density and balanced metabolism</skos:example>
 		<iof-av:adaptedFrom>https://www.bioprocessintl.com/biochemicals-raw-materials/nutrient-supplementation-strategies-for-biopharmaceutical-production</iof-av:adaptedFrom>
 		<iof-av:counterExample>IPTG induction; glucose already present in the medium</iof-av:counterExample>
 		<iof-av:explanatoryNote>This role applies to additions that are part of a controlled feeding strategy after inoculation. The purpose of nutrient feeds can include sustaining cell growth and viability, preventing nutrient depletion, extending the productive phase, optimizing productivity, or steering metabolic activity to achieve desired product quality attributes (e.g., modulating glycosylation). Feeds are often chemically defined solutions and can be single or multicomponent solutioncontaining glucose, amino acids, vitamins, trace elements, and sometimes lipids, but may also be provided as powders or slurries in some settings.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added or planned to be added to a cell cuture during cultivation or production to maintain or modulate nutrients</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added or planned to be added to a cell cuture during cultivation or production to maintain nutrient availability, support metabolic activity, or modulate culture performance</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;OsmolalityConditioningRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
-		<rdfs:label>osmolality conditioning role</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;OsmoprotectantRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProtectiveAgentRole"/>
-		<rdfs:label>osmoprotectant role</rdfs:label>
+	<owl:Class rdf:about="&iof-construct;OrganicMolecularEntity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:label>organic molecular entity</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:50860</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that contains carbon</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Peptide">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>peptide</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:16670</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A peptide is an amide formed through the condensation of amino acids, producing covalent linkages known as peptide bonds. The term generally refers to structures composed of α-amino acids but may also include those derived from other amino acid types.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular entity formed from two or more amino acids by the formation of amide bonds between the carboxyl group of one and the amino group of another, with loss of water</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Polyamine">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>polyamine</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:88061</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that is an organic amino compound that contains two or more amino groups</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Polypeptide">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Peptide"/>
 		<rdfs:label>polypeptide</rdfs:label>
+		<iof-av:directSource>https://www.ebi.ac.uk/chebi/CHEBI:15841</iof-av:directSource>
+		<iof-av:naturalLanguageDefinition>peptide containing ten or more amino acid residues</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PreservationCultureMedium">
@@ -846,13 +1165,18 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProtectiveAgentRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
 		<rdfs:label>protective agent role</rdfs:label>
+		<skos:example>Dimethyl sulfoxide (DMSO) added to freezing medium for cell preservation; Poloxamer 188 (Pluronic F-68) is a surface-active nonionic polymer used in cell culture media to reduce shear stress from agitation and sparging</skos:example>
+		<iof-av:explanatoryNote>Covers protection from physical, mechanical, thermal, chemical, or radiative stress. Subclasses are defined by the stressor type, for example cryoprotective agent role and shearprotective agent role. This notion is distinct from clinical “protective agents” used to prevent disease or treat poisoning and should not be mapped to CHEBI:50267.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to an environment to protect other materials within that environment from stress or damage</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Protein">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>protein</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_36080</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that is a biological macromolecule minimally consisting of one polypeptide chain synthesized at the ribosome</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinFreeCultureMedium">
@@ -863,6 +1187,33 @@
 		<iof-av:counterExample>Hydrolysate-containing medium (includes peptides)</iof-av:counterExample>
 		<iof-av:explanatoryNote>Protein-free media are a subclass of serum-free media formulated to exclude added proteins and peptides, such as albumin, transferrin, or hydrolysates. They typically rely on amino acids, vitamins, salts, trace elements, lipids, and carbon sources to support cell metabolism. The absence of proteins reduces contamination risk, simplifies downstream purification, and improves consistency of media characterization. However, many cell types require adaptation to thrive in protein-free formulations, as they lack carrier proteins, growth factors, and other macromolecular supports.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>serum free culture medium that does not include any proteins, peptides, or hydrolysates</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinogenicAminoAcid">
+		<rdfs:subClassOf rdf:resource="&iof-construct;AminoAcid"/>
+		<rdfs:label>proteinogenic amino acid</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:83813</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>amino acid that is a precursor to proteins and can thus be incorporated into a polypeptide chain during translation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Salt">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Anion"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Cation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>salt</rdfs:label>
+		<skos:example>sodium chloride; sodium monophosphate; potassium acetate</skos:example>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:24866</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular entity that is an assembly of cations and anions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Serum">
@@ -906,11 +1257,43 @@
 		<iof-av:naturalLanguageDefinition>complete culture medium that contains no animal-derived serum</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ShearprotectiveAgentRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProtectiveAgentRole"/>
+		<rdfs:label>shear protective agent role</rdfs:label>
+		<skos:altLabel>shear protectant role</skos:altLabel>
+		<skos:example>Poloxamer 188 (Pluronic F-68) is a surface-active nonionic polymer used in cell culture media to reduce shear stress from agitation and sparging; CMC blend used to increase viscosity and protect suspended materials from shear damage</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/abs/pii/S2211926422003071#:~:text=In%20addition%2C%20shear%20protectants%20are,scale%20(500%20L%20fermenter). and https://www.merckmillipore.com/deepweb/assets/sigmaaldrich/product/documents/264/391/poloxamer-optimized-tb1249en-mk.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) This role is realized through physicochemical effects that reduce hydrodynamic stress generated by agitation, pumping, or gas sparging. Materials with this role often act by increasing viscosity, forming protective films, or modulating bubble and interface dynamics to lessen shear exposure. 
+2) The term “environment” refers broadly to any liquid or multiphase system such as cell culture media, fermentation broths, or formulation buffers. 
+3) The role applies to both single substances and complex mixtures whose protective effects arise from bulk material behavior.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to an environment to protect other materials within that environment from mechanical damage caused by shear stress</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Solubility">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000016"/>
+		<rdfs:label>solubility</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SoluteRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
+		<rdfs:label>solute role</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;SolventRole"/>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000270</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>dissolution role held by a material entity that is realized in a dissolution process where it is dispersed or dissolved within another substance (the solvent) to form a solution.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;Solution">
 		<rdfs:subClassOf rdf:resource="&iof-construct;HomogenousMixture"/>
 		<rdfs:label>solution</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0000012</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>homogeneous mixture composed of one phase where particles are not visible to the naked eye and the solution does not scatter a light beam</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SolventRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
+		<rdfs:label>solvent role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>dissolution role held by a material entity that is realized in a dissolution process where it dissolves another substance (the solute) to form a solution.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SpecializedCultureMedium">
@@ -937,6 +1320,11 @@
 	<owl:Class rdf:about="&iof-construct;Steroid">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Lipid"/>
 		<rdfs:label>steroid</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:35341</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Additional side chains or functional groups may be attached to the core rings, and the rings may be hydrogenated or slightly modified by rearrangement.
+2) Steroids include naturally occurring compounds and synthetic analogues. This class encompasses sterols (e.g., cholesterol), bile acids, and steroid hormones, as well as numerous synthetic derivatives with medicinal applications.
+3) Chemically, steroids are compounds derived from the cyclopenta[a]phenanthrene skeleton, typically with methyl groups at C-10 and C-13 and often an alkyl side chain at C-17. Natural steroids arise from squalene and may show partial hydrogenation or minor ring modifications.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>lipid that has a core structure of four fused carbon rings made up of three six-membered rings and one five-membered ring</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StockSolution">
@@ -949,9 +1337,30 @@
 		<iof-av:naturalLanguageDefinition>solution with an accurately known solute concentration prepared so that smaller volumes can be used directly or diluted as needed for use in a planned process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;TransitionMetalIon">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Ion"/>
-		<rdfs:label>transition metal ion</rdfs:label>
+	<owl:Class rdf:about="&iof-construct;SurfactantRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label>surfactant role</rdfs:label>
+		<skos:example>Polysorbate 80 added to culture medium to improve wetting and dispersion; Sodium dodecyl sulfate added to aqueous buffer to reduce interfacial tension</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_35195</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The term “medium” refers broadly to any surrounding phase system such as liquid, gas, or solid, not only to culture media. Materials with this role are used to promote wetting, dispersion, emulsification, or cleaning, and may consist of single compounds or formulated mixtures.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to lower the surface tension of a medium or the interfacial tension between a medium and other phases, and that becomes positively adsorbed at liquid–vapor or other interfaces</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TraceElementRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;InorganicIon"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>trace element role</rdfs:label>
+		<skos:example>Fe²⁺ salt added to media as part of a trace element supplement; Cu²⁺ from CuSO₄·5H₂O (copper sulfate pentahydrate) added to support oxidative enzyme function</skos:example>
+		<iof-av:adaptedFrom>https://aiche.onlinelibrary.wiley.com/doi/full/10.1002/btpr.3368 and https://pubmed.ncbi.nlm.nih.gov/30290072/ and https://pub.uni-bielefeld.de/record/2943695</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1)Trace elements are essential metal or metalloid ions that enable catalytic activity, electron transfer, or structural stabilization of biomolecules. They cannot be synthesized by cells and are typically provided as inorganic salts, oxoanions, or chelates that release bioavailable ions such as Fe²⁺, Zn²⁺, Cu²⁺, Mn²⁺, Co²⁺, or SeO₃²⁻. 
+2) Most trace elements are transition metals, while some, like selenium, are metalloids. 
+3)While they are often intentionally added to culture media, they may also originate from raw material impurities, leachables, or water quality and still fulfill their biological role. In such cases, an ion may bear both a trace element role and an impurity role, depending on its origin and concentration.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of an inorganic ion that is required in small amounts to support enzymatic, structural, or regulatory functions in cells and that must be supplied externally</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;VirusSeed">
@@ -963,13 +1372,39 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Vitamin">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:label>vitamin</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;OrganicMolecularEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;VitaminRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Thiamine (vitamin B₁) supporting carbohydrate metabolism;Riboflavin (vitamin B₂) serving as precursor of flavin cofactors (FAD, FMN); Biotin acting in carboxylation reactions.</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_33229</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>organic molecular entity with a vitamin role</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;VitaminRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumFunctionalRole"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetabolicNutrientRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>vitamin role</rdfs:label>
+		<skos:example>Thiamine (vitamin B₁) supporting carbohydrate metabolism;Riboflavin (vitamin B₂) serving as precursor of flavin cofactors (FAD, FMN); Biotin acting in carboxylation reactions.</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_33229</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Vitamins are essential organic compounds that enable or regulate metabolic and physiological processes, usually by serving as cofactors, coenzyme precursors, or regulatory metabolites. They are required only in small amounts but cannot be synthesized or activated in sufficient quantities without external inputs such as nutrient supplementation or environmental factors like light. In human and animal nutrition, vitamins are obtained through dietary intake; in biomanufacturing, they are incorporated into culture media to maintain cell viability and productivity.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>role of an organic molecular entity that is required in small amounts to sustain normal metabolic or physiological functions and whose adequate supply depends on external sources or environmental conditions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;WorkingCellBank">
@@ -999,6 +1434,16 @@
 			<rdf:Description rdf:about="&iof-construct;CultureMedium">
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;CulturedCellPopulation">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;EnzymeActivatorRole">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;EnzymeCofactorRole">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;EnzymeInhibitorRole">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
