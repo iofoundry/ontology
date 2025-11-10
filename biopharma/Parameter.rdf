@@ -89,6 +89,43 @@
 		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biopharmaceutical manufacturing process characterization</rdfs:label>
+		<skos:example>cell culture process characterization to determine the effect of temperature and glucose feeding on product glycosylation</skos:example>
+		<iof-av:acronym>PC</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.6sigma.us/process-improvement/process-characterization/ and https://www.biopharminternational.com/view/rational-step-wise-approach-process-characterization</iof-av:adaptedFrom>
+		<iof-av:counterExample>unplanned troubleshooting of a failed batch</iof-av:counterExample>
+		<iof-av:explanatoryNote>The process integrates analysis of historical data, designed experiments, and risk assessment to determine the criticality of parameters and material attributes, quantify their relationships with critical quality attributes (CQAs) and key performance indicators (KPIs), and establish scientifically justified parameter ranges that support control strategy, validation, and lifecycle management.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that systematically develops scientific understanding of how process parameters and material attributes influence quality and performance outcomes</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ContinuedProcessVerification">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>continued process verification</rdfs:label>
+		<skos:example>During commercial monoclonal-antibody production, data on pH, dissolved oxygen, viable-cell density, and metabolite concentrations are trended across batches. Statistical analysis confirms that the process remains within expected variation and that no drift occurs.</skos:example>
+		<iof-av:acronym>CPV</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:counterExample>Generating a one-time validation report at the end of process qualification without further data collection is not CPV, because it does not provide ongoing assurance of control.</iof-av:counterExample>
+		<iof-av:explanatoryNote>Continued Process Verification is the third stage of process validation and extends beyond initial validation by embedding continuous monitoring and analysis into routine production.
+Manufacturers collect and evaluate data on critical process parameters, material attributes, quality attributes, and performance indicators to confirm that the process operates within established limits.
+This ongoing activity enables early detection of variability, supports statistical trend analysis, and provides the basis for corrective or preventive actions.
+Regulatory authorities, including the FDA and EMA, view CPV as a key element of lifecycle management ensuring consistent product quality throughout commercial manufacture.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that provides ongoing assurance during commercial manufacturing that a process remains in a state of control by means of periodic or continuous analysis of process data</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ControlLimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
 		<rdfs:label>control limit value expression</rdfs:label>
@@ -321,6 +358,18 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:naturalLanguageDefinition>information content entity that describes a manufacturing process through the boundary of material attribute and process parameter values beyond which that process can no longer maintain a validated state of control or assure product quality</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;FailureModeAndEffectAnalysisProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;RiskAnalysisProcess"/>
+		<rdfs:label>failure mode and effect analysis process</rdfs:label>
+		<skos:example>In a bioreactor operation, FMEA identifies “pH probe drift” as a failure mode. It is rated high in occurrence and moderate in severity but low in detectability, yielding a high RPN that triggers tighter calibration controls and redundant sensors.</skos:example>
+		<iof-av:acronym>FMEA</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
+		<iof-av:counterExample>Investigating a past batch failure without prospectively identifying potential failure modes is not FMEA;</iof-av:counterExample>
+		<iof-av:explanatoryNote>Failure Modes and Effects Analysis (FMEA) is a structured, prospective method for evaluating how a process, system, or material might fail and the consequences of those failures. It breaks complex processes into manageable elements to prioritize risks and support control strategies.
+In biopharmaceutical manufacturing, FMEA is typically used to assess unit operations, equipment, and material attributes, linking possible failures to their impact on product quality and patient safety. It supports the identification of critical process parameters (CPPs) and critical quality attributes (CQAs) by quantifying risk through metrics such as the Risk Priority Number (RPN). FMEA results often guide risk reduction actions, design improvements, or resource prioritization.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>risk analysis process that systematically identifies potential failure modes, evaluates their causes and effects, and estimates risk based on severity, occurrence, and detectability</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;InitialControlLimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ControlLimitValueExpression"/>
 		<rdfs:label>initial control limit value expression</rdfs:label>
@@ -536,6 +585,22 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. As an example there is currently no construct to reflect if a characteristic is measurable</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;performance indicator specification&apos; then x is an &apos;information content entity&apos; and x &apos;prescribes&apos; some &apos;temporal region&apos; or &apos;quality&apos; or &apos;process profile&apos; or &apos;process characteristic&apos; and x &apos;is about&apos; some &apos;objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:usageNote>Measurable characteritics in this case can be some quality,  temporal region, process profile or process characteristic which is reflected in the axiom.</iof-av:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessModelDevelopment">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process model development</rdfs:label>
+		<skos:example>During cell-culture process characterization, a mechanistic oxygen-transfer model and a data-driven regression model are developed to predict viable-cell density (performance indicator) and glycosylation profile (critical quality attribute) as functions of agitation rate, dissolved-oxygen setpoint, and glucose feed rate.</skos:example>
+		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/process-characterization-essentials-process-understanding-and-health-authorities-guidance and https://www.cytivalifesciences.com/en/us/insights/downstream-process-characterization</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This process uses experimental, historical, or platform data to generate and validate quantitative models that explain and predict the effects of process parameters and material attributes on critical quality attributes (CQAs) and key performance indicators (KPIs).
+It supports the definition of design space, setpoints, control ranges, and parameter criticality during process characterization and provides a scientific basis for subsequent validation and lifecycle verification activities.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that is part of process characterization and in which a mathematical or empirical model that captures and predicts how process parameters and material attributes influence quality and a performance indicator is developed</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameter">
@@ -771,6 +836,110 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:usageNote>These specifications may refer to intrinsic physical or chemical properties (such as pH or viscosity), to capabilities (such as binding affinity), or to the identity and proportion of distinguishable components (such as glycoforms, excipients, or host cell proteins). In cases where constitution or composition is relevant, the specification typically should me modeled as a quality that inheres in a continuant part of the material, such as the concentration or proportion of a specific component which is the &apos;quality of&apos; (inheres in) that specific component.</iof-av:usageNote>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;RiskAnalysisProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk analysis process</rdfs:label>
+		<skos:example>Using FMEA to estimate the combined likelihood and severity of cell-culture contamination caused by operator error, with detectability factored into a risk-priority number (RPN).</skos:example>
+		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Risk analysis transforms identified hazards into measurable or comparable levels of risk. It may be performed qualitatively or quantitatively and can include the likelihood of occurrence, the severity of consequences, and, where appropriate, the ability to detect a failure before harm occurs (detectability).
+In biopharmaceutical development, it supports Quality-by-Design (QbD) by linking process parameters and material attributes to potential effects on product quality and performance.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that estimates the magnitude of risks associated with identified hazards by evaluating the likelihood of their occurrence and the severity of potential harms.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskAssesmentProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>risk assesment process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskAnalysisProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEvaluationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>An FMEA is performed to evaluate how variations in temperature, pH, or raw-material quality could influence product titer and impurity profile, assigning severity, occurrence, and detection ratings to prioritise parameters requiring tighter control.</skos:example>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf and ISO 31000:2018</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A risk-assessment process systematically determines the likelihood and impact of undesirable events or conditions to support informed decision-making.
+It establishes a basis for prioritising control measures, mitigation strategies, or further study.
+In pharmaceutical development, it underpins Quality by Design (QbD) activities by identifying process parameters, material attributes, or operational factors that may affect critical quality attributes (CQAs) or performance indicators (KPIs).
+Commonly applied methods include failure mode and effects analysis (FMEA), hazard analysis and critical control points (HACCP), and risk-ranking and filtering (RRF).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that identifies, analyses, and evaluates risks associated with achieving a particular objective</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskEstimate">
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:label>risk estimate</rdfs:label>
+		<skos:example>The estimated risk for pH variability on product titer is medium (probability = 2, severity = 3, risk score = 6).</skos:example>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A risk estimate represents the outcome of a risk assessment by summarizing the likelihood and potential impact of undesired effects on objectives such as quality, performance, or safety.
+It may apply to processes, materials, equipment, or other operational elements and can be expressed as a numerical score, category (e.g., high–medium–low), or risk-priority number (RPN).
+In regulatory documents such as ICH Q9 (R1), this same concept is typically referred to simply as risk; the term risk estimate is used here to emphasize its informational nature as the assessed level of risk rather than the underlying event or hazard itself.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>Information content entity that consists of a combination of the probability of occurrence of harm and the severity of that harm</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskEvaluationProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAnalysisProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk evaluation process</rdfs:label>
+		<skos:example>Comparing FMEA-derived risk-priority numbers (RPNs) against acceptance criteria to decide that dissolved-oxygen variation must be mitigated through tighter control limits.</skos:example>
+		<iof-av:explanatoryNote>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Risk evaluation interprets the results of risk analysis by judging the significance of each risk against predefined criteria such as regulatory thresholds, process capability limits, or business objectives.
+It considers the robustness and quality of the supporting data and the strength of evidence underlying likelihood, severity, and detectability estimates.
+In biopharmaceutical development, risk evaluation helps prioritize which process parameters, material attributes, or operational factors require tighter control or further study.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that compares analyzed risks with defined acceptance criteria to determine whether each risk is acceptable or requires additional control or mitigation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskIdentificationProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>risk identification process</rdfs:label>
+		<skos:example>Identifying temperature, pH, and nutrient-feed rate as potential sources of risk to cell-culture viability.</skos:example>
+		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Risk identification establishes the foundation for risk assessment by revealing possible events, conditions, or process factors that may influence quality, safety, or performance outcomes.
+It answers the question “What might go wrong?” by using information such as historical data, theoretical analysis, expert judgment, and stakeholder concerns to build a structured understanding of potential risks.
+In biopharmaceutical contexts, as an example, it involves listing process parameters, material attributes, or operational factors that could influence critical quality attributes (CQAs) or key performance indicators (KPIs).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that systematically uses available information to recognize and record potential hazards or sources of risk relevant to a particular objective</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskRankingAndFilteringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;RiskAnalysisProcess"/>
+		<rdfs:label>risk ranking and filtering process</rdfs:label>
+		<skos:example>Using platform data and expert input, a team scores feed-glucose, osmolality, and pH control for impact on product quality. The RRF results rank glucose and osmolality highest, so these parameters are selected as potential CPPs for the next DoE study.</skos:example>
+		<iof-av:acronym>RRF</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf and https://www.cytivalifesciences.com/en/us/insights/downstream-process-characterization</iof-av:adaptedFrom>
+		<iof-av:counterExample>Listing all medium components that “might matter” without applying impact or likelihood scoring is not Risk Ranking and Filtering, since no structured prioritization is performed.</iof-av:counterExample>
+		<iof-av:explanatoryNote>Risk Ranking and Filtering (RRF) is a semi-quantitative method used to compare the relative importance of risks when multiple factors differ in nature or scale.
+It combines attributes such as severity, likelihood, and detectability into composite scores to support prioritization or selection of factors for further study.
+In biopharmaceutical process characterization, RRF identifies potential critical process parameters (pCPPs) and critical material attributes (pCMAs) based on platform knowledge and product-specific data, guiding experimental design and resource allocation.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>risk analysis process that estimates and prioritizes risks by ranking identified factors using weighted qualitative or quantitative criteria</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SetpointValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
 		<rdfs:subClassOf>
@@ -791,6 +960,48 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;setpoint value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;hasProcessParameter">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has process parameter</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:range rdf:resource="&iof-construct;ProcessParameter"/>
+		<owl:inverseOf rdf:resource="&iof-construct;isProcessParameterOf"/>
+		<skos:example>cell culture expansion process has process parameter pH; production culture process has process parameter temperature; production phase has process parameter agitation speed</skos:example>
+		<iof-av:naturalLanguageDefinition>relation between a planned process and a process parameter indicating that the parameter is monitored or controlled during the execution of that planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:usageNote>When this relation is used, it implies that the plan specification (e.g., a rec:RecipeProcessElement or other process plan) that prescribes the planned process must include as a continuant part the corresponding process parameter specification that prescribes the monitored or controlled parameter.
+In other words, the monitoring or control of a process parameter at execution level must be traceable to a parameter specification at the plan level via bfo:continuantPartOf</iof-av:usageNote>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isProcessParameterOf">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>is process parameter of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;ProcessParameter"/>
+		<rdfs:range rdf:resource="&iof-core;PlannedProcess"/>
+		<iof-av:naturalLanguageDefinition>inverse of has process parameter relation</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:DatatypeProperty rdf:about="&iof-construct;prescribesScaleInvariantParameter">
+		<rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+		<rdfs:label>prescribes scale-invariant parameter</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;ProcessParameterSpecification"/>
+		<rdfs:range rdf:resource="&xsd;boolean"/>
+		<iof-av:explanatoryNote>This property is a utility property used to capture simplified scale behavior. A more detailed treatment of parameter scale relationships and dependency modeling will be introduced in future versions of the ontology.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>data property that indicates whether a process parameter specification prescribes a parameter whose behavior or control does not change when the associated planned process is scaled up or scaled down</iof-av:naturalLanguageDefinition>
+		<iof-av:usageNote>A value of true means that the process parameter is considered scale invariant and its physical or biological behavior remains consistent across scales under equivalent operating conditions. A value of false means that the parameter exhibits scale dependency and its control behavior or impact changes with process scale, such as agitation speed or gas–liquid mass transfer coefficient.</iof-av:usageNote>
+	</owl:DatatypeProperty>
+	
+	<owl:DatatypeProperty rdf:about="&iof-construct;prescribesTimeInvariantParameter">
+		<rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+		<rdfs:label>prescribes time-invariant parameter</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;ProcessParameterSpecification"/>
+		<rdfs:range rdf:resource="&xsd;boolean"/>
+		<iof-av:explanatoryNote>1) In this context, effectively constant means that the parameter’s behavior or influence does not meaningfully change over the course of the process, aside from normal or negligible variation within expected process noise or measurement uncertainty.
+2) This property is a utility property used to represent simplified temporal behavior. A more detailed treatment of parameter dynamics will be introduced in future ontology versions.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>data property that indicates whether a process parameter specification prescribes a parameter that is expected to remain effectively constant over time during the associated process execution</iof-av:naturalLanguageDefinition>
+		<iof-av:usageNote>A value of true means that the parameter is treated as time invariant, meaning its value or effect on the process is stable over time.
+A value of false means that the parameter changes over time, either intentionally or inherently, due to process dynamics, adaptive control strategies, or evolving biological or physical conditions.</iof-av:usageNote>
+	</owl:DatatypeProperty>
 	
 	<owl:Axiom>
 		<bfo:IAO_0010000 rdf:resource="http://purl.obolibrary.org/obo/bfo/axiom/093-002"/>
