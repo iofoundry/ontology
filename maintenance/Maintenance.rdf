@@ -3,7 +3,7 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
-	<!ENTITY iof-const "https://spec.industrialontologies.org/ontology/construct/">
+	<!ENTITY iof-constr "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
 	<!ENTITY obo "http://purl.obolibrary.org/obo/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
@@ -17,7 +17,7 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
-	xmlns:iof-const="https://spec.industrialontologies.org/ontology/construct/"
+	xmlns:iof-constr="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
 	xmlns:obo="http://purl.obolibrary.org/obo/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -40,13 +40,13 @@
 		<dcterms:references rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
 		<dcterms:title>Industrial Ontology Foundry (IOF) Maintenance Reference Ontology</dcterms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202401/maintenance/Maintenance/"/>
-		<iof-av:copyright>Copyright (c) 2023 Open Applications Group</iof-av:copyright>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202502/maintenance/Maintenance/"/>
+		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Provisional"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&iof-const;DegradedState">
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceState"/>
+	<owl:Class rdf:about="&iof-constr;DegradedState">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceState"/>
 		<rdfs:label xml:lang="en-US">degraded state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>having a small crack, having a partial blockage, having an oscillating reading</skos:example>
@@ -57,14 +57,14 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;degraded state&apos; then x is a &apos;maintenance state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;DispositionToExhibitUndesirableBehavior">
-		<rdfs:subClassOf rdf:resource="&iof-const;UndesireableDisposition"/>
+	<owl:Class rdf:about="&iof-constr;DispositionToExhibitUndesirableBehavior">
+		<rdfs:subClassOf rdf:resource="&iof-constr;UndesireableDisposition"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
 				<owl:allValuesFrom>
 					<owl:Class>
-						<owl:complementOf rdf:resource="&iof-const;FailureProcess"/>
+						<owl:complementOf rdf:resource="&iof-constr;FailureProcess"/>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
@@ -81,12 +81,12 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;disposition to undesirable behavior&apos; and x &apos;realizes&apos; some &apos;process&apos; p then p is not a &apos;failure process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;DispositionToFail">
-		<rdfs:subClassOf rdf:resource="&iof-const;UndesireableDisposition"/>
+	<owl:Class rdf:about="&iof-constr;DispositionToFail">
+		<rdfs:subClassOf rdf:resource="&iof-constr;UndesireableDisposition"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;FailureProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;FailureProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">disposition to fail</rdfs:label>
@@ -99,17 +99,17 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;disposition to fail&apos; then x  is a &apos;undesireable disposition&apos; that &apos;has realization&apos; some &apos;failure process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FailedState">
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceState"/>
+	<owl:Class rdf:about="&iof-constr;FailedState">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceState"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000062"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-const;DegradedState">
+							<rdf:Description rdf:about="&iof-constr;DegradedState">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-const;OperatingState">
+							<rdf:Description rdf:about="&iof-constr;OperatingState">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -119,22 +119,22 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000167"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintainableMaterialItem"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty>
 					<rdf:Description>
-						<owl:inverseOf rdf:resource="&iof-const;initiates"/>
+						<owl:inverseOf rdf:resource="&iof-constr;initiates"/>
 					</rdf:Description>
 				</owl:onProperty>
-				<owl:someValuesFrom rdf:resource="&iof-const;FailureEvent"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;FailureEvent"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">failed state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
-		<owl:disjointWith rdf:resource="&iof-const;OperatingState"/>
+		<owl:disjointWith rdf:resource="&iof-constr;OperatingState"/>
 		<skos:example>is broken in two, is burst, is failing to turn on</skos:example>
 		<iof-av:firstOrderLogicDefinition>FailedState(o1) ↔ MaintenanceState(o1) ∧ ∃i(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(o1, i) ∧ ∃e(FailureEvent(e) ∧ initiates(e, o1)) ∧ ∃o2((DegradedState(o2) ∨ OperatingState(o2) ∧ hasParticipantAtAllTimes(o2,i)) ∧ precedes(o2, o1)) ∧ ¬∃o3((DegradedState(o3) ∨ OperatingState(o3)) ∧ hasParticipantAtAllTimes(o3,i) ∧ precedes(o2, o3) ∧ precedes(o3, o1)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
@@ -142,7 +142,7 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>&quot;failed state&apos;: every instance of &apos;failed state&apos; is defined as exactly an instance of &apos;maintenance state&apos; o1 that &apos;has participant at all times&apos; some &apos;maintainable material item&apos; i and that is &apos;initiated by&apos; some &apos;failure event&apos; and is &apos;preceded by&apos; some (&apos;degraded state&apos; or &apos;operating state&apos;) o2 that &apos;has participant at all times&apos; i and there is no (&apos;degraded state&apos; or &apos;operating state&apos; ) o3 such that o3 &apos;has participant at all times&apos; i and o2 &apos;precedes&apos; o3 and o3 &apos;precedes&apos; o1&quot;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FailureEffect">
+	<owl:Class rdf:about="&iof-constr;FailureEffect">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -150,9 +150,9 @@
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-const;FailureEvent">
+							<rdf:Description rdf:about="&iof-constr;FailureEvent">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-const;FailureProcess">
+							<rdf:Description rdf:about="&iof-constr;FailureProcess">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -170,12 +170,12 @@
 		<iof-av:usageNote>Failure effect does not make any commitments to what types of BFO:process can or cannot be considered effects of (functional) failure. Therefore, failure effect can classify any BFO:process (part or whole), indicating that the process is considered the result of a failure for the purposes of maintenance.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FailureEvent">
-		<rdfs:subClassOf rdf:resource="&iof-const;Event"/>
+	<owl:Class rdf:about="&iof-constr;FailureEvent">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Event"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;initiates"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;FailedState"/>
+				<owl:onProperty rdf:resource="&iof-constr;initiates"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;FailedState"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">failure event</rdfs:label>
@@ -190,12 +190,12 @@
 		<iof-av:synonym>failure</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FailureModeCode">
-		<rdfs:subClassOf rdf:resource="&iof-const;InformationContentEntity"/>
+	<owl:Class rdf:about="&iof-constr;FailureModeCode">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;describes"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;UndesireableDisposition"/>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;UndesireableDisposition"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">failure mode code</rdfs:label>
@@ -210,7 +210,7 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;failure mode code&apos; then x is an &apos;information content entity&apos; and there is some &apos;undesirable disposition&apos; that &apos;is described by&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FailureProcess">
+	<owl:Class rdf:about="&iof-constr;FailureProcess">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
 		<rdfs:label xml:lang="en-US">failure process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
@@ -221,7 +221,7 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000055"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;DispositionToFail"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DispositionToFail"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -234,7 +234,7 @@
 		<iof-av:synonym>functional failure</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;FunctioningProcess">
+	<owl:Class rdf:about="&iof-constr;FunctioningProcess">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
 		<rdfs:label xml:lang="en-US">functioning process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
@@ -259,8 +259,8 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;functioning process&apos; is defined as exactly an instance of &apos;process&apos; that &apos;realizes&apos; some &apos;function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;MaintenanceActivity">
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceProcess"/>
+	<owl:Class rdf:about="&iof-constr;MaintenanceActivity">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceProcess"/>
 		<rdfs:label xml:lang="en-US">maintenance activity</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>replace activity, repair activity, inspect activity</skos:example>
@@ -271,24 +271,24 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;maintenance activity&apos; then x is a &apos;maintenance process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;MaintenanceProcess">
-		<rdfs:subClassOf rdf:resource="&iof-const;PlannedProcess"/>
+	<owl:Class rdf:about="&iof-constr;MaintenanceProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000167"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintainableMaterialItem"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;hasInput"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintainableMaterialItem"/>
+				<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceStrategy"/>
+				<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceStrategy"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">maintenance process</rdfs:label>
@@ -305,18 +305,18 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: if p is &apos;maintenance process&apos; then there is some &apos;maintainable material item&apos; x such that p &apos;has input&apos; x and p &apos;has participant at all times&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;MaintenanceState">
-		<rdfs:subClassOf rdf:resource="&iof-const;MaterialState"/>
+	<owl:Class rdf:about="&iof-constr;MaintenanceState">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialState"/>
 		<rdfs:label xml:lang="en-US">maintenance state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;DegradedState">
+					<rdf:Description rdf:about="&iof-constr;DegradedState">
 					</rdf:Description>
-					<rdf:Description rdf:about="&iof-const;FailedState">
+					<rdf:Description rdf:about="&iof-constr;FailedState">
 					</rdf:Description>
-					<rdf:Description rdf:about="&iof-const;OperatingState">
+					<rdf:Description rdf:about="&iof-constr;OperatingState">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -328,8 +328,8 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;maintenance state&apos; is defined as exactly an instance of &apos;operating state&apos; or exactly an instance of &apos;degraded state&apos; or exactly an instance of &apos;failed state&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;MaintenanceStrategy">
-		<rdfs:subClassOf rdf:resource="&iof-const;PlanSpecification"/>
+	<owl:Class rdf:about="&iof-constr;MaintenanceStrategy">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlanSpecification"/>
 		<rdfs:label xml:lang="en-US">maintenance strategy</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>specification of a corrective strategy for maintaining a pump (or pumps) of a plant</skos:example>
@@ -340,22 +340,22 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;maintenance process&apos; then x is a &apos;maintenance strategy&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;MaintenanceWorkOrderRecord">
-		<rdfs:subClassOf rdf:resource="&iof-const;InformationContentEntity"/>
+	<owl:Class rdf:about="&iof-constr;MaintenanceWorkOrderRecord">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">maintenance work order record</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;InformationContentEntity">
+					<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;describes"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceProcess"/>
+						<owl:onProperty rdf:resource="&iof-constr;describes"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;isInputOf"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceProcess"/>
+						<owl:onProperty rdf:resource="&iof-constr;isInputOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -371,8 +371,8 @@
 		<iof-av:synonym>maintenance work order</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;OperatingState">
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceState"/>
+	<owl:Class rdf:about="&iof-constr;OperatingState">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceState"/>
 		<rdfs:label xml:lang="en-US">operating state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>running at desired speed, producing required power, pumping desired volume</skos:example>
@@ -385,8 +385,8 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;operating state&apos; then x is a &apos;maintenance state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;QualificationSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-const;RequirementSpecification"/>
+	<owl:Class rdf:about="&iof-constr;QualificationSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;RequirementSpecification"/>
 		<rdfs:label xml:lang="en-US">qualification specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>electrical trade qualification, welding qualification, registered engineer</skos:example>
@@ -397,30 +397,30 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;qualification specification&apos; then x is a &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;QualifiedMaintenancePerson">
-		<rdfs:subClassOf rdf:resource="&iof-const;Person"/>
+	<owl:Class rdf:about="&iof-constr;QualifiedMaintenancePerson">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Person"/>
 		<rdfs:label xml:lang="en-US">qualified maintenance person</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<rdfs:seeAlso>qualification specification</rdfs:seeAlso>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;Person">
+					<rdf:Description rdf:about="&iof-constr;Person">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000056"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceActivity"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceActivity"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;satisfiesRequirement"/>
+						<owl:onProperty rdf:resource="&iof-constr;satisfiesRequirement"/>
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;QualificationSpecification">
+									<rdf:Description rdf:about="&iof-constr;QualificationSpecification">
 									</rdf:Description>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-const;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceActivity"/>
+										<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceActivity"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
@@ -437,18 +437,18 @@
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘qualified maintenance person’ is defined as exactly an instance of &apos;person&apos; that &apos;participates in at some time&apos; some &apos;maintenance activity&apos; p and that &apos;satifies&apos; some &apos;qualification specification&apos; that &apos;prescribes&apos; p</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;RequiredFunction">
+	<owl:Class rdf:about="&iof-constr;RequiredFunction">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000034"/>
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&obo;BFO_0000056"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;FunctioningProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;FunctioningProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-const;functionOf"/>
-						<owl:someValuesFrom rdf:resource="&iof-const;MaintainableMaterialItem"/>
+						<owl:onProperty rdf:resource="&iof-constr;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -467,8 +467,8 @@
 		<iof-av:synonym>primary function</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;SupportingMaintenanceActivity">
-		<rdfs:subClassOf rdf:resource="&iof-const;PlannedProcess"/>
+	<owl:Class rdf:about="&iof-constr;SupportingMaintenanceActivity">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">supporting maintenance activity</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<skos:example>activities that do not change the state of the asset but are done by maintenance personnel such as reporting activity, isolate activity, move activity, training activity</skos:example>
@@ -479,16 +479,16 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;supporting maintenance activity&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-const;UndesireableDisposition">
+	<owl:Class rdf:about="&iof-constr;UndesireableDisposition">
 		<rdfs:subClassOf rdf:resource="&obo;BFO_0000016"/>
 		<rdfs:label xml:lang="en-US">undesireable disposition</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;DispositionToExhibitUndesirableBehavior">
+					<rdf:Description rdf:about="&iof-constr;DispositionToExhibitUndesirableBehavior">
 					</rdf:Description>
-					<rdf:Description rdf:about="&iof-const;DispositionToFail">
+					<rdf:Description rdf:about="&iof-constr;DispositionToFail">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -503,18 +503,18 @@ We asset that disposition to exhibit undesirable behavior is the disposition of 
 		<iof-av:synonym>failure mode</iof-av:synonym>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;hasMaintenanceState">
+	<owl:ObjectProperty rdf:about="&iof-constr;hasMaintenanceState">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000056"/>
 		<rdfs:label xml:lang="en-US">has maintenance state</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;MaintainableMaterialItem"/>
+		<rdfs:domain rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;MaintenanceState"/>
-		<owl:inverseOf rdf:resource="&iof-const;maintenanceStateOf"/>
+		<rdfs:range rdf:resource="&iof-constr;MaintenanceState"/>
+		<owl:inverseOf rdf:resource="&iof-constr;maintenanceStateOf"/>
 		<skos:example>has partial function or loss of function</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">inverse of &apos;stateOf&apos;</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;initiates">
+	<owl:ObjectProperty rdf:about="&iof-constr;initiates">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000063"/>
 		<rdfs:label xml:lang="en-US">initiates</rdfs:label>
 		<rdfs:domain rdf:resource="&obo;BFO_0000003"/>
@@ -524,7 +524,7 @@ We asset that disposition to exhibit undesirable behavior is the disposition of 
 				<owl:unionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&obo;BFO_0000015">
 					</rdf:Description>
-					<rdf:Description rdf:about="&iof-const;Event">
+					<rdf:Description rdf:about="&iof-constr;Event">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -533,45 +533,45 @@ We asset that disposition to exhibit undesirable behavior is the disposition of 
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">comes before an event or process in time and results in beginning or creation of the event or process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;maintenanceStateOf">
+	<owl:ObjectProperty rdf:about="&iof-constr;maintenanceStateOf">
 		<rdfs:subPropertyOf rdf:resource="&obo;BFO_0000167"/>
 		<rdfs:label xml:lang="en-US">maintenance state of</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-const;MaintenanceState"/>
+		<rdfs:domain rdf:resource="&iof-constr;MaintenanceState"/>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/maintenance/Maintenance/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-const;MaintainableMaterialItem"/>
+		<rdfs:range rdf:resource="&iof-constr;MaintainableMaterialItem"/>
 		<skos:example>the physical or software asset</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that describes the maintenance state of a maintainable item</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-const;DegradedState">
+			<rdf:Description rdf:about="&iof-constr;DegradedState">
 			</rdf:Description>
-			<rdf:Description rdf:about="&iof-const;FailedState">
+			<rdf:Description rdf:about="&iof-constr;FailedState">
 			</rdf:Description>
-			<rdf:Description rdf:about="&iof-const;OperatingState">
+			<rdf:Description rdf:about="&iof-constr;OperatingState">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceProcess"/>
 		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-const;PlannedProcess">
+			<rdf:Description rdf:about="&iof-constr;PlannedProcess">
 			</rdf:Description>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceStrategy"/>
+				<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceStrategy"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-const;MaintenanceStrategy"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaintenanceStrategy"/>
 		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-const;PlanSpecification">
+			<rdf:Description rdf:about="&iof-constr;PlanSpecification">
 			</rdf:Description>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-const;MaintenanceProcess"/>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaintenanceProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
