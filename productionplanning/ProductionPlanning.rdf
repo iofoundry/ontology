@@ -16,6 +16,7 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
+	xmlns="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
 	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -97,7 +98,6 @@ version 202502</owl:versionInfo>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>physical artefact or system that transforms energy or material through guided mechanical, electrical or fluid power for performing one or more processes.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Many of the core characterizations of machine captured in the trait analysis (see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis) cannot be formally expressed, especially energy transformation, power, control, motion and mechanical structures.</iof-av:primitiveRationale>
-		<iof-av:primitiveRationale>Many of the core characterizations of tool captured in the trait analysis (see https://oagi.atlassian.net/wiki/spaces/IOF/pages/5952208897/Characterization+of+machines+and+tools#Trait-analysis) cannot be formally expressed, especially energy transformation, power, control, motion and mechanical structures.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is a machine then x is a physical artefact and x transforms energy or material through guided mechanical, electrical or fluid power in order to perform one or more processes</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:subjectMatterExpertExplanation>- “physical artefact” emphasises that the entity is a concrete built thing.
 - “transforms energy or material” captures the notion of machines doing work (e.g., moving parts, powering machining, mixing, conveying).
@@ -466,10 +466,10 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en-US">processing step</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
-		<iof-av:firstOrderLogicDefinition>processingStep(x) ↔ manufacturingEnterpriseProcess(x) ∧ ∃p (manufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processingStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>processingStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processingStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">A unit subprocess of an operation which does not contain any other processing step and at least one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The class may contain many other varieties of processes along with a manufacturing process. The clause of &quot;no further decomposition of step using step&quot; is avoided to keep OWL axioms negation-free.</iof-av:primitiveRationale>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">A unit subprocess of an operation which does not contain any other processing step and exactly one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The class may contain many other varieties of processes along with a manufacturing process. The clause of &quot;no further decomposition of step using step&quot; is avoided to keep OWL axioms negation-free. Also, we do not use cardinality in axioms.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote>Along with the instance of manufacturing process, processing step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
 	</owl:Class>
@@ -478,7 +478,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-constr;ActionSpecification"/>
 		<rdfs:label xml:lang="en-US">processing step specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-US">The specification of a processing step may be the shortest or most inner part of the information content used for prescribing a processing step. However, the processing step specification can be an identifier, a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot; , or a detailed information block for the input materials, product design, recipe, various and measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote xml:lang="en-US">The specification of a processing step may be the shortest or most inner part of the information content used for prescribing a process plan. However, the processing step specification can either be a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot;, or a detailed information block for the input materials, product design, recipe, various measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">An action specification that prescribes some processing steps.</iof-av:naturalLanguageDefinition>
@@ -593,7 +593,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-US">Production of a batch of 1,000 plastic containers and 100 lids in one week, production of 200 wooden chairs at the wood workshop to be completed by August 9. In the first quarter of 2025, the sewing department will produce 500 shirts.</skos:example>
 		<iof-av:firstOrderLogicAxiom>PlanSpecification(x) ∧ ∃y(prescribes(x,y) ∧ ProductProductionProcess(y)) → ProductionPlan(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecification(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V TransferPlan(z)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ProductionPlan(x) ↔ PlanSpecification(x) ∧ ∀y (continuantPartAtAllTimes(y,x) ∧ ObjectiveSpecification(y)) → ProductionOrder(y)) ∧ ∀z (continuantPartAtAllTimes(z,x)  ∧ PlanSpecification(z) → (ProcessPlan(z) V InspectionPlan(z) V MaterialHandlingPlan(z)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Plan that aims at producing one or multiple products as specified or fulfills some production order.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specifcation&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;production plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
