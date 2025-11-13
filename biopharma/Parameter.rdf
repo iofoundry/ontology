@@ -70,10 +70,11 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
 		<rdfs:label>action limit value expression</rdfs:label>
 		<skos:altLabel>action limit</skos:altLabel>
-		<skos:example>Chromatography column pressure has a control range of 1.0–2.0 bar and an action limit of 2.0 bar. When pressure reaches 2.0 bar, the process is considered out of control, and corrective action is required to reduce pressure and prevent potential column damage or product loss; Dissolved oxygen (DO) in a bioreactor has a setpoint of 40 % air saturation and a control range of 35–45 %. The lower action limit is 35 % and the upper action limit is 45 %. Crossing either boundary requires immediate adjustment of aeration or agitation to restore DO control and maintain cell metabolism</skos:example>
+		<skos:example>Chromatography column pressure has a control limit of 1.5 bar and an action limit of 2.0 bar. When pressure reaches 2.0 bar, the process is considered out of control, and corrective action is required to reduce pressure and prevent potential column damage or product loss; Dissolved oxygen (DO) in a bioreactor has a setpoint of 40 % air saturation and a NOR of 35–45 %. The lower action limit is 30 % and the upper action limit is 50 %. Crossing either boundary requires immediate adjustment of aeration or agitation to restore DO control and maintain cell metabolism</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) An action limit defines the boundary at which a process parameter has moved outside its controlled operating conditions. It is positioned above the alert limit and below any critical or specification limit. When crossed, it triggers investigation and corrective action within the quality system to restore the parameter within its control range. 
-2) Action limits are part of the internal process control framework and are not regulatory reporting limits.</iof-av:explanatoryNote>
+2) Action limits are part of the internal process control framework and are not regulatory reporting limits.
+3) FDA Guidance for industry, Sterile Drug Products Produced by Aseptic Processing - Current GMP Manufacturing Process  - &quot;Environmental monitoring data will provide information on the quality of the manufacturing environment. Each individual sample result should be evaluated for its significance by comparison to the alert or action levels. Averaging of results can mask unacceptable localized conditions. A result at the alert level urges attention to the approaching action conditions. A result at the action level should prompt a more thorough investigation.&quot;</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which corrective action is required to bring the process back under control and to prevent potential impact on process performance or product quality</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -81,22 +82,16 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
 		<rdfs:label>alert limit value expression</rdfs:label>
 		<skos:altLabel>alert limit</skos:altLabel>
-		<skos:example>Chromatography column pressure has a control range of 1.0–2.0 bar and an alert limit of 1.8 bar. When pressure exceeds 1.8 bar, the alert signals potential fouling or blockage that could soon reach the action limit of 2.0 bar</skos:example>
+		<skos:example>Chromatography column pressure has a control limit of 1.5 bar and an alert limit of 1.8 bar. When pressure exceeds 1.8 bar, the alert signals potential fouling or blockage that could soon reach the action limit of 2.0 bar</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.gmp-publishing.com/content/en/gmp-questionoftheday/what-is-an-alert-limit#:~:text=Alert%20limit:%20A%20pre%2Ddetermined,to%20a%20predefined%20action%20plan. and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1)An alert limit serves as an early warning indicator of process drift. It is typically established from process data using statistical methods such as control charts or capability analysis and is periodically reassessed during continued process verification (CPV).
 2)The alert limit does not represent a specification or regulatory boundary. Instead, it supports proactive control by identifying trends or variations that may lead toward an action limit or out-of-specification condition if not corrected.
-3) In the hierarchy of limits, alert limits are sitting below Action and Critical Limits.</iof-av:explanatoryNote>
+3) In the hierarchy of limits, alert limits are sitting below Action Limits.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label>biopharmaceutical manufacturing process characterization</rdfs:label>
 		<skos:example>cell culture process characterization to determine the effect of temperature and glucose feeding on product glycosylation</skos:example>
 		<iof-av:acronym>PC</iof-av:acronym>
@@ -106,12 +101,66 @@
 		<iof-av:naturalLanguageDefinition>planned process that systematically develops scientific understanding of how process parameters and material attributes influence quality and performance outcomes</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessDesign">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;PlanSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biopharmaceutical manufacturing process design</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Process Design corresponds to Stage 1 of FDA’s Process Validation lifecycle.
+Its purpose is to establish the scientific and engineering understanding needed to design a robust commercial process. Activities include integration of prior knowledge, risk assessment, process characterization studies, model development, identification of critical process parameters (CPPs), classification of material attributes, establishment of operating ranges (e.g., setpoints, NORs, PARs), and definition of the control strategy.
+2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that defines and develops the commercial manufacturing process, including process parameters, materials, and control elements to establish a process design</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessQualification">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessDesign"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biopharmaceutical manufacturing process qualification</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Process Qualification corresponds to Stage 2 of FDA’s Process Validation lifecycle and includes both qualification of equipment and facility (Stage 2A) and Process Performance Qualification (PPQ) (Stage 2B). Execution of PPQ batches and associated analytical evaluation provides evidence that the process can consistently operate within its defined parameters and produce material meeting predetermined quality criteria. Process Qualification relies on knowledge generated in Stage 1 Process Characterization and precedes Stage 3 Continued Process Verification.
+2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that evaluates the manufacturing process, facility, equipment, and personnel under a pre-approved protocol to demonstrate that the process design is capable of reproducible commercial manufacturing</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ContinuedProcessVerification">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessQualification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>continued process verification</rdfs:label>
@@ -294,8 +343,7 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:acronym>DSp</iof-av:acronym>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.biophorum.com/download/cvp-case-study-interactive-version/
 and  https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-improving-understanding-normal-operating-range-nor-proven-acceptable-range-par-design-space-dsp-and-normal-variability-process-parameters_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>The design space represents the highest level of operational flexibility. It encompasses the combined interactions of process parameters and material attributes, typically established through designed experiments or multivariate modeling. Operation within the design space is considered to maintain a validated state of control and does not constitute a regulatory change, whereas movement outside the design space may require justification or regulatory variation. The design space is defined by process understanding and risk assessment, and may apply to a single unit operation or span multiple operations.
-A DSp can be restricted by ranges of process parameters only, input material attributes only, or a combination of process parameters and input material attributes.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>The design space represents the highest level of operational flexibility. It encompasses the combined interactions of all statistically significant process parameters and all statistically significant material attributes identified through risk assesment, typically established through designed experiments or multivariate modeling. Operation within the design space is considered to maintain a validated state of control and does not constitute a regulatory change, whereas movement outside the design space may require justification or regulatory variation. The design space is defined by process understanding and risk assessment, and may apply to a single unit operation or span multiple operations.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>information content entity that describes a manufacturing process through a multidimensional region of combinations of material attribute and process parameter values within which that process maintains a validated state of control and assures product quality</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -483,7 +531,7 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NormalOperatingRangeValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterRangeValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -505,7 +553,7 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<iof-av:explanatoryNote>NOR is the span within which process is designed to function under typical conditions. This range is distinct from the broader ranges, which may include values associated with abnormal operation or alarm conditions. When a process parameter remains within the normal operating range, no alarm is expected to trigger, as the process parameter is considered to be under control.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NormalOperatingRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y)) ∧ ∃z (SetpointValueExpression(z) ∧ hasContinuantPartAtAllTimes(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that is a range around a set point within which a particular process parameter is expected to vary during normal operation of a process process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter range around a set point within which a particular process parameter is expected to vary during normal operation of a process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -634,6 +682,12 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process parameter&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; and that is &apos;prescribed by&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ProcessParameterExcursion">
+		<rdfs:subClassOf rdf:resource="&iof-core;Event"/>
+		<rdfs:label>process parameter excursion</rdfs:label>
+		<iof-av:naturalLanguageDefinition>event in which the value of a process parameter is recognized to be outside its defined operating limits or acceptable range during execution of a particular processing step</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ProcessParameterLimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
 		<rdfs:subClassOf>
@@ -645,6 +699,19 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<rdfs:label>process parameter limit value expression</rdfs:label>
 		<skos:example>action limit, control limit, alert limit</skos:example>
 		<iof-av:naturalLanguageDefinition>value expression which is a threshold for a process parameter associated with process monitoring or control</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessParameterRangeValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;ProcessParameter"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process parameter range value expression</rdfs:label>
+		<skos:altLabel>process parameter range</skos:altLabel>
+		<iof-av:naturalLanguageDefinition>value expression which specifies the interval of allowable, planned, or observable values for a process parameter</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameterSpecification">
@@ -691,7 +758,7 @@ It supports the definition of design space, setpoints, control ranges, and param
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProvenAcceptableRangeValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterRangeValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
@@ -707,7 +774,7 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:explanatoryNote>The PAR is established based on process development and validation activities, and it is typically narrower than the full instrument span. It defines the boundaries for making saleable product, and excursions outside this range are considered process deviations that may require investigation and corrective action.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ProvenAcceptableRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression range that has been validated through testing or documented experience and that is a prescribed range within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter range that has been validated through testing or documented experience and that is a prescribed interval within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;proven acceptable range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -942,6 +1009,12 @@ In biopharmaceutical process characterization, RRF identifies potential critical
 	
 	<owl:Class rdf:about="&iof-construct;SetpointValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;ProcessParameter"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
