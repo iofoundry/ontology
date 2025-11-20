@@ -277,11 +277,11 @@ version 202502</owl:versionInfo>
 		<iof-av:explanatoryNote xml:lang="en-us">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
 
 In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessingStep(x1) ∧ ProcessingStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessStep(x1) ∧ ProcesStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">Manufacturing enterprise process that aggregates only those process steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The common grouping criteria cannot be formalized for this class and therefore only a necessary condition could be derived which does not check the &quot;common resource for all step&quot; condition. Furthermore, the use of operation in batch and continuous manufacturing many provide some more refinement on the role of the common participant.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>For any two distinct processing steps within the same manufacturing operation, if those steps are realized by two manufacturing processes that each have a participant playing an equipment role, then those two participants (equipment) must be the same individual.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>For any two distinct process steps within the same manufacturing operation, if those steps are realized by two manufacturing processes that each have a participant playing an equipment role, then those two participants (equipment) must be the same individual.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialHandlingPlan">
@@ -476,25 +476,25 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-us">process step</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
-		<iof-av:firstOrderLogicDefinition>processingStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processingStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
+		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are process step</skos:example>
+		<iof-av:firstOrderLogicDefinition>processStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">A unit subprocess of an operation which does not contain any other processing step and exactly one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">A unit subprocess of an operation which does not contain any other process step and exactly one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The class may contain many other varieties of processes along with a manufacturing process. The clause of &quot;no further decomposition of step using step&quot; is avoided to keep OWL axioms negation-free. Also, we do not use cardinality in axioms.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>Along with the instance of manufacturing process, processing step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;process step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:usageNote>Along with the instance of manufacturing process, process step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;ProcessingStepSpecification">
+	<owl:Class rdf:about="&iof-constr;ProcessStepSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-constr;ActionSpecification"/>
-		<rdfs:label xml:lang="en-us">processing step specification</rdfs:label>
+		<rdfs:label xml:lang="en-us">process step specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-us">A processing-step specification is the atomic instruction within a process plan—the most specific, detailed, and direct component. It defines required input materials, recipes, dimensions, tolerances, attributes, and any necessary in-process handling or machine configurations. In some cases, it may be as simple as a label or brief instruction, such as “drill ten 0.45-inch holes in a 3&apos; × 5&apos; sheet.”</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote xml:lang="en-us">A process-step specification is the atomic instruction within a process plan—the most specific, detailed, and direct component. It defines required input materials, recipes, dimensions, tolerances, attributes, and any necessary in-process handling or machine configurations. In some cases, it may be as simple as a label or brief instruction, such as “drill ten 0.45-inch holes in a 3&apos; × 5&apos; sheet.”</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some processing steps.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">An action specification that prescribes some process steps.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;process step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProductInspectionProcess">
@@ -765,7 +765,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessingStepSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessStepSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;ActionSpecification">
 			</rdf:Description>
