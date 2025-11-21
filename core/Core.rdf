@@ -454,15 +454,7 @@ Monotocity: 𝑃𝑥𝑦→∀𝑧(𝐶𝑥𝑧→𝐶𝑦𝑧) If x is part of 
     <!-- https://spec.industrialontologies.org/ontology/core/Core/fills -->
 
     <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/fills">
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity"/>
-                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/DesignativeInformationContentEntity"/>
-                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/DirectiveInformationContentEntity"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
+        <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
         <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
         <rdfs:label xml:lang="en">fills</rdfs:label>
     </owl:ObjectProperty>
@@ -3001,6 +2993,18 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000031"/>
+        <rdfs:label xml:lang="en">information slot</rdfs:label>
+        <iof-av:abbreviation>IS</iof-av:abbreviation>
+        <iof-av:explanatoryNote xml:lang="en">1. Each subclass of information slot impies specific relations among the entitites that are the subjects of the information content entities (mediated by subtype of information slot).
+
+2. An information content entity can still be continuant part of another information content entity, but parthood among information content entity does not necessarily imply parthood among the entities referred by them.
+
+3. Similar to information content entity, information slot is intended to be a class of entities whose instances represent some distinct pattern independent from the various ways of conveying it by physical, electronic, or other means. For example, a sales order may have its items mediated by component slots, which can be conveyed by different carriers in different ways, e.g., an XML node &lt;SalesOrderItem&gt;, a section header, a column, a row or a cell of a table.</iof-av:explanatoryNote>
+        <iof-av:firstOrderLogicAxiom>Axiom 1: slotOf(t, a) ∧ slotOf(t, b) → a ≠ b</iof-av:firstOrderLogicAxiom>
+        <iof-av:firstOrderLogicDefinition>InformationSlot(x) ↔ GenericallyDependentContinuant(x) ∧ ∃i (InformationContentEntity(i) ∧ slotOf(x, i)</iof-av:firstOrderLogicDefinition>
+        <iof-av:naturalLanguageDefinition xml:lang="en">a pattern (generically depedent continuant) that mediates how two or more information content entities are related and how such relation trnslates to the relations among the entities referred by the information content entitties.</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageAxiom>Axiom 1: No two information content entities can have the same slot.</iof-av:semiFormalNaturalLanguageAxiom>
+        <iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;information slot&apos; if and only if x is a &apos;generically depedent continuant&apos; and there exists an &apos;information content entity&apos; that x is &apos;slot of&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
@@ -4808,6 +4812,33 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/core/Core/TimeSlot -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Core/TimeSlot">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/filledBy"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/TemporalDurationValueExpression"/>
+                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/TemporalInstantValueExpression"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+        <rdfs:comment xml:lang="en">time slot</rdfs:comment>
+    </owl:Class>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/core/Core/ValueExpression -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/core/Core/ValueExpression">
@@ -5085,6 +5116,36 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
             </owl:Restriction>
         </owl:intersectionOf>
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ComponentSlot"/>
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/slotOf"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/ParticipantSlot"/>
+    </owl:Class>
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/InformationSlot"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/slotOf"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/isAbout"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/TimeSlot"/>
     </owl:Class>
     <owl:Class>
         <owl:intersectionOf rdf:parseType="Collection">
