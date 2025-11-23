@@ -273,9 +273,8 @@ version 202502</owl:versionInfo>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">manufacturing operation</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-US">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
-
-In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote xml:lang="en-US">An operation may consist of a single step and in such cases may include the same information as that in the process specification. However, in many situations, multiple steps are required to be performed on a machine to produce a single feature or to achieve a specific quality, geometric shape, or dimension of the designated product or component.
+In such multi-step operations, the primary equipment may require reconfiguration, including the attachment or detachment of tools or accessories. Additionally, the material may need to be repositioned or handled between steps, all of which are considered integral parts of the operation.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessStep(x1) ∧ ProcesStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Manufacturing enterprise process that aggregates only those process steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
@@ -401,8 +400,8 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:firstOrderLogicDefinition>AgentRole(x) → Role(x) ∧ ∃a ∃s ∃c ∃e ( Agent(a) ∧ roleOf(x,a) ∧  skill(s) ∧ hasCapability(a,s) ∧ Capability(c) ∧ PieceOfEquipment(e) ∧ capabilityOf(c,e) ∧ enables(s,c))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by an agent when it possesses a skill that enables a capability of a piece of equipment.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>1. No construct of &apos;skill&apos; is available. The definition uses capability, which is expected to be supertype of skill but is yet to be developed.
-2. It&apos;s definition sses a newly admitted primitive relation called `enables&apos; which is yet to be discussed and accepted by the IOF community and will possibly moved to core.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>The ontology does not yet include a construct for &apos;skill&apos;. The current definition refers to &apos;capability&apos;, which is intended to serve as a supertype of &apos;skill&apos;, but this class is still under development.
+The definition employs the primitive relation enables, which has recently been introduced. Its adoption is pending discussion and approval by the IOF community. It is expected that this relation may be relocated to the IOF Core ontology upon acceptance.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;participates in&apos; a &apos;manufacturing process&apos;, then x is an &apos;operator role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is an &apos;agent role&apos;, then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;has capability&apos; some &apos;skill&apos; s, and s &apos;enables&apos; some &apos;capability&apos; c that is the &apos;capability of&apos; some &apos;piece of equipment&apos; e.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -497,7 +496,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-constr;BusinessProcess"/>
 		<rdfs:label xml:lang="en-US">product inspection process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:example xml:lang="en-US">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
+		<skos:example xml:lang="en-US">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
 		<iof-av:explanatoryNote></iof-av:explanatoryNote>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Product inspection is a systematic process of evaluating goods during and after production to ensure they meet specified quality standards.</iof-av:naturalLanguageDefinition>
@@ -535,10 +534,9 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en-US">production machine</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">CNC (Computer Numerical Control) milling machines are widely used in manufacturing to precisely cut and shape various materials, including metal, plastic, and wood.</skos:example>
-		<skos:note xml:lang="en-US">To be merged with top level definition</skos:note>
 		<iof-av:firstOrderLogicAxiom>∀x (Machine(x) ∧ ∃r (hasRole(x, r) ∧ EquipmentRole(r) ∧ ∀p (realizes(p, r) → ManufacturingProcess(p))) → EquipmentMachine(x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine which are used in manufacturing process as equipments.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine that are used in manufacturing process as equipments.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>see primitive rationale of Machine.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘machine’ that ‘has role’ some ‘equipment role’ and for all y, if y ‘realizes’ that role then y is a ‘manufacturing process’, then x is an ‘equipment machine’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -628,7 +626,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production tool</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:note xml:lang="en-US">piece of equipment include all special tooling, patterns, molds, templates that paticipates in manufacturing processes.</skos:note>
 		<iof-av:adaptedFrom>- ISO 15531‑1 (resource definitions) refers to tools as devices used in manufacturing (implicit) NIST+11Iteh Standards+11ISO+11.
 - IEC 60050‑851 (Electropedia) defines “tool” as “an implement, usually manually controlled, used to perform work” machinerysafety101.com.
 - NIST Dictionary of Metrology describes a tool as “a hand‑held or mechanically actuated item used to apply force or precision to a workpiece” (NIST work) — general metrological usage.
@@ -652,7 +649,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Setup process is a planned process where  tools are attached between two manufactruing operations on the same resource  (for example machine) such that the output of the first is different from the output of the second</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale xml:lang="en-US">not all conditions can be specified at this point for a wide range of industrial examples</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">I want to say that previous and next processes have different output but te same machine</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;capabilityOf">
