@@ -5,12 +5,12 @@
 
 # Product Service System Ontology (PSS Ontology)
 
-Version 2023-04-28
+Version 2025-11-20
 
 *The IOF is an international standards group that operates under the auspices of the Open Applications Group.*
 
 # Introduction
 
-The PSS Ontology aims to support the software platforms being developed to support the product service systems' from design to EOL
+The PSS Ontology aims to support the software platforms being developed to support the product service systems' from design to end of life
 
 ProductServiceSystem.rdf imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rdf are imported through IOF Core.  

@@ -16,7 +16,6 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
-	xmlns="https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/"
 	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -54,7 +53,7 @@ version 202502</owl:versionInfo>
 	
 	<owl:Class rdf:about="&iof-constr;AgentialCapability">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Capability"/>
-		<rdfs:label xml:lang="en-US">skill</rdfs:label>
+		<rdfs:label xml:lang="en-US">agential capability</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
@@ -69,9 +68,10 @@ version 202502</owl:versionInfo>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>making nice slides, cooking indian food, changing tools on CNC machine, NC programmer</skos:example>
-		<iof-av:firstOrderLogicDefinition>Capability(x)∧∃y(Agent(y)∧capabilityOf(x,y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">A capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;capability&apos; is an instance of &apos;capability&apos; that is the &apos;capability of&apos; some &apos;agent&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:firstOrderLogicDefinition>∀x ( (Capability(x) ∧ ∃y (capabilityOf(x, y) ∧ Agent(y))) → AgentialCapability(x) )</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is a capability and there exists some y such that y is an agent and x is a capability of y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:usageNote>Synonym: skill</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;InspectionPlan">
@@ -79,11 +79,11 @@ version 202502</owl:versionInfo>
 		<rdfs:label xml:lang="en-US">inspection plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:directSource>ISO/ASTM 52900:2021 (3.3.13)</iof-av:directSource>
-		<iof-av:firstOrderLogicAxiom>∀x (PlanSpecification(x) ∧ ∀y (prescribes(x, y) → ProductInspectionProcess(y)) → InspectionPlan(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀x ( (PlanSpecification(x) ∧ ∃y (prescribes(x, y) ∧ ProductInspectionProcess(y))) → InspectionPlan(x) )</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Set of instructions specifying the process of verification including appropriate resources and sequence of inspections to be referenced by the manufacturing plan.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; and x &apos;prescribes&apos; only &apos;product inspection process&apos; then x is an &apos;inspection plan&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>every instance of ‘inspection plan’ is defined as exactly an instance of ‘plan specification’ that ‘prescribes’ some ‘product inspection process’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Machine">
@@ -259,7 +259,16 @@ version 202502</owl:versionInfo>
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
-										<owl:someValuesFrom rdf:resource="&iof-constr;MaterialResourceRole"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-constr;EquipmentRole">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-constr;OperatorRole">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
@@ -267,21 +276,20 @@ version 202502</owl:versionInfo>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;ProcessingStep"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;ProcessStep"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">manufacturing operation</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-US">An operation may contain just a single step, sometimes therefore may contain the same information as in process specification. Many times, multiple steps need to be performed on a machine to produce a signle feature or achieve certain quality, feature, shape, or dimention of the specified product or compoenent.
-
-In some latter type of cases, the primary equipments may need to be reconfigured, or some attachments or tools are attached or detached to the machine, and the material is repositions or handled in between the steps which are also part of the operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessingStep(x1) ∧ ProcessingStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote xml:lang="en-US">An operation may consist of a single step and in such cases may include the same information as that in the process specification. However, in many situations, multiple steps are required to be performed on a machine to produce a single feature or to achieve a specific quality, geometric shape, or dimension of the designated product or component.
+In such multi-step operations, the primary equipment may require reconfiguration, including the attachment or detachment of tools or accessories. Additionally, the material may need to be repositioned or handled between steps, all of which are considered integral parts of the operation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 ( ProcessStep(x1) ∧ ProcessStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∃e, p1, p2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧     hasParticipantAtSomeTimes(p1, e) ∧ hasParticipantAtSomeTimes(p2, e) ∧      hasRole(e, r1) ∧ hasRole(e, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">Manufacturing enterprise process that aggregates only those processing steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">Manufacturing enterprise process that aggregates only those process steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The common grouping criteria cannot be formalized for this class and therefore only a necessary condition could be derived which does not check the &quot;common resource for all step&quot; condition. Furthermore, the use of operation in batch and continuous manufacturing many provide some more refinement on the role of the common participant.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>For any two distinct processing steps within the same manufacturing operation, if those steps are realized by two manufacturing processes that each have a participant playing an equipment role, then those two participants (equipment) must be the same individual.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if ‘x1’ and ‘x2’ are distinct ‘process steps’ that are ‘occurrent part of at some time’ the same ‘manufacturing operation’, then there exists some ‘equipment’ that ‘has role’ some ‘equipment role’ and that ‘has participant at some times’ both a ‘manufacturing process’ that is ‘occurrent part of at some time’ x1 and a ‘manufacturing process’ that is ‘occurrent part of at some time’ x2</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialHandlingPlan">
@@ -303,10 +311,21 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en-US">material product specification</rdfs:label>
 		<rdfs:comment xml:lang="en-US">specification of a product may contain a simple description of a product to a detailed CAD design, including geometry, structure, dimension, and tolerances. It may also contain reference to PLM system entity.</rdfs:comment>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:firstOrderLogicAxiom>DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y)) → MaterialProductSpecification(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;DesignSpecification">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+						<owl:allValuesFrom rdf:resource="&iof-constr;MaterialProduct"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:firstOrderLogicAxiom>MaterialProductSpecification(x) ↔ DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">A design specification containing the structure, dimension, and other characteristics of a product that satisfies the requirement of a purchase order from a customer.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;design specification&apos; and there exists a &apos;material product&apos; which x prescribes then x is a &apos;material product specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -314,12 +333,12 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:subClassOf rdf:resource="&iof-constr;ActionSpecification"/>
 		<rdfs:label xml:lang="en-US">operation specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<iof-av:explanatoryNote>This part of the plan specifies one or many steps, each of which are to be performed using one or more specific manufacturing resource or  parallely or consecutively.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>ActionSpecification(x) ∧ ∃y (ManufacturingOperation(y) ∧ prescribes(x,y)) → OperationSpecification(x)</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">An action specification that prescribes some manufacturing operation.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is an &apos;action specification&apos; and there exists a &apos;manufacturing operation&apos; y that is &apos;prescribed by&apos; x then x is an &apos;operation specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote xml:lang="en-US">This part of the plan specifies one or many steps, each of which are to be performed using one or more specific manufacturing resource or  parallely or consecutively.</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Operator">
@@ -369,16 +388,10 @@ As the natural language suggests, planning in warehouse will require a more deta
 													<owl:Restriction>
 														<owl:onProperty rdf:resource="&iof-constr;enables"/>
 														<owl:someValuesFrom>
-															<owl:Class>
-																<owl:intersectionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="&iof-constr;Capability">
-																	</rdf:Description>
-																	<owl:Restriction>
-																		<owl:onProperty rdf:resource="&iof-constr;capabilityOf"/>
-																		<owl:someValuesFrom rdf:resource="&iof-constr;PieceOfEquipment"/>
-																	</owl:Restriction>
-																</owl:intersectionOf>
-															</owl:Class>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-constr;capabilityOf"/>
+																<owl:someValuesFrom rdf:resource="&iof-constr;PieceOfEquipment"/>
+															</owl:Restriction>
 														</owl:someValuesFrom>
 													</owl:Restriction>
 												</owl:intersectionOf>
@@ -395,7 +408,10 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<skos:example xml:lang="en-US">person as a CNC operator has an operator role of operating, mantaining, and utilizing the assigned CNC machine before, during, and after a manufacturing process</skos:example>
 		<iof-av:firstOrderLogicAxiom>AgentRole(x) ∧ ∃a (Agent(a) ∧ roleOf(x, a) ∧ participatesIn(a, p) ∧ ManufacturingProcess(p)) → OperatorRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>AgentRole(x) → Role(x) ∧ ∃a ∃s ∃c ∃e ( Agent(a) ∧ roleOf(x,a) ∧  skill(s) ∧ hasCapability(a,s) ∧ Capability(c) ∧ PieceOfEquipment(e) ∧ capabilityOf(c,e) ∧ enables(s,c))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by an agent when it possesses a skill that enables a capability of a piece of equipment.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The ontology does not yet include a construct for &apos;skill&apos;. The current definition refers to &apos;capability&apos;, which is intended to serve as a supertype of &apos;skill&apos;, but this class is still under development.
+The definition employs the primitive relation enables, which has recently been introduced. Its adoption is pending discussion and approval by the IOF community. It is expected that this relation may be relocated to the IOF Core ontology upon acceptance.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;participates in&apos; a &apos;manufacturing process&apos;, then x is an &apos;operator role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is an &apos;agent role&apos;, then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;has capability&apos; some &apos;skill&apos; s, and s &apos;enables&apos; some &apos;capability&apos; c that is the &apos;capability of&apos; some &apos;piece of equipment&apos; e.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -429,9 +445,9 @@ As the natural language suggests, planning in warehouse will require a more deta
 						<owl:allValuesFrom>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-constr;ManufacturingOperation">
+									<rdf:Description rdf:about="&iof-constr;OperationSpecification">
 									</rdf:Description>
-									<rdf:Description rdf:about="&iof-constr;ProcessingStep">
+									<rdf:Description rdf:about="&iof-constr;ProcessStepSpecification">
 									</rdf:Description>
 								</owl:unionOf>
 							</owl:Class>
@@ -450,7 +466,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:semiFormalNaturalLanguageDefinition>If x is &apos;process plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; which is a continuant part of x is a &apos;production order&apos;, and every &apos;action specification&apos;, which is a continuant part of x is either a &apos;operation specification&apos; or &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;ProcessingStep">
+	<owl:Class rdf:about="&iof-constr;ProcessStep">
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -463,39 +479,40 @@ As the natural language suggests, planning in warehouse will require a more deta
 				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">processing step</rdfs:label>
+		<rdfs:label xml:lang="en-US">process step</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are processing step</skos:example>
-		<iof-av:firstOrderLogicDefinition>processingStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processingStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
+		<skos:example>drill hole, steps- centering, twist drilling, enlarging the hole, and finish the holes- these four steps each of them are process step</skos:example>
+		<iof-av:firstOrderLogicDefinition>processStep(x) ↔ ManufacturingEnterpriseProcess(x) ∧ ∃p (ManufacturingProcess(p) ∧ occurrentPartOfAtSomeTime(p,x)) ∧ ∀s ((processStep(s) ∧ occurrentPartOfAtSomeTime(s,x)) → (s = x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">A unit subprocess of an operation which does not contain any other processing step and exactly one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">A unit subprocess of an operation which does not contain any other process step and exactly one manufacturing process as a subprocess.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The class may contain many other varieties of processes along with a manufacturing process. The clause of &quot;no further decomposition of step using step&quot; is avoided to keep OWL axioms negation-free. Also, we do not use cardinality in axioms.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;processing step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;processing step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>Along with the instance of manufacturing process, processing step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process step&apos; is defined as exactly an instance of &apos;manufacturing enterprise process&apos; that has at least one &apos;manufacturing process&apos; as an &apos;occurrent part at some time&apos; and does not have any other &apos;process step&apos; as an &apos;occurrent part at some time&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:usageNote>Along with the instance of manufacturing process, process step may also include instances of setup process and inspection process as subprocesses.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;ProcessingStepSpecification">
+	<owl:Class rdf:about="&iof-constr;ProcessStepSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-constr;ActionSpecification"/>
-		<rdfs:label xml:lang="en-US">processing step specification</rdfs:label>
+		<rdfs:label xml:lang="en-US">process step specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote xml:lang="en-US">The specification of a processing step may be the shortest or most inner part of the information content used for prescribing a process plan. However, the processing step specification can either be a label or a simple instruction of the step, e.g., &quot;drill 10 X 0.45&quot; holes in the stock of 3&apos;X5&apos; sheet&quot;, or a detailed information block for the input materials, product design, recipe, various measurements and in-process material and machine handling and configurations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessignStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote xml:lang="en-US">A process-step specification is the atomic instruction within a process plan—the most specific, detailed, and direct component. It defines required input materials, recipes, dimensions, tolerances, attributes, and any necessary in-process handling or machine configurations. In some cases, it may be as simple as a label or brief instruction, such as “drill ten 0.45-inch holes in a 3&apos; × 5&apos; sheet.”</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ActionSpecification(x) ∧ ∃y (ProcessStep(y)∧prescribes(x,y)) → ProcessSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">An action specification that prescribes some processing steps.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">An action specification that prescribes some process steps.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;processing step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action specifciation&apos; and there exists a &apos;process step&apos; y that is &apos;prescribed by&apos; x then x is an &apos;process specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProductInspectionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;BusinessProcess"/>
 		<rdfs:label xml:lang="en-US">product inspection process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:example xml:lang="en-US">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
+		<skos:example xml:lang="en-US">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
 		<iof-av:explanatoryNote></iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (PlanSpecification(x) ∧ ∃y (ProductInspectionProcess(y) ∧ prescribes(x, y)) → InspectionPlan(x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Product inspection is a systematic process of evaluating goods during and after production to ensure they meet specified quality standards.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>So far the only way to define inspection process is assuming the presence of a corresponding plan, which will be too demanding. That&apos;s why the condition of anything prescribed by an inspection plan is a product inspection process is sufficient. In future inspection process needs to be defined based on its exact characteristics but for the vastness of example of inspection process the task of generalization is challenging.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">if x is product inspection process then  x is prescribed by some inspection plan y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">if x is an instance of ‘plan specification’ that ‘prescribes’ some ‘product inspection process’, then x is an instance of ‘inspection plan’</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProductProductionProcess">
@@ -528,10 +545,9 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:label xml:lang="en-US">production machine</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">CNC (Computer Numerical Control) milling machines are widely used in manufacturing to precisely cut and shape various materials, including metal, plastic, and wood.</skos:example>
-		<skos:note xml:lang="en-US">To be merged with top level definition</skos:note>
 		<iof-av:firstOrderLogicAxiom>∀x (Machine(x) ∧ ∃r (hasRole(x, r) ∧ EquipmentRole(r) ∧ ∀p (realizes(p, r) → ManufacturingProcess(p))) → EquipmentMachine(x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine which are used in manufacturing process as equipments.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine that are used in manufacturing process as equipments.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>see primitive rationale of Machine.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘machine’ that ‘has role’ some ‘equipment role’ and for all y, if y ‘realizes’ that role then y is a ‘manufacturing process’, then x is an ‘equipment machine’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -597,7 +613,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Plan that aims at producing one or multiple products as specified or fulfills some production order.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x is a &apos;plan specifcation&apos; if and only if x prescribes a &apos;product production process&apos; then x is a &apos;production plan&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;production plan&apos; then x is a &apos;plan specification&apos; and every &apos;objective specification&apos; as part of x is a &apos;production order&apos; and every &apos;plan specification&apos; as part of x is of one of the types: &apos;process plan&apos;, &apos;inspection plan&apos;, and &apos;transfer plan&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>A production plan is a type of plan specification that has as continuant parts, at all times, at least one objective specification that is a production order, and any continuant part that is a plan specification must be either a process plan, an inspection plan, or a material handling plan</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProductionTool">
@@ -621,7 +637,6 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production tool</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<skos:note xml:lang="en-US">piece of equipment include all special tooling, patterns, molds, templates that paticipates in manufacturing processes.</skos:note>
 		<iof-av:adaptedFrom>- ISO 15531‑1 (resource definitions) refers to tools as devices used in manufacturing (implicit) NIST+11Iteh Standards+11ISO+11.
 - IEC 60050‑851 (Electropedia) defines “tool” as “an implement, usually manually controlled, used to perform work” machinerysafety101.com.
 - NIST Dictionary of Metrology describes a tool as “a hand‑held or mechanically actuated item used to apply force or precision to a workpiece” (NIST work) — general metrological usage.
@@ -645,10 +660,22 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Setup process is a planned process where  tools are attached between two manufactruing operations on the same resource  (for example machine) such that the output of the first is different from the output of the second</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale xml:lang="en-US">not all conditions can be specified at this point for a wide range of industrial examples</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">I want to say that previous and next processes have different output but te same machine</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;capabilityOf">
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;enabledBy">
+		<rdfs:label xml:lang="en-US">enabled by</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;Capability"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Capability"/>
+		<owl:inverseOf rdf:resource="&iof-constr;enables"/>
+		<iof-av:firstOrderLogicDefinition>enbledBy(x, y) → enables(y, x)</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>capability enabled by another capability implies the second capability enables the first capability.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>see primitive rationale of &apos;enables&apos;</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is &apos;enabled by&apos; y then y &apos;enables&apos; x</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;enables">
@@ -656,11 +683,11 @@ As the natural language suggests, planning in warehouse will require a more deta
 		<rdfs:domain rdf:resource="&iof-constr;Capability"/>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Capability"/>
-		<iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∃p1 ∃p2 ((realizes(p1, c1) ∧ realizes(p2, c2)) ∧ (p1 = p2 ∨ hasProperOccurrentPart(p1, p2)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∃p1 ∃p2 ((realizes(p1, c1) → realizes(p2, c2))  ∨ (realizes(p2, c2) → realizes(p1, c1)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability enables another capability implies that either both are realized by the process or the process realizing the latter is a part of the process realizing the former.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>This object property is under development.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 and p2 &apos;realizes&apos; c2, and either p1 is the same as p2 or p2 is a &apos;proper occurrent part&apos; of p1</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability enables another capability implies that either the realization of the first capability implies the realization of the second capability or the realization of the second capability implies the realization of the first capability.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This property is included to define &apos;operator role&apos; but it is part of the set of construct for modeling the combined or emergent capability of systems stemming from capabilities of its sub-systems (components). THe other constructs are not completely developed yet and it is not decided which IOF module they will be part of.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 implies p2 &apos;realizes&apos; c2, or p2 &apos;realizes&apos; c2 implies p1 &apos;realizes&apos; c1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasCapability">
@@ -673,7 +700,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-				<owl:allValuesFrom rdf:resource="&iof-constr;ProductInspectionProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;ProductInspectionProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
@@ -696,7 +723,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialProductSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+			<rdf:Description rdf:about="&iof-constr;DesignSpecification">
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
@@ -754,13 +781,13 @@ As the natural language suggests, planning in warehouse will require a more deta
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessingStepSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessStepSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;ActionSpecification">
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-constr;ProcessingStep"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;ProcessStep"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
