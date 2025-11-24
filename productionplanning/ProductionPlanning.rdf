@@ -68,9 +68,9 @@ version 202502</owl:versionInfo>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>making nice slides, cooking indian food, changing tools on CNC machine, NC programmer</skos:example>
-		<iof-av:firstOrderLogicDefinition>Capability(x)∧∃y(Agent(y)∧capabilityOf(x,y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>∀x ( (Capability(x) ∧ ∃y (capabilityOf(x, y) ∧ Agent(y))) → AgentialCapability(x) )</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability that is borne by an Agent</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;capability&apos; is an instance of &apos;capability&apos; that is the &apos;capability of&apos; some &apos;agent&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is a capability and there exists some y such that y is an agent and x is a capability of y</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote>Synonym: skill</iof-av:usageNote>
 	</owl:Class>
 	
@@ -79,11 +79,11 @@ version 202502</owl:versionInfo>
 		<rdfs:label xml:lang="en-US">inspection plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:directSource>ISO/ASTM 52900:2021 (3.3.13)</iof-av:directSource>
-		<iof-av:firstOrderLogicAxiom>∀x (PlanSpecification(x) ∧ ∀y (prescribes(x, y) → ProductInspectionProcess(y)) → InspectionPlan(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀x ( (PlanSpecification(x) ∧ ∃y (prescribes(x, y) ∧ ProductInspectionProcess(y))) → InspectionPlan(x) )</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Set of instructions specifying the process of verification including appropriate resources and sequence of inspections to be referenced by the manufacturing plan.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the rationale provided under information content entity for informational entity types.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; and x &apos;prescribes&apos; only &apos;product inspection process&apos; then x is an &apos;inspection plan&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>every instance of ‘inspection plan’ is defined as exactly an instance of ‘plan specification’ that ‘prescribes’ some ‘product inspection process’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Machine">
@@ -259,7 +259,16 @@ version 202502</owl:versionInfo>
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
-										<owl:someValuesFrom rdf:resource="&iof-constr;MaterialResourceRole"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-constr;EquipmentRole">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-constr;OperatorRole">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
@@ -276,11 +285,11 @@ version 202502</owl:versionInfo>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<iof-av:explanatoryNote xml:lang="en-US">An operation may consist of a single step and in such cases may include the same information as that in the process specification. However, in many situations, multiple steps are required to be performed on a machine to produce a single feature or to achieve a specific quality, geometric shape, or dimension of the designated product or component.
 In such multi-step operations, the primary equipment may require reconfiguration, including the attachment or detachment of tools or accessories. Additionally, the material may need to be repositioned or handled between steps, all of which are considered integral parts of the operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 (ProcessStep(x1) ∧ ProcesStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∀p1, p2, e1, e2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧ hasParticipantAtSomeTimes(p1, e1) ∧ hasParticipantAtSomeTimes(p2, e2) ∧ hasRole(e1, r1) ∧ hasRole(e2, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2) → (e1 = e2)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀o, x1, x2 ( ProcessStep(x1) ∧ ProcessStep(x2) ∧ ManufacturingOperation(o) ∧ occurrentPartOfAtSomeTime(x1, o) ∧ occurrentPartOfAtSomeTime(x2, o) ∧ (x1 ≠ x2) → ∃e, p1, p2, r1, r2 (ManufacturingProcess(p1) ∧ ManufacturingProcess(p2) ∧ occurrentPartOfAtSomeTime(p1, x1) ∧ occurrentPartOfAtSomeTime(p2, x2) ∧     hasParticipantAtSomeTimes(p1, e) ∧ hasParticipantAtSomeTimes(p2, e) ∧      hasRole(e, r1) ∧ hasRole(e, r2) ∧ EquipmentRole(r1) ∧ EquipmentRole(r2)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Manufacturing enterprise process that aggregates only those process steps which are part of the same product production process and there exists at least one common manufacturing resource, used in the manufacturing process for each step.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The common grouping criteria cannot be formalized for this class and therefore only a necessary condition could be derived which does not check the &quot;common resource for all step&quot; condition. Furthermore, the use of operation in batch and continuous manufacturing many provide some more refinement on the role of the common participant.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>For any two distinct process steps within the same manufacturing operation, if those steps are realized by two manufacturing processes that each have a participant playing an equipment role, then those two participants (equipment) must be the same individual.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if ‘x1’ and ‘x2’ are distinct ‘process steps’ that are ‘occurrent part of at some time’ the same ‘manufacturing operation’, then there exists some ‘equipment’ that ‘has role’ some ‘equipment role’ and that ‘has participant at some times’ both a ‘manufacturing process’ that is ‘occurrent part of at some time’ x1 and a ‘manufacturing process’ that is ‘occurrent part of at some time’ x2</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialHandlingPlan">
@@ -499,10 +508,11 @@ The definition employs the primitive relation enables, which has recently been i
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">inspection of a bore of the engine block, final inspection of the truck at the end of assembly line, inspection of the PCB at the end of the fab line, inspection of the quality of glass bottle, visual inspection of defects on car body paint</skos:example>
 		<iof-av:explanatoryNote></iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (PlanSpecification(x) ∧ ∃y (ProductInspectionProcess(y) ∧ prescribes(x, y)) → InspectionPlan(x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">Product inspection is a systematic process of evaluating goods during and after production to ensure they meet specified quality standards.</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>So far the only way to define inspection process is assuming the presence of a corresponding plan, which will be too demanding. That&apos;s why the condition of anything prescribed by an inspection plan is a product inspection process is sufficient. In future inspection process needs to be defined based on its exact characteristics but for the vastness of example of inspection process the task of generalization is challenging.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">if x is product inspection process then  x is prescribed by some inspection plan y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">if x is an instance of ‘plan specification’ that ‘prescribes’ some ‘product inspection process’, then x is an instance of ‘inspection plan’</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProductProductionProcess">
@@ -690,7 +700,7 @@ The definition employs the primitive relation enables, which has recently been i
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-				<owl:allValuesFrom rdf:resource="&iof-constr;ProductInspectionProcess"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;ProductInspectionProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
