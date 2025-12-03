@@ -3,11 +3,13 @@
 <img src="https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png" >
 </p>
 
-# The IOF Core Ontology
+# The ProductionPlanning Ontology
 
-Version  1, January 2023 Release
+Version  202502, December 2025 provisional maturity
 
 # Introduction
+
+Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, i is expacted that users of the production planign ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
 
 Core is a "mid-level" ontology that resides at the top of the suite of ontologies the IOF seeks to introduce to fulfill its mission of supporting digital manufacturing by standardizing industrial terminology and improving consistency and interoperability across many operational areas of manufacturing and the product life cycle. As a mid-level ontology, Core contains terms used by, or anticipated to be used by, a plurality of ontologies in the suite. Additionally, as the IOF bases all of its ontologies on a single foundational or top-level ontology – for which the IOF has chosen the Basic Formal Ontology or BFO – the Core ontology contains generic terms that build upon BFO and provide a consistent foundation for introducing industrial domain-specific terminologies. 
 
@@ -17,7 +19,9 @@ The IOF Core Ontology is developed and formalized as an ontology using both firs
 
 #Release Notes
 
- This ontology includes constructs for upper level terms found in most manufacturing industries (including discrete, continuous, and batch manufacturing) related to planning, in areas such as specifications (ICEs), artifacts, and processes. The information content entities (ICE) include material product specification and several classes for the levels of plan specifications, the artifacts include fundamental resources, namely production machine and tool, and processes include classes for inspection and manufacturing industrial processes from which users may create domain ontologies that extend those classes for specific manufacturing areas or companies. This module is expected to mature in future release based on the user feedback.
+Version  202502, December 2025 Release
+
+This ontology includes constructs for upper level terms found in most manufacturing industries (including discrete, continuous, and batch manufacturing) related to planning, in areas such as specifications (ICEs), artifacts, and processes. The information content entities (ICE) include material product specification and several classes for the levels of plan specifications, the artifacts include fundamental resources, namely production machine and tool, and processes include classes for inspection and manufacturing industrial processes from which users may create domain ontologies that extend those classes for specific manufacturing areas or companies. This module is expected to mature in future release based on the user feedback.
 
 # Contents
 
@@ -29,7 +33,7 @@ The minimal setup you need short of reading raw XML is a suitable ontology viewe
 
 To use IOF Core without the need to interoperate with the OMG Commons Ontologies mentioned earlier, simply import Core.rdf into your ontology. To use both IOF Core and the OMG Commons Ontologies mentioned, only import MappingCommonsToIOF.rdf into your ontology. Doing so indirectly imports IOF Core and the applicable OMG Common Ontologies.
 
-# Publications related to production planning ans scheduling ontologies
+# Publications related to production planning and scheduling ontologies
 
 # Reporting Issues for the ProductionPlanning Ontology and Joining the Discussions
 
