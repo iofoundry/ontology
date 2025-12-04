@@ -5,7 +5,7 @@
 
 # The ProductionPlanning Ontology
 
-Version  202502, December 2025 provisional maturity
+Version  202502, December 2025 maturity provisional
 
 # Introduction
 
@@ -19,7 +19,7 @@ The IOF Core Ontology is developed and formalized as an ontology using both firs
 
 # Release Notes
 
-Version  202502, December 2025 Release
+Version  202502, December 2025 maturity provisional
 
 This ontology includes constructs for upper level terms found in most manufacturing industries (including discrete, continuous, and batch manufacturing) related to planning, in areas such as specifications (ICEs), artifacts, and processes. The information content entities (ICE) include material product specification and several classes for the levels of plan specifications, the artifacts include fundamental resources, namely production machine and tool, and processes include classes for inspection and manufacturing industrial processes from which users may create domain ontologies that extend those classes for specific manufacturing areas or companies. This module is expected to mature in future release based on the user feedback.
 
