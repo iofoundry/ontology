@@ -1,0 +1,19 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+DELETE 
+{
+    ?s a owl:NamedIndividual .
+}
+INSERT 
+{
+    ?newS a owl:NamedIndividual .
+}
+where 
+{
+  ?s a owl:NamedIndividual .
+  BIND("^https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/([A-Za-z]+)$" AS ?match) .
+  BIND("https://spec.industrialontologies.org/ontology/individual/$1" AS ?replacement) .
+  BIND(regex(str(?s), ?match) AS ?subjMatch) .
+  FILTER (?subjMatch && isIRI(?s))
+  BIND (IF(?subjMatch, IRI(REPLACE(str(?s), ?match, ?replacement)), ?s) AS ?newS)
+}
