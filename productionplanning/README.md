@@ -17,7 +17,7 @@ The IOF Core Ontology is developed and formalized as an ontology using both firs
 
 The IOF Core Ontology is developed and formalized as an ontology using both first-order logic (FOL) and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is least ambiguous to humans, remains applicable across industrial domain uses, and can be processed by computers. The Core Ontology is curated by the Core Working Group and attempts were made to validate and ground terms utilizing use cases from industry. It should be noted however that while the ultimate purpose of including FOL is to provide a more precise formal semantic definition than can be expressed in version 2 of OWL, the FOL annotations provided in the current release merely parallel those of the OWL expressions. The IOF intends to enrich the FOL formalizations in future releases to align more closely with their natural language definitions. 
 
-#Release Notes
+# Release Notes
 
 Version  202502, December 2025 Release
 
