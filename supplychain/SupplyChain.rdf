@@ -28,6 +28,8 @@
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/">
 		<rdfs:label xml:lang="en-US">Supply Chain Ontology</rdfs:label>
 		<dcterms:abstract xml:lang="en-US">The IOF Supply Chain Ontology aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. The Supply Chain Ontology uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontologies.</dcterms:abstract>
+		<dcterms:contributor>Ali Hasanzadeh, Arizona State University</dcterms:contributor>
+		<dcterms:contributor>Arkopaul Sarkar, National Institute of Standards and Technology</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Boonserm Kulvatanyou, NIST</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Dusan Sormaz, Ohio University</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Evan Wallace, NIST</dcterms:contributor>
@@ -902,9 +904,6 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;freight forwarding service&apos; is defined as exactly an instance of &apos;logistics service&apos; that &apos;has occurrent part&apos; some &apos;freight forwarding process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:NamedIndividual rdf:about="&iof-const;GLNScheme">
-	</owl:NamedIndividual>
-	
 	<owl:Class rdf:about="&iof-const;GeospatialLocation">
 		<rdfs:subClassOf rdf:resource="&iof-const;GeospatialSite"/>
 		<rdfs:label xml:lang="en-US">geospatial location</rdfs:label>
@@ -943,14 +942,10 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;GlobalLocationNumber">
-		<rdfs:subClassOf rdf:resource="&iof-const;PhysicalLocationIdentifier"/>
-		<rdfs:label xml:lang="en-US">global location number</rdfs:label>
-		<dcterms:source>http://www.gs1.org/gln</dcterms:source>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-const;PhysicalLocationIdentifier">
+					<rdf:Description rdf:about="&iof-const;Identifier">
 					</rdf:Description>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -969,22 +964,25 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-const;prescribedBy"/>
-								<owl:hasValue rdf:resource="&iof-const;GLNScheme"/>
+								<owl:hasValue rdf:resource="&iof-ind;GLNScheme"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>Company XYZ Branch 1 GLN:9012345000004, Company XYZ Branch 2 GLN:9012345100001</skos:example>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">global location number</rdfs:label>
+		<dcterms:source>http://www.gs1.org/gln</dcterms:source>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>Company XYZ Branch 1 GLN:9012345000004, Company XYZ Branch 2 GLN:9012345100001, GLN 5012345000046 = &quot;AWS Region us-west-2 IoT Hub for Facility B&quot;, GLN: 5012345000114 -&gt; Warehouse A – Loading Dock 2</skos:example>
 		<iof-av:abbreviation>GLN</iof-av:abbreviation>
 		<iof-av:explanatoryNote>A Global Location Number (GLN) is the GS1 Identification Key used for uniquely identifying parties (legal entities) and phyisical locations that are involved in business transactions in supply chains. Physical locations may be addresses, single buildings, storage sites, single loading platform, etc.
 
 GLN is a 13-digit number that comprises a GS1 Company Prefix, Location Reference and Check Digit. The Global Location Number (GLN) is part of the GS1 systems of standards.</iof-av:explanatoryNote>
-		<iof-av:explanatoryNote>GLN can be used for identifying physical locations and digital locations. GLN A digital location is an electronic (non-physical) address that is used for communication between computer systems (such as a network location). The current version of the ontology only supports physical locations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>GlobalLocationNumber(x) ↔PhysicalLocationIdentifier(x) ∧ ∃y(BusinessOrganization(y) ∨ GeospatialLocation(y)) ∧ designates(x,y) ∧ ∃z(GlobalLocationNumberCodingSystem(z) ∧ prescribedBy(x,z))</iof-av:firstOrderLogicDefinition>
+		<iof-av:explanatoryNote>GLN can be used for identifying physical locations and digital locations. A digital location is an electronic (non-physical) address that is used for communication between computer systems (such as a network location).</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>GlobalLocationNumber(x) → Identifier(x) ∧ ∃y(BusinessOrganization(y) ∨ GeospatialLocation(y)) ∧ designates(x,y) ∧ ∃z(GlobalLocationNumberCodingSystem(z) ∧ prescribedBy(x,z))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifer that uniquely identifies a business organization or a geospatial location and complies with GS1 GLN coding scheme</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>&apos;global location number&apos; is an &apos;identifier&apos; that &apos;designates&apos; a &apos;business organization&apos; or &apos;geospatial location&apos; that is &apos;prescribed by &apos;GS1 GLN Specifications&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;global location number&apos; then x is an &apos;identifier&apos; that &apos;designates&apos; a &apos;business organization&apos; or &apos;geospatial location&apos; that is &apos;prescribed by &apos;GS1 GLN Scheme&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;GroupOfSuppliers">
@@ -2078,18 +2076,6 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;seaway&apos; then x is a &apos;three-dimensional spatial region&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>shipping lane</iof-av:synonym>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-const;SerialIdentifier">
-		<rdfs:subClassOf rdf:resource="&iof-const;Identifier"/>
-		<rdfs:label xml:lang="en-US">serial identifier</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>serial number, batch number, container ID, tracking number, invoice number, order number, production run number, part number, device ID, asset tag, vehicle identification number (VIN), equipment ID, sensor ID</skos:example>
-		<iof-av:firstOrderLogicAxiom>SerialIdentifier(x) → Identifer(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that designates an entity and represents a series or sequence.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;serial identifier&apos; then x is an &apos;identifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ServiceConsumerRole">
