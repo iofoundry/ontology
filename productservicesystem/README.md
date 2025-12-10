@@ -14,3 +14,7 @@ Version 2025-11-20
 The PSS Ontology aims to support the software platforms being developed to support the product service systems' from design to end of life
 
 ProductServiceSystem.rdf imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rdf are imported through IOF Core.  
+
+# Release note
+
+A basis ontology for enhancing engineering of Product Service System(s) (PSS) in manufacturing, by modelling all the aspects that affect, or could affect a PSS. This new ontology module is called ProductServiceSystem with IRI (https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/) is developed as a separate module within IOF. This ontology covers the basic constructs to model and connect PSS constituents: from product, service, involved agents, business organizations, (PSS and manufacturing) resources, and requirements, design and plan specifications, PSS business processes up to organization supporting entities such as product family and product variant set. This module is expected to mature in future release based on further analysis of use cases and user feedback. The current PSS module focuses on manufacturing industry, but the extention to other sectors will be analysed in the future.
