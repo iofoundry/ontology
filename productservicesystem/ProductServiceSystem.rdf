@@ -14,7 +14,6 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/"
-	xmlns="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/"
 	xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -223,7 +222,7 @@
 					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-const;hasRole"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductProviderRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-const;ProductProviderRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -314,12 +313,51 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system that aims to satisfy a need of the market (e.g. to be sold in order to provide profit and support customers by covering their needs), and jointly fulfil customer’s needs and it must include some material product and commercial service specification, and agents or group of agents and may include infrastructure (software or hardware)</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ProductServiceSystem/ProductProviderRole">
+		<rdfs:subClassOf rdf:resource="&iof-const;SupplierRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-const;BuyingBusinessProcess">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-const;SupplyingBusinessProcess">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">product provider role</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
+		<iof-av:naturalLanguageDefinition>supplier role held by a person or business organization that both produces and sells a product, or only sells it</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-const;ProductServiceSystemBusinessCustomer">
 		<rdfs:subClassOf rdf:resource="&iof-const;BusinessOrganization"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000196"/>
-				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductServiceSystemConsumerRole"/>
+				<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemConsumerRole"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -351,6 +389,37 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process in which PSS is developed, implemented, distributed and used</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-const;ProductServiceSystemConsumerRole">
+		<rdfs:subClassOf rdf:resource="&iof-const;CustomerRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemBusinessProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">product service system consumer role</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
+		<iof-av:acronym xml:lang="en-US">PSS consumer role</iof-av:acronym>
+		<iof-av:naturalLanguageDefinition>customer role held by a person or business organization when it receives and consumes a product service system</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-const;ProductServiceSystemIndicator">
 		<rdfs:subClassOf rdf:resource="&iof-const;MeasurementInformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">product service system indicator</rdfs:label>
@@ -378,13 +447,43 @@
 					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-const;hasRole"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductServiceSystemProviderRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemProviderRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<iof-av:abbreviation xml:lang="en-US">PSS provider</iof-av:abbreviation>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">supplier that bears a product service system provider role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-const;ProductServiceSystemProviderRole">
+		<rdfs:subClassOf rdf:resource="&iof-const;SupplierRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-const;Person">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemBusinessProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">product service system provider role</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
+		<iof-av:naturalLanguageDefinition>supplier role held by a person or business organization that offers product service system(s) and owns intellectual property rights (IPR) on the commercial service specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-const;ProductServiceSystemQuality">
@@ -534,111 +633,7 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that prescribes a commercial service</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&iof-const;owns">
-		<skos:example>PSSProvider owns a PSS (inverse to PSS belongsTo PSSProvider)</skos:example>
-	</owl:ObjectProperty>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductProviderRole">
-		<rdfs:subClassOf rdf:resource="&iof-const;SupplierRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;Person">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-const;BuyingBusinessProcess">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-const;SupplyingBusinessProcess">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product provider role</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
-		<iof-av:naturalLanguageDefinition>supplier role held by a person or business organization that both produces and sells a product, or only sells it</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductServiceSystemConsumerRole">
-		<rdfs:subClassOf rdf:resource="&iof-const;CustomerRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;Person">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-								<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemBusinessProcess"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system consumer role</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
-		<iof-av:acronym xml:lang="en-US">PSS consumer role</iof-av:acronym>
-		<iof-av:naturalLanguageDefinition>customer role held by a person or business organization when it receives and consumes a product service system</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ProductServiceSystemProviderRole">
-		<rdfs:subClassOf rdf:resource="&iof-const;SupplierRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-const;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-const;BusinessOrganization">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-const;Person">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-								<owl:someValuesFrom rdf:resource="&iof-const;ProductServiceSystemBusinessProcess"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">product service system provider role</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/</rdfs:isDefinedBy>
-		<iof-av:naturalLanguageDefinition>supplier role held by a person or business organization that offers product service system(s) and owns intellectual property rights (IPR) on the commercial service specification</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/ProductServiceSystem/ServiceSpecification">
+	<owl:Class rdf:about="&iof-const;ServiceSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-const;DesignSpecification"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -651,6 +646,10 @@
 		<iof-av:explanatoryNote>we will need to address what the product may have to support the service</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>design specification that is a set of characteristics essential for a commercial service and that have to be jointly taken into account to prescribe the commercial service</iof-av:naturalLanguageDefinition>
 	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&iof-const;owns">
+		<skos:example>PSSProvider owns a PSS (inverse to PSS belongsTo PSSProvider)</skos:example>
+	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="https://www.omg.org/spec/Commons/Collections/isPartOf">
 		<rdfs:label xml:lang="en-US">is part of</rdfs:label>
