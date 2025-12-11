@@ -31,6 +31,49 @@ The minimal setup you need short of reading raw XML is a suitable ontology viewe
 
 # Publications related to production planning and scheduling ontologies
 
+F Ameri, D Sormaz, F Psarommatis, D Kiritsis, Industrial ontologies for interoperability in agile and resilient manufacturing, International Journal of Production Research 60 (2), 420-441, 2022
+
+D Šormaz, A Sarkar, SIMPM–Upper-level ontology for manufacturing process plan network generation, Robotics and Computer-Integrated Manufacturing 55, 183-198	9	2019
+
+Saruda Seeharit, Dusan N. Sormaz, Emre Bilgin Sari, A Systematic Review of Ontology-Based Scheduling Approaches in Manufacturing: Enhancing Decision Making and Resilience, 28th International Conference on Production Research, July 12-17, Chia, Colombia
+
+Arkopaul Sarkar. Milos Drobnjakovic, Ana Nikolov, Saruda Seeharit, Adlane Rebaï, Gabriela Henning, Dusan Sormaz, Yan Lu, Evan K. Wallace, Serm Kulvatunyou, Toward a Standardized Manufacturing Operation Management Ontology (MOMO): Findings from the NIST Workshop, 28th International Conference on Production Research, July 12-17, Chia, Colombia
+
+Saruda Seeharit, Dušan Šormaz and Mandvi Fuloria, Interoperability Between ERP and PLM Systems using Ontologies - A Case Study, 12th International Conference on Production Research Americas Region, ICPR Americas 2024, July 21-25, Athens, OH
+
+Dušan Šormaz, Saruda Seeharit, Boonserm Kulvatunyou, Miloš Drobnjaković, A Basic Formal Ontology-Based Ontological Modeling for Plan and Occurrence, a Biomanufacturing Process Verification Use Case, Proceedings of the ASME 2024 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, IDETC/CIE2023, August 25-28, 2024, Washington, DC
+
+Dušan Šormaz, Boonserm Kulvatunyou, Miloš Drobnjaković, Saruda Seeharit, Comparative Study of Approaches for an Ontology of Digital Artifacts, Proceedings of the ASME 2023 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, IDETC/CIE2023, August 20-23, 2023, Boston, MA 
+
+Arkopaul Sarkar, Milos Drobnjakovic, Sina Namaki Araghi, Mohamed Hedi Karray and Dusan Sormaz, Ontology Modeling of Plan and their Conformance to Manufacturing Execution, Proceedings of 27th International Conference on Production Research, Cluj-Napoca, Romania, 23-28 July 2023.
+
+Riad Al Hasan Abir, Mandvi Malik Fuloria, Dusan Sormaz, Peter Adjei, Felix Asare, David Koonce and Saruda Seeharit, Ontology Model for Mapping Terms and Relations in Plastic Manufacturing – A Case Study, Proceedings of  27th International Conference on Production Research, Cluj-Napoca, Romania, 23-28 July 2023.
+
+Dusan Sormaz, Arkopaul Sarkar and David Koonce, Application Integration in Smart Manufacturing and Industry 4.0 using Ontologies, ICPR 2022, International Conference on Production Research Americas, November 23-25, 2022, Curitiba, Brazil
+
+Arkopaul Sarkar, Dusan Sormaz and Hedi Karray, Taxonomy of Manufacturing Joining Operations based on Process Characterization, 12th International Workshop on Formal Ontologies meet Industry, September 12-15, 2022, Tarbes, France
+
+Sarkar, Arkopaul, Sormaz, Dusan, Hedi Karray, Mohamed, Taxonomy of Manufacturing Joining Operations based on Process Characterization, in Kyoung-Yun Kim, Leslie Monplaisir, Jeremy Rickli, Ed. Flexible Automation and Intelligent Manufacturing: The Human-Data-Technology Nexus, Proceedings of FAIM 2022, June 19–23, 2022, Detroit, Michigan, USA, Volume 2
+
+A. Sarkar, M. R. Naqvi, L. Elmhadhbi, Dusan Sormaz, Bernard Archimede, M. H. Karray, CHAIKMAT 4.0 - Commonsense Knowledge & Hybrid Artificial Intelligence for Trusted Flexible Manufacturing, in Kyoung-Yun Kim, Leslie Monplaisir, Jeremy Rickli, Ed. Flexible Automation and Intelligent Manufacturing: The Human-Data-Technology Nexus, Proceedings of FAIM 2022, June 19–23, 2022, Detroit, Michigan, USA, Volume 2
+
+Arkopaul Sarkar, Dušan Šormaz, Interoperability between PLM, ERP, and MES Systems Using Formal Ontologies, International Conference of Production Research, July 18-21, 2021, Taiwan - virtual
+
+Arkopaul Sarkar, Dušan Šormaz, David Koonce, and Sharmake Farah, Developing a Resource-based Manufacturing Process Capability Ontology, The International Conference of Production Research, ICPR - Americas 2020, December 2020, Bahía Blanca, Argentina - virtual
+
+Dusan Šormaz, Arkopaul Sarkar, Walter Terkaj, Progress on IOF’s Process and Production Planning Reference Ontology, Proceedings of the 10th International Conference on Interoperability for Enterprise Systems and Applications, November 17-19, 2020, Tarbes, France, (Virtual)
+
+Sarkar, Arkopaul; Sormaz, Dusan, On Semantic Interoperability of Model-based Definition of Product Design, 29th International Conference on Flexible Automation and Intelligent Manufacturing, 24th - 28th June 2019, Limerick, Ireland
+
+A Sarkar, D Šormaz, Ontology Model for Process Level Capabilities of Manufacturing Resources, Procedia Manufacturing 39, 1889-1898, 2019
+
+A Sarkar, D Šormaz, On Semantic Interoperability of Model-based Definition of Product Design, Procedia Manufacturing 38, 513-523, 2019
+
+DN Sormaz, A Sarkar, S Ghosal, A Multiagent System for Distributed Manufacturing Process Planning,  Procedia Manufacturing, 2018
+
+
+
+
 # Reporting Issues for the ProductionPlanning Ontology and Joining the Discussions
 
 The source for ProductionPLanning ontology and its development is managed on GitHub. Please log change requests and bugs for the ontology using the "issues tab" of the GitHub repository for this project. However, if you are a member person or organization of the IOF, we ask that you follow the normal process for reporting change requests and issues via the IOF member portal for the Core Working Group.
