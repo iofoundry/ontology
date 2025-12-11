@@ -9,11 +9,11 @@ Version  202502, December 2025 maturity provisional
 
 # Introduction
 
-Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, i is expacted that users of the production planign ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
+Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, it is expacted that users of the production planing ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
 
-The IOF ProductionPlanning is a reference ontology for the domain of manufacturing/production planning that resides under  the IOF COre ontolgy (it imports IOF Core)  As a mid-level ontology, Core contains terms used by, or anticipated to be used by, a plurality of ontologies in the suite. . 
+The IOF ProductionPlanning is a reference ontology for the domain of manufacturing/production planning that resides under  the IOF Core ontolgy (it imports IOF Core)  As a reference ontology, ProductionPlanning contains terms used by most industries utilizing data interoperability in their production planning activities in relation to various ERP amd MES software.
 
-The IOF ProductionPlanning Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Core is curated by the Core Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
+The IOF ProductionPlanning Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Production Planning is curated by the Production Planning and Schedling Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
 
 # Release Notes
 
@@ -28,8 +28,6 @@ This ontology includes constructs for upper level terms found in most manufactur
 # Installing / Getting started
 
 The minimal setup you need short of reading raw XML is a suitable ontology viewer or editing tool, installed on your client machine. IOF recommends a desktop version of the open-source tool [Protégé](https://protege.stanford.edu/), but other open source and commercial tools are known to work as well. The repository for this ontology includes the necessary files for opening the ontology in Protégé without warnings and errors. The same is not guaranteed for other tools.  
-
-To use IOF Core without the need to interoperate with the OMG Commons Ontologies mentioned earlier, simply import Core.rdf into your ontology. To use both IOF Core and the OMG Commons Ontologies mentioned, only import MappingCommonsToIOF.rdf into your ontology. Doing so indirectly imports IOF Core and the applicable OMG Common Ontologies.
 
 # Publications related to production planning and scheduling ontologies
 
