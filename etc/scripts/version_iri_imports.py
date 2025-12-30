@@ -23,11 +23,30 @@ def update_owl_imports(file_path: str, release_number: str) -> None:
     suffix = match.group(4)
     
     if re.match(r'^\d{6}', iri):
-      print(f"Skipping already versioned IRI: {match.group(0)}")
+      if iri.startswith(release_number):
+        print(f"Skipping already versioned IRI: {iri}")
+      else:
+        print(f"Updating release number in IRI: {iri} to {release_number}")
+        iri = re.sub(r'^\d{6}', release_number, iri)
       return match.group(0)  # Already versioned, skip
     else:
       new_iri = f"{prefix}{root}{release_number}/{iri}{suffix}"
       print(f"Replacing import IRI: {match.group(0)} with {new_iri}")
+      return new_iri
+  
+  def correct_version_iri(match):
+    prefix = match.group(1)
+    root = match.group(2)
+    version = match.group(3)
+    iri = match.group(4)
+    suffix = match.group(5)
+    
+    if version == release_number:
+      print(f"Skipping already versioned versionIRI: {match.group(0)}")
+      return match.group(0)
+    else:
+      new_iri = f"{prefix}{root}{release_number}{iri}{suffix}"
+      print(f"Replacing versionIRI: {match.group(0)} with {new_iri}")
       return new_iri
   
   # Replace all matches
@@ -36,6 +55,11 @@ def update_owl_imports(file_path: str, release_number: str) -> None:
   pattern = r'(<owl:imports\s+rdf:resource=[\'"]{1})(https://spec.industrialontologies.org/ontology/)([^"\']+)(["\']{1})'  
   updated_content = re.sub(pattern, replace_import, content)
   
+  # Pattern to match owl:versionIRI elements with rdf:resource attributes
+  # Matches: <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/<version>/..."/>
+  pattern = r'(<owl:versionIRI\s+rdf:resource=[\'"]{1})(https://spec.industrialontologies.org/ontology/)(\d{6})(/[^"\']+)(["\']{1})'  
+  updated_content = re.sub(pattern, correct_version_iri, updated_content)
+
   # Write back to file
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(updated_content)
