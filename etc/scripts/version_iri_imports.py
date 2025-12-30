@@ -25,9 +25,11 @@ def update_owl_imports(file_path: str, release_number: str) -> None:
     if re.match(r'^\d{6}', iri):
       if iri.startswith(release_number):
         print(f"Skipping already versioned IRI: {iri}")
+        return match.group(0)
       else:
         print(f"Updating release number in IRI: {iri} to {release_number}")
         iri = re.sub(r'^\d{6}', release_number, iri)
+        new_iri = f"{prefix}{root}{iri}{suffix}"
       return match.group(0)  # Already versioned, skip
     else:
       new_iri = f"{prefix}{root}{release_number}/{iri}{suffix}"
