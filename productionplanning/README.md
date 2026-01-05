@@ -9,13 +9,11 @@ Version  202502, December 2025 maturity provisional
 
 # Introduction
 
-Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, i is expacted that users of the production planign ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
+Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, it is expacted that users of the production planing ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
 
-Core is a "mid-level" ontology that resides at the top of the suite of ontologies the IOF seeks to introduce to fulfill its mission of supporting digital manufacturing by standardizing industrial terminology and improving consistency and interoperability across many operational areas of manufacturing and the product life cycle. As a mid-level ontology, Core contains terms used by, or anticipated to be used by, a plurality of ontologies in the suite. Additionally, as the IOF bases all of its ontologies on a single foundational or top-level ontology – for which the IOF has chosen the Basic Formal Ontology or BFO – the Core ontology contains generic terms that build upon BFO and provide a consistent foundation for introducing industrial domain-specific terminologies. 
+The IOF ProductionPlanning is a reference ontology for the domain of manufacturing/production planning that resides under  the IOF Core ontolgy (it imports IOF Core)  As a reference ontology, ProductionPlanning contains terms used by most industries utilizing data interoperability in their production planning activities in relation to various ERP amd MES software.
 
-The IOF Core Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Core is curated by the Core Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
-
-The IOF Core Ontology is developed and formalized as an ontology using both first-order logic (FOL) and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is least ambiguous to humans, remains applicable across industrial domain uses, and can be processed by computers. The Core Ontology is curated by the Core Working Group and attempts were made to validate and ground terms utilizing use cases from industry. It should be noted however that while the ultimate purpose of including FOL is to provide a more precise formal semantic definition than can be expressed in version 2 of OWL, the FOL annotations provided in the current release merely parallel those of the OWL expressions. The IOF intends to enrich the FOL formalizations in future releases to align more closely with their natural language definitions. 
+The IOF ProductionPlanning Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Production Planning is curated by the Production Planning and Schedling Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
 
 # Release Notes
 
@@ -31,9 +29,50 @@ This ontology includes constructs for upper level terms found in most manufactur
 
 The minimal setup you need short of reading raw XML is a suitable ontology viewer or editing tool, installed on your client machine. IOF recommends a desktop version of the open-source tool [Protégé](https://protege.stanford.edu/), but other open source and commercial tools are known to work as well. The repository for this ontology includes the necessary files for opening the ontology in Protégé without warnings and errors. The same is not guaranteed for other tools.  
 
-To use IOF Core without the need to interoperate with the OMG Commons Ontologies mentioned earlier, simply import Core.rdf into your ontology. To use both IOF Core and the OMG Commons Ontologies mentioned, only import MappingCommonsToIOF.rdf into your ontology. Doing so indirectly imports IOF Core and the applicable OMG Common Ontologies.
-
 # Publications related to production planning and scheduling ontologies
+
+F Ameri, D Sormaz, F Psarommatis, D Kiritsis, Industrial ontologies for interoperability in agile and resilient manufacturing, International Journal of Production Research 60 (2), 420-441, 2022
+
+D Šormaz, A Sarkar, SIMPM–Upper-level ontology for manufacturing process plan network generation, Robotics and Computer-Integrated Manufacturing 55, 183-198	9	2019
+
+Saruda Seeharit, Dusan N. Sormaz, Emre Bilgin Sari, A Systematic Review of Ontology-Based Scheduling Approaches in Manufacturing: Enhancing Decision Making and Resilience, 28th International Conference on Production Research, July 12-17, Chia, Colombia
+
+Arkopaul Sarkar. Milos Drobnjakovic, Ana Nikolov, Saruda Seeharit, Adlane Rebaï, Gabriela Henning, Dusan Sormaz, Yan Lu, Evan K. Wallace, Serm Kulvatunyou, Toward a Standardized Manufacturing Operation Management Ontology (MOMO): Findings from the NIST Workshop, 28th International Conference on Production Research, July 12-17, Chia, Colombia
+
+Saruda Seeharit, Dušan Šormaz and Mandvi Fuloria, Interoperability Between ERP and PLM Systems using Ontologies - A Case Study, 12th International Conference on Production Research Americas Region, ICPR Americas 2024, July 21-25, Athens, OH
+
+Dušan Šormaz, Saruda Seeharit, Boonserm Kulvatunyou, Miloš Drobnjaković, A Basic Formal Ontology-Based Ontological Modeling for Plan and Occurrence, a Biomanufacturing Process Verification Use Case, Proceedings of the ASME 2024 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, IDETC/CIE2023, August 25-28, 2024, Washington, DC
+
+Dušan Šormaz, Boonserm Kulvatunyou, Miloš Drobnjaković, Saruda Seeharit, Comparative Study of Approaches for an Ontology of Digital Artifacts, Proceedings of the ASME 2023 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference, IDETC/CIE2023, August 20-23, 2023, Boston, MA 
+
+Arkopaul Sarkar, Milos Drobnjakovic, Sina Namaki Araghi, Mohamed Hedi Karray and Dusan Sormaz, Ontology Modeling of Plan and their Conformance to Manufacturing Execution, Proceedings of 27th International Conference on Production Research, Cluj-Napoca, Romania, 23-28 July 2023.
+
+Riad Al Hasan Abir, Mandvi Malik Fuloria, Dusan Sormaz, Peter Adjei, Felix Asare, David Koonce and Saruda Seeharit, Ontology Model for Mapping Terms and Relations in Plastic Manufacturing – A Case Study, Proceedings of  27th International Conference on Production Research, Cluj-Napoca, Romania, 23-28 July 2023.
+
+Dusan Sormaz, Arkopaul Sarkar and David Koonce, Application Integration in Smart Manufacturing and Industry 4.0 using Ontologies, ICPR 2022, International Conference on Production Research Americas, November 23-25, 2022, Curitiba, Brazil
+
+Arkopaul Sarkar, Dusan Sormaz and Hedi Karray, Taxonomy of Manufacturing Joining Operations based on Process Characterization, 12th International Workshop on Formal Ontologies meet Industry, September 12-15, 2022, Tarbes, France
+
+Sarkar, Arkopaul, Sormaz, Dusan, Hedi Karray, Mohamed, Taxonomy of Manufacturing Joining Operations based on Process Characterization, in Kyoung-Yun Kim, Leslie Monplaisir, Jeremy Rickli, Ed. Flexible Automation and Intelligent Manufacturing: The Human-Data-Technology Nexus, Proceedings of FAIM 2022, June 19–23, 2022, Detroit, Michigan, USA, Volume 2
+
+A. Sarkar, M. R. Naqvi, L. Elmhadhbi, Dusan Sormaz, Bernard Archimede, M. H. Karray, CHAIKMAT 4.0 - Commonsense Knowledge & Hybrid Artificial Intelligence for Trusted Flexible Manufacturing, in Kyoung-Yun Kim, Leslie Monplaisir, Jeremy Rickli, Ed. Flexible Automation and Intelligent Manufacturing: The Human-Data-Technology Nexus, Proceedings of FAIM 2022, June 19–23, 2022, Detroit, Michigan, USA, Volume 2
+
+Arkopaul Sarkar, Dušan Šormaz, Interoperability between PLM, ERP, and MES Systems Using Formal Ontologies, International Conference of Production Research, July 18-21, 2021, Taiwan - virtual
+
+Arkopaul Sarkar, Dušan Šormaz, David Koonce, and Sharmake Farah, Developing a Resource-based Manufacturing Process Capability Ontology, The International Conference of Production Research, ICPR - Americas 2020, December 2020, Bahía Blanca, Argentina - virtual
+
+Dusan Šormaz, Arkopaul Sarkar, Walter Terkaj, Progress on IOF’s Process and Production Planning Reference Ontology, Proceedings of the 10th International Conference on Interoperability for Enterprise Systems and Applications, November 17-19, 2020, Tarbes, France, (Virtual)
+
+Sarkar, Arkopaul; Sormaz, Dusan, On Semantic Interoperability of Model-based Definition of Product Design, 29th International Conference on Flexible Automation and Intelligent Manufacturing, 24th - 28th June 2019, Limerick, Ireland
+
+A Sarkar, D Šormaz, Ontology Model for Process Level Capabilities of Manufacturing Resources, Procedia Manufacturing 39, 1889-1898, 2019
+
+A Sarkar, D Šormaz, On Semantic Interoperability of Model-based Definition of Product Design, Procedia Manufacturing 38, 513-523, 2019
+
+DN Sormaz, A Sarkar, S Ghosal, A Multiagent System for Distributed Manufacturing Process Planning,  Procedia Manufacturing, 2018
+
+
+
 
 # Reporting Issues for the ProductionPlanning Ontology and Joining the Discussions
 
