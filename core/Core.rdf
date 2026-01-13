@@ -45,7 +45,7 @@
 		<dcterms:publisher xml:lang="en-US">Industrial Ontology Foundry</dcterms:publisher>
 		<dcterms:title>Industrial Ontology Foundry (IOF) Core Ontology</dcterms:title>
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
-		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/iof-av/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202502/core/Core/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
@@ -3587,6 +3587,50 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">a dataset is an input of a machine learning execution process; growth medium is an input of a fermentation process; metal powder is an input of an additive manufacturing process;</skos:example>
 		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relates someone or something physical or digital (continuant) to a process that it is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;isMadeOfAtAllTimes">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;isMadeOfAtSomeTime"/>
+		<rdfs:label xml:lang="en-US">is made of at all times</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&bfo;BFO_0000024"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:range>
+		<skos:example>A glass bottle is made of glass at all times during its existence as that bottle; A polymer tube is made of polymer at all times during its existence as that tube</skos:example>
+		<iof-av:explanatoryNote>This relation is asserted with an ‘at all times’ condition. It therefore implies that, for every time at which a exists, a has b as a continuant part. Equivalently, there is no time during the existence of a at which a fully lacks b as a part while still remaining the same material entity</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between material entity b and material entity that is not a fiat object c such that b has continuant part at all times c and if portion of c is removed from b, that portion stops being part of b, while the remaining c continues to exist as the same material entity and b remains to have continuant part c</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;isMadeOfAtSomeTime">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000178"/>
+		<rdfs:label xml:lang="en-US">is made of at some time</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&bfo;BFO_0000024"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:range>
+		<skos:example>A bottle is made of glass; a bioreactor vessel is made of stainless steel; a capsule shell is made of gelatin; a wooden tabletop is made of oak</skos:example>
+		<iof-av:counterExample>A car is not made of wheels; a bioreactor is not made of sensors; a computer is not made of circuit boards; an aircraft is not made of engines; a building is not made of windows; a pipeline is not made of valves</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) This relation captures the continuous material composition of an entity rather than its structural or component assembly. It depends on the presence of some quantity of the material, not on the exact total amount. The identity of b remains unchanged when its portions are removed; only the quantity of the material within a varies. The relation continues to hold as long as any remainder of b remains materially present in a.
+2) It applies to continuous substances or amounts of matter such as glass, steel, polymer, or wood. It should not be used for discrete parts, modules, or components such as wheels, valves, or bolts. The material may be homogeneous or composite; chemical uniformity is not required.
+3) The relation has the following characteristics: irreflexive, asymmetric, non-functional, non-transitive</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between material entity b and material entity that is not a fiat object c such that b has continuant part at some time c and if portion of c is removed from b, that portion stops being part of b, while the remaining c continues to exist as the same material entity and b remains to have continuant part c</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMeasuredValueOfAtSomeTime">
