@@ -66,19 +66,35 @@
 		<bfo:IAO_0000602>(iff (ProcessProfile a) (exists (b) (and (Process b) (processProfileOf a b)))) // axiom label in BFO2 CLIF: [093-002]</bfo:IAO_0000602>
 	</rdf:Description>
 	
+	<owl:Class rdf:about="&iof-construct;AcceptanceCriteria">
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;RequirementSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>acceptance criteria</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;ManufacturingMaterialConformanceSpecification"/>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) In the ICH specifications (Q6B) context, acceptance criteria are defined as “numerical limits, ranges, or other suitable measures for acceptance of the results of analytical procedures” (applying to drug substance, drug product, or materials at other manufacturing stages).
+2) In a process-validation context, protocols are expected to include tests and acceptance criteria for significant processing steps, i.e., criteria used to judge whether process performance is acceptable.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that has as parts one or more limits, ranges, or other conditions used to determine whether an entity satisfies a particular requirement</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ActionLimitValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
 		<rdfs:label>action limit value expression</rdfs:label>
 		<skos:altLabel>action limit</skos:altLabel>
 		<skos:example>Chromatography column pressure has a control limit of 1.5 bar and an action limit of 2.0 bar. When pressure reaches 2.0 bar, the process is considered out of control, and corrective action is required to reduce pressure and prevent potential column damage or product loss; Dissolved oxygen (DO) in a bioreactor has a setpoint of 40 % air saturation and a NOR of 35–45 %. The lower action limit is 30 % and the upper action limit is 50 %. Crossing either boundary requires immediate adjustment of aeration or agitation to restore DO control and maintain cell metabolism</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1)Exceeding an action limit requires immediate response to contain potential impact on the process or material. This typically includes formally documenting the excursion, initiating a deviation or nonconformance, assessing product impact, and taking appropriate corrective actions to restore the process to a controlled state. Activities to stabilize the process parameter are part of the immediate response but do not negate the need for investigation, impact assessment, and potential corrective and preventive actions.
+		<iof-av:explanatoryNote>1)Exceeding an action limit requires immediate response to contain potential impact on the process or material. This typically includes formally documenting the excursion, initiating a deviation or nonconformance, assessing product impact, and taking appropriate corrective actions to restore the process to a controlled state. Activities to stabilize the variable are part of the immediate response but do not negate the need for investigation, impact assessment, and potential corrective and preventive actions.
 2) Action limits are part of the internal process control framework and are not regulatory reporting limits.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which corrective action is required to bring the process back under control and to prevent potential impact on process performance or product quality</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>limit value expression beyond which corrective action is required to bring the process back under control and to prevent potential impact on process performance or product quality</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AlertLimitValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
 		<rdfs:label>alert limit value expression</rdfs:label>
 		<skos:altLabel>alert limit</skos:altLabel>
 		<skos:example>Chromatography column pressure has a control limit of 1.5 bar and an alert limit of 1.8 bar. When pressure exceeds 1.8 bar, the alert signals potential fouling or blockage that could soon reach the action limit of 2.0 bar</skos:example>
@@ -87,72 +103,7 @@
 2)The alert limit does not represent a specification or regulatory boundary. Instead, it supports proactive control by identifying trends or variations that may lead toward an action limit or out-of-specification condition if not corrected.
 3) In the hierarchy of limits, alert limits are sitting below Action Limits.
 4) FDA Guidance for industry, Sterile Drug Products Produced by Aseptic Processing - Current GMP Manufacturing Process  - &quot;Environmental monitoring data will provide information on the quality of the manufacturing environment. Each individual sample result should be evaluated for its significance by comparison to the alert or action levels. Averaging of results can mask unacceptable localized conditions. A result at the alert level urges attention to the approaching action conditions. A result at the action level should prompt a more thorough investigation.&quot;</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>process parameter limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:label>biopharmaceutical manufacturing process characterization</rdfs:label>
-		<skos:example>cell culture process characterization to determine the effect of temperature and glucose feeding on product glycosylation</skos:example>
-		<iof-av:acronym>PC</iof-av:acronym>
-		<iof-av:adaptedFrom>https://www.6sigma.us/process-improvement/process-characterization/ and https://www.biopharminternational.com/view/rational-step-wise-approach-process-characterization</iof-av:adaptedFrom>
-		<iof-av:counterExample>unplanned troubleshooting of a failed batch</iof-av:counterExample>
-		<iof-av:explanatoryNote>The process integrates analysis of historical data, designed experiments, and risk assessment to determine the criticality of parameters and material attributes, quantify their relationships with critical quality attributes (CQAs) and key performance indicators (KPIs), and establish scientifically justified parameter ranges that support control strategy, validation, and lifecycle management.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that systematically develops scientific understanding of how process parameters and material attributes influence quality and performance outcomes</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessDesign">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;PlanSpecification">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>biopharmaceutical manufacturing process design</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Process Design corresponds to Stage 1 of FDA’s Process Validation lifecycle.
-Its purpose is to establish the scientific and engineering understanding needed to design a robust commercial process. Activities include integration of prior knowledge, risk assessment, process characterization studies, model development, identification of critical process parameters (CPPs), classification of material attributes, establishment of operating ranges (e.g., setpoints, NORs, PARs), and definition of the control strategy.
-2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that defines and develops the commercial manufacturing process, including process parameters, materials, and control elements to establish a process design</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;BiopharmaceuticalManufacturingProcessQualification">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessDesign"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>biopharmaceutical manufacturing process qualification</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Process Qualification corresponds to Stage 2 of FDA’s Process Validation lifecycle and includes both qualification of equipment and facility (Stage 2A) and Process Performance Qualification (PPQ) (Stage 2B). Execution of PPQ batches and associated analytical evaluation provides evidence that the process can consistently operate within its defined parameters and produce material meeting predetermined quality criteria. Process Qualification relies on knowledge generated in Stage 1 Process Characterization and precedes Stage 3 Continued Process Verification.
-2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that evaluates the manufacturing process, facility, equipment, and personnel under a pre-approved protocol to demonstrate that the process design is capable of reproducible commercial manufacturing</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ContinuedProcessVerification">
@@ -160,7 +111,7 @@ Its purpose is to establish the scientific and engineering understanding needed 
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessQualification"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcessQualification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>continued process verification</rdfs:label>
@@ -176,7 +127,7 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ControlLimitValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterLimitValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
 		<rdfs:label>control limit value expression</rdfs:label>
 		<skos:altLabel>control limit</skos:altLabel>
 		<skos:example>For a temperature setpoint of 37 °C, the normal operating range is 36.5–37.5 °C. Control limits are set at 36.5 °C (lower) and 37.5 °C (upper). As long as the temperature stays within these limits, the process is considered stable. Readings beyond 37.5 °C or below 36.5 °C show that the process is no longer in control and should be checked and corected as needed.</skos:example>
@@ -186,7 +137,82 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 2) An operational control limit is defined using process knowledge, equipment capability, or risk assessment when statistical data are limited or when physical or engineering constraints dictate the threshold.
 3) Exceeding a control limit indicates that the process is no longer in a state of statistical control and requires investigation and corrective action as specified by the control strategy.
 4) In biopharmaceutical manufacturing, control limits are established and refined during Continued Process Verification (CPV) to maintain a validated state of control</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>process parameter limit value expression that is a statistical or operational threshold beyond which the process is considered out of control</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>limit value expression that is a statistical or operational threshold beyond which the process is considered out of control</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ControlStrategy">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PerformanceIndicatorSpecification">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessParameterSpecification">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;QualityAttributeSpecification">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">control strategy</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MonitoringAndControl/"/>
+		<skos:altLabel>integrated control strategy</skos:altLabel>
+		<skos:example>A control strategy for sterile filling includes gravimetric sensors to monitor and regulate fill volume (process parameter), cleanroom environmental monitoring to monitor particulate levels and temperature (quality attributes), and automated rejection of out-of-spec units. The process performance indicator is fill volume deviation rate, calculated as the percentage of vials outside volume targets; 
+A control strategy for fed-batch cell culture includes specifying a gas controller to regulate dissolved oxygen (process parameter), a pH control loop to maintain pH within range (process parameter), and monitoring of cell viability over time as a process performance indicator. It also specifies that the glycosylation profile and aggregate levels as critical quality attributes and their periodic monitoring throughout the culture using off-line analysis</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf and ISA88</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Per ICH: A planned set of controls, derived from current product and process understanding, that assures process performance and product quality. Control strategy can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in-process controls, finished product specifications, and the associated methods and frequency of monitoring and control.
+Per ICH: Quality risk management is used to establish the control strategy. This can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in process controls, finished product specifications, and the associated methods and frequency of monitoring and control. The control strategy should facilitate timely feedback / feedforward and appropriate corrective action and preventive action.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ControlStrategy(x) → PlanSpecification(x) ∧ ∃y((ProcessParameterSpecification(y) ∨ QualityAttributeSpecification(y) ∨PerformanceIndicatorSpecification(y)) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators associated with a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a control strategy.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CorrectiveAction">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>corrective action</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Corrective action is taken to prevent recurrence (hence being applied to detected) whereas preventiveaction is taken to prevent occurrence (hence being applied to potential).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that is carried out to eliminate the cause of a detected nonconformity or other undesirable situation.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CriticaInputlMaterialAttributeSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
+		<rdfs:label>critical input material attribute specification</rdfs:label>
+		<iof-av:abbreviation>CMA specification</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>input material attribute specification that prescribes some quality, capability, constitution, or composition whose variation can have a significant impact on the quality of the output material</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CriticalMaterialAttribute">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAttribute"/>
+		<rdfs:label>critical material attribute</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Capability">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;CriticaInputlMaterialAttributeSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by a critical input material attribute specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticalProcessParameter">
@@ -303,35 +329,10 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000019">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-core;Capability">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000197"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-core;RawMaterial">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
 						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
@@ -344,6 +345,14 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 and  https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-improving-understanding-normal-operating-range-nor-proven-acceptable-range-par-design-space-dsp-and-normal-variability-process-parameters_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The design space represents the highest level of operational flexibility. It encompasses the combined interactions of all statistically significant process parameters and all statistically significant material attributes identified through risk assesment, typically established through designed experiments or multivariate modeling. Operation within the design space is considered to maintain a validated state of control and does not constitute a regulatory change, whereas movement outside the design space may require justification or regulatory variation. The design space is defined by process understanding and risk assessment, and may apply to a single unit operation or span multiple operations.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>information content entity that describes a manufacturing process through a multidimensional region of combinations of material attribute and process parameter values within which that process maintains a validated state of control and assures product quality</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DeviationEvent">
+		<rdfs:subClassOf rdf:resource="&iof-core;Event"/>
+		<rdfs:label>deviation event</rdfs:label>
+		<iof-av:adaptedFrom>https://www.scilife.io/blog/how-to-handle-deviations and https://www.thefdagroup.com/blog/deviation-management and https://www.biopharminternational.com/view/risk-based-approach-deviation-management</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Deviation events may be detected through monitoring (e.g., an excursion of a monitored variable beyond an alert, action, control, or specification boundary) or through review of records (e.g., procedural departures, documentation errors, use of an unintended material lot, missed sampling or hold-time requirements). Organizations typically classify deviation events by their potential impact on product SIQP (safety, identity, quality, and potency/purity), and use that classification to determine the required escalation pathway, including whether a formal deviation record must be opened, the depth of investigation, and whether corrective and preventive actions are required.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>event in which an unplanned departure occurs from an applicable plan, requirement specification, or specified range or limit</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EdgeOfFailure">
@@ -360,35 +369,10 @@ and  https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-a
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000019">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-core;Capability">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000197"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-core;RawMaterial">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
 						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
@@ -426,6 +410,95 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>An initial (provisional) control limit is used at the start of continued process verification or after process changes when process history is still limited. It provides monitored boundaries for continued manufacturing while additional data are collected to confirm process stability and variability. Once adequate data are available, the initial control limits are replaced by control limits that represent the long-term state of control.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>control limit established from limited process data or process knowledge and applicable only until sufficient information is available to establish statistically justified control limits</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InputMaterialAttributeSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InputSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000019">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;Capability">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000197"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&bfo;BFO_0000040">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:unionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+																	</rdf:Description>
+																	<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+																	</rdf:Description>
+																	<rdf:Description rdf:about="&iof-core;RawMaterial">
+																	</rdf:Description>
+																</owl:unionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000019">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;Capability">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000197"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-core;RawMaterial">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:label>input material attribute specification</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q8_R2_Guideline.pdf and https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Input materials can be raw materials, process intermediate materials, or production consumables, which is reflected in the prescription axiom</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>input specification that prescribes some quality, capability, constitution, or composition of an input material that can have an impact on process performance or on the quality of the output material</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicator">
@@ -519,6 +592,11 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;key process parameter specification&apos; then x is a &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;LimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:label>limit value expression</rdfs:label>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;LongTermControlLimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ControlLimitValueExpression"/>
 		<rdfs:label>long-term control limit value expression</rdfs:label>
@@ -529,8 +607,158 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<iof-av:naturalLanguageDefinition>control limit established from statistically sufficient process data and used for routine monitoring and evaluation of stable long-term process performance</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ManufacturingMaterialConformanceSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-core;RequirementSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;requirementSatisfiedBy"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;RawMaterial">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;AcceptanceCriteria"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;PlanSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-core;MeasurementProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>manufacturing material conformance specification</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Conformance is determined by meeting the acceptance criteria when tested according to the listed analytical procedures.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>requirement specification that establishes a set of criteria to which a product, process intermediate, raw material, or production consumable should conform to be acceptable for a particular use and that has as parts a list of tests, references to analytical procedures for those tests, and acceptance criteria for those tests.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ManufacturingProcessCharacterization">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>manufacturing process characterization</rdfs:label>
+		<skos:example>cell culture process characterization to determine the effect of temperature and glucose feeding on product glycosylation</skos:example>
+		<iof-av:acronym>PC</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.6sigma.us/process-improvement/process-characterization/ and https://www.biopharminternational.com/view/rational-step-wise-approach-process-characterization</iof-av:adaptedFrom>
+		<iof-av:counterExample>unplanned troubleshooting of a failed batch</iof-av:counterExample>
+		<iof-av:explanatoryNote>The process integrates analysis of historical data, designed experiments, and risk assessment to determine the criticality of parameters and material attributes, quantify their relationships with critical quality attributes (CQAs) and key performance indicators (KPIs), and establish scientifically justified parameter ranges that support control strategy, validation, and lifecycle management.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that systematically develops and documents scientific understanding of how process parameters and material attributes influence quality and performance outcomes</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ManufacturingProcessDesign">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>manufacturing process design</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcessCharacterization"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProcessControlStrategyEstablishment"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-core;PlanSpecification">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ControlStrategy"/>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+										<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Process Design corresponds to Stage 1 of FDA’s Process Validation lifecycle.
+Its purpose is to establish the scientific and engineering understanding needed to design a robust commercial process. Activities include integration of prior knowledge, risk assessment, process characterization studies, model development, identification of critical process parameters (CPPs), classification of material attributes, establishment of operating ranges (e.g., setpoints, NORs, PARs), and definition of the control strategy.
+2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that defines and develops the commercial manufacturing process, including process parameters, materials, and control elements to establish a process design</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ManufacturingProcessQualification">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcessDesign"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>manufacturing process qualification</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Process Qualification corresponds to Stage 2 of FDA’s Process Validation lifecycle and includes both qualification of equipment and facility (Stage 2A) and Process Performance Qualification (PPQ) (Stage 2B). Execution of PPQ batches and associated analytical evaluation provides evidence that the process can consistently operate within its defined parameters and produce material meeting predetermined quality criteria. Process Qualification relies on knowledge generated in Stage 1 Process Characterization and precedes Stage 3 Continued Process Verification.
+2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that evaluates the manufacturing process, facility, equipment, and personnel under a pre-approved protocol to demonstrate that the process design is capable of reproducible commercial manufacturing</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialAttribute">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000020"/>
+		<rdfs:label>material attribute</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-core;Capability">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by an input material attribute specification</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;NormalOperatingRangeValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterRangeValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;RangeValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -552,9 +780,28 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<iof-av:explanatoryNote>NOR is the span within which process is designed to function under typical conditions. This range is distinct from the broader ranges, which may include values associated with abnormal operation or alarm conditions. When a process parameter remains within the normal operating range, no alarm is expected to trigger, as the process parameter is considered to be under control.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NormalOperatingRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y)) ∧ ∃z (SetpointValueExpression(z) ∧ hasContinuantPartAtAllTimes(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter range around a set point within which a particular process parameter is expected to vary during normal operation of a process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that is an interval around a set point within which a particular process parameter is expected to vary during normal operation of a process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OutOfSpecificationResult">
+		<rdfs:subClassOf rdf:resource="&iof-core;MeasurementInformationContentEntity"/>
+		<rdfs:label>out of specification result</rdfs:label>
+		<iof-av:abbreviation>OOS result</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/158416/download</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>established specifications or acceptance criteria include those set in drug applications, drug master files, official compendia, or by the manufacturer, and include in-process laboratory tests that are outside established specifications.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>measurement information content entity that falls outside established specifications or acceptance criteria</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OutOfTrendResult">
+		<rdfs:subClassOf rdf:resource="&iof-core;MeasurementInformationContentEntity"/>
+		<rdfs:label>out of trend result</rdfs:label>
+		<iof-av:abbreviation>OOT result</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://gmpinsiders.com/differences-between-oos-oot-and-ooe-results/ and https://pharmuni.com/glossary/out-of-trend/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) The expected trend is assessed relative to a defined series of results for the same measured attribute, commonly in contexts such as stability studies, process monitoring, or routine quality control testing.
+2) Unlike OOS results, which fall outside established specifications or acceptance criteria, OOT results may still be within established limits while indicating a potential shift that warrants investigation.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>measurement information content entity that deviates from an expected trend</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
@@ -634,12 +881,52 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:usageNote>Measurable characteritics in this case can be some quality,  temporal region, process profile or process characteristic which is reflected in the axiom.</iof-av:usageNote>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;PreventiveAction">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>preventive action</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Corrective action is taken to prevent recurrence (hence being applied to detected) whereas preventiveaction is taken to prevent occurrence (hence being applied to potential).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that is carried out to eliminate the cause of a potential nonconformity or other potential undesirable situation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessControlStrategyEstablishment">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcessCharacterization"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ControlStrategy"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process control strategy establishment</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process that uses scientific understanding of how process parameters and material attributes influence quality and performance outcomes to create a  control strategy</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessExcursion">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DeviationEvent"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process excursion</rdfs:label>
+		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/monitoring-biopharmaceutical-processes-present-and-future-approaches and https://insideautomation.net/workflow-for-biopharmaceutical-excursions/ and https://database.ich.org/sites/default/files/Q8_Q9_Q10_Q%26As_R4_Points_to_Consider_0.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>deviation event in which the value of a variable monitored during a process is outside one or more predefined limits or ranges during the process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ProcessModelDevelopment">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;BiopharmaceuticalManufacturingProcessCharacterization"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcessCharacterization"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>process model development</rdfs:label>
@@ -679,38 +966,6 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:firstOrderLogicDefinition>ProcessParameter(x) ↔ ∃s(ProcessParameterSpecification(s) ∧ prescribedBy(x, s)) ∧ (TemporalRegion(x) ∨ ProcessProfile(x) ∨ Quality(x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile or temporal region or quality prescribed by a process parameter specification</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process parameter&apos; is defined as exactly an instance that is either a &apos;temporal region&apos; or a &apos;process profile&apos; or &apos;quality&apos; and that is &apos;prescribed by&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProcessParameterExcursion">
-		<rdfs:subClassOf rdf:resource="&iof-core;Event"/>
-		<rdfs:label>process parameter excursion</rdfs:label>
-		<iof-av:naturalLanguageDefinition>event in which the value of a process parameter is recognized to be outside its defined operating limits or acceptable range during execution of a particular processing step</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProcessParameterLimitValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;ProcessParameter"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>process parameter limit value expression</rdfs:label>
-		<skos:example>action limit, control limit, alert limit</skos:example>
-		<iof-av:naturalLanguageDefinition>value expression which is a threshold for a process parameter associated with process monitoring or control</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProcessParameterRangeValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;ProcessParameter"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>process parameter range value expression</rdfs:label>
-		<skos:altLabel>process parameter range</skos:altLabel>
-		<iof-av:naturalLanguageDefinition>value expression which specifies the interval of allowable, planned, or observable values for a process parameter</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameterSpecification">
@@ -757,7 +1012,7 @@ It supports the definition of design space, setpoints, control ranges, and param
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProvenAcceptableRangeValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterRangeValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;RangeValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
@@ -773,7 +1028,7 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:explanatoryNote>The PAR is established based on process development and validation activities, and it is typically narrower than the full instrument span. It defines the boundaries for making saleable product, and excursions outside this range are considered process deviations that may require investigation and corrective action.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ProvenAcceptableRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process parameter range that has been validated through testing or documented experience and that is a prescribed interval within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that has been validated through testing or documented experience and that is a prescribed interval within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;proven acceptable range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -889,6 +1144,7 @@ It supports the definition of design space, setpoints, control ranges, and param
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">quality attribute specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"/>
+		<owl:disjointWith rdf:resource="&iof-construct;QualityTargetProductProfile"/>
 		<skos:example>content uniformity specification; degradation product specification; residual solvent specification; drug release specification; dissolution specification; moisture content specification; microbial limit specification; color specification; shape specification; size specification; odor specification;</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf
 “https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf</iof-av:adaptedFrom>
@@ -902,15 +1158,96 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:usageNote>These specifications may refer to intrinsic physical or chemical properties (such as pH or viscosity), to capabilities (such as binding affinity), or to the identity and proportion of distinguishable components (such as glycoforms, excipients, or host cell proteins). In cases where constitution or composition is relevant, the specification typically should me modeled as a quality that inheres in a continuant part of the material, such as the concentration or proportion of a specific component which is the &apos;quality of&apos; (inheres in) that specific component.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;RiskAnalysisProcess">
+	<owl:Class rdf:about="&iof-construct;QualityRiskManagementProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskControlProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskReviewProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>quality risk management process</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process that systematically performs risk assessment, risk control, risk communication, and risk review for risks to drug product quality across the product lifecycle</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;QualityTargetProductProfile">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OutputObjectiveSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;QualityAttributeSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;MaterialProduct"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>quality target product profile</rdfs:label>
+		<iof-av:acronym>QTPP</iof-av:acronym>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-considerations-ich-guideline-q8-r2-pharmaceutical-development-step-5_en.pdf#page=18.32</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) The QTPP is established taking into account the safety and efficacy of the drug product.
+2) The quality target product profile (QTPP) forms the basis of design for development of a drug product by providing a prospective summary of the drug product quality characteristics that ideally will be achieved to ensure the desired quality. Typical considerations include the intended clinical use, the route of administration, the dosage form and delivery system, the dosage strength or strengths, the container closure system, therapeutic moiety release or delivery characteristics, and attributes affecting pharmacokinetics such as dissolution or aerodynamic performance as appropriate to the dosage form. Considerations also include drug product quality criteria appropriate for the intended marketed product, such as sterility, purity, stability, and drug release.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>output objective specification that prescribes a drug product and includes, as parts, quality attribute specifications that should ideally be achieved to ensure the desired quality of that drug product</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RangeValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:label>range value expression</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskAcceptanceProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;Agent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk acceptance process</rdfs:label>
+		<skos:example>After implementing a backup pH probe and enhanced calibration checks, the quality unit formally accepts the residual risk of pH measurement drift for routine manufacturing</skos:example>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Risk acceptance is the decision to accept risk. It may be a formal decision to accept residual risk or a passive decision in which residual risks are not specified.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process in which an agent makes a decision to accept a risk</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskAnalysisProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:label>risk analysis process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationResult"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example>Using FMEA to estimate the combined likelihood and severity of cell-culture contamination caused by operator error, with detectability factored into a risk-priority number (RPN).</skos:example>
 		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Risk analysis transforms identified hazards into measurable or comparable levels of risk. It may be performed qualitatively or quantitatively and can include the likelihood of occurrence, the severity of consequences, and, where appropriate, the ability to detect a failure before harm occurs (detectability).
@@ -920,31 +1257,25 @@ In biopharmaceutical development, it supports Quality-by-Design (QbD) by linking
 	
 	<owl:Class rdf:about="&iof-construct;RiskAssesmentProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAnalysisProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskEvaluationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>risk assesment process</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlannedProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskAnalysisProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEvaluationProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example>An FMEA is performed to evaluate how variations in temperature, pH, or raw-material quality could influence product titer and impurity profile, assigning severity, occurrence, and detection ratings to prioritise parameters requiring tighter control.</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf and ISO 31000:2018</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A risk-assessment process systematically determines the likelihood and impact of undesirable events or conditions to support informed decision-making.
@@ -954,15 +1285,44 @@ Commonly applied methods include failure mode and effects analysis (FMEA), hazar
 		<iof-av:naturalLanguageDefinition>planned process that identifies, analyses, and evaluates risks associated with achieving a particular objective</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;RiskControlProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssesmentProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;RiskAcceptanceProcess">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;RiskReductionProcess">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk control process</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process that has as parts one or more risk reduction processes or risk acceptance processes in order to reduce risk to an acceptable level</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;RiskEstimate">
 		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
 		<rdfs:label>risk estimate</rdfs:label>
-		<skos:example>The estimated risk for pH variability on product titer is medium (probability = 2, severity = 3, risk score = 6).</skos:example>
+		<skos:example>The estimated risk that harvest titer falls below the acceptance criterion due to pH variability during production culture process is medium (likelihood rating = 2, severity = 3, risk score = 6).</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A risk estimate represents the outcome of a risk assessment by summarizing the likelihood and potential impact of undesired effects on objectives such as quality, performance, or safety.
 It may apply to processes, materials, equipment, or other operational elements and can be expressed as a numerical score, category (e.g., high–medium–low), or risk-priority number (RPN).
-In regulatory documents such as ICH Q9 (R1), this same concept is typically referred to simply as risk; the term risk estimate is used here to emphasize its informational nature as the assessed level of risk rather than the underlying event or hazard itself.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>Information content entity that consists of a combination of the probability of occurrence of harm and the severity of that harm</iof-av:naturalLanguageDefinition>
+In regulatory documents such as ICH Q9 (R1), this same concept is typically referred to simply as risk. The term risk estimate is used here to emphasize its informational nature as the assessed level of risk rather than the underlying event or hazard itself.  
+Likelihood is used here instead of &apos;probability of occurence&apos; to cover both numerical probabilities (quantitative estimation) and defined ordinal categories/ratings (qualitative range descriptions).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that is a combination of the assesed likelihood of harm and the assesed severity of that harm</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskEvaluationProcess">
@@ -984,13 +1344,80 @@ In biopharmaceutical development, risk evaluation helps prioritize which process
 	
 	<owl:Class rdf:about="&iof-construct;RiskIdentificationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationResult"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>risk identification process</rdfs:label>
-		<skos:example>Identifying temperature, pH, and nutrient-feed rate as potential sources of risk to cell-culture viability.</skos:example>
+		<skos:example>Identifying temperature, pH, and nutrient-feed rate as potential hazards to cell-culture viability.</skos:example>
 		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Risk identification establishes the foundation for risk assessment by revealing possible events, conditions, or process factors that may influence quality, safety, or performance outcomes.
 It answers the question “What might go wrong?” by using information such as historical data, theoretical analysis, expert judgment, and stakeholder concerns to build a structured understanding of potential risks.
 In biopharmaceutical contexts, as an example, it involves listing process parameters, material attributes, or operational factors that could influence critical quality attributes (CQAs) or key performance indicators (KPIs).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that systematically uses available information to recognize and record potential hazards or sources of risk relevant to a particular objective</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>planned process that systematically uses available information to recognize and record potential hazards relevant to a risk question or problem description</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskIdentificationResult">
+		<rdfs:subClassOf rdf:resource="&iof-core;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;describes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000016">
+											</rdf:Description>
+											<rdf:Description rdf:about="&bfo;BFO_0000019">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-core;Agent">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk identification result</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;InformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;RiskIdentificationProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Degradation in pH probe measurement capability that results in drift above 0.05 pH units may cause pH control error and harvest titer below the acceptance criterion, describes the disposition of a pH probe to degrade in measurement capability and specifies the drift criterion above 0.05 pH units under which pH measurement drift becomes a hazard; Trace iron above 5 ppm in media may cause altered cell growth and CQA drift, describes when trace iron concentration becomes a hazard by specifying the threshold above 5 ppm; Intermediate hold duration above the defined maximum may increase aggregation and reduce product quality, describes when hold duration becomes a hazard by specifying the criterion above the defined maximum</skos:example>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>In this context, material entity attributes include both input material attributes and equipment or agent attributes such as capability, accuracy, integrity, or performance characteristics whose degradation can lead to undesired consequences. The condition specified in a risk identification result characterizes the relevant attribute or parameter using qualitative or quantitative values, for example a threshold, a limit, an acceptable range, a variability criterion, or a categorical level such as high, low, or out of tolerance.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that is an output of a risk identification process and that describes a material entity attribute or process parameter by specifying the conditions under which that attribute or parameter is treated as a potential source of harm (hazard)</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskRankingAndFilteringProcess">
@@ -1006,8 +1433,48 @@ In biopharmaceutical process characterization, RRF identifies potential critical
 		<iof-av:naturalLanguageDefinition>risk analysis process that estimates and prioritizes risks by ranking identified factors using weighted qualitative or quantitative criteria</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;RiskReductionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:label>risk reduction process</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process that consists of actions taken to lessen a risk</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RiskReviewProcess">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;RiskAssesmentProcess">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;RiskControlProcess">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk review process</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>planned process in which the outputs of a quality risk management process are monitored or reviewed</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SetpointValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;TargetValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
@@ -1026,11 +1493,96 @@ In biopharmaceutical process characterization, RRF identifies potential critical
 		<skos:altLabel>setpoint</skos:altLabel>
 		<skos:example>for a residential dwelling temperature control process, the set point might be 72 degrees Fahrenheit during the day and 68 degrees Fahrenheit during the day; 250 rpm as the setpoint for agitation speed in a formulation tank; 20 minutes as the setpoint for residence time in the protein purification chromatography step</skos:example>
 		<iof-av:explanatoryNote>The setpoint represents the value of a physical condition that a control system aims to achieve and maintain. The set point is used by the control system as a reference for comparison against the actual measured value of the process parameter. Specifically, a control system performs regulation by actuating one or more final control devices to modify process parameters, thereby driving the process variable toward the set point. Representation of this control behavior will be included in a future version of the ontology</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>SetpointValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>SetpointValueExpression(x) → TargetValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression which is a prescribed value that a process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">target value expression which is a prescribed value that a process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;setpoint value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;setpoint value expression&apos; then x is a &apos;target value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SpecificationLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;QualityAttribute">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingMaterialConformanceSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>specification limit value expression</rdfs:label>
+		<skos:altLabel>specification limit</skos:altLabel>
+		<iof-av:acronym>SL</iof-av:acronym>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>limit value expression that is part of a manufacturing material conformance specification and that is a threshold for a quality attribute or material attribute, beyond which the associated material does not conform to the drug material conformance specification.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TargetRangeValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;RangeValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;PerformanceIndicator">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;QualityAttribute">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>target range value expression</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnologicalbiological-entities_en.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>value expression that is a prescribed interval within which a quality attribute, material attribute, process indicator, or process parameter should fall at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:usageNote>Target range is used to describe the preferred band for an attribute, indicator, or parameter and does not, by itself, state what variation is permissible. When a parameter range is intended to state permissibility or demonstrated acceptability, terms such as normal operating range (NOR) and proven acceptable range (PAR) should be used instead.</iof-av:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TargetValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-core;ValueExpression"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;isValueExpressionOfAtAllTimes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;PerformanceIndicator">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;QualityAttribute">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>target value expression</rdfs:label>
+		<skos:altLabel>target value</skos:altLabel>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnologicalbiological-entities_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>For material attributes, a target value may prescribe the required attribute value of an input material, such as a raw material, intermediate, or prepared solution, at a specified checkpoint in the planned process, for example at material receipt, at lot release, or at the time the material is introduced into the process</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>value expression which is a prescribed value that a quality attribute, material attribute, process indicator, or process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;hasProcessParameter">
