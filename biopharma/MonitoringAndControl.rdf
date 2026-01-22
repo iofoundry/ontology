@@ -7,8 +7,9 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
+	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
@@ -26,8 +27,9 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
+	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
@@ -58,11 +60,11 @@
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/MonitoringAndControl/"/>
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Released"/>
+		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;ControlStrategy">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -96,7 +98,7 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialQualityPlan">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -109,11 +111,11 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;PlanSpecification">
+							<rdf:Description rdf:about="&iof-construct;PlanSpecification">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;prescribes"/>
-								<owl:someValuesFrom rdf:resource="&iof-core;MeasurementProcess"/>
+								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -122,25 +124,25 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;PlannedProcess">
+							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
 							</rdf:Description>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
 									</owl:Restriction>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
 									</owl:Restriction>
 									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;isTemporallyOverlappedBy"/>
-										<owl:someValuesFrom rdf:resource="&iof-core;ProductProductionProcess"/>
+										<owl:onProperty rdf:resource="&iof-construct;isTemporallyOverlappedBy"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
 									</owl:Restriction>
 								</owl:unionOf>
 							</owl:Class>
@@ -171,7 +173,7 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 					<rdf:Description rdf:about="&bfo;BFO_0000040">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;isSpecifiedOutputOf"/>
+						<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;SamplingProcess"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -184,10 +186,10 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MonitoringPlan">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;MonitoringProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -203,24 +205,24 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MonitoringProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">monitoring process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MonitoringAndControl/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;PlannedProcess">
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;MeasurementProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;MonitoringPlan"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -237,10 +239,10 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SamplePlan">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;prescribes"/>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;SamplingProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -263,16 +265,16 @@ Sample Size: Defines the number or quantity of items to be sampled at each inter
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SamplingProcess">
-		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
@@ -304,19 +306,19 @@ The sampling process is designed to ensure that the test results subsequently co
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;sampling process&apos;, then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;material entity&apos; m and &apos;has specified output&apos; some s, where s is either a &apos;member part of at some time&apos; or a &apos;proper continuant part of at some time&apos; of m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;ActionSpecification">
+	<owl:Class rdf:about="&iof-construct;ActionSpecification">
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;MeasurementInformationContentEntity">
+	<owl:Class rdf:about="&iof-construct;MeasurementInformationContentEntity">
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;MeasurementProcess">
+	<owl:Class rdf:about="&iof-construct;MeasurementProcess">
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;PlanSpecification">
+	<owl:Class rdf:about="&iof-construct;PlanSpecification">
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-core;PlannedProcess">
+	<owl:Class rdf:about="&iof-construct;PlannedProcess">
 	</owl:Class>
 
 </rdf:RDF>

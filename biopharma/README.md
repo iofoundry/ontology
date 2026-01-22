@@ -15,6 +15,14 @@ The ontology modules include Agent, Equipment, Manufacturing Execution, Material
 
 Details on the modules are as follow:
 
+### AboutIOFDev
+
+The About IOF Dev module imports all BMIC ontology modules whose IOF Maturity Level (as asserted via the `iof-av:maturity` annotation) is `iof-ind:Provisional` or `iof-ind:Released`.
+
+### AboutIOFProd
+
+The About IOF Prod module imports all BMIC ontology modules whose IOF Maturity Level (as asserted via the `iof-av:maturity` annotation) is `iof-ind:Released`.
+
 ### Agent
 
 The Agent module contains terms and relations necessary for representing various types of agents (actors) in biopharmaceutical manufacturing. The actors here correspond to both human actors as well as engineered systems and organizations.

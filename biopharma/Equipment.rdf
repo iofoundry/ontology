@@ -5,8 +5,9 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
+	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
@@ -22,8 +23,9 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
-	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
+	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:qudt="http://qudt.org/schema/qudt/"
@@ -54,7 +56,7 @@
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/Equipment/"/>
 		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
-		<iof-av:maturity rdf:resource="&iof-av;Released"/>
+		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;AffinityChromatographyMedium">
@@ -105,8 +107,8 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingCapability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;EngineeredSystem"/>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;EngineeredSystem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">bioproduction environment capability</rdfs:label>
@@ -120,20 +122,20 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Bioreactor">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;EngineeredSystem"/>
 		<rdfs:label xml:lang="en-US">bioreactor</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+					<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -142,14 +144,14 @@
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+					<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -179,7 +181,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChromatographyColumn">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialArtifact"/>
 		<rdfs:label xml:lang="en-US">chromatography column</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:disjointWith rdf:resource="&iof-construct;ChromatographyMedium"/>
@@ -209,25 +211,25 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChromatographySystem">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;EngineeredSystem"/>
 		<rdfs:label xml:lang="en-US">chromatography system</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+					<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;StationaryPhase"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-						<owl:someValuesFrom rdf:resource="&iof-core;MeasurementCapability"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementCapability"/>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;FlowRateControllingCapability"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -244,17 +246,17 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultivationEnvironmentCapability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-core;EngineeredSystem"/>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;EngineeredSystem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cultivation environment capability</rdfs:label>
@@ -284,7 +286,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Filter">
-		<rdfs:subClassOf rdf:resource="&iof-core;MaterialArtifact"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialArtifact"/>
 		<rdfs:label xml:lang="en-US">filter</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<skos:example>depth filter; membrane filter</skos:example>
@@ -299,22 +301,22 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FlowRateControllingCapability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;Agent">
+							<rdf:Description rdf:about="&iof-construct;Agent">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;PieceOfEquipment">
+							<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -389,7 +391,7 @@
 					<rdf:Description rdf:about="&bfo;BFO_0000040">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;MobilePhaseRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -407,7 +409,7 @@
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -446,7 +448,7 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;AffinityChromatographyMedium"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;ProteinBindingCapability"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -463,10 +465,10 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinBindingCapability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -505,7 +507,7 @@
 					<rdf:Description rdf:about="&bfo;BFO_0000040">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;StationaryPhaseRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
@@ -523,7 +525,7 @@
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -541,22 +543,22 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingCapability">
-		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom rdf:resource="&iof-core;PlannedProcess"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+							<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
 							</rdf:Description>
-							<rdf:Description rdf:about="&iof-core;MaterialArtifact">
+							<rdf:Description rdf:about="&iof-construct;MaterialArtifact">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -575,16 +577,16 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingSystem">
-		<rdfs:subClassOf rdf:resource="&iof-core;EngineeredSystem"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;EngineeredSystem"/>
 		<rdfs:label xml:lang="en-US">thawing system</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+					<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
 					</rdf:Description>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;ThawingCapability"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
