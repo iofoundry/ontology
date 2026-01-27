@@ -3,7 +3,7 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
 
 
 ##
@@ -14,13 +14,16 @@ SELECT DISTINCT ?warning ?resource
 WHERE
 {
   ?resource rdf:type ?type.
+  ?resource rdfs:isDefinedBy ?source .
+
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty owl:AnnotationPropety}
   
+  FILTER NOT EXISTS {?resource owl:deprecated "true"^^xsd:boolean .}
   FILTER NOT EXISTS {?resource skos:example ?example.}
   
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
-  FILTER (!CONTAINS(STR(?resource),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
+  FILTER (!CONTAINS(STR(?source),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
 
   BIND (CONCAT("WARN: A resource ", STR(?resource), " does not have an example.") as ?warning)
 }

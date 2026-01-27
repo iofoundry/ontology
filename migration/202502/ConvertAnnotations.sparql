@@ -1,0 +1,21 @@
+DELETE 
+{
+    ?s ?p ?o .
+}
+INSERT 
+{
+    ?newS ?newP ?newO .
+}
+where 
+{
+  ?s ?p ?o .
+  BIND("^https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/([A-Za-z]+)$" AS ?match) .
+  BIND("https://spec.industrialontologies.org/ontology/annotation/$1" AS ?replacement) .
+  BIND(isIRI(?s) && regex(str(?s), ?match) AS ?subjMatch) .
+  BIND(isIRI(?p) && regex(str(?p), ?match) AS ?predMatch) .
+  BIND(isIRI(?o) && regex(str(?o), ?match) AS ?objMatch) .
+  FILTER (?subjMatch || ?predMatch || ?objMatch)
+  BIND (IF(?subjMatch, IRI(REPLACE(str(?s), ?match, ?replacement)), ?s) AS ?newS)
+  BIND (IF(?predMatch, IRI(REPLACE(str(?p), ?match, ?replacement)), ?p) AS ?newP)
+  BIND (IF(?objMatch, IRI(REPLACE(str(?o), ?match, ?replacement)), ?o) AS ?newO)
+}
