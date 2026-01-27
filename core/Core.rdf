@@ -95,6 +95,7 @@
 	<owl:Class rdf:about="&bfo;BFO_0000144">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
 		<rdfs:label xml:lang="en">process profile</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&bfo;BFO_0000182"/>
 		<owl:equivalentClass>
 			<owl:Class>
@@ -108,7 +109,7 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<iof-av:adaptedFrom>BFO 2.0</iof-av:adaptedFrom>
+		<iof-av:directSource>http://purl.obolibrary.org/obo (BFO 2.0)</iof-av:directSource>
 		<iof-av:explanatoryNote>1) the attributes of the process, which are represented by &apos;process profile&apos; instances, are described as &quot;structural dimensions&quot; in BFO, which are the basis of comparing (fundamentum comparationis) two process instances.
 
 2) the &apos;process profile&apos; universals are described as &quot;shared determinable&quot; in BFO. Therefore, the subclasses of &apos;process profile&apos; may capture many of these universals, e.g., temperature of the gas in a heating process, pressure in a piston cycle, speed of a car during a journey, heart rate in a cardiac cycle, wheel rotation rate in a milling operation.</iof-av:explanatoryNote>
@@ -1988,6 +1989,8 @@ Services as products as well as software products will be considered in the next
 									</rdf:Description>
 									<rdf:Description rdf:about="&bfo;BFO_0000020">
 									</rdf:Description>
+									<rdf:Description rdf:about="&bfo;BFO_0000144">
+									</rdf:Description>
 									<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
 									</rdf:Description>
 								</owl:unionOf>
@@ -2002,10 +2005,10 @@ Services as products as well as software products will be considered in the next
 		<iof-av:explanatoryNote>1. The values of the measured value expression are generated during the measurement process that produces the measurement information content entity the measured value expression is a part of. The corresponding parthood axiom is captured in the measurement information content entity class and is not reintroduced in the formal definition here to avoid redundancy.
 
 2. Since this class is a subclassOf: value expression, the values contained in the measured value expression are always according to a classification scheme or a quantitative scale.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MeasuredValueSpecification(x) ↔ ValueExpression(x) ∧ ∃e((TemporalRegion(e) ∨ ProcessCharacteristic(e) ∨ SpecificallyDependentContinuant(e)) 
+		<iof-av:firstOrderLogicDefinition>MeasuredValueSpecification(x) ↔ ValueExpression(x) ∧ ∃e((TemporalRegion(e) ∨ ProcessCharacteristic(e) ∨ ProcessProfile(e) ∨ SpecificallyDependentContinuant(e)) 
 ∧ isMeasuredValueOfAtSomeTime(x,e))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that contains the measured value of an attribute (specifically dependent continuant or process characteristic or temporal region)</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;measured value expression&apos; is defined exactly as an instance of &apos;information content entity&apos; that &apos;is measured value of at some time&apos; some &apos;process characteristic&apos; or &apos;temporal region&apos; or &apos;specifically dependent continuant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that contains the measured value of an attribute (specifically dependent continuant or process characteristic or process profile or temporal region)</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;measured value expression&apos; is defined exactly as an instance of &apos;information content entity&apos; that &apos;is measured value of at some time&apos; some &apos;process characteristic&apos; or &apos;process profile&apos; or &apos;temporal region&apos; or &apos;specifically dependent continuant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MeasurementCapability">
@@ -2056,6 +2059,8 @@ Services as products as well as software products will be considered in the next
 									</rdf:Description>
 									<rdf:Description rdf:about="&bfo;BFO_0000020">
 									</rdf:Description>
+									<rdf:Description rdf:about="&bfo;BFO_0000144">
+									</rdf:Description>
 									<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
 									</rdf:Description>
 								</owl:unionOf>
@@ -2100,9 +2105,9 @@ Services as products as well as software products will be considered in the next
 3. Measurement ICE can contain qualitative, semi-quantitative, or quantitative measurements of the attribute. These values are stored within the measured value expression that is a part of the measurement ICE.
 4. Measurement ICE can be utilized for both raw and processed measurement data.
 5. The International Vocabulary of Metrology defines measurement ICE as a &quot;set of values being attributed to a measurand together with any other available relevant information.&quot; This implies that, in addition to the actual measurement value, the measurement ICE contains other information(e.g., the entity of interest of which the measurand is the &apos;attribute of&apos;).</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MeasurementInformationContentEntity(x) ↔ InformationContentEntity(x) ∧ ∃y∃z∃m∃p(((IndependentContinuant(y) ∧ ¬(SpatialRegion(y)) ∧ SpecificallyDependentContinuant(z) ∧ bearerOf(y,z)) ∨ (Process(y) ∨ ProcessBoundary(y) ∧ TemporalRegion(z) ∧ occupiesTemporalRegion(y,z)) ∨ (Process(y) ∧ ProcessCharacteristic(z) ∧ processCharacteristicOf(z,y))) ∧ MeasuredValueExpression(m) ∧ MeasurementProcess(p) ∧ isAbout(x,y) ∧ describes(x,z) ∧ hasContinuantPartAtAllTimes(x,m) ∧ isMeasuredValueOf(m,y) ∧ isOutputOf(x,p))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>LA1: MeasurementInformationContentEntity(x) ↔ InformationContentEntity(x) ∧ ∃y∃z∃m∃p(((IndependentContinuant(y) ∧ ¬SpatialRegion(y) ∧ SpecificallyDependentContinuant(z) ∧ bearerOf(y,z)) ∨ ((Process(y) ∨ ProcessBoundary(y)) ∧ TemporalRegion(z) ∧ occupiesTemporalRegion(y,z)) ∨ (Process(y) ∧ ProcessCharacteristic(z) ∧ processCharacteristicOf(z,y)) ∨ (ProcessProfile(z) ∧ processProfileOf(z,y))) ∧ MeasuredValueExpression(m) ∧ MeasurementProcess(p) ∧ isAbout(x,y) ∧ describes(x,z) ∧ hasContinuantPartAtAllTimes(x,m) ∧ isMeasuredValueOf(m,y) ∧ isOutputOf(x,p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">informational content that is the result of measuring a set of attributes (specifically dependent continuant or process characteristic or temporal region) belonging to the entity (independent continuant or process or process boundary) the informational content is about</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;measurement information content entity is defined as exactly an instance of &apos;information content entity&apos; that is &apos;output of&apos; some &apos;measurement process&apos; that &apos;describes&apos; some &apos;specifically dependent continuant&apos; or &apos;temporal region&apos; or &apos;process characteristic&apos; y that are an attribute of (&apos;inhere in&apos; or &apos;process characteristic of&apos; or temporally occupied by) a &apos;process&apos; or &apos;process boundary&apos; or &apos;independent continuant&apos;(that is not a &apos;spatial region&apos;) the &apos;measurement information content entity&apos; &apos;is about&apos; and that &apos;has continuant part at all times&apos; some &apos;measured value expression&apos; that &apos;is measured value of&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;measurement information content entity&apos; is defined as exactly an instance of &apos;information content entity&apos; that &apos;is about&apos; some &apos;independent continuant&apos; or &apos;process&apos; or &apos;process boundary&apos;, and &apos;describes&apos; some &apos;specifically dependent continuant&apos;, &apos;temporal region&apos;, &apos;process characteristic&apos;, or &apos;process profile&apos;, and &apos;has continuant part at all times&apos; some &apos;measured value expression&apos;, and &apos;is measured value of&apos; that entity, and &apos;is output of&apos; some &apos;measurement process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MeasurementProcess">
@@ -2138,6 +2143,8 @@ Services as products as well as software products will be considered in the next
 											</rdf:Description>
 											<rdf:Description rdf:about="&bfo;BFO_0000020">
 											</rdf:Description>
+											<rdf:Description rdf:about="&bfo;BFO_0000144">
+											</rdf:Description>
 											<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
 											</rdf:Description>
 										</owl:unionOf>
@@ -2158,15 +2165,16 @@ Services as products as well as software products will be considered in the next
 3. Measurement processes can have as temporal or occurrent parts other measurement processes as well data transformation processes which transform the raw measurement data.
 4. The entity whose attribute is measured might either participate in the process if it is a continuant or occupy a temporal interval that precedes or partially coincides with the measurement process if it is an occurrent.
 5. The material entity measuring the attribute must be capable of measuring that attribute. This is axiomatically captured by mandating that the material entity that is measuring the attribute must have a measurement capability.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MeasurementProcess ↔ PlannedProcess(x) ∧ ∃m∃y∃z∃c(MaterialEntity(m) ∧ MeasurementCapability(c) ∧ hasCapability(m,c) ∧ (((IndependentContinuant(y) ∧ ¬(SpatialRegion(y))) ∧ SpecificallyDependentContinuant(z) ∧ bearerOf(y,z) ∧ participatesInAtSomeTime(y,x)) ∨ (Process(y) ∨ ProcessBoundary(y) ∧ TemporalRegion(z) ∧ occupiesTemporalRegion(y,z) ∧ ∃t(temporalRegion(t) ∧ occupiesTemporalRegion(x,t) ∧ (occurrentPartOf(t,z) ∨ hasOccurrentPart(t,z)))) ∨ (Process(y) ∧ ProcessCharacteristic(z) ∧ processCharacteristicOf(z,y) ∧ (preceedes(y,x) ∨ ∃t1∃t2(temporalRegion(t1) ∧ temporalRegion(t2) ∧ occupiesTemporalRegion(x,t1) ∧ occupiesTemporalRegion(y,t2) ∧ (occurrentPartOf(t1,t2) ∨ hasOccurrentPart(t1,t2)))))) ∧ measuresAtSomeTime(m,z)) ∧ ∀b(hasSpecifiedOutput(x,b) → MeasurementInformationContentEntity(b))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: MeasurementProcess(x) ↔ PlannedProcess(x) ∧ ∃m∃y∃z∃c(MaterialEntity(m) ∧ MeasurementCapability(c) ∧ hasCapability(m,c) ∧ (((IndependentContinuant(y) ∧ ¬SpatialRegion(y)) ∧ SpecificallyDependentContinuant(z) ∧ bearerOf(y,z) ∧ participatesInAtSomeTime(y,x)) ∨ ((Process(y) ∨ ProcessBoundary(y)) ∧ TemporalRegion(z) ∧ occupiesTemporalRegion(y,z) ∧ ∃t(temporalRegion(t) ∧ occupiesTemporalRegion(x,t) ∧ (occurrentPartOf(t,z) ∨ hasOccurrentPart(t,z))) ∨ (ProcessCharacteristic(z) ∧ processCharacteristicOf(z,y)) ∨ (ProcessProfile(z) ∧ processProfileOf(z,y) ∧ (preceedes(y,x) ∨ ∃t1∃t2(temporalRegion(t1) ∧ temporalRegion(t2) ∧ occupiesTemporalRegion(x,t1) ∧ occupiesTemporalRegion(y,t2) ∧ (occurrentPartOf(t1,t2) ∨ hasOccurrentPart(t1,t2))))))) ∧ measuresAtSomeTime(m,z)) ∧ ∀b(hasSpecifiedOutput(x,b) → MeasurementInformationContentEntity(b))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process to determine the value of an attribute (specifically dependent continuant or temporal region or process characteristic) of an entity of interest</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, n-ary constructs that are able to adequately capture the relation between the process, attribute and the entity of interest are still lacking. Also formalization of being an entity of interest is lacking.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;measurement process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; y that &apos;has measurement capability&apos; and y &apos;measures at some time&apos; either 
-1) &apos;process characteristic&apos; that is &apos;process characteristic of&apos; a &apos;process&apos; that &apos;preceedes&apos; or (partially or fully) temporally coincides with x) or
-2)&apos;specifically dependent continuant&apos; that &apos;inheres in&apos; an &apos;independent continuant&apos; (that is not a &apos;spatial region&apos;) which &apos;participates in at some time&apos; x or
-3) &apos;temporal region&apos; that is temporally occupied by some &apos;process&apos; or &apos;process boundary&apos; and that &apos;has occurrent part&apos; or &apos;occurent part of&apos; a &apos;temporal region&apos; temporally occupied by x
-and whenever x &apos;has specified output&apos; b that b must be a &apos;measurement information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;measurement process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; y that &apos;has capability&apos; some &apos;measurement capability&apos; and y &apos;measures at some time&apos; either 
+(1) a &apos;process characteristic&apos; that is &apos;process characteristic of&apos; a &apos;process&apos; that &apos;precedes&apos; or temporally overlaps with x, or 
+(2) a &apos;specifically dependent continuant&apos; that &apos;inheres in&apos; an &apos;independent continuant&apos; (not a &apos;spatial region&apos;) which &apos;participates in at some time&apos; x, or 
+(3) a &apos;temporal region&apos; that is &apos;occupied by&apos; some &apos;process&apos; or &apos;process boundary&apos; and that &apos;has occurrent part&apos; or is &apos;occurrent part of&apos; a &apos;temporal region&apos; that is &apos;occupied by&apos; x, or 
+(4) a &apos;process profile&apos; that is &apos;process profile of&apos; a &apos;process&apos; that &apos;precedes&apos; or temporally overlaps with x, 
+and whenever x &apos;has specified output&apos; b, b must be a &apos;measurement information content entity&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ObjectiveSpecification">
@@ -2177,11 +2185,11 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<iof-av:adaptedFrom>http://www.obofoundry.org/ontology/iao.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1.Typically is part of a plan specification.
 		2.The NL definition states that the objective specification &apos;prescribes&apos; the outcome of a &apos;process&apos;. This does not necessarily imply that a given process exists as an instance during the entire &apos;objective specification&apos; lifecycle. Instead, it should be interpreted as &quot;if an instance of the  Process X (X here is intended to represent an OWL:Class that is SubClassOf: Process) exists, then its outcome should be as &apos;prescribed by&apos; the &apos;objective specification&apos;.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>InformationContentEntity(x) ∧ ∃y∃p(Process(p) ∧ isAchievedByAtSomeTime(x,p) ∧ ((ProcessCharacteristic(y) ∧ processCharacteristicOf(y,p))∨ (Capability(y) ∧ hasRealization(x,y)) ∨ (Continuant(c) ∧ isOutputOf(c,p))) ∧ prescribes(x,y)) → ObjectiveSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>InformationContentEntity(x) ∧ ∃y∃p(Process(p) ∧ isAchievedByAtSomeTime(x,p) ∧ ((ProcessCharacteristic(y) ∧ processCharacteristicOf(y,p)) ∨ (ProcessProfile(y) ∧ processProfileOf(y,p)) ∨ (Capability(y) ∧ hasRealization(x,y)) ∨ (Continuant(y) ∧ isOutputOf(y,p))) ∧ prescribes(x,y)) → ObjectiveSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes what the outcome of some process should be</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; that &apos;is achieved by at some time&apos; some &apos;process&apos; p and that &apos;prescribes&apos; some &apos;process characteristic&apos; which is a &apos;process characteristic of&apos; p or &apos;capability&apos; that &apos;has realization&apos; p or &apos;continuant&apos; c that is &apos;output of&apos; p then x is an &apos;objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; and x &apos;is achieved by at some time&apos; some &apos;process&apos; p, and x &apos;prescribes&apos; some y that is either a &apos;process characteristic&apos; that is &apos;process characteristic of&apos; p, or a &apos;process profile&apos; that is &apos;process profile of&apos; p, or a &apos;capability&apos; that x &apos;has realization&apos; of, or a &apos;continuant&apos; that &apos;is output of&apos; p, then x is an &apos;objective specification&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Organization">
@@ -2430,6 +2438,7 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 	<owl:Class rdf:about="&iof-constr;ProcessCharacteristic">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000002"/>
 		<rdfs:label xml:lang="en-US">process characteristic</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -2982,6 +2991,18 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicDefinition>TemporalInstantValueExpression(x) ↔ ValueExpression(x) ∧ ∃y(TemporalInstant(y) ∧ isValueExpressionOfAtAllTimes(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that describes the position of a time instant in the time line</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;temporal instant value expression&apos; is defined exactly as an instance of &apos;value expression&apos; that &apos;is value expression of at all times&apos; some &apos;temporal instant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TimeSeries">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtSomeTime"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000144"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>time series</rdfs:label>
+		<iof-av:naturalLanguageDefinition>an information content entity consisting of an ordered sequence of value expressions indexed by time instants or time intervals, representing how observed or measured values vary over time.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ValueExpression">
@@ -4392,6 +4413,8 @@ category within a classification scheme of an entity that the value expression i
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
 							<rdf:Description rdf:about="&iof-constr;Capability">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
