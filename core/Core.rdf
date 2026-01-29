@@ -113,8 +113,10 @@
 		<iof-av:explanatoryNote>1) the attributes of the process, which are represented by &apos;process profile&apos; instances, are described as &quot;structural dimensions&quot; in BFO, which are the basis of comparing (fundamentum comparationis) two process instances.
 
 2) the &apos;process profile&apos; universals are described as &quot;shared determinable&quot; in BFO. Therefore, the subclasses of &apos;process profile&apos; may capture many of these universals, e.g., temperature of the gas in a heating process, pressure in a piston cycle, speed of a car during a journey, heart rate in a cardiac cycle, wheel rotation rate in a milling operation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀p, p&apos;, x, x&apos; (processProfileOf(p,x) ∧ processProfileOf(p&apos;,x&apos;) → (temporalPartOf(x&apos;,x) ↔ temporalPartOf(p&apos;,p)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessProfile(x) ↔ ∃y (Process(y) ∧ processProfileOf(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, typically expressed as a time-series of measurements, where the profile of any temporal part of the process is itself a temporal part of the profile of the whole, since both instantiate the same profile universal.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition>A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, typically expressed as a time-series of measurements, where the profile of any temporal part of the process is itself a temporal part of the profile of the whole, since both instantiate the same profile universal.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">if p and p′ are &apos;process profiles&apos; of x and x′ respectively, and p and p′ have the &apos;same profile universal&apos;, then x′ is a &apos;temporal part of&apos; x if and only if p′ is a &apos;temporal part of&apos; p.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process profile&apos; is defined as exactly an instance that is &apos;process profile of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -2993,18 +2995,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;temporal instant value expression&apos; is defined exactly as an instance of &apos;value expression&apos; that &apos;is value expression of at all times&apos; some &apos;temporal instant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;TimeSeries">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtSomeTime"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000144"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>time series</rdfs:label>
-		<iof-av:naturalLanguageDefinition>an information content entity consisting of an ordered sequence of value expressions indexed by time instants or time intervals, representing how observed or measured values vary over time.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-constr;ValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:subClassOf>
@@ -3527,7 +3517,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000118"/>
 		<rdfs:label>has process profile</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<owl:inverseOf rdf:resource="&iof-constr;processProfileOf"/>
 		<iof-av:naturalLanguageDefinition>relation that holds between a process and a process profile that is part of the process such that the part is temporally coextensive with another proper part that is mutually dependent on it and has no parts in common with it</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -4003,6 +3995,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000138"/>
 		<rdfs:label>process profile of</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
 		<iof-av:adaptedFrom>axiom label in BFO2 Reference (094-005) in http://purl.obolibrary.org/obo/BFO_0000144 from BFO 2.0</iof-av:adaptedFrom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
