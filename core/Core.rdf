@@ -109,14 +109,15 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>temperature profile of a heating process, wind speed profile of a turbine, fuel consumption profile of a boiling pricess, RPM profile of a engine, noise profile of a transmission process, profile of daily average throughput of a production process, count-per-minute profile of a pick-n-place process</skos:example>
 		<iof-av:directSource>http://purl.obolibrary.org/obo (BFO 2.0)</iof-av:directSource>
-		<iof-av:explanatoryNote>1) the attributes of the process, which are represented by &apos;process profile&apos; instances, are described as &quot;structural dimensions&quot; in BFO, which are the basis of comparing (fundamentum comparationis) two process instances.
+		<iof-av:explanatoryNote>1) Process profiles describe the attributes (called &quot;structural dimension&quot;) of a process that we may use to compare processes. They are the features of a process that can be tracked or measured over time, such as how fast something moves or how its temperature changes. Two movement process can be compared by comparing the speed profiles of two processes.
 
-2) the &apos;process profile&apos; universals are described as &quot;shared determinable&quot; in BFO. Therefore, the subclasses of &apos;process profile&apos; may capture many of these universals, e.g., temperature of the gas in a heating process, pressure in a piston cycle, speed of a car during a journey, heart rate in a cardiac cycle, wheel rotation rate in a milling operation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀p, p&apos;, x, x&apos; (processProfileOf(p,x) ∧ processProfileOf(p&apos;,x&apos;) → (temporalPartOf(x&apos;,x) ↔ temporalPartOf(p&apos;,p)))</iof-av:firstOrderLogicAxiom>
+2) Process profile types represent common attributes of many different types of processes.. For example, profile of temperature in any heating process, profile of pressure in a piston cycle or pneumatic system. Domain and application-specific taxonomies of process profile need be developed to catalog these subtypes.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀p, p&apos;, x (processProfileOf(p,x) ∧ temporalPartOf(p&apos;,p) → ∃x&apos; (processProfileOf(p&apos;,x&apos;) ∧ temporalPartOf(x&apos;,x)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessProfile(x) ↔ ∃y (Process(y) ∧ processProfileOf(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, typically expressed as a time-series of measurements, where the profile of any temporal part of the process is itself a temporal part of the profile of the whole, since both instantiate the same profile universal.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">if p and p′ are &apos;process profiles&apos; of x and x′ respectively, and p and p′ have the &apos;same profile universal&apos;, then x′ is a &apos;temporal part of&apos; x if and only if p′ is a &apos;temporal part of&apos; p.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition>A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, such that every temporal part of the profile is itself the profile of a corresponding temporal part of the process.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">if p is &apos;process profile of&apos; x and p′ is a &apos;temporal part of&apos; p, then there exists some x′ such that p′ is &apos;process profile of&apos; x′ and x′ is a &apos;temporal part of&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process profile&apos; is defined as exactly an instance that is &apos;process profile of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -2453,13 +2454,21 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example xml:lang="en-US">the rate of production of a product production process, heart rate, the rate of temperature change resulting from a heating process</skos:example>
-		<iof-av:explanatoryNote>Here ‘attribute’ is not a technical term.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProcessCharacteristic(x) ↔ Continuant(x) ∧ ∃p(Process(p) ∧ processCharacteristicOf(x, p))</iof-av:firstOrderLogicAxiom>
+		<skos:example xml:lang="en-US">The maximum temperature of a heating process, the average wind speed of a turbine operation process, total fuel consumed in a boiling process, the peak RPM of a engine running process, overall noise level (good, fair, or poor) of a transmission process, average throughput of a production process</skos:example>
+		<iof-av:explanatoryNote>1) A process characteristic is a continuant rather than an occurrent because it characterizes a process as a single whole rather than as something that unfolds in time. Unlike a process or a process profile, which has different temporal parts occupying different temporal regions, a process characteristic has no part tied to time. The summarization of the target attribute considers all of its temporal parts—for example, the maximum temperature can only be known by considering the entire temperature profile of a heating process. 
+
+2) The &quot;attribute&quot; mentioned in the definition is the specific feature of a process whose time-dependent behavior are captured by a &apos;process profile&apos;, but which may be summarized by a &apos;process characteristic&apos; over the whole duration of the process instead of being tracked moment by moment.
+
+3) Summarization means describing an attribute of a process with a single overall characterization instead of representing how it varies over time. For example, the speed profile of a car&apos;s movement can be summarized by taking average of all instantaneous speeds over the entire duration the movement occurred, e.g., 45kmph average speed. However, the summarization may also be qualitative for some type process characteristics, e.g., the heartbeat was steady or stuttering.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀c, c&apos;, x, x′(processCharacteristicOf(c, x) ∧ continuantPartOf(c&apos;​, c) ∧ temporalPartOf(x′,x) → ¬ processCharacteristicOf(c&apos;,x′))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>ProcessCharacteristic(x) ↔ Continuant(x) ∧ ∃p(Process(p) ∧ processCharacteristicOf(x, p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuant that summarizes an attribute of a process over its entire duration, providing a time-independent characterization of the process as a whole, where the characteristic of any temporal part of the process is determined independently and is not a part of the characteristic of the whole.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>This term is expected to remain primitive as it is highly unlikely that a a set of conditions will be created such that no circularity is introduced.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>every instance of ‘process characteristic’ is defined as exactly an instance of ‘continuant’ that is ‘process characteristic of’ some ‘process’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuant that summarizes an attribute of a process over its entire duration, providing a time-independent characterization of the process as a whole.</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The construct is primitive because of the following two ideosyncratic design decisions which may require re-evaluation in the future. 
+1) The construct is defined using a trans-ontological relation &apos;process characteristics of&apos;, which relates a &apos;continuant&apos; to a &apos;process&apos;, an &apos;occurrent&apos;. 
+2) The consruct is broadly classified as &apos;continuant&apos;, without further specialization.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if c is &apos;process characteristic of&apos; x and c′ is a &apos;continuant part of&apos; c and x′ is a &apos;temporal part of&apos; x, then c′ is not &apos;process characteristic of&apos; x′</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process characteristic&apos; is defined as exactly an instance of &apos;continuant&apos; that is &apos;process characteristic of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ProcuringBusinessProcess">
@@ -2561,19 +2570,6 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<iof-av:firstOrderLogicDefinition>ProductProductionProcess(x) ↔ BusinessProcess(x) ∧ ∃m(ManufacturingProcess(m) ∧ occurentPartOf(m,x)) ∧ ∃y∃t∃t1(MaterialProduct(y) ∧ TemporalRegion(t) ∧ TemporalRegion(t1) ∧ hasSpecifiedOutput(x, y) ∧ occupiesTemporalRegion(x, t) ∧ temporallyOverlaps(t, t1) ∧ existsAt(y, t1))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">business process that consists of at least one manufacturing process through which raw materials and components are transformed or modified to create a material product</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;product production process&apos; is defined as exactly an instance of &apos;business process&apos; that &apos;has occurrent part&apos;, some &apos;manufacturing process&apos;, and &apos;has specified output&apos; some &apos;material product&apos; which did not &apos;exist at&apos; the beginning of the &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;QualityProcessProfile">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
-		<rdfs:label>quality process profile</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-constr;RateProcessProfile"/>
-		<iof-av:explanatoryNote>The simplest type of process profiles are what we shall call ‘quality process profiles’, which are the process profiles which serve as the foci of the sort of selective abstraction that is involved when measurements are made of changes in single qualities, as illustrated, for example, by process profiles of mass, temperature, aortic pressure, and so on.</iof-av:explanatoryNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;RateProcessProfile">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
-		<rdfs:label>rate process profile</rdfs:label>
-		<iof-av:explanatoryNote>On a somewhat higher level of complexity are what we shall call rate process profiles, which are the targets of selective abstraction focused not on determinate quality magnitudes plotted over time, but rather on certain ratios between these magnitudes and elapsed times. A speed process profile, for example, is represented by a graph plotting against time the ratio of distance covered per unit of time. Since rates may change, and since such changes, too, may have rates of change, we have to deal here with a hierarchy of process profile universals at successive levels</iof-av:explanatoryNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;RawMaterial">
@@ -3509,8 +3505,12 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;ProcessCharacteristic"/>
 		<owl:inverseOf rdf:resource="&iof-constr;processCharacteristicOf"/>
-		<skos:example xml:lang="en-US">product production process has process characteristic constant production rate; heating process has process characteristic temperature change of 5F/min</skos:example>
+		<skos:example xml:lang="en-US">the water flowing through a pipe during a given period has the average flow rate as a process characteristic, the heating process has the total energy consumed as a process characteristic, the batch sterilization process has the peak temperature as a process characteristic.</skos:example>
+		<iof-av:firstOrderLogicDefinition>hasProcessCharacteristics(p, c) → processCharacteristicsOf(c, p)</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process and its characteristic</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>this relation is inverse of &apos;process characteristics of&apos; which is a primitive relation.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if p &apos;has process characteristics&apos; c, then c is &apos;process characteristics of&apos; p</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessProfile">
@@ -3520,7 +3520,10 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
 		<owl:inverseOf rdf:resource="&iof-constr;processProfileOf"/>
+		<skos:example>The pH profile is a process profile of the cell culture growth process, the spindle speed profile is a process profile of the milling process, the flow rate profile is a process profile of the pipeline transport process.</skos:example>
+		<iof-av:firstOrderLogicDefinition>hasProcessProfile(p, x) → processProfileOf(x, p)</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>relation that holds between a process and a process profile that is part of the process such that the part is temporally coextensive with another proper part that is mutually dependent on it and has no parts in common with it</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if p &apos;has process profile&apos; x, then x is &apos;process profile of&apos; p</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasQuality">
@@ -3987,8 +3990,10 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&iof-constr;ProcessCharacteristic"/>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
-		<skos:example xml:lang="en-US">constant production rate is the process characteristic of a product production process; temperature change of 1C/min is the process characteristic of a heating process</skos:example>
+		<skos:example>The average flow rate is a process characteristic of the water flowing through a pipe during a given period, the total energy consumed is a process characteristic of the heating process, the peak temperature is a process characteristic of the batch sterilization process.</skos:example>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a characteristic and the process it is a characteristic of</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>this construct is a trans-ontological relation holding between a continuant and a occurrent as well as could not be defined due to lack of construct at this point.</iof-av:primitiveRationale>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;processProfileOf">
@@ -3997,10 +4002,11 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<skos:example>pH profile is a process profile of culture growth, agitation speed profile is a process profile of a mixing process, tool vibration profile is a process profile of a engine running</skos:example>
 		<iof-av:adaptedFrom>axiom label in BFO2 Reference (094-005) in http://purl.obolibrary.org/obo/BFO_0000144 from BFO 2.0</iof-av:adaptedFrom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:firstOrderLogicAxiom>∀x, y (processProfileOf(x,y) → (properOccurrentPartOf(x,y) ∧ ∃z, t (properOccurrentPartOf(z,y) ∧ TemporalRegion(t) ∧ occupiesSpatioTemporalRegion(x,t) ∧ occupiesSpatioTemporalRegion(y,t) ∧ occupiesSpatioTemporalRegion(z,t) ∧ ¬∃w(occurrentPartOf(w,x) ∧ occurrentPartOf(w,z)))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition>relation that holds between a process profile and a process that it is part of such that the source process is a proper part of the target process and is temporally coextensive with another proper part of the target process that is mutually dependent on it and shares no parts with it.</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The axiom for process profile is retrieved from BFO 2.0 but no definition of mutual dependence is available in both BFO 2.0 and current version of core</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;process profile of&apos; y, then x is a &apos;proper occurrent part of&apos; y that shares a &apos;spatiotemporal region&apos; with some other &apos;proper occurrent part&apos; z of y such that x and z have no common &apos;occurrent part&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;qualityOf">
