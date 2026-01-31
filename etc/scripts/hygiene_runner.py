@@ -70,6 +70,7 @@ def run_hygiene(
                 # print('Results found:', list(results))
                 for result in results:
                     result.warning = result.warning.replace(error_label, error_output)
+                    result.warning = result.warning.replace("::critical", "::error")
                     print(result.warning)
                     if result.warning.startswith('::error'):
                         ontology_is_clean = False

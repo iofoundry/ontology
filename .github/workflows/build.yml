@@ -25,8 +25,11 @@ jobs:
         run: |
           pip install -r ./etc/scripts/requirements.txt
 
-      - name: Check Development Ontologies
-        run: python etc/scripts/hygiene_runner.py --about_file ./AboutIOFDev.rdf --error_output ::warning
-
-      - name: Check Production Ontologies
-        run: python etc/scripts/hygiene_runner.py --about_file ./AboutIOFProd.rdf
+      - name: Run Hygiene Tests
+        run: |
+          echo "::group::Checking Development Ontologies"
+          python etc/scripts/hygiene_runner.py --about_file ./AboutIOFDev.rdf --error_output ::warning
+          echo "::endgroup::"
+          echo "::group::Checking Production Ontologies"
+          python etc/scripts/hygiene_runner.py --about_file ./AboutIOFProd.rdf
+          echo "::endgroup::"
