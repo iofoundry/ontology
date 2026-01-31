@@ -21,23 +21,42 @@ def parse_about(about_file_path: str, resolution: dict):
   graph = Graph()
   graph.parse(source=about_file_path)
   
-  query = '''
+  maturity = 'unknown'
+  maturity_query = '''
+  PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
+  PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+  PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  SELECT ?maturity WHERE {
+    ?ontology a owl:Ontology .
+    ?ontology iof-av:maturity ?maturity .
+  }'''
+  results = graph.query(maturity_query)
+  try:
+    maturity = str(next(iter(results)).maturity). \
+      replace('https://spec.industrialontologies.org/ontology/individual/', '')
+    print('Maturity level: ', maturity)
+  except StopIteration:
+    print('WARNING: Could not find maturity level in about file.')
+    sys.exit(1)
+  
+  imports = '''
+  PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
   PREFIX owl:   <http://www.w3.org/2002/07/owl#>
   PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
   SELECT ?iri WHERE {
     ?ontology a owl:Ontology .
     ?ontology owl:imports ?iri .
   }'''
-  results = graph.query(query)
+  results = graph.query(imports)
   for result in results:
     iri = str(result.iri)
     if iri in resolution:
       ontologies.append(resolution[iri])
-      print('Found ontology:', resolution[iri])
+      print('Found ontology:', resolution[iri], ' for IRI:', iri)
     else:
       print('WARNING: Could not find ontology for IRI:', iri)
       
-  return ontologies
+  return ontologies, maturity
 
 def find_ontologies(about_file: str):
   abs_path_about_file = os.path.abspath(about_file)
@@ -53,7 +72,8 @@ def run_hygiene(
         parameter_output_value: str,
         error_label='::error',
         error_output='::error',  
-        files: list[str] = []) -> bool:
+        files: list[str] = [],
+        maturity: str = 'unknown') -> bool:
     ontology_is_clean = True
     ontology = Graph()
     for file in files:
@@ -79,27 +99,41 @@ def run_hygiene(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run hygiene tests')
-    parser.add_argument('--about_file', help='Path to About rdf file', metavar='ABOUT')
     parser.add_argument('--folder_with_hygiene_tests', help='Path to folder with hygiene tests', metavar='HYGIENE', default='etc/testing/hygiene_parameterized')
-    parser.add_argument('--error_label', help='Error label', metavar='ERROR_LABEL', default='::error')
-    parser.add_argument('--error_output', help='Error label', metavar='ERROR_OUTPUT', default='::error')
     parser.add_argument('--parameter_input_value', help='Hygiene test filter constant', metavar='HYGIENEPLACEHOLDER', default='<HYGIENE_TESTS_FILTER_PARAMETER>')
     parser.add_argument('--parameter_output_value', help='Hygiene test filter variable', metavar='HYGIENEPLACEHOLDER', default='industrialontologies')
     args, rest = parser.parse_known_args()
 
-    ontologies = find_ontologies(args.about_file)
-    
-    ontology_is_clean = \
+    ontology_is_clean = True
+    for about_file in rest:
+      print("========================================")
+      print("Processing about file: ", about_file)
+      ontologies, maturity = find_ontologies(about_file)
+      print("::group::Processing about file: ", about_file, " maturity: ", maturity)
+      
+      if maturity == 'Provisional':
+        error_output = "::warning"
+      else:
+        error_output = "::error"
+      clean = \
         run_hygiene(
             folder_with_hygiene_tests=args.folder_with_hygiene_tests,
-            error_label=args.error_label,
-            error_output=args.error_output,
+            error_output=error_output,
             parameter_input_value=args.parameter_input_value,
             parameter_output_value=args.parameter_output_value, 
-            files=ontologies)
+            files=ontologies,
+            maturity=maturity)
+      if not clean:
+        ontology_is_clean = False
+      if clean:
+        print("::notice::Hygiene tests passed for about file: ", about_file)
+      else:
+        print("::error::Hygiene tests failed for about file: ", about_file)
+      print("::endgroup::")
     
     if not ontology_is_clean:
-      print ("::error::{}: some hygiene tests failed.".format(args.about_file))
+      print ("::error::some hygiene tests failed.")
+      sys.exit(1)
     else:
-      print ("::notice::{}: all hygiene tests passed.".format(args.about_file))
-    sys.exit(0)
+      print ("::notice::all hygiene tests passed.")
+      sys.exit(0)
