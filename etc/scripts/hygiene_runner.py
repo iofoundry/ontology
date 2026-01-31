@@ -107,7 +107,7 @@ if __name__ == "__main__":
     ontology_is_clean = True
     for about_file in rest:
       print("========================================")
-      print("::group::Running tests for ontologies: ", about_file)
+      print("::group::Running tests: ", about_file)
       ontologies, maturity = find_ontologies(about_file)
       print("::notice::File maturity: ", maturity)
       
