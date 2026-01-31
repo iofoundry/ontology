@@ -98,6 +98,8 @@ if __name__ == "__main__":
             parameter_output_value=args.parameter_output_value, 
             files=ontologies)
     
-    if ontology_is_clean:
-        sys.exit(0)
-    sys.exit(-1)
+    if not ontology_is_clean:
+      print ("::error::{}: some hygiene tests failed.".format(args.about_file))
+    else:
+      print ("::notice::{}: all hygiene tests passed.".format(args.about_file))
+    sys.exit(0)
