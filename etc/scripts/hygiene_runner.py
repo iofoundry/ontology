@@ -130,7 +130,6 @@ if __name__ == "__main__":
       else:
         print("::error::Hygiene tests failed for about file: ", about_file)
       print("::endgroup::")
-      print("========================================")
     
     if not ontology_is_clean:
       print ("::error::some hygiene tests failed.")
