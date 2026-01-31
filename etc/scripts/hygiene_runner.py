@@ -107,9 +107,9 @@ if __name__ == "__main__":
     ontology_is_clean = True
     for about_file in rest:
       print("========================================")
-      print("Processing about file: ", about_file)
+      print("::group::Running tests for ontologies: ", about_file)
       ontologies, maturity = find_ontologies(about_file)
-      print("::group::Processing about file: ", about_file, " maturity: ", maturity)
+      print("::notice::File maturity: ", maturity)
       
       if maturity == 'Provisional':
         error_output = "::warning"
@@ -130,6 +130,7 @@ if __name__ == "__main__":
       else:
         print("::error::Hygiene tests failed for about file: ", about_file)
       print("::endgroup::")
+      print("========================================")
     
     if not ontology_is_clean:
       print ("::error::some hygiene tests failed.")
