@@ -125,11 +125,11 @@ if __name__ == "__main__":
             maturity=maturity)
       if not clean:
         ontology_is_clean = False
+      print("::endgroup::")
       if clean:
         print("::notice::Hygiene tests passed for about file: ", about_file)
       else:
         print("::error::Hygiene tests failed for about file: ", about_file)
-      print("::endgroup::")
     
     if not ontology_is_clean:
       print ("::error::some hygiene tests failed.")
