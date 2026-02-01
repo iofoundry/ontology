@@ -86,6 +86,8 @@ def run_hygiene(
                 input_file = open(input_file_path, 'r')
                 input_file_content = input_file.read()
                 input_file_content = input_file_content.replace(parameter_input_value, '"'+parameter_output_value+'"')
+                test_name = file_name.replace('testHygiene_', '').replace('.sparql', '').replace('_', ' ')
+                input_file_content = input_file_content.replace('<HYGIENE_TEST_NAME>', test_name)
                 results = ontology.query(input_file_content)
                 # print('Results found:', list(results))
                 for result in results:
