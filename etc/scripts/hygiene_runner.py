@@ -111,7 +111,7 @@ if __name__ == "__main__":
       print("========================================")
       print("::group::Running tests:", about_file)
       ontologies, maturity = find_ontologies(about_file)
-      print("::notice::File maturity:", maturity)
+      print("::notice title=" + about_file + " Maturity::" + about_file + " has maturity:", maturity)
       
       if maturity == 'Provisional':
         error_output = "::warning"
