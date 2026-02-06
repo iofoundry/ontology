@@ -10,6 +10,8 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+	<!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/Core/"
@@ -23,6 +25,8 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+	xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/core/Core/">
@@ -577,6 +581,43 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:primitiveRationale>This concept will be further developed and formalized in a future release of BFO.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;capability&apos; then x is a &apos;disposition&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">ability</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;Collection">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label>collection</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;CollectionItemSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:label>collection item slot</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;InformationSlot">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+						<owl:allValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;Collection">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:allValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+						<owl:allValuesFrom rdf:resource="&iof-constr;Collection"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;CommercialService">
@@ -1286,7 +1327,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<skos:example xml:lang="en-US">URI of a website; social security number of a person (living in the United States), a global location number assigned to the Amazon regional distribution center at 12300 Bermuda Rd in Henderson, NV; the lot identifier assigned to a batch of rivets just received from China by the Airbus final assembly plant in Toulouse, FR; the VIN number assigned to the Tesla in my garage; a credit card number, the value of a field in a company&apos;s internal IT systems system used to uniquely identify a particular product and product revision.</skos:example>
 		<iof-av:adaptedFrom>https://www.omg.org/spec/Commons/Identifiers/Identifier</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1. Identifier can be just one designative ICE or consist of a combination of them. It can also be a combination of other types of information; for example, in a particular domain of discourse, a combination of first name and last name can provide sufficient uniqueness for entities in that domain.
-2. The designative property enforces uniqueness as it is a functional property. In other words, on the instance level, each instance of identifier designates exactly one instance of an entity.</iof-av:explanatoryNote>
+2. The designatiofive property enforces uniqueness as it is a functional property. In other words, on the instance level, each instance of identifier designates exactly one instance of an entity.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Identifier(x) → InformationContentEntity(x) ∧ ∃e(Entity(e) ∧ designates(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is used to uniquely identify an entity within a particular context</iof-av:naturalLanguageDefinition>
@@ -1298,6 +1339,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000031"/>
 		<rdfs:label xml:lang="en-US">information content entity</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:disjointWith rdf:resource="&iof-constr;InformationSlot"/>
 		<skos:example xml:lang="en-US">the content of an email; the content of a document; the content in a CAD file; an algorithm for solving the quadratic equation; a guide or standard for writing and formatting conference papers.</skos:example>
 		<iof-av:abbreviation>ICE</iof-av:abbreviation>
 		<iof-av:adaptedFrom>Information Artifact Ontology, http://purl.obolibrary.org/obo/IAO_0000030 and also the Common Core Ontology, http://www.ontologyrepository.com/CommonCoreOntologies/Mid/InformationEntityOntology</iof-av:adaptedFrom>
@@ -1310,6 +1352,109 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:primitiveRationale>Information content entities may well &quot;be about&quot; entity types for which no instances ever come into existence (e.g., a plan or requirement not implemented or satisfied, a command or directive never obeyed or followed, or an objective never achieved). IOF&apos;s current approach to modeling such informational entity types is to provide one or more sufficient conditions that can be readily expressed in OWL.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;generically dependent continuant&apos; that &apos;is about&apos; some &apos;entity&apos; then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">Information</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;InformationSlot">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000031"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:onClass rdf:resource="&iof-constr;InformationContentEntity"/>
+				<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>information slot</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000031">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+						<owl:onClass rdf:resource="&iof-constr;InformationContentEntity"/>
+						<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+						<owl:onClass rdf:resource="&iof-constr;InformationContentEntity"/>
+						<owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:abbreviation>IS</iof-av:abbreviation>
+		<iof-av:explanatoryNote xml:lang="en">1. Each subclass of information slot impies specific relations among the entitites that are the subjects of the information content entities (mediated by subtype of information slot).
+
+2. An information content entity can still be continuant part of another information content entity, but parthood among information content entity does not necessarily imply parthood among the entities referred by them.
+
+3. Similar to information content entity, information slot is intended to be a class of entities whose instances represent some distinct pattern independent from the various ways of conveying it by physical, electronic, or other means. For example, a sales order may have its items mediated by component slots, which can be conveyed by different carriers in different ways, e.g., an XML node &lt;SalesOrderItem&gt;, a section header, a column, a row or a cell of a table.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: isSlotOf(t, a) ∧ isSlotOf(t, b) → a ≠ b</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x, y, z (hasFiller(z., x) ∧ hasFiller(z, y) → x = y)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: ∀x, y (isSlotOf(y, x) → ¬hasFiller(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>InformationSlot(x) ↔ GenericallyDependentContinuant(x) ∧ ∃y (InformationContentEntity(y) ∧ isSlotOf(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en">a generically depedent continuant, that mediates how two or more information content entities are related and how such relation trnslates to the relations among the entities referred by the information content entitties.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: No two information content entities can have the same slot.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x and y both ‘fill’ the same ‘information slot’ z, then x and y are the same entity</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: if y &apos;is slot of’ x, then y &apos;is not filler&apos; of x</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;information slot&apos; if and only if x is a &apos;generically depedent continuant&apos; and there exists an &apos;information content entity&apos; y such that x &apos;is slot of&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;List">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Collection"/>
+		<rdfs:label>list</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Collection">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
+						<owl:allValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;ListMemberSlot">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+										<owl:allValuesFrom rdf:resource="&iof-constr;Collection"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:allValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;ListMemberSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;CollectionItemSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasNextItem"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;ListMemberSlot"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasListPosition"/>
+				<owl:someValuesFrom rdf:resource="&xsd;integer"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>list member slot</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;CollectionItemSlot">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+						<owl:allValuesFrom rdf:resource="&iof-constr;List"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;LossOfRole">
@@ -2144,6 +2289,10 @@ Services as products as well as software products will be considered in the next
 and whenever x &apos;has specified output&apos; b that b must be a &apos;measurement information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;NaturalNumber">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ValueExpression"/>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;ObjectiveSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">objective specification</rdfs:label>
@@ -2157,6 +2306,11 @@ and whenever x &apos;has specified output&apos; b that b must be a &apos;measure
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes what the outcome of some process should be</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; that &apos;is achieved by at some time&apos; some &apos;process&apos; p and that &apos;prescribes&apos; some &apos;process characteristic&apos; which is a &apos;process characteristic of&apos; p or &apos;capability&apos; that &apos;has realization&apos; p or &apos;continuant&apos; c that is &apos;output of&apos; p then x is an &apos;objective specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;One">
+		<rdfs:subClassOf rdf:resource="&iof-constr;NaturalNumber"/>
+		<owl:disjointWith rdf:resource="&iof-constr;Zero"/>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Organization">
@@ -2758,6 +2912,50 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;service provider role&apos; then x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;person&apos; or &apos;organization&apos; that &apos;participates in at some time&apos; some &apos;commercial service&apos; or some &apos;offering for sale business process&apos; which &apos;has participant at some time&apos; some &apos;commercial service agreement&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;Set">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Collection"/>
+		<rdfs:label>set</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Collection">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasItem"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;Collection">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;SetMemberSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;CollectionItemSlot"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;CollectionItemSlot">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+						<owl:allValuesFrom rdf:resource="&iof-constr;Set"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;Supplier">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Agent"/>
 		<rdfs:label xml:lang="en-US">supplier</rdfs:label>
@@ -2934,6 +3132,13 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;temporal instant value expression&apos; is defined exactly as an instance of &apos;value expression&apos; that &apos;is value expression of at all times&apos; some &apos;temporal instant&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;TimeSeries">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label>time series</rdfs:label>
+		<iof-av:explanatoryNote></iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition></iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;ValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:subClassOf>
@@ -2957,6 +3162,10 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely constructs for representing classification schemes and quantitative scales are still missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;value expression&apos; then x is an &apos;information content entity&apos; that &apos;is value expression of at some time&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">value information content entity</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;Zero">
+		<rdfs:subClassOf rdf:resource="&iof-constr;NaturalNumber"/>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;achievesAtSomeTime">
@@ -3391,6 +3600,11 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>x has disposition y holds when x is a &apos;independent continuant&apos; and y is a &apos;disposition&apos; and x is &apos;bearer of&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasFiller">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<owl:inverseOf rdf:resource="&iof-constr;isFillerOf"/>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasFunction">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000196"/>
 		<rdfs:label xml:lang="en-US">has function</rdfs:label>
@@ -3417,6 +3631,18 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasItem">
+		<rdfs:domain rdf:resource="&iof-constr;Collection"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:inverseOf rdf:resource="&iof-constr;isItemOf"/>
+	</owl:ObjectProperty>
+	
+	<owl:DatatypeProperty rdf:about="&iof-constr;hasListPosition">
+		<rdf:type rdf:resource="&owl;FunctionalProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+		<rdfs:range rdf:resource="&xsd;integer"/>
+	</owl:DatatypeProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasMeasuredValueAtSomeTime">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;hasValueExpressionAtSomeTime"/>
 		<rdfs:label xml:lang="en-US">has measured value at some time</rdfs:label>
@@ -3426,6 +3652,14 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<owl:inverseOf rdf:resource="&iof-constr;isMeasuredValueOfAtSomeTime"/>
 		<skos:example xml:lang="en-US">&apos;80kg&apos; is the value of the weight of a male human on the 5th of October 2022; &apos;37C&apos; is the temperature inside a bioreactor in the 30th min from the process start</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an entity to a value expression that contains the value of the entity measured at some time t</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasNextItem">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:label>has next item</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;ListMemberSlot"/>
+		<rdfs:range rdf:resource="&iof-constr;ListMemberSlot"/>
+		<owl:inverseOf rdf:resource="&iof-constr;isNextItemOf"/>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasOutput">
@@ -3494,6 +3728,11 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data property that relates a value expression to a literal</iof-av:naturalLanguageDefinition>
 	</owl:DatatypeProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasSlot">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<owl:inverseOf rdf:resource="&iof-constr;isSlotOf"/>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasSpecifiedOutput">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;hasOutput"/>
 		<rdfs:label xml:lang="en-US">has specified output</rdfs:label>
@@ -3532,6 +3771,23 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:explanatoryNote>determined in this context can be interpreted as either being simulated or being measured</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an entity to a value expression that contains the value of the entity determined or set at some time t</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;i1">
+		<rdf:type rdf:resource="&iof-constr;ValueExpression"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;i2">
+		<rdf:type rdf:resource="&iof-constr;ValueExpression"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;i3">
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;i4">
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;i5">
+	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isAbout">
 		<rdfs:label xml:lang="en-US">is about</rdfs:label>
@@ -3577,6 +3833,10 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>x is available at some time y holds when x is a &apos;material entity&apos; or &apos;site&apos; and y is an &apos;agent&apos; and x &apos;has capability&apos; some &apos;capability&apos; which when &apos;realized in&apos; some &apos;process&apos; p that y &apos;participates in at some time&apos; implies that p &apos;achieves at some time&apos; some &apos;objective specification&apos; that &apos;generically depends on at some time&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;isFillerOf">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;isInputOf">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
 		<rdfs:label xml:lang="en-US">is input of</rdfs:label>
@@ -3586,6 +3846,11 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">a dataset is an input of a machine learning execution process; growth medium is an input of a fermentation process; metal powder is an input of an additive manufacturing process;</skos:example>
 		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relates someone or something physical or digital (continuant) to a process that it is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;isItemOf">
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Collection"/>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMeasuredValueOfAtSomeTime">
@@ -3598,6 +3863,11 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a value expression to the entity indicating that the value expression contains the value of the entity measured at some time t</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;isNextItemOf">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:label>is next item of</rdfs:label>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;isOutputOf">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
 		<rdfs:label xml:lang="en-US">is output of</rdfs:label>
@@ -3607,6 +3877,10 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">wastestream is an output of a chemical manufacturing process; a certain quantity of toluene is an output of a toluene manufacturing process; a car is an output of a car manufacturing process</skos:example>
 		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from someone or something physical or digital (continuant) to a process that it participates in such that it is generated or modified during the process, and it exists at the end of the process</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;isSlotOf">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isSpecifiedOutputOf">
@@ -3910,6 +4184,10 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an information content entity to an entity such that the information content entity serves as a collection of rules or guide for the entity if the entity is something that unfolds in time (occurrent), or as a model if the entity is someone or something physical or digital (continuant)</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;prescribesToPrecedes">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;processCharacteristicOf">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label xml:lang="en-US">process characteristic of</rdfs:label>
@@ -3979,6 +4257,20 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>x disposition of y holds when x is a &apos;role&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:NamedIndividual rdf:about="&iof-constr;s1">
+		<rdf:type rdf:resource="&iof-constr;Set"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm1"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm2"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm3"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;s2">
+		<rdf:type rdf:resource="&iof-constr;Set"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm32"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm4"/>
+		<iof-constr:hasSlot rdf:resource="&iof-constr;sm5"/>
+	</owl:NamedIndividual>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;satisfiesRequirement">
 		<rdfs:label xml:lang="en-US">satisfies requirement</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
@@ -3987,6 +4279,36 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">a piece of software satisfies a UML requirement specification, a design specification of a car satisfies its functional requirement specification</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an entity to a requirement specification that the entity conforms to</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm1">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i1"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm2">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i2"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm3">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i3"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm32">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i3"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm4">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i4"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;sm5">
+		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
+		<iof-constr:hasFiller rdf:resource="&iof-constr;i5"/>
+	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;temporallyFinishedBy">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
@@ -4164,6 +4486,15 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally starts&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporally starts&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#c">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#i">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#s">
+	</swrl:Variable>
 	
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
@@ -4373,4 +4704,29 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
+	<swrl:Imp>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#c"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#s"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;hasSlot"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#i"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;hasFiller"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:classPredicate rdf:resource="&iof-constr;SetMemberSlot"/>
+			</swrl:ClassAtom>
+		</swrl:body>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#c"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#i"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;hasItem"/>
+			</swrl:IndividualPropertyAtom>
+		</swrl:head>
+	</swrl:Imp>
 </rdf:RDF>
