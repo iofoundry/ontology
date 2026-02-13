@@ -87,44 +87,100 @@
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/InformationSlot/</rdfs:isDefinedBy>
 	</owl:Class>
 	
-	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ComponentSlot">
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ComponentParthoodSlot">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationSlot"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasFiller"/>
 				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/describes"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialComponent"/>
-					</owl:Restriction>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+										<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialComponent"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+										<owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialComponent"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSlotOf"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/describes"/>
-						<owl:someValuesFrom>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
 							<owl:Class>
 								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+									<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity">
 									</rdf:Description>
-									<owl:Class>
-										<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
-									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+													</rdf:Description>
+													<owl:Class>
+														<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
+													</owl:Class>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:allValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+													</rdf:Description>
+													<owl:Class>
+														<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
+													</owl:Class>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en">component slot</rdfs:label>
+		<rdfs:label xml:lang="en">component parthood slot</rdfs:label>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/InformationSlot/</rdfs:isDefinedBy>
-		<AnnotationVocabulary:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → componentPartOfAtSomeTime(a, b))) → ComponentSlot(s)</AnnotationVocabulary:firstOrderLogicAxiom>
-		<AnnotationVocabulary:firstOrderLogicDefinition>ComponentSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → componentPartOfAtSomeTime(a, b)))</AnnotationVocabulary:firstOrderLogicDefinition>
+		<skos:example>A system specification has a &apos;component parthood slot&apos; filled by a component specification, thereby prescribing that the specified system must &apos;has component part&apos; the specified component for conformance to the specification; an inspection report has a &apos;component parthood slot&apos; filled by a component description, thereby reporting that the inspected system &apos;has component part&apos; the described component</skos:example>
+		<annotation:explanatoryNote>1) If slot of a prescriptive host, the slot specifies that conformance requires having the filled material component as a component part. If slot of a reporting host, the slot records that the host’s referent has the filled material component as a component part.
+2) The LA2 axiom cant be formalized on the component parthood slot in OWL and it should be utilized instead on the ICEs that the slot &apos;is the slot of&apos;</annotation:explanatoryNote>
+		<annotation:firstOrderLogicAxiom>LA2: ComponentParthoodSlot(x) → ∀z, y, c, m ( (slotOf(x,z) ∧ hasFiller(x,y) ∧ isAbout(z,c) ∧ isAbout(y,m)) → (hasComponentPartAtSomeTime(c,m) ∨ (prescribes(z,c) ∧ (conformsTo(c,z) → hasComponentPartAtSomeTime(c,m)))) )</annotation:firstOrderLogicAxiom>
+		<annotation:naturalLanguageDefinition>information slot that is slot of an information content entity that is about an independent continuant, that can be filled only by an information content entity that is about a material component, and that, when filled, prescribes or reports a &apos;has component part&apos; relation between the entities the host and filler information content entities are about</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;component parthood slot&apos; then (i) every &apos;has filler&apos; y of x is an &apos;information content entity&apos; that either &apos;is about&apos; some &apos;material component&apos; or &apos;is about&apos; only &apos;material component&apos;, and (ii) x &apos;is slot of&apos; some &apos;information content entity&apos; that either &apos;is about&apos; some &apos;independent continuant&apos; that is not a &apos;spatial region&apos; or &apos;is about&apos; only &apos;independent continuant&apos; that is not &apos;spatial region&apos;</annotation:semiFormalNaturalLanguageAxiom>
+		<annotation:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;component parthood slot&apos; then for any z, y, c, and m, if x is &apos;slot of&apos; z and x &apos;has filler&apos; y, and z &apos;is about&apos; c and y &apos;is about&apos; m, then either c &apos;has component part at some time&apos; m, or z &apos;prescribes&apos; c and if c &apos;conforms to&apos; z then c &apos;has component part at some time &apos; m</annotation:semiFormalNaturalLanguageAxiom>
+		<AnnotationVocabulary:firstOrderLogicAxiom>LA1:ComponentParthoodSlot(x) → ( (∀y(hasFiller(x,y) → (InformationContentEntity(y) ∧ (∃m(MaterialComponent(m) ∧ isAbout(y,m)) ∨ ∀t(isAbout(y,t) → MaterialComponent(t)) )))) ∧ (∃z(isSlotOf(x,z) ∧ InformationContentEntity(z) ∧ (∃c(IndependentContinuant(c) ∧ ¬SpatialRegion(c) ∧ isAbout(z,c)) ∨ ∀u(isAbout(z,u) → (IndependentContinuant(u) ∧ ¬SpatialRegion(u)))))) ) )</AnnotationVocabulary:firstOrderLogicAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ConnectionSlot">
@@ -426,41 +482,6 @@
 	</owl:AnnotationProperty>
 	
 	<owl:Class>
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ComponentSlot"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationSlot">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasFiller"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
-						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialComponent"/>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSlotOf"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
-									</rdf:Description>
-									<owl:Class>
-										<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
-									</owl:Class>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Class>
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/JointSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/DesignSpecification">
@@ -520,22 +541,6 @@
 								</owl:intersectionOf>
 							</owl:Class>
 						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ParticipantSlot"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationSlot">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSlotOf"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
-						<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
 					</owl:Restriction>
 				</owl:allValuesFrom>
 			</owl:Restriction>
