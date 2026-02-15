@@ -31,7 +31,6 @@
 		<dcterms:contributor>Ali Hasanzadeh, Arizona State University</dcterms:contributor>
 		<dcterms:contributor>Arkopaul Sarkar, National Institute of Standards and Technology</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Boonserm Kulvatanyou, NIST</dcterms:contributor>
-		<dcterms:contributor xml:lang="en-US">Dusan Sormaz, Ohio University</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Evan Wallace, NIST</dcterms:contributor>
 		<dcterms:contributor>Farhad Ameri, Arizona State University</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Jim Logan, Ontogenesis</dcterms:contributor>
@@ -214,7 +213,7 @@ A transportation document that is the contract of carriage containing the terms 
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cargo role</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>role of pallets of aluminum ingots when they are being transported on a train</skos:example>
 		<iof-av:firstOrderLogicAxiom>CargoRole(x) → Role(x) ∧ ∃m∃p∃c(MaterialEntity(m) ∧ TransportProcess(p) ∧ Carrier(c) ∧ participatesInAtSomeTime(m,p) ∧ agentIn(c,p) ∧ roleOf (x,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -2929,6 +2928,28 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">event that has at least one traceable resource unit or equipment (with which TRU comes into contact with) or operator (that runs an equipment with which TRU comes into contact with at some time) as participant .</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;tracking event&apos; then x is an &apos;event&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TradeItemRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:label xml:lang="en-US">trade item role</rdfs:label>
+		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
+		<skos:example>Physical Product (Each/Base Unit): A bottle of detergent, identified by a GTIN (UPC/EAN) for retail POS. Inner Pack: A box containing 6 bottles of the detergent. Case (Case/Outer Pack): A corrugated carton containing 4 inner packs. Pallet: A full pallet holding 20 cases of the detergent.</skos:example>
+		<iof-av:explanatoryNote>Any item (product or service) upon which there is a need to retrieve pre-defined information and that may be priced, ordered, or invoiced at any point in the supply chain [GS1].</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>TradeItemRole(x) →
+    ( Role(x) ∧
+      ∃y ∃p ∃i (
+          RoleOf(x, y) ∧
+          (MaterialProduct(y) ∨ Package(y) ∨ GroupOfMaterialProducts(y) ∨ CommercialServiceAgreement(y)) ∧
+          SellingBusinessProcess(p) ∧
+          ParticipatesInAtSomeTime(y, p) ∧
+          TradeItemIdentifier(i) ∧
+          IdentifiedForTradeBy(y, i)
+      )
+    )</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>role of a material product, package of, or group of material products, and any commercial service agreement when it is intended to be offered for sale in a selling business process and is identified for trade.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a ‘trade item role’ then x is a ‘role’ that is a ‘role of’ some ‘material product’ or some ‘package’ or some ‘group of material products’ or some ‘commercial service agreement’ that ‘participates in at some time’ some ‘selling business process’ and that ‘is identified for trade’ by some ‘trade item identifier’.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Trailer">
