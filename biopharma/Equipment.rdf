@@ -125,52 +125,35 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Equipment/"/>
 		<owl:equivalentClass>
 			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-core;EngineeredSystem">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;BioreactorVessel"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
+						<owl:someValuesFrom>
 							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-core;EngineeredSystem">
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;BioproductionEnvironmentCapability">
 									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasCapability"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
+									<rdf:Description rdf:about="&iof-construct;CultivationEnvironmentCapability">
+									</rdf:Description>
+								</owl:unionOf>
 							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;BioreactorVessel"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:unionOf>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Stainless steel production bioreactor with integrated agitation and feed control; 2000 L single-use production bioreactor for monoclonal antibody manufacturing;Stirred-tank seed bioreactor with automated pH and DO control; single-use seed bioreactor for mammalian cell expansion; small-scale glass seed bioreactor with temperature regulation; perfusion seed bioreactor with cell retention system</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/earth-and-planetary-sciences/bioreactor and https://www.sciencedirect.com/topics/immunology-and-microbiology/bioreactor and https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/bioreactor</iof-av:adaptedFrom>
 		<iof-av:counterExample>Empty stainless steel vessel without integrated agitation, control skid, or single-use bag system; refrigerated storage unit maintaining cell viability;Incubator designed to maintain temperature and CO₂ for cell culture without agitation, feeding, or waste removal functions;  static cell culture flask lacking active environmental controls</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ∃b(BioreactorVessel  ∧ hasMemberPartAtSomeTime(x,b))  ( ∃c1∃f1 (BioproductionEnvironmentCapability(c1) ∧ hasCapability(x, c1) ∧ CultivationEnvironmentCapability(f1) ∧ hasFunction(x, f1)) ∨ ∃c2∃f2 (CultivationEnvironmentCapability(c2) ∧ hasCapability(x, c2) ∧ BioproductionEnvironmentCapability(f2) ∧ hasFunction(x, f2)) )</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ∃b(BioreactorVessel  ∧ hasMemberPartAtSomeTime(x,b))  ∧ ∃f( (BioproductionEnvironmentCapability(f) ∨ CultivationEnvironmentCapability(f) ) ∧ hasFunction (x,f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to provide a controlled environment for the cultivation of cells, tissues, or microorganisms, or for the production of material products or process intermediate materials by those biological entities</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;bioreactor vessel&apos; and either &apos;has capability&apos; some &apos;bioproduction environment capability&apos; and has function some &apos;cultivation environment capability&apos;, or has capability some &apos;cultivation environment capability&apos; and has function some &apos;bioproduction environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;bioreactor vessel&apos; and  &apos;has function&apos; some &apos;cultivation environment capability&apos; or &apos;bioproduction environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BioreactorVessel">
@@ -494,24 +477,6 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;preparative chromatography system&apos; then x is a &apos;chromatography system&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ProductionBioreactor">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Bioreactor"/>
-		<rdfs:label>production bioreactor</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Bioreactor">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BioproductionEnvironmentCapability"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition>bioreactor designed with the primary function of supporting the formation of material products or process intermediate materials</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;ProteinAChromatographyMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;AffinityChromatographyMedium"/>
 		<rdfs:subClassOf>
@@ -560,25 +525,6 @@
 2) They may be used with full rocker-motion bioreactors, as well as simpler incubator rockers or trays
 3) Their design enables mixing and gas transfer by wave or rocking motion rather than by impellers, reducing shear stress.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material artifact that is a flexible, sterile bag designed for rocking or wave-motion mixing, gently agitating its contents to provide mixing and gas transfer that enable controlled cultivation of cells or microorganisms under low-shear conditions</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;SeedBioreactor">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Bioreactor"/>
-		<rdfs:label>seed bioreactor</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Bioreactor">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>Seed bioreactors are configured and operated with the primary purpose of cell growth and viability, not product formation. They support controlled mixing, aeration, temperature, and pH conditions optimized to increase viable cell density. Multiple seed bioreactors may be used sequentially to scale from early-stage cultures (e.g., shake flasks) to production scale (e.g., N–2, N–1 stages).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>bioreactor designed with the primary function of expanding biomass from a smaller inoculum to prepare inoculum for the next stage or for production</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ShakeFlask">
@@ -729,6 +675,12 @@
 		<iof-av:firstOrderLogicDefinition>ThawingSystem(x) ↔ EngineeredSystem(x) ∧ ∃f(ThawingCapability(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to raise the temperature of a material in a controlled manner to reach a specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;thawing system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has function&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VesselHeadspace">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000029"/>
+		<rdfs:label>vessel headspace</rdfs:label>
+		<iof-av:naturalLanguageDefinition>site in the interior of a vessel that is bounded by the vessel walls and is located above the surface of the liquid contents of the vessel</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Vial">

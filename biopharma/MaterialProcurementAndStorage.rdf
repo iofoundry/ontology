@@ -17,7 +17,7 @@
 	<!ENTITY vaem "http://www.linkedmodel.org/schema/vaem#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:bmic-materialprocurementandstorage="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"
@@ -39,14 +39,14 @@
 		<rdfs:label xml:lang="en-US">Material Procurement and Storage Ontology</rdfs:label>
 		<dcterms:abstract>This module contains terms and relations for tracking and tracing of materials. The purpose of the module is to provide support for use cases related to connecting process control to raw material procurement as well as for use cases related to regulatory compliance.</dcterms:abstract>
 		<dcterms:contributor>Adlane Rebai, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
-		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
-		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
-		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
-		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Ana Nikolov, OAGi</dcterms:contributor>
+		<dcterms:contributor>Boonserm Kulvatunyou, NIST</dcterms:contributor>
 		<dcterms:contributor>Cameron Gibbs, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Gabriela Henning, NIST</dcterms:contributor>
+		<dcterms:contributor>Jan Kemper, AstraZeneca</dcterms:contributor>
+		<dcterms:contributor>Marie-Aude Coutouly, Millipore Sigma</dcterms:contributor>
 		<dcterms:contributor>Melissa Weller, CrownPoint Technologies, LLC</dcterms:contributor>
+		<dcterms:contributor>Milos Drobnjakovic, OAGi</dcterms:contributor>
 		<dcterms:contributor>Stephen J. Granite, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:contributor>Stephen Kahmann, CrownPoint Technologies, LLC</dcterms:contributor>
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
@@ -204,6 +204,7 @@
 		<rdfs:label xml:lang="en-US">certificate of analysis</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
 		<skos:example>Certificate of Analysis for Sodium Acetate Trihydrate (Catalog No. SA-12345, Lot 2025-05-17-01) issued by ChemStandard Inc. on 2025-07-20. The certificate reports measured values for properties such as purity (99.6%), pH (8.4), and water content (39.7%), and confirms the material meets ACS Reagent Grade specification.</skos:example>
+		<iof-av:abbreviation>CoA</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/good-manufacturing-practices/guidance-documents/gmp-guidelines-0001/document.html  and  EU GMP Guide Part I and ASTM E3077</iof-av:adaptedFrom>
 		<iof-av:counterExample>An internal lab notebook entry documenting the results of an experiment performed on a chemical compound; A certificate issued by a manufacturer stating that a product meets the requirements of a specific standard (e.g., ISO 9001), without including the results of any specific measurements performed on the material.</iof-av:counterExample>
 		<iof-av:explanatoryNote>A Certificate of Analysis (CoA) includes numerical measurement results for one or more product attributes, in contrast to a Certificate of Conformance which may only indicate pass/fail status. A CoA also typically contains details such as the name and address of the laboratory, product specifications, testing procedures, and the signature and date of the approving authority. It is issued for a specific lot or batch and is commonly used as part of quality assurance and regulatory compliance documentation.</iof-av:explanatoryNote>
@@ -214,6 +215,28 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">certificate that provides quantitative results from analytical tests to verify that the attributes of a specific lot, batch, or individual product satisfy the requirement specifications stated in the certificate</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This class is expected to remain primitive until a treatment of ternary relations is established. In particular, it is not currently possible to assert that the material certified by the document satisfies the requirements specified within the same certificate.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;certificate of analysis&apos;, then x is a &apos;certificate&apos; such that there exists a &apos;disposition&apos; or &apos;quality&apos; q that &apos;specifically depends on&apos; a &apos;material product&apos; or &apos;lot&apos; y, where x &apos;has as continuant part at all times&apos; some &apos;requirement specification&apos; that is &apos;satisfied by&apos; q, and x also &apos;has as continuant part at all times&apos; some value that is the &apos;measured value of at some time&apos; q, and x &apos;certifies&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CertificateOfConformance">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Certificate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;certifies"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/Lot">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>certificate of conformance</rdfs:label>
+		<iof-av:abbreviation>CoC</iof-av:abbreviation>
+		<iof-av:naturalLanguageDefinition>certificate issued by a manufacturer, supplier, or other authorized issuer that attests that a  lot or batch or individual material product conforms to specified technical, safety, or regulatory requirements referenced in the certificate</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ContainerIdentifier">

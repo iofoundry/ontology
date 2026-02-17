@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY annotation "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY bmic-manufacturingexecution "https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/">
 	<!ENTITY bmic-material "https://spec.industrialontologies.org/ontology/biopharma/Material/">
@@ -21,6 +22,7 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
+	xmlns:annotation="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-manufacturingexecution="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
@@ -201,14 +203,14 @@
 		<skos:example>In a perfusion culture of CHO cells producing a monoclonal antibody, a controlled daily bleed of 10% of the reactor volume is performed to maintain cell density within the target range (e.g., 20–30 × 10⁶ cells/mL). This prevents overgrowth, stabilizes residence time distribution, and avoids excessive accumulation of lactate and ammonia that could impair productivity or product quality.</skos:example>
 		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>At the end of a fed-batch run, the entire bioreactor contents are removed to recover product (harvesting). Although this involves material removal, it is not considered bleeding because the goal is not to regulate culture properties during an ongoing process, but rather to terminate the culture and collect the final product.</iof-av:counterExample>
-		<iof-av:naturalLanguageDefinition>material removal process in which a portion of culture material is removed from a defined environment to regulate culture properties such as cell density, residence time, or metabolite accumulation, without finishing the process it is a part of</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material removal process in which a portion of culture material that includes cells is removed from a defined environment to regulate culture properties such as cell density, residence time, or metabolite accumulation, without finishing the process it is a part of</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureCultivationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -262,11 +264,17 @@
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>cell culture inoculation process</rdfs:label>
 		<skos:example>introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Taking a vial of ultra-high cell density CHO cells from a working cell bank and directly adding the thawed cells into a wave-mixed perfusion bioreactor to start growth; using the cells to seed an N-1 perfusion bioreactor; inoculating the fed-batch bioreactors with cells stemming from the N-1 perfusion bioreactor</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process typically involves transferring cells from a cryovial, seed culture, or intermediate vessel into fresh culture medium under controlled environmental conditions. It marks the beginning of a new cultivation stage within the seed train or production process, and is distinct from microbiological inoculation used in QC or testing, and from immunological inoculation in clinical contexts.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>inoculation process in which cells are introduced into a fermentation or cell culture vessel to initiate a cell culture cultivation process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>inoculation process in which cells are introduced into a vessel to initiate a cell culture cultivation process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureProductionPhase">
@@ -684,6 +692,13 @@
 		<iof-av:naturalLanguageDefinition>planned process in which part or all of the culture medium in a vessel is removed and replaced with fresh medium to maintain or alter the metabolic environment of a cell culture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CulturePerfusionProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumExchangeProcess"/>
+		<rdfs:label>culture perfusion process</rdfs:label>
+		<iof-av:explanatoryNote>Perfusion is distinguished from batch (discrete) medium exchange by its continuous or quasi-continuous operation. In many implementations a cell retention method (e.g., spin filter, ATF/TFF, settler) is used so that the removed stream is depleted of cells (permeate/harvest), while viable cells remain in the culture vessel. Perfusion may be paired with a bleed process to control cell density. Perfusion rate is commonly specified as fresh-medium flow normalized by working volume (e.g., VVD)</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>culture medium exchange process in which culture fluid is continuously or semi-continuously removed from a cell culture vessel and replaced with fresh medium, typically while retaining cells in the vessel</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;DegassingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<rdfs:label>degassing process</rdfs:label>
@@ -1030,8 +1045,8 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>continuous removal of culture broth from a chemostat at a rate equal to feed addition to maintain steady-state operation; withdrawal of permeate from a perfusion bioreactor through a cell retention device as part of continuous production flow; continuous permeate removal from a tangential-flow filtration loop maintaining constant retentate volume during steady-state diafiltration; continuous elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/state-mass-balance</iof-av:adaptedFrom>
 		<iof-av:counterExample>cell bleed from a perfusion bioreactor to control viable cell density; terminal harvest of fed-batch culture fluid; sampling of culture fluid for off-line testing</iof-av:counterExample>
-		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which alter material balance and have different objectives.
-2) In continuous processes, material removed by an outflow may subsequently serve as input to a downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1) Outflow processes sustain the material balance of a larger process, such as chemostat outflow or perfusion permeate. They are distinguished from analytical sampling (removal for measurement), bleed (removal for density control), and harvest (end-of-run removal), which have different primary objectives, even though they may contribute to overall material balance.
+2) In continuous processes, material removed by an outflow may subsequently serve as input to downstream processes, but the outflow process itself remains distinct as the balance-sustaining withdrawal.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material removal process in which material is withdrawn from a defined environment in order to sustain the material balance</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1040,7 +1055,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:label>material removal process</rdfs:label>
 		<skos:example>cell bleed process in a perfusion culture process; harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; elution stream withdrawal from a periodic counter-current chromatography system under steady-state operation</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003574</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>planned process in which material is withdrawn from a defined environment</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>planned process in which a material is withdrawn from a defined environment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MediaChargingProcess">
@@ -1187,7 +1202,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;HostCell"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;InfectedHostCell"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
@@ -1818,7 +1833,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;HostCell"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;InfectedHostCell"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>

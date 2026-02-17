@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY annotation "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY bmic-material "https://spec.industrialontologies.org/ontology/biopharma/Material/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
@@ -17,6 +18,7 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Material/"
+	xmlns:annotation="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/Material/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -57,30 +59,35 @@
 		<iof-av:maturity rdf:resource="&iof-av;Released"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&iof-construct;AcidicChargeVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariant"/>
-		<rdfs:label>acidic charge variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;ChargeVariant">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;AcidicChargeVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein classified by a acidic charge variant classifier</iof-av:naturalLanguageDefinition>
+	<owl:AnnotationProperty rdf:about="&annotation;naturalLanguageDefinition">
+	</owl:AnnotationProperty>
+	
+	<owl:Class rdf:about="&iof-construct;Absorbance">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OpticalQuality"/>
+		<rdfs:label>absorbance</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000061</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Lambert-Beer&apos;s law states that absorbance is equal to the product of molar coefficient of absorbance of an absorbing compound in a medium times its concentration in the medium times path length of the electromagnetic radiation passing through the medium.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>optical quality inhering in a material entity that is the logarithm of the ratio of incident electromagnetic radiation intensity to transmitted electromagnetic radiation intensity for a specified wavelength and specified path through that material entity</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;AcidBaseIndicatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularColorIndicatorRole"/>
+		<rdfs:label>acid-base indicator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_50407</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Acid-base indicators are typically weak acids or weak bases whose conjugate forms differ in color over a characteristic pH transition range. In titration applications, the indicator is selected so that its color change occurs at or near the equivalence point.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular color indicator role that is held by a molecular entity in virtue of that molecular entity being used such that its color indicates a pH range of a material and a change in its color indicates a shift of the material pH into a different pH range</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AcidicChargeVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariantClassifier"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantImpurityRole"/>
 		<rdfs:label>acidic charge variant classifier</rdfs:label>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifies a protein whose net charge or isoelectric point is lower than the net charge or isoelectric point of the main charge variant</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a protein, protein fragment, or molecular population of such entities that differs from a reference form of the same protein by having a lower net electric charge or isoelectric point</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Adhesion">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Pressure"/>
+		<rdfs:label>adhesion</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Aldohexose">
@@ -160,6 +167,14 @@
 		<iof-av:naturalLanguageDefinition>quality of a whole that is the number of entities that are part of the whole</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;AmountOfSubstance">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Amount"/>
+		<rdfs:label>amount of substance</rdfs:label>
+		<skos:altLabel>molar amount</skos:altLabel>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000166</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality inhered in a portion of material that is a size that is proportional to the number of elementary entities present</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;Anion">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Ion"/>
 		<rdfs:label>anion</rdfs:label>
@@ -224,10 +239,10 @@
 	
 	<owl:Class rdf:about="&iof-construct;ApparentSolubility">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SolubilityLimit"/>
-		<rdfs:label>apparent solubility</rdfs:label>
+		<rdfs:label>apparent saturation concentration</rdfs:label>
 		<iof-av:adaptedFrom>https://doi.usp.org/USPNF/USPNF_M2248_03_01.html and https://www.pmda.go.jp/files/000270228.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Apparent solubility is an operational, method-dependent quantity and does not necessarily equal the equilibrium solubility under the same conditions. It may be higher than equilibrium solubility when transient supersaturation occurs, or lower than equilibrium solubility when dissolution is incomplete because insufficient time is allowed to reach thermodynamic equilibrium. Apparent solubility therefore depends on protocol details such as mixing and agitation, order of addition, temperature history and hold time.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>solubility limit that is the highest concentration of a solute that can remain dissolved under a specified set of conditions without establishing thermodynamic equilibrium</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>solution saturation concentration of a solute that can remain dissolved under a specified set of conditions without establishing thermodynamic equilibrium</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Area">
@@ -255,38 +270,26 @@
 		<iof-av:naturalLanguageDefinition>culture medium containing the basic minimum components necessary to support cell survival and very limited proliferation, typically including salts, amino acids, vitamins, and a carbon source, but lacking serum, proteins, or growth factors</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;BasicChargeVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariant"/>
-		<rdfs:label>basic charge variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;ChargeVariant">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BasicChargeVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein classified by a basic charge variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;BasicChargeVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariantClassifier"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantImpurityRole"/>
 		<rdfs:label>basic charge variant classifier</rdfs:label>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifies a protein whose net charge or isoelectric point is higher than the net charge or isoelectric point of the main charge variant</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a protein, protein fragment, or molecular population of such entities that differs from a reference form of the same protein by having a higher net electric charge or isoelectric point</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BatchFailureRate">
+		<rdfs:subClassOf rdf:resource="&iof-core;ProcessCharacteristic"/>
+		<rdfs:label>batch failure rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process characteristic that summarizes the number of batches runs that failed compared to the total number of batch runs over a period of time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Bioburden">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:label>bioburden</rdfs:label>
 		<iof-av:adaptedFrom>https://www.sigmaaldrich.com/US/en/applications/microbiological-testing/bioburden-testing?srsltid=AfmBOooIv6z3mhn24wCBPWkNZ1d0tqxlOup_y_ and https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>This quality refers only to viable microorganisms such as bacteria, yeast, or mold present within or on a material entity. It excludes viruses, endotoxins, and non-viable biological matter, which are represented by separate quality attributes.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>quality of a material entity that is the extent to which viable microorganisms are present in or on the surface of the material entity prior to a sterilization process</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) In sterilization and aseptic processing contexts, bioburden is commonly assessed prior to a sterilization or other microbicidal process and is used to characterize the microbial challenge presented to that process
+2) This quality refers only to viable microorganisms such as bacteria, yeast, or mold present within or on a material entity. It excludes viruses, endotoxins, and non-viable biological matter, which are represented by separate quality attributes.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>quality of a material entity that is the extent to which viable microorganisms are present in or on the surface of the material entity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiologicalActivity">
@@ -322,43 +325,37 @@
 		<iof-av:naturalLanguageDefinition>generically dependent continuant that is the ordered pattern of residues that constitute a particular continuous DNA, RNA, peptide, or protein molecule</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;BiologicalSequenceVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntity"/>
-		<rdfs:label>biological sequence variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;Peptide">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BiologicalSequenceVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>DNA, RNA, peptide, or protein  classified by a biological sequence variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;BiologicalSequenceVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-core;Classifier"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;DrugProductRelatedImpurityRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;classifies"/>
-				<owl:allValuesFrom>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;Peptide">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;Protein">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
@@ -371,18 +368,22 @@
 									</rdf:Description>
 								</owl:unionOf>
 							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasQuality"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;PrimaryStructure"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
+						</owl:unionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>biological sequence variant classifier</rdfs:label>
+		<rdfs:label>biological sequence variant impurity role</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/SO_0001060 and https://www.cancer.gov/publications/dictionaries/genetics-dictionary/def/variant and https://www.rapidnovor.com/sequence-variant-analysis-monoclonal-antibodies/#:~:text=Variant%20Analysis%20Service-,Introduction,variants%20and%20their%20associated%20risks.</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifier that classifies a DNA, RNA, peptide, or protein  whose primary structure has a biological sequence that differs, at one or more residue positions, from a reference sequence due to substitution, insertion, deletion, or truncation</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a DNA molecule, RNA molecule, peptide, protein, or molecular population of such molecules whose primary structure has a biological sequence that differs at one or more positions from a specified reference sequence due to substitution, insertion, deletion, or truncation</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiomassSpecificProductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
+		<rdfs:label>biomass specific productivity</rdfs:label>
+		<iof-av:explanatoryNote>1) In this context, biomass mass is commonly quantified as dry cell mass (e.g., dry cell weight), but may also be quantified using other biomass mass conventions (e.g., wet cell mass) when specified
+2) Biomass mass may be the total biomass mass or, when specified, viable biomass mass.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit biomass mass</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BioproductionSupportingFunction">
@@ -459,7 +460,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<rdfs:label>buffering capacity</rdfs:label>
 		<iof-av:adaptedFrom>https://www.med.unc.edu/pharm/sondeklab/wp-content/uploads/sites/868/2018/10/buffers_calbiochem.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Buffering capacity is influenced by the concentration of the buffering species, the proximity of their pKₐ values, and the relationship between solution pH and pKₐ. In mixtures of weak acids and bases, buffering capacities are additive, and higher overall concentrations confer greater resistance to pH changes. Buffer effectiveness is maximal when the pH of the solution equals the pKₐ of the buffering species, where the acid and its conjugate base are present in equal proportion. Effective buffering is generally maintained within ±1 pH unit of the pKₐ; beyond this range, the capacity to resist pH change diminishes significantly.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>capacity of a solution to resist changes in hydrogen ion concentration (pH) when an acid or base is added.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>capacity of a solution to resist changes in hydrogen ion concentration (pH) when an acid or base is added</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BulkDensity">
@@ -467,7 +468,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<rdfs:label>bulk density</rdfs:label>
 		<skos:altLabel>apparent density</skos:altLabel>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Bulk_density</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>mass density that is the ratio of mass to the total volume occupied by a collection of particles, including any void volume between the particles and any pore volume within the particles.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>mass density that is the mass per total volume occupied by a collection of particles, including any void volume between the particles and any pore volume within the particles.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CakingPropensity">
@@ -491,6 +492,19 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:adaptedFrom>https://www.ebi.ac.uk/chebi/CHEBI:16646</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Carbohydrates include simple sugars (monosaccharides) such as glucose and fructose, and compounds formed by their condensation, such as disaccharides, oligosaccharides, and polysaccharides. They can also occur in reduced (alditols) or oxidized (acids, aldehydes, ketones) forms, or as modified derivatives in which one or more hydroxy groups are replaced or substituted. Carbohydrates serve as energy sources, structural materials, and signaling molecules in living organisms. Cyclitols, although similar in composition, are generally not considered carbohydrates.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>molecular entity composed of carbon, hydrogen, and oxygen that consists of or is derived from polyhydroxy aldehydes, ketones, or their condensation products</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CarbonDioxide">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+		<rdfs:label>carbon dioxide</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_16526</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>organic molecular entity consisting of a carbon atom and two oxygen atoms where the carbon is covalently bonded to each oxygen atom by a double bond</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CarbonDioxideEvolutionRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>carbon dioxide evolution rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate that is the quantity of carbon dioxide transferred from a culture system to an exhaust gas stream per unit time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CarbonSourceRole">
@@ -532,6 +546,36 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>object aggregate that has as parts cryopreserved cell aliquots derived from a single source culture, prepared and stored under defined conditions, and maintained as a referenceable lot to provide consistent starting material for research, development, manufacturing, or the generation of new cell banks</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CellCount">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Count"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isCountOf"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;Cell"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>cell count</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000184</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>amount of cells within a whole</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CellCulture">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:subClassOf>
@@ -568,12 +612,42 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>manufacturing process related impurity role held by a material entity that originates from a material that is part of the cell culture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CellCultureDoublingTime">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Duration"/>
+		<rdfs:label>cell culture doubling time</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/MSIO_0000061</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>duration during which a cell population size doubles under specified conditions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CellDensity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;NumberDensity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Cell"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>cell density</rdfs:label>
-		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/medicine-and-dentistry/cell-density and https://www.sigmaaldrich.com/US/en/technical-documents/protocol/analytical-chemistry/photometry-and-reflectometry/cell-density-measurement-by-od600-method?srsltid=AfmBOoqxMLTlROXCkIoHCGlcNFWUSSZvftakFCMkyCL5l9gpB-s7B3yL and http://purl.allotrope.org/ontologies/quality#AFQ_0000181</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000181</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Cell density is commonly reported as cells per unit volume (e.g. cells/mL) or cells per unit area (e.g. cells/cm²), depending on how the cell population is distributed in the material entity being studied. It characterizes how many cells occupy a specified portion of material space and is an important parameter for interpreting cellular behaviour such as growth, viability, differentiation, gene expression, and responses to environmental conditions. In practice, cell density may be obtained by direct or automated counting methods or indirectly from surrogate readouts such as optical density at 600 nm (OD600).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>number density that is the number of cells in a cell population relative to the volume or surface area of the material entity of which that population is a proper part</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>number density of a population of cells</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellLine">
@@ -642,6 +716,12 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;cell population&apos; is defined as exactly an instance of &apos;object aggregate&apos; that &apos;has member part at some time&apos; some &apos;cell&apos; and &apos;has member part at some time&apos; only &apos;cell&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CellPopulationGrowthRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PopulationGrowthRate"/>
+		<rdfs:label>cell population growth rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>population growth rate at which cells in a population are increasing in number</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CellProliferationSupportingFunction">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMediumSpecializedFunction"/>
 		<rdfs:label>cell proliferation supporting function</rdfs:label>
@@ -651,78 +731,55 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>culture medium specialized function that enables cells in culture to divide and remain viable by supplying appropriate nutrients and physicochemical conditions for proliferation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CellSpecificProductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
+		<rdfs:label>cell specific productivity</rdfs:label>
+		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit cell amount, typically per viable cell amount</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CellSubstrateDerivedImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessRelatedImpurityRole"/>
 		<rdfs:label>cell substrate-derived impurity role</rdfs:label>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.ema.europa.eu/en/documents/scientific-guideline/draft-ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnological-biological-entities_en.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>manufacturing process related impurity role held by a material entity that originates from the host organism or cell line used in biomanufacturing production process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>manufacturing process related impurity role held by a material entity that originates from the host organism or cell line</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CellViability">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Ratio"/>
+	<owl:Class rdf:about="&iof-construct;CellViabilityRatio">
+		<rdfs:subClassOf rdf:resource="&iof-construct;RelativeAbundance"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;TotalCellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ViableCellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>cell viability</rdfs:label>
-		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/cell-viability</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Cell viability is often reported as the ratio of viable cells to the total cell count (e.g. “95 % viable”) and serves as a critical indicator of cellular health in research, biomanufacturing, and cytotoxicity assessments</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>ratio that is the number or amount of viable cells in a cell population relative to the total number or amount of cells in that population</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ChargeVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Protein"/>
-		<rdfs:label>charge variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Protein">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ChargeVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein classified by a charge variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ChargeVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-core;Classifier"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;classifies"/>
-				<owl:allValuesFrom>
+				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasQuality"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-construct;IsoelectricPoint">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;NetElectricCharge">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>charge variant classifier</rdfs:label>
-		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>The classifier reflects a comparative classification used in charge-variant profiling, where proteins are categorized as acidic, basic, or main species based on their charge related behavior during analytical separation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>classifies a protein that differs from another version of the same protein by having a distinct net electric charge or isoelectric point resulting from one or more molecular modifications</iof-av:naturalLanguageDefinition>
+		<rdfs:label>cell viability ratio</rdfs:label>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/cell-viability</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Cell viability is often reported as the ratio of viable cells to the total cell count (e.g. “95 % viable”) and serves as a critical indicator of cellular health in research, biomanufacturing, and cytotoxicity assessments
+2) Although the ratio is defined over a specified cell population, this quality may inhere in a broader material entity that contains that population (e.g., a cell culture, suspension, or culture aliquot), with the specified population providing the comparison basis for the ratio</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relative abundance that is the number of viable cells in a cell population relative to the total number of cells in that population</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChelatingAgentRole">
@@ -759,12 +816,6 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:counterExample>Media with plasma-derived transferrin (without purity specification) is not strictly chemically defined unless concentration is characterized</iof-av:counterExample>
 		<iof-av:explanatoryNote>Chemically defined media (CDM) are culture media composed only of pure, quantified ingredients of known chemical identity and concentration. They exclude animal-derived serum and complex additives such as yeastolate, peptones, or hydrolysates. Recombinant proteins (e.g., insulin, transferrin) may be included provided their identity and concentration are specified. CDMs improve control, reproducibility, and lot-to-lot consistency, simplify downstream purification, and enhance comparability between experiments or production runs. In biopharmaceutical manufacturing, they are favored for reducing regulatory concerns associated with serum and undefined additives. CDMs can function as standalone formulations or as the foundation for serum-free processes.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>culture medium in which every component and its concentration is precisely known and reproducible, containing only chemically characterized compounds such as amino acids, vitamins, salts, trace elements, and energy sources, and excluding any undefined components like serum or hydrolysates</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;Clarity">
-		<rdfs:subClassOf rdf:resource="&iof-construct;OpticalQuality"/>
-		<rdfs:label>clarity</rdfs:label>
-		<iof-av:naturalLanguageDefinition>optical quality of a liquid that is the extent to which the liquid transmits light with minimal scattering from suspended or colloidal matter</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ClonedCellLine">
@@ -816,7 +867,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<skos:example>DMEM + 10 % FBS</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Complete media are culture media that provide all nutrients and signaling components required for the routine maintenance and growth of a given cell line. They are commonly prepared by supplementing a basal medium with 5–20% animal serum or, in serum-free and chemically defined systems, by adding recombinant proteins, hormones, and lipids. Formulations can be tailored to specific cell types or processes, such as hybridoma expansion or stem cell maintenance. In both research and manufacturing, the distinction is important: basal media supply the nutritional foundation, while complete media are designed to fully support cell culture without additional basal supplementation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>cell culture medium that consists of a basal medium supplemented with additional components, such as serum, proteins, growth factors, hormones, or other nutrients, sufficient to support robust cell growth, proliferation, and metabolic activity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>culture medium that consists of a basal medium supplemented with additional components, such as serum, proteins, growth factors, hormones, or other nutrients, sufficient to support robust cell growth, proliferation, and metabolic activity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ComplexAGalactosylatedNGlycanMoeity">
@@ -977,24 +1028,70 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Concentration">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isConcentrationOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000175"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;MixedMaterial"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Volume"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Amount">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Mass">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MixedMaterial"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>concentration</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000033</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality that is the amount of one material entity relative to the amount, mass, or volume of a material entity that either includes it as a proper part or is a proper part of the same mixture</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality of a mixture that is the amount or mass of a component of the mixture relative to the total volume of the mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Conductivity">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:label>conductivity</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001585</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of a material entity that is the extent to which the material entity conducts electric charge</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality inhering in a bearer by virtue of the bearer&apos;s disposition to transmit of an entity through a medium</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ContaminantRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ImpurityRole"/>
 		<rdfs:label>contaminant role</rdfs:label>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Manufacturing contaminants are adventitiously introduced materials that were not intended to be present in the manufacturing process of a biopharmaceutical material stream, and they include chemical or biochemical materials (e.g., microbial proteases) and microbial species; regulators expect manufacturing programs to prioritize avoidance, or controlled removal to meet drug substance or drug product specifications, using appropriate in-process acceptance criteria or measurable action thresholds for the affected material stream, while recognizing that adventitious viral or mycoplasma contamination is not managed by allowable-range action limits, and instead requires control strategies guided by dedicated ICH viral-safety and cell-substrate characterization guidance, as part of validated contamination-prevention or mitigation safeguards</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1) Manufacturing contaminants are adventitiously introduced materials that were not intended to be present in the manufacturing process, and in biopharmaceutical manufacturing they include chemical or biochemical materials (e.g., microbial proteases) and microbial species.
+2) This role is intended to distinguish contaminants from process-associated impurities that arise from planned or inherent aspects of executing the intended process.
+3)  Regulators expect manufacturing programs to prioritize avoidance, or controlled removal to meet drug substance or drug product specifications, using appropriate in-process acceptance criteria or measurable action thresholds for the affected material stream, while recognizing that adventitious viral or mycoplasma contamination is not managed by allowable-range action limits, and instead requires control strategies guided by dedicated ICH viral-safety and cell-substrate characterization guidance, as part of validated contamination-prevention or mitigation safeguards</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>role held by a material entity when it is adventitiously introduced during a manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1013,6 +1110,11 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>N-glycan moiety that contains the core pentasaccharide Man₃GlcNAc₂, consisting of a di-N-acetyl-chitobiose unit extended by a branched mannose trisaccharide</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Count">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Amount"/>
+		<rdfs:label>count</rdfs:label>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CryoprotectiveAgentRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProtectiveAgentRole"/>
 		<rdfs:label>cryoprotective agent role</rdfs:label>
@@ -1022,6 +1124,26 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 2) The term “environment” covers any relevant physical or chemical setting such as a solution, suspension, or culture medium. 
 3) The role applies to both single substances and formulated mixtures such as cryoprotective solutions.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to an environment to protect other materials from the harmful effects of freezing temperatures</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CultureMediaFingerprinting">
+		<rdfs:subClassOf rdf:resource="&iof-core;MeasurementProcess"/>
+		<rdfs:label>culture media fingerprinting</rdfs:label>
+		<iof-av:adaptedFrom>https://www.biophorum.com/download/media-fingerprinting-of-cell-culture-media-a-standardized-analytical-test-method-suite-and-three-tier-approach/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>“Identity or consistency” assessment commonly compares profiles across different preparations of the same nominal medium, such as lots, sublots and  in-house compounded preparations</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>measurement process in which a culture medium is characterized using one or more analytical methods to produce a multivariate profile that can be used to assess identity or consistency</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CultureMediaSuitabilityTesting">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialSuitabilityTesting"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>culture media suitability testing</rdfs:label>
+		<iof-av:naturalLanguageDefinition>material suitability testing that evaluates the acceptability of a lot or sublot of culture medium</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
@@ -1035,7 +1157,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 4)Some types of culture media also include selection agents or antibiotics to suppress the growth of unwanted or contaminating organisms.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CultureMedium(x) → MaterialEntity(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is a liquid or solid aqueous formulation that provides essential nutrients (such as carbon, nitrogen, vitamins, and minerals) and controlled physicochemical conditions (such as pH and osmotic balance) required for the growth, maintenance, or specific metabolic activity of microorganisms or cells</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is a solid or liquid aqueous formulation that provides essential nutrients (such as carbon, nitrogen, vitamins, and minerals) and controlled physicochemical conditions (such as pH and osmotic balance) required for the growth, maintenance, or specific metabolic activity of microorganisms or cells</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to accurately represent the structure and the capabilities that the media has in this release. They will be treated in great detail for a subsequent release orienting around upstream.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium&apos; then x is a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1063,7 +1185,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<rdfs:label>culture medium specialized function</rdfs:label>
 		<skos:example>Human-Mesenchymal-XF-Expansion-Medium; Hybridoma Myeloma Cell Culture Media</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>designed function that inheres in a culture medium and is specified to satisfy the nutritional or signaling requirements of a particular cell type, tissue, or application, often achieved through selective supplements or tailored nutrient formulations</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>designed function that inheres in a culture medium and is specified to satisfy the nutritional or signaling requirements of a particular cell type, tissue,microorganism or application, often achieved through selective supplements or tailored nutrient formulations</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumSupplementRole">
@@ -1130,6 +1252,55 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;cultured cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;cultured cell&apos; and &apos;has member part at some time&apos; only &apos;cultured cell&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;CyclicRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>cyclic rate</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Dead">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Viability"/>
+		<rdfs:label>dead</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001422</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality inhering in a bearer by virtue of the cessation of the bearer&apos;s life.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DeadCellCount">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellCount"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isCountOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Cell">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Dead"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>dead cell count</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000187</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell count of the partition of dead cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DeadCellDensity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellDensity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;DeadCellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>dead cell density</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000361</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell density of the partition of dead cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;DeamidatedResidue">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ModifiedAminoAcidResidue"/>
 		<rdfs:label>deamidated residue</rdfs:label>
@@ -1138,10 +1309,17 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>modified amino acid residue that results from conversion of a carboxamido group to a carboxyl group, involving a net gain of oxygen and a loss of nitrogen and hydrogen</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;DegradationImpurityRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ImpurityRole"/>
-		<rdfs:label>degradation impurity role</rdfs:label>
-		<iof-av:naturalLanguageDefinition>impurity role that inheres in a material entity in virtue of that material entity being present in another material entity as a result of degradation</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;DegradationProductImpurityRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DrugProductRelatedImpurityRole"/>
+		<rdfs:label>degradation product impurity role</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q3B%28R2%29%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Chemical change may be caused by, for example, light, temperature, pH, or water, or by reaction with an excipient and/or the immediate container closure system.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a molecular entity or molecular entity population that differs from the reference drug substance as a result of a chemical change occurring during manufacture and/or storage of the drug product</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Density">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
+		<rdfs:label>density</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DeoxyribonucleicAcid">
@@ -1152,11 +1330,36 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>nucleic acid that is composed of nucleotides containing deoxyribose</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:ObjectProperty rdf:about="&iof-construct;DependsOnBearerPart">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>depends on bearer part</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000004">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&bfo;BFO_0000006"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:range>
+		<iof-av:naturalLanguageDefinition>relation between a quality q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:Class rdf:about="&iof-construct;Diameter">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Length"/>
 		<rdfs:label>diameter</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001334</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>length of a material entity that is the maximal straight-line spatial extent of that entity through its center between two boundary points lying on opposite sides of a circular cross-section</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Dioxygen">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InorganicMolecularEntity"/>
+		<rdfs:label>dioxygen</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_15379</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>inorganic molecular entity consisting of two oxygen atoms covalently bonded to each other</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolutionRate">
@@ -1190,16 +1393,96 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 	
 	<owl:Class rdf:about="&iof-construct;DissolutionRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasSpecifiedOutput"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>dissolution role</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000274</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>role held by a material entity that is realized in a dissolution process in which it participates in forming a solution</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;DissolvedOxygenSaturationRatio">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SolutionSaturationRatio"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Concentration">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isConcentrationOf"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Dioxygen">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;SoluteRole"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;SolubilityLimit">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isConcentrationOf"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Dioxygen">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;SoluteRole"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>dissolved oxygen saturation ratio</rdfs:label>
+		<annotation:naturalLanguageDefinition>ratio that is the dissolved oxygen concentration in a liquid solution relative to the dissolved oxygen saturation concentration in that liquid</annotation:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>The dissolved oxygen saturation concentration (and therefore the dissolved oxygen saturation ratio) is condition-dependent, varying with temperature, salinity (or ionic strength), total pressure, and the oxygen partial pressure in the gas phase in contact with the liquid. In bioprocessing practice, “100% DO” is commonly defined as equilibrium with air at approximately 21% O₂ (at the prevailing total pressure), rather than equilibrium with pure oxygen, unless otherwise specified.</iof-av:explanatoryNote>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;DownstreamDerivedImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessRelatedImpurityRole"/>
 		<rdfs:label>downstream-derived impurity role</rdfs:label>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.ema.europa.eu/en/documents/scientific-guideline/draft-ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnological-biological-entities_en.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>manufacturing process related impurity role held by a material entity that originates from a material utilized in a manufacturing process that is part of the downstream manufacturing process</iof-av:naturalLanguageDefinition>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>manufacturing process related impurity role held by a material entity that originates from a material that is involved in a downstream manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DrugPotency">
@@ -1236,14 +1519,38 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		</rdfs:subClassOf>
 		<rdfs:label>drug product related impurity role</rdfs:label>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>In this context, molecular variant means a form of the same molecule that is not the intended final product, including processing precursors (e.g., proinsulin, signal-peptide-containing forms), sequence-modified or residue-modified forms (e.g., deamidated Asn, oxidized Met), clipped or bond-cleaved forms (e.g., fragments from peptide-bond cleavage, missing chain segments), aggregated forms (e.g., non-native dimers, oligomers, larger coalesced assemblies detected during analytical monitoring but not part of product specification), or structure-altered storage forms (e.g., disulfide-scrambled or disulfide-scrambled chain linkages).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>impurity role held by a molecular entity or molecular entity population that is a molecular variant of the targeted drug product or drug substance and does not have comparable properties for activity, efficacy, or safety</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) In this context, molecular variant means a form related to the intended drug substance or drug product that differs in primary structure or higher order structure, and that is not part of the defined product composition or specification at the relevant stage. Examples include processing precursors (e.g., proinsulin, signal-peptide-containing forms), sequence-altered forms (e.g., substitutions, insertions, deletions, truncations), residue-modified forms (e.g., deamidated Asn, oxidized Met), clipped or bond-cleaved forms (e.g., fragments from peptide-bond cleavage, missing chain segments) and aggregated forms (e.g., non-native dimers, oligomers)
+2) This definition is intended for products whose primary intended product is a molecular entity (or molecular population), and it excludes cell-based products as the intended product.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>impurity role held by a molecular entity or molecular entity population that is a molecular variant of the targeted drug product or drug substance and does not have properties comparable to those of the desired product with respect to activity, efficacy, and safety</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Duration">
+		<rdfs:subClassOf rdf:resource="&iof-core;ProcessCharacteristic"/>
+		<rdfs:label>process duration</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the length of the time interval that a process occupies</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DustingPropensity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Propensity"/>
 		<rdfs:label>dusting propensity</rdfs:label>
 		<iof-av:naturalLanguageDefinition>disposition of a powdered material entity to generate airborne particulate matter</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ElectricCharge">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ElectricalQuality"/>
+		<rdfs:label>electric charge</rdfs:label>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ElectricalConductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Conductivity"/>
+		<rdfs:label>electrical conductivity</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001585</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality of a material entity that is the extent to which the material entity conducts electric charge</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ElectricalQuality">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:label>electrical quality</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EmulsionPropensity">
@@ -1322,10 +1629,10 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	
 	<owl:Class rdf:about="&iof-construct;EquilibriumSolubility">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SolubilityLimit"/>
-		<rdfs:label>equilibrium solubility</rdfs:label>
+		<rdfs:label>equilibrium saturation concentration</rdfs:label>
 		<iof-av:adaptedFrom>https://doi.usp.org/USPNF/USPNF_M2248_03_01.html and https://goldbook.iupac.org/terms/view/S05740</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Equilibrium solubility is the saturation limit at thermodynamic equilibrium, that is, the greatest amount of a solute that can remain dissolved in the liquid phase under specified conditions before an undissolved phase persists in equilibrium with the solution (e.g., solid or crystalline material, precipitate, or a separate liquid phase). The value depends on the stated conditions, including temperature, pressure, and solvent composition, and in many practical systems also depends on pH, ionic strength, and the presence of other solutes or additives. Equilibrium solubility can be reported in multiple composition forms, such as molarity (mol/L), molality (mol/kg), mass concentration (g/L), mass fraction, or mole fraction, provided the solute, solvent, and equilibrium conditions are specified.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>solubility limit that is the maximum concentration of a solute that can remain dissolved at thermodynamic equilibrium</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>Equilibrium solubility is the saturation limit at thermodynamic equilibrium: the greatest amount of a solute that can remain dissolved under specified conditions while coexisting in equilibrium with a separate phase of that solute (e.g., a solid/crystalline phase, precipitate, separate liquid phase, or gas phase). The value depends on the stated conditions, including temperature, pressure, and solvent composition, and in many practical systems also depends on pH, ionic strength, and the presence of other solutes or additives. Equilibrium solubility can be reported in multiple composition forms (e.g., molarity, molality, mass concentration, mass fraction, mole fraction), provided the solute, solvent, and equilibrium conditions are specified.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>solubility saturation concentration of a particular solute at thermodynamic equilibrium</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ExpansionCultureMedium">
@@ -1356,10 +1663,15 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>optical quality of a material entity that is the degree to which the material entity absorbs or reflects radiation or light at a particular wavelength</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ExtractableImpurityRole">
+	<owl:Class rdf:about="&iof-construct;ExtractableAndLeachableImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ImpurityRole"/>
-		<rdfs:label>extractable impurity role</rdfs:label>
-		<iof-av:naturalLanguageDefinition>impurity role that inheres in a material entity in virtue of that material entity being present in another material entity as a result of intentional extraction from a material-contact artifact</iof-av:naturalLanguageDefinition>
+		<rdfs:label>extractable and leachable impurity role</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/draft-ich-q3e-guideline-extractables-leachables_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) This role groups cases commonly termed extractables and leachables:
+Extractables: material entities intentionally extracted from manufacturing components/systems, packaging components, or delivery device components under specified laboratory test conditions; often treated as potential leachables for a given target material and use scenario.
+Leachables: material entities that migrate from manufacturing components/systems, packaging components, or delivery device components into a target material under established conditions of manufacture and/or labeled storage conditions (or, more generally, established handling/transport/use conditions).
+2) “Artifact that contacts the target material” includes, for example, containers/closures, bags, tubing, filters, seals/gaskets, connectors, pumps, and relevant equipment surfaces.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>impurity role that inheres in a material entity in virtue of that material entity being present in a target material as a result of transfer from an artifact that contacts the target material</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Filterability">
@@ -1395,6 +1707,19 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>capability of a liquid to form foam during a particular process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Fraction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Ratio"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MixedMaterial"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>fraction</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000172</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>ratio of one constitutent (part) to all constituents of a mixture</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;FucoseResidue">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MonosacharideResidue"/>
 		<rdfs:label>fucose residue</rdfs:label>
@@ -1419,6 +1744,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<rdfs:label>glucose</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_17234</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>aldohexose used as a source of energy and metabolic intermediate</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;GlucoseUptakeRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MetaboliteUptakeRate"/>
+		<rdfs:label>glucose uptake rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of a glucose taken up by a cell population or microorganism population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GlycatedResidue">
@@ -1526,32 +1857,6 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>core pentasacharide N-glycan moiety that contains unsubstituted terminal mannose units and whose total mannose count is typically between five and nine</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;HighMolecularWeightProteinVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;SizeVariant"/>
-		<rdfs:label>high molecular weight protein variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinHighMolecularWeightVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:abbreviation>HMW protein</iof-av:abbreviation>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein or protein aggregate classified by a protein high molecular weight variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;HomodimericAntibody">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Antibody"/>
 		<rdfs:label>homodimeric antibody</rdfs:label>
@@ -1610,13 +1915,35 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>role held by an organic molecular entity that is realized in cellular signaling or regulatory processes where it modulates the activity or metabolism of cells or tissues through receptor-mediated mechanisms</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;HostCell">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Cell"/>
-		<rdfs:label>host cell</rdfs:label>
-		<skos:example>A HEK293 cell that has been infected by an adenovirus vector; MDCK cell infected by influenza virus; A CHO cell infected by vesicular stomatitis virus (VSV)</skos:example>
-		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C93037</iof-av:adaptedFrom>
-		<iof-av:counterExample>A HEK293T cell that has been transduced with a replication-deficient AAV vector to express a therapeutic gene</iof-av:counterExample>
-		<iof-av:naturalLanguageDefinition>cell that is infected by a virus or another type of microorganism</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;HostCellProteinImpurityRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellSubstrateDerivedImpurityRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+										<owl:allValuesFrom rdf:resource="&iof-construct;Protein"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>host cell protein impurity role</rdfs:label>
+		<iof-av:abbreviation>HCP impurity role</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell-substrate-derived impurity role held by a protein or protein population that originates from the host organism or cell line</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HybridNGlycanMoeity">
@@ -1634,12 +1961,76 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>capability of a material entity to attract and hold moisture from the surrounding environment</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Impurity">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;ImpurityRole"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>impurity</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;Purity"/>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000222</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality that inheres in a material entity by virtue of the extent to which the material entity consists of material that is considered an impurity</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ImpurityRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;MaterialProduct">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-core;RawMaterial">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>impurity role</rdfs:label>
 		<skos:example>residual solvent remaining after synthesis; oxidation product formed during storage of a biologic; trace contaminant present in a raw material lot</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000364 and http://purl.obolibrary.org/obo/CHEBI_143130 and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>role of a material enity that is present within a production intermediate, raw material, production consumable, or material product as a consequence of manufacturing, storage, or degradation, and is not part of the defined composition or specification at a particular stage of manufacture, processing, or storage</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is present within a production intermediate, raw material, production consumable, or material product as a consequence of manufacturing, storage, handling or use, and is not part of the defined composition or specification at a particular stage of manufacture, handling, storage, or release</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InfectedHostCell">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Cell"/>
+		<rdfs:label>infected host cell</rdfs:label>
+		<skos:example>A HEK293 cell that has been infected by an adenovirus vector; MDCK cell infected by influenza virus; A CHO cell infected by vesicular stomatitis virus (VSV)</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C93037</iof-av:adaptedFrom>
+		<iof-av:counterExample>A HEK293T cell that has been transduced with a replication-deficient AAV vector to express a therapeutic gene</iof-av:counterExample>
+		<iof-av:naturalLanguageDefinition>cell that is infected by a virus or another type of microorganism</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InorganicAnion">
@@ -1668,11 +2059,11 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Insulin">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Protein"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Polypeptide"/>
 		<rdfs:label>insulin</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_145810</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Insulin as a process-related impurity: In biopharmaceutical production, insulin is commonly employed in cell culture media as a growth-promoting supplement; when not fully removed during downstream purification, residual insulin may persist in the final drug substance or drug product. Its presence must be carefully monitored because it constitutes a non-intended material introduced during processing, and could impact final product safety, stability or bioactivity. Ensuring adequate clearance of residual insulin is therefore part of the impurity control strategy and aligns with regulatory expectations for process-related residuals</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein that consists of two polypeptide chains, A chain and B chain, linked by disulfide bonds</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>polypeptide that consists of two polypeptide chains, A chain and B chain, linked by disulfide bonds</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;IntactMolecularWeight">
@@ -1702,10 +2093,10 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;IsoelectricPoint">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ElectricalQuality"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -1761,17 +2152,32 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>organic anion that is the conjugate base of lactic acid, arising from deprotonation of the carboxy group</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;LeachableImpurityRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ImpurityRole"/>
-		<rdfs:label>leachable impurity role</rdfs:label>
-		<iof-av:naturalLanguageDefinition>impurity role that inheres in a material entity in virtue of that material entity being present in another material entity as a result of migration from a material-contact artifact during manufacture, storage, handling or use</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;Length">
 		<rdfs:subClassOf rdf:resource="&iof-construct;OneDimensionalPhysicalExtent"/>
 		<rdfs:label>length</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000122</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>one dimensional physical extent that is the quality of a material entity that is the spatial extent of that entity between two boundary points along a particular direction</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;LightLevel">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OpticalQuality"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000029">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>light level</rdfs:label>
+		<iof-av:naturalLanguageDefinition>optical quality of a site or material entity that is the amount of light present at or within it</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Lipid">
@@ -1798,56 +2204,16 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>organic molecular entity consisting of a trisaccharide repeating unit (two heptose units and octulosonic acid) with oligosaccharide side chains and 3-hydroxytetradecanoic acid units</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;LowMolecularWeightProteinVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;SizeVariant"/>
-		<rdfs:label>low molecular weight protein variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinLowMolecularWeightVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:abbreviation>LMW protein</iof-av:abbreviation>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein or protein fragment classified by a protein low molecular weight variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MainChargeVariant">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariant"/>
-		<rdfs:label>main charge variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;ChargeVariant">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;MainChargeVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein classified by a main charge variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MainChargeVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariantClassifier"/>
-		<rdfs:label>main charge variant classifier</rdfs:label>
-		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifies a protein that has the net-charge or pI that serves as the baseline against which acidic and basic charge variants are defined</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;ManufacturingProcessProductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000138"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;ManufacturingProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>manufacturing process productivity</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of process intermediate or product produced per unit of time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessRelatedImpurityRole">
@@ -1884,7 +2250,8 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		</rdfs:subClassOf>
 		<rdfs:label>manufacturing process related impurity role</rdfs:label>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>The phrase “as a result of the manufacturing process” is a causal link, not a statement that the impurity is a process output, and a manufacturing impurity role can be held by a material entity when its presence is caused by direct manufacturing inputs (e.g., a reagent added during a step such as solvents in equipment cleaning, or raw material lots that exceed limits), by manufacturing exposure during handling (e.g., airborne particles, microbial bioburden), by equipment or vessel contact (e.g., metal particles from stainless processing surfaces, lubricant droplets from pumps), or by container or consumable interaction (e.g., extractables from tubing).</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Manufacturing impurity role can be held by a material entity when its presence in a process material, production intermediate, or product is attributable to planned or inherent aspects of manufacturing execution.
+Examples include residual process materials and intermediates (for example reagents, solvents, cleaning agents, process intermediates, and byproducts) and material introduced via intended product-contact equipment or consumables (for example wear particles, lubricants, extractables, and leachables from vessels, tubing, filters, and resins</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>impurity role held by a material entity that is part of a production intermediate or product and originates from a material entity involved in a manufacturing process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1895,8 +2262,33 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>quality that inheres in a bearer by virtue of the proportion of the bearer&apos;s amount of matter</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MassConcentration">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Mass"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>mass concentration</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000167</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>concentration that is the mass of a component of the mixture relative to the total volume of the mixture</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MassDensity">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Density"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Mass"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PhysicalSize"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>mass density</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001019</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality which inheres in a bearer by virtue of some influence is exerted by the bearer&apos;s mass per unit size</iof-av:naturalLanguageDefinition>
@@ -1908,6 +2300,19 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:adaptedFrom>https://www.alicat.com/support/what-is-the-difference-between-mass-flow-and-volumetric-flow/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The “amount of matter” is quantified as mass (e.g., kg/h, g/min).</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>flow rate at which an amount of matter passes through a specified surface</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MassFraction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Fraction"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Mass"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>mass fraction</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000173</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>fraction pertaining the mass of a constituent divided by the total mass of all constituents in the mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MasterCellBank">
@@ -1998,7 +2403,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<rdfs:label>material grade classifier</rdfs:label>
 		<iof-av:adaptedFrom>https://alliancechemical.com/blogs/articles/chemicalgrades and https://www.biopharminternational.com/view/role-quality-standards-biomanufacturing-raw-materials and https://www.biopharminternational.com/view/case-study-pharmacopoeia-compliance-excipients-and-raw-materials-0</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Material grade is a practical classification used to communicate that a material has been sourced, tested, and documented against a defined requirement set issued by a specific organization (for example, a pharmacopeia, a standards body, or a supplier). In chemical supply contexts, grades such as technical, ACS/reagent, USP/FCC/food, and water-treatment grade are used to distinguish different expectation levels for impurities, documentation, and suitability for a particular use. In biopharmaceutical manufacturing, grade distinctions are often framed operationally by what is purchased and how it is tested and governed, including compendial and multi-compendial grades (aligned to one or more monographs), and reagent grade (generally less preferred for regulated manufacture).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>classifier that classifies a material entity as suitable for a particular use because it satisfies a documented set of acceptance requirements defined by a specified organization</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>classifier that classifies a material entity into an organization- or authority-defined class of suitability for use, based on the material entity’s conformance to a documented set of acceptance requirements and associated controls</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialHomogeneity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Homogeneity"/>
+		<rdfs:label>material homogeneity</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialMetabolicInducer">
@@ -2063,6 +2473,20 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture to trigger the synthesis of a target product</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MaterialSuitabilityTesting">
+		<rdfs:subClassOf rdf:resource="&iof-core;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-core;MeasurementProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material suitability testing</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A material suitability testing process may be part of another material suitability testing process. In such cases, the subprocess typically evaluates acceptability with respect to a subset of the acceptance criteria used by the larger process (e.g., a rapid incoming check as part of a full release-to-use determination).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>planned process that evaluates the acceptability of a material entity for a specified use by performing one or more observations or measurement processes and comparing the resulting evidence to specified acceptance criteria</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MediaSupplement">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>media supplement</rdfs:label>
@@ -2082,6 +2506,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html and https://www.thermofisher.com/rs/en/home/life-science/cell-culture/mammalian-cell-culture/media-supplements.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>material entity with a media supplement role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MetaboliteUptakeRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>metabolite uptake rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate that is the quantity of a metabolite taken up by a cell population or microorganism population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Miscibility">
@@ -2110,9 +2540,40 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	
 	<owl:Class rdf:about="&iof-construct;MoistureContent">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Ratio"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Mass">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Water"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>moisture content</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C210204</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>ratio that is the amount of water in a material entity relative to the total amount of that material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>The &quot;defined reference mass&quot; can be the Total Mass (Wet Basis) or the Dry Solids Mass (Dry Basis).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>ratio that is the mass of water contained in a material entity relative to a defined reference mass of that material entity</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MolarConcentration">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;AmountOfSubstance"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>molar concentration</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000168</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>concentration that is the molar amount of a component of the mixture relative to the total volume of the mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MolarMass">
@@ -2164,6 +2625,13 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>role held by a material entity that enables the transport, stabilization, or delivery of one or more molecular entities within a physical, chemical, or biological system without undergoing permanent chemical transformation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MolecularColorIndicatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularVisualIndicatorRole"/>
+		<rdfs:label>molecular color indicator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_50410</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>molecular visual indicator role that is held by a molecular entity in virtue of that molecular entity being used such that a change in its color indicates the presence, amount, or state of a specified substance or quality</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MolecularEntity">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>molecular entity</rdfs:label>
@@ -2209,6 +2677,14 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>role of a molecular entity that reflects a specific chemical or biochemical behavior it may exhibit under certain condition</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MolecularIndicatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
+		<rdfs:label>molecular indicator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_47867</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The observable change is often visual (e.g., color change), but may also be a non-visual detectable signal (e.g., fluorescence, change in absorbance, change in luminescence, change in electrical signal, or change in emitted or absorbed radiation)</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular entity role that is held by a molecular entity in virtue of that molecular entity being used such that an observable change in that molecular entity indicates the presence, amount, or state of a specified substance or quality</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MolecularMessengerRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityRole"/>
 		<rdfs:label>molecular messenger role</rdfs:label>
@@ -2226,6 +2702,14 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>role of a molecular entity that supports cellular metabolism, growth, or maintenance through its participation in biochemical processes and that must be supplied from an external source when endogenous synthesis is absent or insufficient</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MolecularVisualIndicatorRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularIndicatorRole"/>
+		<rdfs:label>molecular visual indicator role</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_50408</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Visual change” includes changes in color, opacity/clarity, or emission (e.g., fluorescence)</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>molecular indicator role that is held by a molecular entity in virtue of that molecular entity being used such that a visual change in that molecular entity indicates the presence, amount, or state of a specified substance or quality</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;Monosacharide">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Carbohydrate"/>
 		<rdfs:label>monosacharide</rdfs:label>
@@ -2238,6 +2722,13 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<rdfs:label>monosacharide residue</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_78848</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>chemical moiety that is a proper part of an oligo- or polysaccharide, or of their residues, and that is the remaining portion of a monosaccharide after formation of a glycosidic bond</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MorphologicalQuality">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:label>morphological quality</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000051</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality of a material entity inhering in the bearer by virtue of the bearer&apos;s size or shape or structure</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Mycoplasma">
@@ -2292,7 +2783,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NetElectricCharge">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ElectricCharge"/>
 		<rdfs:label>net electric charge</rdfs:label>
 		<iof-av:adaptedFrom>https://www.britannica.com/science/electric-charge and https://openstax.org/books/physics/pages/18-1-electrical-charges-conservation-of-charge-and-transfer-of-charge</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>net electric charge is equal to the algebraic sum of all positive and negative electric charges borne by that entity</iof-av:explanatoryNote>
@@ -2394,10 +2885,28 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NumberDensity">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Density"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Amount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PhysicalSize"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>number density</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000180</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality that is the amount of countable objects per unit size</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;NumberFraction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Fraction"/>
+		<rdfs:label>number fraction</rdfs:label>
+		<iof-av:naturalLanguageDefinition>fraction pertaining the count of a constituent divided by the total count of all constituents in the mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NutrientFeed">
@@ -2493,6 +3002,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>physical size that is the spatial extent of a material entity in one dimension</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;OpticalClarity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OpticalQuality"/>
+		<rdfs:label>optical clarity</rdfs:label>
+		<iof-av:naturalLanguageDefinition>optical quality of a liquid that is the extent to which the liquid transmits light with minimal scattering from suspended or colloidal matter</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;OpticalQuality">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:label>optical quality</rdfs:label>
@@ -2523,35 +3038,18 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Osmolality">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Amount">
+							<rdf:Description rdf:about="&iof-construct;Mass">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Solvent">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Water"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -2567,39 +3065,22 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<rdfs:label>osmolality</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0002027 and https://www.ncbi.nlm.nih.gov/sites/books/NBK567764/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Osmolarity is a colligative property in the sense that it depends primarily on the number of dissolved particles (osmotically active entities) rather than their chemical identity; it expresses this particle concentration on a volume-of-solution basis (i.e., osmoles of solute per liter of solution)</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>quality of a solution that is the amount of osmotically active solute entities in that solution per kilogram of solvent</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality of a solution that is the amount of osmotically active solute entities in that solution per unit mass of solvent</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Osmolarity">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Amount">
+							<rdf:Description rdf:about="&iof-construct;Volume">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Solvent">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Water"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -2614,7 +3095,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		</rdfs:subClassOf>
 		<rdfs:label>osmolarity</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001655 and https://www.ncbi.nlm.nih.gov/sites/books/NBK567764/</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of a water based solution that is the amount of osmotically active solute entities in that solution per liter of that solution</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality of a solution that is the amount of osmotically active solute entities in that solution per unit volume of that solution</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;OxidizedResidue">
@@ -2624,24 +3105,29 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>modified amino acid residue that results from covalent changes involving loss of hydrogen atoms or addition of oxygen atoms to the residue</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;OxygenUptakeRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>oxygen uptake rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate that is the amount of oxygen consumed by a cell population per unit of time</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;PartialPressure">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Pressure"/>
 		<rdfs:label>partial pressure</rdfs:label>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/P04819</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>pressure that is the contribution of a specified constituent of a gas mixture to the total pressure of that mixture</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>pressure that is the contribution of a particular gaseous constituent of a gas mixture to the total pressure of that mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ParticleSizeDistribution">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;PhysicalSize"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>particle size distribution</rdfs:label>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/chemistry/particle-size-distribution</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) The particle size distribution concerns both which particle sizes are present and how much of the population falls at different sizes. In practice, that “how much” is commonly reported as relative amounts (e.g., fractions or percentages) in size ranges, or via cumulative reporting (undersize/oversize) or summary descriptors (e.g., D-values); these are information representations about the profile rather than the profile itself.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>quality of a particle population that is the overall make-up of the physical sizes of the particles present in that population</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -2668,7 +3154,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PhysicalShape">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MorphologicalQuality"/>
 		<rdfs:label>physical shape</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000052</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Examples of structural features include points, edges, surfaces and holes</iof-av:explanatoryNote>
@@ -2676,10 +3162,33 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PhysicalSize">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MorphologicalQuality"/>
 		<rdfs:label>physical size</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000117</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality of a material entity that is the spatial extent of that entity in one or more spatial dimensions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PhysicalStructure">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MorphologicalQuality"/>
+		<rdfs:label>physical structure</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000141</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This quality concerns the organization of parts (spatial arrangement and connectivity) at whatever granularity is relevant (e.g., anatomical regions, microstructure, particle packing, macromolecular conformation).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>morphology quality inhering in a bearer by virtue of the relative positions, shapes, arrangement, and connectivity of the bearer’s parts, which together constitute the pattern underlying the bearer’s form</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PlannedProcessYield">
+		<rdfs:subClassOf rdf:resource="&iof-core;ProcessCharacteristic"/>
+		<rdfs:label>planned process yield</rdfs:label>
+		<iof-av:explanatoryNote>In this context, ‘associated with the planned process’ means that the specified quantity is the quantity of a particular process participant including process inputs and outputs</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the quantity of a specified output produced in a planned process relative to a specified quantity associated with that planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PolySacharide">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Carbohydrate"/>
+		<rdfs:label>polysacharide</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_18154</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>This term is commonly used only for those containing more than ten monosaccharide residues.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>carbohydrate consisting of large numbers of monosaccharide residues linked glycosidically</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Polyamine">
@@ -2696,6 +3205,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<skos:example>Casein; Collagen fragment; Insulin chain A; β-lactoglobulin</skos:example>
 		<iof-av:directSource>https://www.ebi.ac.uk/chebi/CHEBI:15841</iof-av:directSource>
 		<iof-av:naturalLanguageDefinition>peptide containing ten or more amino acid residues</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PopulationGrowthRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>population growth rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>rate at which a particular population is increasing in numbers</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Porosity">
@@ -2741,7 +3256,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Pressure">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:label>pressure</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001025</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality that inheres in a bearer by virtue of the bearer&apos;s amount of force per unit area it exerts</iof-av:naturalLanguageDefinition>
@@ -2755,10 +3270,37 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 				<owl:someValuesFrom rdf:resource="&iof-construct;BiologicalSequence"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>primary structure</rdfs:label>
 		<iof-av:adaptedFrom>http://www.bioassayontology.org/bao#BAO_0000013</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>examples of modifications include methylated, phosphorylated, etc.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>quality of a biological macromolecule (DNA, RNA or protein) concretizing its sequence, which could either be unmodified&apos; (native) or modified</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality of a biological macromolecule (DNA, RNA,peptide or protein) concretizing its sequence, which could either be unmodified&apos; (native) or modified</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProductTiter">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:label>product titer</rdfs:label>
+		<iof-av:explanatoryNote>1) In this context, ‘target product’ denotes the specified substance of interest for the manufacturing objective and may be a drug substance, process intermediate, or other designated active or functional component. Product titer is evaluated at a specified time point and may vary over time due to dilution, degradation, or changes in process volume.”
+2) Here, process material means a material that is being transformed or modified in a manufacturing process, including process intermediate material and the material product. It does not include raw materials or consumables.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>concentration that is a quality of a process material that is the concentration of a target product in the process material</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionCultureMedium">
@@ -2782,7 +3324,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Propensity">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000017"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000016"/>
 		<rdfs:label>propensity</rdfs:label>
 	</owl:Class>
 	
@@ -2796,6 +3338,12 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	
 	<owl:Class rdf:about="&iof-construct;Protein">
 		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Polypeptide"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>protein</rdfs:label>
 		<skos:example>Albumin; Monoclonal antibody (IgG); Recombinant human growth hormone</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_36080 and https://www.fda.gov/media/122985/download</iof-av:adaptedFrom>
@@ -2804,11 +3352,20 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinAggregate">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000030"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000111"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>protein aggregate</rdfs:label>
@@ -2820,18 +3377,66 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 3) Aggregates may appear intracellularly or extracellularly. 
 4) The term is neutral to function (or lack thereof), solubility, and precipitation state, which are modeled separately when relevant. 
 5) The term covers aggregates that are transient, stable, soluble, insoluble, precipitating, or non-precipitating.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>object that consists of physical coalescence of two or more protein molecules without forming new peptide bonds between the proteins</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>organic molecular entity that consists of physical coalescence of two or more protein molecules and/or protein fragments without forming new peptide bonds between the proteins</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ProteinDimer">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinMultimer"/>
-		<rdfs:label>protein dimer</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/85017/download and https://www.contractpharma.com/library/characterization-of-product-related-variants-in-th-23957/ and https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>protein multimer resulting from coalescence (agglomeration) of exactly two protein monomers</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;ProteinChargeVariantImpurityRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DrugProductRelatedImpurityRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;Protein">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;Protein">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein charge variant impurity role</rdfs:label>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a protein, protein fragment, or molecular population of such entities that differs from a reference form of the same protein by having a distinct net electric charge or isoelectric point</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinFragment">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000030"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Peptide">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;Protein">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000175"/>
@@ -2840,9 +3445,9 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		</rdfs:subClassOf>
 		<rdfs:label>protein fragment</rdfs:label>
 		<iof-av:adaptedFrom>https://www.bioprocessintl.com/formulation/stability-considerations-for-biopharmaceuticals-overview-of-protein-and-peptide-degradation-pathways and https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-development-production-characterisation-and-specification-monoclonal-antibodies-and-related-products-revision-1_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) The phrase “was a proper part of a protein” captures that the fragment existed as a proper part before the cleavage. After the bond-breaking event, it persists as an independent object.
+		<iof-av:explanatoryNote>1) The phrase “was a proper part of a protein” captures that the fragment existed as a proper part before the cleavage. After the bond-breaking event, it persists as an independent entity.
 2) Peptide-bond cleavage that generates fragments may occur through spontaneous or enzyme-driven bond disruption. Examples include hydrolysis under chemical or environmental stress, agitation or proteolytic activity.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>object that was a proper part of a protein molecule and that is a result of cleavage of one or more peptide bonds within that protein</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>peptide or protein that was a proper part of a protein molecule and that is a result of cleavage of one or more peptide bonds within that protein</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinFreeCultureMedium">
@@ -2855,134 +3460,139 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 		<iof-av:naturalLanguageDefinition>serum free culture medium that does not include any proteins, peptides, or hydrolysates</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ProteinHighMolecularWeightVariantClassifier">
+	<owl:Class rdf:about="&iof-construct;ProteinHighMolecularWeighVarianttImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;classifies"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>protein high molecular weight variant classifier</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;ProteinLowMolecularWeightVariantClassifier"/>
-		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3564875/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9980510/ and https://www.biopharminternational.com/view/protein-impurities-pose-challenges</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifies a protein or protein aggregate whose molecular weight or size is greater than the molecular weight or size of the reference protein</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProteinLowMolecularWeightVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;classifies"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>protein low molecular weight variant classifier</rdfs:label>
-		<iof-av:adaptedFrom>https://www.agilent.com/cs/library/applications/application-intact-protein-analysis-1290-bio-5994-3021en-agilent.pdf?srsltid=AfmBOord0gYpA_izWG5ho6VxaMiEr6N9eFGWe1h-RuEb88akGHX2gVrA and https://www.biopharminternational.com/view/protein-impurities-pose-challenges and https://www.sciencedirect.com/science/article/pii/S0022354922003392</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifies a protein or a protein fragment whose molecular weight or size is lower than the molecular weight or size of a reference protein</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProteinMonomer">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Protein"/>
-		<rdfs:label>protein monomer</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Protein">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;hasDisposition"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinMultimerizationDisposition"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/85017/download and https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/abs/10.1002/bit.23155 and https://link.springer.com/article/10.1208/aapsj080366</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) A monomer refers to one full, intact protein molecule unit prior to multimeric assembly and typically refers to the intact, single-molecule unit of a therapeutic protein in its unassociated state in a bioprocess stream.
-2) The term “monomer” is neutral to internal chain composition.
-For example, an IgG therapeutic antibody is one protein molecule comprising 2 heavy and 2 light chains and functions as one monomeric unit, not as a coalescence of multiple protein molecules.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein with a disposition to form protein multimers</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProteinMultimer">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinAggregate"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;isOutputOf"/>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
 				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000015">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasInput"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;ProteinMonomer"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;Protein">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;Protein">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>protein multimer</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/85017/download and https://www.contractpharma.com/library/characterization-of-product-related-variants-in-th-23957/ and https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>protein aggregate resulting from coalescence (agglomeration) of two or more protein monomers</iof-av:naturalLanguageDefinition>
+		<rdfs:label>protein high molecular weight variant impurity role</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;ProteinLowMolecularWeightVariantImpurityRole"/>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3564875/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9980510/ and https://www.biopharminternational.com/view/protein-impurities-pose-challenges</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>protein size variant impurity role that is held by a protein, protein aggregate, or molecular population of such entities that has a molecular weight or size greater than a reference form of the same protein</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ProteinMultimerizationDisposition">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000016"/>
+	<owl:Class rdf:about="&iof-construct;ProteinLowMolecularWeightVariantImpurityRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000015">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasOutput"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;ProteinMultimer"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;Protein">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;Protein">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:unionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:label>protein low molecular weight variant impurity role</rdfs:label>
+		<iof-av:adaptedFrom>https://www.agilent.com/cs/library/applications/application-intact-protein-analysis-1290-bio-5994-3021en-agilent.pdf?srsltid=AfmBOord0gYpA_izWG5ho6VxaMiEr6N9eFGWe1h-RuEb88akGHX2gVrA and https://www.biopharminternational.com/view/protein-impurities-pose-challenges and https://www.sciencedirect.com/science/article/pii/S0022354922003392</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>protein size variant impurity role that is held by a protein, or molecular population of such entities that has a molecular weight or size lower than a reference form of the same protein</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinSecondaryStructure">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PhysicalStructure"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;dispositionOf"/>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>protein multimerization disposition</rdfs:label>
-		<iof-av:naturalLanguageDefinition>disposition of a protein molecule to agglomerate with other proteins to form protein multimers without forming new peptide bonds between the associated protein units</iof-av:naturalLanguageDefinition>
+		<rdfs:label>protein secondary structure</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality of a protein that is the three-dimensional arrangement of its backbone segments, which depends primarily on hydrogen bonds between amino acid residues in the polypeptide chain and is characterized independently of side-chain interactions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinSizeVariantClassifier">
-		<rdfs:subClassOf rdf:resource="&iof-core;Classifier"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;DrugProductRelatedImpurityRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;classifies"/>
-				<owl:allValuesFrom>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000172"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;Protein">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+													</rdf:Description>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
 									<rdf:Description rdf:about="&iof-construct;Protein">
@@ -2993,27 +3603,27 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 									</rdf:Description>
 								</owl:unionOf>
 							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-core;hasQuality"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-construct;MolarMass">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;PhysicalSize">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
+						</owl:unionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>protein size variant classifier</rdfs:label>
+		<rdfs:label>protein size variant impurity role</rdfs:label>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3564875/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9980510/ and https://www.biopharminternational.com/view/protein-impurities-pose-challenges and https://link.springer.com/article/10.1186/s41120-024-00096-x and https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>classifier that classifies a protein, a protein aggregate, or a protein fragment whose molecular weight or size differs from that of a reference protein</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>product related impurity role that is held by a protein, protein fragment, protein aggregate, or molecular population of such entities that differs from a reference form of the same protein by having a distinct molecular weight or size</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinTertiaryStructure">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PhysicalStructure"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein tertiary structure</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality of a protein that is the overall three-dimensional arrangement aristing from conformation of its polypeptide chain, including the spatial organization of its secondary structure elements relative to one another</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinogenicAminoAcid">
@@ -3026,9 +3636,35 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 	
 	<owl:Class rdf:about="&iof-construct;Purity">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:complementOf>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-core;hasRole"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ImpurityRole"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:complementOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>purity</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000209</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality that inheres in a material entity by virtue of the extent to which the material entity has, as parts, material entities that do not bear an impurity role</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality that inheres in a material entity by virtue of the extent to which the material entity consists of material that is not considered an impurity</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;QualityHomogeneity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Homogeneity"/>
+		<rdfs:label>quality homogeneity</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Radius">
@@ -3069,9 +3705,17 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<rdfs:label>relative abundance</rdfs:label>
 		<skos:example>% of high-mannose species at the end of a fed-batch step; relative abundance of a sequence variant in a drug substance lot</skos:example>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/14415 and https://www.wisdomlib.org/concept/relative-abundance</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) This quality relates a particular part (e.g., a component, subcomponent, moiety, or molecular variant) of a material entity to the whole of that material entity. The notion of ‘part’ does not restrict the type or granularity of the part. It may refer to a class of structurally defined parts such as glycoforms, isotopic variants, or impurities.
-2) The term ‘some part’ is used to allow that the relevant part may consist of a single part or a grouping of parts (for example, a set of glycoforms, a family of isotopic variants, or a category of impurities). The notion of ‘part’ is therefore not restricted to an individual  part but may refer to any collection of parts.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>ratio that is the number or amount of some part of a material entity relative to the total number or amount of parts of that material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) Relative abundance is defined only after choosing a defined group of material entities (the comparison basis). The group may be very small (e.g., the set of glycoform entities considered for one protein in one material) or very large (e.g., all atoms of an element in the universe).
+2) The numerator may be the amount of one member of the group or the combined amount of a subset of members. The denominator is the total amount across the entire defined group of material entities.
+3) In many analytical settings, the amounts used in the ratio are estimated from instrument responses according to a stated method and reporting convention
+4) The defined group used for the numerator and denominator provides the comparison basis for the ratio. The quality may inhere in a broader material entity that contains the members of that group (e.g., a culture, mixture, intermediate pool, or product lot), with the group specifying what the relative abundance is computed over.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>ratio that is the amount of a specified member or subset of a defined group of material entities relative to the total amount of that group</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;RelativeHumidity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SaturationRatio"/>
+		<rdfs:label>relative humidity</rdfs:label>
+		<iof-av:naturalLanguageDefinition>saturation ratio that is the extent to which water vapor is present in the mixture relative to the amount of water vapor required for saturation at the same temperature</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RibonucleicAcid">
@@ -3102,26 +3746,11 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>molecular entity that is an assembly of cations and anions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;SecondaryStructureProfile">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Polypeptide">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>secondary structure profile</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of a polypeptide or protein that is the three-dimensional arrangement of its backbone segments, which depends primarily on hydrogen bonds between amino acid residues in the polypeptide chain and is characterized independently of side-chain interactions</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;SaturationRatio">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Ratio"/>
+		<rdfs:label>saturation ratio</rdfs:label>
+		<iof-av:explanatoryNote>The saturation limit is the limiting (maximum) value of the corresponding saturation-relevant quality for that material entity under those conditions (e.g., concentration relative to saturation concentration; water-vapor partial pressure relative to saturation vapor pressure).</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>ratio that is the saturation-relevant quality of a material entity relative to the saturation limit of that material entity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Serum">
@@ -3183,33 +3812,6 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>monosacharide residue that is the remaining portion of sialic acid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;SizeVariant">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label>size variant</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Protein">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-core;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>protein or protein aggregate or protein fragment classified by protein size variant classifier</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;SodiumIon">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InorganicIon"/>
 		<rdfs:label>sodium ion</rdfs:label>
@@ -3218,7 +3820,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Solubility">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Capacity"/>
+		<rdfs:subClassOf rdf:resource="&iof-core;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
@@ -3229,7 +3831,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solvent"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -3239,25 +3841,31 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;capabilityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Solvent"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>solubility</rdfs:label>
-		<iof-av:adaptedFrom>https://doi.usp.org/USPNF/USPNF_M2248_03_01.html</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>capacity of the solvent to dissolve a particuar solute</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>capability of the solue to be dissolved in a particuar solvent</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolubilityLimit">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isConcentrationOf"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;Solute"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>solubility limit</rdfs:label>
+		<rdfs:label>solution saturation concentration</rdfs:label>
 		<iof-av:adaptedFrom>https://chem.libretexts.org/Courses/Heartland_Community_College/HCC%3A_Chem_161/12%3A_Solutions/12.3%3A_Solubility_Limit_and_Saturation</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of a solution that is the maximal concentration at which a specified solute remains dissolved under specified conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>Specified conditions refers to the particular set of environmental and compositional parameters under which a solubility limit is stated. Examples include temperature; pressure (especially for gases); solvent identity and solvent composition (including mixtures); the composition and identity of any coexisting phase that constrains equilibrium (e.g., gas-phase partial pressures or the identity/polymorph of a solid phase); and solution-chemistry factors such as pH, ionic strength, and the presence and concentrations of other solutes or additives (e.g., salts, cosolvents, complexing agents, surfactants). Reported solubility limits are conditional on the stated condition set, and values may not be comparable across differing condition sets</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>concentration that is the quality of a solution that is the concentration of a dissolved solute in that solution at saturation under specified conditions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Solute">
@@ -3311,6 +3919,42 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>homogeneous mixture composed of one phase where particles are not visible to the naked eye and the solution does not scatter a light beam</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;SolutionSaturationRatio">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SaturationRatio"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;SolubilityLimit"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Concentration">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isConcentrationOf"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>solution saturation ratio</rdfs:label>
+		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/S05476</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>saturation ratio that is the concentration of a solute in a solution relative to the saturation concentration of that solute in the solution</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;Solvent">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label>solvent</rdfs:label>
@@ -3335,6 +3979,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
 		<rdfs:label>solvent role</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The bearer of solvent role may be a pure substance or a mixture (e.g., a buffer or culture medium)</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>dissolution role held by a material entity that is realized in a dissolution process where it dissolves another substance (the solute) to form a solution.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -3359,10 +4004,23 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>culture medium that has a  culture medium specialized function</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;SpecificCellPopulationGrowthRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellPopulationGrowthRate"/>
+		<rdfs:label>specific cell population growth rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>cell population growth rate per unit population size</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SpecificSurfaceArea">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:label>specific surface area</rdfs:label>
 		<iof-av:naturalLanguageDefinition>quality of solids that is the total surface area of a material per unit of mass, solid or bulk volume, or cross-sectional area</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SpentMediaAnalysis">
+		<rdfs:subClassOf rdf:resource="&iof-core;MeasurementProcess"/>
+		<rdfs:label>spent media analysis</rdfs:label>
+		<iof-av:adaptedFrom>https://api.sartorius.com/document-hub/dam/download/247594/Spent-Media-Analytics-whitepaper-en-B.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>measurement process in which one or more samples of spent culture medium are analyzed to quantify changes in the concentrations of specified extracellular nutrients and metabolites relative to fresh medium or earlier time points</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Stability">
@@ -3381,6 +4039,12 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 2) Steroids include naturally occurring compounds and synthetic analogues. This class encompasses sterols (e.g., cholesterol), bile acids, and steroid hormones, as well as numerous synthetic derivatives with medicinal applications.
 3) Chemically, steroids are compounds derived from the cyclopenta[a]phenanthrene skeleton, typically with methyl groups at C-10 and C-13 and often an alkyl side chain at C-17. Natural steroids arise from squalene and may show partial hydrogenation or minor ring modifications.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>lipid that has a core structure of four fused carbon rings made up of three six-membered rings and one five-membered ring</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;StirringRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CyclicRate"/>
+		<rdfs:label>stirring rate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>cyclic rate process profile of the changing rotation speed of the stirrer in the liquid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StockSolution">
@@ -3408,7 +4072,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SurfaceTension">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Adhesion"/>
 		<rdfs:label>surface tension</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001461 and https://goldbook.iupac.org/terms/view/S06192</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality of a liquid that is the unbalanced cohesive force acting on molecules at the liquid’s surface as a result of intermolecular attractions, thereby resisting an increase in the liquid’s surface area</iof-av:naturalLanguageDefinition>
@@ -3427,7 +4091,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<rdfs:subClassOf rdf:resource="&iof-construct;MassDensity"/>
 		<rdfs:label>tap density</rdfs:label>
 		<iof-av:adaptedFrom>https://www.3p-instruments.com/measurement-methods/density-tapping-volumetry/</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>mass density that is the ratio of mass to the volume occupied by a collection of particles after being tapped until no further volume change is observed</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>mass density that is the mass per volume occupied by a collection of particles after being tapped until no further volume change is observed</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Temperature">
@@ -3437,17 +4101,10 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>quality of the thermal energy of a system</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;TertiaryStructureProfile">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>tertiary structure profile</rdfs:label>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of a  protein that is the overall three-dimensional arrangement resulting from folding of its polypeptide chain, including the spatial organization of its secondary structure elements relative to one another</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;ThermalStability">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Stability"/>
+		<rdfs:label>thermal stability</rdfs:label>
+		<iof-av:naturalLanguageDefinition>stability that is the capability of a material entity to resist change in one or more of its attributes during a process in which the material entity is exposed to a particular temperature condition</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThreeDimensionalPhysicalExtent">
@@ -3455,6 +4112,32 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<rdfs:label>three dimensional physical extent</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001710</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>physical size that is the spatial extent of a material entity in three dimensions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TotalCellCount">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellCount"/>
+		<rdfs:label>total cell count</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000186</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell count over a mereological sum of a partitioned aggregate of cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TotalCellDensity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellDensity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;TotalCellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>total cell density</rdfs:label>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/medicine-and-dentistry/cell-density and https://www.sigmaaldrich.com/US/en/technical-documents/protocol/analytical-chemistry/photometry-and-reflectometry/cell-density-measurement-by-od600-method?srsltid=AfmBOoqxMLTlROXCkIoHCGlcNFWUSSZvftakFCMkyCL5l9gpB-s7B3yL and http://purl.allotrope.org/ontologies/quality#AFQ_0000181</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell density of the total partition of cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TotalMaterialAdded">
+		<rdfs:subClassOf rdf:resource="&iof-core;ProcessCharacteristic"/>
+		<rdfs:label>total material added</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the total quantity of a particular material that is added during a particular process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Toxin">
@@ -3524,13 +4207,72 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>physical size that is the spatial extent of a material entity in two dimensions</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;VesselVolumesPerDay">
+		<rdfs:subClassOf rdf:resource="&iof-construct;VolumetricFlowRate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;WorkingVolume"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>vessel volumes per day</rdfs:label>
+		<iof-av:abbreviation>VVD</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>VVD is typically intended to represent the total medium exchange normalized by working volume. In some uses, VVD is computed only from the spent-medium outlet flow, while other withdrawals such as sampling, bleed, or additional removal streams are not included. When this narrower accounting is used, the reported VVD can underestimate the true total exchange and can lead to misleading comparisons unless the boundary is made explicit.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>volumetric flow rate that is the total volume of medium exchanged per working volume per day</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Viability">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:label>viability</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000169</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality inhering in a bearer or a population by virtue of the bearer&apos;s disposition to survive and develop normally or the number of surviving individuals in a given population</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Viable">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Viability"/>
+		<rdfs:label>viable</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000719</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>quality inhering in a bearer or a population by virtue of the bearer&apos;s ability to survive or the long term survival ability of a given population</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ViableCellCount">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellCount"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isCountOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Cell">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-core;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Viable"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>viable cell count</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000185</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>cell count of the partition of viable cells</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ViableCellDensity">
-		<rdfs:subClassOf rdf:resource="&iof-construct;NumberDensity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellDensity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ViableCellCount"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>viable cell density</rdfs:label>
 		<iof-av:acronym>VCD</iof-av:acronym>
 		<iof-av:adaptedFrom>https://www.sartorius.com/download/501934/online-monitoring-of-viable-cell-concentrations-in-small-bioreactors-data.pdf and http://purl.allotrope.org/ontologies/quality#AFQ_0000182</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Viable cell density accounts for only those cells that are alive and capable of maintaining essential physiological activities such as metabolism, growth, and proliferation. It is commonly reported as viable cells per unit volume (e.g. cells/mL) or per unit area (e.g. cells/cm²).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>number density that is the number of viable cells in a cell population relative to the volume or surface area of the material entity of which that population is a proper part</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>cell density of the partition of viable cells</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Virus">
@@ -3602,11 +4344,31 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:naturalLanguageDefinition>three dimensional spatial extent that is quality of a material entity and is the amount of three dimensional space the material entity occupies</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;VolumeFraction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Fraction"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Volume"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>volume fraction</rdfs:label>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000169</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>fraction pertaining the volume of a constituent divided by the total volume of all constituents in the mixture</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;VolumetricFlowRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRate"/>
 		<rdfs:label>volumetric flow rate</rdfs:label>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Volumetric_flow_rate</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>flow rate at which a volume of fluid is transported through a surface</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VolumetricProductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
+		<rdfs:label>volumetric productivity</rdfs:label>
+		<iof-av:explanatoryNote>In upstream biopharma manufacturing process volume is typically the culture working volume</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit process volume</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Water">
@@ -3660,7 +4422,7 @@ For example, an IgG therapeutic antibody is one protein molecule comprising 2 he
 		<iof-av:adaptedFrom>https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-technical-guides/water-pharmaceutical-use and https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-quality-water-pharmaceutical-use_en.pdf and https://www.cytivalifesciences.com/en/us/insights/what-is-water-for-injection</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) The Water for Injection (WFI) grade is a compendial classification applied to water when conformance to an applicable WFI monograph has been demonstrated. In the European context, the EMA guideline points to compliance with the European Pharmacopoeia WFI monograph. In the U.S. context, FDA inspection guidance frames WFI as a USP monograph-defined water grade.
 2) In regulatory and GMP practice, “WFI” is best treated as a compendial-grade designation: a batch of water is WFI because it meets the WFI monograph requirements, and it can lose that designation if storage/distribution conditions allow microbial proliferation or endotoxin risk to rise</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>compendial grade classifier that classifies a water that conforms to the requirements stated in a Water for Injection pharmacopeial monograph and thus exhibits very high purity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>compendial grade classifier that classifies a water that conforms to the requirements stated in a Water for Injection pharmacopeial monograph and thus has very high purity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;WaterMolecule">
@@ -3679,7 +4441,7 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:onProperty rdf:resource="&iof-construct;isPhysicallyGroundedIn"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;Mass"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -3715,8 +4477,78 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 		<iof-av:naturalLanguageDefinition>solution prepared by diluting a stock or intermediate stock solution to the concentration required for direct use in a planned process that is not itself a dilution process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;WorkingVolume">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Volume"/>
+		<rdfs:label>working volume</rdfs:label>
+		<iof-av:explanatoryNote>Working volume as defined here is distinct from working volume capacity, which is a vessel capacity, and from total vessel volume, which is a geometric container volume of the vessel</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>volume that is a quality of process material and that is the amount of space occupied by that process material in a vessel</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;WorkingVolumeCapacity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capacity"/>
+		<rdfs:label>working volume capacity</rdfs:label>
+		<iof-av:adaptedFrom>https://a-z-singleuse.org/singleuse/en/Glossary/W/Working+volume+%28bioreactor%29.html</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) “Normal operating conditions” covers the vessel’s intended mode of operation and practical constraints such as mixing, gas transfer, control and sensing, headspace and foaming margin, and safe operation.
+2) For bioreactors, the usable operating liquid volume is typically a fraction of the bioreactor’s total volume and depends on the bioreactor design and operating mode.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>capacity that is the capability of a vessel to contain a volume of process material under normal operating conditions</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;YieldPerBiomass">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcessYield"/>
+		<rdfs:label>yield per biomass</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process yield that is the quantity of a specified output produced in a planned process relative to the quantity of biomass formed in that planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;YieldPerSubstrate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcessYield"/>
+		<rdfs:label>yield per substrate</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process yield that is the quantity of a specified output produced in a planned process relative to the quantity of a particular input substrate consumed in that planned process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isAmountOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
+		<rdfs:label>is amount of</rdfs:label>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isConcentrationOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
+		<rdfs:label>is concentration of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000004">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&bfo;BFO_0000006"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:range>
+		<iof-av:naturalLanguageDefinition>relation between a concentration q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isCountOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;isAmountOf"/>
+		<rdfs:label>is count of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;Amount"/>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isPartialPressureOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
+		<rdfs:label>is partial pressure of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;PartialPressure"/>
+		<iof-av:naturalLanguageDefinition>relation between a partial pressure q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isPhysicallyGroundedIn">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>is physically grounded in</rdfs:label>
+	</owl:ObjectProperty>
+	
 	<owl:Class rdf:about="&iof-construct;pH">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-core;qualityOf"/>
@@ -3726,20 +4558,10 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 		<rdfs:label>pH</rdfs:label>
 		<skos:altLabel>acidity</skos:altLabel>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001842 and http://purl.obolibrary.org/obo/NCIT_C45997</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>In common scientific and biopharmaceutical usage, “pH” and “acidity” are treated as interchangeable terms, which is reflected here by providing “acidity” as an alternative label. Although pH is formally a logarithmic transformation of hydrogen-ion activity, the distinction between the underlying hydrogen-ion concentration and its logarithmic representation is routinely collapsed in industry practice. Conventionally, pH is defined as the negative decimal logarithm of the hydrogen-ion activity, yielding a dimensionless scalar quantity commonly reported on a scale near 0 to 14. This quality inheres in a homogeneous aqueous phase of a material; in heterogeneous systems, pH refers specifically to that aqueous phase, not to the heterogeneous material as a whole.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>quality of a homogeneous aqueous mixture that is the concentration or activity of hydrogen ions in that mixture</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>In common scientific and biopharmaceutical usage, “pH” and “acidity” are treated as interchangeable terms, which is reflected here by providing “acidity” as an alternative label. Although pH is formally a logarithmic transformation of hydrogen-ion activity, the distinction between the underlying hydrogen-ion concentration and its logarithmic representation is routinely collapsed in industry practice. Conventionally, pH is defined as the negative decimal logarithm of the hydrogen-ion activity, yielding a dimensionless scalar quantity commonly reported on a scale near 0 to 14. This quality inheres in a homogeneous typically aqueous phase of a material; in heterogeneous systems, pH refers specifically to that aqueous phase, not to the heterogeneous material as a whole.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>quality of a homogeneous mixture that is the concentration or activity of hydrogen ions in that mixture</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:AllDisjointClasses>
-		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-construct;AcidicChargeVariantClassifier">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;BasicChargeVariantClassifier">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;MainChargeVariantClassifier">
-			</rdf:Description>
-		</owl:members>
-	</owl:AllDisjointClasses>
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-construct;Cell">
@@ -3769,6 +4591,18 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 			<rdf:Description rdf:about="&iof-construct;GalactoseResidue">
 			</rdf:Description>
 			<rdf:Description rdf:about="&iof-construct;SialicAcidResidue">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;Osmolality">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;Osmolarity">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;Pressure">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;pH">
 			</rdf:Description>
 		</owl:members>
 	</owl:AllDisjointClasses>
