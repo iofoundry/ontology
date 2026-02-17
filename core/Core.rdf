@@ -36,7 +36,7 @@
 		<dcterms:contributor xml:lang="en-US">Dusan Sormaz, Ohio University</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Elisa Kendall, Thematix Partners LLC</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Farhad Ameri, Texas State University</dcterms:contributor>
-		<dcterms:contributor xml:lang="en-US">Jim Logan, Dassault Systèmes</dcterms:contributor>
+		<dcterms:contributor xml:lang="en-US">Jim Logan, Ontogenesis Solutions, LLC</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Melinda Hodkiewicz, University of Western Australia</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Milos Drobnjakovic, National Institute of Standards and Technology (NIST)</dcterms:contributor>
 		<dcterms:contributor xml:lang="en-US">Will Sobel, W. V. Sobel LLC</dcterms:contributor>
@@ -110,13 +110,14 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>temperature profile of a heating process, wind speed profile of a turbine, fuel consumption profile of a boiling pricess, RPM profile of a engine, noise profile of a transmission process, profile of daily average throughput of a production process, count-per-minute profile of a pick-n-place process</skos:example>
+		<iof-av:counterExample>maximum temperature of a heating process, average speed of a vehicle trip, total energy consumed during a batch, peak pressure in a reactor, overall throughput of a production run, speed of the car at time t</iof-av:counterExample>
 		<iof-av:directSource>http://purl.obolibrary.org/obo (BFO 2.0)</iof-av:directSource>
-		<iof-av:explanatoryNote>1) Process profiles describe the attributes (called &quot;structural dimension&quot;) of a process that we may use to compare processes. They are the features of a process that can be tracked or measured over time, such as how fast something moves or how its temperature changes. Two movement process can be compared by comparing the speed profiles of two processes.
+		<iof-av:explanatoryNote>1) Process profiles capture the attributes (called &quot;structural dimension&quot;) of a process that we may use to compare processes, e.g., how fast something moves or how its temperature changes. Two movement process can be compared by comparing the speed profiles of two processes.
 
 2) Process profile types represent common attributes of many different types of processes.. For example, profile of temperature in any heating process, profile of pressure in a piston cycle or pneumatic system. Domain and application-specific taxonomies of process profile need be developed to catalog these subtypes.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>∀p, p&apos;, x (processProfileOf(p,x) ∧ temporalPartOf(p&apos;,p) → ∃x&apos; (processProfileOf(p&apos;,x&apos;) ∧ temporalPartOf(x&apos;,x)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessProfile(x) ↔ ∃y (Process(y) ∧ processProfileOf(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>A process profile is a part of a process that captures the time-dependent behavior of some attribute of that process, such that every temporal part of the profile is itself the profile of a corresponding temporal part of the process.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>process that is proper part of another process and that captures the time-dependent behavior of some attribute of that process</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">if p is &apos;process profile of&apos; x and p′ is a &apos;temporal part of&apos; p, then there exists some x′ such that p′ is &apos;process profile of&apos; x′ and x′ is a &apos;temporal part of&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process profile&apos; is defined as exactly an instance that is &apos;process profile of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -2664,15 +2665,16 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-US">The maximum temperature of a heating process, the average wind speed of a turbine operation process, total fuel consumed in a boiling process, the peak RPM of a engine running process, overall noise level (good, fair, or poor) of a transmission process, average throughput of a production process</skos:example>
-		<iof-av:explanatoryNote>1) A process characteristic is a continuant rather than an occurrent because it characterizes a process as a single whole rather than as something that unfolds in time. Unlike a process or a process profile, which has different temporal parts occupying different temporal regions, a process characteristic has no part tied to time. The summarization of the target attribute considers all of its temporal parts—for example, the maximum temperature can only be known by considering the entire temperature profile of a heating process. 
+		<iof-av:counterExample>temperature curve during heating, heart rate over time during exercise, RPM vs time for an engine, count-per-minute variation during production, daily average temprature over last month</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) A process characteristic is a continuant rather than an occurrent because it characterizes a process as a single whole rather than as something that unfolds in time. Unlike a process or a process profile, which has different temporal parts occupying different temporal regions, a process characteristic has no part tied to time. The summarization of the target attribute considers all of its temporal parts—for example, the maximum temperature can only be known by considering the entire temperature profile of a heating process.
 
-2) The &quot;attribute&quot; mentioned in the definition is the specific feature of a process whose time-dependent behavior are captured by a &apos;process profile&apos;, but which may be summarized by a &apos;process characteristic&apos; over the whole duration of the process instead of being tracked moment by moment.
+2) The &quot;attribute&quot; mentioned in the definition is the specific feature of a process whose time-dependent behavior are captured by a &apos;process profile&apos;, but which may be summarized by a &apos;process characteristic&apos; over the whole duration of the process.
 
 3) Summarization means describing an attribute of a process with a single overall characterization instead of representing how it varies over time. For example, the speed profile of a car&apos;s movement can be summarized by taking average of all instantaneous speeds over the entire duration the movement occurred, e.g., 45kmph average speed. However, the summarization may also be qualitative for some type process characteristics, e.g., the heartbeat was steady or stuttering.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>∀c, c&apos;, x, x′(processCharacteristicOf(c, x) ∧ continuantPartOf(c&apos;​, c) ∧ temporalPartOf(x′,x) → ¬ processCharacteristicOf(c&apos;,x′))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessCharacteristic(x) ↔ Continuant(x) ∧ ∃p(Process(p) ∧ processCharacteristicOf(x, p))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuant that summarizes an attribute of a process over its entire duration, providing a time-independent characterization of the process as a whole.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">continuant that summarizes an attribute of a process over its entire duration, providing a time-independent characterization of the process as a whole</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The construct is primitive because of the following two ideosyncratic design decisions which may require re-evaluation in the future. 
 1) The construct is defined using a trans-ontological relation &apos;process characteristics of&apos;, which relates a &apos;continuant&apos; to a &apos;process&apos;, an &apos;occurrent&apos;. 
 2) The consruct is broadly classified as &apos;continuant&apos;, without further specialization.</iof-av:primitiveRationale>
