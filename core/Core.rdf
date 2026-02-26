@@ -768,6 +768,35 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;computing process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;concretizes at some time&apos; an &apos;encoded algorithm&apos; or &apos;algorithm&apos; y which &apos;generically depends on at some time&apos; some &apos;agent&apos; which &apos;participates in at some time&apos; the &apos;computing process&apos; and the &apos;computing process&apos; either &apos;achieves at some time&apos; some &apos;objective specification&apos; that is &apos;continuant part of at all times y or it &apos;has specified output&apos; some &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;ContextualizedInformationSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:label>contextualized information slot</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;InformationSlot">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasContextAnchorSlot"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasInterpretationAnchorSlot"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>A list member slot may have as its context anchor slot the list member slot for the previous item and as its interpretation anchor slot a precedence slot, meaning that the ordering of the slots within the list is based on the precedence relation mediated by that precedence slot.</skos:example>
+		<iof-av:explanatoryNote>1) This class is used to represent a ternary contextualisation relation of the form CoS(u,s,t) using only binary relations in OWL. In the source pattern, u is the contextualised slot determined relative to a context slot s and a slot t associated with the filler of s.
+2) Because OWL object properties are binary, we reify the ternary relation by treating the contextualised slot u itself as the locus of the contextualisation and linking it to the other two arguments with two properties: hasContextAnchorSlot(u,s) and hasInterpretationAnchorSlot(u,t).
+3) The defining axioms for these two properties ensure that s and t are not arbitrary: u and s are slots of the same information content entity, the bearer of t is the information content entity that fills s, and u and t share a filler.
+4) This design preserves the intended dependency structure of the original ternary relation while remaining compatible with OWL modeling and validation tooling; additional use-case semantics (e.g., list ordering conditions carried by the slot type of t) can be stated separately without changing the core reification pattern.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ContextualizedInformationSlot(x) ↔ InformationSlot(x) ∧ ∃y∃z (InformationContentEntity(y) ∧ InformationContentEntity(z) ∧ hasContextAnchorSlot(x, y) ∧ hasInterpretationAnchorSlot(x, z))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>information slot that has a context anchor slot and has an interpretation anchor slot</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;contextualized information slot&apos; if and only if x is an &apos;information slot&apos; and there exists an &apos;information slot&apos; y and  &apos;information slot&apos; z such that x &apos;has context anchor slot&apos; y and x &apos;has interpretation anchor slot&apos; z</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;Customer">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Agent"/>
 		<rdfs:label xml:lang="en-US">customer</rdfs:label>
@@ -3559,6 +3588,18 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>y has component part at some time x holds when x is a &apos;material entity&apos; that is not a &apos;fiat object part&apos; and y is a &apos;material entity&apos; that is not a &apos;fiat object part&apos; and x is &apos;proper continuant part of at some time&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasContextAnchorSlot">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has context anchor slot</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:range rdf:resource="&iof-constr;InformationSlot"/>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀u, s ( hasContextAnchorSlot(u,s) → ( InformationSlot(u) ∧ InformationSlot(s) ∧ ∃b ( InformationContentEntity(b) ∧ isSlotOf(u,b) ∧ isSlotOf(s,b) ) ∧ ∃t, a, x ( InformationSlot(t) ∧ InformationContentEntity(a) ∧ hasFiller(s,a) ∧ isSlotOf(t,a) ∧ hasFiller(u,x) ∧ hasFiller(t,x) ) ) )</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2:∀u, s ( hasContextAnchorSlot(u,s) ↔ ( InformationSlot(u) ∧ InformationSlot(s) ∧ ∃t ( CoS(u,s,t) ) ) )</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>relation that holds between information slots u and s that are slots of the same information content entity, such that there exists an information slot t where (i) some information content entity a fills s and t is a slot of a, (ii) the slot type of t specifies the contextual condition under which the relation mediated by u is to be understood relative to s, and (iii) u and t have the same filler</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If u &apos;has context anchor slot&apos; s, then u and s are &apos;information slot&apos; that are &apos;is slot of&apos; the same &apos;information content entity&apos;, and there exist an &apos;information slot&apos; t and an &apos;information content entity&apos; a such that a &apos;fills&apos; s&apos;, t &apos;is slot of&apos; a, and u andt `has filler&apos; the same &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if u &apos;has context anchor slot&apos; s then u is an &apos;information slot&apos; and s is an &apos;information slot&apos; and there exists a t such that CoS(u,s,t), and conversely, if u is an &apos;information slot&apos; and s is an &apos;information slot&apos; and there exists a t such that CoS(u,s,t), then u &apos;has context anchor slot&apos; s</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
 	<owl:DatatypeProperty rdf:about="&iof-constr;hasDateTimeInstantValue">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;hasSimpleExpressionValue"/>
 		<rdfs:label xml:lang="en-US">has date-time instant value</rdfs:label>
@@ -3624,6 +3665,18 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasInterpretationAnchorSlot">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has interpretation anchor slot</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:range rdf:resource="&iof-constr;InformationSlot"/>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀u, t ( hasInterpretationAnchorSlot(u,t) → ( InformationSlot(u) ∧ InformationSlot(t) ∧ ∃x ( hasFiller(u,x) ∧ hasFiller(t,x) ) ∧ ∃s, b, a ( InformationSlot(s) ∧ InformationContentEntity(b) ∧ InformationContentEntity(a) ∧ isSlotOf(u,b) ∧ isSlotOf(s,b) ∧ hasFiller(s,a) ∧ isSlotOf(t,a) ) ) )</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀u, t ( hasInterpretationAnchorSlot(u,t) ↔ ( InformationSlot(u) ∧ InformationSlot(t) ∧ ∃s ( CoS(u,s,t) ) ) )</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>relation that holds between information slots u and t such that (i) u and t have the same filler, (ii) there exists an information slot s that is a slot of the same information content entity as u and is filled by an information content entity a of which t is a slot, and (iii) the slot type of t specifies the contextual condition under which the relation mediated by u is to be understood relative to s.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if u &apos;has interpretation anchor slot&apos; t, then u and t are &apos;information slot&apos; that &apos;have filler&apos; the same &apos;information content entity&apos;, and there exist an &apos;information slot&apos; s and an &apos;information content entity&apos; a such that u and s are &apos;is slot of&apos; the same &apos;information content entity&apos;, a &apos;fills&apos; s, and t &apos;is slot of&apos; a</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if u &apos;has interpretation anchor slot&apos; t then u is an &apos;information slot&apos; and t is an &apos;information slot&apos; and there exists an s such that CoS(u,s,t), and conversely, if u is an &apos;information slot&apos; and t is an &apos;information slot&apos; and there exists an s such that CoS(u,s,t), then u &apos;has interpretation anchor slot&apos; t</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasItem">
 		<rdfs:domain rdf:resource="&iof-constr;Collection"/>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
@@ -3649,6 +3702,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasNextItem">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;hasContextAnchorSlot"/>
 		<rdfs:label>has next item</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;ListMemberSlot"/>
 		<rdfs:range rdf:resource="&iof-constr;ListMemberSlot"/>
@@ -3728,6 +3782,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:range rdf:resource="&iof-constr;InformationSlot"/>
 		<owl:inverseOf rdf:resource="&iof-constr;isSlotOf"/>
+		<iof-av:naturalLanguageDefinition>inverse relation of is slot of</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasSpecifiedOutput">
@@ -3836,6 +3891,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:label>is filler of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:range rdf:resource="&iof-constr;InformationSlot"/>
+		<iof-av:naturalLanguageDefinition>inverse relation of has filler</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isInputOf">
