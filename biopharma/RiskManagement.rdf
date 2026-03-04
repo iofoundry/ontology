@@ -28,13 +28,34 @@
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/FailureModeAndEffectAnalysisSpecification">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentMethodSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAnalysisProcess"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000132"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>failure mode and effect analysis specification</rdfs:label>
 		<skos:example>An FMEA method specification for a bioreactor operation prescribes that the team enumerate failure modes for each selected function or process step, document causes and effects, and score severity, occurrence, and detectability using a defined rubric. When carried out, the resulting FMEA record includes “pH probe drift” as a failure mode with scores that yield a high risk ranking or RPN, motivating tighter calibration and redundant sensors.</skos:example>
 		<AnnotationVocabulary:acronym>FMEA</AnnotationVocabulary:acronym>
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf and https://www.fda.gov/media/71535/download</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>Failure Modes and Effects Analysis (FMEA) is a structured, prospective method for evaluating how a process, system, or material might fail and the consequences of those failures. It breaks complex processes into manageable elements to prioritize risks and support control strategies.
 In biopharmaceutical manufacturing, FMEA is typically used to assess unit operations, equipment, and material attributes, linking possible failures to their impact on product quality and patient safety. It supports the identification of critical process parameters (CPPs) and critical quality attributes (CQAs) by quantifying risk through metrics such as the Risk Priority Number (RPN). FMEA results often guide risk reduction actions, design improvements, or resource prioritization.</AnnotationVocabulary:explanatoryNote>
-		<AnnotationVocabulary:naturalLanguageDefinition>risk assessment method specification that prescribes systematic identification of potential failure modes, evaluation of their causes and effects, and estimation of risk using severity, occurrence, and detectability scores</AnnotationVocabulary:naturalLanguageDefinition>
+		<AnnotationVocabulary:naturalLanguageDefinition>risk management method specification that prescribes systematic identification of potential failure modes, evaluation of their causes and effects, and estimation of risk using severity, occurrence, and detectability scores</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/HarmDescription">
@@ -69,7 +90,7 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 		<AnnotationVocabulary:explanatoryNote>1) “Persists” is used to signal that this is a state over time (not merely the damaging event).
 2) “Damage to health” includes damage that can occur from loss of product quality (e.g., unsafe or ineffective product) or loss of product availability (e.g., delayed or absent access to a needed product)
 3) In this ontology, injury and damage are treated as the particular condition a harm state is focused on, modeled as one or more specifically dependent continuants that depend on a material entity for as long as they exist; in practice this condition is typically a detrimental quality (a quality that inheres in the bearer and corresponds to deterioration relative to an appropriate baseline, e.g., tissue lesion, contamination, corrosion, fracture), and it may also include changes in realizable entities, such as a reduced or lost function/capability (what the bearer is able to do) and altered dispositions (tendencies such as a disposition to leak, fail, corrode further, or propagate contamination).</AnnotationVocabulary:explanatoryNote>
-		<AnnotationVocabulary:naturalLanguageDefinition>material state that is the state of one or more persons, property, or an environment, and in which injury or damage to the health of a person, or damage to property or the environment, persists</AnnotationVocabulary:naturalLanguageDefinition>
+		<AnnotationVocabulary:naturalLanguageDefinition>material state of one or more persons, property, or an environment in which a person is injured or has damaged health, or property or the environment is damaged</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/HazardIdentificationProcess">
@@ -81,11 +102,12 @@ In biopharmaceutical manufacturing, FMEA is typically used to assess unit operat
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>hazard identification process</rdfs:label>
-		<skos:example>Identifying temperature, pH, and nutrient-feed rate as potential hazards to cell-culture viability.</skos:example>
+		<skos:example>Hazard identification process conducted to identify factors that may pose hazards to cell-culture viability, resulting in documentation of temperature, pH, and nutrient feed rate as potential hazards; Hazard identification process conducted to identify potential hazards associated with the anaerobic digestion stage of biogas production, resulting in the documentation of low substrate pH, low temperature (&lt; 38 °C), and high sulfur concentration in the fed substrate as potential hazards to the formation of high levels of hydrogen sulfide; Hazard identification process conducted to identify potential hazards associated with the batch polymerization stage of PVC batch manufacturing, resulting in the documentation of temperature, pressure, and the presence of oxygen as potential hazards to the formation of a flammable/explosive mixture inside the batch reactor</skos:example>
 		<AnnotationVocabulary:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
-		<AnnotationVocabulary:explanatoryNote>Hazard identification establishes the foundation for risk assessment by revealing possible events, conditions, or process factors that may influence quality, safety, or performance outcomes.
+		<AnnotationVocabulary:explanatoryNote>1) Hazard identification establishes the foundation for risk assessment by revealing possible events, conditions, or process factors that may influence quality, safety, or performance outcomes.
 It answers the question “What might go wrong?” by using information such as historical data, theoretical analysis, expert judgment, and stakeholder concerns to build a structured understanding of potential risks.
-In biopharmaceutical contexts, as an example, it involves listing process parameters, material attributes, or operational factors that could influence critical quality attributes (CQAs) or key performance indicators (KPIs).</AnnotationVocabulary:explanatoryNote>
+2) In biopharmaceutical contexts, as an example, it involves listing process parameters, material attributes, or operational factors that could influence critical quality attributes (CQAs) or key performance indicators (KPIs).
+3) The axiom does not specify the input, because many kinds of artefacts can serve as a starting point, including tacit experience that may not be explicitly captured in the ontology.</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:naturalLanguageDefinition>planned process that systematically uses available information to recognize and record potential hazards relevant to a risk question or problem description</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -110,7 +132,7 @@ In biopharmaceutical contexts, as an example, it involves listing process parame
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example>Hazard record that specifies a cytotoxic cleaning agent present in product contact equipment as a potential source of harm that can lead to product quality failure; Hazard record that specifies trace iron concentration in culture medium above 5 ppm as a potential source of harm that can lead to CQA being out of specification; Hazard record that specifies unintended omission of the required sterile filter integrity test as a potential source of harm that can lead to contamination; Hazard record that specifies misaddition of base during pH adjustment as a potential source of harm that can lead to increased aggregation; Hazard record that specifies dissolved oxygen level as a potential source of harm that can lead to titer reduction</skos:example>
+		<skos:example>Hazard record that specifies a cytotoxic cleaning agent present in product contact equipment as a potential source of harm that can lead to product quality failure; Hazard record that specifies trace iron concentration in culture medium above 5 ppm as a potential source of harm that can lead to CQA being out of specification; Hazard record that specifies unintended omission of the required sterile filter integrity test as a potential source of harm that can lead to contamination; Hazard record that specifies misaddition of base during pH adjustment as a potential source of harm that can lead to increased aggregation; Hazard record that specifies dissolved oxygen level as a potential source of harm that can lead to titer reduction;Hazard record that specifies that high temperature (&gt; 39 °C), high pH of the substrate, and low Carbon to Nitrogen ratio in the fed substrate are identified as potential hazards to the formation of a high amount of ammonia; Hazard record that specifies temperature, pressure, and presence of oxygen as potential hazards to the formation of a flammable/explosive mixture inside the batch reactor</skos:example>
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>1) A potential source of harm is commonly referred to as a hazard.
 2) A hazard may be a material entity, an information content entity, a process, or an attribute of any of these.  
@@ -118,6 +140,20 @@ In biopharmaceutical contexts, as an example, it involves listing process parame
 4) A process specified as a potential source of harm may be planned or unplanned relative to an applicable plan specification for an execution. This includes omission cases in which a required action does not occur within the time window or at the specified point in the plan.
 5) A hazardous situation is distinct from a potential source of harm, because it is a circumstance of exposure in which one or more potential sources of harm can act on a target and is modeled separately</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:naturalLanguageDefinition>information content entity that is the output of a hazard identification process and that specifies potential sources of harm</AnnotationVocabulary:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/HazardousEvent">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Event"/>
+		<rdfs:label>hazardous event</rdfs:label>
+		<AnnotationVocabulary:adaptedFrom>https://www.bsigroup.com/contentassets/fb7f1499fa6f43c6b9084be8c2378bc9/iso_iec_guide_51_2014e---safety-aspects----guidelines-for-their-inclusion-in-standards.pdf</AnnotationVocabulary:adaptedFrom>
+		<AnnotationVocabulary:naturalLanguageDefinition>event that can result in a harm state</AnnotationVocabulary:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/HazardousSituation">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Situation"/>
+		<rdfs:label>hazardous situation</rdfs:label>
+		<AnnotationVocabulary:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso:14971:ed-3:v1:en:term:3.21</AnnotationVocabulary:adaptedFrom>
+		<AnnotationVocabulary:naturalLanguageDefinition>situation in which one or more persons, property, or an environment is exposed to one or more potential sources of harm (hazards)</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/QualityRiskManagementProcess">
@@ -147,7 +183,11 @@ In biopharmaceutical contexts, as an example, it involves listing process parame
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>residual risk estimate</rdfs:label>
+		<skos:example>A residual risk estimate of 4 (Medium / Acceptable) has been assigned to the occurrence of microbial contamination in a sterile fill-finish stage of a pharma process, using a 5x5 residual risk matrix evaluation method, after changing both the laminar airflow system over the filling line and the Restricted Access Barrier System (RABS) that minimizes operator access</skos:example>
 		<AnnotationVocabulary:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso-iec:guide:51:ed-3:v1:en:term:3.9</AnnotationVocabulary:adaptedFrom>
+		<AnnotationVocabulary:explanatoryNote>1)It is the level of risk that remains after controls, safeguards, or mitigation measures have been applied to address an identified risk.
+2) Severity is referred to as ‘impact’ in other domains, such as cybersecurity (ISO/IEC 27001).
+3) In many domains the residual risk estimate is calculated iteratively until it reaches an acceptable value.</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:naturalLanguageDefinition>risk estimate that is a combination of the assessed likelihood of harm and the assessed severity of that harm after risk reduction measures have been implemented</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -159,11 +199,26 @@ In biopharmaceutical contexts, as an example, it involves listing process parame
 				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentResult">
+							</rdf:Description>
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskEstimate">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>risk acceptance process</rdfs:label>
-		<skos:example>After implementing a backup pH probe and enhanced calibration checks, the quality unit formally accepts the residual risk of pH measurement drift for routine manufacturing</skos:example>
+		<skos:example>After implementing a backup pH probe and enhanced calibration checks, the quality unit decides whether to accept the residual risk of pH measurement drift for routine manufacturing</skos:example>
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>Risk acceptance is the decision to accept risk. It may be a formal decision to accept residual risk or a passive decision in which residual risks are not specified.</AnnotationVocabulary:explanatoryNote>
-		<AnnotationVocabulary:naturalLanguageDefinition>planned process in which an agent makes a decision to accept a risk</AnnotationVocabulary:naturalLanguageDefinition>
+		<AnnotationVocabulary:naturalLanguageDefinition>planned process in which an agent makes a decision whether to accept a risk</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskAnalysisProcess">
@@ -189,7 +244,7 @@ In biopharmaceutical contexts, as an example, it involves listing process parame
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example>A team performs a risk analysis for contamination scenarios that have already been identified, using an FMEA scoring rubric to assign severity, occurrence, and detectability ratings for “operator error leading to aseptic breach.” The resulting scores and any derived composite value, such as an RPN, provide a comparable risk characterization that supports prioritizing additional controls and operator training.</skos:example>
+		<skos:example>A team performs a risk analysis for contamination scenarios that have already been identified, using an FMEA scoring rubric to assign severity, occurrence, and detectability ratings for “operator error leading to aseptic breach.” The resulting scores and any derived composite value, such as an Risk Priority Number (RPN), provide a comparable risk characterization that supports prioritizing additional controls and operator training; A team performs a risk analysis for the formation of hydrogen sulfide scenarios that have been identified as part of an Anaerobic digestion stage of a hazard identification process. The team uses an RPN +B (Risk Priority Number that also considers biohazardous aspects) indicator to perform a semi-quantitative risk analysis process, which includes severity and frequency of occurrence of the deviations, associated biohazards, and the existence of counter measures.</skos:example>
 		<AnnotationVocabulary:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:counterExample>Listing possible contamination causes without estimating likelihood, severity, or any comparable risk characterization</AnnotationVocabulary:counterExample>
 		<AnnotationVocabulary:explanatoryNote>Risk analysis transforms identified hazards into measurable or comparable levels of risk. It may be performed qualitatively or quantitatively and can include the likelihood of occurrence, the severity of consequences, and, where appropriate, the ability to detect a failure before harm occurs (detectability).
@@ -209,7 +264,7 @@ In biopharmaceutical development, it supports Quality-by-Design (QbD) by linking
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&obo;BFO_0000132"/>
-								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/QualityRiskManagementProcess"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskManagementProcess"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -283,6 +338,24 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		<AnnotationVocabulary:naturalLanguageDefinition>information content entity that is the output of a risk assessment process and that records the characterization of risk for one or more identified hazards</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskCommunicationProcess">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/Agent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskManagementProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>risk communication process</rdfs:label>
+		<AnnotationVocabulary:naturalLanguageDefinition>planned process in which information about risk and risk management is shared between the decision makers and other stakeholders</AnnotationVocabulary:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskControlProcess">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -314,7 +387,7 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskEstimate">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/InformationContentEntity"/>
 		<rdfs:label>risk estimate</rdfs:label>
-		<skos:example>The estimated risk that pH variability during the production culture process results in patient harm via reduced product availability, because it can cause harvest titer below the acceptance criterion (leading to batch rejection or reduced supply), is medium (likelihood rating = 2, severity = 3, risk score = 6).</skos:example>
+		<skos:example>The estimated risk that pH variability during the production culture process results in patient harm via reduced product availability, because it can cause harvest titer below the acceptance criterion (leading to batch rejection or reduced supply), is medium (likelihood rating = 2, severity = 3, risk score = 6); The estimated risk that lower temperature (&lt;38 °C) during the anaerobic digestion of a biogas production process leads to SH2 accumulation has an RPN+B (Risk Priority Number that also considers biohazardous aspects) value of 42 (severity=5, frequency of occurrence = 3, counter measures existence= 2, associated biohazards= 2). This estimated risk is based on possible failures in the CPH (combined heat and power) system, temperature control loop and sludge stirrer</skos:example>
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>1) A risk estimate represents the outcome of a risk assessment by summarizing the likelihood and potential impact of undesired effects on objectives such as quality, performance, or safety.
 2) It may apply to processes, materials, equipment, or other operational elements and can be expressed as a numerical score, category (e.g., high–medium–low), or risk-priority number (RPN).
@@ -339,7 +412,7 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>risk evaluation process</rdfs:label>
-		<skos:example>Comparing FMEA-derived risk-priority numbers (RPNs) against acceptance criteria to decide that dissolved-oxygen variation must be mitigated through tighter control limits.</skos:example>
+		<skos:example>Comparing FMEA-derived risk-priority numbers (RPNs) against acceptance criteria to decide whether dissolved-oxygen variation must be mitigated through tighter control limits; Comparing the value of the RPN +B (Risk Priority Number that also considers biohazardous aspects) indicator against acceptance criteria for a scenario of high pressure between the gasometer membranes of the anaerobic digestor of a biogas production process to decide whether such risk is acceptable or should be mitigated</skos:example>
 		<AnnotationVocabulary:explanatoryNote>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:explanatoryNote>Risk evaluation interprets the results of risk analysis by judging the significance of each risk against predefined criteria such as regulatory thresholds, process capability limits, or business objectives.
 It considers the robustness and quality of the supporting data and the strength of evidence underlying likelihood, severity, and detectability estimates.
@@ -358,13 +431,30 @@ In biopharmaceutical development, risk evaluation helps prioritize which process
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskControlProcess"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskCommunicationProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
 				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskReviewProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskControlProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000062"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>risk management process</rdfs:label>
@@ -374,6 +464,27 @@ In biopharmaceutical development, risk evaluation helps prioritize which process
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskRankingAndFilteringSpecification">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentMethodSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAnalysisProcess"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&obo;BFO_0000132"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>risk ranking and filtering specification</rdfs:label>
 		<skos:example>A team applies a risk ranking and filtering method specification by defining candidate factors such as feed glucose setpoint, osmolality, and pH control, defining weighted criteria for impact on product quality, and scoring each factor using the prescribed rubric. The resulting ranked list places glucose and osmolality highest, so they are selected as candidate critical parameters for the next DoE study.</skos:example>
 		<AnnotationVocabulary:acronym>RRF</AnnotationVocabulary:acronym>
@@ -381,14 +492,30 @@ In biopharmaceutical development, risk evaluation helps prioritize which process
 		<AnnotationVocabulary:explanatoryNote>Risk Ranking and Filtering (RRF) is a semi-quantitative method used to compare the relative importance of risks when multiple factors differ in nature or scale.
 It combines attributes such as severity, likelihood, and detectability into composite scores to support prioritization or selection of factors for further study.
 In biopharmaceutical process characterization, RRF identifies potential critical process parameters (pCPPs) and critical material attributes (pCMAs) based on platform knowledge and product-specific data, guiding experimental design and resource allocation.</AnnotationVocabulary:explanatoryNote>
-		<AnnotationVocabulary:naturalLanguageDefinition>risk assessment method specification that prescribes estimation and prioritization of risk by ranking identified factors using weighted qualitative or quantitative criteria</AnnotationVocabulary:naturalLanguageDefinition>
+		<AnnotationVocabulary:naturalLanguageDefinition>risk management method specification that prescribes estimation and prioritization of risk by ranking identified factors using weighted qualitative or quantitative criteria</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskReductionProcess">
 		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskAssesmentResult">
+							</rdf:Description>
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RiskEstimate">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>risk reduction process</rdfs:label>
+		<skos:example>To prevent human exposure to VCM (Vinyl Chloride Monomer) in the polymerization facility, a new detection system was installed that doubled the number of valves automatically sampling the air in the polymerization room, tripled the sampling frequency, and added a gas chromatography system with an electron capture detector capable of processing the full sample load, reporting results within two minutes of sampling, and detecting increases in VCM concentration at designated sampling points.; To reduce the risk of microbial contamination during aseptic filling, an automated isolator with integrated VHP decontamination was installed for the filling line, and the transfer of sterile components was changed from open handling to closed, decontaminated rapid-transfer port; To reduce the risk of cell-culture viability loss due to pH control failures, redundant pH probes were installed on the production bioreactor, a validated probe calibration and drift-check procedure was implemented, and an automated control logic change was deployed to hold base addition and trigger operator intervention when probe disagreement exceeded the defined threshold</skos:example>
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
-		<AnnotationVocabulary:explanatoryNote>Risk reduction process may include actions that eliminate a particular hazard</AnnotationVocabulary:explanatoryNote>
+		<AnnotationVocabulary:explanatoryNote>Risk reduction may be realized through many different kinds of actions and subprocesses, including actions that eliminate a particular hazard, measures that mitigate the severity and or probability of harm, and measures that improve the detectability of hazards and quality risks. In practice, these measures are typically made explicit in recorded outputs such as risk control plans, control strategy specifications, CAPA plans, change controls, and associated implementation records. However, because the concrete form of risk reduction varies widely across organizations and contexts, the ontology treats these measures primarily as occurrent parts of the risk reduction process, rather than axiomatically constraining a fixed set of required action types or outputs.</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:naturalLanguageDefinition>planned process that consists of actions taken to lessen a risk</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -424,6 +551,12 @@ In biopharmaceutical process characterization, RRF identifies potential critical
 		<AnnotationVocabulary:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>This process is commonly performed periodically or in response to changes (e.g., new information, deviations, process changes) to determine whether risk conclusions, risk controls, and associated records remain adequate.</AnnotationVocabulary:explanatoryNote>
 		<AnnotationVocabulary:naturalLanguageDefinition>planned process in which the outputs of a quality risk management process are monitored or reviewed</AnnotationVocabulary:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Situation">
+		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
+		<rdfs:label>situation</rdfs:label>
+		<AnnotationVocabulary:naturalLanguageDefinition>placeholder for core</AnnotationVocabulary:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/StateDescription">
