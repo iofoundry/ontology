@@ -11,6 +11,63 @@ Additionally, this module features German translations for all terms. Initially 
 
 Metrics on the ontology modules can be found in the [Metrics Report](./report.md)
 
+## Annotation Compliance
+
+All terms in this module comply with the [IOF Annotation Vocabulary](https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/) principles defined in `annotation_principles.md`. Compliance is verified by the `annotation_checker.py` script and all known MUST violations have been resolved.
+
+### Tooling
+
+#### `annotation_checker.py`
+
+Checks every term in the module against the IOF annotation principles and generates a Markdown compliance report (`annotation_report.md`).
+
+```bash
+# Check all files in the qualities/ directory (MUST violations only)
+python annotation_checker.py --directory qualities/ --no-should
+
+# Check all files including SHOULD recommendations
+python annotation_checker.py --directory qualities/
+
+# Check a single file
+python annotation_checker.py --file qualities/Qualities-Physical.rdf
+
+# Write report to a custom location
+python annotation_checker.py --directory qualities/ --output my_report.md
+```
+
+Rules checked include:
+- Every term has exactly one English `rdfs:label` (lowercase)
+- Every term has exactly one English `iof-av:naturalLanguageDefinition` (not starting with an article)
+- No `rdfs:comment` annotations (use NLD instead)
+- Primitive classes have `iof-av:isPrimitive=true` and `iof-av:primitiveRationale`
+- Non-primitive classes have `iof-av:firstOrderLogicDefinition` and `iof-av:semiFormalNaturalLanguageDefinition`
+- German label and NLD present (SHOULD)
+- Ontology-level annotations present (`iof-av:maturity`, `iof-av:copyright`, `owl:versionInfo`)
+
+#### `fol_fixer.py`
+
+Automatically resolves annotation gaps by analysing each class and applying one of the following actions:
+
+| Condition | Action |
+|---|---|
+| Has `owl:equivalentClass`, no FOL definition | Generate `firstOrderLogicDefinition` + `semiFormalNaturalLanguageDefinition` from the OWL axiom |
+| Has `owl:equivalentClass` but marked `isPrimitive=true` | Clear the primitive flag (formal axiom takes precedence) |
+| No `owl:equivalentClass`, no FOL definition | Add `isPrimitive=true` + generated `primitiveRationale` |
+| `isPrimitive=true` but no rationale | Add generated `primitiveRationale` |
+
+The script is **re-entrant**: once a formal OWL axiom is added to a previously primitive term, re-running the script automatically promotes it to a formally defined term.
+
+```bash
+# Dry run — preview planned changes (default)
+python fol_fixer.py --directory qualities/
+
+# Apply to a single file for testing
+python fol_fixer.py --file qualities/Qualities-Physical.rdf --apply
+
+# Apply to all files
+python fol_fixer.py --directory qualities/ --apply
+```
+
 ## Source and Provenance
 
 - **Primary Source Ontology:**  
