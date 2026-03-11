@@ -4,7 +4,7 @@
 
 | File | Terms checked | Terms with issues | Ontology-level issues |
 |------|:---:|:---:|:---:|
-| [Metadataqualities.rdf](#metadataqualitiesrdf) | 0 | 0 | 3 |
+| [Metadataqualities.rdf](#metadataqualitiesrdf) | 0 | 0 | 2 |
 | [Qualities-Biological.rdf](#qualities-biologicalrdf) | 214 | 0 | 1 |
 | [Qualities-Chemical.rdf](#qualities-chemicalrdf) | 20 | 0 | 1 |
 | [Qualities-MaterialStructure.rdf](#qualities-materialstructurerdf) | 15 | 0 | 1 |
@@ -15,7 +15,7 @@
 
 **Total terms checked:** 1186  
 **Total terms with issues:** 0  
-**Total ontology-level issues:** 12
+**Total ontology-level issues:** 11
 
 ---
 
@@ -28,7 +28,6 @@
 ### Ontology-level annotations
 
 - **[MUST]** Ontology missing dcterms:title
-- **[MUST]** Ontology missing iof-av:maturity
 - **[MUST]** Ontology missing owl:versionInfo
 
 _No construct violations found._
