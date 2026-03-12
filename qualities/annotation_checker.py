@@ -24,7 +24,7 @@ from rdflib import Graph, RDF, RDFS, OWL, URIRef, Literal, Namespace, BNode
 # ---------------------------------------------------------------------------
 # Namespace bindings
 # ---------------------------------------------------------------------------
-IOF_AV   = Namespace("https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/")
+IOF_AV   = Namespace("https://spec.industrialontologies.org/ontology/annotation/")
 SKOS     = Namespace("http://www.w3.org/2004/02/skos/core#")
 DCTERMS  = Namespace("http://purl.org/dc/terms/")
 
@@ -492,21 +492,59 @@ def main():
             print("ERROR:", result["error"])
         else:
             s = result["stats"]
-            print(f"{s['terms_checked']} terms, {s['terms_with_issues']} with issues")
+            must_count = sum(
+                1 for d in result["construct_issues"].values()
+                for sev, _ in d["issues"] if sev in ("MUST", "MUST NOT")
+            )
+            should_count = sum(
+                1 for d in result["construct_issues"].values()
+                for sev, _ in d["issues"] if sev == "SHOULD"
+            )
+            parts = [f"{s['terms_checked']} terms"]
+            if must_count:
+                parts.append(f"{must_count} MUST violation(s)")
+            if should_count and include_should:
+                parts.append(f"{should_count} SHOULD warning(s)")
+            if not must_count and not (should_count and include_should):
+                parts.append("OK")
+            print(", ".join(parts))
 
     report = generate_report(file_results, include_should=include_should)
 
     with open(args.output, "w", encoding="utf-8") as fh:
         fh.write(report)
-    print(f"\nReport written to: {args.output}")
 
-    # Exit code: 1 if any MUST violations found
-    any_must = any(
-        any(sev in ("MUST", "MUST NOT") for sev, _ in d["issues"])
-        for r in file_results.values() if "construct_issues" in r
+    # Console summary
+    total_terms = sum(r["stats"]["terms_checked"] for r in file_results.values() if "stats" in r)
+    total_must = sum(
+        1 for r in file_results.values() if "construct_issues" in r
         for d in r["construct_issues"].values()
+        for sev, _ in d["issues"] if sev in ("MUST", "MUST NOT")
     )
-    return 1 if any_must else 0
+    total_should = sum(
+        1 for r in file_results.values() if "construct_issues" in r
+        for d in r["construct_issues"].values()
+        for sev, _ in d["issues"] if sev == "SHOULD"
+    )
+    total_ont_issues = sum(len(r.get("ontology_issues", [])) for r in file_results.values())
+
+    print()
+    print("=" * 60)
+    print(f"  Terms checked  : {total_terms}")
+    print(f"  MUST violations: {total_must}")
+    if include_should:
+        print(f"  SHOULD warnings: {total_should}")
+    if total_ont_issues:
+        print(f"  Ontology-level : {total_ont_issues}")
+    print("=" * 60)
+    if total_must:
+        print("  RESULT: FAIL  (MUST violations present)")
+    else:
+        print("  RESULT: PASS  (no MUST violations)")
+    print("=" * 60)
+    print(f"\nFull report: {args.output}")
+
+    return 1 if total_must else 0
 
 
 if __name__ == "__main__":

@@ -12,26 +12,16 @@ This report summarizes the metrics computed across all processed ontology module
 - **Total Imports:** Number of owl:imports statements indicating reuse of external ontologies.
 
 - **Total Modules Processed:** **8**
-- **Total Classes:** **1192**
+- **Total Classes:** **1239**
 - **Total Properties:** **45**
-- **Total Labels:** **2367**
+- **Total Labels:** **2497**
 - **Total Comments:** **0**
-- **Total Imports:** **15**
+- **Total Imports:** **16**
 
 ### AdaptedFrom Sources (Aggregated by Namespace)
 The adaptedFrom property indicates the provenance or source from which parts of the ontology were adapted. To provide a concise overview, these sources have been aggregated by their namespace (the common base URI).
 
-- **http://purl.obolibrary.org/obo/**: 906
-- **https://de.wikipedia.org/wiki/**: 6
-- **https://en.wikipedia.org/wiki/**: 45
-- **https://simple.wikipedia.org/wiki/**: 1
-- **https://w3id.org/pmd/co/**: 57
-- **https://www.britannica.com/science/**: 7
-- **https://www.britannica.com/technology/**: 1
-- **https://www.merriam-webster.com/dictionary/**: 2
-- **https://www.nrc.gov/reading-rm/basic-ref/glossary/**: 1
-- **https://www.oxfordreference.com/display/10.1093/oi/**: 1
-- **“Precision.” Merriam-Webster.com Dictionary, Merriam-Webster, https://www.merriam-webster.com/dictionary/**: 1
+- None found
 
 ### Hierarchy Metrics (Overall)
 These metrics describe the structure of the ontologies based on subclass relationships:
@@ -41,9 +31,9 @@ These metrics describe the structure of the ontologies based on subclass relatio
 - **Average Hierarchy Breadth:** The average number of direct subclasses per class.
 
 - **Maximum Hierarchy Depth:** 9
-- **Average Hierarchy Depth:** 4.75
+- **Average Hierarchy Depth:** 4.88
 - **Maximum Hierarchy Breadth:** 102
-- **Average Hierarchy Breadth:** 18.62
+- **Average Hierarchy Breadth:** 19.75
 
 ---
 
@@ -62,7 +52,7 @@ The following metrics were computed for this ontology module:
 
 - **Classes Count:** 7
 - **Properties Count:** 0
-- **Labels Count:** 12
+- **Labels Count:** 15
 - **Comments Count:** 0
 - **Imports Count:** 2
 
@@ -110,9 +100,7 @@ These metrics describe the subclass structure of the ontology:
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **http://purl.obolibrary.org/obo/**: 197
-- **https://en.wikipedia.org/wiki/**: 2
-- **https://w3id.org/pmd/co/**: 5
+- None found
 
 ---
 
@@ -128,37 +116,30 @@ The following metrics were computed for this ontology module:
 - **Comments Count:** Number of rdfs:comment annotations.
 - **Imports Count:** Number of owl:imports (external ontology references).
 
-- **Classes Count:** 218
+- **Classes Count:** 261
 - **Properties Count:** 13
-- **Labels Count:** 437
+- **Labels Count:** 526
 - **Comments Count:** 0
 - **Imports Count:** 1
 
 ### Hierarchy Metrics
 These metrics describe the subclass structure of the ontology:
 
-- **Maximum Depth:** 7 (Longest chain of subclass relationships)
-- **Average Depth:** 4.12 (Typical number of levels in the hierarchy)
-- **Maximum Breadth:** 13 (Highest number of direct subclasses)
-- **Average Breadth:** 0.90 (Average direct subclasses per class)
+- **Maximum Depth:** 8 (Longest chain of subclass relationships)
+- **Average Depth:** 4.17 (Typical number of levels in the hierarchy)
+- **Maximum Breadth:** 19 (Highest number of direct subclasses)
+- **Average Breadth:** 0.92 (Average direct subclasses per class)
 
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **http://purl.obolibrary.org/obo/**: 16
-- **https://de.wikipedia.org/wiki/**: 6
-- **https://en.wikipedia.org/wiki/**: 41
-- **https://simple.wikipedia.org/wiki/**: 1
-- **https://w3id.org/pmd/co/**: 33
-- **https://www.britannica.com/science/**: 7
-- **https://www.britannica.com/technology/**: 1
-- **https://www.merriam-webster.com/dictionary/**: 2
-- **https://www.nrc.gov/reading-rm/basic-ref/glossary/**: 1
-- **https://www.oxfordreference.com/display/10.1093/oi/**: 1
+- None found
 
 ---
 
 ## Module: Qualities-MaterialStructure.rdf
+
+**Abstract:** The IOF Material Structure Qualities Ontology represents qualities related to the internal structural arrangement of material entities at microstructural and crystallographic levels.
 
 The following metrics were computed for this ontology module:
 
@@ -170,9 +151,9 @@ The following metrics were computed for this ontology module:
 
 - **Classes Count:** 15
 - **Properties Count:** 0
-- **Labels Count:** 30
+- **Labels Count:** 31
 - **Comments Count:** 0
-- **Imports Count:** 0
+- **Imports Count:** 1
 
 ### Hierarchy Metrics
 These metrics describe the subclass structure of the ontology:
@@ -185,7 +166,7 @@ These metrics describe the subclass structure of the ontology:
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **https://w3id.org/pmd/co/**: 13
+- None found
 
 ---
 
@@ -252,8 +233,7 @@ These metrics describe the subclass structure of the ontology:
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **https://en.wikipedia.org/wiki/**: 1
-- **“Precision.” Merriam-Webster.com Dictionary, Merriam-Webster, https://www.merriam-webster.com/dictionary/**: 1
+- None found
 
 ---
 
@@ -269,9 +249,9 @@ The following metrics were computed for this ontology module:
 - **Comments Count:** Number of rdfs:comment annotations.
 - **Imports Count:** Number of owl:imports (external ontology references).
 
-- **Classes Count:** 22
+- **Classes Count:** 25
 - **Properties Count:** 9
-- **Labels Count:** 47
+- **Labels Count:** 52
 - **Comments Count:** 0
 - **Imports Count:** 1
 
@@ -279,16 +259,14 @@ The following metrics were computed for this ontology module:
 These metrics describe the subclass structure of the ontology:
 
 - **Maximum Depth:** 4 (Longest chain of subclass relationships)
-- **Average Depth:** 2.68 (Typical number of levels in the hierarchy)
-- **Maximum Breadth:** 4 (Highest number of direct subclasses)
-- **Average Breadth:** 0.59 (Average direct subclasses per class)
+- **Average Depth:** 2.84 (Typical number of levels in the hierarchy)
+- **Maximum Breadth:** 7 (Highest number of direct subclasses)
+- **Average Breadth:** 0.68 (Average direct subclasses per class)
 
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **http://purl.obolibrary.org/obo/**: 3
-- **https://en.wikipedia.org/wiki/**: 1
-- **https://w3id.org/pmd/co/**: 6
+- None found
 
 ---
 
@@ -304,9 +282,9 @@ The following metrics were computed for this ontology module:
 - **Comments Count:** Number of rdfs:comment annotations.
 - **Imports Count:** Number of owl:imports (external ontology references).
 
-- **Classes Count:** 707
+- **Classes Count:** 708
 - **Properties Count:** 4
-- **Labels Count:** 1385
+- **Labels Count:** 1417
 - **Comments Count:** 0
 - **Imports Count:** 1
 
@@ -321,6 +299,6 @@ These metrics describe the subclass structure of the ontology:
 ### Aggregated AdaptedFrom Sources (by Namespace)
 This section shows the provenance of adapted content, aggregated by the common base URI.
 
-- **http://purl.obolibrary.org/obo/**: 690
+- None found
 
 ---
