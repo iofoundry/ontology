@@ -277,10 +277,10 @@
 		<iof-av:naturalLanguageDefinition>protein charge variant impurity role that is held by a protein, protein fragment, or molecular population of such entities that differs from a reference form of the same protein by having a higher net electric charge or isoelectric point</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;BatchFailureRate">
+	<owl:Class rdf:about="&iof-construct;BatchFailureProportion">
 		<rdfs:subClassOf rdf:resource="&iof-core;ProcessCharacteristic"/>
-		<rdfs:label>batch failure rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process characteristic that summarizes the number of batches runs that failed compared to the total number of batch runs over a period of time</iof-av:naturalLanguageDefinition>
+		<rdfs:label>batch failure proportion</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process characteristic that summarizes the number of batches runs that failed compared to the total number of batch runs</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Bioburden">
@@ -1334,17 +1334,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>depends on bearer part</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:range>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000004">
-					</rdf:Description>
-					<owl:Class>
-						<owl:complementOf rdf:resource="&bfo;BFO_0000006"/>
-					</owl:Class>
-				</owl:intersectionOf>
-			</owl:Class>
-		</rdfs:range>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
 		<iof-av:naturalLanguageDefinition>relation between a quality q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -1749,7 +1739,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 	<owl:Class rdf:about="&iof-construct;GlucoseUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MetaboliteUptakeRate"/>
 		<rdfs:label>glucose uptake rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of a glucose taken up by a cell population or microorganism population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of a glucose taken up by a cell population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GlycatedResidue">
@@ -2511,7 +2501,7 @@ Examples include residual process materials and intermediates (for example reage
 	<owl:Class rdf:about="&iof-construct;MetaboliteUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
 		<rdfs:label>metabolite uptake rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>rate that is the quantity of a metabolite taken up by a cell population or microorganism population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>rate that is the quantity of a metabolite taken up by a cell population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Miscibility">
@@ -3107,6 +3097,35 @@ Examples include residual process materials and intermediates (for example reage
 	
 	<owl:Class rdf:about="&iof-construct;OxygenUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Dioxygen"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000138"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-core;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000167"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>oxygen uptake rate</rdfs:label>
 		<iof-av:naturalLanguageDefinition>rate that is the amount of oxygen consumed by a cell population per unit of time</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -4514,17 +4533,7 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
 		<rdfs:label>is concentration of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-construct;Concentration"/>
-		<rdfs:range>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000004">
-					</rdf:Description>
-					<owl:Class>
-						<owl:complementOf rdf:resource="&bfo;BFO_0000006"/>
-					</owl:Class>
-				</owl:intersectionOf>
-			</owl:Class>
-		</rdfs:range>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
 		<iof-av:naturalLanguageDefinition>relation between a concentration q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -4534,10 +4543,17 @@ Water may also occur in isotopic variants, such as heavy water (D₂O) or semi-h
 		<rdfs:domain rdf:resource="&iof-construct;Amount"/>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-construct;isFractionOf">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
+		<rdfs:label>is fraction of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;Fraction"/>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-construct;isPartialPressureOf">
 		<rdfs:subPropertyOf rdf:resource="&iof-construct;DependsOnBearerPart"/>
 		<rdfs:label>is partial pressure of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-construct;PartialPressure"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
 		<iof-av:naturalLanguageDefinition>relation between a partial pressure q and a material entity m that holds when q inheres in some material entity x, m is part of x, and q specifically depends on m</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
