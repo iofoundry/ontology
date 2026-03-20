@@ -1,0 +1,57 @@
+name: Release Branch
+
+on:
+  push:
+    tags:
+      - 'Release_[0-9][0-9][0-9][0-9][0-9][0-9]'
+
+jobs:
+  create-release-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Extract release number from tag
+        id: extract
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          RELEASE_NUMBER="${TAG#Release_}"
+          echo "release_number=${RELEASE_NUMBER}" >> "$GITHUB_OUTPUT"
+          echo "branch=releases/${RELEASE_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Create release branch
+        run: |
+          git checkout -b "${{ steps.extract.outputs.branch }}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run version IRI import script
+        run: |
+          python etc/scripts/version_iri_imports.py ${{ steps.extract.outputs.release_number }}
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Release ${{ steps.extract.outputs.release_number }}: update version IRIs"
+
+      - name: Push release branch
+        run: |
+          git push origin "${{ steps.extract.outputs.branch }}"
+
+      - name: Move tag to release branch commit
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          git tag -f "${TAG}"
+          git push origin "refs/tags/${TAG}" --force
