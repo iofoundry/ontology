@@ -1,8 +1,9 @@
 import re
 import sys
 from pathlib import Path
+import argparse
 
-def update_owl_imports(file_path: str, release_number: str) -> None:
+def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) -> None:
   """
   Update owl:import elements in an RDF XML file to use version IRIs with release numbers.
   
@@ -51,16 +52,23 @@ def update_owl_imports(file_path: str, release_number: str) -> None:
       print(f"Replacing versionIRI: {match.group(0)} with {new_iri}")
       return new_iri
   
-  # Replace all matches
-  # Pattern to match owl:import elements with rdf:resource attributes
-  # Matches: <owl:import rdf:resource="https://spec.industrialontologies.org/ontology/"/>
-  pattern = r'(<owl:imports\s+rdf:resource=[\'"]{1})(https://spec.industrialontologies.org/ontology/)([^"\']+)(["\']{1})'  
-  updated_content = re.sub(pattern, replace_import, content)
+  updated_content = content
+  
+  if not skip_imports:
+    # Replace all matches
+    # Pattern to match owl:import elements with rdf:resource attributes
+    # Matches: <owl:import rdf:resource="https://spec.industrialontologies.org/ontology/"/>
+    pattern = r'(<owl:imports\s+rdf:resource=[\'"]{1})(https://spec.industrialontologies.org/ontology/)([^"\']+)(["\']{1})'  
+    updated_content = re.sub(pattern, replace_import, updated_content)
   
   # Pattern to match owl:versionIRI elements with rdf:resource attributes
   # Matches: <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/<version>/..."/>
   pattern = r'(<owl:versionIRI\s+rdf:resource=[\'"]{1})(https://spec.industrialontologies.org/ontology/)(\d{6})(/[^"\']+)(["\']{1})'  
   updated_content = re.sub(pattern, correct_version_iri, updated_content)
+  
+  # Update copyright year if present
+  pattern = r'(<iof-av:copyright>Copyright \(c\))[0-9, ]+(Open Applications Group</iof-av:copyright>)'
+  updated_content = re.sub(pattern, rf'\1 2022, 2023, 2024, 2025, 2026 \2', updated_content)
 
   # Write back to file
   with open(file_path, 'w', encoding='utf-8') as f:
@@ -70,14 +78,18 @@ def update_owl_imports(file_path: str, release_number: str) -> None:
 
 
 if __name__ == "__main__":
-  if len(sys.argv) != 2:
-    print("Usage: python version_iri_imports.py <release_number>")
-    sys.exit(1)
-  
-  release_number = sys.argv[1]
+  # Parse command line arguments, expect a release number and an optional switch to turn off update of imports
+  parser = argparse.ArgumentParser(description="Version IRI Imort Updater for RDF XML files")
+  parser.add_argument("release", help="release number")              # positional
+  parser.add_argument("-s", "--skip_imports", action="store_true", help="skip updating import files")
+
+  args = parser.parse_args()
+    
+  release_number = args.release
+  skip_imports = args.skip_imports
   
   # Recurse all .rdf files in the current and subdirectories
   rdf_files = Path('.').rglob('*.rdf')
   for file_path in rdf_files:
     print("Processing: ", file_path)
-    update_owl_imports(file_path, release_number)
+    update_owl_imports(file_path, release_number, skip_imports)

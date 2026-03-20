@@ -24,6 +24,7 @@ WHERE
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
 
   FILTER (!CONTAINS(STR(?source),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
-  
-  BIND (CONCAT("PRODERROR: A non-primitive class ", STR(?resource), " does not have a semi-formal natural language definition.") as ?warning)
+  BIND(REPLACE(STR(?source), "https://spec.industrialontologies.org/ontology/(.+)/$", "./$1.rdf") AS ?sourcePath)
+
+  BIND(CONCAT("::error file=", STR(?sourcePath), ",title=<HYGIENE_TEST_NAME>::A non-primitive class ", STR(?resource), " does not have a semi-formal natural language definition.") as ?warning)
 }
