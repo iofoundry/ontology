@@ -1,0 +1,123 @@
+@prefix : <https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix bfo_hr: <https://github.com/Mat-O-Lab/MSEO/raw/main/domain/util/readable_bfo_iris.ttl/> .
+@prefix iof-core: <https://spec.industrialontologies.org/ontology/core/Core/> .
+@prefix iof-phys: <https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/> .
+@prefix AnnotationVocabulary: <https://www.omg.org/spec/Commons/AnnotationVocabulary/> .
+@prefix : <https://example.com/> .
+
+: a owl:Ontology ;
+    rdfs:label "Example of Action and Reaction"@en ;
+    dcterms:creator "Thomas Hanke" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    owl:imports <https://raw.githubusercontent.com/Mat-O-Lab/MSEO/refs/heads/main/domain/util/readable_bfo_iris.ttl>,
+        <https://raw.githubusercontent.com/iofoundry/ontology/refs/heads/qualities_draft/qualities/Qualities-Physical.rdf> ;
+    owl:versionInfo "0.0.1" .
+
+
+:EModulus1 rdf:type owl:NamedIndividual ,
+                                      iof-phys:ElasticModulus .
+
+
+:ElasticResponse1 rdf:type owl:NamedIndividual ,
+                                             bfo_hr:Process ;
+                                    bfo_hr:realizes :EModulus1 .
+
+
+:LightReflexion1 rdf:type owl:NamedIndividual ,
+                                            bfo_hr:Process ;
+                                   bfo_hr:realizes :RelaxtionCap1 ;
+                                   iof-phys:isTriggeredBy :SunExposureProcess1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/Pull1
+:Pull1 rdf:type owl:NamedIndividual ,
+                                  bfo_hr:Process ;
+                         bfo_hr:realizes :TensionForceMeasurementCapability1 ;
+                         bfo_hr:has_participant_at_some_time :Specimen1 ;
+                         iof-phys:triggers :ElasticResponse1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/Pull2
+:Pull2 rdf:type owl:NamedIndividual ,
+                                  bfo_hr:Process ;
+                         bfo_hr:has_participant_at_some_time :Specimen1 ;
+                         iof-core:hasProcessCharacteristic :TensionRate1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/RelaxtionCap1
+:RelaxtionCap1 rdf:type owl:NamedIndividual ,
+                                          iof-phys:RadiationReflectionCapability .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/Specimen1
+:Specimen1 rdf:type owl:NamedIndividual ,
+                                      bfo_hr:Object ;
+                             iof-core:hasCapability :EModulus1 ,
+                                                    :RelaxtionCap1 ;
+                             iof-core:hasQuality :reflectance1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/Sun
+:Sun rdf:type owl:NamedIndividual ,
+                                bfo_hr:MaterialEntity ;
+                       iof-core:hasCapability :SunLigthing1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/SunExposureProcess1
+:SunExposureProcess1 rdf:type owl:NamedIndividual ,
+                                                bfo_hr:Process ;
+                                       bfo_hr:has_participant_at_some_time :Specimen1 ;
+                                       iof-phys:isTriggeredBy :SunLigthingProcess1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/SunLigthing1
+:SunLigthing1 rdf:type owl:NamedIndividual ,
+                                         iof-phys:RadiationEmissonCapability .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/SunLigthingProcess1
+:SunLigthingProcess1 rdf:type owl:NamedIndividual ,
+                                                bfo_hr:Process ;
+                                       bfo_hr:realizes :SunLigthing1 ;
+                                       bfo_hr:has_participant_at_some_time :Sun .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/TensionForce1
+:TensionForce1 rdf:type owl:NamedIndividual ,
+                                          iof-phys:Force .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/TensionForceMeasurementCapability1
+:TensionForceMeasurementCapability1 rdf:type owl:NamedIndividual ,
+                                                               <https://spec.industrialontologies.org/ontology/materials/Materials/ForceMeasurementCapability> .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/TensionRate1
+:TensionRate1 rdf:type owl:NamedIndividual ,
+                                         iof-phys:DeformationSpeed .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/UniversalTestingMachine1
+:UniversalTestingMachine1 rdf:type owl:NamedIndividual ,
+                                                     iof-core:PieceOfEquipment ;
+                                            iof-core:hasCapability :TensionForceMeasurementCapability1 ;
+                                            iof-core:hasQuality :TensionForce1 .
+
+
+###  https://spec.industrialontologies.org/ontology/qualities/Qualities-Physical/reflectance1
+:reflectance1 rdf:type owl:NamedIndividual ,
+                                         iof-phys:OpticalReflectance .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
