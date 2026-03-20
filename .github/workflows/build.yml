@@ -1,0 +1,30 @@
+name: Hygiene Tests
+
+on:
+  push:
+    paths:
+      - '**.rdf'
+      - '**.py'
+      - '**/build*.yml'
+  workflow_dispatch:
+
+jobs:
+  hygiene-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r ./etc/scripts/requirements.txt
+
+      - name: Run Hygiene Tests
+        run: |
+          python etc/scripts/hygiene_runner.py AboutIOFDev.rdf AboutIOFProd.rdf
