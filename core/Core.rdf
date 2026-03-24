@@ -100,26 +100,6 @@
 	<owl:Class rdf:about="&iof-constr;ActionCondition">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label xml:lang="en">action condition</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateDescription"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;SituationDescription"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;ActionSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:editorialNote>For every action condition there exists a situation description that is part of it and every other situation description that is part of it is different (only one situation desc par action condition) However, unique situation desc. may not be always necessary, we may not restrict. E.g., change condition refers to both triggering and achieving state.</skos:editorialNote>
 		<iof-av:firstOrderLogicDefinition>ActionCondition(x) ↔ InformationContentEntity(x) ∧ ∃a (ActionSpecification(a)∧continuantPartOfAtAllTimes(x, a)) ∧ ∃s, ms (Situation(s)∧MaterialState(ms) ∧ hasContinuantPartAtAllTimes(x, s)∧ hasContinuantPartAtAllTimes(x, ms))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">an information content entity that is part of some action description or specification and describes some pre and post-condition of the process that the action description describes in terms of states holding in situations that triggers or achieved by the process.</iof-av:naturalLanguageDefinition>
@@ -2891,77 +2871,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;service provider role&apos; then x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;person&apos; or &apos;organization&apos; that &apos;participates in at some time&apos; some &apos;commercial service&apos; or some &apos;offering for sale business process&apos; which &apos;has participant at some time&apos; some &apos;commercial service agreement&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;Situation">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000003"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000200"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000011"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty>
-					<rdf:Description>
-						<owl:inverseOf rdf:resource="&iof-constr;holdsIn"/>
-					</rdf:Description>
-				</owl:onProperty>
-				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en">situation</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000003">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty>
-							<rdf:Description>
-								<owl:inverseOf rdf:resource="&iof-constr;achieves"/>
-							</rdf:Description>
-						</owl:onProperty>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000015">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty>
-											<rdf:Description>
-												<owl:inverseOf rdf:resource="&iof-constr;triggers"/>
-											</rdf:Description>
-										</owl:onProperty>
-										<owl:someValuesFrom rdf:resource="&iof-constr;Situation"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition xml:lang="en">a set of states of a system that holds as a result of a sequence of a processes.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;SituationDescription">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:label xml:lang="en">situation description</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;describes"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;Situation"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Information content entity that describes some situation</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-constr;Supplier">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Agent"/>
 		<rdfs:label xml:lang="en-US">supplier</rdfs:label>
@@ -3167,16 +3076,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:ObjectProperty rdf:about="&iof-constr;achieves">
 		<rdfs:label xml:lang="en">achieves</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000015"/>
-		<rdfs:range>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;Event">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;Situation">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:range>
 		<iof-av:firstOrderLogicDefinition>achieves(p, s) ↔ (Process(p) ∨ Event(p)) ∧ Situation(s)∧∀t1, t2 (TemporalInterval(t1) ∧ TemporalInterval(t2)∧occupiesTemporalRegion(s, t1) ∧ occupiesTemporalRegion(p, t2) →(metBy(t1, t2) ∨ temporallyOverlappedBy(t1, t2) ∨ temporallyFinishes(t1, t2))∨((TemporalInstant(t1) ∨ TemporalInstant(t2)) ∧ precedes(t1, t2)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en">relation that holds between a process or an event and a situation when the temporal region that the process or event occupies metBy, overlappedBy, or finishes the temporal interval the situation occupies or precedes the temporal instant the event occupies .</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>If a process or event p achieves situation s, then p is either a process or an event and s is a situation and there exist two temporal region t1 and t2 that s and e &apos;occupies temporal region&apos; respectively and t1 meets or &apos;temporally overlaps&apos; and &apos;temporally starts&apos; t2 if both are &apos;temporal interval&apos; or t1 precedes t2 if either t1, or t2 or both are &apos;temporal instant&apos;.</iof-av:semiFormalNaturalLanguageDefinition>
@@ -3767,7 +3666,6 @@ category within a classification scheme of an entity that the value expression i
 	<owl:ObjectProperty rdf:about="&iof-constr;holdsIn">
 		<rdfs:label xml:lang="en">holds in</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
-		<rdfs:range rdf:resource="&iof-constr;Situation"/>
 		<skos:example xml:lang="en">Water holds its frozen state in a situation where temperature is below freezing point, iron surfaces gets rusted in a situation as a result of prolonged exposure to environment, a motor is in running state in a situation when the switch is turned on.</skos:example>
 		<iof-av:firstOrderLogicAxiom>holdsIn(ms, s) → MaterialState(ms) ∧ Situation(s) ∧ ∀t (occupiesTemporalRegion(s, t) → occupiesTemporalRegion(s, t))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">relation that holds between a material state and a situation such that every temporal instant that part of the temporal region the situation occupies is also part of the temporal region the material state occupies.</iof-av:naturalLanguageDefinition>
