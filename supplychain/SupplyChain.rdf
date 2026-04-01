@@ -1685,7 +1685,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;TradeItemRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialTradeItemRole"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -1704,6 +1704,49 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:naturalLanguageDefinition>material entity that is uniquely identified and is intended to be offered for sale in a selling business process.</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1: every instance of &apos;material trade item&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;trade item role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;material trade item&apos; then x is part of &apos;logistic unit&apos; at some time.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialTradeItemRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;MaterialProduct">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;SellingBusinessProcess"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;designatedBy"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;Identifier"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material trade item role</rdfs:label>
+		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
+		<skos:example>Physical Product (Each/Base Unit): A bottle of detergent, identified by a GTIN (UPC/EAN) for retail POS. Inner Pack: A box containing 6 bottles of the detergent. Case (Case/Outer Pack): A corrugated carton containing 4 inner packs. Pallet: A full pallet holding 20 cases of the detergent.</skos:example>
+		<skos:example>Software Subscription (as a Service), Example: 1-year CAD/CAM software license</skos:example>
+		<iof-av:firstOrderLogicDefinition>TradeItemRole(x) →
+    ( Role(x) ∧
+      ∃y ∃p ∃i (
+          RoleOf(x, y) ∧
+          (MaterialProduct(y) ∨ Package(y) ∨ CommercialServiceAgreement(y)) ∧
+          SellingBusinessProcess(p) ∧
+          ParticipatesInAtSomeTime(y, p) ∧
+          Identifier(i) ∧
+          designatedBy(y, i)
+      )
+    )</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>role of a material product, package of, or group of material products when it is intended to be offered for sale in a selling business process and is identified for trade.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a ‘trade item role’ then x is a ‘role’ that is a ‘role of’ some ‘material product’ or some ‘package’ that ‘participates in at some time’ some ‘selling business process’ and that is &apos;identified by&apos; some ‘ Identifier’.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;PackagingPlanSpecification">
@@ -3088,55 +3131,6 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">event that has at least one traceable resource unit or equipment (with which TRU comes into contact with) or operator (that runs an equipment with which TRU comes into contact with at some time) as participant .</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;tracking event&apos; then x is an &apos;event&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;TradeItemRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-constr;CommercialServiceAgreement">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-constr;MaterialProduct">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;SellingBusinessProcess"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;designatedBy"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;Identifier"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">trade item role</rdfs:label>
-		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
-		<skos:example>Physical Product (Each/Base Unit): A bottle of detergent, identified by a GTIN (UPC/EAN) for retail POS. Inner Pack: A box containing 6 bottles of the detergent. Case (Case/Outer Pack): A corrugated carton containing 4 inner packs. Pallet: A full pallet holding 20 cases of the detergent.</skos:example>
-		<skos:example>Software Subscription (as a Service), Example: 1-year CAD/CAM software license</skos:example>
-		<iof-av:firstOrderLogicDefinition>TradeItemRole(x) →
-    ( Role(x) ∧
-      ∃y ∃p ∃i (
-          RoleOf(x, y) ∧
-          (MaterialProduct(y) ∨ Package(y) ∨ CommercialServiceAgreement(y)) ∧
-          SellingBusinessProcess(p) ∧
-          ParticipatesInAtSomeTime(y, p) ∧
-          Identifier(i) ∧
-          designatedBy(y, i)
-      )
-    )</iof-av:firstOrderLogicDefinition>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>role of a material product, package of, or group of material products, and any commercial service agreement when it is intended to be offered for sale in a selling business process and is identified for trade.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>if x is a ‘trade item role’ then x is a ‘role’ that is a ‘role of’ some ‘material product’ or some ‘package’ or some ‘commercial service agreement’ that ‘participates in at some time’ some ‘selling business process’ and that is &apos;identified by&apos; some ‘ Identifier’.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Trailer">
