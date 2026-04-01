@@ -143,7 +143,22 @@ Airways are defined with segments within a specific altitude block, corridor wid
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;BillOfLading">
-		<rdfs:subClassOf rdf:resource="&iof-constr;CommercialServiceAgreement"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;CommercialServiceAgreement">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;ConsignorRole"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;TransportationServiceProviderRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">bill of lading</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>Bill of Lading related to transportation of 2200 gallons of antifreeze from a shipper&apos;s location to a receiver/consignee&apos;s location by a carrier.</skos:example>
@@ -153,11 +168,13 @@ Airways are defined with segments within a specific altitude block, corridor wid
 A transportation document that is the contract of carriage containing the terms and conditions between the shipper and carrier [CSCMP].
 
 It serves as a receipt of goods, a contract of carriage, and, in some cases, a document of title.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CommercialServiceAgreement (x) ∧ ∃c∃y∃z(ConsigningProcess(c) ∧ ConsignorRole(y) ∧ CarrierRole(z) ∧ isAbout(x,c) ∧ prescribes(x,y) ∧ prescribes(x,z)) → BillofLading(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: BillOfLading (x) → CommercialServiceAgreement (x) ∧ ∃y∃z(ConsignorRole(y) ∧ CarrierRole(z) ∧  prescribes(x,y) ∧ prescribes(x,z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: CommercialServiceAgreement (x) ∧ ∃c∃y∃z(ConsigningProcess(c) ∧ ConsignorRole(y) ∧ CarrierRole(z) ∧ isAbout(x,c) ∧ prescribes(x,y) ∧ prescribes(x,z)) → BillofLading(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">agreement between a shipper and a carrier that prescribes some consigning process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;commercial service agreement&apos; that &apos;is about&apos; some &apos;consigning process&apos; and that &apos;prescribes&apos; some &apos;consignor role&apos; and some &apos;carrier role&apos; then x is a &apos;bill of lading&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;bill of lading&apos;, then x is a &apos;commercial service agreement&apos; that &apos;prescribes&apos; some &apos;consignor role&apos; and some &apos;transportation service provider role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If x is a &apos;commercial service agreement&apos; that &apos;is about&apos; some &apos;consigning process&apos; and it &apos;prescribes&apos; some &apos;consignor role&apos; and some &apos;carrier role&apos; then x is a &apos;bill of lading&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Cargo">
@@ -1678,6 +1695,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material trade item</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -1730,6 +1748,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material trade item role</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
 		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
 		<skos:example>Physical Product (Each/Base Unit): A bottle of detergent, identified by a GTIN (UPC/EAN) for retail POS. Inner Pack: A box containing 6 bottles of the detergent. Case (Case/Outer Pack): A corrugated carton containing 4 inner packs. Pallet: A full pallet holding 20 cases of the detergent.</skos:example>
 		<skos:example>Software Subscription (as a Service), Example: 1-year CAD/CAM software license</skos:example>
