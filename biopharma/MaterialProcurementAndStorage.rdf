@@ -207,31 +207,7 @@
 		<iof-av:primitiveRationale>This class is expected to remain primitive until a treatment of ternary relations is established. In particular, it is not currently possible to assert that the material certified by the document satisfies the requirements specified within the same certificate.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;certificate of analysis&apos;, then x is a &apos;certificate&apos; such that there exists a &apos;disposition&apos; or &apos;quality&apos; q that &apos;specifically depends on&apos; a &apos;material product&apos; or &apos;lot&apos; y, where x &apos;has as continuant part at all times&apos; some &apos;requirement specification&apos; that is &apos;satisfied by&apos; q, and x also &apos;has as continuant part at all times&apos; some value that is the &apos;measured value of at some time&apos; q, and x &apos;certifies&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ContainerIdentifier">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Identifier"/>
-		<rdfs:label xml:lang="en-US">container identifier</rdfs:label>
-		<dcterms:contributor>Merck KGaA</dcterms:contributor>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Identifier">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;designates"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;Container"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>A QR code printed on a plastic drum used to store and transport a buffer solution; A barcode on a stainless steel transport vessel used to transfer cell culture harvest material from a fed-batch bioreactor to the primary capture chromatography system</skos:example>
-		<iof-av:counterExample>A product catalog number that refers to a type of plastic container sold by a manufacturer; A batch number assigned to a lot of buffer solution held in a stainless steel tank. Although the identifier is associated with the material inside the container, it does not identify the container itself and is therefore not a container identifier</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>ContainerIdentifier(x) ↔ Identifier(x) ∧ ∃y(Container(y) ∧ designates(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that identifies a container</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;container identifier&apos; is defined as exactly an instance of &apos;identifier&apos; that &apos;designates&apos; some &apos;container&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
+		
 	<owl:Class rdf:about="&iof-construct;ERPCode">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationSystemSpecificCode"/>
 		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
@@ -285,59 +261,7 @@
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to provide necessary and sufficient conditions. &apos;Information system&apos; is missing as well as the constructs for denoting an entity type</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information system specific code&apos;, then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;Sublot">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:label xml:lang="en-US">sublot</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;SublotRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>Sublot of 140 antacid tablets filled from Lot #6754189 and packaged in a bottle; sublot of antacid tablets contained in a box of 12 such bottles from the same lot; sublot of tetrachloroethylene filled from Lot #PERC6227741 and contained in a 50L drum; sublot of tetrachloroethylene contained in a pallet of 15 such drums from the same lot</skos:example>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>Sublot(x) ↔ MaterialEntity(x) ∧ ∃r(SublotRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has a sublot role</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;sublot&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;sublot role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;SublotRole">
-		<rdfs:subClassOf rdf:resource="&iof-construct;TraceableResourceUnitRole"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000040">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Lot"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">sublot role</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
-		<skos:example>Role held by the sublot of 140 antacid tablets filled from Lot #6754189 and packaged in a bottle; role held by the sublot of tablets in a box of 12 such bottles; role held by the sublot of tetrachloroethylene in a 50L drum from Lot #PERC6227741; role held by the sublot of tetrachloroethylene in a pallet of 15 such drums.</skos:example>
-		<iof-av:firstOrderLogicAxiom>SublotRole(x) → TraceableResourceUnitRole(x) ∧ ∃y(MaterialEntity(y) ∧ roleOf(x, y) ∧ ∃l(Lot(l) ∧ continuantPartOfAtSomeTime(y, l)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">traceable resource unit role held by a material entity when it is part of a lot and is uniquely identifiable within that lot</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular the pattern for unique identification within a lot needs to be developed.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;sublot role&apos;, then x is a &apos;traceable resource unit role&apos; and is the &apos;role of&apos; some &apos;material entity&apos; that is the &apos;continuant part of at some time&apos; some &apos;lot</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-		
+			
 	<owl:ObjectProperty rdf:about="&iof-construct;hasMaterialExpirationTimeInstantValueExpression">
 		<rdfs:subPropertyOf rdf:resource="&iof-construct;isSubjectOf"/>
 		<rdfs:label xml:lang="en-US">has material expiration time instant value expression</rdfs:label>
