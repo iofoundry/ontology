@@ -2,22 +2,25 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl:   <http://www.w3.org/2002/07/owl#>
 
-PREFIX iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/>
+PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
 
 
 ##
 # banner No resource may have more than one definition.
 
 
-SELECT DISTINCT (concat ("PRODERROR: Resource ", str(?resource), " has multiple definitions.") AS ?warning) ?resource
+SELECT DISTINCT (concat ("::error file=", ?sourcePath, ",line=1,col=1,title=<HYGIENE_TEST_NAME>:: Resource ", str(?resource), " has multiple definitions.") AS ?warning) ?resource
 WHERE
 {
   ?resource rdf:type ?type.
+  ?resource rdfs:isDefinedBy ?source.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
 
   ?resource iof-av:naturalLanguageDefinition ?definition.
   
 	FILTER regex(str(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
+
+  BIND(REPLACE(STR(?source), "https://spec.industrialontologies.org/ontology/(.+)/$", "./$1.rdf") AS ?sourcePath)
 }
 GROUP BY ?resource (LANG(?definition) as ?lang)
 HAVING (COUNT(?definition) > 1)
