@@ -143,21 +143,40 @@ Airways are defined with segments within a specific altitude block, corridor wid
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;BillOfLading">
+		<rdfs:subClassOf rdf:resource="&iof-constr;CommercialServiceAgreement"/>
 		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;CommercialServiceAgreement">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;ConsignorRole"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;TransportationServiceProviderRole"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+								<owl:allValuesFrom rdf:resource="&iof-constr;ConsignorRole"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+								<owl:allValuesFrom rdf:resource="&iof-constr;TransportationServiceProviderRole"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">bill of lading</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
@@ -401,19 +420,12 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								</owl:unionOf>
 							</owl:Class>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;owns"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-constr;Shipment">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-constr;isSpecifiedOutputOf"/>
-												<owl:someValuesFrom rdf:resource="&iof-constr;ShipmentPreparationProcess"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
+								<owl:onProperty rdf:resource="&iof-constr;agentIn"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;ConsigningProcess"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;agentIn"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;ShipmentPreparationProcess"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -435,12 +447,19 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 								</owl:unionOf>
 							</owl:Class>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;agentIn"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;ConsigningProcess"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;agentIn"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;ShipmentPreparationProcess"/>
+								<owl:onProperty rdf:resource="&iof-constr;owns"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-constr;Shipment">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-constr;isSpecifiedOutputOf"/>
+												<owl:someValuesFrom rdf:resource="&iof-constr;ShipmentPreparationProcess"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -1749,9 +1768,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material trade item role</rdfs:label>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
-		<skos:example>Physical Product (Each/Base Unit): A bottle of detergent, identified by a GTIN (UPC/EAN) for retail POS. Inner Pack: A box containing 6 bottles of the detergent. Case (Case/Outer Pack): A corrugated carton containing 4 inner packs. Pallet: A full pallet holding 20 cases of the detergent.</skos:example>
-		<skos:example>Software Subscription (as a Service), Example: 1-year CAD/CAM software license</skos:example>
+		<skos:example>role of a bottle of detergent, identified by a GTIN for retail , role of a box containing 6 bottles of the detergent available for sale, role of a corrugated carton containing 4 inner packs available for salem role of a full pallet holding 20 cases of the detergent available for sale.</skos:example>
 		<iof-av:firstOrderLogicDefinition>TradeItemRole(x) →
     ( Role(x) ∧
       ∃y ∃p ∃i (
