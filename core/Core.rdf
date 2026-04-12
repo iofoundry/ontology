@@ -3608,12 +3608,14 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
 		<skos:example>UNSPSC code 44121706 classifies a wooden pencil</skos:example>
-		<iof-av:explanatoryNote>1. classification of an entity is independent of its ontological type, but may ground it when the designated set corresponds to a defined class.
+		<iof-av:explanatoryNote>1. Any two entities classified by the same classifier are instances of a single, uniquely determined class; while the classifier classifies multiple entities, it designates one class that fixes their common type.
 
-2. The set designated by the classifier is an extension of the class it corresponds, i.e., every individual of the class is a member of the corresponding set instance. In this sense, the set is a punned instance of the class, i.e., shares the same IRI as the class.</iof-av:explanatoryNote>
+2. The set designated by a classifier corresponds to a class means that every instance of the class is a member of that set. In this sense, the set is treated as a punned individual of the class, sharing the same IRI while remaining semantically distinct.
+
+3. Although set and a ‘set member of’ constructs are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, setMemberOf(x, s) is to be understood as x∈s.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>classifies(c, x) ∧ designates(c, s) ∧ (s∼C) → ∀x (setMemberOf(x, s) ↔ instanceOf(x, C))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>classifies(c,x) → ∃s (Set(s) ∧ designates(c,s) ∧ setMemberOf(x, s))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>relation from an information content entity to an entity iff the entity belongs to the extension designated by the information content entity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>relation from an information content entity to an entity iff the entity belongs to the set designates by the information content entity</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if a classifier c designates a set s, and that set corresponds to a category class C, then the members of s are exactly the instances of C</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>if c classifies x, then there exists a set s such that c designates s and x is a member of s</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
@@ -4789,7 +4791,9 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
-		<iof-av:firstOrderLogicDefinition>categorizes(c1, c2) ↔ (classifies(c1, c2) ∧ ∃s1, s2 (designates(c1, s1) ∧ designates(c2, s2) ∧ s2 ∈ s1)))</iof-av:firstOrderLogicDefinition>
+		<skos:example>classifiers such as SUV, hatchback, and sedan are categorized under a higher-order classifier body style; classifiers like internal combustion, electric, and hybrid vehicles are categorized by fuel type; classifiers such as small, medium, and large are categorized by size; specific plasmid classifiers (e.g., pSEVA191) may be generalized by a classifier such as Ap, which is categorized by antibiotic resistance</skos:example>
+		<iof-av:explanatoryNote>Although set and a ‘set member of’ constructs are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, setMemberOf(x, s) is to be understood as x∈s.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>categorizes(c1, c2) ↔ (classifies(c1, c2) ∧ ∃s1, s2 (designates(c1, s1) ∧ designates(c2, s2) ∧ setMemberOf(s2, s1))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>relation between classifiers in which a higher-order classifier classifies a lower-order classifier and designates a set that has as members only sets designated by lower-order classifiers that it organizes</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>c1 ‘categorizes’ c2 if and only if c1 ‘classifies’ c2 and there exists some s1 and some s2 such that c1 ‘designates’ s1, c2 ‘designates’ s2, and s2 is an element of s1.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
@@ -4802,12 +4806,14 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
 		<owl:inverseOf rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/specializes"/>
 		<skos:altLabel>specialized by</skos:altLabel>
+		<skos:example>UNSPSC classifier code 26101500 for engines genralizes commodity classifier code 26101507 for turboshaft engines.</skos:example>
+		<iof-av:explanatoryNote>While not included as an axiom, an intermediate consequence of the condition described in LA1 is that s2 is &apos;sub set of&apos; s1, i.e., every &apos;set member of&apos; s2 is also a &apos;set member of&apos; s1.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: generalizes(c1, c2) ∧ designates(c1, s1) ∧ designates(c2,s2) ∧ (s1 ∼ C1) ∧ (s2 ∼ C2) → subClassOf(C2, C1)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: (∃p specializes(c,p))∧∀p(specializes(c, p) → classifies(p, x)) → classifies(c, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: (∃p generalizes(p, c))∧∀p(generalizes(p, c) → classifies(p, x)) → classifies(c, x))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>generalizes(c2​, c1​) ↔ ∀x(classifies(c2​, x) → classifies(c1​, x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>relation between two classifiers such that everything classified by the latter is also classified by the former</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If a classifier c1 generalizes a classifier c2, and c1 and c2 designate sets s1 and s2 that corresponds to class C1 and C2 respectively, then the class  corresponding to the more specific classifier c2 is a subclass of the class corresponding to the more general classifier c1</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if c ‘specializes’ at least one p and every p that c ‘specializes’ ‘classifies’ x, then c ‘classifies’ x</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If a classifier c1 generalizes a classifier c2, and c1 and c2 designate sets s1 and s2 that corresponds to class C1 and C2 respectively, then the class corresponding to the more specific classifier c2 is a subclass of the class corresponding to the more general classifier c1</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if at least one p ‘generalizes’ c and every p that ‘generalizes’ c also ‘classifies’ x, then c ‘classifies’ x</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/specializes">
