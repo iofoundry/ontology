@@ -47,7 +47,6 @@
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202601/core/Core/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
@@ -3420,12 +3419,20 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;categorizes">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-constr;generalizes">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
 		<skos:example>classifiers such as SUV, hatchback, and sedan are categorized under a higher-order classifier body style; classifiers like internal combustion, electric, and hybrid vehicles are categorized by fuel type; classifiers such as small, medium, and large are categorized by size; specific plasmid classifiers (e.g., pSEVA191) may be generalized by a classifier such as Ap, which is categorized by antibiotic resistance</skos:example>
 		<iof-av:explanatoryNote>1. The terms lower-order and higher-order are relative. In this pattern, a lower-order classifier is used to classify entities of a particular kind, whereas a higher-order classifier indicates a general basis on which the lower-order classifier classifies
 
 2. Although set and a ‘set member of’ constructs are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, setMemberOf(x, s) is to be understood as x∈s.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>categorizes(c1, c2) ∧ generalizes(c2, c3) → categorizes(c1, c3)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>categorizes(c1, c2) ↔ (classifies(c1, c2) ∧ ∃s1, s2 (designates(c1, s1) ∧ designates(c2, s2) ∧ setMemberOf(s2, s1))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between classifiers in which a higher-order classifier classifies a lower-order classifier and designates a set that has as members only sets designated by lower-order classifiers that it organizes</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if c1 &apos;categorizes&apos; c2 and c2 &apos;generalizes&apos; c3, then c1 also &apos;categorizes&apos; c3</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>c1 ‘categorizes’ c2 if and only if c1 ‘classifies’ c2 and there exists some s1 and some s2 such that c1 ‘designates’ s1, c2 ‘designates’ s2, and s2 is a set member of s1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -3463,7 +3470,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LA1: classifies(c,x) → ∃s (Set(s) ∧ designates(c,s) ∧ setMemberOf(x, s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: classifies(c,x) ∧ designates(c,s) → ∃C(Class(C) ∧ instanceOf(x,C) ∧ sameIRI(s,C) ∧ ∀y((setMemberOf(y,s) ↔ instanceOf(y,C)) ∧ (setMemberOf(y,s)  → classifies(c,y))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between an information content entity x and an entity y when the information content entity designates a set whose members are all the entities of a particular type and y is a member of that set</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if c classifies x, then there exists a set s such that c designates s and x is a member of s</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if c &apos;classifies&apos; x, then there exists a set s such that c &apos;designates&apos; s and x &apos;is a member of&apos; s</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if a classifier c classifies an entity x and designates a set s, then there exists a class C such that x is an instance of C, s and C share the same IRI, and, for every entity y, y is a member of s ifff y is an instance of C and if y is a set member of s then c classifies y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
@@ -3700,11 +3707,12 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 
 4. Although Set and subset of are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, subSetOf(s2, s1) is understood as s2 ⊆ s1.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: generalizes(c1, c2) ∧ designates(c1, s1) ∧ designates(c2,s2) → subSetOf(s2, s1)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀p∀x(generalizes(p, c) ∧ classifies(c, x)) → classifies(p, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: generalizes(p, c) ∧ classifies(c, x)) → classifies(p, x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>generalizes(c2​, c1​) ↔ ∀x(classifies(c2​, x) → classifies(c1​, x))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between two classifiers such that everything classified by the latter is also classified by the former</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If a classifier c1 generalizes a classifier c2, and c1 and c2 designate sets s1 and s2  then s2 is sub set of s1</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If a &apos;classifier&apos; c1 &apos;generalizes&apos; a &apos;classifier&apos; c2, and c1 and c2 &apos;designate&apos; sets s1 and s2  then s2 &apos;is subset of&apos; s1</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if p &apos;generalizes&apos; c and c &apos;classifies&apos; x, then p also &apos;classifies&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>‘c2’ generalizes ‘c1’ if and only if for every instance ‘x’, if ‘c2’ classifies ‘x’, then ‘c1’ classifies ‘x’.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasCapability">
