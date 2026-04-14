@@ -97,11 +97,38 @@
 		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a sampling process, in which material representing the entity of interest is withdrawn from the process stream and transported away from the process environment for analysis near the production area</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CultureFeedingStrategy">
+	<owl:Class rdf:about="&iof-construct;ControlStrategy">
 		<rdfs:subClassOf rdf:resource="&iof-core;PlanSpecification"/>
-		<rdfs:label>culture feeding strategy</rdfs:label>
-		<iof-av:explanatoryNote>A feeding strategy specifies how feeding processes are to be executed, rather than performing them. It defines scheduling and frequency and may also specify decision rules that determine feed additions, such as fixed pre-set schedules, condition-based triggers based on process measurements, or model-based rules. As a plan specification, it serves as a template guiding execution of one or more feeding processes. Feeding strategies are commonly used to maintain favorable culture conditions, sustain cell growth, and support or optimize product accumulation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>plan specification that prescribes how one or more feeding processes are to be executed during a cell culture process, including scheduling and amounts or rates, and any specified triggering conditions</iof-av:naturalLanguageDefinition>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PerformanceIndicatorSpecification">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessParameterSpecification">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;QualityAttributeSpecification">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">control strategy</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MonitoringAndControl/"/>
+		<skos:altLabel>integrated control strategy</skos:altLabel>
+		<skos:example>A control strategy for sterile filling includes gravimetric sensors to monitor and regulate fill volume (process parameter), cleanroom environmental monitoring to monitor particulate levels and temperature (quality attributes), and automated rejection of out-of-spec units. The process performance indicator is fill volume deviation rate, calculated as the percentage of vials outside volume targets; 
+A control strategy for fed-batch cell culture includes specifying a gas controller to regulate dissolved oxygen (process parameter), a pH control loop to maintain pH within range (process parameter), and monitoring of cell viability over time as a process performance indicator. It also specifies that the glycosylation profile and aggregate levels as critical quality attributes and their periodic monitoring throughout the culture using off-line analysis</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf and ISA88</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Per ICH: A planned set of controls, derived from current product and process understanding, that assures process performance and product quality. Control strategy can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in-process controls, finished product specifications, and the associated methods and frequency of monitoring and control.
+Per ICH: Quality risk management is used to establish the control strategy. This can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in process controls, finished product specifications, and the associated methods and frequency of monitoring and control. The control strategy should facilitate timely feedback / feedforward and appropriate corrective action and preventive action.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ControlStrategy(x) → PlanSpecification(x) ∧ ∃y((ProcessParameterSpecification(y) ∨ QualityAttributeSpecification(y) ∨PerformanceIndicatorSpecification(y)) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators associated with a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a control strategy.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InlineMonitoringProcess">
@@ -315,10 +342,17 @@
 	
 	<owl:Class rdf:about="&iof-construct;RetentionSampleRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialSample"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>retention sample role</rdfs:label>
+		<skos:example>A retained raw material sample kept in its original or equivalent packaging so it can be re-examined if a supplier-related issue arises; A media lot sample stored under specified conditions for future identity, quality, or investigation testing; A vial of finished drug product retained from a released batch for possible confirmatory testing during shelf life.</skos:example>
 		<iof-av:adaptedFrom>https://www.who.int/docs/default-source/medicines/norms-and-standards/guidelines/quality-control/trs929-annex4-guidelinessamplingpharmproducts.pdf?sfvrsn=f6273f30_2</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Commonly includes requirements on retained quantity (e.g., enough for confirmatory analyses) and on separate identification, packaging, sealing, and storage.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>role that is held by a sample that is set aside for future testing</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>role that is held by a material sample that is set aside for future testing or investigation</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SamplePlan">
@@ -372,6 +406,12 @@ Sample Size: Defines the number or quantity of items to be sampled at each inter
 						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-core;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;SamplePlan"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">sampling process</rdfs:label>
