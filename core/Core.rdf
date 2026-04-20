@@ -117,7 +117,7 @@
 2) Process profile types represent common attributes of many different types of processes.. For example, profile of temperature in any heating process, profile of pressure in a piston cycle or pneumatic system. Domain and application-specific taxonomies of process profile need be developed to catalog these subtypes.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>∀p, p&apos;, x (processProfileOf(p,x) ∧ temporalPartOf(p&apos;,p) → ∃x&apos; (processProfileOf(p&apos;,x&apos;) ∧ temporalPartOf(x&apos;,x)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>ProcessProfile(x) ↔ ∃y (Process(y) ∧ processProfileOf(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>process that is proper part of another process and that captures the time-dependent behavior of some attribute of that process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process that is proper part of another process and that captures the time-dependent behavior of some attribute of that process</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en">if p is &apos;process profile of&apos; x and p′ is a &apos;temporal part of&apos; p, then there exists some x′ such that p′ is &apos;process profile of&apos; x′ and x′ is a &apos;temporal part of&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process profile&apos; is defined as exactly an instance that is &apos;process profile of&apos; some &apos;process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -609,6 +609,28 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:synonym xml:lang="en-US">ability</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;Classifier">
+		<rdfs:label xml:lang="en-US">classifier</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Denoter">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;classifies"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>UNSPSC code 26101507 classifies  turboshaft engine, pBR322 classifies a plasmid</skos:example>
+		<iof-av:counterExample>serial number of a product, lot number of a lot</iof-av:counterExample>
+		<iof-av:firstOrderLogicDefinition>Classifier(x) ↔ Denoter(x) ∧ ∃e(classifies(x, e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">denoter that classifies some entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘classifier’ is defined exactly as an ‘information content entity’ that ‘classifies’ some entity</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;CommercialService">
 		<rdfs:subClassOf rdf:resource="&iof-constr;BusinessProcess"/>
 		<rdfs:subClassOf>
@@ -921,6 +943,29 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent role held by a person or organization when it utilizes the product or receives the service or subscribes to the commercial service agreement</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs for &apos;utilizing the product&apos; and &apos;subscribing to an agreement&apos; need to be formalized.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;customer role&apos; then x is an &apos;agent role&apos; that is the &apos;role of&apos; a &apos;person&apos; or &apos;organization&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;Denoter">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">denoter</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;denotes"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>&apos;vehicle identification number&apos; denotes a vehicle; &apos;ethanol&apos; is a name given by IUPAC which denotes molecules with the structure CH3-CH2-OH; 50-99-7 is a CAS registry number that denotes glucose; the lot identifier assigned to a batch of rivets just received from China by the Airbus final assembly plant in Toulouse, FR; URI of a website</skos:example>
+		<iof-av:explanatoryNote>A denoter is an information content entity used to distinguish an entity in a particular context. The relation denotes does not require uniqueness at either the individual level or the type level. More specific subclasses, such as identifier and classifier, should be used where stronger forms of distinction are needed. Identifier is used for individual-level uniqueness. Classifier is used for type-level uniqueness.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Denoter(x) ↔ InformationContentEntity(x) ∧ ∃e(Entity(e) ∧ denotes(x,e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that denotes some entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;denoter&apos; is defined as exactly an instance of &apos;information content entity&apos; that &apos;denotes&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;DescriptiveInformationContentEntity">
@@ -1402,7 +1447,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Identifier">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;Denoter"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;designates"/>
@@ -1415,11 +1460,11 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:adaptedFrom>https://www.omg.org/spec/Commons/Identifiers/Identifier</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1. Identifier can be just one designative ICE or consist of a combination of them. It can also be a combination of other types of information; for example, in a particular domain of discourse, a combination of first name and last name can provide sufficient uniqueness for entities in that domain.
 2. The designative property enforces uniqueness as it is a functional property. In other words, on the instance level, each instance of identifier designates exactly one instance of an entity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Identifier(x) → InformationContentEntity(x) ∧ ∃e(Entity(e) ∧ designates(x,e))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Identifier(x) → Denoter(x) ∧ ∃e(Entity(e) ∧ designates(x,e))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is used to uniquely identify an entity within a particular context</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">denoter that is used to uniquely identify an entity within a particular context</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely patterns to connect context to the identifier are still missing</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;identifier&apos; then x is an &apos;information content entity&apos; that &apos;designates&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;identifier&apos; then x is an &apos;denoter&apos; that &apos;designates&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;InformationContentEntity">
@@ -3356,6 +3401,80 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>x capability of y holds when x is a &apos;capability&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;categorizedBy">
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;classifiedBy"/>
+		<rdfs:label xml:lang="en-US">categorized by</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
+		<owl:inverseOf rdf:resource="&iof-constr;categorizes"/>
+		<iof-av:explanatoryNote>see the explanation under categorizes</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>categorizedBy(c1, c2) ↔ categorizes(c2, c1)</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a lower-order classifier by a higher-order classifier such that the latter classifier categorizes the former</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>c1 is &apos;categorized by&apos; c2 iff c2 categorizes c1</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;categorizes">
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;classifies"/>
+		<rdfs:label xml:lang="en-US">categorizes</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;categorizes">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-constr;generalizes">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:example>classifiers such as SUV, hatchback, and sedan are categorized under a higher-order classifier body style; classifiers like internal combustion, electric, and hybrid vehicles are categorized by fuel type; classifiers such as small, medium, and large are categorized by size; specific plasmid classifiers (e.g., pSEVA191) may be generalized by a classifier such as Ap, which is categorized by antibiotic resistance</skos:example>
+		<iof-av:explanatoryNote>1. The terms lower-order and higher-order are relative. In this pattern, a lower-order classifier is used to classify entities of a particular kind, whereas a higher-order classifier indicates a general basis on which the lower-order classifier classifies
+
+2. Although set and a ‘set member of’ constructs are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, setMemberOf(x, s) is to be understood as x∈s.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>categorizes(c1, c2) ∧ generalizes(c2, c3) → categorizes(c1, c3)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>categorizes(c1, c2) ↔ (classifies(c1, c2) ∧ ∃s1, s2 (designates(c1, s1) ∧ designates(c2, s2) ∧ setMemberOf(s2, s1))))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between classifiers in which a higher-order classifier classifies a lower-order classifier and designates a set that has as members only sets designated by lower-order classifiers that it organizes</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if c1 &apos;categorizes&apos; c2 and c2 &apos;generalizes&apos; c3, then c1 also &apos;categorizes&apos; c3</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>c1 ‘categorizes’ c2 if and only if c1 ‘classifies’ c2 and there exists some s1 and some s2 such that c1 ‘designates’ s1, c2 ‘designates’ s2, and s2 is a set member of s1</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;classifiedBy">
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
+		<rdfs:label xml:lang="en-US">classified by</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;InformationContentEntity"/>
+		<owl:inverseOf rdf:resource="&iof-constr;classifies"/>
+		<iof-av:explanatoryNote>See the explanatory note and detailed FOL formalization under classifies</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>classifiedBy(x,c) ↔ classifies(c,x)</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between an entity y and an information content entity x when the information content entity designates a set whose members are all the entities of a particular type and y is a member of that set</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is &apos;classified by&apos; c iff c classfies x</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;classifies">
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotes"/>
+		<rdfs:label xml:lang="en-US">classifies</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;generalizes">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-constr;classifies">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:example>UNSPSC code 44121706 classifies a wooden pencil</skos:example>
+		<iof-av:explanatoryNote>1. Any two entities classified by the same classifier are instances of a single, uniquely determined class; while the classifier classifies multiple entities, it designates one class that fixes their common type.
+
+2. The set designated by a classifier corresponds to a class means that every instance of the class is a member of that set. In this sense, the set is treated as a punned individual of the class, sharing the same IRI while remaining semantically distinct.
+
+3. Although set and a ‘set member of’ constructs are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, setMemberOf(x, s) is to be understood as x∈s.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: classifies(c,x) → ∃s (Set(s) ∧ designates(c,s) ∧ setMemberOf(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: classifies(c,x) ∧ designates(c,s) → ∃C(Class(C) ∧ instanceOf(x,C) ∧ sameIRI(s,C) ∧ ∀y((setMemberOf(y,s) ↔ instanceOf(y,C)) ∧ (setMemberOf(y,s)  → classifies(c,y))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between an information content entity x and an entity y when the information content entity designates a set whose members are all the entities of a particular type and y is a member of that set</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if c &apos;classifies&apos; x, then there exists a set s such that c &apos;designates&apos; s and x &apos;is a member of&apos; s</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if a classifier c classifies an entity x and designates a set s, then there exists a class C such that x is an instance of C, s and C share the same IRI, and, for every entity y, y is a member of s ifff y is an instance of C and if y is a set member of s then c classifies y</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;componentPartOfAtAllTimes">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000137"/>
@@ -3555,6 +3674,46 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>functionOf(x,y) → Function(x) ∧ IndependentContinuant(y) ∧ inheresIn(x,y)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a function to an independent continuant (the bearer), in which the function specifically depends on the bearer for its existence</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x function of y holds when x is a &apos;function&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;generalizedBy">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
+		<rdfs:label xml:lang="en-US">generalized by</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
+		<owl:inverseOf rdf:resource="&iof-constr;generalizes"/>
+		<skos:altLabel>specializes</skos:altLabel>
+		<iof-av:explanatoryNote>See the expanded formalization and explanation under generalizes</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>generalizedBy(c1, c2) ↔ generalizes(c2, c1)</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between two classifiers such that everything classified by the former is also classified by the latter</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>c1 is &apos;generalized by&apos; c2 iff c2 generalizes c1</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;generalizes">
+		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotes"/>
+		<rdfs:label xml:lang="en-US">generalizes</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
+		<skos:altLabel>specialized by</skos:altLabel>
+		<skos:example>UNSPSC classifier code 26101500 for engines genralizes commodity classifier code 26101507 for turboshaft engines.</skos:example>
+		<iof-av:explanatoryNote>1. Since the set designated by a classifier corresponds to a class, a subset relation between designated sets implies a subclass relation between the corresponding classes: if s2 is a subset of s1, then the class corresponding to s2 is a subclass of the class corresponding to s1. In this sense, the classifier being generalized is associated with a more specific class, while the classifier that generalizes it is associated with a more general class.
+
+2. For further details on what it means for a set to correspond to a class, see the FOL formalization and explanatory note for classifier.
+
+3. Generalizes is asymmetric and transitive. Accordingly, if one classifier generalizes a second classifier, the second does not generalize the first; and if a first classifier generalizes a second and the second generalizes a third, then the first also generalizes the third.
+
+4. Although Set and subset of are not explicitly available in the current release, standard set-theoretic semantics are assumed; in particular, subSetOf(s2, s1) is understood as s2 ⊆ s1.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: generalizes(c1, c2) ∧ designates(c1, s1) ∧ designates(c2,s2) → subSetOf(s2, s1)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: generalizes(p, c) ∧ classifies(c, x)) → classifies(p, x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>generalizes(c2​, c1​) ↔ ∀x(classifies(c2​, x) → classifies(c1​, x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between two classifiers such that everything classified by the latter is also classified by the former</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If a &apos;classifier&apos; c1 &apos;generalizes&apos; a &apos;classifier&apos; c2, and c1 and c2 &apos;designate&apos; sets s1 and s2  then s2 &apos;is subset of&apos; s1</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if p &apos;generalizes&apos; c and c &apos;classifies&apos; x, then p also &apos;classifies&apos; x</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>‘c2’ generalizes ‘c1’ if and only if for every instance ‘x’, if ‘c2’ classifies ‘x’, then ‘c1’ classifies ‘x’.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasCapability">
@@ -4361,7 +4520,7 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">A delivery process is temporally finished by the generation of “proof of delivery”; a football match is temporally finished by the Referee’s final whistle; every week is temporally finished by a Sunday.</skos:example>
 		<iof-av:adaptedFrom>https://dl.acm.org/doi/10.1145/182.358434</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>temporallyFinishedBy(x,y) ↔ temporallyFinishes(y,x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is precedes the first instant of j</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the last instant of the temporal extent of i and the first instant of i is preceded by the first instant of j</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;temporally finished by&apos; and &apos;temporally finishes&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
@@ -4395,7 +4554,7 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:firstOrderLogicAxiom>LA2: TemporalInterval(i) ∧ TemporalInterval(j) ∧ temporallyFinishes(i,j) → ∃i1∃i2∃j1∃j2(TemporalInstant(i1) ∧ TemporalInstant(i2) ∧ TemporalInstant(j1) ∧ TemporalInstant(j2) ∧ hasFirstInstant(i,i1) ∧ hasLastInstant(i,i2) ∧ hasFirstInstant(j,j1) ∧ hasLastInstant(j,j2) ∧ occursSimultaneouslyWith(i2,j2) ∧ precedes(j1,i1))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA3: Process(i) ∧ Process(j) ∧ temporallyFinishes(i,j) → ∃i1∃j1(TemporalInterval(i1) ∧ TemporalInterval(j1) ∧ occupiesTemporalRegion(i,i1) ∧ occupiesTemporalRegion(j,j1) ∧ temporallyFinishes(i1,j1))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA4: temporallyFinishes(i,j) ↔ ∃k∃l(meets(i,k)∧meets(j,k) ∧ before(l,i) ∧ meets(l,j))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j is precedes the first instant of i</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of i is the same as the last instant of the temporal extent of j and the first instant of j precedes the first instant of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If i &apos;temporally finishes&apos; j then either both are &apos;temporal intervals&apos; or both are &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally finishes&apos; j then the &apos;last instant’ of i ‘occurs simultaneously with’ the &apos;last instant of&apos; j and the &apos;first instant of&apos; j &apos;precedes&apos; the &apos;first instant’ of i</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally finishes&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporally finishes&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>

@@ -64,36 +64,42 @@
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;CASRegistryNumber">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Classifier"/>
 		<rdfs:label xml:lang="en-US">CAS registry number</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
 		<skos:altLabel xml:lang="en-US">CAS number</skos:altLabel>
-		<skos:example>64-19-7 denotes acetic acid.; 50-00-0 denotes formaldehyde</skos:example>
+		<skos:example>64-19-7 classifies acetic acid.; 50-00-0 classifies formaldehyde</skos:example>
 		<iof-av:adaptedFrom>https://www.cas.org/cas-data/cas-registry</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Governmental agencies rely on CAS Registry Numbers for substance identification in regulatory applications because they are unique, easy validated, and internationally recognized.
 2) A CAS Registry Number is assigned by the Chemical Abstracts Service to uniquely identify a chemical substance within its curated registry. Each CAS number corresponds to a single substance entry, supporting consistent reference across scientific, regulatory, and industrial domains. The number follows a standard format of three digit groups separated by hyphens (e.g., 7732-18-5 for water).</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CASRegistryNumber(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CASRegistryNumber(x) → Classifier(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is a sequence of digits defined within the chemical abstracts service (CAS) registry, which uniquely denotes a type of chemical substance</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">classifier that is a sequence of digits defined within the chemical abstracts service (CAS) registry, which classifies  a type of chemical substance</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient ontological constructs available to define the necessary and sufficient conditions for this class. Specifically, constructs for expressing unique identification at the type level, chemical entities and the structured scheme by which CAS Registry Numbers are created are missing.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;CAS registry number&apos; then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;CAS registry number&apos; then x is a &apos;classifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:usageNote>Since CAS Registry Numbers provide unique identification at the type level, the property denotes should be used as it is not constrained to be functional. The property designates must not be used in this context, as it is functional and implies reference to a single individual, which would incorrectly constrain the CAS Registry Number to denote only one instance rather than a chemical type.</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CatalogNumber">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Classifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialProduct"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">catalog number</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
 		<skos:altLabel>product type identifier</skos:altLabel>
 		<skos:example>G8270 is the catalog number of glucose created by SigmaAldrich; 23225 is the catalog number for the Pierce BCA Protein Assay Kit created by ThermoFisher;17543801 is the catalog number for MabSelect SuRe resins 25ml created by Cytiva; 17543802 is  the catalog number for MabSelect SuRe resins 25ml created by Cytiva</skos:example>
 		<iof-av:counterExample>number of a particular lot or batch</iof-av:counterExample>
-		<iof-av:firstOrderLogicAxiom>CatalogNumber(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CatalogNumber(x) → Classifier(x) ∧ ∃m(MaterialProduct(m) ∧ classifies(x,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is sequence of alphanumeric characters created by an organization to denote a type of a product they offer for sale</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">classifier that is sequence of alphanumeric characters created by an organization to classify a product they offer for sale</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient ontological constructs available to define the necessary and sufficient conditions for this class. Specifically, constructs for expressing unique identification at the type level, and constructs around creation of a number by an organization are missing.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;catalog number&apos; then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;catalog number&apos; then x is an &apos;classifier&apos; and x &apos;classifies&apos; a &apos;material product&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CertificateOfAnalysis">
@@ -220,13 +226,13 @@
 		<rdfs:label xml:lang="en-US">enterprise resource planning code</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
-		<skos:example>An ERP code assigned to a lot of cell culture media manufactured in a pharmaceutical company, used to track the batch through inventory, quality control, and release processes. Another ERP code may identify a specific media formulation type purchased from a supplier, while yet another code denotes the supplier itself for integration into the procurement workflow.</skos:example>
+		<skos:example>An ERP code assigned to a lot of cell culture media manufactured in a pharmaceutical company, used to track the batch through inventory, quality control, and release processes. Another ERP code may identify a specific media formulation type purchased from a supplier, while yet another code designates the supplier itself for integration into the procurement workflow.</skos:example>
 		<iof-av:abbreviation xml:lang="en-US">ERP code</iof-av:abbreviation>
 		<iof-av:explanatoryNote>1) the erp code are typically assigned within the master data (data that does not change over time) as opposed to transactional data
 2) the erp code typically used as primary key in master data within ERP</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ERPCode(x) → InformationSystemSpecificCode(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier of an entity within an enterprise resource planning (ERP) system</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information system specific code of an entity within an enterprise resource planning (ERP) system</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Same primitive rationale as the primitive rationale under the information system specific code.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;ERP code&apos;, then x is an &apos;information system specific code&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -251,15 +257,29 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InformationSystemSpecificCode">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;Denoter"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;designates"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">information system specific code</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MaterialProcurementAndStorage/"/>
 		<skos:example>ERP code is an identifier within an ERP system</skos:example>
-		<iof-av:firstOrderLogicAxiom>InformationSystemSpecificCode(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>InformationSystemSpecificCode(x) → InformationContentEntity(x) ∧ ∃y( Entity(y)  ∧ designates(x,y) ∨ classifies(x,y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that uniquely identifies an entity or entity type within some information system that is internal to a particular organization</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to provide necessary and sufficient conditions. &apos;Information system&apos; is missing as well as the constructs for denoting an entity type</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information system specific code&apos;, then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">denoter that designates or classifies an entity or entity type within some information system that is internal to a particular organization</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs (such as  &apos;Information system&apos;) in the ontology to provide necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information system specific code&apos;, then x is an &apos;denoter&apos; that &apos;classifies&apos; or &apos;denotes&apos; some &apos;entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;hasMaterialExpirationTimeInstantValueExpression">
