@@ -82,23 +82,17 @@
 	
 	<owl:Class rdf:about="&iof-construct;CaptureStep">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">capture step</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>A capture purification process uses protein A chromatography to retain monoclonal antibodies while host cell proteins flow through; A capture purification process applies ion exchange chromatography to bind recombinant proteins from cell culture supernatant; A capture purification process employs affinity membranes to isolate His-tagged proteins from bacterial lysates; A capture purification process uses mixed-mode chromatography to retain viral vectors while impurities are washed away;</skos:example>
 		<iof-av:counterExample>A flowthrough chromatography process removes DNA and endotoxins while the target protein does not bind to the column; A depth filtration process removes cells and debris without selectively retaining the target molecule;</iof-av:counterExample>
 		<iof-av:explanatoryNote xml:lang="en-US">The reversible nature of retention implies that conditions such as buffer composition or pH can be adjusted to reverse the binding of the target molecule, allowing its release from the capture medium and enabling purification to continue.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CaptureStep(x) → PurificationProcess(x) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CaptureStep(x) → PurificationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">purification process in which target molecules are selectively and reversibly retained while impurities are allowed to pass through in the flowthrough or wash fractions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;capture step&apos; then x is a &apos;purification process&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;capture step&apos; then x is a &apos;purification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellBanking">
@@ -109,24 +103,17 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell banking</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>establishing a master cell bank by freezing aliquots of a cloned HEK293 cell line under GMP conditions; banking the Vero cell line in cryopreservation medium supplemented with DMSO and storing it in vapor-phase liquid nitrogen for future vaccine manufacturing; banking a hybridoma cell line after single-cell cloning and characterization to preserve monoclonal antibody production capability</skos:example>
 		<iof-av:explanatoryNote>1) It ensures a reliable, consistent, and well-characterized source of cells, reducing the need for constant cell culture and mitigating risks associated with genetic drift or contamination.
 2) Examples of future use include  research, drug development, and manufacturing of biopharmaceuticals</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellBankingProcess(x) → StorageProcess(x) ∧ ∃y (CellLine(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (RecipeProcessOperation(z) ∧ prescribedBy(x, z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellBankingProcess(x) → StorageProcess(x) ∧ ∃y (CellLine(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">storage process of preserving and maintaining cell lines for future use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell banking process&apos; then x is a &apos;storage process&apos; that &apos;has participant at some time&apos; some &apos;cell line&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;
-`</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell banking process&apos; then x is a &apos;storage process&apos; that &apos;has participant at some time&apos; some &apos;cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureExpansionProcess">
@@ -203,12 +190,6 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;temporallyStartedBy"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;GeneticTransformationProcess"/>
 			</owl:Restriction>
@@ -224,11 +205,11 @@
 3) Cell line development is one of the first steps in the process of developing a biopharmaceutical product. This step is time consuming and resource-intense.
 4) Engineering in this context means that the cell line is created, either through passaging of a primary cell culture to relative genetic stability and compositional homogeneity, or through some experimental modification of an existing cell line to produce a new line with novel characteristics (e.g. immortalization or some other stable genetic modification).
 5) Regulatory standards in biologics require proof of monoclonality for a production cell line. This implies that it originates from a single progenitor cell, regardless of whether one calls it a clone or a line. In practice, a clone is the starting point for development: once selected and scaled, it becomes a permanent cell line with specific attributes used for product manufacture.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → ManufacturingProcess(x) ∧ ∃g ∃c (GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ ∃r (RecipeProcess(r) ∧ prescribes(r, x)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → ManufacturingProcess(x) ∧ ∃g ∃c (GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which a cell line is engineered to produce a therapeutic biomolecule or biologic</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;manufacturing process&apos; and &apos;has occurrent part&apos; some &apos;genetic transformation process&apos; that &apos;precedes&apos; some &apos;clone selection process&apos; and &apos;has occurrent part&apos; some &apos;clone selection process&apos; and &apos;has specified output&apos; some &apos;cell line&apos; and is &apos;prescribed by&apos; some &apos;recipe process&apos; and is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; and either &apos;meets&apos; some &apos;cell banking&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;manufacturing process&apos; and &apos;has occurrent part&apos; some &apos;genetic transformation process&apos; that &apos;precedes&apos; some &apos;clone selection process&apos; and &apos;has occurrent part&apos; some &apos;clone selection process&apos; and &apos;has specified output&apos; some &apos;cell line&apos; and is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; and either &apos;meets&apos; some &apos;cell banking&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellPopulationProliferation">
@@ -253,21 +234,15 @@
 	
 	<owl:Class rdf:about="&iof-construct;CentrifugationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">centrifugation process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Latex is concentrated by centrifugation to separate rubber particles from field latex; Centrifugation is used to harvest CHO cells by separating them from spent culture media after production; Spinning blood samples to separate plasma for diagnostic testing; Centrifuging cell lysates to remove debris before protein quantification;</skos:example>
 		<iof-av:adaptedFrom>OBI:0302886</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>CentrifugationProcess(x) → PlannedProcess(x) ∧ ∃y(RecipeProcessOperation(y) ∧ prescribes(y, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CentrifugationProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which particles such as cells, organelles, or molecules are separated based on size or density by applying centrifugal forces generated by a spinning rotor</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;centrifugation process&apos; then x is a &apos;planned process&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;centrifugation process&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChemicalSynthesisProcess">
@@ -297,18 +272,12 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;StationaryPhase"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">chromatography process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>In the recombinant human insulin manufacturing process, a Size Exclusion Chromatography (SEC) process is used for the final polishing step using Sephadex G-25 to remove salts and ensure the proper molecular weight distribution of insulin; Industrial plants devoted to the processing of Corn use a continuous simulated moving bed (SMB) chromatography process to separate fructose from glucose</skos:example>
 		<iof-av:adaptedFrom>CHMO:0001000</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The phase moving in a definite direction is called a mobile phase and is a fluid</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ChromatographyProcess(x) → PlannedProcess(x) ∧ ∃y (MobilePhase(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (StationaryPhase(z) ∧ hasParticipantAtSomeTime(x, z)) ∧ ∃w (RecipeProcessOperation(w) ∧ prescribes(w, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ChromatographyProcess(x) → PlannedProcess(x) ∧ ∃y (MobilePhase(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (StationaryPhase(z) ∧ hasParticipantAtSomeTime(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that results in the separation of components in a mixture based on their distribution between two phases, one of which is stationary and the other moves in a definite direction</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
@@ -323,22 +292,16 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;ClonedCellLine"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">clone selection process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>using microscope images from clone experiments as input to a predictive model to prioritize clones, followed by selecting candidates with optimal morphology and expression levels; selecting clones based on functional assays confirming high target protein activity and long-term culture stability; manually screening clones under a microscope and selecting those with optimal morphology and growth behavior</skos:example>
 		<iof-av:explanatoryNote>Desirable characteristics can be things such as high protein expression levels, consistent product quality, and robust growth</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CloneSelectionProcess(x) → PlannedProcess(x) ∧ ∃y (ClonedCellLine(y) ∧ hasSpecifiedOutput(x, y)) ∧ ∃z (RecipeProcessStage(z) ∧ prescribes(z, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CloneSelectionProcess(x) → PlannedProcess(x) ∧ ∃y (ClonedCellLine(y) ∧ hasSpecifiedOutput(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned processs in which an optimal set of cell clones is identified and isolated based on the clones exibiting desirable characteristics</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;clone selection process&apos; then x is a &apos;planned process&apos; and &apos;has specified output&apos; some &apos;cloned cell line&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;clone selection process&apos; then x is a &apos;planned process&apos; and &apos;has specified output&apos; some &apos;cloned cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CloneStabilityStudy">
@@ -445,12 +408,6 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;FiltrationProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">diafiltration process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
@@ -458,30 +415,23 @@
 		<iof-av:explanatoryNote>Diafiltration can be conducted either in a continous or discontinous manner:
 Continuous diafiltration: Buffer is added continuously as filtrate is removed, maintaining a constant volume and concentration of the target molecule. 
 Discontinuous diafiltration: Involves diluting the sample, concentrating it back, and repeating this process multiple times.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>DiafiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (DilutionProcess(y) ∧ hasOccurrentPart(x, y)) ∧ ∃z (FiltrationProcess(z) ∧ hasOccurrentPart(x, z)) ∧ ∃s (RecipeProcessStage(s) ∧ prescribes(s, x)) ∧ (∃y ∃z (DilutionProcess(y) ∧ FiltrationProcess(z) ∧ hasOccurrentPart(x, y) ∧ hasOccurrentPart(x, z) ∧ (before(y, z) ∨ occursSimultaneouslyWith(y, z))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DiafiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (DilutionProcess(y) ∧ hasOccurrentPart(x, y)) ∧ ∃z (FiltrationProcess(z) ∧ hasOccurrentPart(x, z)) ∧ (∃y ∃z (DilutionProcess(y) ∧ FiltrationProcess(z) ∧ hasOccurrentPart(x, y) ∧ hasOccurrentPart(x, z) ∧ (before(y, z) ∨ occursSimultaneouslyWith(y, z))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of either multiple cycles of dilution followed by filtration, or of dilution and filtration occurring simultaneously, to remove unretained solutes or to exchange the solution&apos;s solvent or buffer environment</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;diafiltration process&apos; then x is a &apos;planned process&apos; and &apos;has occurrent part&apos; some &apos;dilution process&apos; and &apos;has occurrent part&apos; some &apos;filtration process&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos; and (&apos;has occurrent part&apos; some &apos;dilution process&apos; that &apos;occurs before&apos; some &apos;filtration process&apos; or &apos;occurs simultaneously with&apos; some &apos;filtration process&apos;)</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;diafiltration process&apos; then x is a &apos;planned process&apos; and &apos;has occurrent part&apos; some &apos;dilution process&apos; and &apos;has occurrent part&apos; some &apos;filtration process&apos; and the &apos;dilution process&apos;  &apos;occurs before&apos; the &apos;filtration process&apos; or &apos;occurs simultaneously with&apos; the &apos;filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DilutionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SolutionPreparationProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">dilution process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>diluting a 10× phosphate-buffered saline (PBS) stock with water to make a 1× working solution</skos:example>
-		<iof-av:firstOrderLogicAxiom>DilutionProcess(x) → SolutionPreparationProcess(x) ∧ ∃y (RecipeProcessOperation(y) ∧ prescribes(y, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DilutionProcess(x) → SolutionPreparationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">solution preparation process in which a solvent is added to a solution to reduce the concentration of one or more solutes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dilution process&apos; then x is a &apos;solution preparation process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dilution process&apos; then x is a &apos;solution preparation process&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DirectFlowFiltration">
@@ -511,22 +461,16 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	
 	<owl:Class rdf:about="&iof-construct;DrugProductFormulationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">drug product formulation process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>The drug formulation process of Simvastatin (drug used to lower cholesterol and triglycerides) tablets comprises the combination of the API with a selection of appropriate pharmaceutical excipients that ensure the tablet&apos;s structure, stability, proper absorption in the body, and manufacturability.</skos:example>
 		<iof-av:adaptedFrom>https://renejix.com/what-is-drug-formulation/</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>DrugProductFormationProcess(x) → ManufacturingProcess(x) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DrugProductFormulationProcess(x) → ManufacturingProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which various components are combined to create a drug product that is safe, effective, and stable for patient use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug product formation process&apos; then x is a &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug product formulation process&apos; then x is a &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FiltrationProcess">
@@ -537,12 +481,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 				<owl:someValuesFrom rdf:resource="&iof-construct;Filter"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">filtration process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
@@ -550,11 +488,11 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:explanatoryNote>1) Passing can be conducted by using gravity or by using pressure.
 2) According to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal, direct, perpendicular) l filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration are modeled as defined subclasses of filtration.
 3) Filtration is a separation technique predominantly based on particle size, where components are retained or passed through a porous medium depending on their dimensions relative to the pore size. However, in some cases, additional characteristics such as particle shape and electrostatic charge can significantly influence retention behavior and selectivity of the filter used in the process.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (Filter(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (RecipeProcessOperation(z) ∧ prescribes(z, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (Filter(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which suspended solids or dissolved components are separated from a fluid by passing it through a filter</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filtration process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;filter&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filtration process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FluidFlowOrientation">
@@ -596,42 +534,34 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	
 	<owl:Class rdf:about="&iof-construct;HarvestingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">harvesting process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;PurificationProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;BiomanufacturingProductionProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example>Harvesting was carried out by depth filtration of a CHO cell culture to remove cells and debris, yielding a clarified supernatant containing the secreted monoclonal antibody for downstream purification; Harvesting was performed by collecting E. coli cells at early log phase (OD₆₀₀ ≈ 0.3–0.4) during cultivation at 37 °C. The culture was rapidly chilled on ice and centrifuged at 4 °C and 4,000 × g for 10 minutes to separate the biomass from the culture medium;</skos:example>
 		<iof-av:adaptedFrom>https://books.google.rs/books?hl=sr&amp;lr=&amp;id=p-rKBQAAQBAJ&amp;oi=fnd&amp;pg=PP1&amp;dq=bioseparation+processes+harvesting&amp;ots=eFDtLSUJ0I&amp;sig=XjzTFnAmknXNjFlSWHpkkTtpHg0&amp;redir_esc=y#v=onepage&amp;q=bioseparation%20processes%20harvesting&amp;f=false”</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Harvesting  utilizes one or more sequential unit operations, such as centrifugation, filtration, cell concentration and membrane separation.The specific unit operations depend on whether the target product is located inside the cells (intracellular) or secreted into the medium (extracellular), or the cells themselves.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>HarvestingProcess(x) ↔ PurificationProcess(x) ∧ ∃m∃p∃s(ProcessIntermediateMaterial(m) ∧ BiomanufacturingProductionProcess(p) ∧ isSpecifiedOutputOf(m, p) ∧ hasInput(x, m) ∧ RecipeProcessStage(s) ∧ prescribedBy(x, s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>HarvestingProcess(x) → PurificationProcess(x) ∧ ∃m∃p(ProcessIntermediateMaterial(m) ∧ BiomanufacturingProductionProcess(p) ∧ isSpecifiedOutputOf(m, p) ∧ hasInput(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">purification process that has as input the specified output of a biomanufacturing production process and that results in the separation or recovery of biotechnology products from the associated process streams, typically through the isolation or removal of cells, cell debris, or other bulk impurities</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;harvesting process&apos; is defined exactly as an instance of &apos;purification process&apos; that &apos;has input&apos; some &apos;process intermediate material&apos; which &apos;is specified output of&apos; some &apos;biomanufacturing production process&apos; and that &apos;is prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;harvesting process&apos; then x is a &apos;purification process&apos; that &apos;has input&apos; some &apos;process intermediate material&apos; which &apos;is specified output of&apos; some &apos;biomanufacturing production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;LiquidChromatographyProcess">
@@ -741,33 +671,21 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 	
 	<owl:Class rdf:about="&iof-construct;PolishingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PurificationProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">polishing process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>anion exchange chromatography used to remove residual DNA and endotoxins from a monoclonal antibody solution; cation exchange chromatography applied to reduce host cell protein levels and achieve charge variant specification; nanofiltration performed as a polishing step to remove trace viral particles following prior inactivation;</skos:example>
 		<iof-av:counterExample>protein A affinity chromatography used as a primary capture step for monoclonal antibodies; depth filtration of harvested cell culture fluid to remove cells and debris; anion exchange chromatography used early in a multi-step purification to remove bulk impurities;</iof-av:counterExample>
 		<iof-av:explanatoryNote>Polishing typically follows primary capture and intermediate purification. It removes residual impurities such as host cell proteins, DNA, viruses, and product variants, and is performed prior to formulation and fill–finish step</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PolishingProcess(x) → PurificationProcess(x) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PolishingProcess(x) → PurificationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">purification process in which minute amounts of impurities are removed and that occurs as one of the final processes of drug substance manufacturing process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;polishing process&apos; then x is a &apos;purification process&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;polishing process&apos; then x is a &apos;purification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PoolingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">pooling process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
@@ -776,11 +694,11 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:explanatoryNote>1) This process is typically employed to reduce batch-to-batch variability or to ensure consistent quality attributes before further processing or final release.
 2) Pooling can be used to define a lot of material for further processing or release, ensuring a consistent product stream.
 3) Not to be confused with Test pooling, which is a testing strategy where individual samples are combined into a single pooled sample for initial testing. If the pooled sample tests negative/correct, all individuals in the pool are considered negative/correct. If the pooled sample tests positive/out of specs, individual samples within the pool are then re-tested to identify the positive/out of specs individual(s). This method is used to reduce testing costs and resources, particularly when dealing with a large number of samples and a low prevalence of the target condition.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PoolingProcess(x) → ManufacturingProcess(x) ∧ ∃r (RecipeProcessOperation(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PoolingProcess(x) → ManufacturingProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which two or more batches of a product or intermediate are combined to produce a single, larger volume that is more homogenous</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pooling process&apos; then x is a &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pooling process&apos; then x is a &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionCultureProcess">
@@ -804,19 +722,15 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 						<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
 						<owl:someValuesFrom rdf:resource="&iof-construct;SeedTrain"/>
 					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>A production culture process grows HEK293 cells in suspension to generate viral vectors for gene therapy;A production culture process uses CHO cells in a fed-batch bioreactor to produce monoclonal antibodies;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/170955/download and https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q7a-good-manufacturing-practice-guidance-active-pharmaceutical-ingredients</iof-av:adaptedFrom>
 		<iof-av:counterExample>shake flask studies; seed train bioreactor runs;Cell-free protein synthesis;</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>ProductionCultureProcess(x) ↔ BiomanufacturingProductionProcess(x) ∧ ∃y (CellCulture(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃s (SeedTrain(s) ∧ precededBy(x, s)) ∧ ∃b (Bioreactor(b) ∧ hasParticipantAtSomeTime(x, b)) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ProductionCultureProcess(x) ↔ BiomanufacturingProductionProcess(x) ∧ ∃y (CellCulture(y) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃s (SeedTrain(s) ∧ precededBy(x, s)) ∧ ∃b (Bioreactor(b) ∧ hasParticipantAtSomeTime(x, b))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">biomanufacturing production process during which a cell culture synthesizes, secretes, or accumulates the target product in a controlled environment provided by a bioreactor following expansion in a seed train</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;production culture process&apos; is defined as exactly an instance of &apos;biomanufacturing production process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;, is &apos;preceded by&apos; some &apos;seed train&apos;, &apos;has participant at some time&apos; some &apos;bioreactor&apos;, and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;production culture process&apos; is defined as exactly an instance of &apos;biomanufacturing production process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;, is &apos;preceded by&apos; some &apos;seed train&apos;, &apos;has participant at some time&apos; some &apos;bioreactor&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PurificationProcess">
@@ -833,149 +747,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which an input material is separated into multiple output fractions, such that one or more fractions are enriched in a target component, while the remaining fractions contain predominantly impurities and are discarded or excluded from further use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;purification process&apos; then x is a &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;RecipeProcessActionOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RecipeProcessElementOccurrence"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:complementOf rdf:resource="&iof-construct;RecipeProcessActionOccurrence"/>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">recipe process action occurrence</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessAction"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
-		<iof-av:firstOrderLogicDefinition>RecipeProcessActionOccurrence(x) ↔ RecipeProcessElementOccurrence(x) ∧ ∃y (RecipeProcessAction(y) ∧ isPrescribedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe process action</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe process action occurrence&apos; is exactly an instance of &apos;recipe process element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe process action&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:label xml:lang="en-US">recipe process element occurrence</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessElement"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
-		<iof-av:firstOrderLogicDefinition>RecipeProcessElementOccurrence(x) ↔ PlannedProcess(x) ∧ ∃y (RecipeProcessElement(y) ∧ isPrescribedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe process element</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe process element occurrence&apos; is exactly an instance of &apos;planned process&apos; that &apos;is prescribed by&apos; some &apos;recipe process element&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;RecipeProcessOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RecipeProcessElementOccurrence"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStageOccurrence"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">recipe process occurrence</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
-		<iof-av:firstOrderLogicDefinition>RecipeProcessOccurrence(x) ↔ RecipeProcessElementOccurrence(x) ∧ ∃y (RecipeProcess(y) ∧ isPrescribedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe process action occurrence&apos; is exactly an instance of &apos;recipe process element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;RecipeProcessOperationOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RecipeProcessElementOccurrence"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessActionOccurrence"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">recipe process operation occurrence</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
-		<iof-av:firstOrderLogicDefinition>RecipeProcessOperationOccurrence(x) ↔ RecipeProcessElementOccurrence(x) ∧ ∃y (RecipeProcessOperation(y) ∧ isPrescribedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe process operation</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe process operation occurrence&apos; is exactly an instance of &apos;recipe process element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;RecipeProcessStageOccurrence">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RecipeProcessElementOccurrence"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperationOccurrence"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">recipe process stage occurrence</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;RecipeProcessElementOccurrence">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
-		<iof-av:firstOrderLogicDefinition>RecipeProcessStageOccurrence(x) ↔ RecipeProcessElementOccurrence(x) ∧ ∃y (RecipeProcessStage(y) ∧ isPrescribedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe process stage</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe process stage occurrence&apos; is exactly an instance of &apos;recipe process element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-		<iof-av:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted as a subclass of this class.</iof-av:usageNote>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ReversePhaseChromatographyProcess">
@@ -1048,10 +819,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 							</owl:Class>
 						</owl:someValuesFrom>
 					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
@@ -1060,9 +827,9 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:explanatoryNote>1) The seed train is a series of steps used to generate the sufficient amount of viable cells for large-scale production of vaccines, viral vectors, monoclonal antibodies and other biologics. The purpose of the seed train is to progressively grow and expand the initial small-scale cell culture to inoculate the large-scale bioreactor for higher capacity production.
 2) A single cell culture expansion process within the seed train is also called as a &quot;passage&quot;
 3)&gt;the following terms are commonly used when discussing a seed train or inoculum expansion with multiple steps: “N” refers to the production vessel; “N-1” refers to the final expansion used to inoculate the production vessel; “N-2” refers to the expansion before that, used to inoculate the N-1, and so on</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>SeedTrain(x) ↔ ManufacturingProcess(x) ∧ ∃a (CellCulture(a) ∧ hasInput(x, a)) ∧ ∃b (CellCultureExpansionProcess(b) ∧ hasOccurrentPart(x, b)) ∧ ∃c (CellCulture(c) ∧ hasSpecifiedOutput(x, c) ∧ ∃i ∃p ∃s (InputSpecification(i) ∧ PlanSpecification(p) ∧ RecipeProcessStage(s) ∧ satisfiesRequirement(c, i) ∧ continuantPartOfAtAllTimes(i, p) ∧ prescribes(p, s) ∧ ProductionCultureProcess(y) ∧ prescribes(s, y))) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>SeedTrain(x) ↔ ManufacturingProcess(x) ∧ ∃a (CellCulture(a) ∧ hasInput(x, a)) ∧ ∃b (CellCultureExpansionProcess(b) ∧ hasOccurrentPart(x, b)) ∧ ∃c (CellCulture(c) ∧ hasSpecifiedOutput(x, c) ∧ ∃i ∃p ∃s (InputSpecification(i) ∧ PlanSpecification(p) ∧ RecipeProcessStage(s) ∧ satisfiesRequirement(c, i) ∧ continuantPartOfAtAllTimes(i, p) ∧ prescribes(p, s) ∧ ProductionCultureProcess(y) ∧ prescribes(s, y)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process composed of a sequence of cell culture expansion processes occurring at increasing scales and that has as its specified output a cell culture at the required density to inoculate a production culture process</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;seed train&apos; is defined as exactly an instance of &apos;manufacturing process&apos; that &apos;has input&apos; some &apos;cell culture&apos;, &apos;has occurrent part&apos; some &apos;cell culture expansion process&apos;, and &apos;has specified output&apos; some &apos;cell culture&apos; that &apos;satisfies requirement&apos; some &apos;input specification&apos; that is &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;recipe process stage&apos; that &apos;prescribes&apos; some &apos;production culture process&apos;, and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;seed train&apos; is defined as exactly an instance of &apos;manufacturing process&apos; that &apos;has input&apos; some &apos;cell culture&apos;, &apos;has occurrent part&apos; some &apos;cell culture expansion process&apos;, and &apos;has specified output&apos; some &apos;cell culture&apos; that &apos;satisfies requirement&apos; some &apos;input specification&apos; that is &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;recipe process stage&apos; that &apos;prescribes&apos; some &apos;production culture process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolutionPreparationProcess">
@@ -1151,20 +918,14 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessOperation"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">thawing process</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
 		<skos:example>Cryopreserved cells contained in cryovials are thawed in a 37°C water bath, with gentle swirling, to facilitate even thawing; A frozen dough, like puff pastry, is thawed in a refrigerator at 5°C, with air circulation, for a certain period of time, before baking; In the fish industry, frozen blocks of Cod are thawed into large tanks with water, which are designed to facilitate the continuous movement of the product through a counter-flow stream of temperature controlled, agitated water</skos:example>
-		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y)) ∧ ∃z (RecipeProcessOperation(z) ∧ prescribes(z, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner to specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;thawing capability&apos; and is &apos;prescribed by&apos; some &apos;recipe process operation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TransfectionProcess">
@@ -1198,12 +959,6 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 	
 	<owl:Class rdf:about="&iof-construct;ViralClearance">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RecipeProcessStage"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">viral clearance</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ManufacturingExecution/"/>
@@ -1212,11 +967,11 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<iof-av:explanatoryNote>1) Virus Removal: Physical separation of virus particles from the intended product. 
 2) Inactivation: Reduction of virus infectivity caused by chemical or physical modification
 3) Viral clearance is typically demonstrated through studies in which known quantities of viruses are deliberately added to the manufacturing process, and the ability of specific steps—such as filtration, chromatography, or chemical treatment—to reduce or eliminate viral infectivity is measured. These studies use relevant and model viruses to represent a broad range of possible contaminants and quantify effectiveness as a log reduction in viral load.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ViralClearance(x) → ManufacturingProcess(x) ∧ ∃r (RecipeProcessStage(r) ∧ prescribes(r, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ViralClearance(x) → ManufacturingProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process that results in the elimination of a target virus by either removing viral particles or by inactivating its infectivity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;viral clearance&apos; then x is a &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;recipe process stage&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;viral clearance&apos; then x is a &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ViralFiltration">
