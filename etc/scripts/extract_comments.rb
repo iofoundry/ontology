@@ -15,7 +15,10 @@ end
 pr_number = ARGV[0].to_i
 
 octokit = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+p octokit.methods.sort
 octokit.auto_paginate = true
+
+pr = octokit.pull_request('iofoundry/ontology', pr_number) # Check if PR exists
 
 commits = Hash.new { |hash, key| hash[key] = [] }
 octokit.pull_request_commits('iofoundry/ontology', pr_number).each do |commit|
@@ -72,7 +75,13 @@ loop do
 end
 
 File.open('comments.md', 'w') do |file|
+  file.puts "# Pull Request ##{pr_number}: #{pr['title']}\n\n"
+  file.puts "## Description\n\n"
+  file.puts pr['body']
+  file.puts "\n---\n\n"
+
   comments = octokit.pull_request_comments('iofoundry/ontology', pr_number, per_page: 100)
+  p comments
   comments_by_id = Hash[*comments.map do |comment|
     comment['replies'] = []
     comment['commits'] = commits[comment['id']]
