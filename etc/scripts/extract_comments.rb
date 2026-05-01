@@ -15,7 +15,6 @@ end
 pr_number = ARGV[0].to_i
 
 octokit = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-p octokit.methods.sort
 octokit.auto_paginate = true
 
 pr = octokit.pull_request('iofoundry/ontology', pr_number) # Check if PR exists
@@ -81,13 +80,15 @@ File.open('comments.md', 'w') do |file|
   file.puts "\n---\n\n"
 
   comments = octokit.pull_request_comments('iofoundry/ontology', pr_number, per_page: 100)
-  p comments
+  issue_comments = octokit.issue_comments('iofoundry/ontology', pr_number, per_page: 100)
+  comments.concat(issue_comments)
   comments_by_id = Hash[*comments.map do |comment|
     comment['replies'] = []
     comment['commits'] = commits[comment['id']]
     comment['resolved'] = resolutions[comment['id']]
     [comment['id'], comment]
   end.flatten]
+
   comments.each do |comment|
     if comment['in_reply_to_id']
       parent = comments_by_id[comment['in_reply_to_id']]
@@ -95,12 +96,19 @@ File.open('comments.md', 'w') do |file|
       comments_by_id.delete(comment['id'])
     end
   end
+
   comments_by_resolved = comments_by_id.values.group_by { |comment| comment['resolved'] ? 'Resolved' : 'Unresolved' }
   comments_by_resolved.each do |status, comments_by_status|
+    continue if comments_by_status.empty?
+    
     file.puts "# #{status} Comments\n\n"
     comments_by_path = comments_by_status.group_by { |comment| comment['path'] }.sort_by { |path, _| path }
     comments_by_path.each do |path, comments|
-      file.puts "## Comments on #{path}\n\n"
+      if path.nil? || path.empty?
+        file.puts "## General Comments\n\n"
+      else
+        file.puts "## Comments on #{path}\n\n"
+      end
       comments.each do |comment|
         file.puts "### Comment by #{comment['user']['login']} on #{comment['created_at']}"
         if comment['resolved']
