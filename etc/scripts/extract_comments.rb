@@ -19,12 +19,14 @@ octokit.auto_paginate = true
 
 pr = octokit.pull_request('iofoundry/ontology', pr_number) # Check if PR exists
 
+commit_messages = []
 commits = Hash.new { |hash, key| hash[key] = [] }
 octokit.pull_request_commits('iofoundry/ontology', pr_number).each do |commit|
   commit['commit']['message'].scan(/#discussion_r([0-9]+)/).each do |match|
     discussion = match[0].to_i
     commits[discussion] << commit
   end
+  commit_messages << commit
 end
 
 query = <<~GRAPHQL
@@ -100,7 +102,7 @@ File.open('comments.md', 'w') do |file|
   comments_by_resolved = comments_by_id.values.group_by { |comment| comment['resolved'] ? 'Resolved' : 'Unresolved' }
   comments_by_resolved.each do |status, comments_by_status|
     continue if comments_by_status.empty?
-    
+
     file.puts "# #{status} Comments\n\n"
     comments_by_path = comments_by_status.group_by { |comment| comment['path'] }.sort_by { |path, _| path }
     comments_by_path.each do |path, comments|
@@ -158,5 +160,18 @@ EOT
       end
       file.puts "\n---\n\n"
     end
+  end
+
+  file.puts "# Commits\n\n"
+
+  commit_messages.each do |commit|
+    file.puts "## Commit [#{commit['sha'][0..7]}](#{commit['commit']['url']}) by #{commit['commit']['author']['name']} on #{commit['commit']['author']['date']}"
+
+    file.puts <<EOT
+
+#{commit['commit']['message']}
+EOT
+
+    file.puts "\n---\n\n"
   end
 end
