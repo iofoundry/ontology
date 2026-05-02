@@ -697,6 +697,29 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;commercial service&apos; then x is a &apos;commercial service specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;ComplexMaterialState">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialState"/>
+		<rdfs:label>complex material state</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;MaterialState">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty>
+							<rdf:Description>
+								<owl:inverseOf rdf:resource="&iof-constr;materialStateholdsIn"/>
+							</rdf:Description>
+						</owl:onProperty>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:explanatoryNote>A complex material state is not merely a collection of co-occurring material states. It is a material state whose condition is aggregated from the conditions of other material states, for example by conjunction, threshold rule, weighted rule, or constraint satisfaction. The contributing material states are related to the complex material state by &apos;material state holds in&apos;. This means that they cover the duration of the complex material state as required by that relation, but they do not need to have the same temporal extent as the complex material state and should not be treated as ordinary occurrent parts.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>material state whose condition is an aggregated condition composed from the conditions of two or more material states that hold in it</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;ComputingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -2157,6 +2180,18 @@ Services as products as well as software products will be considered in the next
 	
 	<owl:Class rdf:about="&iof-constr;MaterialState">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isMaterialStateOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">the lightswitch in the off state from 9 PM to 8 AM; the machine in fail state from 4 PM to 5 PM; perfusion bioreactor was run in steady state for two days, a truck is in a stop state because its position has been unchanged</skos:example>
@@ -2172,6 +2207,50 @@ Services as products as well as software products will be considered in the next
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize range,limits and constant values over a period of time are still lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material state&apos; then x is a &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">stasis</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialStateTrajectoryProcessProfile">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateTransitionProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material state trajectory process profile</rdfs:label>
+		<iof-av:naturalLanguageDefinition>process profile consisting of an ordered sequence of material states and state transition processes of a material entity that participates in the process which has the process profile</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialStateTransitionProcess">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000167"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasPostMaterialState"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasPreMaterialState"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material state transition process</rdfs:label>
+		<iof-av:explanatoryNote>1) A state transition process captures a process that moves a material entity from one recognized condition to another. The focus is not on every property of the entity changing, but on a specific state-relevant condition being different before and after the process.The initial and resulting states must both be states of the same participating material entity and must be associated with the same particular condition. 
+2) The process may also have additional pre-material or post-material states, including complex material states in which the transition-relevant states hold in. These additional states provide broader context, while the transition-relevant initial and resulting states identify the transition.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process that results in a material state of a participating material entity that is different from an initial material state associated with the same particular condition of that same entity</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MeasuredValueExpression">
@@ -3437,6 +3516,32 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>c1 ‘categorizes’ c2 if and only if c1 ‘classifies’ c2 and there exists some s1 and some s2 such that c1 ‘designates’ s1, c2 ‘designates’ s2, and s2 is a set member of s1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;causes">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>causes</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;Event">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;Event">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+		<iof-av:naturalLanguageDefinition>relation between a process or event and another process or event that holds when a material-state condition resulting from the first process or event is required for the initiation of the second process or event</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;classifiedBy">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
 		<rdfs:label xml:lang="en-US">classified by</rdfs:label>
@@ -3831,6 +3936,16 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that is a necessary precondition for the process to start</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasMaterialState">
+		<rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
+		<rdfs:label>has material state</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<owl:inverseOf rdf:resource="&iof-constr;isMaterialStateOf"/>
+		<iof-av:naturalLanguageDefinition>relation between  a material entity and a material state in which the material entity participates throughout the material states duration</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasMeasuredValueAtSomeTime">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;hasValueExpressionAtSomeTime"/>
 		<rdfs:label xml:lang="en-US">has measured value at some time</rdfs:label>
@@ -3853,6 +3968,42 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:adaptedFrom rdf:datatype="&xsd;anyURI">http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>By introducing the condition that it must exist at the end of the process materials that only transitively exist during the process (e.g., reaction intermediary) are excluded from being considered the output.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that participates in the process such that it is generated or modified during the process, and that it exists at the end of the process</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasPostMaterialState">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has post material state</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;Event">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<iof-av:explanatoryNote>A post-material state is a material state at the end of a process or event. It may begin when the process or event ends, begin during the final part of the process or event and continue after it, or begin during the process or event and end together with it.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the process or event meets or overlaps the material state, or when the material state finishes the process or event</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasPreMaterialState">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has pre material state</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;Event">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<iof-av:explanatoryNote>The pre-material state is a material state at the beginning of a process or event. It may end when the process or event begins, begin together with it, or begin before it and continue into its initial part.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the material state meets, overlaps, or starts the process or event</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessCharacteristic">
@@ -3879,6 +4030,15 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicDefinition>hasProcessProfile(p, x) → processProfileOf(x, p)</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between a process and a process profile that is part of the process such that the part is temporally coextensive with another proper part that is mutually dependent on it and has no parts in common with it</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>if p &apos;has process profile&apos; x, then x is &apos;process profile of&apos; p</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessualMaterialState">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000117"/>
+		<rdfs:label>has processual material state</rdfs:label>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<iof-av:explanatoryNote>It relates a process to a material state of a material entity participating in that process. The material state is processual because the condition that remains unchanged during the state is not a static quality or location, but a process profile or process characteristic of the process, such as a steady regime, equilibrium phase, oscillatory behavior, monotonic change, speed profile, or temperature-change profile.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between a process and a material state that holds when the material state is a state of a material entity participating in that process throughout the material state’s duration, and the condition that remains unchanged during the material state is a process profile or process characteristic of that process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasQuality">
@@ -4063,6 +4223,15 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between material entity b and material entity that is not a fiat object c such that b has continuant part at some time c and if portion of c is removed from b, that portion stops being part of b, while the remaining c continues to exist as the same material entity and b remains to have continuant part c</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;isMaterialStateOf">
+		<rdf:type rdf:resource="&owl;FunctionalProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000167"/>
+		<rdfs:label>is material state of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
+		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
+		<iof-av:naturalLanguageDefinition>relation between a material state and a material entity that participates in that state throughout its duration</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMeasuredValueOfAtSomeTime">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;isValueExpressionOfAtSomeTime"/>
 		<rdfs:label xml:lang="en-US">is measured value of at some time</rdfs:label>
@@ -4158,6 +4327,15 @@ category within a classification scheme of an entity that the value expression i
 		<skos:example xml:lang="en-US">1cm is the value expression of the diameter of a screw head that is specified in its design; 37C is the value expression of the temperature of a bioreactor measured during the production process; &quot;low risk&quot; is the value expression of a process parameter based on the risk analysis classification scheme; 3 g/l is the value expression of titer of an antibody generated by a process simulation</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0001938</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a value expression to the entity indicating that the value expression contains the value of the entity determined or set at some time t</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;materialStateholdsIn">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>material state holds in</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
+		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<iof-av:explanatoryNote>This does not require the two states to have the same temporal extent. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state occurs throughout the duration of the second material state</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;measuredByAtSomeTime">
