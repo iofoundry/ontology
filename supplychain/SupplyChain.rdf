@@ -154,6 +154,23 @@ Airways are defined with segments within a specific altitude block, corridor wid
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+								<owl:allValuesFrom rdf:resource="&iof-constr;ConsigningProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
 								<owl:allValuesFrom rdf:resource="&iof-constr;ConsignorRole"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
@@ -187,12 +204,12 @@ Airways are defined with segments within a specific altitude block, corridor wid
 A transportation document that is the contract of carriage containing the terms and conditions between the shipper and carrier [CSCMP].
 
 It serves as a receipt of goods, a contract of carriage, and, in some cases, a document of title.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LA1: BillOfLading (x) → CommercialServiceAgreement (x) ∧ ∃y∃z(ConsignorRole(y) ∧ CarrierRole(z) ∧  prescribes(x,y) ∧ prescribes(x,z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: BillOfLading (x) → CommercialServiceAgreement (x) ∧ ∀y∀z(ConsignorRole(y) ∧ CarrierRole(z) ∧  prescribes(x,y) ∧ prescribes(x,z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: CommercialServiceAgreement (x) ∧ ∃c∃y∃z(ConsigningProcess(c) ∧ ConsignorRole(y) ∧ CarrierRole(z) ∧ isAbout(x,c) ∧ prescribes(x,y) ∧ prescribes(x,z)) → BillofLading(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">agreement between a shipper and a carrier that prescribes some consigning process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;bill of lading&apos;, then x is a &apos;commercial service agreement&apos; that &apos;prescribes&apos; some &apos;consignor role&apos; and some &apos;transportation service provider role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;bill of lading&apos;, then x is a &apos;commercial service agreement&apos; that &apos;prescribes&apos; only &apos;consignor role&apos; and only &apos;transportation service provider role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If x is a &apos;commercial service agreement&apos; that &apos;is about&apos; some &apos;consigning process&apos; and it &apos;prescribes&apos; some &apos;consignor role&apos; and some &apos;carrier role&apos; then x is a &apos;bill of lading&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -1955,7 +1972,7 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:explanatoryNote>A PO becomes a legally binding document (contract) between a buyer and a seller once it is approved by the seller.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Agreement (x) ∧ ∃p(BuyingBusinessProcess (p) ∧ isAbout(x,p)) ∧ ∃b∃s(BuyerRole(b) ∧ SupplierRole(s) ∧ prescribes(x,b) ∧ prescribes(x,s)) → PurchaseOrder(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">agreement between a buyer and a vendor (supplier) that that contains a set of commitments on the buyer and the vendeor</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">agreement between a buyer and a seller that contains a set of commitments undertaken by the buyer and the seller</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agreement&apos; that &apos;is about&apos; some &apos;buying business process&apos; and &apos;prescribes&apos; some &apos;buyer role&apos; and some &apos;supplier role&apos; then x is a &apos;purchase order&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
