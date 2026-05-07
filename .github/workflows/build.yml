@@ -3,11 +3,16 @@ name: Hygiene Tests
 on:
   push:
     paths:
-      - '**.rdf'
-      - '**.py'
+      - '**/*.rdf'
+      - 'etc/scripts/*.py'
       - '**/build*.yml'
   pull_request:
   workflow_dispatch:
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
 
 jobs:
   hygiene-tests:
