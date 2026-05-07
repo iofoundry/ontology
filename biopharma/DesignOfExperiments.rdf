@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
-	<!ENTITY AnnotationVocabulary "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
-	<!ENTITY doap "http://usefulinc.com/ns/doap#">
-	<!ENTITY foaf "http://xmlns.com/foaf/0.1/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/core/meta/iof-av/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
-	<!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
@@ -17,16 +13,12 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/DesignOfExperiments/"
-	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:doap="http://usefulinc.com/ns/doap#"
-	xmlns:foaf="http://xmlns.com/foaf/0.1/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/core/meta/iof-av/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
-	xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
@@ -35,8 +27,7 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/DesignOfExperiments/">
 		<rdfs:label xml:lang="en-US">design of experiments</rdfs:label>
-		<terms:abstract>This module provides terms and relations for representing statistical models and analyses that quantify variation, effects, and quality across experimental, process development, testing, and historical data. It integrates core concepts from STATO within the IOF framework to support design of experiments, regression and variance analysis, response surface methodology, and statistical evaluation used for process characterization, monitoring, and validation.</terms:abstract>
-		<terms:license>http://opensource.org/licenses/MIT</terms:license>
+        <terms:abstract>This module imports the Statistics module and extends it with constructs necessary for representing design of experiments, including study design objectives, factor-level combinations, design points, and selected design point types used in screening, optimization, robustness testing, and response-surface studies.</terms:abstract>		<terms:license>http://opensource.org/licenses/MIT</terms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/Statistics/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202501/biopharma/DesignOfExperiments/"/>
@@ -61,7 +52,15 @@
 		<iof-av:explanatoryNote>Center points are experimental conditions located at the midpoint of all factor ranges in a design. They are commonly included in factorial and response-surface designs to detect curvature in the response and to confirm process stability near nominal operating conditions. If the average response at the center differs significantly from that at the extremes, it indicates nonlinearity. Replicating center points provides an internal estimate of experimental error because identical runs are performed under the same conditions. Including center points improves the robustness and interpretability of a design and helps justify the adequacy of linear models and proposed design spaces.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where all factors are set at their middle levels, representing the central condition of the experimental space</iof-av:naturalLanguageDefinition>
 	</owl:Class>
-	
+
+<owl:Class rdf:about="&iof-construct;ControlPoint">
+	<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
+	<rdfs:label xml:lang="en-US">control point</rdfs:label>
+	<skos:example>In a cell culture design of experiments evaluating alternative feed formulations, the existing platform feed formulation is included as one of the planned experimental conditions. Although this condition may not be at the center of the factor ranges, it serves as the control point because it represents the current baseline process condition used to compare the effects of the new feed formulations</skos:example>
+	<iof-av:adaptedFrom>https://www.itl.nist.gov/div898/handbook/index.htm</iof-av:adaptedFrom>
+<iof-av:explanatoryNote>A control point is a planned condition included in an experimental design to give the experiment a clear point of comparison. In many cases, this is the current or standard process condition, such as an existing platform recipe or standard process setpoints (baseline). In other cases, it may be another deliberately selected condition that is useful for interpreting the experimental results (reference). A control point is not defined by where it lies in the design space. This distinguishes it from a center point, which is defined by the middle levels of the factors. A control point may also be a center point, but only when the selected comparison condition happens to be located at the middle factor levels. Its main purpose is to help interpret how the tested design points differ from a known or selected comparison condition.</iof-av:explanatoryNote>	<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where the factors are set at levels corresponding to a predefined baseline or reference condition</iof-av:naturalLanguageDefinition>
+</owl:Class>
+
 	<owl:Class rdf:about="&iof-construct;CornerPoint">
 		<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
 		<rdfs:label xml:lang="en-US">corner point</rdfs:label>
@@ -142,7 +141,7 @@
 		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-core;describes"/>
+				<owl:onProperty rdf:resource="&iof-construct;describes"/>
 				<owl:someValuesFrom rdf:resource="&bfo;OBI_0500000"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
