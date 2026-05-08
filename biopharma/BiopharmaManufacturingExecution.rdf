@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
-	<!ENTITY AnnotationVocabulary "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY bmic-manufacturingexecution "https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/">
 	<!ENTITY bmic-material "https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/">
@@ -21,7 +20,6 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/"
-	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-manufacturingexecution="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"
@@ -94,22 +92,6 @@
 	<owl:Class rdf:about="&iof-construct;BatchManufacturingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
 		<rdfs:label>batch manufacturing process</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;ManufacturingProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000118"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;TerminalRemovalProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;temporallyFinishedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;TerminalRemovalProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example>Protein A capture chromatography run in which a single column is loaded with clarified harvest, washed, and eluted to generate a product pool;Mammalian cell culture in a stirred-tank bioreactor with all media and supplements charged at the start, cultured for a fixed duration, then harvested in one go; Batch crystallization of an API where solvent and solute are mixed, allowed to crystallize, then solids are removed at once</skos:example>
 		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/news-center/what-are-the-different-bioreactor-processes-10001 and https://gmpua.com/Process/ContinuousManufacturing/ContinuousManufacturing.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>In this type of process, materials are processed in discrete, finite quantities called “batches.” All materials required for the run are provided at initiation, and the material remains within the system until the entire quantity is removed at the end. Additional planned additions may occur during processing depending on the mode of operation. The defining characteristics are the absence of balance-sustaining outflow during processing and the completion of the process by a single terminal removal before the next run begins.</iof-av:explanatoryNote>
@@ -1029,6 +1011,13 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;liquid chromatography process&apos; then x is a &apos;chromatography process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ManufacturingProcessScale">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
+		<rdfs:label>manufacturing process scale</rdfs:label>
+		<iof-av:explanatoryNote>The specified material used to determine manufacturing process scale depends on the process boundary and the convention used for that process type. It may be a starting material, input charge, in-process material, culture material, chromatography load, formulation bulk, output material, or discrete product units.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the size of a manufacturing process in terms of the quantity of a specified material that participates in the process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>material addition process</rdfs:label>
@@ -1539,27 +1528,6 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">fluid flow orientation that is the tangential orientation of fluid movement in a process with respect to a defined surface</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;tangential flow orientation&apos; then x is a &apos;fluid flow orientation&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;TerminalRemovalProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;temporallyFinishes"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>terminal removal process</rdfs:label>
-		<skos:example>harvest of culture fluid from a fed-batch CHO production bioreactor, concluding the cell culture process; collection of elution pool from a batch chromatography column after completion of the purification cycle; final collection of bulk drug substance from an ultrafiltration skid after target concentration is reached; collection of final retentate from a tangential-flow filtration system after completion of diafiltration</skos:example>
-		<iof-av:counterExample>continuous collection of permeate during ongoing diafiltration; sampling of in-process material for quality control;  bleed stream removal from a perfusion bioreactor to control cell density during ongoing culture; continuous collection of product fractions from a periodic counter-current chromatography system during steady-state operation</iof-av:counterExample>
-		<iof-av:explanatoryNote>A terminal removal process occurs once and finishes the larger process of which it is a part. It is distinguished from continuous outflow processes, which remove material concurrently with ongoing processing.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>material removal process that finishes the planned process of which it is a part of</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingProcess">
