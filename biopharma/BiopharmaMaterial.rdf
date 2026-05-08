@@ -48,6 +48,7 @@
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<dcterms:title>NIIMBL Material Ontology</dcterms:title>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/MolecularEntity/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaMaterial/"/>
@@ -713,28 +714,6 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition>role of a material entity that is added or planned to be added to an environment to protect other materials from the harmful effects of freezing temperatures</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CultureMediaFingerprinting">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementProcess"/>
-		<rdfs:label>culture media fingerprinting</rdfs:label>
-		<skos:example>Raman spectroscopic characterization of a culture medium lot to generate a spectral fingerprint for comparison with a reference lot; LC-MS-based characterization of a culture medium preparation to generate a multivariate compositional profile used for identity assessment</skos:example>
-		<iof-av:adaptedFrom>https://www.biophorum.com/download/media-fingerprinting-of-cell-culture-media-a-standardized-analytical-test-method-suite-and-three-tier-approach/</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>An identity or consistency assessment commonly compares profiles from different preparations of the same nominal culture medium, such as different lots, sublots, or in-house compounded preparations.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>measurement process in which a culture medium is characterized by one or more analytical methods to generate a multivariate profile that can be used to assess identity or consistency</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CultureMediaSuitabilityTesting">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialSuitabilityTesting"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>culture media suitability testing</rdfs:label>
-		<skos:example>bench-scale fed-batch testing of a candidate production-medium lot, with glycosylation and productivity comparison to determine acceptability for manufacturing use; candidate-lot cultivation followed by spent media analysis of nutrient depletion and metabolite accumulation to determine whether the lot is acceptable for intended process use</skos:example>
-		<iof-av:naturalLanguageDefinition>material suitability testing that evaluates the acceptability of a lot or sublot of culture medium</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-US">culture medium</rdfs:label>
@@ -996,8 +975,8 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>dissolved oxygen saturation ratio</rdfs:label>
-		<iof-av:naturalLanguageDefinition>ratio that is the dissolved oxygen concentration in a liquid solution relative to the dissolved oxygen saturation concentration in that liquid</iof-av:naturalLanguageDefinition>
 		<iof-av:explanatoryNote>The dissolved oxygen saturation concentration (and therefore the dissolved oxygen saturation ratio) is condition-dependent, varying with temperature, salinity (or ionic strength), total pressure, and the oxygen partial pressure in the gas phase in contact with the liquid. In bioprocessing practice, “100% DO” is commonly defined as equilibrium with air at approximately 21% O₂ (at the prevailing total pressure), rather than equilibrium with pure oxygen, unless otherwise specified.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>ratio that is the dissolved oxygen concentration in a liquid solution relative to the dissolved oxygen saturation concentration in that liquid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DownstreamDerivedImpurityRole">
@@ -1238,44 +1217,6 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<owl:disjointWith rdf:resource="&iof-construct;Purity"/>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000222</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition>quality that inheres in a material entity by virtue of the extent to which the material entity consists of material that is considered an impurity</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ImpurityRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000040">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;MaterialProduct">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;RawMaterial">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>impurity role</rdfs:label>
-		<skos:example>residual solvent remaining after synthesis; oxidation product formed during storage of a biologic; trace contaminant present in a raw material lot</skos:example>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000364 and http://purl.obolibrary.org/obo/CHEBI_143130 and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>role of a material entity that is present within a production intermediate, raw material, production consumable, or material product as a consequence of manufacturing, storage, handling or use, and is not part of the defined composition or specification at a particular stage of manufacture, handling, storage, or release</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InfectedHostCell">
@@ -1610,21 +1551,6 @@ Examples include residual process materials and intermediates (for example reage
 		<iof-av:counterExample>Glucose feed added to sustain metabolism and cell viability, which supports growth but does not trigger synthesis of a specific target product.</iof-av:counterExample>
 		<iof-av:explanatoryNote>Production inducers are used in engineered culture systems to control when and how product formation occurs. They may be chemical compounds (e.g., tetracycline, arabinose, sodium butyrate) or environmental triggers (e.g., temperature shift, pH, light). The same compound may bear other roles in different contexts (for example, tetracycline as a therapeutic antibiotic). Environmental triggers such as temperature shifts, pH changes, oxygen limitation, or nutrient depletion can also induce product formation, but these are not material entities and do not bear a production inducer role.These will be modeled separately in a future version.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>role held by a material entity when it is added, or planned to be added, to a cell culture to trigger the synthesis of a target product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MaterialSuitabilityTesting">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>material suitability testing</rdfs:label>
-		<skos:example>Small-scale testing of a culture medium lot to determine whether it is acceptable for supporting expected cell growth and productivity in a specified upstream process; Analytical and functional testing of a chromatography resin lot to determine whether it is acceptable for achieving the required separation performance in a specified purification step ; Integrity and performance testing of a membrane filter to determine whether it is acceptable for use in a specified sterile filtration application</skos:example>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>A material suitability testing process may be part of another material suitability testing process. In such cases, the subprocess typically evaluates acceptability with respect to a subset of the acceptance criteria used by the larger process (e.g., a rapid incoming check as part of a full release-to-use determination).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that evaluates the acceptability of a material entity for a specified use by performing one or more observations or measurement processes and comparing the resulting evidence to specified acceptance criteria</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MediaSupplement">
@@ -2681,14 +2607,6 @@ Examples include residual process materials and intermediates (for example reage
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000145"/>
 		<rdfs:label>specific surface area</rdfs:label>
 		<iof-av:naturalLanguageDefinition>quality of solids that is the total surface area of a material per unit of mass, solid or bulk volume, or cross-sectional area</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;SpentMediaAnalysis">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementProcess"/>
-		<rdfs:label>spent media analysis</rdfs:label>
-		<skos:example>measurement of glucose, glutamine, lactate, and ammonia in spent culture medium collected at multiple process time points to assess nutrient depletion and metabolite accumulation; time-course analysis of spent culture medium to compare concentrations of specified nutrients and metabolites with those in fresh medium</skos:example>
-		<iof-av:adaptedFrom>https://api.sartorius.com/document-hub/dam/download/247594/Spent-Media-Analytics-whitepaper-en-B.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>measurement process in which one or more samples of spent culture medium are analyzed to determine changes in specified extracellular nutrients, metabolites, or other medium components relative to fresh medium or to one or more earlier time points</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Stability">

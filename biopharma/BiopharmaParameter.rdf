@@ -51,27 +51,12 @@
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<dcterms:title>NIIMBL Parameter Ontology</dcterms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/TargetsLimitsRanges/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaParameter/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
-	
-	<owl:Class rdf:about="&iof-construct;AcceptanceCriteria">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RequirementSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>acceptance criteria</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;MaterialConformanceSpecification"/>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) In the ICH specifications (Q6B) context, acceptance criteria are defined as “numerical limits, ranges, or other suitable measures for acceptance of the results of analytical procedures” (applying to drug substance, drug product, or materials at other manufacturing stages).
-2) In a process-validation context, protocols are expected to include tests and acceptance criteria for significant processing steps, i.e., criteria used to judge whether process performance is acceptable.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>information content entity that has as parts one or more limits, ranges, or other conditions used to determine whether an entity satisfies a particular requirement</iof-av:naturalLanguageDefinition>
-	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AttributeImpactDescription">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
@@ -699,58 +684,6 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by an input material attribute specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;MaterialConformanceSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-construct;RequirementSpecification"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;requirementSatisfiedBy"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;MaterialProduct">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;RawMaterial">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;AcceptanceCriteria"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;PlanSpecification">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>material conformance specification</rdfs:label>
-		<skos:altLabel>Q6 Specification</skos:altLabel>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) In this context, each listed test is intended to evaluate one or more attributes of the material (e.g., identity, purity, concentration, bioburden, endotoxin, osmolality). The referenced analytical procedure describes how the test is performed, and the associated acceptance criteria state how the resulting observations or measurements are evaluated for conformance
-2) This specification type covers release, in-process, incoming/raw material, and consumable acceptance specifications, provided they define tests and acceptance criteria for acceptability of the material for a stated use.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>requirement specification that establishes a set of acceptance criteria to which a product, process intermediate, raw material, or production consumable should conform to be acceptable for a particular use and that has as parts a list of tests to be performed on specified attributes, references to analytical procedures for those tests, and the acceptance criteria for those tests</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;MetaboliteUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
 		<rdfs:label>metabolite uptake rate</rdfs:label>
@@ -788,38 +721,6 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<rdfs:subClassOf rdf:resource="&iof-construct;TemporallyInvariantAttributeImpactDescription"/>
 		<rdfs:label>opposite direction attribute impact characterization</rdfs:label>
 		<iof-av:naturalLanguageDefinition>time-invariant attribute impact description that describes how variation in a source attribute influences variation in a target attribute such that variation in the target attribute occurs in the opposite direction from variation in the source attribute during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;OutOfSpecificationResult">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementInformationContentEntity"/>
-		<rdfs:label>out of specification result</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;MeasurementInformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;isOutsideAssesmentCondition"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;AcceptanceCriteria">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;MaterialConformanceSpecification"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:abbreviation>OOS result</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://www.fda.gov/media/158416/download</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Relevant specifications include those set in drug applications, drug master files, official compendia, or by the manufacturer. This class also includes in-process laboratory test results that are outside acceptance criteria that are part of such specifications. A result of this kind is indicative that the tested material does not conform to the corresponding material conformance specification.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>measurement information content entity assessed as outside an acceptance criterion that is part of an applicable specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;OutOfTrendResult">
@@ -1184,41 +1085,6 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:naturalLanguageDefinition>cell population growth rate per unit population size</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;SpecificationLimitValueExpression">
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isValueExpressionOfAtAllTimes"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;QualityAttribute">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;AcceptanceCriteria">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;MaterialConformanceSpecification"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;StirringRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CyclicRate"/>
 		<rdfs:label>stirring rate</rdfs:label>
@@ -1360,25 +1226,6 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:naturalLanguageDefinition>process yield that is the quantity of a specified output produced in a planned process relative to the quantity of a particular input substrate consumed in that planned process</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:ObjectProperty rdf:about="&iof-construct;hasEvidence">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label>has evidence</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;BFO_0000040">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/RO_0002558</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>x has evidence y iff , x is an information content entity, material entity or process, and y supports either the existence of x, or the truth value of x</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
 	<owl:ObjectProperty rdf:about="&iof-construct;hasImpactSourceAttributeSpecification">
 		<rdfs:subPropertyOf rdf:resource="&iof-construct;isAbout"/>
 		<rdfs:label>has impact source attribute specification</rdfs:label>
@@ -1403,14 +1250,6 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:naturalLanguageDefinition>relation between a planned process and a process parameter indicating that the parameter is monitored or controlled during the execution of that planned process</iof-av:naturalLanguageDefinition>
 		<iof-av:usageNote>When this relation is used, it implies that the plan specification (e.g., a rec:RecipeProcessElement or other process plan) that prescribes the planned process must include as a continuant part the corresponding process parameter specification that prescribes the monitored or controlled parameter.
 In other words, the monitoring or control of a process parameter at execution level must be traceable to a parameter specification at the plan level via bfo:continuantPartOf</iof-av:usageNote>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-construct;isOutsideAssesmentCondition">
-		<rdfs:subPropertyOf rdf:resource="&iof-construct;isSubjectOf"/>
-		<rdfs:label>is outside assesment condition</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:range rdf:resource="&iof-construct;InformationContentEntity"/>
-		<iof-av:naturalLanguageDefinition>relates an information content entity to an information content entity that specifies criteria for it, where the first information content entity is outside those criteria when assessed against them</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;isProcessParameterOf">
@@ -1442,7 +1281,7 @@ In other words, the monitoring or control of a process parameter at execution le
 		<iof-av:usageNote>A value of true means that the parameter is treated as time invariant, meaning its value or effect on the process is stable over time.
 A value of false means that the parameter changes over time, either intentionally or inherently, due to process dynamics, adaptive control strategies, or evolving biological or physical conditions.</iof-av:usageNote>
 	</owl:DatatypeProperty>
-
+	
 	<owl:AllDisjointClasses>
 		<owl:members rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-construct;NoChangeAttributeImpactCharacterization">

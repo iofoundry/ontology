@@ -53,6 +53,59 @@
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
+	<owl:Class rdf:about="&iof-construct;AcceptanceCriteria">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RequirementSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>acceptance criteria</rdfs:label>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) In the ICH specifications (Q6B) context, acceptance criteria are defined as “numerical limits, ranges, or other suitable measures for acceptance of the results of analytical procedures” (applying to drug substance, drug product, or materials at other manufacturing stages).
+2) In a process-validation context, protocols are expected to include tests and acceptance criteria for significant processing steps, i.e., criteria used to judge whether process performance is acceptable.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that has as parts one or more limits, ranges, or other conditions used to determine whether an entity satisfies a particular requirement</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ImpurityRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;RawMaterial">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>impurity role</rdfs:label>
+		<skos:example>residual solvent remaining after synthesis; oxidation product formed during storage of a biologic; trace contaminant present in a raw material lot</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000364 and http://purl.obolibrary.org/obo/CHEBI_143130 and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>role of a material entity that is present within a production intermediate, raw material, production consumable, or material product as a consequence of manufacturing, storage, handling or use, and is not part of the defined composition or specification at a particular stage of manufacture, handling, storage, or release</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ManufacturingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
@@ -437,6 +490,33 @@
 		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions. Specifically constructs for representing partially consumed are missing</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production consumable role&apos; then x  is a &apos;consumable role&apos; and x &apos;has realization&apos; only in some &apos;occurrent part of&apos; a &apos;product production process&apos; and x is a &apos;role of&apos; either a &apos;material entity&apos; that is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;is input of&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;occurrent part of&apos; a &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;hasEvidence">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has evidence</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/RO_0002558</iof-av:adaptedFrom>
+		<iof-av:naturalLanguageDefinition>x has evidence y iff , x is an information content entity, material entity or process, and y supports either the existence of x, or the truth value of x</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isOutsideAssesmentCondition">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;isSubjectOf"/>
+		<rdfs:label>is outside assesment condition</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:range rdf:resource="&iof-construct;InformationContentEntity"/>
+		<iof-av:naturalLanguageDefinition>relates an information content entity to an information content entity that specifies criteria for it, where the first information content entity is outside those criteria when assessed against them</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
 	
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingCapability"/>
