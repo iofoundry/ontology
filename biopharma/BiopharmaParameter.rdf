@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
+	<!ENTITY AnnotationVocabulary "https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/">
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY bmic-material "https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/">
 	<!ENTITY bmic-parameter "https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/">
@@ -17,6 +18,7 @@
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/"
+	xmlns:AnnotationVocabulary="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:bmic-material="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"
 	xmlns:bmic-parameter="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/"
@@ -197,10 +199,10 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureDoublingTime">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Duration"/>
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000202"/>
 		<rdfs:label>cell culture doubling time</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/MSIO_0000061</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>duration during which a cell population size doubles under specified conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>temporal interval during which a cell population size doubles</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellPopulationGrowthRate">
@@ -400,12 +402,6 @@ and  https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-a
 		<iof-av:naturalLanguageDefinition>rate at which a solute dissolves in a solvent</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;Duration">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
-		<rdfs:label>process duration</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process characteristic that is the length of the time interval that a process occupies</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;EdgeOfFailure">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:subClassOf>
@@ -451,6 +447,14 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<rdfs:subClassOf rdf:resource="&iof-construct;MetaboliteUptakeRate"/>
 		<rdfs:label>glucose uptake rate</rdfs:label>
 		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of a glucose taken up by a cell population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InVitroCellAge">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000202"/>
+		<rdfs:label>in vitro cell age</rdfs:label>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-d-derivation-and-characterisation-cell-substrates-used-production-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>In vitro cell age is a CMC and regulatory term used to define the interval over which the in vitro cultivation of a production cell population is assessed. The exact procedural details for identifying the start of master cell bank thaw and the start or completion of production vessel harvest should be specified by the applicable manufacturing procedure or batch-record convention. The interval may be quantified by elapsed chronological time in culture, population doubling level, or passage level. Although called “cell age,” it does not denote the total duration for which the cells have existed.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>temporal interval that spans from master cell bank thaw to production vessel harvest</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;IncreasingAttributeInteractionImpactDescription">
@@ -988,9 +992,9 @@ Actionable: It provides insight into what’s working and what might need improv
 														<owl:someValuesFrom>
 															<owl:Class>
 																<owl:unionOf rdf:parseType="Collection">
-																	<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-																	</rdf:Description>
 																	<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+																	</rdf:Description>
+																	<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
 																	</rdf:Description>
 																</owl:unionOf>
 															</owl:Class>
@@ -1022,9 +1026,9 @@ Actionable: It provides insight into what’s working and what might need improv
 										<owl:someValuesFrom>
 											<owl:Class>
 												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
-													</rdf:Description>
 													<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+													</rdf:Description>
+													<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
 													</rdf:Description>
 												</owl:unionOf>
 											</owl:Class>
