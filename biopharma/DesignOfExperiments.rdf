@@ -2,10 +2,13 @@
 <!DOCTYPE rdf:RDF [
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY doap "http://usefulinc.com/ns/doap#">
+	<!ENTITY foaf "http://xmlns.com/foaf/0.1/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
@@ -15,10 +18,13 @@
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/DesignOfExperiments/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:doap="http://usefulinc.com/ns/doap#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
@@ -27,7 +33,8 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/DesignOfExperiments/">
 		<rdfs:label xml:lang="en-US">design of experiments</rdfs:label>
-        <terms:abstract>This module imports the Statistics module and extends it with constructs necessary for representing design of experiments, including study design objectives, factor-level combinations, design points, and selected design point types used in screening, optimization, robustness testing, and response-surface studies.</terms:abstract>		<terms:license>http://opensource.org/licenses/MIT</terms:license>
+		<terms:abstract>This module imports the Statistics module and extends it with constructs necessary for representing design of experiments, including study design objectives, factor-level combinations, design points, and selected design point types used in screening, optimization, robustness testing, and response-surface studies.</terms:abstract>
+		<terms:license>http://opensource.org/licenses/MIT</terms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Statistics/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/DesignOfExperiments/"/>
@@ -35,13 +42,26 @@
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
+	<rdf:Description rdf:about="&bfo;OBI_0000471">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&bfo;OBI_0500000"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+	</rdf:Description>
+	
 	<owl:Class rdf:about="&iof-construct;AxialPoint">
 		<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
 		<rdfs:label xml:lang="en-US">axial point</rdfs:label>
 		<skos:example>In a two-factor central composite design studying pH and temperature, the factorial levels for pH are 6.8 and 7.2 and for temperature are 35 °C and 37 °C. Runs performed at pH 6.6 and 7.4 extend beyond the factorial pH range and serve as axial points used to estimate quadratic effects for pH</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Axial points, also called star points, extend outward beyond the factorial cube in response-surface designs such as the central composite design. They are positioned at specified distances, often denoted α, beyond the high and low factorial levels. These additional runs enable estimation of quadratic terms and curvature effects that cannot be obtained from factorial and center points alone. Including axial points improves model accuracy, supports process optimization, and strengthens justification of the design space near the boundaries of the studied region.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AxialPoint(x) → DesignPoint(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where one factor is assigned a level outside the factorial range specified for that factor in the experimental design, enabling estimation of curvature in the response</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;axial point&apos; then x is a &apos;design point&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CenterPoint">
@@ -50,51 +70,74 @@
 		<skos:example>In a two-factor experiment where pH ranges from 6.8 to 7.2 and temperature from 35 °C to 37 °C, the condition at pH 7.0 and 36 °C is the center point.</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Center points are experimental conditions located at the midpoint of all factor ranges in a design. They are commonly included in factorial and response-surface designs to detect curvature in the response and to confirm process stability near nominal operating conditions. If the average response at the center differs significantly from that at the extremes, it indicates nonlinearity. Replicating center points provides an internal estimate of experimental error because identical runs are performed under the same conditions. Including center points improves the robustness and interpretability of a design and helps justify the adequacy of linear models and proposed design spaces.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CenterPoint(x) → DesignPoint(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where all factors are set at their middle levels, representing the central condition of the experimental space</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;center point&apos; then x is a &apos;design point&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-
-<owl:Class rdf:about="&iof-construct;ControlPoint">
-	<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
-	<rdfs:label xml:lang="en-US">control point</rdfs:label>
-	<skos:example>In a cell culture design of experiments evaluating alternative feed formulations, the existing platform feed formulation is included as one of the planned experimental conditions. Although this condition may not be at the center of the factor ranges, it serves as the control point because it represents the current baseline process condition used to compare the effects of the new feed formulations</skos:example>
-	<iof-av:adaptedFrom>https://www.itl.nist.gov/div898/handbook/index.htm</iof-av:adaptedFrom>
-<iof-av:explanatoryNote>A control point is a planned condition included in an experimental design to give the experiment a clear point of comparison. In many cases, this is the current or standard process condition, such as an existing platform recipe or standard process setpoints (baseline). In other cases, it may be another deliberately selected condition that is useful for interpreting the experimental results (reference). A control point is not defined by where it lies in the design space. This distinguishes it from a center point, which is defined by the middle levels of the factors. A control point may also be a center point, but only when the selected comparison condition happens to be located at the middle factor levels. Its main purpose is to help interpret how the tested design points differ from a known or selected comparison condition.</iof-av:explanatoryNote>	<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where the factors are set at levels corresponding to a predefined baseline or reference condition</iof-av:naturalLanguageDefinition>
-</owl:Class>
-
+	
+	<owl:Class rdf:about="&iof-construct;ControlPoint">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
+		<rdfs:label xml:lang="en-US">control point</rdfs:label>
+		<skos:example>In a cell culture design of experiments evaluating alternative feed formulations, the existing platform feed formulation is included as one of the planned experimental conditions. Although this condition may not be at the center of the factor ranges, it serves as the control point because it represents the current baseline process condition used to compare the effects of the new feed formulations</skos:example>
+		<iof-av:adaptedFrom>https://www.itl.nist.gov/div898/handbook/index.htm</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A control point is a planned condition included in an experimental design to give the experiment a clear point of comparison. In many cases, this is the current or standard process condition, such as an existing platform recipe or standard process setpoints (baseline). In other cases, it may be another deliberately selected condition that is useful for interpreting the experimental results (reference). A control point is not defined by where it lies in the design space. This distinguishes it from a center point, which is defined by the middle levels of the factors. A control point may also be a center point, but only when the selected comparison condition happens to be located at the middle factor levels. Its main purpose is to help interpret how the tested design points differ from a known or selected comparison condition.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ControlPoint(x) → DesignPoint(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where the factors are set at levels corresponding to a predefined baseline or reference condition</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;control point&apos; then x is a &apos;design point&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;CornerPoint">
 		<rdfs:subClassOf rdf:resource="&iof-construct;DesignPoint"/>
 		<rdfs:label xml:lang="en-US">corner point</rdfs:label>
 		<skos:example>Three-factor factorial design investigates agitation speed (low = 100 rpm, high = 200 rpm), feed rate (low = 2 mL/min, high = 6 mL/min), and temperature (low = 35 °C, high = 37 °C). The eight unique combinations of these levels constitute the factorial corner points</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Corner points define the outer boundaries of a factorial design. They correspond to the combinations of factor levels where each factor is simultaneously set at either its lowest or highest tested value. These points provide the primary information for estimating main effects and interactions, since they represent the greatest contrast among experimental conditions.As described in ICH Q8 (R2), testing at these extreme combinations helps evaluate process robustness and ensures that conclusions are limited to the studied operating region.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CornerPoint(x) → DesignPoint(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where all factors are set at their extreme tested levels</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;corner point&apos; then x is a &apos;design point&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DesignPoint">
-		<rdfs:subClassOf rdf:resource="&bfo;STATO_0000264"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;IAO_0000219"/>
-				<owl:allValuesFrom>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;IAO_0000104">
+							<rdf:Description rdf:about="&bfo;STATO_0000265">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-								<owl:someValuesFrom rdf:resource="&bfo;OBI_0500000"/>
+								<owl:onProperty rdf:resource="&bfo;IAO_0000136"/>
+								<owl:someValuesFrom rdf:resource="&bfo;OBI_0000750"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
-				</owl:allValuesFrom>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&bfo;OBI_0500000"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">design point</rdfs:label>
-		<skos:example>In a two-factor factorial design where temperature is set at 35 °C or 37 °C and pH at 6.8 or 7.2, each unique combination (for example, 35 °C × 6.8 pH) is a design point. Running the process under these four conditions constitutes covering all the factorial design points</skos:example>
+		<skos:example>In a two-factor factorial design where temperature is studied at 35 °C and 37 °C and pH is studied at 6.8 and 7.2, the factor levels may be encoded as low and high levels, for example −1 and +1. A design point such as Temperature = −1 and pH = +1 is the planned experimental condition 35 °C × pH 7.2, where the coded factor levels are mapped to actual experimental values. Running the process under each unique coded combination covers the factorial design points.</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
 		<iof-av:counterExample>Randomly adjusting pH between 6.5 and 7.5 without a predefined plan does not create design points, since the conditions are not predetermined by a structured experimental design.</iof-av:counterExample>
-		<iof-av:explanatoryNote>Design points represent the specific combinations of process factors at which experimental runs are performed. They are selected according to the chosen experimental design, such as factorial, central composite, or Box–Behnken, and together form the framework for exploring the experimental space. As described in ICH Q8 (R2), each combination of factor levels corresponds to a design point that enables systematic study of main effects, interactions, and curvature. The inclusion of corner, center, and axial points allows characterization of the response surface, while replication adds statistical confidence. The efficiency and interpretability of a design of experiments (DoE) study depend on selecting a balanced set of design points that provide informative coverage of the factor space while minimizing unnecessary runs.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">factor level combination that denotes a unique experimental condition within a study design</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1)A design point specifies the planned factor levels for the independent variables that define one study condition. In some designs, independent variables may be assigned at different experimental-unit levels, such as whole-plot factors and subplot factors in a split-plot design. Depending on the study design, a design point may also include assignments for blocking variables or other nuisance variables when these are explicitly represented as part of the planned condition. 
+2) In DoE contexts, design points enable systematic study of main effects, interactions, and, where supported by the design type, curvature in the response surface. Depending on the design, design points may include corner points, center points, axial points, or other structured factor-level combinations. Replicate runs at a design point support estimation of variability and increase confidence in the observed response.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DesignPoint(x) → InformationContentEntity(x) ∧ ∃s (StudyDesign(s) ∧ continuantPartOfAtAllTimes(x, s)) ∧ ∃f (FactorLevel(f) ∧ hasContinuantPartAtAllTimes(x, f) ∧ ∃v (StudyDesignIndependentVariable(v) ∧ isAbout(f, v)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is a combination of planned factor levels, with one factor level specified for each independent variable declared by a study design</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;design point&apos; then x is an &apos;information content entity&apos;, x is a &apos;continuant part of at all times&apos; some &apos;study design&apos;, and x &apos;has continuant part at all times&apos; some &apos;factor level&apos; that &apos;is about&apos; some &apos;study design independent variable&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EdgePoint">
@@ -103,11 +146,21 @@
 		<skos:example>In a formulation optimization study, excipient concentration is fixed at 50 % of its range, while temperature and humidity are placed at their high and low values.</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.fda.gov/media/71535/download</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Edge points occupy positions along the edges of the design cube, between the center and corner points. They are used in response-surface and Box–Behnken designs to capture information about factor interactions without requiring all extreme combinations. By fixing one factor at its midpoint and varying others at their extremes, edge points improve model efficiency and help balance detection of interaction effects with economy of runs. Although ICH Q8 (R2) does not explicitly use the term “edge point,” its discussion of structured design of experiments implies inclusion of such intermediate conditions to assess robustness and interaction behavior within the studied region.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>EdgePoint(x) → DesignPoint(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">design point where one factor is set at its mid-level and the remaining factors are set at their extreme levels</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;edge point&apos; then x is a &apos;design point&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;OneFactorAtATimeDesign">
 		<rdfs:subClassOf rdf:resource="&bfo;OBI_0500000"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&bfo;STATO_0000005"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">one factor at a time design</rdfs:label>
 		<skos:example>A cell-culture study in which separate series of runs are performed to vary pH, temperature, and agitation rate individually; all other parameters remain fixed at the same baseline condition; A cell-culture study that first varies pH while keeping temperature and agitation constant; after selecting the optimal pH, temperature is varied in a subsequent series of runs</skos:example>
 		<iof-av:abbreviation>OFAT design</iof-av:abbreviation>
@@ -116,16 +169,31 @@
 		<iof-av:explanatoryNote>1) The principle of an OFAT design is to vary one controlled factor through a sequence of levels while maintaining all other controlled factors at fixed baseline settings. That is, each experimental run corresponds to one experimental configuration that differs from the baseline only in the value assigned to the varied factor.
 2) OFAT design structure allows identification of main (individual) effects but does not permit estimation of interactions between factors.
 3) OFAT designs are typically applied in early-stage experimentation, screening, or process tuning, where resources are limited or interaction effects are assumed negligible.
-4) Sequential OFAT approaches may update the baseline after identifying a favorable level for one factor and then proceed to vary another factor; the defining characteristic remains that only one factor changes per experimental sequence.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design involving the testing of factors, or causes, one at a time instead of multiple factors simultaneously</iof-av:naturalLanguageDefinition>
+4) Sequential OFAT approaches may update the baseline after identifying a favorable level for one factor and then proceed to vary another factor; the defining characteristic remains that only one factor changes per experimental sequence.
+5) In an OFAT design, the dependent variable or response is declared at the level of the overall study design, while each single factor design represents a separate experimental sequence varying one selected independent variable. This allows the sequences to be interpreted as coordinated parts of one study, rather than unrelated single factor studies.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>OneFactorAtATimeDesign(x) → StudyDesign(x) ∧ ∃s (SingleFactorDesign(s) ∧ continuantPartOfAtAllTimes(s, x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design composed of a sequence of single factor designs, where each single factor design investigates a different selected factor while other relevant factors are held fixed</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;one factor at a time design&apos; then x is a &apos;study design&apos; and x has as &apos;continuant part of at all times&apos; some &apos;single factor design&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StudyDesignObjective">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000005"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;ObjectiveSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&bfo;OBI_0500000"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">study design objective</rdfs:label>
 		<skos:example>objective to determine which process parameters significantly influence product yield</skos:example>
 		<iof-av:explanatoryNote>A study design objective defines what the study is intended to accomplish, such as identifying influential factors, determining optimal conditions, or verifying process robustness. It provides the rationale for selecting the design type, factors, ranges, and responses, ensuring that the experimental structure aligns with the intended analytical or process-development goal.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">objective specification that prescribes the purpose of a study design in relation to  its declared independent and dependent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>StudyDesignObjective(x) → ObjectiveSpecification(x) ∧ ∃y(continuantPartOfAtAllTimes(x, y) ∧ StudyDesign(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">objective specification that prescribes the purpose of a study design in relation to its declared independent and dependent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to determine a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;study design objective&apos; then x is an &apos;objective specification&apos; and x is a &apos;continuant part of at all times&apos; some &apos;study design&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StudyDesignOptimizationObjective">
@@ -134,11 +202,15 @@
 		<skos:example>Determining the temperature and pH (independent variables) that maximize product yield and purity (dependent variables) in a capture step</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Optimization objectives are used to estimate and model the quantitative relationship between significant independent variables and dependent variables. The goal is to find the factor settings that maximize or minimize the desired responses within the studied region. When multiple dependent variables are optimized simultaneously, trade-offs may be required. The predicted optimum is typically verified through confirmatory runs.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design objective that prescribes determining the combination of independent variable values that produce the most desirable values of one or more dependent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>StudyDesignOptimizationObjective(x) → StudyDesignObjective(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design objective that prescribes determining the combination of independent variable values under which the values of one or more dependent variables are optimal according to specified criteria</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to determine a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;study design optimization objective&apos; then x is a &apos;study design objective&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StudyDesignResolution">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;describes"/>
@@ -153,7 +225,11 @@
 Resolution III designs can estimate main (linear) effects but confound them with two-factor interactions.
 Resolution IV designs separate main effects from two-factor interactions but may still confound two-factor interactions with each other.
 Resolution V designs estimate both main effects and two-factor interactions independently.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">data item that describes the degree to which a study design distinguishes different factor effects and interaction effects based on its confounding structure</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>StudyDesignResolution(x) → InformationContentEntity(x) ∧ ∃y (describes(x, y) ∧ StudyDesign(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that describes the degree to which a study design distinguishes different factor effects and interaction effects based on its confounding structure</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘study design resolution’ then x is an ‘information content entity’ and x ‘describes’ some ‘study design’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StudyDesignRobustnessTestingObjective">
@@ -162,7 +238,37 @@ Resolution V designs estimate both main effects and two-factor interactions inde
 		<skos:example>Testing whether small adjustments in buffer pH and flow rate (independent variables) meaningfully affect product yield (dependent variable).</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Robustness testing objectives confirm that a process or system performs consistently within its intended operating ranges. They test the sensitivity of responses to small factor changes; if the responses remain within acceptable limits, the process is considered robust. Robustness studies provide assurance of reproducibility and tolerance to normal process variability.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>StudyRobustnessTestingObjective(x) → StudyDesignObjective(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design objective that prescribes assessing whether small, deliberate variations in independent variables cause statistically significant changes in dependent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to determine a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;study design robustness testing objective&apos; then x is a &apos;study design objective&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;StudyDesignRun">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:label>study design run</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000059"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;DesignPoint"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&bfo;OBI_0000471"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>In a cell-culture DoE used to study pH, temperature, and feed concentration, each bioreactor culture performed at one planned combination of those factor levels is a study run; In a media optimization study, each shake-flask culture prepared with one planned medium formulation is a study run; In a single factor pH study, each culture performed at one planned pH level while temperature, inoculum density, and feed conditions are held fixed is a study run; In a chromatography optimization study, each column operation performed at one planned combination of load density, flow rate, and buffer pH is a study run;</skos:example>
+		<iof-av:explanatoryNote>Saying that the factor levels are applied means that the run is set up or operated using those planned levels, for example by setting pH, temperature, feed concentration, agitation rate, buffer pH, resin load, or medium composition to the levels specified by the design point. Multiple study runs may apply the same design point when the study includes replicates.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>StudyRun(x) ↔ PlannedProcess(x) ∧ ∃y (concretizesAtSomeTime(x, y) ∧ DesignPoint(y)) ∧ ∃z (occurrentPartOf(x, z) ∧ StudyDesignExecution(z))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>planned process that is an occurrent part of a study design execution and in which the factor levels of a single design point are applied</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;study run&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;concretizes at some time&apos; some &apos;design point&apos; and is &apos;occurrent part of&apos; some &apos;study design execution&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StudyDesignScreeningObjective">
@@ -171,7 +277,11 @@ Resolution V designs estimate both main effects and two-factor interactions inde
 		<skos:example>Identifying which buffer components significantly affect product purity in an affinity chromatography step.</skos:example>
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Screening objectives are used in the early stages of experimentation to determine which factors among many candidates influence the response most strongly. The results guide subsequent optimization studies that focus on a reduced set of critical factors or conditions. Screening supports efficient resource use and ensures that relevant process variables are not overlooked.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>StudyDesignScreeningObjective(x) → StudyDesignObjective(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">study design objective that prescribes identifying which independent variables have a statistically significant impact on one or more dependent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to determine a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;study design screening objective&apos; then x is a &apos;study design objective&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 
 </rdf:RDF>
