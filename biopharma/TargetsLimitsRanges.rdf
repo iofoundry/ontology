@@ -6,8 +6,8 @@
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
 	<!ENTITY dcterms "http://purl.org/dc/terms/">
 	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
-	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY qudt "http://qudt.org/schema/qudt/">
@@ -37,14 +37,36 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/TargetsLimitsRanges/">
 		<rdfs:label xml:lang="en-US">Targets Limits Ranges Ontology</rdfs:label>
-		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<dcterms:abstract xml:lang="en-US">The Targets Limits Ranges Ontology defines value-expression constructs for representing prescribed values, intervals, and thresholds used in process control, quality control, and material conformance contexts. It covers target values and target ranges, setpoints, normal operating ranges, proven acceptable ranges, specification limits, control limits, alert limits, action limits, and lifecycle-specific control limits. The module supports clear distinction between preferred values, acceptable operating ranges, process-control boundaries, early-warning thresholds, action-triggering thresholds, and specification-based conformance limits.</dcterms:abstract>
+		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/TargetsLimitsRanges/"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:copyright>Copyright (c) 2024, 2025,2026 Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
+	
+	<owl:Class rdf:about="&iof-construct;AcceptanceLimitValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
+		<rdfs:label>acceptance limit value expression</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;LimitValueExpression">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;AcceptanceCriteria"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>An acceptance limit of 100 ng/mg for residual host cell protein indicates that values above 100 ng/mg do not satisfy the applicable acceptance criterion; An acceptance limit of 95 % purity indicates that values below 95 % do not satisfy the applicable acceptance criterion; An acceptance limit of 2.0 % relative standard deviation for analytical method suitability indicates that values above 2.0 % do not satisfy the applicable acceptance criterion</skos:example>
+		<iof-av:explanatoryNote>Acceptance limits that occur as part of acceptance criteria in a specification are commonly referred to as specification limits.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>AcceptanceLimitValueExpression(x) ↔ LimitValueExpression(x) ∧ ∃a(AcceptanceCriteria(a) ∧ continuantPartOfAtAllTimes(x,a))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>acceptance limit value expression that is the threshold beyond which an acceptance criterion is not satisfied</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;acceptance limit value expression&apos; is defined as exactly an instance of &apos;limit value expression&apos; that &apos;is continuant part of at all times&apos; some &apos;acceptance criteria&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ActionLimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
@@ -54,7 +76,11 @@
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.thermofisher.com/rs/en/home/industrial/microbiology/pharmaceutical-microbiology/environmental-monitoring/applications.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1)Exceeding an action limit requires immediate response to contain potential impact on the process or material. This typically includes formally documenting the excursion, initiating a deviation or nonconformance, assessing product impact, and taking appropriate corrective actions to restore the process to a controlled state. Activities to stabilize the variable are part of the immediate response but do not negate the need for investigation, impact assessment, and potential corrective and preventive actions.
 2) Action limits are part of the internal process control framework and are not regulatory reporting limits.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ActionLimitValueExpression(x) → LimitValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>limit value expression beyond which corrective action is required to bring the process back under control and to prevent potential impact on process performance or product quality</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;action limit value expression&apos; then x is an &apos; limit value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AlertLimitValueExpression">
@@ -67,7 +93,11 @@
 2)The alert limit does not represent a specification or regulatory boundary. Instead, it supports proactive control by identifying trends or variations that may lead toward an action limit or out-of-specification condition if not corrected.
 3) In the hierarchy of limits, alert limits are sitting below Action Limits.
 4) FDA Guidance for industry, Sterile Drug Products Produced by Aseptic Processing - Current GMP Manufacturing Process  - &quot;Environmental monitoring data will provide information on the quality of the manufacturing environment. Each individual sample result should be evaluated for its significance by comparison to the alert or action levels. Averaging of results can mask unacceptable localized conditions. A result at the alert level urges attention to the approaching action conditions. A result at the action level should prompt a more thorough investigation.&quot;</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AlertLimitValueExpression(x) → LimitValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>limit value expression beyond which an early warning of process drift is triggered, prompting closer monitoring or investigation before a deviation occurs</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is an &apos;alert limit value expression&apos; then x is an &apos; limit value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ControlLimitValueExpression">
@@ -81,7 +111,11 @@
 2) An operational control limit is defined using process knowledge, equipment capability, or risk assessment when statistical data are limited or when physical or engineering constraints dictate the threshold.
 3) Exceeding a control limit indicates that the process is no longer in a state of statistical control and requires investigation and corrective action as specified by the control strategy.
 4) In biopharmaceutical manufacturing, control limits are established and refined during Continued Process Verification (CPV) to maintain a validated state of control</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ControlLimitValueExpression(x) → LimitValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>limit value expression that is a statistical or operational threshold beyond which the process is considered out of control</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;control limit value expression&apos; then x is an &apos; limit value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InitialControlLimitValueExpression">
@@ -92,12 +126,23 @@
 		<skos:example>After installing a new sparger system, dissolved oxygen is monitored using initial control limits of 33 %–47 %, pending evaluation of pilot-scale data to confirm established control limits of 35 %–45 %.; During first 10 batches post-scale-up, temperature control limits set at 36–38 °C until enough data exist to establish statistical limits.</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>An initial (provisional) control limit is used at the start of continued process verification or after process changes when process history is still limited. It provides monitored boundaries for continued manufacturing while additional data are collected to confirm process stability and variability. Once adequate data are available, the initial control limits are replaced by control limits that represent the long-term state of control.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>IntialControlLimitValueExpression(x) → ControlLimitValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>control limit established from limited process data or process knowledge and applicable only until sufficient information is available to establish statistically justified control limits</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as it is not expected that a formalization of sufficient information will be available that can fit all use cases.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;initial control limit value expression&apos; then x is a &apos; control limit value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;LimitValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ValueExpression"/>
 		<rdfs:label>limit value expression</rdfs:label>
+		<skos:example>Chromatography column pressure has a control limit of 1.5 bar and an action limit of 2.0 bar;Temperature control limits are set at 36.5 °C (lower) and 37.5 °C (upper).</skos:example>
+		<iof-av:explanatoryNote>A limit value expression represents an expressed threshold used to interpret whether a value remains within, reaches, or crosses a relevant boundary. It is not the full range and not the entity or quantity to which the limit applies. More specific subclasses determine the meaning of the threshold, such as early warning, loss of control, required corrective action, or acceptance/non-acceptance. A limit value expression may represent an upper threshold, a lower threshold, or another boundary value, including in control, monitoring, specification, or acceptance contexts.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LimitValueExpression(x) → ValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>value expression that is the specified boundary value for a particular entity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create necessary and sufficient condition. In particular required to fully formalize boundaries are currently under development in IOF Core.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;limit value expression&apos; then x is an &apos;value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;LongTermControlLimitValueExpression">
@@ -107,7 +152,11 @@
 		<skos:example>After one year of commercial production, temperature control limits of 36–38 °C are defined as long-term control limits based on statistical analysis of 40 validated manufacturing batches.</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/ and https://www.kbibiopharma.com/our-resources/continued-process-verification#:~:text=Continued%20Process%20Verification%20 and https://www.biopharminternational.com/view/continued-process-verification-biopharma-manufacturing</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A long-term control limit is established after sufficient manufacturing data have been collected to characterize normal process variability with statistical confidence.It serves as the boundary for routine monitoring, trend evaluation, and process capability assessment, replacing provisional control limits once stable operation is demonstrated. Long-term control limits are periodically reviewed and re-established as part of lifecycle maintenance.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LongTermControlLimitValueExpression(x) → ControlLimitValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>control limit established from statistically sufficient process data and used for routine monitoring and evaluation of stable long-term process performance</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as it is not expected that a formalization of sufficient process information will be available that can fit all use cases.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;long term control limit value expression&apos; then x is a &apos; control limit value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NormalOperatingRangeValueExpression">
@@ -125,11 +174,11 @@
 		<iof-av:acronym>NOR</iof-av:acronym>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/179081/download and https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-improving-understanding-normal-operating-range-nor-proven-acceptable-range-par-design-space-dsp-and-normal-variability-process-parameters_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>NOR is the span within which process is designed to function under typical conditions. This range is distinct from the broader ranges, which may include values associated with abnormal operation or alarm conditions. When a process parameter remains within the normal operating range, no alarm is expected to trigger, as the process parameter is considered to be under control.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>NormalOperatingRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y)) ∧ ∃z (SetpointValueExpression(z) ∧ hasContinuantPartAtAllTimes(x, z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>NormalOperatingRangeValueExpression(x) → RangeValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y)) ∧ ∃z (SetpointValueExpression(z) ∧ hasContinuantPartAtAllTimes(x, z))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that is an interval around a set point within which a particular process parameter is expected to vary during normal operation of a process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">range value expression that is an interval around a set point within which a particular process parameter is expected to vary during normal operation of a process and that lies within the proven acceptable range for that parameter</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;range value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProvenAcceptableRangeValueExpression">
@@ -141,16 +190,23 @@
 		<iof-av:acronym>PAR</iof-av:acronym>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/71535/download (Guidance for Industry Q8 R2 Development)</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The PAR is established based on process development and validation activities, and it is typically narrower than the full instrument span. It defines the boundaries for making saleable product, and excursions outside this range are considered process deviations that may require investigation and corrective action.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProvenAcceptableRangeValueExpression(x) → ValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ProvenAcceptableRangeValueExpression(x) → RangeValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that has been validated through testing or documented experience and that is a prescribed interval within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">range value expression that has been validated through testing or documented experience and that is a prescribed interval within which a single process parameter may vary without adversely affecting product quality, assuming all other process parameters are held constant at their target values</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;proven acceptable range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;proven acceptable range value expression&apos; then x is a &apos;range value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RangeValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ValueExpression"/>
 		<rdfs:label>range value expression</rdfs:label>
+		<skos:example>36.5–37.5 °C as the normal operating range around the setpoint 37 °C for bioreactor temperature during mammalian cell culture;  pH 6.5–7.5 as the proven acceptable range for culture medium pH during fermentation;</skos:example>
+		<iof-av:explanatoryNote>A range value expression represents the interval itself, not the individual values within the interval. The interval is used to interpret, prescribe, or evaluate values associated with a specified entity. The exact meaning of the interval depends on the more specific subclass or use context. For example, the interval may represent a target range, a normal operating range, a proven acceptable range.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>RangeValueExpression(x) → ValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>value expression that is an interval for values of a specified entity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create necessary and sufficient condition. In particular required to fully formalize intervals are currently under development in IOF Core.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;range value expression&apos; then x is an &apos;value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SetpointValueExpression">
@@ -159,7 +215,7 @@
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Parameter/"/>
 		<skos:altLabel>process parameter target value</skos:altLabel>
 		<skos:altLabel>setpoint</skos:altLabel>
-		<skos:example>for a residential dwelling temperature control process, the set point might be 72 degrees Fahrenheit during the day and 68 degrees Fahrenheit during the day; 250 rpm as the setpoint for agitation speed in a formulation tank; 20 minutes as the setpoint for residence time in the protein purification chromatography step</skos:example>
+		<skos:example>for a residential dwelling temperature control process, the set point might be 72 degrees Fahrenheit during the day and 68 degrees Fahrenheit during the night; 250 rpm as the setpoint for agitation speed in a formulation tank; 20 minutes as the setpoint for residence time in the protein purification chromatography step</skos:example>
 		<iof-av:explanatoryNote>The setpoint represents the value of a physical condition that a control system aims to achieve and maintain. The set point is used by the control system as a reference for comparison against the actual measured value of the process parameter. Specifically, a control system performs regulation by actuating one or more final control devices to modify process parameters, thereby driving the process variable toward the set point. Representation of this control behavior will be included in a future version of the ontology</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>SetpointValueExpression(x) → TargetValueExpression(x) ∧ ∃y (ProcessParameterSpecification(y) ∧ continuantPartOfAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -168,30 +224,31 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;setpoint value expression&apos; then x is a &apos;target value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;SpecificationLimitValueExpression">
-		<rdfs:subClassOf rdf:resource="&iof-construct;LimitValueExpression"/>
-		<rdfs:label>specification limit value expression</rdfs:label>
-		<skos:altLabel>specification limit</skos:altLabel>
-		<iof-av:acronym>SL</iof-av:acronym>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>limit value expression that is part of an acceptance criterion in a material conformance specification and that is a threshold for a specified attribute, beyond which the attribute value is outside the acceptance criteria established by that specification</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;TargetRangeValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;RangeValueExpression"/>
 		<rdfs:label>target range value expression</rdfs:label>
+		<skos:example>A target pH range of 7.0–7.4 for a prepared buffer before use; A target osmolality range of 280–320 mOsm/kg for a prepared media lot at release; A target viability range of 90–95 % for a cell culture before inoculation; A target galactosylation range of 45–55 % for a product quality attribute at harvest.</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnologicalbiological-entities_en.pdf</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>value expression that is a prescribed interval within which a quality attribute, material attribute, process indicator, or process parameter should fall at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
-		<iof-av:usageNote>Target range is used to describe the preferred band for an attribute, indicator, or parameter and does not, by itself, state what variation is permissible. When a parameter range is intended to state permissibility or demonstrated acceptability, terms such as normal operating range (NOR) and proven acceptable range (PAR) should be used instead.</iof-av:usageNote>
+		<iof-av:explanatoryNote>Target range is used to describe the preferred band for an attribute, indicator, or parameter and does not, by itself, state what variation is permissible. When a parameter range is intended to state permissibility or demonstrated acceptability, terms such as normal operating range (NOR) and proven acceptable range (PAR) should be used instead.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>TargetRangeValueExpression(x) → RangeValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>range value expression that is a prescribed interval within which a quality attribute, material attribute, process indicator, or process parameter should fall at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;target range value expression&apos; then x is a &apos;range value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TargetValueExpression">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ValueExpression"/>
 		<rdfs:label>target value expression</rdfs:label>
 		<skos:altLabel>target value</skos:altLabel>
+		<skos:example>37 °C as the target value for bioreactor temperature during cell culture; pH 7.2 as the target value for a prepared buffer before use; 300 mOsm/kg as the target osmolality for a prepared media lot at release; 95 % viability as the target value for a cell culture before inoculation; 5.0 g/L as the target product concentration at harvest</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnologicalbiological-entities_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>For material attributes, a target value may prescribe the required attribute value of an input material, such as a raw material, intermediate, or prepared solution, at a specified checkpoint in the planned process, for example at material receipt, at lot release, or at the time the material is introduced into the process</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>value expression which is a prescribed value that a quality attribute, material attribute, process indicator, or process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>TargetValueExpression(x) → ValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>value expression which is a prescribed value that a quality attribute, material attribute, performance indicator, or process parameter should have at a particular time point or during a particular time interval of some planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;target value expression&apos; then x is an &apos;value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 
 </rdf:RDF>
