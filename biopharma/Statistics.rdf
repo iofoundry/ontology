@@ -2,10 +2,13 @@
 <!DOCTYPE rdf:RDF [
 	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY doap "http://usefulinc.com/ns/doap#">
+	<!ENTITY foaf "http://xmlns.com/foaf/0.1/">
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
@@ -15,10 +18,13 @@
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/Statistics/"
 	xmlns:bfo="http://purl.obolibrary.org/obo/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:doap="http://usefulinc.com/ns/doap#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
 	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
 	xmlns:iof-construct="https://spec.industrialontologies.org/ontology/construct/"
 	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
@@ -93,11 +99,7 @@
 	</rdf:Description>
 	
 	<rdf:Description rdf:about="&bfo;IAO_0000136">
-		<owl:equivalentProperty rdf:resource="&iof-construct;isAbout"/>
-	</rdf:Description>
-	
-	<rdf:Description rdf:about="&bfo;IAO_0000219">
-		<owl:equivalentProperty rdf:resource="&iof-construct;denotes"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;isAbout"/>
 	</rdf:Description>
 	
 	<rdf:Description rdf:about="&bfo;IAO_0000417">
@@ -198,8 +200,7 @@
 	</rdf:Description>
 	
 	<rdf:Description rdf:about="&bfo;STATO_0000205">
-		<rdfs:subPropertyOf rdf:resource="&iof-construct;isSubjectOf"/>
-		<owl:equivalentProperty rdf:resource="&iof-construct;denotedBy"/>
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;denotedBy"/>
 	</rdf:Description>
 	
 	<rdf:Description rdf:about="&bfo;STATO_0000317">
@@ -217,14 +218,17 @@
 	<rdf:Description rdf:about="&bfo;STATO_0000564">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ExplainedVariance"/>
 	</rdf:Description>
-
-
+	
 	<owl:Class rdf:about="&iof-construct;CovariateVariable">
 		<rdfs:subClassOf rdf:resource="&bfo;STATO_0000258"/>
 		<rdfs:label xml:lang="en-US">covariate variable</rdfs:label>
 		<skos:example>Incubation temperature or dissolved oxygen concentration, when recorded but not deliberately altered, used to quantify environmental variability</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBCS_0000040</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>CovariateVariable(x) → Variable(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">variable that is monitored rather than assigned and whose observed values are included in statistical analysis to represent sources of variation in the dependent variable so that their effects can be estimated and separated from those of the factors under study</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;covariate variable&apos; then x is a &apos;variable&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DataPreparationProcess">
@@ -263,15 +267,23 @@
 		<rdfs:label xml:lang="en-US">data preparation process</rdfs:label>
 		<skos:example>removing duplicate entries, converting measurement units, imputing missing values, or merging datasets to create an analysis-ready table; filtering data to retain relevant observations for downstream analysis; encoding categorical variables as numerical values to enable statistical modeling; removing outliers or influential points identified through preliminary analysis to improve model robustness; transforming skewed variables using logarithmic or power transformations to stabilize variance; standardizing or normalizing features to enable comparison across scales in multivariate analysis</skos:example>
 		<iof-av:explanatoryNote>Data preparation involves applying one or more data transformations to convert raw or heterogeneous data into a consistent, usable form. It typically includes steps such as handling missing values, correcting errors, standardizing formats, or restructuring data for analysis, integration, or reporting.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DataPreparationProcess(x) → DataTransformation(x) ∧ ∃a (hasSpecifiedOutput(x, a) ∧ DataItem(a) ∧ ((∃b (isInputOf(a, b) ∧ PlannedProcess(b))) ∨ (∃c (satisfiesRequirement(a, c) ∧ RequirementSpecification(c)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data transformation process in which input data are cleaned, organized, or otherwise modified to make them suitable for subsequent analysis or use</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;data preparation process&apos; then x is a &apos;data transformation&apos; and x &apos;has specified output&apos; some &apos;data item&apos; that either &apos;is input of&apos; some &apos;planned process&apos; or &apos;satisfies requirement&apos; some &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-		
+	
 	<owl:Class rdf:about="&iof-construct;ExplainedVariance">
 		<rdfs:subClassOf rdf:resource="&bfo;STATO_0000039"/>
 		<rdfs:label xml:lang="en-US">explained variance</rdfs:label>
 		<skos:example>coefficient of determination that represents the variance explained by a linear model; eta-squared that represents the variance explained in an ANOVA analysis</skos:example>
 		<iof-av:adaptedFrom>https://www.statology.org/explained-variance/ and http://purl.obolibrary.org/obo/STATO_0000564</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ExplainedVariance(x) → Statistic(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">statistic representing the portion of the total variance in a dependent variable that is attributable to one or more independent variables within a model</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;explained variance&apos; then x is a &apos;statistic&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ExploratoryDataAnalysis">
@@ -280,7 +292,11 @@
 		<skos:example>computing summary statistics such as mean, variance, or correlation coefficients; plotting histograms, boxplots, or scatter matrices to visualize data distributions and relationships; identifying missing values or outliers in experimental results before modeling</skos:example>
 		<iof-av:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso-iec:22989:ed-1:v1:en:term:3.2.6 and https://www.ibm.com/think/topics/exploratory-data-analysis</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Exploratory Data Analysis involves determining and describing features of a dataset or its subsets through summary statistics, visualization, and other descriptive techniques. It supports understanding of data structure, relationships, outliers, and quality before applying formal modeling or hypothesis testing.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ExploratoryDataAnalysis(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process used to determine and analyze characteristics of a dataset or its parts in order to identify structure, trends, or irregularities</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;exploratory data analysis&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MathematicalFunction">
@@ -290,15 +306,24 @@
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/result#AFR_0001257 and https://www.britannica.com/science/function-mathematics</iof-av:adaptedFrom>
 		<iof-av:counterExample>a computer procedure that returns multiple unrelated outputs (e.g., a function that returns both a number and a plot object); a rule that yields different results for the same input depending on random seed or system state; computer function that writes data to a file or displays a message on the screen</iof-av:counterExample>
 		<iof-av:explanatoryNote>This term refers to an information description that defines how each input value is associated with one or more outputs according to a defined expression or rule. The ‘expression or rule’ part covers both mathematical formulas and conditional statements. The ‘input set (domain)’ represents all allowed input values, and the ‘output set (codomain)’ represents the possible outcomes. In a strictly mathematical sense, each input corresponds to a single output, but in practical models this mapping may represent a range or distribution of values.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MathematicalFunction(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is an expression or rule defining a mapping from each element of a specified input set (the domain) to an element of an output set (the codomain)</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;mathematical function&apos; then x is a &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-
-		<owl:Class rdf:about="&iof-construct;OutlierDetection">
+	
+	<owl:Class rdf:about="&iof-construct;OutlierDetection">
 		<rdfs:subClassOf rdf:resource="&bfo;OBI_0200000"/>
 		<rdfs:label xml:lang="en-US">outlier detection</rdfs:label>
+		<skos:example>Detection of outlier values in a bioreactor pH time series using predefined control limits; Identification of outlying assay replicate results before calculating the reported mean value; Detection of unusual product concentration measurements in a batch dataset using an interquartile range criterion; Identification of atypical raw material impurity values across supplier lots using a predefined outlier detection rule.</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/mathematics/outlier-detection#:~:text=Outlier%20detection%20is%20defined%20as,fraud%20detection%20and%20data%20cleaning.&amp;text=How%20useful%20is%20this%20definition?</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Outlier detection involves finding and isolating data points that deviate substantially from the typical patterns within a dataset, often referred to as anomalies or exceptions. This class is intended to cover a broader range of outlier detection approaches than those currently represented in STATO, including both hypothesis-based statistical tests and non-hypothesis or algorithmic methods for identifying outliers.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DataTransformation(x) ∧ ∃y (achievesPlannedObjective(x, y) ∧ OutlierDetectionTestingObjective(y)) → OutlierDetection(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data transformation process in which a data item is evaluated for the presence of outliers according to a detection criterion</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;data transformation&apos; and x &apos;achieves planned objective&apos; some &apos;outlier detection testing objective&apos; then x is an &apos;outlier detection&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ResponseSurfacePlot">
@@ -309,7 +334,11 @@
 		<iof-av:explanatoryNote>A response surface plot is typically constructed from the predictions of a fitted regression model, most often a second-order (quadratic) polynomial, derived from data obtained in a designed experiment such as a central composite or Box–Behnken design.
 The figure illustrates how the predicted value of the dependent variable changes as the independent variables vary and may be presented as either a three-dimensional surface or a two-dimensional contour projection.
 Such plots facilitate the interpretation of main, interaction, and curvature effects and assist in locating regions of optimal or critical response.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ResponseSurfacePlot(x) → Figure(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">figure that depicts the predicted values of a dependent variable as a continuous surface over two or more independent variables</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;response surface plot&apos; then x is a &apos;figure&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;containsValuesForVariable">
