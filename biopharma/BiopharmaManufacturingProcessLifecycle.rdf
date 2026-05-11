@@ -33,13 +33,14 @@
 		<rdfs:label>Biopharma Manufacturing Process Lifecycle</rdfs:label>
 		<dcterms:abstract xml:lang="en-US">The Biopharma Manufacturing Process Lifecycle Ontology provides constructs for representing how biopharmaceutical manufacturing processes are designed, characterized, qualified, validated, and monitored over time. It supports the representation of lifecycle activities that connect product quality expectations, critical quality attributes, process understanding, risk assessment, control strategy development, facility and equipment qualification, process performance qualification, and continued process verification. The module is intended to provide a consistent way to describe how scientific and engineering knowledge about a biopharmaceutical process is generated, used to establish the commercial process, and maintained through ongoing manufacturing and lifecycle management.</dcterms:abstract>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202602/certification/Certification/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingProcessLifecycle/"/>
-		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 		<iof-av:copyright>Copyright (c) 2024, 2025,2026 Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;ContinuedProcessVerificationProcess">
@@ -59,9 +60,13 @@
 Manufacturers collect and evaluate data on critical process parameters, material attributes, quality attributes, and performance indicators to confirm that the process operates within established limits.
 This ongoing activity enables early detection of variability, supports statistical trend analysis, and provides the basis for corrective or preventive actions.
 Regulatory authorities, including the FDA and EMA, view CPV as a key element of lifecycle management ensuring consistent product quality throughout commercial manufacture.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ContinuedProcessVerificationProcess(x) → PlannedProcess(x) ∧ ∃p (precededBy(x, p) ∧ ManufacturingProcessPerformanceQualificationProcess(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>planned process that provides ongoing assurance during commercial manufacturing that a process remains in a state of control by means of periodic or continuous analysis of process data</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;continued process verification process&apos; then x is a &apos;planned process&apos; and x is &apos;preceded by&apos; some &apos;manufacturing process performance qualification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-		
+	
 	<owl:Class rdf:about="&iof-construct;CriticalQualityAttributeIdentificationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>critical quality attribute identification process</rdfs:label>
@@ -85,13 +90,13 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>CQA identification process for a monoclonal antibody drug product in which potency, purity, aggregate level, charge variants, glycosylation, and visible particles are evaluated for potential impact on safety, efficacy, or quality; CQA identification process for a sterile injectable biologic in which sterility, endotoxin, particulate matter, potency, purity, and stability-related attributes are evaluated; CQA identification process in which prior knowledge and risk assessment are used to determine which drug product quality attributes require control in the control strategy; CQA identification process for a lyophilized drug product in which reconstitution time, residual moisture, potency, purity, appearance, and stability are evaluated;</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/ and https://database.ich.org/sites/default/files/Q8_R2_Guideline.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Criticality of an attribute is primarily based upon the severity of harm to the patient should the product fall outside the acceptable range for that attribute.
 2) Risk assessment is used as part of this process, which may leverage prior knowledge and increasing product and process understanding, making it iterative.Targeted experimentation may also be performed iteratively in conjunction with risk assessment.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>CriticalQualityAttributeIdentificationProcess(x) ↔ PlannedProcess(x) ∧ ∃q (precededBy(x, q) ∧ QualityTargetProductProfileDefinition(q)) ∧ ∃r (hasOccurrentPart(x, r) ∧ RiskAssessmentProcess(r)) ∧ ∃c (hasSpecifiedOutput(x, c) ∧ CriticalQualityAttributeSpecification(c))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>planned process that identifies critical quality attributes of a drug product</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;CriticalQualityAttributeSpecification">
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;critical quality attribute identification process&apos; is defined as exactly an instance of &apos;planned process&apos; that is &apos;preceded by&apos; some &apos;quality target product profile definition&apos;, &apos;has occurrent part&apos; some &apos;risk assessment process&apos;, and &apos;has specified output&apos; some &apos;critical quality attribute specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DrugProductDesignProcess">
@@ -103,23 +108,38 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>drug product design process</rdfs:label>
+		<skos:example>Drug product design process for a monoclonal antibody formulation that evaluates buffer composition, stabilizers, surfactant level, and container closure system to support potency, purity, stability, and visible particle control over shelf life; Drug product design process for a lyophilized biologic that selects excipients and cycle-relevant formulation attributes to support cake appearance, reconstitution time, residual moisture, potency, and stability;</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process aims to ensure that the product meets patient needs and maintains performance through shelf life, supported by clinical and stability studies. Key elements commonly include:
 1) Physical, chemical, and biological characterization of the drug substance
 2) Identification and selection of excipient type and grade, including knowledge of intrinsic excipient variability
 3) Characterization of drug–excipient interactions
 4) Formulation optimization and identification of critical material attributes of both excipients and drug substance</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DrugProductDesignProcess(x) → PlannedProcess(x) ∧ ∃p (precededBy(x, p) ∧ CriticalQualityAttributeIdentificationProcess(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>planned process that develops a product that can deliver the desired quality target product profile over its entire shelf life</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug product design process&apos; then x is a &apos;planned process&apos; and x is &apos;preceded by&apos; some &apos;critical quality attribute identification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingFacilityQualificationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;AttestingProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>manufacturing facility qualification process</rdfs:label>
+		<skos:example>Manufacturing facility qualification process including commissioning and qualification of utilities before PPQ; Facility qualification process verifying that cleanrooms, utilities, and production equipment are installed and operate according to design and process requirements; Qualification process for a biologics manufacturing suite demonstrating that HVAC, water systems, clean steam, and process equipment support anticipated commercial operation;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) This term is used for the FDA Process Validation Stage 2 activities that precede process performance qualification (PPQ).
 2) These activities include those performed to assure proper facility design and commissioning, as well as activities demonstrating that utilities and equipment are built and installed in accordance with design specifications and operate in accordance with process requirements across anticipated operating ranges.
 3) Qualification activities may include selection of appropriate construction materials, operating principles, and performance characteristics; verification of installation against design specifications; and verification of operation under anticipated routine production conditions, including interventions, stoppage, and start-up.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ManufacturingFacilityQualificationProcess(x) → PlannedProcess(x) ∧ ∃p (hasOccurrentPart(x, p) ∧ AttestingProcess(p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition>planned process that assures proper manufacturing facility design and commissioning and demonstrates that associated utilities and equipment perform properly under anticipated commercial operating conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing facility qualification process&apos; then x is a &apos;planned process&apos; and x &apos;has occurrent part&apos; some &apos;attesting process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessCharacterizationProcess">
@@ -130,7 +150,11 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 		<iof-av:adaptedFrom>https://www.6sigma.us/process-improvement/process-characterization/ and https://www.biopharminternational.com/view/rational-step-wise-approach-process-characterization</iof-av:adaptedFrom>
 		<iof-av:counterExample>unplanned troubleshooting of a failed batch</iof-av:counterExample>
 		<iof-av:explanatoryNote>The process integrates analysis of historical data, designed experiments, and risk assessment to determine the criticality of parameters and material attributes, quantify their relationships with critical quality attributes (CQAs) and key performance indicators (KPIs), and establish scientifically justified parameter ranges that support control strategy, validation, and lifecycle management.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ManufacturingProcessCharacterizationProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>planned process that systematically develops and documents scientific understanding of how process parameters and material attributes influence quality and performance outcomes</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This class is expected to remain primitive.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process characterization process&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessDesignProcess">
@@ -175,11 +199,14 @@ Regulatory authorities, including the FDA and EMA, view CPV as a key element of 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>Manufacturing process design process for a monoclonal antibody drug substance process in which prior knowledge, risk assessment, process characterization, operating ranges, CPPs, and the control strategy are developed for the commercial process; Manufacturing process design process for a fed-batch cell culture process that defines input materials, process parameters, setpoints, normal operating ranges, proven acceptable ranges, monitoring points, and control elements;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Process Design corresponds to Stage 1 of FDA’s Process Validation lifecycle.
 Its purpose is to establish the scientific and engineering understanding needed to design a robust commercial process. Activities include integration of prior knowledge, risk assessment, process characterization studies, model development, identification of critical process parameters (CPPs), classification of material attributes, establishment of operating ranges (e.g., setpoints, NORs, PARs), and definition of the control strategy.
 2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ManufacturingProcessDesignProcess(x) ↔ PlannedProcess(x) ∧ ∃c (hasOccurrentPart(x, c) ∧ ManufacturingProcessCharacterizationProcess(c)) ∧ ∃s (hasOccurrentPart(x, s) ∧ ProcessControlStrategyEstablishment(s)) ∧ ∃r (hasOccurrentPart(x, r) ∧ RiskAssessmentProcess(r)) ∧ ∃o (hasSpecifiedOutput(x, o) ∧ PlanSpecification(o) ∧ ∃cs (hasContinuantPartAtAllTimes(o, cs) ∧ ControlStrategy(cs)) ∧ ∀p (prescribes(o, p) → ManufacturingProcess(p)))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>planned process that defines and develops the commercial manufacturing process, including process parameters, materials, and control elements to establish a process design</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufacturing process design process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;manufacturing process characterization process&apos;, &apos;has occurrent part&apos; some &apos;process control strategy establishment&apos;, &apos;has occurrent part&apos; some &apos;risk assessment process&apos;, and &apos;has specified output&apos; some &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;control strategy&apos; and &apos;prescribes&apos; only &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessPerformanceQualificationProcess">
@@ -220,12 +247,15 @@ Its purpose is to establish the scientific and engineering understanding needed 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>PPQ process for a commercial monoclonal antibody drug substance process executed at commercial scale using qualified bioreactors, utilities, and approved control procedures; PPQ process for a fed-batch cell culture process performed with heightened sampling and testing to confirm that the process design produces material meeting expected quality attributes;</skos:example>
 		<iof-av:abbreviation>PPQ</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In PPQ, trained personnel execute the commercial manufacturing process using previously qualified facility, utilities, and equipment, approved control procedures, and input materials in order to generate evidence that the process performs as expected at commercial scale.
 2) PPQ is typically performed with heightened sampling, testing, and scrutiny relative to routine commercial production.
 3) A successful PPQ confirms the process design and provides evidence that the commercial manufacturing process is capable of reproducible commercial manufacture.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ManufacturingProcessPerformanceQualificationProcess(x) ↔ PlannedProcess(x) ∧ ∃q (ManufacturingFacilityQualificationProcess(q) ∧ precededBy(x, q)) ∧ ∃s (PlanSpecification(s) ∧ hasInput(x, s) ∧ ∃c (ControlStrategy(c) ∧ hasContinuantPartAtAllTimes(s, c)) ∧ ∃p (ManufacturingProcess(p) ∧ prescribes(s, p))) ∧ ∃r (ManufacturingProcessPerformanceQualificationSpecification(r) ∧ prescribedBy(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>planned process in which previously qualified facility, utilities, and equipment are used to confirm the process design and demonstrate that the commercial manufacturing process performs as expected</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufacturing process performance qualification process&apos; is defined as exactly an instance of &apos;planned process&apos; that is &apos;preceded by&apos; some &apos;manufacturing facility qualification process&apos;, &apos;has input&apos; some &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;control strategy&apos; and &apos;prescribes&apos; some &apos;manufacturing process&apos;, and is &apos;prescribed by&apos; some &apos;manufacturing process performance qualification specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessPerformanceQualificationSpecification">
@@ -237,6 +267,7 @@ Its purpose is to establish the scientific and engineering understanding needed 
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>manufacturing process performance qualification specification</rdfs:label>
+		<skos:example>PPQ protocol for a commercial monoclonal antibody drug substance process defining the PPQ batches, operating parameters, sampling plan, analytical testing, acceptance criteria, deviation handling, and statistical evaluation approach; PPQ specification for a biologics fill-finish process defining process conditions, in-process controls, container closure testing, sampling locations, and batch acceptance criteria;</skos:example>
 		<iof-av:abbreviation>PPQ protocol</iof-av:abbreviation>
 		<iof-av:abbreviation>PPQ specification</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
@@ -245,7 +276,11 @@ Its purpose is to establish the scientific and engineering understanding needed 
 3) It should also specify the statistical methods and provisions for handling deviations and nonconforming data that support a science- and risk-based decision about whether the process can consistently produce quality product.
 4) If not previously accomplished, it should address facility design and qualification of utilities and equipment, personnel training and qualification, verification of material sources, and the validation status of analytical methods.
 5) It should be reviewed and approved by the appropriate departments and the quality unit before execution of the prescribed process</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ManufacturingProcessPerformanceQualificationSpecification(x) → PlanSpecification(x) ∧ ∀y (prescribes(x, y) → ManufacturingProcessPerformanceQualificationProcess(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>plan specification that prescribes a manufacturing process performance qualification process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion under information content entity</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process performance qualification specification&apos; then x is a &apos;plan specification&apos; and x &apos;prescribes&apos; only &apos;manufacturing process performance qualification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessQualificationProcess">
@@ -269,10 +304,15 @@ Its purpose is to establish the scientific and engineering understanding needed 
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>manufacturing process qualification process</rdfs:label>
+		<skos:example>Process qualification for a commercial monoclonal antibody drug substance process, including facility and equipment qualification followed by PPQ batch execution; Process qualification for a fed-batch cell culture process where qualified bioreactors, utilities, and control procedures are used before PPQ runs demonstrate reproducible commercial performance; Process qualification for a downstream purification process including qualification of chromatography skids, filtration equipment, utilities, and PPQ execution at commercial scale;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Process Qualification corresponds to Stage 2 of FDA’s Process Validation lifecycle and includes both qualification of equipment and facility (Stage 2A) and Process Performance Qualification (PPQ) (Stage 2B). Execution of PPQ batches and associated analytical evaluation provides evidence that the process can consistently operate within its defined parameters and produce material meeting predetermined quality criteria. Process Qualification relies on knowledge generated in Stage 1 Process Characterization and precedes Stage 3 Continued Process Verification.
 2) In BFO/IOF process design is modeled as a planned specification</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ManufacturingProcessQualificationProcess(x) → PlannedProcess(x) ∧ ∃d (precededBy(x, d) ∧ ManufacturingProcessDesignProcess(d)) ∧ ∃f (hasOccurrentPart(x, f) ∧ ManufacturingFacilityQualificationProcess(f)) ∧ ∃p (hasOccurrentPart(x, p) ∧ ManufacturingProcessPerformanceQualificationProcess(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>planned process in which a manufacturing process design is evaluated, through facility design assurance, qualification of utilities and equipment, and process performance qualification, to determine whether it is capable of reproducible commercial manufacture</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insuficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process qualification process&apos; then x is a &apos;planned process&apos;, x is &apos;preceded by&apos; some &apos;manufacturing process design process&apos;, x &apos;has occurrent part&apos; some &apos;manufacturing facility qualification process&apos;, and x &apos;has occurrent part&apos; some &apos;manufacturing process performance qualification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessControlStrategyEstablishment">
@@ -294,8 +334,11 @@ Its purpose is to establish the scientific and engineering understanding needed 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>Process control strategy establishment for a monoclonal antibody cell culture process using characterization data to define CPP controls, monitoring points, and response actions; Process control strategy establishment for a purification process using process characterization results to define chromatography operating ranges, impurity controls, and in-process testing; Process control strategy establishment using DoE and risk assessment outputs to define setpoints, normal operating ranges, proven acceptable ranges, and material attribute controls;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicDefinition>ProcessControlStrategyEstablishment(x) ↔ PlannedProcess(x) ∧ ∃p (ManufacturingProcessCharacterizationProcess(p) ∧ precededBy(x, p)) ∧ ∃c (ControlStrategy(c) ∧ hasSpecifiedOutput(x, c))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>planned process that uses scientific understanding of how process parameters and material attributes influence quality and performance outcomes to create a  control strategy</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process control strategy establishment&apos; is defined as exactly an instance of &apos;planned process&apos; that is &apos;preceded by&apos; some &apos;manufacturing process characterization process&apos; and &apos;has specified output&apos; some &apos;control strategy&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessModelDevelopment">
@@ -311,24 +354,42 @@ Its purpose is to establish the scientific and engineering understanding needed 
 		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/process-characterization-essentials-process-understanding-and-health-authorities-guidance and https://www.cytivalifesciences.com/en/us/insights/downstream-process-characterization</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process uses experimental, historical, or platform data to generate and validate quantitative models that explain and predict the effects of process parameters and material attributes on critical quality attributes (CQAs) and key performance indicators (KPIs).
 It supports the definition of design space, setpoints, control ranges, and parameter criticality during process characterization and provides a scientific basis for subsequent validation and lifecycle verification activities.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>planned process that is part of process characterization and in which a mathematical or empirical model that captures and predicts how process parameters and material attributes influence quality and a performance indicator is developed</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;QualityAttributeSpecification">
+		<iof-av:firstOrderLogicAxiom>ProcessModelDevelopment(x) → PlannedProcess(x) ∧ ∃p (occurrentPartOf(x, p) ∧ ManufacturingProcessCharacterizationProcess(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>planned process that is part of manufacturing process characterization and in which a mathematical or empirical model is developed to capture or predict how process parameters and material attributes influence quality attributes or performance indicators</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs present to represent necessary and sufficient conditions. In particular treatment of models is lacking.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process model development&apos; then x is a &apos;planned process&apos; and x is &apos;occurrent part of&apos; some &apos;manufacturing process characterization process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;QualityTargetProductProfile">
 		<rdfs:subClassOf rdf:resource="&iof-construct;RequirementSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;requirementSatisfiedBy"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;MaterialProduct"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;QualityAttributeSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>quality target product profile</rdfs:label>
+		<skos:example>QTPP for a sterile injectable monoclonal antibody drug product specifying the intended route of administration, dosage strength, sterility expectations, potency, purity, stability, and container closure quality characteristics; QTPP for an oral solid dosage drug product specifying the intended dosage form, dosage strength, dissolution performance, impurity expectations, stability, and appearance; QTPP for an inhalation drug product specifying the intended delivery system, delivered dose, aerodynamic particle-size performance, purity, and stability; Q</skos:example>
 		<iof-av:acronym>QTPP</iof-av:acronym>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-considerations-ich-guideline-q8-r2-pharmaceutical-development-step-5_en.pdf#page=18.32</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The quality target product profile forms the basis of design for development of a drug product by providing a prospective summary of the drug product quality characteristics that should ideally be achieved to ensure the desired quality. Typical considerations include the intended clinical use, the route of administration, the dosage form and delivery system, the dosage strength or strengths, the container closure system, therapeutic moiety release or delivery characteristics, and attributes affecting pharmacokinetics such as dissolution performance or aerodynamic performance as appropriate to the dosage form. Considerations also include drug product quality criteria appropriate for the intended marketed product, such as sterility, purity, stability, and drug release.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>QualityTargetProductProfile(x) → RequirementSpecification(x) ∧ ∃q (hasContinuantPartAtAllTimes(x, q) ∧ QualityAttributeSpecification(q)) ∧ ∀y (requirementSatisfiedBy(x, y) → MaterialProduct(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>requirement specification that prescribes the quality characteristics of a drug product that should ideally be achieved to ensure the desired quality of that drug product, taking into account the safety and efficacy of that drug product</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;quality target product profile&apos; then x is a &apos;requirement specification&apos;, x &apos;has continuant part at all times&apos; some &apos;quality attribute specification&apos;, and x &apos;requirement satisfied by&apos; only &apos;material product&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;QualityTargetProductProfileDefinition">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:label>quality attribute target product profile definition</rdfs:label>
+		<rdfs:label>quality target product profile definition</rdfs:label>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -341,8 +402,11 @@ It supports the definition of design space, setpoints, control ranges, and param
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>QTPP definition process for a sterile injectable monoclonal antibody drug product; QTPP definition process establishing target product quality characteristics for a lyophilized biologic; QTPP definition process for an oral solid dosage product that establishes desired dosage form, strength, dissolution, stability, and quality targets;</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>planned process in which a quality target product profile is produced</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicDefinition>QualityTargetProductProfileDefinition(x) ↔ PlannedProcess(x) ∧ ∃q (hasSpecifiedOutput(x, q) ∧ QualityTargetProductProfile(q))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>planned process in which a quality target product profile is established</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;quality target product profile definition&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has specified output&apos; some &apos;quality target product profile&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 
 </rdf:RDF>
