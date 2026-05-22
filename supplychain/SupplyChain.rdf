@@ -4369,9 +4369,50 @@ An Engineered System comprising all agents, equipment, facilities, software syst
         <iof-av:acronym>ASN</iof-av:acronym>
         <iof-av:adaptedFrom xml:lang="en">GS1&apos;s &quot;ASN message implementation guideline&quot; document</iof-av:adaptedFrom>
         <iof-av:explanatoryNote xml:lang="en">ASN may also describe the details about the carrier as well</iof-av:explanatoryNote>
-        <iof-av:firstOrderLogicDefinition>AdvanceShipmentNotice(x) ↔ InformationContentEntity(x) ∧ ∃y∃z∃w∃p∃a (Shipment(y) ∧ isAbout(x,y) ∧ ((Buyer(z) ∨ Consignor(z)) ∧ isAbout(x,z)) ∧ ((Supplier(w) ∨ Consignee(w)) ∧ isAbout(x,w)) ∧ ShipmentPreparationProcess(p) ∧ ArrivalProcess(a)  ∧ outputOf(x,p) ∧ precedes(p,a) ∧ participatesIn(y,a))</iof-av:firstOrderLogicDefinition>
+        <iof-av:firstOrderLogicDefinition>AdvanceShipmentNotice(x) ↔ InformationContentEntity(x) ∧ ∃y∃z∃w∃p∃a (Shipment(y) ∧ isAbout(x,y) ∧ ((Buyer(z) ∨ Consignor(z)) ∧ isAbout(x,z)) ∧ ((Supplier(w) ∨ Consignee(w)) ∧ isAbout(x,w)) ∧ ShipmentPreparationProcess(p) ∧ ArrivalProcess(a)  ∧ isOutputOf(x,p) ∧ precedes(p,a) ∧ participatesInAtSomeTime(y,a))</iof-av:firstOrderLogicDefinition>
         <iof-av:naturalLanguageDefinition xml:lang="en">information content entity about a shipment, sent by a supplier or consignor to a buyer or consignee, before the shipment’s arrival</iof-av:naturalLanguageDefinition>
-        <iof-av:semiFormalNaturalLanguageDefinition xml:lang="en">every instance of &apos;advance shipment notice&apos; is an instance of some &apos;information content entity&apos; that &apos;is about&apos; a &apos;shipment&apos;, &apos;is about&apos; a &apos;buyer&apos; or &apos;consignor&apos;, &apos;is about&apos; a &apos;supplier&apos; or &apos;consignee&apos;, and &apos;is output of&apos; a &apos;shipment preparation process&apos; that &apos;precedes&apos; some &apos;arrival process&apos; that the &apos;shipment&apos; &apos;participates in&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition xml:lang="en">every instance of &apos;advance shipment notice&apos; is an instance of some &apos;information content entity&apos; that &apos;is about&apos; a &apos;shipment&apos;, &apos;is about&apos; a &apos;buyer&apos; or &apos;consignor&apos;, &apos;is about&apos; a &apos;supplier&apos; or &apos;consignee&apos;, and &apos;is output of&apos; a &apos;shipment preparation process&apos; that &apos;precedes&apos; some &apos;arrival process&apos; that the &apos;shipment&apos; &apos;participates in at some time&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/PackingList -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/PackingList">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/describes"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                        <owl:onClass>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/LogisticUnit"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000056"/>
+                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/LogisticsProcess"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:onClass>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+        <dcterms:creator>Ali Hasanzadeh</dcterms:creator>
+        <rdfs:label xml:lang="en">Packing List</rdfs:label>
+        <skos:altLabel xml:lang="en">Packing Slip</skos:altLabel>
+        <skos:example xml:lang="en">A paper packing slip included inside a single cardboard shipping box (Logistic Unit) delivered to a residential customer. The document describes the packaging configuration (1 Corrugated Box, Gross Weight: 2.3 kg) and itemizes the contents (2x Wireless Headphones, SKU: HP-900; 1x Charging Cable, SKU: CB-12). It participates in the parcel delivery logistics process.</skos:example>
+        <skos:prefLabel xml:lang="en">Packing List</skos:prefLabel>
+        <iof-av:explanatoryNote xml:lang="en">most packing lists include information about the arrival time of the logistic unit (the ending time of the arrival process), but this feature is not axiomatized since it is not a necessary feature for all packing list instances</iof-av:explanatoryNote>
+        <iof-av:explanatoryNote xml:lang="en">packing list may also describe logistic units&apos; contents and packaging configuraiton</iof-av:explanatoryNote>
+        <iof-av:explanatoryNote xml:lang="en">packing list may also refer to the logistic units&apos; invoice number or bill of lading as well.</iof-av:explanatoryNote>
+        <iof-av:firstOrderLogicDefinition xml:lang="en">PackingList(x) ↔ InformationContentEntity(x) ∧ ∃y(LogisticUnit(y) ∧ describes(x, y) ∧ ∃z (LogisticsProcess(z) ∧ participatesInAtSomeTime(y, z)))</iof-av:firstOrderLogicDefinition>
+        <iof-av:naturalLanguageDefinition xml:lang="en">information content entity that describes one or more logistic units planned to participate in some logistics process</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition xml:lang="en">every instance of &apos;packing list&apos; is an instance of some &apos;information content entity&apos; that &apos;describes&apos; some &apos;logistic unit&apos; that &apos;participates in at some time&apos; in some &apos;logistics process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     
 
