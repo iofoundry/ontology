@@ -33,11 +33,11 @@
 		<rdfs:label>Biopharma Manufacturing Process Lifecycle</rdfs:label>
 		<dcterms:abstract xml:lang="en-US">The Biopharma Manufacturing Process Lifecycle Ontology provides constructs for representing how biopharmaceutical manufacturing processes are designed, characterized, qualified, validated, and monitored over time. It supports the representation of lifecycle activities that connect product quality expectations, critical quality attributes, process understanding, risk assessment, control strategy development, facility and equipment qualification, process performance qualification, and continued process verification. The module is intended to provide a consistent way to describe how scientific and engineering knowledge about a biopharmaceutical process is generated, used to establish the commercial process, and maintained through ongoing manufacturing and lifecycle management.</dcterms:abstract>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
-		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/certification/Certification/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/certification/Certification/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingProcessLifecycle/"/>
 		<iof-av:copyright>Copyright (c) 2024, 2025,2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
@@ -315,6 +315,21 @@ Its purpose is to establish the scientific and engineering understanding needed 
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process qualification process&apos; then x is a &apos;planned process&apos;, x is &apos;preceded by&apos; some &apos;manufacturing process design process&apos;, x &apos;has occurrent part&apos; some &apos;manufacturing facility qualification process&apos;, and x &apos;has occurrent part&apos; some &apos;manufacturing process performance qualification process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;PriorKnowledgeInformationContentEntity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:label>prior knowledge information content entity</rdfs:label>
+		<skos:example>a prior knowledge summary stating that low-pH viral inactivation at a specified pH and hold time range has previously achieved acceptable viral clearance for a platform monoclonal antibody process; a prior knowledge report describing how Protein A resin binding capacity has varied across prior products, resin lots, and operating conditions; a Bayesian prior distribution for a glycosylation model parameter derived from historical fed-batch runs and used to support adaptive process control;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q11%20Guideline.pdf and https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Prior knowledge can be derived from publicly available or internally documented sources.
+2) A prior knowledge information content entity may represent only the portion relevant to a stated scope, such as a unit operation, parameter, quality attribute, scale range, or control decision.
+3) Data derived from relevant prior knowledge, including platform manufacturing, can be leveraged. Accordingly, prior knowledge may be operationalized in data-derived forms such as statistical summaries and governed models, including Bayesian prior distributions, provided scope and provenance are specified.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PriorKnowledgeInformationContentEntity(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>information content entity that represents scientifically grounded understanding of a product, material, or process derived from prior experience, technical literature, historical data, and/or established scientific and engineering principles</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions for this class. In particular, further work is needed to clarify how prior knowledge information content entities relate to evidence records, data summaries, models, reports, specifications, and other kinds of information content entities.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;prior information content entity&apos; then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ProcessControlStrategyEstablishment">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label>process control strategy establishment</rdfs:label>
@@ -359,6 +374,18 @@ It supports the definition of design space, setpoints, control ranges, and param
 		<iof-av:naturalLanguageDefinition>planned process that is part of manufacturing process characterization and in which a mathematical or empirical model is developed to capture or predict how process parameters and material attributes influence quality attributes or performance indicators</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to represent necessary and sufficient conditions. In particular treatment of models is lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process model development&apos; then x is a &apos;planned process&apos; and x is &apos;occurrent part of&apos; some &apos;manufacturing process characterization process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProcessTrendingAnalysis">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;ContinuedProcessVerificationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process trending analysis</rdfs:label>
+		<iof-av:naturalLanguageDefinition>planned process that systematically analyzes historical and current process and quality data to identify patterns, shifts, drifts, or abnormal variability in process parameters, material attributes, quality attributes, or performance indicators within and between batches</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;QualityTargetProductProfile">

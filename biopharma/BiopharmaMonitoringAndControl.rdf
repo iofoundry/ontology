@@ -52,25 +52,104 @@
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<dcterms:title>NIIMBL Monitoring And Control Ontology</dcterms:title>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/ManufacturingSystemOrganization/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaMonitoringAndControl/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
-
+	
 	<owl:Class rdf:about="&iof-construct;AliquotingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SamplingProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CompositionalHomogeneity"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000175"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000040">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;CompositionalHomogeneity"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CompositionalHomogeneity"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>aliquoting process</rdfs:label>
 		<skos:example>Removing a homogeneous harvest pool from a bioreactor and aliquoting it into labeled 5 mL tubes for stability, impurity, and identity testing across multiple analytical laboratories; Division of a well-mixed serum sample into 1 mL cryovials for quality control testing and archiving</skos:example>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/A00218 and http://purl.obolibrary.org/obo/NCIT_C124326</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Because the source material is assumed to be homogeneous, the resulting aliquots represent the whole with negligible sampling error.
 2) The process produces multiple portions that can be uniquely identified, stored, or used independently</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>sampling process in which a homogeneous material entity is subdivided into multiple portions of defined amount, each portion representing the composition of the source</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>AliquotingProcess(x) → MaterialSamplingProcess(x) ∧ ∃i (MaterialEntity(i) ∧ hasInput(x, i) ∧ ∃h (CompositionalHomogeneity(h) ∧ hasQuality(i, h)) ∧ ∃o (MaterialEntity(o) ∧ hasSpecifiedOutput(x, o) ∧ properContinuantPartOfAtSomeTime(o, i) ∧ ∃h2 (CompositionalHomogeneity(h2) ∧ hasQuality(o, h2))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>material sampling process in which a homogeneous material entity is subdivided into multiple portions of defined amount, each portion representing the composition of the source</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;aliquoting process&apos; then x is a &apos;material sampling process&apos; that has input some compositionally homogeneous material entity, and has specified output some material entity that is a proper continuant part of at some time that same input material entity and has quality some compositional homogeneity</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AtlineMonitoringProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
@@ -81,7 +160,48 @@
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000063"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;MaterialLocationChangeProcess">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000063"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-construct;MeasurementProcess">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&bfo;BFO_0000066"/>
+																<owl:someValuesFrom>
+																	<owl:Class>
+																		<owl:intersectionOf rdf:parseType="Collection">
+																			<rdf:Description rdf:about="&iof-construct;PhysicalArea">
+																			</rdf:Description>
+																			<owl:Restriction>
+																				<owl:onProperty rdf:resource="&bfo;BFO_0000183"/>
+																				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+																			</owl:Restriction>
+																		</owl:intersectionOf>
+																	</owl:Class>
+																</owl:someValuesFrom>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000167"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;MaterialSample"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;MaterialSample"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -91,10 +211,17 @@
 		<rdfs:label>atline monitoring process</rdfs:label>
 		<skos:example>Monitoring cell viability and concentration by measuring a freshly withdrawn bioreactor sample using a local analyzer within the same cleanroom suite</skos:example>
 		<iof-av:adaptedFrom>https://www.hamiltoncompany.com/knowledge-base/article/bioprocess-monitoring-and-control?srsltid=AfmBOopxhhPv6WbMS7X9JSrLqEcmh6O53_Ap2y2HugM4ZBwyhECSjEa-</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>At-line monitoring involves withdrawal of material from the process stream, thereby creating a sample that represents the entity of interest. The sample is analyzed outside the process equipment, typically in benchtop analyzers located near the process. Unlike on-line monitoring, the withdrawn sample is not returned, making this an inherently extractive approach. Compared with off-line monitoring, at-line monitoring typically provides results more quickly and involves simpler, rapid analyses that can be used while the process is still ongoing.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a sampling process, in which material representing the entity of interest is withdrawn from the process stream and transported away from the process environment for analysis near the production area</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) The collected sample represents the entity of interest and is transferred away from the process equipment before measurement.
+2) The measurement is performed using analytical equipment located within the production area. This distinguishes at-line monitoring from off-line monitoring, where the sample is transferred to an analytical area outside the production area, such as a separate quality-control laboratory.
+3) At-line monitoring differs from on-line monitoring because, in on-line monitoring, the analytical equipment is integrated with the process equipment arrangement so that sampling, transfer, and measurement occur through a connected automated setup. In at-line monitoring, the sample is removed from the process equipment and brought to analytical equipment within the production area
+4) The manufacturing process referenced in the spatial condition is the manufacturing process associated with the attribute being monitored</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AtLineMonitoringProcess(x) → MonitoringProcess(x) ∧ ∃s∃t∃m∃a∃r∃p (MaterialSamplingProcess(s) ∧ MaterialLocationChangeProcess(t) ∧ MeasurementProcess(m) ∧ MaterialSample(a) ∧ PhysicalArea(r) ∧ ManufacturingProcess(p) ∧ hasOccurrentPart(x, s) ∧ hasOccurrentPart(x, t) ∧ hasOccurrentPart(x, m) ∧ hasSpecifiedOutput(s, a) ∧ hasParticipantAtAllTimes(t, a) ∧ precedes(s, t) ∧ precedes(t, m) ∧ occursIn(m, r) ∧ environs(r, p) ∧ (occurrentPartOf(x, p) ∨ ∃q (PlannedProcess(q) ∧ occurrentPartOf(x, q) ∧ hasOccurrentPart(q, p))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a material sampling process, in which material representing the entity of interest is collected from a process stream or in-process material and transferred to analytical equipment located within the production area</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;at-line monitoring process&apos; then x is a &apos;monitoring process&apos; that has occurrent parts including a &apos;material sampling process&apos;, a &apos;material location change process&apos;, and a &apos;measurement process&apos;. The material sampling process has specified output some &apos;material sample&apos;; that same material sample participates in the material location change process; the material sampling process precedes the material location change process; and the material location change process precedes the measurement process. The measurement process occurs in a &apos;physical area&apos; that &apos;environs&apos; some &apos;manufacturing process&apos; p. The at-line monitoring process is either an &apos;occurrent part of&apos; that same manufacturing process p, or it is an &apos;occurrent part of&apos; some larger &apos;planned process&apos; that &apos;has occurrent part&apos; that same manufacturing process p</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-
+	
 	<owl:Class rdf:about="&iof-construct;ControlStrategy">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
 		<rdfs:subClassOf>
@@ -125,18 +252,38 @@ A control strategy for fed-batch cell culture includes specifying a gas controll
 Per ICH: Quality risk management is used to establish the control strategy. This can include parameters and attributes related to drug substance and drug product materials and components, facility and equipment operating conditions, in process controls, finished product specifications, and the associated methods and frequency of monitoring and control. The control strategy should facilitate timely feedback / feedforward and appropriate corrective action and preventive action.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ControlStrategy(x) → PlanSpecification(x) ∧ ∃y((ProcessParameterSpecification(y) ∨ QualityAttributeSpecification(y) ∨PerformanceIndicatorSpecification(y)) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators associated with a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification consisting of one or more specifications of methods and technologies that prescribe the monitoring or regulation of process parameters, quality attributes, and process performance indicators of a particular process and its resulting material product</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a control strategy.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;control strategy&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some y, where y is either a &apos;process parameter specification&apos;, a &apos;quality attribute specification&apos;, or a &apos;performance indicator specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-
+	
 	<owl:Class rdf:about="&iof-construct;InlineMonitoringProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:complementOf>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;SamplingProcess"/>
+					</owl:Restriction>
+				</owl:complementOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MeasurementProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>inline monitoring process</rdfs:label>
 		<skos:example>Monitoring the evolution of pH and dissolved oxygen in a bioreactor through continuously operating in-situ probes during a cell culture run</skos:example>
 		<iof-av:adaptedFrom>https://www.hamiltoncompany.com/knowledge-base/article/bioprocess-monitoring-and-control?srsltid=AfmBOopxhhPv6WbMS7X9JSrLqEcmh6O53_Ap2y2HugM4ZBwyhECSjEa-</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>In-line monitoring provides real-time measurement of process attributes under actual operating conditions. Examples include pH, dissolved oxygen, or spectroscopic probes placed inside a bioreactor. No physical separation of sample from process stream occurs.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes using sensors or probes integrated with the process equipment, such that the entity of interest remains within the process stream and is neither removed nor diverted</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>InlineMonitoringProcess(x) → MonitoringProcess(x) ∧ ∃m (MeasurementProcess(m) ∧ hasOccurrentPart(x, m)) ∧ ¬∃s (MaterialSamplingProcess(s) ∧ hasOccurrentPart(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that use sensors or probes integrated with the process equipment to measure an attribute without material removal or diversion before measurement</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;inline monitoring process&apos; then x is a &apos;monitoring process&apos; that &apos;has occurrent part&apos; some &apos;measurement process&apos; and does not &apos;have occurrent part&apos; any &apos;material sampling process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAliquot">
@@ -159,11 +306,13 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<iof-av:explanatoryNote>1) By assumption, aliquots are produced from a homogeneous source material, so each aliquot is considered to represent the composition of the whole with negligible sampling error.
 2) In practice, aliquots are typically assigned unique identifiers (e.g., IDs, barcodes) to enable independent use and traceability.
 3) In laboratory and biobanking contexts, an aliquot is typically a sub-sample taken from a primary biospecimen or analyte, prepared so that it can be distributed, stored, or analyzed independently.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialAliquot(x) ↔ MaterialEntity(x) ∧ ∃s(AliquotingProcess(s) ∧ isSpecifiedOutputOf(x, s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>material entity that is the specified output of some aliquoting process</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material aliquot&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;is specified output of&apos; some &apos;aliquoting process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
-
-	<owl:Class rdf:about="&iof-construct;MaterialQualityPlan">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialProductQualityPlan">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialQualityPlan"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -216,16 +365,28 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">material quality plan</rdfs:label>
+		<rdfs:label xml:lang="en-US">material product quality plan</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
-		<skos:example>A material quality plan for particular chromatography resin prescribes synthesis process controls, intermediate and final QC testing, and release criteria to ensure the resin meets defined binding capacity, particle size distribution, and metal impurity limits. It includes in-process monitoring of pH and temperature during functionalization, validated leachables testing, and visual inspection.</skos:example>
+		<skos:example>A material product quality plan for particular chromatography resin prescribes synthesis process controls, intermediate and final QC testing, and release criteria to ensure the resin meets defined binding capacity, particle size distribution, and metal impurity limits. It includes in-process monitoring of pH and temperature during functionalization, validated leachables testing, and visual inspection.</skos:example>
 		<iof-av:explanatoryNote>1) At least one process prescribed by some part of the quality plan has to be a measurement process 
-2) The processes embedded in the quality plan typically include testing, inspection, characterization</iof-av:explanatoryNote>
+2) The processes embedded in the quality plan typically include testing, inspection, characterization
+3) The material product quality plan typically embeds the processes done to ensure quality of intermediates and not just the final products</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialQualityPlan(x) → PlanSpecification(x) ∧ ∃a(PlanSpecification(a) ∧ ∃m(MeasurementProcess(m) ∧ prescribes(a, m)) ∧ hasContinuantPartAtAllTimes(x, a)) ∧ ∃q(QualityAttributeSpecification(q) ∧ hasContinuantPartAtAllTimes(x, q)) ∧ ∃p(PlannedProcess(p) ∧ (∃pp(ProductProductionProcess(pp) ∧ (precededBy(p, pp) ∨ occurrentPartOf(p, pp) ∨ isTemporallyOverlappedBy(p, pp))) ∧ prescribes(x, p)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned specification that prescribes the processes needed to ensure that a material product meets the required quality objectives</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a material quality plan</iof-av:primitiveRationale>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material quality plan that prescribes the processes needed to ensure that a material product meets the required quality objectives</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a material product quality plan</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material quality plan&apos;, then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;plan specification&apos; a that &apos;prescribes&apos; some &apos;measurement process&apos;, and &apos;has continuant part at all times&apos; some &apos;quality attribute specification&apos;, and &apos;prescribes&apos; some &apos;planned process&apos; p that either &apos;precedes&apos;, is an &apos;occurrent part of&apos;, or &apos;is temporally overlapped by&apos; some &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialQualityPlan">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlanSpecification"/>
+		<rdfs:label>material quality plan</rdfs:label>
+		<skos:example>A material quality plan for particular chromatography resin prescribes synthesis process controls, intermediate and final QC testing, and release criteria to ensure the resin meets defined binding capacity; A material quality plan for incoming acetaminophen API prescribes supplier approval, receipt inspection, quarantine, CoA review, identity and composite QC testing, release criteria, status labeling, and batch documentation to ensure suitability before tablet production.</skos:example>
+		<iof-av:firstOrderLogicAxiom>MaterialQualityPlan(x) → PlanSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>plan specification that prescribes the processes needed to ensure that a raw material, process intermediate material, material product, or production consumable meets the required quality objectives</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in this release to fully capture the structure of a material quality plan</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material quality plan&apos; then x is a &apos;plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialSample">
@@ -303,13 +464,111 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<skos:example>UV absorbance and conductivity monitoring during column loading; continous monitoring of temperature and humidity in a clean room; Tablet weight is measured in-line every 30 minutes during compression using an integrated balance; During a fed-batch cell culture process, at-line nutrient monitoring is performed using a Nova BioProfile® FLEX analyzer to measure glucose, lactate, glutamine, and ammonia levels; Flow rate is continuously monitored during tangential flow filtration to ensure consistent membrane performance</skos:example>
 		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/monitoring-biopharmaceutical-processes-present-and-future-approaches</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1)Each monitoring process is an execution of a monitoring plan that prescribes it
-2) In case a monitoring process is responsible for monitoring the attribute/parameter/indicator in multiple processes (e.g., multiple unit operations) it is a part of the &apos;larger process&apos; which has the &apos;occurrent part&apos; the unit operations and it does not imply that it is an occurrent part of the unit operations themselves&quot;.</iof-av:explanatoryNote>
+2) If a monitoring process monitors an attribute, parameter, or indicator across multiple process parts, it should be modeled as part of the larger planned process that has those process parts as occurrent parts. This does not imply that the monitoring process is an occurrent part of each monitored process part individually. For example, a decontamination process may include mixing, heating, and adsorption as process parts. If one temperature monitoring process monitors temperature across the decontamination process, then the monitoring process is an occurrent part of the decontamination process. It is not automatically an occurrent part of each of the mixing, heating, and adsorption processes. If temperature is monitored only during heating, then the monitoring process may be modeled as an occurrent part of the heating process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>MonitoringProcess(x) ↔ PlannedProcess(x) ∧ ∃m(MeasurementProcess(m) ∧ hasOccurrentPart(x, m)) ∧ ∃p(PlannedProcess(p) ∧ occurrentPartOf(x, p)) ∧ ∃mp(MonitoringPlan(mp) ∧ prescribedBy(x, mp))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is a part of another planned process and that consists of one or more observation or measurement processes in which a particular attribute (specifically dependent continuant or temporal region or process characteristic or process profile) of some entity of interest is measured or observed</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;monitoring process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;measurement process&apos;, is &apos;occurrent part of&apos; some &apos;planned process&apos;, and is &apos;prescribed by&apos; some &apos;monitoring plan&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-<owl:Class rdf:about="&iof-construct;OfflineMonitoringProcess">
+	<owl:Class rdf:about="&iof-construct;OfflineMonitoringProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;SamplingProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000063"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;MaterialLocationChangeProcess">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000063"/>
+												<owl:someValuesFrom>
+													<owl:Class>
+														<owl:intersectionOf rdf:parseType="Collection">
+															<rdf:Description rdf:about="&iof-construct;MeasurementProcess">
+															</rdf:Description>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&bfo;BFO_0000066"/>
+																<owl:someValuesFrom>
+																	<owl:Class>
+																		<owl:intersectionOf rdf:parseType="Collection">
+																			<rdf:Description rdf:about="&iof-construct;PhysicalArea">
+																			</rdf:Description>
+																			<owl:Class>
+																				<owl:complementOf>
+																					<owl:Restriction>
+																						<owl:onProperty rdf:resource="&bfo;BFO_0000183"/>
+																						<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
+																					</owl:Restriction>
+																				</owl:complementOf>
+																			</owl:Class>
+																		</owl:intersectionOf>
+																	</owl:Class>
+																</owl:someValuesFrom>
+															</owl:Restriction>
+														</owl:intersectionOf>
+													</owl:Class>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000167"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;MaterialSample"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>offline monitoring process</rdfs:label>
+		<skos:example>Monitoring host-cell protein and residual DNA levels by sending harvested or purified samples to a quality control laboratory for ELISA and qPCR testing performed on dedicated analytical platforms</skos:example>
+		<iof-av:adaptedFrom>https://www.hamiltoncompany.com/knowledge-base/article/bioprocess-monitoring-and-control?srsltid=AfmBOopxhhPv6WbMS7X9JSrLqEcmh6O53_Ap2y2HugM4ZBwyhECSjEa-</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) The measurement is performed in a separate analytical area, commonly a quality-control laboratory or analytical laboratory, rather than using analytical equipment located within the production area.
+2) Off-line monitoring differs from at-line monitoring because at-line monitoring performs the measurement within the production area, whereas off-line monitoring performs the measurement outside the production area.
+3) The manufacturing process referenced in the spatial condition is the manufacturing process associated with the attribute being monitored</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>OfflineMonitoringProcess(x) → MonitoringProcess(x) ∧ ∃s∃t∃m∃a∃r∃p (MaterialSamplingProcess(s) ∧ MaterialLocationChangeProcess(t) ∧ MeasurementProcess(m) ∧ MaterialSample(a) ∧ PhysicalArea(r) ∧ ManufacturingProcess(p) ∧ hasOccurrentPart(x, s) ∧ hasOccurrentPart(x, t) ∧ hasOccurrentPart(x, m) ∧ hasSpecifiedOutput(s, a) ∧ hasParticipantAtAllTimes(t, a) ∧ precedes(s, t) ∧ precedes(t, m) ∧ occursIn(m, r) ∧ ¬environs(r, p) ∧ (occurrentPartOf(x, p) ∨ ∃q (PlannedProcess(q) ∧ occurrentPartOf(x, q) ∧ hasOccurrentPart(q, p))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a material sampling process, in which material representing the entity of interest is collected from a process stream or in-process material and analyzed in a separate analytical area outside the production area</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;offline monitoring process&apos; then x is a &apos;monitoring process&apos; that has occurrent parts including a &apos;material sampling process&apos;, a &apos;material location change process&apos;, and a &apos;measurement process&apos;. The material sampling process has specified output some &apos;material sample&apos;; that same material sample participates in the material location change process; the material sampling process precedes the material location change process; and the material location change process precedes the measurement process. The measurement process occurs in a &apos;physical area&apos; that does not environ the same &apos;manufacturing process&apos; p that provides the process context for x. The offline monitoring process is either an &apos;occurrent part of&apos; that same manufacturing process p, or it is an &apos;occurrent part of&apos; some larger &apos;planned process&apos; that &apos;has occurrent part&apos; that same manufacturing process p</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OnlineMonitoringProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -328,20 +587,32 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>offline monitoring process</rdfs:label>
-		<skos:example>Monitoring host-cell protein and residual DNA levels by sending harvested or purified samples to a quality control laboratory for ELISA and qPCR testing performed on dedicated analytical platforms</skos:example>
-		<iof-av:adaptedFrom>https://www.hamiltoncompany.com/knowledge-base/article/bioprocess-monitoring-and-control?srsltid=AfmBOopxhhPv6WbMS7X9JSrLqEcmh6O53_Ap2y2HugM4ZBwyhECSjEa-</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Off-line monitoring involves withdrawal of material from the process stream, thereby creating a sample that represents the entity of interest. The sample is transferred outside the manufacturing area, often to a QC laboratory, for analysis. Unlike at-line monitoring, off-line analyses are not performed in proximity to the process, and results may involve longer turnaround times and more elaborate or detailed analyses.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a sampling process, in which material representing the entity of interest is withdrawn from the process stream and transported away from the process environment for analysis in a separate analytical laboratory away from the production area</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;OnlineMonitoringProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MonitoringProcess"/>
 		<rdfs:label>online monitoring process</rdfs:label>
 		<skos:example>Monitoring key media and metabolite concentrations through an optical probe coupled to a Raman spectrometer</skos:example>
 		<iof-av:adaptedFrom>https://www.hamiltoncompany.com/knowledge-base/article/bioprocess-monitoring-and-control?srsltid=AfmBOopxhhPv6WbMS7X9JSrLqEcmh6O53_Ap2y2HugM4ZBwyhECSjEa-</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>On-line monitoring involves diversion of the entity of interest from the process stream to an external measurement device, with the option for the diverted material to be returned afterward. This minimizes material loss while still allowing real-time or near real-time measurement. The defining distinction from in-line monitoring is the presence of a diversion step.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes in which the entity of interest, or a sample representing it, is diverted from the process stream to an external measurement device, with the option that the diverted material may subsequently be returned to the stream</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>1) On-line monitoring should not be defined by whether sampled material is returned to the process. Depending on the analytical arrangement, the sampled material may be returned, discarded, consumed, diluted, or mixed with reagents.
+2) On-line monitoring differs from in-line monitoring because in-line monitoring does not involve a material sampling process before measurement.
+3) On-line monitoring differs from at-line and off-line monitoring because the sample is measured using analytical equipment connected to the process equipment, rather than being transferred to analytical equipment located within the production area or to a separate analytical area outside the production area</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>OnlineMonitoringProcess(x) → MonitoringProcess(x) ∧ ∃s∃m (MaterialSamplingProcess(s) ∧ MeasurementProcess(m) ∧ hasOccurrentPart(x, s) ∧ hasOccurrentPart(x, m) ∧ precedes(s, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>monitoring process consisting of one or more measurement processes that are preceded by a material sampling process, in which material representing the entity of interest is collected from a process stream or in-process material and measured using analytical equipment connected to the process equipment</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;online monitoring process&apos; then x is a &apos;monitoring process&apos; that &apos;has occurrent part&apos; some &apos;material sampling process&apos; and &apos;has occurrent part&apos; some &apos;measurement process&apos;, where the&apos; material sampling process&apos; &apos;precedes&apos; the &apos;measurement process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;OutOfTrendResult">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementInformationContentEntity"/>
+		<rdfs:label>out of trend result</rdfs:label>
+		<skos:example>a stability potency result that remains within specification but is lower than expected from the degradation trend; a glycan profile result within acceptance limits that deviates from the historical process trend; a host cell protein result below the specification limit that is unexpectedly high relative to recent batches; a pH result within the acceptable range that violates a predefined trend rule; a viable cell density result that departs from the expected growth trajectory</skos:example>
+		<iof-av:abbreviation>OOT result</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://gmpinsiders.com/differences-between-oos-oot-and-ooe-results/ and https://pharmuni.com/glossary/out-of-trend/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) The expected trend is assessed relative to a defined series of results for the same measured attribute and includes an expected pattern over that series and, where applicable, associated bounds or rules for identifying results that fall outside that pattern, commonly in contexts such as stability studies, process monitoring, or routine quality control testing.
+2) Unlike OOS results, which fall outside established specifications or acceptance criteria, OOT results may still be within established limits while indicating a potential shift that warrants investigation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>OutOfTrendResult(x) → MeasurementInformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>measurement information content entity that falls outside an expected trend</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to establish a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;out of trend result&apos; then x is a  &apos;measurement information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RetentionSampleRole">
@@ -356,7 +627,11 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 		<skos:example>A retained raw material sample kept in its original or equivalent packaging so it can be re-examined if a supplier-related issue arises; A media lot sample stored under specified conditions for future identity, quality, or investigation testing; A vial of finished drug product retained from a released batch for possible confirmatory testing during shelf life.</skos:example>
 		<iof-av:adaptedFrom>https://www.who.int/docs/default-source/medicines/norms-and-standards/guidelines/quality-control/trs929-annex4-guidelinessamplingpharmproducts.pdf?sfvrsn=f6273f30_2</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Commonly includes requirements on retained quantity (e.g., enough for confirmatory analyses) and on separate identification, packaging, sealing, and storage.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>RetentionSampleRole(x) → Role(x) ∧ ∃s (Sample(s) ∧ roleOf(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>role that is held by a material sample that is set aside for future testing or investigation</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;retention sample role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;sample&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SamplePlan">
@@ -367,10 +642,10 @@ Per ICH: Quality risk management is used to establish the control strategy. This
 				<owl:someValuesFrom rdf:resource="&iof-construct;SamplingProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">sample plan</rdfs:label>
+		<rdfs:label>sampling plan</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
-		<skos:altLabel>sampling plan</skos:altLabel>
+		<skos:altLabel xml:lang="en-US">sample plan</skos:altLabel>
 		<skos:altLabel>sampling strategy</skos:altLabel>
 		<skos:example>Sampling plan that prescribes in-process sampling on Days 5, 7, and 9 for glycan profiling of the expressed monoclonal antibody; Sampling plan that prescribes post-harvest sampling to assess product titer and host cell protein levels before downstream purification; Sampling plan that prescribes manual collection of 20 tablets per batch for disintegration and hardness testing in the QC lab; Sampling plan that prescribes taking an aliquot from every third eluate fraction during protein A chromatography for titer and impurity analysis (HCP and DNA)</skos:example>
 		<iof-av:adaptedFrom>https://itl.nist.gov/div898/handbook/ppc/section3/ppc33.htm</iof-av:adaptedFrom>
@@ -418,10 +693,9 @@ Sample Size: Defines the number or quantity of items to be sampled at each inter
 				<owl:someValuesFrom rdf:resource="&iof-construct;SamplePlan"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">sampling process</rdfs:label>
+		<rdfs:label>material sampling process</rdfs:label>
 		<dc:contributor>Merck KGaA</dc:contributor>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
-		<skos:altLabel>material sampling process</skos:altLabel>
 		<skos:example>Sampling process in which a technician disinfects the sampling port of a 2000 L CHO cell culture bioreactor with 70% ethanol, withdraws 15 mL of culture using a sterile syringe, discards the first 2 mL, collects the remaining 10 mL into a labeled sterile vial, and seals it for downstream analysis; Sampling process in which an operator manually collects 5 tablets from the compression chute using a stainless-steel scoop, places them into a labeled clean glass container, records the batch number and time, and seals the container for later analysis</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/sampling-process</iof-av:adaptedFrom>
 		<iof-av:counterExample>A technician places a labeled sample vial in a cold box and transports it to the analytical lab (this is sample transport and not sampling itself); An operator fills final product into vials for distribution; A lab analyst measures glucose concentration in a sample using a Nova BioProfile® FLEX analyzer (this is an analysis conducted after the sampling and not the sampling itself)</iof-av:counterExample>
@@ -432,11 +706,12 @@ The sampling process is designed to ensure that the test results subsequently co
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process of selecting and collecting a limited amount or number of some material entity in a manner which ensures it is representative of the input material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions. In particular, pattern and all the constructs for representing that the sample is taken in a manner which ensures it is representative of the input are missing</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;sampling process&apos;, then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;material entity&apos; m  and that is &apos;prescribed by&apos; some &apos;sampling plan&apos; p  and &apos;has specified output&apos; some s, where s is either a &apos;member part of at some time&apos; or a &apos;proper continuant part of at some time&apos; of m</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym xml:lang="en-US">sampling process</iof-av:synonym>
 	</owl:Class>
-
-	<owl:ObjectProperty rdf:about="&iof-construct;hasMonitoringTarget">
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;hasMonitoredAttribute">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label>has monitoring target</rdfs:label>
+		<rdfs:label>has monitored attribute</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-construct;MonitoringProcess"/>
 		<rdfs:range>
 			<owl:Class>
@@ -452,7 +727,20 @@ The sampling process is designed to ensure that the test results subsequently co
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
+		<skos:example>pH monitoring process monitors attribute pH of a culture medium; a temperature monitoring process monitors attribute temperature of a decontamination process material; a dissolved oxygen monitoring process monitors attribute dissolved oxygen concentration of a bioreactor culture;</skos:example>
 		<iof-av:naturalLanguageDefinition>relation between a monitoring process and an attribute indicating that the attribute is measured or observed during the monitoring process.</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:AllDisjointClasses>
+		<owl:members rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;AtlineMonitoringProcess">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;InlineMonitoringProcess">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;OfflineMonitoringProcess">
+			</rdf:Description>
+			<rdf:Description rdf:about="&iof-construct;OnlineMonitoringProcess">
+			</rdf:Description>
+		</owl:members>
+	</owl:AllDisjointClasses>
 </rdf:RDF>
