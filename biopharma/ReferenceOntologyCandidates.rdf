@@ -54,23 +54,17 @@
 	</owl:Ontology>
 	
 	<owl:Class rdf:about="&iof-construct;AcceptanceCriteria">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;RequirementSpecification"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
+		<rdfs:subClassOf rdf:resource="&iof-construct;RequirementSpecification"/>
 		<rdfs:label>acceptance criteria</rdfs:label>
 		<skos:example>An analytical specification for a drug substance has as part an acceptance criterion requiring residual host cell protein to be not more than 100 ng/mg protein; A batch release specification has as part an acceptance criterion requiring product purity to be at least 95 %; A drug product specification has as part an acceptance criterion requiring endotoxin to be not more than 0.25 EU/mL;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In the ICH specifications (Q6B) context, acceptance criteria are defined as “numerical limits, ranges, or other suitable measures for acceptance of the results of analytical procedures” (applying to drug substance, drug product, or materials at other manufacturing stages).
 2) In a process-validation context, protocols are expected to include tests and acceptance criteria for significant processing steps, i.e., criteria used to judge whether process performance is acceptable.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>AcceptanceCriteria(x) → InformationContentEntity(x) ∧ ∃r(RequirementSpecification(r) ∧ continuantPartOfAtAllTimes(x,r))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>AcceptanceCriteria(x) → RequirementSpecification</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>information content entity that has as parts one or more limits, ranges, or other conditions used to determine whether an entity satisfies a particular requirement</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>requirement specification that has as parts one or more limits, ranges, or other conditions used to determine whether an entity is acceptable for a specified purpose</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.In particular constructs for exaustively representing conditions that are part of acceptance criteria are missing</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acceptance criteria&apos; then x is an &apos;information content entity&apos; that &apos;is continuant part of at all times&apos; some &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acceptance criteria&apos; then x is an &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolutionRole">
@@ -829,6 +823,16 @@
 		<skos:example>A product purity measurement result of 93 % is outside an acceptance criterion requiring purity of at least 95 %; A residual host cell protein result of 125 ng/mg is outside an acceptance criterion requiring not more than 100 ng/mg; A pH monitoring result of 6.6 is outside a normal operating range of 6.8–7.2; A visual inspection result stating “visible particles present” is outside a criterion requiring no visible particles.</skos:example>
 		<iof-av:explanatoryNote>This relation is used when recorded content has been assessed against specified criteria and does not meet them. The domain is the recorded content being assessed, such as a measurement result, monitoring result, qualitative observation, process trend, or calculated result. The range is the criterion or condition used for the assessment, such as an acceptance criterion, limit, or range. This relation records only the assessment outcome; it does not state the cause, product-quality impact, severity, investigation outcome, or whether the entity that the recorded content is about satisfies a broader requirement.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>relation between an information content entity and a second information content entity that specifies criteria, which holds when the content of the first does not meet the criteria specified by the second</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;isWithinAssesmentCondition">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>is within assesment condition</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:range rdf:resource="&iof-construct;InformationContentEntity"/>
+		<skos:example>A product purity measurement result of 97 % is within an acceptance criterion requiring purity of at least 95 %; A residual host cell protein result of 80 ng/mg is within an acceptance criterion requiring not more than 100 ng/mg; A pH monitoring result of 7.0 is within a normal operating range of 6.8–7.2; A conductivity monitoring result of 11 mS/cm is within an alert range of 10–12 mS/cm; A visual inspection result stating “no visible particles observed” is within a criterion requiring no visible particles.</skos:example>
+		<iof-av:explanatoryNote>This relation is used when recorded content has been assessed against a specified assessment condition and meets it. The domain is the recorded content being assessed, such as a measurement result, monitoring result, qualitative observation, process trend, or calculated result. The range is the condition used for the assessment, such as an acceptance criterion, limit, range, normal operating range, alert range, trend condition, or qualitative criterion. This relation records only the assessment outcome; it does not state the cause, product-quality impact, investigation outcome, or whether the entity that the recorded content is about satisfies a broader requirement</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between an information content entity and a second information content entity that specifies an assessment condition, which holds when the content of the first meets the condition specified by the second</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:Class>

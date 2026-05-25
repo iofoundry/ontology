@@ -718,7 +718,7 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<skos:example>ExpiCHO Expression Medium is chemically defined, serum-free, used in high-density fed-batch processes</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>Media with plasma-derived transferrin (without purity specification) is not strictly chemically defined unless concentration is characterized</iof-av:counterExample>
-		<iof-av:explanatoryNote>Chemically defined media (CDM) are culture media composed only of pure, quantified ingredients of known chemical identity and concentration. They exclude animal-derived serum and complex additives such as yeastolate, peptones, or hydrolysates. Recombinant proteins (e.g., insulin, transferrin) may be included provided their identity and concentration are specified. CDMs improve control, reproducibility, and lot-to-lot consistency, simplify downstream purification, and enhance comparability between experiments or production runs. In biopharmaceutical manufacturing, they are favored for reducing regulatory concerns associated with serum and undefined additives. CDMs can function as standalone formulations or as the foundation for serum-free processes.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Chemically defined media (CDM) are culture media composed only of pure, quantified ingredients of known chemical identity and concentration. They exclude animal-derived serum and complex additives such as yeastolate, peptones, or hydrolysates. Recombinant proteins (e.g., insulin, transferrin) may be included provided their identity and concentration are specified. CDMs improve control, reproducibility, and lot-to-lot consistency, simplify downstream purification, and enhance comparability between experiments or production runs. In biopharmaceutical manufacturing, they are favored for reducing regulatory concerns associated with serum and undefined additives.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ChemicallyDefinedCultureMedium(x) → SerumFreeCultureMedium(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>serum free culture medium in which each component and its concentration are known and reproducible, and that excludes undefined components such as serum, extracts, or hydrolysates</iof-av:naturalLanguageDefinition>
@@ -756,28 +756,14 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 	<owl:Class rdf:about="&iof-construct;CompleteCultureMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
 		<rdfs:label>complete culture medium</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;CultureMedium">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BasalCultureMedium"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;MediaSupplement"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:example>DMEM + 10 % FBS</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Complete media are culture media that provide all nutrients and signaling components required for the routine maintenance and growth of a given cell line. They are commonly prepared by supplementing a basal medium with 5–20% animal serum or, in serum-free and chemically defined systems, by adding recombinant proteins, hormones, and lipids. Formulations can be tailored to specific cell types or processes, such as hybridoma expansion or stem cell maintenance. In both research and manufacturing, the distinction is important: basal media supply the nutritional foundation, while complete media are designed to fully support cell culture without additional basal supplementation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>CompleteCultureMedium(x) ↔ CultureMedium(x) ∧ ∃b (BasalCultureMedium(b) ∧ hasContinuantPartAtAllTimes(x, b)) ∧ ∃s (MediaSupplement(s) ∧ hasContinuantPartAtAllTimes(x, s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>CompleteCultureMedium(x) → CultureMedium(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>culture medium that consists of a basal medium supplemented with additional components, such as serum, proteins, growth factors, hormones, or other nutrients, sufficient to support robust cell growth, proliferation, and metabolic activity</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;complete culture medium&apos; is defined as exactly an instance of &apos;culture medium&apos; when it &apos;has continuant part at all times&apos; some &apos;basal culture medium&apos; and &apos;has continuant part at all times&apos; some &apos;media supplement&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a  &apos;complete culture medium&apos; then x is a &apos;culture medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Concentration">
@@ -2634,13 +2620,13 @@ Leachables: material entities that migrate from manufacturing components/systems
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SerumContainingCultureMedium">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CompleteCultureMedium"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
 		<rdfs:label>serum containing culture medium</rdfs:label>
 		<owl:disjointWith rdf:resource="&iof-construct;SerumFreeCultureMedium"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;CompleteCultureMedium">
+					<rdf:Description rdf:about="&iof-construct;CultureMedium">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -2653,16 +2639,16 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>Serum-free chemically defined medium;culture medium with hydrolysates (yeastolate, soy peptone, etc.) but no animal serum</iof-av:counterExample>
 		<iof-av:explanatoryNote>Serum-containing media are historically the most common type of complete culture media, typically supplemented with fetal bovine serum (FBS), calf serum, horse serum, or other animal sera. Serum provides a complex, undefined mix of nutrients, hormones, adhesion factors, binding proteins, protease inhibitors, and detoxifying agents, making such media broadly supportive of many cell types. However, the presence of serum introduces lot-to-lot variability and potential contaminants, including adventitious agents, endotoxin, and mycoplasma. In biomanufacturing, serum use raises regulatory concerns, and the trend has shifted toward serum-free and chemically defined media to improve reproducibility and control.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>complete culture medium that contains serum</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>culture medium that contains serum</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SerumFreeCultureMedium">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CompleteCultureMedium"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultureMedium"/>
 		<rdfs:label>serum free culture medium</rdfs:label>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;CompleteCultureMedium">
+					<rdf:Description rdf:about="&iof-construct;CultureMedium">
 					</rdf:Description>
 					<owl:Class>
 						<owl:complementOf>
@@ -2678,10 +2664,10 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>CD-CHO (chemically defined CHO medium) contains recombinant insulin and transferrin, no serum</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>CHO production medium supplemented with bovine serum albumin (BSA from serum)</iof-av:counterExample>
-		<iof-av:explanatoryNote>Serum-free media are complete culture media formulated without animal-derived serum, reducing the variability and risks associated with serum-containing formulations. They provide essential nutrients and may include recombinant proteins (e.g., insulin, transferrin), chemically defined lipids, trace elements, or other additives to support robust cell culture. Serum-free media improve reproducibility, simplify downstream purification, and are widely used in biomanufacturing because they reduce regulatory concerns and enhance lot-to-lot consistency. Many serum-free formulations are also chemically defined, but some still include hydrolysates or other complex additives.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>SerumFreeCultureMedium(x) ↔ CompleteCultureMedium(x) ∧ ¬∃s (Serum(s) ∧ hasContinuantPartAtSomeTime(x, s))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>complete culture medium that contains no animal-derived serum</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;serum-free culture medium&apos; is defined as exactly an instance of &apos;complete culture medium&apos; that does not &apos;has continuant part at some time&apos; some &apos;serum&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:explanatoryNote>Serum-free media are media formulated without animal-derived serum, reducing the variability and risks associated with serum-containing formulations. They provide essential nutrients and may include recombinant proteins (e.g., insulin, transferrin), chemically defined lipids, trace elements, or other additives to support robust cell culture. Serum-free media improve reproducibility, simplify downstream purification, and are widely used in biomanufacturing because they reduce regulatory concerns and enhance lot-to-lot consistency. Many serum-free formulations are also chemically defined, but some still include hydrolysates or other complex additives.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>SerumFreeCultureMedium(x) ↔ CultureMedium(x) ∧ ¬∃s (Serum(s) ∧ hasContinuantPartAtSomeTime(x, s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>culture medium that contains no animal-derived serum</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;serum-free culture medium&apos; is defined as exactly an instance of &apos; culture medium&apos; that does not &apos;has continuant part at some time&apos; some &apos;serum&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ShearprotectiveAgentRole">
