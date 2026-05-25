@@ -9,7 +9,6 @@
 	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-construct "https://spec.industrialontologies.org/ontology/construct/">
 	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
-	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
 	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -51,6 +50,7 @@
 		<dcterms:creator>NIIMBL BD-1 Ontology Group</dcterms:creator>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<dcterms:title>NIIMBL Parameter Ontology</dcterms:title>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/TargetsLimitsRanges/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
@@ -59,169 +59,307 @@
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&iof-construct;AttributeImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;hasImpactSourceAttributeSpecification"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000008">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000020">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000144">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;hasImpactTargetAttributeSpecification"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000008">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000020">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000144">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>attribute impact description</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;AttributeInteractionImpactDescription"/>
-		<iof-av:explanatoryNote>1) Tying the described impact to a particular process implies that the impact is expected to hold under the conditions of that process. The source attribute and the target attribute may be attributes of continuants that participate in the process or attributes of the process itself or one of its parts.
-2) The source and target relations specify the direction of the described impact, with the source attribute identified as the attribute whose variation influences variation in the target attribute.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>information content entity that describes how variation in a source attribute influences variation in a target attribute during a particular process</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;AcidicChargeVariantPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantPopulation"/>
+		<rdfs:label>acidic charge variant population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ProteinChargeVariantPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinAcidicChargeVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by some acidic charge variant classifier</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;AttributeInteractionImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000137"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;AttributeInteractionImpactDescription"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;describes"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:unionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000008">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000020">
-											</rdf:Description>
-											<rdf:Description rdf:about="&bfo;BFO_0000144">
-											</rdf:Description>
-											<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
-											</rdf:Description>
-										</owl:unionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>attribute interaction impact description</rdfs:label>
-		<iof-av:explanatoryNote>This information content entity is part of an attribute impact description and qualifies the impact described by the attribute impact description. The source attribute and the target attribute whose impact it qualifies are the source and target attributes specified by the attribute impact description of which this information content entity is part of</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>information content entity that is part of an attribute impact description and describes how variation in an attribute influences the impact of a source attribute on a target attribute during a particular process</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;AgitationRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:label>agitation rate</rdfs:label>
+		<skos:example>an agitation rate of 500 revolutions per minute applied by an impeller in a stirred gas-fermentation vessel; an agitation rate of 120 revolutions per minute applied by a stir bar during buffer preparation; an agitation rate of 30 rocking cycles per minute applied by a rocking bioreactor platform; an agitation rate of 180 shaking cycles per minute applied by an orbital shaker during flask cultivation;</skos:example>
+		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/agitation-rate</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Agitation rate is the rate of imposed mechanical motion used to stir, mix, shake, rock, or otherwise agitate a material. It should be distinguished from the resulting degree of mixing, gas transfer, bubble size distribution, mass transfer performance, or product yield, which may be affected by agitation rate but are not themselves agitation rates. Depending on the agitation mechanism, agitation rate may be expressed in revolutions per minute, cycles per minute, hertz, strokes per minute, or another unit appropriate to the motion.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AgitationRate(x) → Rate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>rate at which imposed motion is applied to agitate a liquid material</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;agitation rate&apos; then x is a &apos;rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BasicChargeVariantPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantPopulation"/>
+		<rdfs:label>basic charge variant population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ProteinChargeVariantPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinBasicChargeVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by some basic charge variant classifier</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BatchFailureProportion">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
 		<rdfs:label>batch failure proportion</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process characteristic that summarizes the number of batches runs that failed compared to the total number of batch runs</iof-av:naturalLanguageDefinition>
+		<skos:example>the batch failure proportion of a PPQ campaign in which 1 of 3 validation batches failed a release criterion; the batch failure proportion of a manufacturing campaign in which 2 of 20 production batches failed sterility or bioburden acceptance criteria; the batch failure proportion of engineering batches that failed to meet a target glycan profile; the batch failure proportion of chromatography batch runs that failed impurity clearance criteria;</skos:example>
+		<iof-av:explanatoryNote>Batch failure proportion is evaluated over a set of batch runs, such as a manufacturing campaign, PPQ campaign, engineering batch set, or historical production set. It is not a characteristic of a single batch run. A batch run is counted as failed only relative to specified criteria, such as release criteria, acceptance criteria, critical quality attribute specifications, or process performance criteria.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BatchFailureProportion(x) → ProcessCharacteristic(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the proportion of batch runs in a set of batch runs that failed to meet specified criteria</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;batch failure proportion&apos; then x is a &apos;process characteristic</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiologicalActivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biological activity</rdfs:label>
+		<skos:example>the target-binding biological activity of a monoclonal antibody drug product; the neutralizing biological activity of an antibody drug substance; the enzymatic biological activity of an enzyme therapeutic;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Biological activity is modeled as the capability of a drug substance, drug product, or relevant process intermediate material to produce the biological effect for which it is being evaluated. It should be distinguished from drug potency: biological activity is the capability, while drug potency is the quality that characterizes the degree to which that biological activity is exhibited</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BiologicalActivity(x) → Capability(x) ∧ ∃m ((MaterialProduct(m) ∨ ProcessIntermediateMaterial(m)) ∧ capabilityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>capability of a drug substance or drug product to achieve a defined biological effect</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biological activity&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material product&apos; or some &apos;process intermediate material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiologicalSequenceVariant">
+		<rdfs:subClassOf rdf:resource="&iof-construct;OrganicMolecularEntity"/>
+		<rdfs:label>biological sequence variant</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;BiologicalSequenceVariantRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>DNA or RNA or protein or peptide with a biological sequence variant role</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiologicalSequenceVariantRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biological sequence variant role</rdfs:label>
+		<skos:example>the biological sequence variant role held by a recombinant protein molecule with an amino acid substitution detected by peptide mapping; the biological sequence variant role held by a truncated monoclonal antibody heavy-chain molecule detected in a drug substance lot; the biological sequence variant role held by an unprocessed signal-peptide-containing protein form; the biological sequence variant role held by a clipped peptide whose sequence is shorter than the specified reference sequence; the biological sequence variant role held by an RNA molecule with an insertion relative to the specified reference RNA sequence; the biological sequence variant role held by a DNA molecule with a deletion relative to the specified reference DNA sequence</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/SO_0001060 and https://www.cancer.gov/publications/dictionaries/genetics-dictionary/def/variant and https://www.rapidnovor.com/sequence-variant-analysis-monoclonal-antibodies/#:~:text=Variant%20Analysis%20Service-,Introduction,variants%20and%20their%20associated%20risks.</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Biological sequence variant role is externally grounded in comparison to a specified reference biological sequence. The bearer is a molecular entity, such as a DNA molecule, RNA molecule, peptide, or protein. The role captures that the bearer is treated as a sequence variant relative to a reference sequence; it does not imply that the bearer is intrinsically a variant independently of that reference.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BiologicalSequenceVariantRole(x) → Role(x) ∧ ∃m ((DNAMolecule(m) ∨ RNAMolecule(m) ∨ Peptide(m) ∨ Protein(m)) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>role held by a DNA molecule, RNA molecule, peptide, or protein when its biological sequence differs from a specified reference biological sequence by substitution, insertion, deletion, truncation, or extension</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biological sequence variant role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;DNA molecule&apos;, &apos;RNA molecule&apos;, &apos;peptide&apos;, or &apos;protein&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiomassSpecificProductivity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
 		<rdfs:label>biomass specific productivity</rdfs:label>
+		<skos:example>recombinant protein mass produced per hour per gram dry cell weight during microbial fermentation; enzyme activity units produced per hour per gram biomass during an E. coli expression process;</skos:example>
 		<iof-av:explanatoryNote>1) In this context, biomass mass is commonly quantified as dry cell mass (e.g., dry cell weight), but may also be quantified using other biomass mass conventions (e.g., wet cell mass) when specified
 2) Biomass mass may be the total biomass mass or, when specified, viable biomass mass.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BiomassSpecificProductivity(x) → ManufacturingProcessProductivity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit biomass mass</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomass-specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BiomoleculePrimaryStructure">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000164"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiologicalSequence"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DeoxyribonucleicAcid">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Peptide">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;RibonucleicAcid">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>biomolecule primary structure</rdfs:label>
+		<skos:example>&quot;the primary structure of a monoclonal antibody heavy chain; the primary structure of a phosphorylated peptide; the primary structure of a methylated DNA molecule; the primary structure of an mRNA molecule; the primary structure of a protein variant with a single amino acid substitution</skos:example>
+		<iof-av:adaptedFrom>http://www.bioassayontology.org/bao#BAO_0000013</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Biomolecule primary structure may be described as unmodified or modified. Examples of modifications include methylation, phosphorylation, and other covalent modifications of nucleotide or amino acid residues</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BiomoleculePrimaryStructure(x) → Quality(x) ∧ ∃m ((DeoxyribonucleicAcid(m) ∨ RibonucleicAcid(m) ∨ Peptide(m) ∨ Protein(m)) ∧ qualityOf(x, m)) ∧ ∃s (BiologicalSequence(s) ∧ concretizesAtAllTimes(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>quality of a DNA, RNA, peptide, or protein molecule that is determined by the linear order of its nucleotide or amino acid residues</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomolecule primary structure&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;deoxyribonucleic acid&apos;, &apos;ribonucleic acid&apos;, &apos;peptide&apos;, or &apos;protein&apos;, and x &apos;concretizes at all times&apos; some &apos;biological sequence&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CarbonDioxideEvolutionRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CarbonDioxide"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>carbon dioxide evolution rate</rdfs:label>
+		<skos:example>carbon dioxide evolution rate of a CHO fed-batch culture calculated from exhaust gas carbon dioxide concentration and gas flow rate;</skos:example>
+		<iof-av:firstOrderLogicAxiom>CarbonDioxideEvolutionRate(x) → Rate(x) ∧ ∃c (CarbonDioxide(c) ∧ hasParticipantAtSomeTime(x, c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>rate that is the quantity of carbon dioxide transferred from a culture system to an exhaust gas stream per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;carbon dioxide evolution rate&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;carbon dioxide&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureDoublingTime">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000202"/>
 		<rdfs:label>cell culture doubling time</rdfs:label>
+		<skos:example>the cell culture doubling time of a CHO cell population during seed train expansion; the cell culture doubling time calculated from viable cell density measurements during exponential growth; the cell culture doubling time of an E. coli culture during fermentation;</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/MSIO_0000061</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>temporal interval during which a cell population size doubles</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>CellCultureDoublingTime(x) → TemporalInterval(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>temporal interval over which the size of a cell population doubles</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture doubling time&apos; then x is a &apos;temporal interval&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellPopulationGrowthRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PopulationGrowthRate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>cell population growth rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>population growth rate at which cells in a population are increasing in number</iof-av:naturalLanguageDefinition>
+		<skos:example>cell population growth rate of a CHO cell population during fed-batch cultivation; viable cell population growth rate during seed train expansion;</skos:example>
+		<iof-av:firstOrderLogicAxiom>CellPopulationGrowthRate(x) → PopulationGrowthRate(x) ∧ ∃c (CellPopulation(c) ∧ hasParticipantAtSomeTime(x, c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>population growth rate that tracks the change in number of cells in a cell population per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell population growth rate&apos; then x is a &apos;population growth rate&apos; that &apos;has participant at some time&apos; some &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellSpecificProductivity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
 		<rdfs:label>cell specific productivity</rdfs:label>
+		<skos:example>monoclonal antibody mass produced per viable cell per day during a CHO fed-batch culture; recombinant protein amount produced per cell per hour during a mammalian cell culture process;</skos:example>
+		<iof-av:firstOrderLogicAxiom>CellSpecificProductivity(x) → ManufacturingProcessProductivity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit cell amount, typically per viable cell amount</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell-specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ChargeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Classifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000027"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DesignSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>charge variant classifier</rdfs:label>
+		<skos:example>classifier that classifies a group of monoclonal antibody molecules detected as an acidic peak in cation-exchange chromatography as a charge variant relative to a reference monoclonal antibody molecule; a classifier that classifies a group of recombinant protein molecules detected as a basic peak by imaged capillary isoelectric focusing as a charge variant relative to a reference recombinant protein molecule; a classifier that classifies a group of antibody-drug conjugate molecules according to charge-related analytical properties under a product-specific charge variant method; a classifier that classifies a group of lipid nanoparticles according to surface-charge-related analytical properties relative to a reference lipid nanoparticle</skos:example>
+		<iof-av:explanatoryNote>A charge variant classifier is a broad parent for classifiers that group material entities by charge-related analytical properties. It is intended to support different material domains, including molecular products and particle-based products. More specific subclasses should be used when the charge-related terminology, analytical methods, or reference comparisons are domain-specific, such as protein charge variants, molecular charge variants, or lipid nanoparticle surface-charge variants. The reference material entity is the material entity prescribed by the relevant design specification as the basis for comparison.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ChargeVariantClassifier(x) → Classifier(x) ∧ ∃s (DesignSpecification(s) ∧ isAbout(x, s) ∧ ∃r (MaterialEntity(r) ∧ prescribes(s, r))) ∧ ∃g (ObjectAggregate(g) ∧ classifies(x, g))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>classifier that classifies a population of material entities according to charge-related analytical properties relative to a reference material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;charge variant classifier&apos; then x is a &apos;classifier&apos; that is &apos;is about&apos; some &apos;design specification&apos; that &apos;prescribes&apos; some &apos;material entity&apos;, and x &apos;classifies&apos; some &apos;object aggregate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticaInputlMaterialAttributeSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
 		<rdfs:label>critical input material attribute specification</rdfs:label>
+		<skos:example>the CMA specification for manganese concentration in a chemically defined medium when variation in manganese concentration can affect glycosylation of the output material; the CMA specification for glucose concentration in a feed medium when variation in glucose concentration can affect glycan profile of the output material; the CMA specification for culture medium osmolality when variation in osmolality can affect charge variant profile or aggregation level of the output material;</skos:example>
 		<iof-av:abbreviation>CMA specification</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>CriticalInputMaterialAttributeSpecification(x) → InputMaterialAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>input material attribute specification that prescribes some quality, capability, constitution, or composition whose variation can have a significant impact on the quality of the output material</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;critical input material attribute specification&apos; then x is an &apos;input material attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticalMaterialAttribute">
@@ -349,18 +487,6 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;critical quality attribute specification&apos; then x is a &apos;quality attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CyclicRate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
-		<rdfs:label>cyclic rate</rdfs:label>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;DecreasingAttributeInteractionImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;AttributeInteractionImpactDescription"/>
-		<rdfs:label>increasing attribute interaction impact description</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;IncreasingAttributeInteractionImpactDescription"/>
-		<iof-av:naturalLanguageDefinition>attribute impact interaction description that describes how variation in an attribute reduces the impact of a source attribute on a target attribute during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;DesignSpace">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:subClassOf>
@@ -390,15 +516,82 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 		<iof-av:adaptedFrom>https://wolfson.huji.ac.il/purification/PDF/Others/GE_DOE_in_Protein_Production_and_Purification_Handbook.pdf and https://www.biophorum.com/download/cvp-case-study-interactive-version/
 and  https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-improving-understanding-normal-operating-range-nor-proven-acceptable-range-par-design-space-dsp-and-normal-variability-process-parameters_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The design space represents the highest level of operational flexibility. It encompasses the combined interactions of all statistically significant process parameters and all statistically significant material attributes identified through risk assesment, typically established through designed experiments or multivariate modeling. Operation within the design space is considered to maintain a validated state of control and does not constitute a regulatory change, whereas movement outside the design space may require justification or regulatory variation. The design space is defined by process understanding and risk assessment, and may apply to a single unit operation or span multiple operations.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DesignSpace(x) → InformationContentEntity(x) ∧ ∃p (ManufacturingProcess(p) ∧ describes(x, p)) ∧ ∃v ((MaterialAttribute(v) ∨ ProcessParameter(v)) ∧ isAbout(x, v)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>information content entity that describes a manufacturing process through a multidimensional region of combinations of material attribute and process parameter values within which that process maintains a validated state of control and assures product quality</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;design space&apos; then x is an &apos;information content entity&apos; that &apos;describes&apos; some &apos;manufacturing process&apos; and &apos;is about&apos; some &apos;material attribute&apos; or some &apos;process parameter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolutionRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solvent"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>dissolution rate</rdfs:label>
+		<skos:example>dissolution rate of sodium chloride in water during buffer preparation; dissolution rate of powdered cell culture medium in water during media preparation; dissolution rate of sucrose in an aqueous reaction mixture; dissolution rate of an active pharmaceutical ingredient during formulation development;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/148472/download and https://www.ncbi.nlm.nih.gov/books/NBK431100/#:~:text=%5B1%5D%5B2%5D%5B,/L%20or%20g/L</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Dissolution rate describes how fast a solute enters solution under defined conditions and is typically expressed as an amount (or concentration) dissolved per unit time. It is a non-equilibrium, time-dependent behavior that precedes attainment of the solubility limit (equilibrium saturation). Dissolution occurs at the solid–liquid interface, where solvent contacts the solid surface and solute molecules detach and diffuse into the bulk liquid. The observed rate is governed by the solute’s surface area and physical form (e.g., particle size and wetting), solute–solvent interactions, temperature, mixing/agitation (hydrodynamics), and mass-transfer factors such as diffusion boundary layer thickness, as well as the driving force to saturation (difference between the saturation concentration and the current bulk concentration). Experimentally, dissolution rate is determined by monitoring how dissolved concentration (or dissolved mass) changes over time under a specified method, and it is used to evaluate and control how quickly solid components (e.g., salts, buffers, active ingredients) reach the required dissolved state in process preparation and formulation contexts.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DissolutionRate(x) → Rate(x) ∧ ∃s (Solute(s) ∧ hasParticipantAtSomeTime(x, s)) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃v (Solvent(v) ∧ hasParticipantAtSomeTime(p, v)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>rate at which a solute dissolves in a solvent</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dissolution rate&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;solute&apos; and is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;solvent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DrugPotency">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;BiologicalActivity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>drug potency</rdfs:label>
+		<skos:example>the drug potency of a monoclonal antibody drug product determined by a cell-based neutralization assay; the drug potency of an enzyme therapeutic drug substance determined by an enzymatic activity assay; the drug potency of a cytokine drug product determined by a receptor-mediated bioassay; the drug potency of a vaccine antigen lot determined by an immunological potency assay</skos:example>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-development-production-characterisation-and-specification-monoclonal-antibodies-and-related-products-revision-1_en.pdf and  https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-6-b-test-procedures-and-acceptance-criteria-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>According to ICH Q6B, the measure of potency must be directly tied to a specific product attribute that reflects its relevant biological properties. The guideline emphasizes that potency is established through an assay that demonstrates the product’s intended biological effect, and that this assay is essential for ensuring consistency and control throughout manufacturing. 
+The resource also clarifies that potency is distinct from a physicochemical measure of protein content; it must reflect a biological function and cannot be replaced by purely analytical measurements. Potency therefore serves as a critical quality attribute used to confirm that batches have the expected level of biological activity and meet acceptance criteria defined in the regulatory submission</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DrugPotency(x) → Quality(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m)) ∧ ∃a (BiologicalActivity(a) ∧ specificallyDependsOn(x, a))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>quality of a drug substance or drug product and is the degree of its biological activity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug potency&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;material entity&apos; and &apos;specifically depends on&apos; some &apos;biological activity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EdgeOfFailure">
@@ -432,34 +625,85 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 2) It may correspond to a single threshold value for a parameter or to a multidimensional surface in a parameter–attribute space.
 3) Edge-of-failure analysis can be performed experimentally by extending process conditions until failure occurs or by simulation of extrapolated design-space models.
 4) It is a scientific and developmental concept used to understand process risk and robustness and is not required as part of regulatory design-space submission.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>EdgeOfFailure(x) → InformationContentEntity(x) ∧ ∃p (ManufacturingProcess(p) ∧ describes(x, p)) ∧ ∃v ((MaterialAttribute(v) ∨ ProcessParameter(v)) ∧ isAbout(x, v))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>information content entity that describes a manufacturing process through the boundary of material attribute and process parameter values beyond which that process can no longer maintain a validated state of control or assure product quality</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;edge of failure&apos; then x is an &apos;information content entity&apos; that &apos;describes&apos; some &apos;manufacturing process&apos; and &apos;is about&apos; some &apos;material attribute&apos; or some &apos;process parameter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FlowRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;FluidAggregateState"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>flow rate</rdfs:label>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001574</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>FlowRate(x) → Rate(x) ∧ ∃m (MaterialEntity(m) ∧ hasParticipantAtSomeTime(x, m) ∧ ∃q (FluidAggregateState(q) ∧ hasQuality(m, q)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:isPrimitive>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>rate at which fluid is transported through a surface</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;flow rate&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;fluid aggregate state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;GlucoseUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MetaboliteUptakeRate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Glucose">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty>
+									<rdf:Description>
+										<owl:inverseOf rdf:resource="&iof-construct;isMadeOfAtSomeTime"/>
+									</rdf:Description>
+								</owl:onProperty>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>glucose uptake rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of a glucose taken up by a cell population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
+		<skos:example>glucose uptake rate by a CHO cell population during fed-batch cultivation; glucose uptake rate calculated from the decrease in glucose concentration in culture medium over a specified time interval; glucose uptake rate of an E. coli culture during exponential growth;</skos:example>
+		<iof-av:firstOrderLogicAxiom>GlucoseUptakeRate(x) → MetaboliteUptakeRate(x) ∧ ∃g (Glucose(g) ∧ hasParticipantAtSomeTime(x, g) ∧ ∃m (CultureMedium(m) ∧ isMadeOfAtSomeTime(m, g)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>metabolite uptake rate that tracks the uptake of glucose by a cell population from culture medium during a process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;glucose uptake rate&apos; then x is a &apos;metabolite uptake rate&apos; that &apos;has participant at some time&apos; some &apos;glucose&apos; that a &apos;culture medium&apos; &apos;is made of at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InVitroCellAge">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000202"/>
 		<rdfs:label>in vitro cell age</rdfs:label>
+		<skos:example>the in vitro cell age of a production cell population calculated from initiation of master cell bank thaw through completion of production bioreactor harvest; the in vitro cell age reported as elapsed culture time from MCB thaw to harvest;</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-d-derivation-and-characterisation-cell-substrates-used-production-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>In vitro cell age is a CMC and regulatory term used to define the interval over which the in vitro cultivation of a production cell population is assessed. The exact procedural details for identifying the start of master cell bank thaw and the start or completion of production vessel harvest should be specified by the applicable manufacturing procedure or batch-record convention. The interval may be quantified by elapsed chronological time in culture, population doubling level, or passage level. Although called “cell age,” it does not denote the total duration for which the cells have existed.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>InVitroCellAge(x) → TemporalInterval(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>temporal interval that spans from master cell bank thaw to production vessel harvest</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;IncreasingAttributeInteractionImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;AttributeInteractionImpactDescription"/>
-		<rdfs:label>increasing attribute interaction impact description</rdfs:label>
-		<iof-av:naturalLanguageDefinition>attribute impact interaction description that describes how variation in an  attribute increases the impact of a source attribute on a target attribute during a particular process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;in vitro cell age&apos; then x is a &apos;temporal interval&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InputMaterialAttributeSpecification">
@@ -546,9 +790,14 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 			</owl:Class>
 		</rdfs:subClassOf>
 		<rdfs:label>input material attribute specification</rdfs:label>
+		<skos:example>the input material attribute specification for pH of a buffer used as an input material; the input material attribute specification for osmolality of a culture medium used as an input material; the input material attribute specification for glucose concentration in a feed medium;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q8_R2_Guideline.pdf and https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Input materials can be raw materials, process intermediate materials, or production consumables, which is reflected in the prescription axiom</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>InputMaterialAttributeSpecification(x) → InputSpecification(x) ∧ ∃a (prescribes(x, a) ∧ (Quality(a) ∨ Capability(a)) ∧ ∃m (inheresIn(a, m) ∧ ((RawMaterial(m) ∨ ProcessIntermediateMaterial(m) ∨ ProductionConsumable(m)) ∨ (MaterialEntity(m) ∧ ∃w (continuantPartOfAtAllTimes(m, w) ∧ (RawMaterial(w) ∨ ProcessIntermediateMaterial(w) ∨ ProductionConsumable(w)))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>input specification that prescribes some quality, capability, constitution, or composition of an input material that can have an impact on process performance or on the quality of the output material</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;input material attribute specification&apos; then x is an &apos;input specification&apos; that &apos;prescribes&apos; some &apos;quality&apos; or &apos;capability&apos; that &apos;inheres in&apos; either some &apos;raw material&apos;, &apos;process intermediate material&apos;, or &apos;production consumable&apos;, or in some &apos;material entity&apos; that is a &apos;continuant part of at all times&apos; some &apos;raw material&apos;, &apos;process intermediate material&apos;, or &apos;production consumable&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;KeyPerformanceIndicator">
@@ -642,24 +891,66 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;key process parameter specification&apos; then x is a &apos;process parameter specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MainChargeVariantPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantPopulation"/>
+		<rdfs:label>main charge variant population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ProteinChargeVariantPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinMainChargeVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by some main charge variant classifier</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessProductivity">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000138"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>manufacturing process productivity</rdfs:label>
-		<iof-av:naturalLanguageDefinition>rate process profile that is the quantity of process intermediate or product produced per unit of time</iof-av:naturalLanguageDefinition>
+		<skos:example>monoclonal antibody mass produced per day during a fed-batch manufacturing process; recombinant enzyme activity units produced per hour during a microbial fermentation process;</skos:example>
+		<iof-av:firstOrderLogicAxiom>ManufacturingProcessProductivity(x) → Rate(x) ∧ ∃m ((ProcessIntermediateMaterial(m) ∨ MaterialProduct(m)) ∧ hasParticipantAtSomeTime(x, m)) ∧ ∃p (ManufacturingProcess(p) ∧ processProfileOf(x, p)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>rate that is the quantity of process intermediate or product produced per unit of time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process productivity&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;process intermediate material&apos; or &apos;material product&apos;, and x is the &apos;process profile of&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MassFlowRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRate"/>
 		<rdfs:label>mass flow rate</rdfs:label>
+		<skos:example>mass flow rate of air supplied to a bioreactor sparger; mass flow rate of carbon dioxide in an exhaust gas stream; mass flow rate of buffer through a chromatography column; mass flow rate of liquid feed through a process line</skos:example>
 		<iof-av:adaptedFrom>https://www.alicat.com/support/what-is-the-difference-between-mass-flow-and-volumetric-flow/</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>The “amount of matter” is quantified as mass (e.g., kg/h, g/min).</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>flow rate at which an amount of matter passes through a specified surface</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>MassFlowRate(x) → FlowRate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>flow rate that tracks the mass of fluid material transported through a surface per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mass flow rate&apos; then x is a &apos;flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAttribute">
@@ -689,14 +980,34 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 	
 	<owl:Class rdf:about="&iof-construct;MetaboliteUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>metabolite uptake rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>rate that is the quantity of a metabolite taken up by a cell population from the surrounding culture medium per unit time</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;NoChangeAttributeImpactCharacterization">
-		<rdfs:subClassOf rdf:resource="&iof-construct;TemporallyInvariantAttributeImpactDescription"/>
-		<rdfs:label>no change attribute impact characterization</rdfs:label>
-		<iof-av:naturalLanguageDefinition>time-invariant attribute impact description that describes how variation in a source attribute influences variation in a target attribute such that variation in the source attribute is not associated with change in the target attribute during a particular process</iof-av:naturalLanguageDefinition>
+		<skos:example>glucose uptake rate by a CHO cell population during fed-batch cultivation; glutamine uptake rate by a mammalian cell culture during early growth phase; amino acid uptake rate by a cell population during a nutrient-limited culture process;</skos:example>
+		<iof-av:firstOrderLogicAxiom>MetaboliteUptakeRate(x) → Rate(x) ∧ ∃m (Metabolite(m) ∧ hasParticipantAtSomeTime(x, m)) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellPopulation(c) ∧ hasParticipantAtSomeTime(p, c)) ∧ ∃cm (CultureMedium(cm) ∧ hasParticipantAtSomeTime(p, cm)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>rate that tracks the uptake of a metabolite by a cell population from culture medium during a process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;metabolite uptake rate&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;metabolite&apos; and is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell population&apos; and some &apos;culture medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NormalOperatingRangeValueExpression">
@@ -720,26 +1031,49 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normal operating range value expression&apos; then x is a &apos;value expression&apos; and x is a &apos;continuant part of at all times&apos; some &apos;process parameter specification&apos; and x &apos;has continuant part at all times&apos; some &apos;setpoint value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;OppositeDirectionAttributeImpactCharacterization">
-		<rdfs:subClassOf rdf:resource="&iof-construct;TemporallyInvariantAttributeImpactDescription"/>
-		<rdfs:label>opposite direction attribute impact characterization</rdfs:label>
-		<iof-av:naturalLanguageDefinition>time-invariant attribute impact description that describes how variation in a source attribute influences variation in a target attribute such that variation in the target attribute occurs in the opposite direction from variation in the source attribute during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;OutOfTrendResult">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementInformationContentEntity"/>
-		<rdfs:label>out of trend result</rdfs:label>
-		<iof-av:abbreviation>OOT result</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://gmpinsiders.com/differences-between-oos-oot-and-ooe-results/ and https://pharmuni.com/glossary/out-of-trend/</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) The expected trend is assessed relative to a defined series of results for the same measured attribute and includes an expected pattern over that series and, where applicable, associated bounds or rules for identifying results that fall outside that pattern, commonly in contexts such as stability studies, process monitoring, or routine quality control testing.
-2) Unlike OOS results, which fall outside established specifications or acceptance criteria, OOT results may still be within established limits while indicating a potential shift that warrants investigation.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>measurement information content entity that falls outside an expected trend</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;NormalizedFlowRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRate"/>
+		<rdfs:label>normalized flow rate</rdfs:label>
+		<skos:example>permeate flow rate normalized to membrane area during ultrafiltration, expressed as L m⁻² h⁻¹; a perfusion culture operated at 1 VVD, meaning one working volume of medium is exchanged over one day;</skos:example>
+		<iof-av:firstOrderLogicAxiom>NormalizedFlowRate(x) → FlowRate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>flow rate that tracks fluid material transported through a specified surface per unit time, expressed relative to a specified reference quantity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normalized flow rate&apos; then x is a &apos;flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;OxygenUptakeRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Dioxygen"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>oxygen uptake rate</rdfs:label>
+		<skos:example>oxygen uptake rate of a CHO cell culture during fed-batch cultivation; oxygen uptake rate of an E. coli fermentation during exponential growth;</skos:example>
+		<iof-av:firstOrderLogicAxiom>OxygenUptakeRate(x) → Rate(x) ∧ ∃o (Dioxygen(o) ∧ hasParticipantAtSomeTime(x, o)) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellPopulation(c) ∧ hasParticipantAtSomeTime(p, c)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>rate that is the amount of oxygen consumed by a cell population per unit of time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;oxygen uptake rate&apos; then x is a &apos;rate&apos; that &apos;has participant at some time&apos; some &apos;dioxygen&apos; and is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
@@ -821,25 +1155,43 @@ Actionable: It provides insight into what’s working and what might need improv
 	
 	<owl:Class rdf:about="&iof-construct;PlannedProcessYield">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processCharacteristicOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
+								<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>planned process yield</rdfs:label>
+		<skos:example>the yield of a purification step calculated as purified protein mass relative to protein mass loaded onto the column; the yield of a synthesis process calculated as actual product amount relative to theoretical product amount; the yield of a harvest process calculated as recovered product amount relative to product amount present before harvest;</skos:example>
+		<iof-av:explanatoryNote>In this context, the specified reference quantity is a quantity of a process participant associated with the planned process, including a process input, process output, starting material, limiting component, theoretical output, expected output, or intermediate material. Planned process yield should be distinguished from the output quantity itself: for example, 8 g of purified protein is an output quantity, whereas 80% yield is a process characteristic relating that output quantity to a specified reference quantity</iof-av:explanatoryNote>
 		<iof-av:explanatoryNote>In this context, ‘associated with the planned process’ means that the specified quantity is the quantity of a particular process participant including process inputs and outputs</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>process characteristic that is the quantity of a specified output produced in a planned process relative to a specified quantity associated with that planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>PlannedProcessYield(x) → ProcessCharacteristic(x) ∧ ∃p (PlannedProcess(p) ∧ processCharacteristicOf(x, p) ∧ ∃o (MaterialEntity(o) ∧ hasSpecifiedOutput(p, o)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the ratio of a specified output quantity produced in a planned process to a specified reference quantity associated with that planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;planned process yield&apos; then x is a &apos;process characteristic&apos; that is the &apos;process characteristic of&apos; some &apos;planned process&apos; that &apos;has specified output&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PopulationGrowthRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Rate"/>
 		<rdfs:label>population growth rate</rdfs:label>
+		<skos:example>population growth rate of a CHO cell population during fed-batch cultivation; population growth rate of an E. coli population during exponential growth; viable cell population growth rate during seed train expansion; microbial population growth rate during fermentation</skos:example>
+		<iof-av:firstOrderLogicAxiom>PopulationGrowthRate(x) → Rate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>rate at which a particular population is increasing in numbers</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;PriorKnowledgeInformationContentEntity">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:label>prior knowledge information content entity</rdfs:label>
-		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q11%20Guideline.pdf and https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Prior knowledge can be derived from publicly available or internally documented sources.
-2) A prior knowledge information content entity may represent only the portion relevant to a stated scope, such as a unit operation, parameter, quality attribute, scale range, or control decision.
-3) Data derived from relevant prior knowledge, including platform manufacturing, can be leveraged. Accordingly, prior knowledge may be operationalized in data-derived forms such as statistical summaries and governed models, including Bayesian prior distributions, provided scope and provenance are specified.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>information content entity that represents scientifically grounded understanding of a product, material, or process, derived from previous experience, technical literature, and/or established scientific and engineering principles</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;population growth rate&apos; then x is a &apos;rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProcessParameter">
@@ -916,10 +1268,431 @@ Actionable: It provides insight into what’s working and what might need improv
 		<iof-av:usageNote>Process parameter specifications are used to prescribe process parameters, which may take the form of process profiles, qualities, or temporal regions. Process profiles may reflect the realization of capabilities inhering in equipment or consumables, such as the agitation speed of an impeller, or describe dynamic properties of participating entities, such as the flow rate of a fluid stream or the sampling frequency in a monitoring subprocess. Temporal parameters, such as incubation time or residence time, are modeled as temporal regions that represent the duration or timing of a process or subprocess. Qualities refer to intrinsic characteristics of process participants, such as temperature, pH, pressure, or concentration, which are constrained or controlled during the process. When prescribed by a specification, these qualities represent targeted or acceptable ranges of measurable features during the process. The axiom that a process parameter specification must prescribe some temporal region, process profile, or quality formally captures the scope of what qualifies as a process parameter.</iof-av:usageNote>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;ProcessTrendingAnalysis">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:label>process trending analysis</rdfs:label>
-		<iof-av:naturalLanguageDefinition>planned process that systematically analyzes historical and current process and quality data to identify patterns, shifts, drifts, or abnormal variability in process parameters, material attributes, quality attributes, or performance indicators within and between batches</iof-av:naturalLanguageDefinition>
+	<owl:Class rdf:about="&iof-construct;ProductTiter">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>product titer</rdfs:label>
+		<iof-av:explanatoryNote>1) In this context, ‘target product’ denotes the specified substance of interest for the manufacturing objective and may be a drug substance, process intermediate, or other designated active or functional component. Product titer is evaluated at a specified time point and may vary over time due to dilution, degradation, or changes in process volume.”
+2) Here, process material means a material that is being transformed or modified in a manufacturing process, including process intermediate material and the material product. It does not include raw materials or consumables.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProductTiter(x) → Concentration(x) ∧ ∃m ((ProcessIntermediateMaterial(m) ∨ MaterialProduct(m)) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>concentration of a process intermediate material or material product that is determined by the amount of a target product in that process intermediate material or material product per unit volume</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;product titer&apos; then x is a &apos;concentration&apos; that is the &apos;quality of&apos; some &apos;process intermediate material&apos; or some &apos;material product&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinAcidicChargeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantClassifier"/>
+		<rdfs:label>protein acidic charge variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies a deamidated monoclonal antibody population as an acidic charge variant; a classifier that classifies a sialylated antibody glycoform-enriched population as an acidic charge variant; a classifier that classifies an acidic peak population detected by cation-exchange chromatography; a classifier that classifies a lower-pI protein population detected by capillary isoelectric focusing</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The term acidic is used in the conventional charge-variant sense, typically reflecting lower isoelectric point, lower net electric charge, or corresponding behavior in methods such as ion-exchange chromatography or capillary isoelectric focusing.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AcidicChargeVariantClassifier(x) → ProteinChargeVariantClassifier(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>protein charge variant classifier that classifies a molecular entity population composed of proteins or protein fragments as differing from a reference protein form by having a lower isoelectric point or more negatively signed net electric charge under the relevant analytical conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acidic charge variant classifier&apos; then x is a &apos;protein charge variant classifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinBasicChargeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantClassifier"/>
+		<rdfs:label>protein basic charge variant classifier</rdfs:label>
+		<skos:example>classifier that classifies a C-terminal lysine-containing monoclonal antibody population as a basic charge variant; a classifier that classifies an amidated protein population as a basic charge variant; a classifier that classifies a basic peak population detected by cation-exchange chromatography; a classifier that classifies a higher-pI protein population detected by capillary isoelectric focusing;</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The term basic is used in the conventional charge-variant sense, typically reflecting higher isoelectric point, higher net electric charge, or corresponding behavior in methods such as ion-exchange chromatography or capillary isoelectric focusing. It does not mean that the classified population has acid-base behavior as a alkalizing (basyfying) material.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>BasicChargeVariantClassifier(x) → ProteinChargeVariantClassifier(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>protein charge variant classifier that classifies a molecular entity population composed of proteins or protein fragments as differing from a reference protein form by having a higher isoelectric point or more positive signed net electric charge under the relevant analytical conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;basic charge variant classifier&apos; then x is a &apos;protein charge variant classifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinChargeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ChargeVariantClassifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Protein">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DesignSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein charge variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies the acidic peak population of a monoclonal antibody in cation-exchange chromatography as a protein charge variant; a classifier that classifies a basic peak population of a recombinant protein by imaged capillary isoelectric focusing; a classifier that classifies deamidated antibody-related molecular populations as acidic charge variants under a product-specific charge variant method</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A protein charge variant classifier classifies populations of protein or protein-fragment molecules by charge-related analytical behavior, such as net electric charge, isoelectric point, ion-exchange retention behavior, capillary isoelectric focusing behavior, or electrophoretic mobility. The classified population may contain multiple molecular forms grouped together by the analytical method, rather than one structurally uniform molecular species. The reference protein form is specified by the relevant design specification</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProteinChargeVariantClassifier(x) → Classifier(x) ∧ ∃s (DesignSpecification(s) ∧ isAbout(x, s) ∧ ∃r (Protein(r) ∧ prescribes(s, r))) ∧ ∃p (MolecularEntityPopulation(p) ∧ classifies(x, p) ∧ ∃m ((Protein(m) ∨ ProteinFragment(m)) ∧ hasMemberPartAtSomeTime(p, m)) ∧ ∀m (hasMemberPartAtSomeTime(p, m) → (Protein(m) ∨ ProteinFragment(m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>classifier that classifies a molecular entity population composed of proteins or protein fragments according to charge-related analytical behavior relative to a reference protein form</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein charge variant classifier&apos; then x is a &apos;classifier&apos; that classifies some &apos;molecular entity population&apos; whose members are proteins or protein fragments, and x is about some &apos;design specification&apos; that prescribes some protein</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinChargeVariantPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityPopulation"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein charge variant population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinChargeVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by a protein charge variant classifier</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinHighMolecularWeightPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantPopulation"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein high molecular weight population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ProteinSizeVariantPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinHighMolecularWeightVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by a protein high molecular weight size variant classifier</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinHighMolecularWeightVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Protein">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein high molecular weight variant classifier</rdfs:label>
+		<owl:disjointWith rdf:resource="&iof-construct;ProteinLowMolecularWeightVariantClassifier"/>
+		<skos:example>a classifier that classifies the high-molecular-weight species peak in a monoclonal antibody SEC-HPLC assay; a classifier that classifies antibody dimer and oligomer populations detected during aggregate analysis; a classifier that classifies soluble protein aggregate material observed as high-molecular-weight species relative to the monomer peak; a classifier that classifies covalent or non-covalent antibody aggregate populations detected in a drug substance lot;</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3564875/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9980510/ and https://www.biopharminternational.com/view/protein-impurities-pose-challenges</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A protein high molecular weight variant classifier classifies protein-related molecular populations whose molecular size or molecular weight is greater than the reference protein form under the relevant analytical method. The classified population may include aggregates, dimers, oligomers, covalently linked forms, non-covalent associated forms, or other high-molecular-weight product-related material.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProteinHighMolecularWeightVariantClassifier(x) → ProteinSizeVariantClassifier(x) ∧ ∃p (MolecularEntityPopulation(p) ∧ classifies(x, p) ∧ ∃m ((Protein(m) ∨ ProteinAggregate(m)) ∧ hasMemberPartAtSomeTime(p, m)) ∧ ∀m (hasMemberPartAtSomeTime(p, m) → (Protein(m) ∨ ProteinAggregate(m))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>protein size variant classifier that classifies a molecular entity population composed of proteins or protein aggregates as having greater molecular size or molecular weight than a reference protein form</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein high molecular weight variant classifier&apos; then x is a &apos;protein size variant classifier&apos; that classifies some &apos;molecular entity population&apos; whose members are proteins or protein aggregates</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinLowMolecularWeightPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantPopulation"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein low molecular weight population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ProteinSizeVariantPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinLowMolecularWeightVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by a protein low molecular weight size variant classifier</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinLowMolecularWeightVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Protein">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein low molecular weight variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies the low-molecular-weight species peak in a monoclonal antibody SEC-HPLC assay; a classifier that classifies clipped antibody fragment populations detected by CE-SDS; a classifier that classifies protein fragments formed during stability testing as low-molecular-weight species; a classifier that classifies a half-antibody population as lower molecular weight than the reference antibody form;</skos:example>
+		<iof-av:adaptedFrom>https://www.agilent.com/cs/library/applications/application-intact-protein-analysis-1290-bio-5994-3021en-agilent.pdf?srsltid=AfmBOord0gYpA_izWG5ho6VxaMiEr6N9eFGWe1h-RuEb88akGHX2gVrA and https://www.biopharminternational.com/view/protein-impurities-pose-challenges and https://www.sciencedirect.com/science/article/pii/S0022354922003392</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A protein low molecular weight variant classifier classifies protein-related molecular populations whose molecular size or molecular weight is lower than the reference protein form under the relevant analytical method. The classified population may include fragments, clipped forms, truncated forms, partially degraded chains, light-chain or heavy-chain fragments, half-antibody species, or other low-molecular-weight product-related material.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProteinLowMolecularWeightVariantClassifier(x) → ProteinSizeVariantClassifier(x) ∧ ∃p (MolecularEntityPopulation(p) ∧ classifies(x, p) ∧ ∃m ((Protein(m) ∨ ProteinFragment(m)) ∧ hasMemberPartAtSomeTime(p, m)) ∧ ∀m (hasMemberPartAtSomeTime(p, m) → (Protein(m) ∨ ProteinFragment(m))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>protein size variant classifier that classifies a molecular entity population composed of proteins or protein fragments as having lower molecular size or molecular weight than a reference protein form</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein low molecular weight variant classifier&apos; then x is a &apos;protein size variant classifier&apos; that classifies some &apos;molecular entity population&apos; whose members are proteins or protein fragments</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinMainChargeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProteinChargeVariantClassifier"/>
+		<rdfs:label>protein main charge variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies the main monoclonal antibody peak population in cation-exchange chromatography; a classifier that classifies the protein population with pI comparable to the reference protein form in capillary isoelectric focusing; a classifier that classifies the main electrophoretic band population under a product-specific charge variant method;</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC5392216/ and https://www.chromatographyonline.com/view/charge-variant-profiling-biopharmaceuticals and https://www.agilent.com/cs/library/applications/compendium-chargevariant-advancebio-5994-0034EN-us-agilent.pdf?srsltid=AfmBOorRMu0dQH4wotghCeKwXSMCdNuuNsAEkA06EkLXupvMO6SBKJaN</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A main charge variant classifier classifies the protein or protein-fragment population whose charge-related analytical behavior is comparable to the reference protein form specified by the relevant product or design specification. In many charge-variant methods, this population corresponds to the main analytical peak, band, or region. The term main does not imply that the classified population is chemically homogeneous, nor does it imply that all non-main charge variants are impurities.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MainChargeVariantClassifier(x) → ProteinChargeVariantClassifier(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>protein charge variant classifier that classifies a molecular entity population composed of proteins or protein fragments as having charge-related analytical behavior comparable to the reference protein form under the relevant analytical conditions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;main charge variant classifier&apos; then x is a &apos;protein charge variant classifier&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinSecondaryStructure">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PhysicalStructure"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein secondary structure</rdfs:label>
+		<skos:example>the alpha-helical secondary structure of a protein; the beta-sheet secondary structure of an antibody domain; the turn structure connecting two beta strands in a protein; the loop structure in an enzyme active-site region; the altered secondary structure of a protein after thermal stress</skos:example>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ProteinSecondaryStructure(x) → PhysicalStructure(x) ∧ ∃p (Protein(p) ∧ qualityOf(x, p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>physical structure of a protein that is the three-dimensional arrangement of its backbone segments, which depends primarily on hydrogen bonds between amino acid residues in the polypeptide chain and is characterized independently of side-chain interactions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein secondary structure&apos; then x is a &apos;physical structure&apos; that is the &apos;quality of&apos; some &apos;protein&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinSizeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SizeVariantClassifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;Protein">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DesignSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein size variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies a monoclonal antibody aggregate population as a protein size variant by size-exclusion chromatography; a classifier that classifies a clipped antibody fragment population as a protein size variant by CE-SDS; a classifier that classifies a low-molecular-weight fragment population relative to the reference protein form; a classifier that classifies a high-molecular-weight oligomer population relative to the reference protein form;</skos:example>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3564875/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9980510/ and https://www.biopharminternational.com/view/protein-impurities-pose-challenges and https://link.springer.com/article/10.1186/s41120-024-00096-x and https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ProteinSizeVariantClassifier(x) → Classifier(x) ∧ ∃s (DesignSpecification(s) ∧ isAbout(x, s) ∧ ∃r (Protein(r) ∧ prescribes(s, r))) ∧ ∃p (MolecularEntityPopulation(p) ∧ classifies(x, p) ∧ ∃m ((Protein(m) ∨ ProteinFragment(m) ∨ ProteinAggregate(m)) ∧ hasMemberPartAtSomeTime(p, m)) ∧ ∀m (hasMemberPartAtSomeTime(p, m) → (Protein(m) ∨ ProteinFragment(m) ∨ ProteinAggregate(m))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>classifier that classifies a molecular entity population composed of proteins, protein fragments, or protein aggregates according to molecular size or molecular weight relative to a reference protein form</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein size variant classifier&apos; then x is a &apos;classifier&apos; that is &apos;is about&apos; some &apos;design specification&apos; that &apos;prescribes&apos; some &apos;protein&apos;, and x &apos;classifies&apos; some &apos;molecular entity population&apos; whose members are proteins, protein fragments, or protein aggregates</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinSizeVariantPopulation">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularEntityPopulation"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Protein">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinAggregate">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProteinFragment">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein size variant population</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MolecularEntityPopulation">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProteinSizeVariantClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition>molecular entity population classified by a protein size variant classifier</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ProteinTertiaryStructure">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PhysicalStructure"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Protein"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>protein tertiary structure</rdfs:label>
+		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ProteinTertiaryStructure(x) → PhysicalStructure(x) ∧ ∃p (Protein(p) ∧ qualityOf(x, p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>physical structure of a protein that is the overall three-dimensional arrangement arising from the conformation of its polypeptide chain, including the spatial organization of its secondary structure elements relative to one another</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protein tertiary structure&apos; then x is a &apos;physical structure&apos; that is the &apos;quality of&apos; some &apos;protein&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProvenAcceptableRangeValueExpression">
@@ -1058,13 +1831,13 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 	<owl:Class rdf:about="&iof-construct;Rate">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
 		<rdfs:label>rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>placeholder for IOF mid-level team to create</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;SameDirectionAttributeImpactCharacterization">
-		<rdfs:subClassOf rdf:resource="&iof-construct;TemporallyInvariantAttributeImpactDescription"/>
-		<rdfs:label>same direction attribute impact characterization</rdfs:label>
-		<iof-av:naturalLanguageDefinition>time-invariant attribute impact description that describes how variation in a source attribute influences variation in a target attribute such that variation in the target attribute occurs in the same direction as variation in the source attribute during a particular process</iof-av:naturalLanguageDefinition>
+		<skos:example>glucose consumption rate during a fed-batch cell culture process; product formation rate during a fermentation process; biomass formation rate during microbial cultivation; feed addition rate during a material feeding process;</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003454</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>Rate(x) → ProcessProfile(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>process profile, which are changes to ratios of determinate quality magnitudes over time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to be further formalized in the IOF Core.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;rate&apos; then x is a &apos;process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SetpointValueExpression">
@@ -1082,16 +1855,62 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		</rdfs:subClassOf>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;SizeVariantClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Classifier"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;classifies"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000027"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;DesignSpecification">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+								<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>size variant classifier</rdfs:label>
+		<skos:example>a classifier that classifies a group of monoclonal antibody molecules detected as a high molecular weight fraction by size-exclusion chromatography as a size variant relative to a reference monoclonal antibody; a classifier that classifies a group of recombinant protein fragments detected as a low molecular weight fraction by capillary electrophoresis as a size variant relative to a reference recombinant protein; a classifier that classifies a group of antibody-drug conjugate molecules according to size-related analytical properties under a product-specific size variant method;</skos:example>
+		<iof-av:explanatoryNote>A size variant classifier is a broad parent for classifiers that group material entities by size-related analytical properties. It is intended to support different material domains, including molecular products and particle-based products. More specific subclasses should be used when the size-related terminology, analytical methods, or reference comparisons are domain-specific, such as protein size variants, molecular size variants, aggregate variants, fragment variants, or lipid nanoparticle particle-size variants.The reference material entity is the material entity prescribed by the relevant design specification as the basis for comparison.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>SizeVariantClassifier(x) → Classifier(x) ∧ ∃s (DesignSpecification(s) ∧ isAbout(x, s) ∧ ∃r (MaterialEntity(r) ∧ prescribes(s, r))) ∧ ∃g (ObjectAggregate(g) ∧ classifies(x, g))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>classifier that classifies a population of material entities according to size-related analytical properties relative to a reference material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;size variant classifier&apos; then x is a &apos;classifier&apos; that is &apos;is about&apos; some &apos;design specification&apos; that &apos;prescribes&apos; some &apos;material entity&apos;, and x &apos;classifies&apos; some &apos;object aggregate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SpecificCellPopulationGrowthRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CellPopulationGrowthRate"/>
 		<rdfs:label>specific cell population growth rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>cell population growth rate per unit population size</iof-av:naturalLanguageDefinition>
+		<skos:example>specific growth rate of an E. coli population during exponential growth; specific cell population growth rate of a CHO cell population during seed train expansion; specific growth rate calculated from viable cell density measurements over a defined interval;</skos:example>
+		<iof-av:firstOrderLogicAxiom>SpecificCellPopulationGrowthRate(x) → CellPopulationGrowthRate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>cell population growth rate that tracks the change in cell population size per unit time relative to the size of that cell population</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;specific cell population growth rate&apos; then x is a &apos;cell population growth rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StirringRate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;CyclicRate"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;AgitationRate"/>
 		<rdfs:label>stirring rate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>cyclic rate process profile of the changing rotation speed of the stirrer in the liquid</iof-av:naturalLanguageDefinition>
+		<skos:example>stirring rate of 250 revolutions per minute applied by an impeller to stir a cell culture fluid in a bioreactor; a stirring rate of 120 revolutions per minute applied by a magnetic stir bar during buffer preparation</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003750</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>StirringRate(x) → AgitationRate(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>agitation rate at which rotational motion is applied to agitate a material</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;stirring rate&apos; then x is a &apos;agitation rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TargetRangeValueExpression">
@@ -1140,108 +1959,139 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 	
 	<owl:Class rdf:about="&iof-construct;Temperature">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:label>temperature</rdfs:label>
-		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000146</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>quality of the thermal energy of a system</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;TemporallyInvariantAttributeImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;AttributeImpactDescription"/>
-		<rdfs:label>temporally invariant attribute impact characterization</rdfs:label>
-		<owl:disjointWith rdf:resource="&iof-construct;TemporallyVaryingAttributeImpactDescription"/>
-		<iof-av:explanatoryNote>This class implies that the described impact remains the same across the temporal parts of the particular process with respect to whether variation in the target attribute occurs in the same direction as, in the opposite direction from, or with no change relative to variation in the source attribute.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>attribute impact description that describes an impact of variation in a source attribute on variation in a target attribute that remains unchanged during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;TemporallyVaryingAttributeImpactDescription">
-		<rdfs:subClassOf rdf:resource="&iof-construct;AttributeImpactDescription"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000111"/>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>temperature</rdfs:label>
+		<skos:example>the temperature of cell culture medium in a bioreactor; the temperature of a buffer during preparation; the temperature of a formulation during refrigerated storage;</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000146</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>Temperature(x) → Quality(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>quality of the thermal energy of a system</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;temperature&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TotalMaterialAdded">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
+		<rdfs:label>total material added</rdfs:label>
+		<iof-av:explanatoryNote>Total material added is evaluated over one or more material addition events in a planned process. The added material may be supplied in a single addition, multiple bolus additions, or continuous feeding. The quantity may be expressed as mass, volume, amount of substance, or another specified material quantity. This characteristic should be distinguished from addition rate or feed rate, which describe the rate of material addition</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>TotalMaterialAdded(x) → ProcessCharacteristic(x</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>process characteristic that is the total quantity of a particular material that is added during a particular process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;total material added&apos; then x is a &apos;process characteristic&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VesselVolumesPerDay">
+		<rdfs:subClassOf rdf:resource="&iof-construct;NormalizedFlowRate"/>
+		<rdfs:label>vessel volumes per day</rdfs:label>
+		<skos:example>a perfusion culture operated at 1 VVD, meaning one working volume of medium is exchanged over one day; a 2 L working-volume bioreactor with 2 L of medium exchanged per day, corresponding to 1 VVD; a perfusion process reported as 0.5 VVD when the daily exchanged medium volume is half of the working volume; a process comparison in which VVD is calculated using only spent-medium outlet flow and therefore excludes sampling or bleed withdrawals</skos:example>
+		<iof-av:abbreviation>VVD</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>VVD is typically intended to represent the total medium exchange normalized by working volume. In some uses, VVD is computed only from the spent-medium outlet flow, while other withdrawals such as sampling, bleed, or additional removal streams are not included. When this narrower accounting is used, the reported VVD can underestimate the true total exchange and can lead to misleading comparisons unless the boundary is made explicit.</iof-av:explanatoryNote>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>normalized flow rate that is the total volume of medium exchanged per working volume per day</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Volume">
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VolumetricFlowRate">
+		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRate"/>
+		<rdfs:label>volumetric flow rate</rdfs:label>
+		<skos:example>volumetric flow rate of buffer through a chromatography column; volumetric flow rate of permeate through an ultrafiltration membrane; volumetric flow rate of liquid feed through a process line;</skos:example>
+		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Volumetric_flow_rate</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>VolumeFlowRate(x) → FlowRate(x)&quot;</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>flow rate that tracks the volume of fluid material transported through a surface per unit time</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;volume flow rate&apos; then x is a &apos;flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;VolumetricProductivity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
+		<rdfs:label>volumetric productivity</rdfs:label>
+		<skos:example>monoclonal antibody mass produced per liter of culture working volume per day during a CHO fed-batch process; recombinant protein mass produced per liter of microbial fermentation volume per hour; viral vector genome copies produced per liter of culture volume per day; enzyme activity units produced per liter of culture working volume per hour;</skos:example>
+		<iof-av:explanatoryNote>In upstream biopharma manufacturing process volume is typically the culture working volume</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>VolumetricProductivity(x) → ManufacturingProcessProductivity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per a specified reference volume of process material</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;volumetric productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;WorkingVolume">
+		<rdfs:subClassOf rdf:resource="&iof-construct;Volume"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;TemporallyInvariantAttributeImpactDescription">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000015">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&bfo;BFO_0000139"/>
-												<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;PlannedProcess"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>temporally varying attribute impact characterization</rdfs:label>
-		<iof-av:explanatoryNote>This class implies that there exist at least two temporal parts of the particular process in which the described impact differs with respect to whether the variation in the target attribute occurs in the same direction as, in the opposite direction from, or with no change relative to the variation in the source attribute. Since such temporal parts are themselves processes, this information content entity is composed of an ordered set of time-invariant attribute impact characterizations, each of which is applicable to a particular temporal part.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>attribute impact description that describes how variation in a source attribute influences variation in a target attribute by an impact that changes during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;TotalMaterialAdded">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
-		<rdfs:label>total material added</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process characteristic that is the total quantity of a particular material that is added during a particular process</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;VesselVolumesPerDay">
-		<rdfs:subClassOf rdf:resource="&iof-construct;VolumetricFlowRate"/>
-		<rdfs:label>vessel volumes per day</rdfs:label>
-		<iof-av:abbreviation>VVD</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>VVD is typically intended to represent the total medium exchange normalized by working volume. In some uses, VVD is computed only from the spent-medium outlet flow, while other withdrawals such as sampling, bleed, or additional removal streams are not included. When this narrower accounting is used, the reported VVD can underestimate the true total exchange and can lead to misleading comparisons unless the boundary is made explicit.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>volumetric flow rate that is the total volume of medium exchanged per working volume per day</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;VolumetricFlowRate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRate"/>
-		<rdfs:label>volumetric flow rate</rdfs:label>
-		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Volumetric_flow_rate</iof-av:adaptedFrom>
-		<iof-av:naturalLanguageDefinition>flow rate at which a volume of fluid is transported through a surface</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;VolumetricProductivity">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcessProductivity"/>
-		<rdfs:label>volumetric productivity</rdfs:label>
-		<iof-av:explanatoryNote>In upstream biopharma manufacturing process volume is typically the culture working volume</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>manufacturing process productivity that is the quantity of process intermediate or product produced per unit time per unit process volume</iof-av:naturalLanguageDefinition>
+		<rdfs:label>working volume</rdfs:label>
+		<skos:example>the 120 L working volume of a CHO cell culture in a 250 L bioreactor during a fed-batch cultivation process; the 3 L working volume of buffer in a mixing vessel during buffer preparation;</skos:example>
+		<iof-av:explanatoryNote>Working volume is the actual volume of process material present in a vessel during a planned process. It should be distinguished from working volume capacity, which is a capacity of the vessel, and from total vessel volume, which is a geometric volume of the vessel. For example, a bioreactor may have a total vessel volume of 250 L, a working volume capacity of 50–200 L, and a working volume of 120 L during a particular cell cultivation process</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>WorkingVolume(x) → Volume(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m) ∧ ∃p (PlannedProcess(p) ∧ participatesInAtSomeTime(m, p)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>volume that is a quality of process material and that is the volume occupied by that process material in a vessel during a planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;working volume&apos; then x is a &apos;volume&apos; that is the &apos;quality of&apos; some &apos;material entity&apos; that &apos;participates in at some time&apos; some &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;YieldPerBiomass">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcessYield"/>
 		<rdfs:label>yield per biomass</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process yield that is the quantity of a specified output produced in a planned process relative to the quantity of biomass formed in that planned process</iof-av:naturalLanguageDefinition>
+		<skos:example>the yield per biomass of a microbial fermentation calculated as recombinant protein mass produced per gram of biomass formed; the yield per biomass of an E. coli enzyme expression process calculated as enzyme activity units recovered per gram dry cell weight; the yield per biomass of a yeast production process calculated as product mass produced per biomass amount accumulated during cultivation;</skos:example>
+		<iof-av:firstOrderLogicAxiom>YieldPerBiomass(x) → PlannedProcessYield(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>planned process yield that characterizes the quantity of a specified material output produced in a planned process relative to the quantity of biomass formed in that planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;yield per biomass&apos; then x is a &apos;planned process yield&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;YieldPerSubstrate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcessYield"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processCharacteristicOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+								<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>yield per substrate</rdfs:label>
-		<iof-av:naturalLanguageDefinition>process yield that is the quantity of a specified output produced in a planned process relative to the quantity of a particular input substrate consumed in that planned process</iof-av:naturalLanguageDefinition>
+		<skos:example>the yield per substrate of a microbial fermentation calculated as recombinant protein mass produced per gram of glucose consumed; the yield per substrate of a levansucrase reaction calculated as levan mass produced per gram of sucrose consumed; the yield per substrate of an E. coli enzyme expression process calculated as enzyme activity units recovered per gram of glycerol consumed;</skos:example>
+		<iof-av:firstOrderLogicAxiom>YieldPerSubstrate(x) → PlannedProcessYield(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>planned process yield that characterizes the quantity of a specified material output produced in a planned process relative to the quantity of a specified substrate consumed in that planned process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;yield per substrate&apos; then x is a &apos;planned process yield&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
-	<owl:ObjectProperty rdf:about="&iof-construct;hasImpactSourceAttributeSpecification">
-		<rdfs:subPropertyOf rdf:resource="&iof-construct;isAbout"/>
-		<rdfs:label>has impact source attribute specification</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-construct;AttributeImpactDescription"/>
-		<iof-av:naturalLanguageDefinition>relation that holds between an attribute impact characterization and an information content entity that specifies the source attribute whose variation is described as influencing a target attribute</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-construct;hasImpactTargetAttributeSpecification">
-		<rdfs:subPropertyOf rdf:resource="&iof-construct;isAbout"/>
-		<rdfs:label>has impact target attribute specification</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-construct;AttributeImpactDescription"/>
-		<iof-av:naturalLanguageDefinition>relation that holds between an attribute impact characterization and an information content entity that specifies the target attribute whose variation is described as being influenced by a source attribute</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;hasProcessParameter">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
@@ -1285,14 +2135,19 @@ In other words, the monitoring or control of a process parameter at execution le
 A value of false means that the parameter changes over time, either intentionally or inherently, due to process dynamics, adaptive control strategies, or evolving biological or physical conditions.</iof-av:usageNote>
 	</owl:DatatypeProperty>
 	
-	<owl:AllDisjointClasses>
-		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-construct;NoChangeAttributeImpactCharacterization">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;OppositeDirectionAttributeImpactCharacterization">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;SameDirectionAttributeImpactCharacterization">
-			</rdf:Description>
-		</owl:members>
-	</owl:AllDisjointClasses>
+	<owl:ObjectProperty rdf:about="&iof-construct;tracks">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000019">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+	</owl:ObjectProperty>
+
 </rdf:RDF>
