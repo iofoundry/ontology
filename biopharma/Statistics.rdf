@@ -299,6 +299,63 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;exploratory data analysis&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;ImpactInformationContentEntity">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;specifiesImpactSource"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;specifiesImpactTarget"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000008">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000015"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>impact information content entity</rdfs:label>
+		<skos:example>an impact information content entity stating that variation in manganese concentration in cell culture medium impacts variation in galactosylation profile during a fed-batch cell culture process; an impact information content entity stating that variation in feed start time impacts variation in product glycosylation profile during a cell culture process; an impact information content entity stating that variation in agitation rate impacts variation in gas transfer rate during a gas-fermentation process; an impact information content entity stating that variation in low-pH hold duration impacts variation in viral clearance during a viral inactivation process;</skos:example>
+		<iof-av:explanatoryNote>1) An attribute impact information content entity is an evidence-supported interpretation, not merely a correlation result. It may be supported by process data, correlation analysis, designed experiments, mechanistic knowledge, deviation investigations, SME assessment, or a combination of these.
+2) The impact source and impact target relations specify directionality. The impact source is the specifically dependent continuant, process characteristic, process profile, or temporal region whose variation, value, or occurrence is characterized as influencing the variation, value, or occurrence of the impact target.
+3) The impact source or impact target may be a specifically dependent continuant, process characteristic, process profile, or temporal region. Temporal regions are allowed when the impact concerns timing, duration, residence time, hold time, or another temporally specified aspect of a process. For example, an attribute impact description may specify the temporal region corresponding to feed start time as the impact source and glycosylation profile as the impact target.  
+4) An attribute impact information content entity should be grounded in the process context where the impact occurs. For most impact claims, the source and target are attributes, process characteristics, or process profiles. In these cases, the physical basis of the impact can often be represented using material state transitions. The impact claim is not merely that one transition happened before another in a particular run. Rather, it characterizes a process-scoped relationship in which transitions associated with the impact source are understood, under the specified conditions, to cause transitions associated with the impact target. Temporal regions are a special case. A time point or duration is not itself the physical cause of an impact. Instead, it identifies when a relevant process part occurs or how long it lasts. For example, if feed start time is described as impacting glycosylation profile, the physical basis is not the time point itself. The impact is grounded in the feed addition process that starts at that time and in how that process changes the conditions for downstream cell culture and glycosylation-related material state transitions</iof-av:explanatoryNote>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition>information content entity that describes an influence of variation in an impact source on variation in an impact target during a specified kind of process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;MathematicalFunction">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">mathematical function</rdfs:label>
@@ -359,6 +416,22 @@ Such plots facilitate the interpretation of main, interaction, and curvature eff
 		<skos:example>correlation coefficient relating temperature and growth rate; mutual information value linking transcriptomic and proteomic datasets</skos:example>
 		<iof-av:explanatoryNote>The property identifies the data items whose statistical relationship is characterized by a quantitative measure of association (e.g., correlation coefficient, mutual information, or association coefficient). The measure reifies the association; one assertion is made per participating data item. No causal or directional interpretation is implied.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that links a measure of association to each data item whose statistical relationship is described by that measure</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;specifiesImpactSource">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;describes"/>
+		<rdfs:label>specifies impact source</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;ImpactInformationContentEntity"/>
+		<skos:example>an impact information content entity stating that manganese concentration impacts galactosylation profile specifies impact source the manganese concentration of the cell culture medium; an impact information content entity stating that feed start time impacts glycosylation profile specifies impact source the temporal region corresponding to feed start time;</skos:example>
+		<iof-av:naturalLanguageDefinition>relation that holds between an impact information content entity and the entity specified as the source of the described impact</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-construct;specifiesImpactTarget">
+		<rdfs:subPropertyOf rdf:resource="&iof-construct;describes"/>
+		<rdfs:label>specifies impact target</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;ImpactInformationContentEntity"/>
+		<skos:example>an impact information content entity stating that manganese concentration impacts galactosylation profile specifies impact target the galactosylation profile of the produced glycoprotein population;</skos:example>
+		<iof-av:naturalLanguageDefinition>relation that holds between an impact information content entity and the entity specified as the target of the described impact</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:Class>
