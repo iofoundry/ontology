@@ -57,9 +57,9 @@ def parse_about(about_file_path: str, resolution: dict):
     iri = str(row.ontology)
     maturity = str(row.maturity). \
       replace('https://spec.industrialontologies.org/ontology/individual/', '')
-    print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
+    print('::notice file=' + about_file_path + ',title=Parse About::Maturity level: ' + maturity)
   except StopIteration:
-    print('::warning file=' + about_file + ',title=Parse About::Could not find maturity level in about file.')
+    print('::warning file=' + about_file_path + ',title=Parse About::Could not find maturity level in about file.')
     sys.exit(1)
   
   found_iris = set()
