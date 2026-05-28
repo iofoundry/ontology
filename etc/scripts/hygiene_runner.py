@@ -7,17 +7,37 @@ from rdflib import Graph
 
 def parse_catalog(catalog_file_path: str):
     resolution = dict()
-    print('Parsing', catalog_file_path)
+    print('::notice file=' + catalog_file_path + ',title=Parse Catalog::Parsing file ', catalog_file_path)
     catalog = ET.parse(catalog_file_path)
     for uri in catalog.getroot().findall('{urn:oasis:names:tc:entity:xmlns:xml:catalog}uri'):
         ontology_path = uri.attrib['uri']
         if ontology_path.endswith('.rdf'):
             resolution[uri.attrib['name']] = ontology_path
     return resolution
+  
+def recursesively_find_imports(iri: str, resolution: dict, found_iris: set):
+  if iri in found_iris:
+    return
+  found_iris.add(iri)
+  if iri in resolution:
+    print('::notice file=' + resolution[iri] + ',title=Find Imports::Getting imports from file:', resolution[iri])
+    graph = Graph()
+    graph.parse(source=resolution[iri])
+    imports = '''
+    PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+    SELECT ?iri WHERE {
+      ?ontology a owl:Ontology .
+      ?ontology owl:imports ?iri .
+    }'''
+    results = graph.query(imports)
+    for result in results:
+      recursesively_find_imports(str(result.iri), resolution, found_iris)
+  else:
+    print('::warning file=' + iri + ',title=Find Imports::Could not find ontology for IRI:', iri)
 
 def parse_about(about_file_path: str, resolution: dict):
   ontologies = list()
-  print('Parsing', about_file_path)
+  print('::notice file=' + about_file_path + ',title=Parse About::Parsing file ', about_file_path)
   graph = Graph()
   graph.parse(source=about_file_path)
   
@@ -26,43 +46,32 @@ def parse_about(about_file_path: str, resolution: dict):
   PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
   PREFIX owl:   <http://www.w3.org/2002/07/owl#>
   PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-  SELECT ?maturity WHERE {
+  SELECT ?maturity ?ontology WHERE {
     ?ontology a owl:Ontology .
     ?ontology iof-av:maturity ?maturity .
   }'''
   results = graph.query(maturity_query)
+  iri = None
   try:
-    maturity = str(next(iter(results)).maturity). \
+    row = next(iter(results))
+    iri = str(row.ontology)
+    maturity = str(row.maturity). \
       replace('https://spec.industrialontologies.org/ontology/individual/', '')
-    print('Maturity level: ', maturity)
+    print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
   except StopIteration:
-    print('WARNING: Could not find maturity level in about file.')
+    print('::warning file=' + about_file + ',title=Parse About::Could not find maturity level in about file.')
     sys.exit(1)
   
-  imports = '''
-  PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
-  PREFIX owl:   <http://www.w3.org/2002/07/owl#>
-  PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-  SELECT ?iri WHERE {
-    ?ontology a owl:Ontology .
-    ?ontology owl:imports ?iri .
-  }'''
-  results = graph.query(imports)
-  for result in results:
-    iri = str(result.iri)
-    if iri in resolution:
-      ontologies.append(resolution[iri])
-      print('Found ontology:', resolution[iri], ' for IRI:', iri)
-    else:
-      print('WARNING: Could not find ontology for IRI:', iri)
-      
+  found_iris = set()
+  recursesively_find_imports(iri, resolution, found_iris)
+  ontologies = [resolution[iri] for iri in found_iris if iri in resolution]
   return ontologies, maturity
 
 def find_ontologies(about_file: str):
   abs_path_about_file = os.path.abspath(about_file)
-  print('About file absolute path:', abs_path_about_file)
+  print('::notice file=' + about_file + ',title=Find Ontologies::About file absolute path:', abs_path_about_file)
   folder = os.path.dirname(abs_path_about_file)
-  print('Folder:', folder)
+  print('::notice file=' + about_file + ',title=Find Ontologies::Working directory:', folder)
   resolution = parse_catalog(os.path.join(folder, 'catalog-v001.xml'))
   return parse_about(abs_path_about_file, resolution)
 
@@ -81,7 +90,7 @@ def run_hygiene(
     for root, subfolder_paths, file_names in os.walk(folder_with_hygiene_tests):
         for file_name in file_names:
             if 'sparql' in file_name:
-                print('Running', file_name)
+                print('::notice file=' + os.path.join(folder_with_hygiene_tests, file_name) + ',title=Run Hygiene::Running test file:', file_name)
                 input_file_path = os.path.join(folder_with_hygiene_tests, file_name)
                 input_file = open(input_file_path, 'r')
                 input_file_content = input_file.read()
