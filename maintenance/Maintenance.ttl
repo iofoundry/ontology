@@ -1,0 +1,499 @@
+@prefix :          <https://spec.industrialontologies.org/ontology/maintenance/Maintenance/> .
+@prefix dc:        <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms:   <http://purl.org/dc/terms/> .
+@prefix iof-av:    <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/> .
+@prefix iof-core:  <https://spec.industrialontologies.org/ontology/core/Core/> .
+@prefix iof-maint: <https://spec.industrialontologies.org/ontology/maintenance/Maintenance/> .
+@prefix obo:       <http://purl.obolibrary.org/obo/> .
+@prefix owl:       <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:      <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#> .
+
+[ rdf:type            owl:Class ;
+  rdfs:subClassOf     iof-maint:MaintenanceProcess ;
+  owl:intersectionOf  ( iof-core:PlannedProcess
+                        [ rdf:type            owl:Restriction ;
+                          owl:onProperty      iof-core:prescribedBy ;
+                          owl:someValuesFrom  iof-maint:MaintenanceStrategy
+                        ]
+                      )
+] .
+[ rdf:type            owl:Class ;
+  rdfs:subClassOf     iof-maint:MaintenanceStrategy ;
+  owl:intersectionOf  ( iof-core:PlanSpecification
+                        [ rdf:type            owl:Restriction ;
+                          owl:onProperty      iof-core:prescribes ;
+                          owl:someValuesFrom  iof-maint:MaintenanceProcess
+                        ]
+                      )
+] .
+
+[ rdf:type     owl:AllDisjointClasses ;
+  owl:members  ( iof-maint:DegradedState iof-maint:FailedState iof-maint:OperatingState )
+] .
+
+iof-maint:  rdf:type         owl:Ontology ;
+        rdfs:label           "Maintenance Ontology"@en-US ;
+        dcterms:abstract     "The purpose of this IOF Maintenance Reference ontology is to support semantic interoperatibility through the use modular ontologies in the maintenance domain. This Ontology contains terms and concepts identified as common in a number of application ontologies for maintenance management, maintenance procedures, asset failure and failure modes and effects analysis. The ontology is aligned with the IOF Core Ontology which is aligned with Basic Formal Ontology and importas terms for other domain independent ontologies." ;
+        dcterms:contributor  "Matt Selway, University of South Australia"@en , "Melinda Hodkiewicz, University of Western Australia"@en , "Caitlin Woods, University of Western Australia"@en , "Markus Stumptner, University of South Australia"@en ;
+        dcterms:creator      "IOF Maintenance Working Group"@en ;
+        dcterms:license      "http://opensource.org/licenses/MIT"^^xsd:anyURI ;
+        dcterms:publisher    "Industrial Ontology Foundry"@en ;
+        dcterms:references   dcterms: , skos: ;
+        dcterms:title        "Industrial Ontology Foundry (IOF) Maintenance Reference Ontology" ;
+        owl:imports          iof-core: ;
+        owl:versionIRI       <https://spec.industrialontologies.org/ontology/202401/maintenance/Maintenance/> ;
+        iof-av:maturity      iof-av:Provisional .
+
+iof-maint:DegradedState
+        rdf:type                     owl:Class ;
+        rdfs:label                   "degraded state"@en-US ;
+        rdfs:subClassOf              iof-maint:MaintenanceState ;
+        skos:example                 "having a small crack, having a partial blockage, having an oscillating reading" ;
+        iof-av:firstOrderLogicAxiom  "DegradedState(x) → MaintenanceState(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "state of reduced ability to perform as required but with acceptable reduced performance"@en-US ;
+        iof-av:primitiveRationale    "we do not have the terms to deal with the concepts in the 2nd half of the NL definition about 'grade of realization'" ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'degraded state' then x is a 'maintenance state'" .
+
+iof-maint:DispositionToExhibitUndesirableBehavior
+        rdf:type                     owl:Class ;
+        rdfs:label                   "disposition to exhibit undesirable behavior"@en-US ;
+        rdfs:subClassOf              iof-maint:UndesireableDisposition ;
+        rdfs:subClassOf              [ rdf:type           owl:Restriction ;
+                                       owl:allValuesFrom  [ rdf:type          owl:Class ;
+                                                            owl:complementOf  iof-maint:FailureProcess
+                                                          ] ;
+                                       owl:onProperty     obo:BFO_0000054
+                                     ] ;
+        skos:example                 "overspeed, excessive noise" ;
+        iof-av:firstOrderLogicAxiom  "LA1: DispositionToUndesirableBehavior(x) → UndesirableDisposition(x)" , "LA2: ∀p(DispositionToExibitUndesirableBehavior(d) ∧ Process(p) ∧ realizes(p, d) → ¬ FailureProcess(p))" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "disposition of an item that would not be expected under normal operating conditions"@en-US ;
+        iof-av:primitiveRationale    "the item may or may not exhibit this behavior hence this is difficult to define clearly" ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "LA1: if x is a 'disposition to undesirable behavior' then x is a 'undesirable disposition'" , "LA2: if x is a 'disposition to undesirable behavior' and x 'realizes' some 'process' p then p is not a 'failure process'" .
+
+iof-maint:DispositionToFail
+        rdf:type                     owl:Class ;
+        rdfs:label                   "disposition to fail"@en-US ;
+        rdfs:subClassOf              iof-maint:UndesireableDisposition ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      obo:BFO_0000054 ;
+                                       owl:someValuesFrom  iof-maint:FailureProcess
+                                     ] ;
+        skos:example                 "disposition to explode, disposition to fracture, disposition to sieze" ;
+        iof-av:firstOrderLogicAxiom  "DispositionToFail(x) → UndesireableDisposition(x) ∧ ∃y(FailureProcess(y) ∧ hasRealization(x,y))" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "disposition of an item to undergo a failure process"@en-US ;
+        iof-av:primitiveRationale    "As a disposition will come into its existance prior to its realization in a failure process necessary and sufficient conditions can not be created at this point due to a lack of patterns to express process types regardless of the time of their existence" ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'disposition to fail' then x  is a 'undesireable disposition' that 'has realization' some 'failure process'" .
+
+iof-maint:FailedState
+        rdf:type            owl:Class ;
+        rdfs:label          "failed state"@en-US ;
+        rdfs:subClassOf     iof-maint:MaintenanceState ;
+        rdfs:subClassOf     [ rdf:type            owl:Restriction ;
+                              owl:onProperty      obo:BFO_0000167 ;
+                              owl:someValuesFrom  iof-core:MaintainableMaterialItem
+                            ] ;
+        rdfs:subClassOf     [ rdf:type            owl:Restriction ;
+                              owl:onProperty      [ owl:inverseOf  iof-maint:initiates ] ;
+                              owl:someValuesFrom  iof-maint:FailureEvent
+                            ] ;
+        rdfs:subClassOf     [ rdf:type            owl:Restriction ;
+                              owl:onProperty      obo:BFO_0000062 ;
+                              owl:someValuesFrom  [ rdf:type     owl:Class ;
+                                                    owl:unionOf  ( iof-maint:DegradedState iof-maint:OperatingState )
+                                                  ]
+                            ] ;
+        owl:disjointWith    iof-maint:OperatingState ;
+        skos:example        "is broken in two, is burst, is failing to turn on" ;
+        iof-av:firstOrderLogicDefinition
+                "FailedState(o1) ↔ MaintenanceState(o1) ∧ ∃i(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(o1, i) ∧ ∃e(FailureEvent(e) ∧ initiates(e, o1)) ∧ ∃o2((DegradedState(o2) ∨ OperatingState(o2) ∧ hasParticipantAtAllTimes(o2,i)) ∧ precedes(o2, o1)) ∧ ¬∃o3((DegradedState(o3) ∨ OperatingState(o3)) ∧ hasParticipantAtAllTimes(o3,i) ∧ precedes(o2, o3) ∧ precedes(o3, o1)))" ;
+        iof-av:isPrimitive  false ;
+        iof-av:maturity     iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "state of an item being unable to perform a required function due to a failure event"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "\"failed state': every instance of 'failed state' is defined as exactly an instance of 'maintenance state' o1 that 'has participant at all times' some 'maintainable material item' i and that is 'initiated by' some 'failure event' and is 'preceded by' some ('degraded state' or 'operating state') o2 that 'has participant at all times' i and there is no ('degraded state' or 'operating state' ) o3 such that o3 'has participant at all times' i and o2 'precedes' o3 and o3 'precedes' o1\"" .
+
+iof-maint:FailureEffect
+        rdf:type                     owl:Class ;
+        rdfs:label                   "failure effect"@en-US ;
+        rdfs:subClassOf              obo:BFO_0000015 ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      obo:BFO_0000062 ;
+                                       owl:someValuesFrom  [ rdf:type     owl:Class ;
+                                                             owl:unionOf  ( iof-maint:FailureEvent iof-maint:FailureProcess )
+                                                           ]
+                                     ] ;
+        skos:example                 "leaking pipe, erratic operation, equipment does not run" ;
+        iof-av:firstOrderLogicAxiom  "FailureEffect(x) → Process(x) ∧ ∃f((FailureEvent(f) ∨ FailureProcess(f)) ∧ precededBy(x, f))" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "process that is the consequence of failure, within or beyond the boundary of the failed item"@en-US ;
+        iof-av:primitiveRationale    "it is not possible to determine that a process is a failure effect from the ontology alone and requires external analysis to identify such an occurrence." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'failure effect' then x is a 'process' that is 'preceded by' some 'failure event' or 'failure process'" ;
+        iof-av:usageNote             "Failure effect does not make any commitments to what types of BFO:process can or cannot be considered effects of (functional) failure. Therefore, failure effect can classify any BFO:process (part or whole), indicating that the process is considered the result of a failure for the purposes of maintenance." .
+
+iof-maint:FailureEvent
+        rdf:type                owl:Class ;
+        rdfs:label              "failure event"@en-US ;
+        rdfs:seeAlso            "ISO81346 for examples of functions" ;
+        rdfs:subClassOf         iof-core:Event ;
+        rdfs:subClassOf         [ rdf:type            owl:Restriction ;
+                                  owl:onProperty      iof-maint:initiates ;
+                                  owl:someValuesFrom  iof-maint:FailedState
+                                ] ;
+        skos:example            "explosion, seizure, loss of power, loss of control" ;
+        iof-av:explanatoryNote  "the event can be the loss of the primary function or a combination of functions" ;
+        iof-av:firstOrderLogicDefinition
+                "FailureEvent(e) ↔ Event(e) ∧ ∃o(FailedState(o) ∧ initiates(e, o)) ∧ ∃i,f,p1(MaintainableMaterialItem(i) ∧ hasParticipantAtAllTimes(e, i) ∧ PrimaryFunction(f) ∧ hasFunction(i, f) ∧ FunctioningProcess(p1) ∧ realizes(p1, f) ∧ precedes(p1, e) ∧ ¬∃p2(FunctioningProcess(p2) ∧ realizes(p2,f) ∧ precedes(p1, p2) ∧ precedes(p2, e)))" ;
+        iof-av:isPrimitive      false ;
+        iof-av:maturity         iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "event that causes an item to lose its ability to perform a required function"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'failure event' is defined as exactly an instance of 'event' e that 'initiates' some 'failed state' and that 'has participant at all times' some 'maintainable material item' that 'has function' some 'primary function ' f that 'has realization' some 'functioning process' p1 that 'precedes' e and there is no 'functioning process' p2 such that p2 'realizes' f and p1 'precedes' p2 and p2 'precedes' e" ;
+        iof-av:synonym          "failure" .
+
+iof-maint:FailureModeCode
+        rdf:type                     owl:Class ;
+        rdfs:label                   "failure mode code"@en-US ;
+        rdfs:seeAlso                 "ISO14224 for example list of failure modes" ;
+        rdfs:subClassOf              iof-core:InformationContentEntity ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      iof-core:describes ;
+                                       owl:someValuesFrom  iof-maint:UndesireableDisposition
+                                     ] ;
+        skos:example                 "\"high output\", \"leaking\", \"vibrating\"" ;
+        iof-av:adaptedFrom           "The natural language definition is adapted from EN:13306" ;
+        iof-av:firstOrderLogicAxiom  "FailureModeCode(x) → InformationContentEntity(x) ∧ ∃y(UndesirableDisposition(y) ∧ describes(x,y))" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "information content entity that describes an undesireable disposition"@en-US ;
+        iof-av:primitiveRationale    "at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'failure mode code' then x is an 'information content entity' and there is some 'undesirable disposition' that 'is described by' x" .
+
+iof-maint:FailureProcess
+        rdf:type             owl:Class ;
+        rdfs:label           "failure process"@en-US ;
+        rdfs:subClassOf      obo:BFO_0000015 ;
+        owl:equivalentClass  [ rdf:type            owl:Class ;
+                               owl:intersectionOf  ( obo:BFO_0000015
+                                                     [ rdf:type            owl:Restriction ;
+                                                       owl:onProperty      obo:BFO_0000055 ;
+                                                       owl:someValuesFrom  iof-maint:DispositionToFail
+                                                     ]
+                                                   )
+                             ] ;
+        skos:example         "short circuiting process, deformation process, corrosion process" ;
+        iof-av:firstOrderLogicDefinition
+                "FailureProcess(x) ↔ Process(x) ∧ ∃y(DispositionToFail(y) ∧ realizes(x,y))" ;
+        iof-av:isPrimitive   false ;
+        iof-av:maturity      iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "process that changes some quality of an item causing the item to become degraded or failed"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'failure process' is defined as exactly an instance of 'process' that 'realizes' some 'disposition to fail'" ;
+        iof-av:synonym       "functional failure" .
+
+iof-maint:FunctioningProcess
+        rdf:type             owl:Class ;
+        rdfs:label           "functioning process"@en-US ;
+        rdfs:seeAlso         "ISO81346 for examples of functioning processes associated with functions" ;
+        rdfs:subClassOf      obo:BFO_0000015 ;
+        owl:equivalentClass  [ rdf:type            owl:Class ;
+                               owl:intersectionOf  ( obo:BFO_0000015
+                                                     [ rdf:type            owl:Restriction ;
+                                                       owl:onProperty      obo:BFO_0000055 ;
+                                                       owl:someValuesFrom  obo:BFO_0000034
+                                                     ]
+                                                   )
+                             ] ;
+        skos:example         "sensing process, controlling process, transforming process" ;
+        iof-av:adaptedFrom   "The natural language definition is adapted from EN:13306" ;
+        iof-av:firstOrderLogicDefinition
+                "FunctioningProcess(x) ↔ Process(x) ∧ ∃y(Function(y) ∧ realizes(x,y))" ;
+        iof-av:isPrimitive   false ;
+        iof-av:maturity      iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "process in which an item performs its function"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'functioning process' is defined as exactly an instance of 'process' that 'realizes' some 'function'" .
+
+iof-maint:MaintenanceActivity
+        rdf:type                     owl:Class ;
+        rdfs:label                   "maintenance activity"@en-US ;
+        rdfs:subClassOf              iof-maint:MaintenanceProcess ;
+        skos:example                 "replace activity, repair activity, inspect activity" ;
+        iof-av:firstOrderLogicAxiom  "Maintenance Activity(x) → MaintenanceProcess(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "maintenance process that is a single task to retain or restore the function of a maintainable material item"@en-US ;
+        iof-av:primitiveRationale    "at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'maintenance activity' then x is a 'maintenance process'" .
+
+iof-maint:MaintenanceProcess
+        rdf:type                     owl:Class ;
+        rdfs:label                   "maintenance process"@en-US ;
+        rdfs:subClassOf              iof-core:PlannedProcess ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      obo:BFO_0000167 ;
+                                       owl:someValuesFrom  iof-core:MaintainableMaterialItem
+                                     ] ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      iof-core:hasInput ;
+                                       owl:someValuesFrom  iof-core:MaintainableMaterialItem
+                                     ] ;
+        rdfs:subClassOf              [ rdf:type            owl:Restriction ;
+                                       owl:onProperty      iof-core:prescribedBy ;
+                                       owl:someValuesFrom  iof-maint:MaintenanceStrategy
+                                     ] ;
+        skos:example                 "process of replacing a pump, process of calibrating a sensor" ;
+        iof-av:firstOrderLogicAxiom  "LA2: MaintenanceProcess(p) → ∃x(MaintenanceStrategy(x) ∧ prescribes(x, p))" , "LA3: MaintenanceProcess(p) → ∃x(MaintainableMaterialItem(x) ∧ hasParticipantAtAllTimes(p, x) ∧ hasInput(p, x))" , "LA1: PlannedProcess(p) ∧ (∃x(MaintenanceStrategy(x) ∧ prescribes(x, p)) → MaintenanceProcess(p)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "process to do with retaining or restoring the function of a maintainable material item under a maintenance strategy"@en-US ;
+        iof-av:primitiveRationale    "Additional analysis to be performed, particularly w.r.t. the associated maintenance strategy." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "LA2: if p is 'maintenance process' then there is some 'maintenance strategy' that 'prescribes' p" , "LA1: if p is 'planned process' that is prescribed by some 'maintenance strategy' then x is a 'maintenance process'" , "LA3: if p is 'maintenance process' then there is some 'maintainable material item' x such that p 'has input' x and p 'has participant at all times' x" .
+
+iof-maint:MaintenanceState
+        rdf:type             owl:Class ;
+        rdfs:label           "maintenance state"@en-US ;
+        rdfs:subClassOf      iof-core:MaterialState ;
+        owl:equivalentClass  [ rdf:type     owl:Class ;
+                               owl:unionOf  ( iof-maint:DegradedState iof-maint:FailedState iof-maint:OperatingState )
+                             ] ;
+        skos:example         "is broken in two, is running at desired speed" ;
+        iof-av:firstOrderLogicDefinition
+                "MaintenanceState(x) ↔ Operating State(x) ∨ DegradedState(x) ∨ FailedState(x)" ;
+        iof-av:isPrimitive   false ;
+        iof-av:maturity      iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "stasis that holds during a temporal interval when the realizable functions and capabilities of the participating item, or the grade of realization of those functions and capabilities, remain unchanged"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'maintenance state' is defined as exactly an instance of 'operating state' or exactly an instance of 'degraded state' or exactly an instance of 'failed state'." .
+
+iof-maint:MaintenanceStrategy
+        rdf:type                     owl:Class ;
+        rdfs:label                   "maintenance strategy"@en-US ;
+        rdfs:subClassOf              iof-core:PlanSpecification ;
+        skos:example                 "specification of a corrective strategy for maintaining a pump (or pumps) of a plant" ;
+        iof-av:firstOrderLogicAxiom  "PlanSpecification(x) ∧ (∃p(MaintenanceProcess(p) ∧ prescribes(x, p)) → MaintenanceStrategy(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "maintenance (method/ approach/ actions) to enable (the/an) asset to achieve (management's/ desired) objectives"@en-US ;
+        iof-av:primitiveRationale    "Additional analysis to be performed on this concept. Involves agents, organisations, and business objectives." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'plan specification' that 'prescribes' some 'maintenance process' then x is a 'maintenance strategy'" .
+
+iof-maint:MaintenanceWorkOrderRecord
+        rdf:type                owl:Class ;
+        rdfs:label              "maintenance work order record"@en-US ;
+        rdfs:subClassOf         iof-core:InformationContentEntity ;
+        owl:equivalentClass     [ rdf:type            owl:Class ;
+                                  owl:intersectionOf  ( iof-core:InformationContentEntity
+                                                        [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      iof-core:describes ;
+                                                          owl:someValuesFrom  iof-maint:MaintenanceProcess
+                                                        ]
+                                                        [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      iof-core:isInputOf ;
+                                                          owl:someValuesFrom  iof-maint:MaintenanceProcess
+                                                        ]
+                                                      )
+                                ] ;
+        skos:example            "a record in a (computerised) maintenance management system that contains fields for due and actual date of the maintenance, a description of the maintenance task, actual and budget costs and other fields" ;
+        iof-av:acronym          "MWO" ;
+        iof-av:explanatoryNote  "the record has a number of commonly used fields including dates, task description, task codes, costs" , "this definition remains provisional because it assumes that a work order must involve a 'maintenance process'. In the current definition, a work order cannot be made up of purely 'supporting maintenance activity' tasks." ;
+        iof-av:firstOrderLogicDefinition
+                "MaintenanceWorkOrderRecord(x) ↔ InformationContentEntity(x) ∧ ∃y(MaintenanceProcess(y) ∧ describes(x, y) ∧ isInputOf(x, y))" ;
+        iof-av:isPrimitive      false ;
+        iof-av:maturity         iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "information content entity that describes a maintenance process"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'maintenance work order' is defined as exactly an instance of 'information content entity' that 'describes' some 'maintenance process' p and that 'is input of' p" ;
+        iof-av:synonym          "maintenance work order" .
+
+iof-maint:OperatingState
+        rdf:type                     owl:Class ;
+        rdfs:label                   "operating state"@en-US ;
+        rdfs:subClassOf              iof-maint:MaintenanceState ;
+        skos:example                 "running at desired speed, producing required power, pumping desired volume" ;
+        iof-av:explanatoryNote       "In defining the state of an item as being able to perform a required function, we are assuming that the external resources, if required, are provided" , "Note that in an operating state the item may be functional (so in the operating state) and not currently operating (performing in the functioning process)" ;
+        iof-av:firstOrderLogicAxiom  "OperatingState(x) → MaintenanceState(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "state of an item being able to perform a required function"@en-US ;
+        iof-av:primitiveRationale    "generally speaking, the determination of maintenance state is determined from outside of the ontology, e.g., through analytics, other reasoning mechanims, or by reports from the device or control system, and so is not determinable from the ontology alone. The required constructs for creation of a formal definition are not available in this release." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'operating state' then x is a 'maintenance state'" .
+
+iof-maint:QualificationSpecification
+        rdf:type                     owl:Class ;
+        rdfs:label                   "qualification specification"@en-US ;
+        rdfs:subClassOf              iof-core:RequirementSpecification ;
+        skos:example                 "electrical trade qualification, welding qualification, registered engineer" ;
+        iof-av:firstOrderLogicAxiom  "QualificationSpecification(x) → RequirementSpecification(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:maturity              iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "requirement specification that identifies the need for a person to have an assessed skill for a specific task"@en-US ;
+        iof-av:primitiveRationale    "detailed analysis of this concept is incomplete and, hence, the required constructs for creation of a formal definition are not available in this release." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'qualification specification' then x is a 'requirement specification'" .
+
+iof-maint:QualifiedMaintenancePerson
+        rdf:type                owl:Class ;
+        rdfs:label              "qualified maintenance person"@en-US ;
+        rdfs:seeAlso            "qualification specification" ;
+        rdfs:subClassOf         iof-core:Person ;
+        owl:equivalentClass     [ rdf:type            owl:Class ;
+                                  owl:intersectionOf  ( iof-core:Person
+                                                        [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      obo:BFO_0000056 ;
+                                                          owl:someValuesFrom  iof-maint:MaintenanceActivity
+                                                        ]
+                                                        [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      iof-core:satisfiesRequirement ;
+                                                          owl:someValuesFrom  [ rdf:type            owl:Class ;
+                                                                                owl:intersectionOf  ( iof-maint:QualificationSpecification
+                                                                                                      [ rdf:type            owl:Restriction ;
+                                                                                                        owl:onProperty      iof-core:prescribes ;
+                                                                                                        owl:someValuesFrom  iof-maint:MaintenanceActivity
+                                                                                                      ]
+                                                                                                    )
+                                                                              ]
+                                                        ]
+                                                      )
+                                ] ;
+        skos:example            "electrician, fitter, mechanic" ;
+        iof-av:explanatoryNote  "Qualified person on its own is not particularly useful unless reasoning is constrained to only the individuals of interest at some time. Specific subtypes of qualified person are necessary to determine if specific qualification types are satisfied. Still, care must be taken when reasoning over temporal information as, if the critieria are met at some time, the classification will hold." ;
+        iof-av:firstOrderLogicDefinition
+                "QualifiedMaintenancePerson(x) ↔ Person(x) ∧ ∃y(MaintenanceActivity(y) ∧ partcipatesInAtSomeTime(x,y) ∧ ∃z(QualificationSpecification(z) ∧ prescribedBy(y, z) ∧ satisfiesRequirement(x,z)))" ;
+        iof-av:isPrimitive      false ;
+        iof-av:maturity         iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "person who is qualified to perform a specified specified maintenance activity"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of ‘qualified maintenance person’ is defined as exactly an instance of 'person' that 'participates in at some time' some 'maintenance activity' p and that 'satifies' some 'qualification specification' that 'prescribes' p" .
+
+iof-maint:RequiredFunction
+        rdf:type                owl:Class ;
+        rdfs:label              "required function"@en-US ;
+        rdfs:seeAlso            "ISO81346 for examples of functions" ;
+        rdfs:subClassOf         obo:BFO_0000034 ;
+        rdfs:subClassOf         [ rdf:type            owl:Class ;
+                                  owl:intersectionOf  ( [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      obo:BFO_0000056 ;
+                                                          owl:someValuesFrom  iof-maint:FunctioningProcess
+                                                        ]
+                                                        [ rdf:type            owl:Restriction ;
+                                                          owl:onProperty      iof-core:functionOf ;
+                                                          owl:someValuesFrom  iof-core:MaintainableMaterialItem
+                                                        ]
+                                                      )
+                                ] ;
+        skos:example            "to sense, to store, to process information, to control" ;
+        iof-av:adaptedFrom      "The natural language definition is adapted from EN:13306" ;
+        iof-av:explanatoryNote  "the function can be a combination of functions" ;
+        iof-av:firstOrderLogicDefinition
+                "RequiredFunction(x) ↔ Function(x) ∧ ∃y,z(MaintainableMaterialItem(y) ∧ FunctioningProcess(z) ∧ participatesInAtSomeTime(y,z) ∧ functionOf(x,y))" ;
+        iof-av:isPrimitive      true ;
+        iof-av:maturity         iof-av:Released ;
+        iof-av:naturalLanguageDefinition
+                "function of a maintainable material item which is considered necessary to fulfil a process requirement"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'required function' is defined as an instance of 'function' that is the 'function of' some 'maintainable material item' that 'participates in at some time' some 'functioning process'" ;
+        iof-av:synonym          "primary function" .
+
+iof-maint:SupportingMaintenanceActivity
+        rdf:type                     owl:Class ;
+        rdfs:label                   "supporting maintenance activity"@en-US ;
+        rdfs:subClassOf              iof-core:PlannedProcess ;
+        skos:example                 "activities that do not change the state of the asset but are done by maintenance personnel such as reporting activity, isolate activity, move activity, training activity" ;
+        iof-av:firstOrderLogicAxiom  "SupportingMaintenanceActivity(x) → PlannedProcess(x)" ;
+        iof-av:isPrimitive           true ;
+        iof-av:naturalLanguageDefinition
+                "single action in support of the execution of a maintenance process"@en-US ;
+        iof-av:primitiveRationale    "at this stage we do not have sufficient constructs to create necessary and sufficent conditions for this class." ;
+        iof-av:semiFormalNaturalLanguageAxiom
+                "if x is a 'supporting maintenance activity' then x is a 'planned process'" .
+
+iof-maint:UndesireableDisposition
+        rdf:type                owl:Class ;
+        rdfs:label              "undesireable disposition"@en-US ;
+        rdfs:subClassOf         obo:BFO_0000016 ;
+        owl:equivalentClass     [ rdf:type     owl:Class ;
+                                  owl:unionOf  ( iof-maint:DispositionToExhibitUndesirableBehavior iof-maint:DispositionToFail )
+                                ] ;
+        skos:example            "disposition to leak, disposition to overheat, disposition to vibrate" ;
+        iof-av:explanatoryNote  "There are two subclasses, disposition to fail and disposition to exhibit undesirable behavior. We need to distinguish between the disposition to leak which is realised in a leaking process (regarded as a failure) and the disposition to overheat realised in a heating process (which, in this example) is not a failure process).\nWe asset that disposition to exhibit undesirable behavior is the disposition of an item that would not be expected under normal operating conditions but may occur such as vibration or overheating." ;
+        iof-av:firstOrderLogicDefinition
+                "UndesirableDisposition(x) ↔ DispositionToFail(x) ∨ DispositionToExhibitUndesirableBehavior(x)" ;
+        iof-av:isPrimitive      false ;
+        iof-av:maturity         iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "disposition of an item to undergo a process that leads to undesirable outcomes"@en-US ;
+        iof-av:semiFormalNaturalLanguageDefinition
+                "every instance of 'undesirable disposition' is defined as exactly an instance of 'disposition to fail' or exactly an instance of 'disposition to exhibit undesirable behavior'" ;
+        iof-av:synonym          "failure mode" .
+
+iof-maint:hasMaintenanceState
+        rdf:type            owl:ObjectProperty ;
+        rdfs:domain         iof-core:MaintainableMaterialItem ;
+        rdfs:label          "has maintenance state"@en-US ;
+        rdfs:range          iof-maint:MaintenanceState ;
+        rdfs:subPropertyOf  obo:BFO_0000056 ;
+        owl:inverseOf       iof-maint:maintenanceStateOf ;
+        skos:example        "has partial function or loss of function" ;
+        iof-av:maturity     iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "inverse of 'stateOf'"@en-US .
+
+iof-maint:initiates  rdf:type  owl:ObjectProperty ;
+        rdfs:domain         obo:BFO_0000003 ;
+        rdfs:label          "initiates"@en-US ;
+        rdfs:range          [ rdf:type     owl:Class ;
+                              owl:unionOf  ( obo:BFO_0000015 iof-core:Event )
+                            ] ;
+        rdfs:subPropertyOf  obo:BFO_0000063 ;
+        skos:example        "starts, begins, commences" ;
+        iof-av:maturity     iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "comes before an event or process in time and results in beginning or creation of the event or process"@en-US .
+
+iof-maint:maintenanceStateOf
+        rdf:type            owl:ObjectProperty ;
+        rdfs:domain         iof-maint:MaintenanceState ;
+        rdfs:label          "maintenance state of"@en-US ;
+        rdfs:range          iof-core:MaintainableMaterialItem ;
+        rdfs:subPropertyOf  obo:BFO_0000167 ;
+        skos:example        "the physical or software asset" ;
+        iof-av:maturity     iof-av:Provisional ;
+        iof-av:naturalLanguageDefinition
+                "relation that describes the maintenance state of a maintainable item"@en-US .
+
