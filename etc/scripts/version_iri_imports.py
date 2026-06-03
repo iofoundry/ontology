@@ -79,9 +79,9 @@ def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) 
 
 if __name__ == "__main__":
   # Parse command line arguments, expect a release number and an optional switch to turn off update of imports
-  parser = argparse.ArgumentParser(description="Version IRI Imort Updater for RDF XML files")
+  parser = argparse.ArgumentParser(description="Version IRI import updater for RDF XML files")
   parser.add_argument("release", help="release number")              # positional
-  parser.add_argument("-s", "--skip_imports", action="store_true", help="skip updating import files")
+  parser.add_argument("-s", "--skip_imports", action="store_true", help="skip updating imports")
 
   args = parser.parse_args()
     

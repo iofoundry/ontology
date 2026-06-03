@@ -41,7 +41,7 @@
 		<dcterms:publisher>Industrial Ontology Foundry</dcterms:publisher>
 		<dcterms:title xml:lang="en-US">Industrial Ontology Foundry (IOF) Supply Chain Ontology</dcterms:title>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202601/supplychain/SupplyChain/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/supplychain/SupplyChain/"/>
 		<skos:changeNote>The https://spec.industrialontologies.org/ontology/202401/supplychain/SupplyChain/ version of this 
 ontology was modified to deprecate four constructs, namely, Gain of Role, Loss of Role, Group of Persons, and Artifact Function. These constructs are moved to the IOF Core ontology (https://spec.industrialontologies.org/ontology/202401/core/Core/). The deprecated constructs are linked to the IOF Core equivalent constructs using owl:equivalentClass.</skos:changeNote>
 		<iof-av:acronym>SCO</iof-av:acronym>
@@ -452,6 +452,31 @@ The party to whom goods are shipped and delivered [CSCMP].</iof-av:explanatoryNo
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact designed to hold, protect, and facilitate the transport of goods across one or more modes of transportation</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to provide necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;container&apos; then x is a &apos;material artifcat&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;ContainerIdentifier">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Identifier"/>
+		<rdfs:label xml:lang="en-US">container identifier</rdfs:label>
+		<dcterms:contributor>Merck KGaA</dcterms:contributor>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Identifier">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;designates"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;Container"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>A QR code printed on a plastic drum used to store and transport a buffer solution; A barcode on a stainless steel transport vessel used to transfer cell culture harvest material from a fed-batch bioreactor to the primary capture chromatography system; A unique container code painted on an intermodal shipping container used to transport electronics from a manufacturing site to a distribution port; A barcode affixed to a reusable parts bin used to transport fasteners from a warehouse to an automotive assembly line</skos:example>
+		<iof-av:counterExample>A product catalog number that refers to a type of plastic container sold by a manufacturer; A batch number assigned to a lot of buffer solution held in a stainless steel tank. Although the identifier is associated with the material inside the container, it does not identify the container itself and is therefore not a container identifier</iof-av:counterExample>
+		<iof-av:firstOrderLogicDefinition>ContainerIdentifier(x) ↔ Identifier(x) ∧ ∃y(Container(y) ∧ designates(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">identifier that identifies a container</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;container identifier&apos; is defined as exactly an instance of &apos;identifier&apos; that &apos;designates&apos; some &apos;container&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;DepartureProcess">
@@ -1635,6 +1660,82 @@ The last two digits (01) represents the product batch of that specific day</skos
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;manufacturing supply chain system&apos; defined as exactly an instance of a &apos;supply chain system&apos; that &apos;has specified output&apos; some &apos;material product&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;MaterialTradeItem">
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;LogisticUnit"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material trade item</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialTradeItemRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Case of 24 soda cans, Box of 100 surgical masks, Office chair, one ceramic capacitor in a antistatic tape, reel of 5000 capacitor units, a surface mount precision kit with 50 capacitors, 50 resistors and 25 inductors.</skos:example>
+		<iof-av:explanatoryNote>1. Any item upon which there is a need to retrieve pre-defined information and that may be priced, ordered, or invoiced at any point in the supply chain [GS1].
+
+2. Any item (product or service) that is traded between a supplier and a buyer, which can be ordered and invoiced based on a trading agreement. 
+
+3. Note that &apos;material trade item&apos; class is disjoint from &apos;service trade item&apos; class.
+
+4. Logistic unit is a composition of one or more trade items, which are to be delivered by transport and/or stored to fulfill a trade agreement.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Logistic unit is a composition of one or more trade items, which are to be delivered by transport and/or stored to fulfill a trade agreement.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MaterialTradeItem(x) → MaterialEntity(x) ∧ ∃y(LogisticUnit(y) ∧ isContinuantPartOfAtSomeTime (x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicDefinition>MaterialTradeItem(x) ↔ MaterialEntity(x) ∧ ∃r(MaterialTradeItemRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is uniquely identified and is intended to be offered for sale in a selling business process.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material trade item&apos; then x is part of some &apos;logistic unit&apos; at some time.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material trade item&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;material trade item role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialTradeItemRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;MaterialProduct">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000056"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;SellingBusinessProcess"/>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;designatedBy"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;Identifier"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material trade item role</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
+		<skos:example>role of a bottle of detergent, identified by a GTIN for retail , role of a box containing 6 bottles of the detergent available for sale, role of a corrugated carton containing 4 inner packs available for salem role of a full pallet holding 20 cases of the detergent available for sale.</skos:example>
+		<iof-av:firstOrderLogicAxiom>MaterialTradeItemRole(x) → Role(x) ∧∃y ∃p ∃i ( roleOf(x, y) ∧ (MaterialProduct(y) ∨ Package(y)) ∧ SellingBusinessProcess(p) ∧ participatesInAtSomeTime(y, p) ∧ Identifier(i) ∧ designatedBy(y, i))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material product, package of, or group of material products when it is intended to be offered for sale in a selling business process and is identified for trade</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required construct for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘material trade item role’ then x is a ‘role’ that is a ‘role of’ some ‘material product’ or some ‘package’ that ‘participates in at some time’ some ‘selling business process’ and that is &apos;designated by&apos; some ‘ Identifier’</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;PackagingPlanSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlanSpecification"/>
 		<rdfs:label xml:lang="en-US">packaging plan specification</rdfs:label>
@@ -2507,6 +2608,60 @@ recording, but not quality assurance or stocking [CSCMP].
 		<iof-av:firstOrderLogicDefinition>StorageServiceProviderRole(x) ↔ LogisticsServiceProviderRole(x) ∧ ∃y∃p((BusinessOrganization(y) ∨ Person(y)) ∧ StorageService(p) ∧ agentIn(y,p) ∧ roleOf(x,y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">logisitics service provider role that is held by a person or business organization when it provides a storage service</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>if x is a Storage Service Provider Role then x is a Service Provider Role that is the &apos;role of&apos; a Business Organization or Person y when it &apos;agent in&apos; some Storage Service p</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;Sublot">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label xml:lang="en-US">sublot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;SublotRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Sublot of 140 antacid tablets filled from Lot #6754189 and packaged in a bottle; sublot of antacid tablets contained in a box of 12 such bottles from the same lot; sublot of tetrachloroethylene filled from Lot #PERC6227741 and contained in a 50L drum; sublot of tetrachloroethylene contained in a pallet of 15 such drums from the same lot;Sublot of 2400 M8 stainless steel bolts from Lot #BOLT-240315; Sublot of 60 automotive brake discs packaged in a crate from Lot #BD-517733</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Sublot(x) ↔ MaterialEntity(x) ∧ ∃r(SublotRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has a sublot role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;sublot&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;sublot role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;SublotRole">
+		<rdfs:subClassOf rdf:resource="&iof-constr;TraceableResourceUnitRole"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;Lot"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">sublot role</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/"/>
+		<skos:example>Role held by the sublot of 140 antacid tablets filled from Lot #6754189 and packaged in a bottle; role held by the sublot of tablets in a box of 12 such bottles; role held by the sublot of tetrachloroethylene in a 50L drum from Lot #PERC6227741; role held by the sublot of tetrachloroethylene in a pallet of 15 such drums; Role held by the sublot of 2400 M8 stainless steel bolts from Lot #BOLT-240315; role held by the sublot of 60 automotive brake discs packaged in a crate from Lot #BD-517733</skos:example>
+		<iof-av:firstOrderLogicAxiom>SublotRole(x) → TraceableResourceUnitRole(x) ∧ ∃y(MaterialEntity(y) ∧ roleOf(x, y) ∧ ∃l(Lot(l) ∧ continuantPartOfAtSomeTime(y, l)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">traceable resource unit role held by a material entity when it is part of a lot and is uniquely identifiable within that lot</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release. In particular the pattern for unique identification within a lot needs to be developed.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;sublot role&apos;, then x is a &apos;traceable resource unit role&apos; and is the &apos;role of&apos; some &apos;material entity&apos; that is the &apos;continuant part of at some time&apos; some &apos;lot</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;SupplierEvaluationProcess">
@@ -3632,6 +3787,27 @@ An Engineered System comprising all agents, equipment, facilities, software syst
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">identification scheme that specifies constraints on the structure of a GLN (global location number)</iof-av:naturalLanguageDefinition>
 	</owl:NamedIndividual>
 	
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;wasDefinedBy"/>
+		<owl:annotatedSource rdf:resource="&iof-constr;ContainerIdentifier"/>
+		<owl:annotatedTarget></owl:annotatedTarget>
+		<iof-av:wasMovedFrom>https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialProcurementAndStorage/</iof-av:wasMovedFrom>
+		<iof-av:wasMovedOn>2026-03-19T08:56:00</iof-av:wasMovedOn>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;wasDefinedBy"/>
+		<owl:annotatedSource rdf:resource="&iof-constr;Sublot"/>
+		<owl:annotatedTarget></owl:annotatedTarget>
+		<iof-av:wasMovedFrom>https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialProcurementAndStorage/</iof-av:wasMovedFrom>
+		<iof-av:wasMovedOn>2026-03-19T08:56:00</iof-av:wasMovedOn>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;wasDefinedBy"/>
+		<owl:annotatedSource rdf:resource="&iof-constr;SublotRole"/>
+		<owl:annotatedTarget></owl:annotatedTarget>
+		<iof-av:wasMovedFrom rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialProcurementAndStorage/</iof-av:wasMovedFrom>
+		<iof-av:wasMovedOn>2026-03-19T08:56:00</iof-av:wasMovedOn>
+	</owl:Axiom>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;BillOfLading"/>
 		<owl:intersectionOf rdf:parseType="Collection">
