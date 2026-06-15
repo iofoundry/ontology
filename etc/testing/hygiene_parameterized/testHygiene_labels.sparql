@@ -14,10 +14,11 @@ WHERE
   ?resource rdf:type ?type.
   VALUES ?type {owl:Class owl:ObjectProperty owl:DatatypeProperty}
   
+  FILTER NOT EXISTS {?resource owl:deprecated "true"^^xsd:boolean .}
   FILTER NOT EXISTS {?resource rdfs:label ?label. FILTER (LANG(?label) = "en-US")}
   FILTER ISIRI(?resource)
   
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
-  BIND (CONCAT("PRODERROR: Resource ", STR(?resource), " does not have an rdfs:label in American English.") as ?warning)
+  BIND (CONCAT("::error title=<HYGIENE_TEST_NAME>:: Resource ", STR(?resource), " does not have an rdfs:label in American English.") as ?warning)
 }
