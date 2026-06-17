@@ -149,7 +149,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialLocationChangeProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
@@ -160,7 +160,7 @@
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;ProcessTransferMaterialRole"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -194,12 +194,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>Addition of a concentrated glucose-amino-acid feed solution to a mammalian cell bioreactor during a fed-batch cultivation to replenish nutrients; Introduction of a wash or elution buffer into a chromatography column to remove unbound material or release the target product; Introducing resuspended cells into a shake flask containing fresh medium to initiate cultivation; Polypropylene glycol (PPG) addition in microbial fermentation (e.g., E. coli) to prevent foam overflow and ensure stable dissolved oxygen control; sparging of air into a bioreactor to supply oxygen for mammalian cell culture;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003743</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>A material addition process involves physical introduction of a material entity into the recipient to which it is added. The recipient may be a material entity, vessel, container, culture, process stream, equipment item, storage setting, or other material-bearing setting.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialAdditionProcess(x) → PlannedProcess(x) ∧ ∃m ∃mr (MaterialEntity(m) ∧ ProcessTransferMaterialRole(mr) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, mr)) ∧ ∃t ∃tr ((Site(t) ∨ MaterialEntity(t)) ∧ MaterialAdditionTargetRole(tr) ∧ hasParticipantAtSomeTime(x, t) ∧ hasRole(t, tr))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MaterialAdditionProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃m ∃mr (MaterialEntity(m) ∧ TransferredMaterialRole(mr) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, mr)) ∧ ∃t ∃tr ((Site(t) ∨ MaterialEntity(t)) ∧ MaterialAdditionTargetRole(tr) ∧ hasParticipantAtSomeTime(x, t) ∧ hasRole(t, tr))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>planned process in which a material entity is physically introduced into a defined recipient</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material location change process in which a material entity is physically introduced into a defined recipient</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material addition process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;process transfer material role&apos;, and &apos;has participant at some time&apos; some &apos;site&apos; or &apos;material entity&apos; that &apos;has role&apos; some &apos;material addition target role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material addition process&apos; then x is a &apos;material location change process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;has participant at some time&apos; some &apos;site&apos; or &apos;material entity&apos; that &apos;has role&apos; some &apos;material addition target role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAdditionTargetRole">
@@ -222,8 +221,9 @@
 		<rdfs:label>material addition target role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>cell culture bearing material addition target role when feed medium is added to it during cultivation; flask contents bearing material addition target role when a 5 g powder portion is added to the flask; production bioreactor contents bearing material addition target role when inoculum is added to establish a production culture;</skos:example>
+		<iof-av:explanatoryNote>Use this role for the target into which or to which material is physically introduced. Do not use it for the material being introduced. The introduced material bears transfer material role.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialAdditionTargetRole(x) → Role(x) ∧ ∃b ((MaterialEntity(b) ∨ Site(b)) ∧ roleOf(x, b))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition>role held by a material entity or site when material is being, or is planned to be, physically added to it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>role held by a material entity or site when a material entity is being, or is planned to be, physically added to it</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material addition target role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; or some &apos;site&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -293,7 +293,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialRemovalProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialLocationChangeProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
@@ -327,7 +327,7 @@
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;ProcessTransferMaterialRole"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -338,12 +338,38 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>cell bleed process in a perfusion culture process, in which a portion of cell-containing culture material is withdrawn from the culture system; culture material withdrawal during a fed-batch harvest process, in which culture material is physically withdrawn from a production bioreactor; product-containing harvest stream withdrawal during a perfusion culture process, in which culture fluid is withdrawn through a cell retention system; eluate withdrawal from a chromatography column, in which product-containing eluate is physically withdrawn into a product pool; permeate withdrawal from a tangential flow filtration process, in which permeate is physically withdrawn across the filtration membrane; cryovial retrieval from cryostorage, in which a cryovial containing frozen cell material is physically withdrawn from a cryostorage system.</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003574</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>A material removal process involves physical withdrawal of a material entity from the source from which it is taken. The source may be a vessel, container, culture system, process stream, equipment item, storage system, or other material-bearing setting. The withdrawn entity may be bulk material or a containerized material entity, such as a vial or bag containing material. Material removal process should be distinguished from broader processes that may include material removal as a part, such as harvest, clarification, purification, or recovery processes. It should also be distinguished from uses of “removal” that refer to reducing, separating, clearing, or inactivating something within a material stream, such as viral removal, impurity removal, or host-cell protein removal.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialRemovalProcess(x) → PlannedProcess(x) ∧ ∃s ∃sr ((Site(s) ∨ Material ((Site(s) ∨ MaterialEntity(s)) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasParticipantAtSomeTime(x, s) ∧ hasRole(s, sr)) ∧ ∃m ∃mr (MaterialEntity(m) ∧ ProcessTransferMaterialRole(mr) ∧ hasSpecifiedOutput(x, m) ∧ hasRole(m, mr))</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>A material removal process involves physical withdrawal of a material entity from the source from which it is taken. The withdrawn entity may be bulk material or a containerized material entity, such as a vial or bag containing material. Material removal process should be distinguished from broader processes that may include material removal as a part, such as harvest, clarification, purification, or recovery processes. It should also be distinguished from uses of “removal” that refer to reducing, separating, clearing, or inactivating something within a material stream, such as viral removal, impurity removal, or host-cell protein removal.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MaterialRemovalProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃s ∃sr ((Site(s) ∨ Material ((Site(s) ∨ MaterialEntity(s)) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasParticipantAtSomeTime(x, s) ∧ hasRole(s, sr)) ∧ ∃m ∃mr (MaterialEntity(m) ∧ TransferredMaterialRole(mr) ∧ hasSpecifiedOutput(x, m) ∧ hasRole(m, mr))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>planned process in which a material entity is physically withdrawn from a defined source</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>material location change process in which a material entity is physically withdrawn from a defined source</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material removal process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;site&apos; or &apos;material entity&apos; that &apos;has role&apos; some &apos;material withdrawal source role&apos;, and &apos;has specified output&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;process transfer material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material removal process&apos; then x is a &apos;material location change process&apos; that &apos;has participant at some time&apos; some &apos;site&apos; or &apos;material entity&apos; that &apos;has role&apos; some &apos;material withdrawal source role&apos;, and &apos;has specified output&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialTransferProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialLocationChangeProcess"/>
+		<rdfs:label>material transfer process</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MaterialLocationChangeProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>cryovial transfer process from cryostorage to a thawing device, in which a cryovial containing frozen cell material is withdrawn from a cryostorage system and introduced into a thawing device; Milli-Q water transfer process from a Milli-Q water production system into a vessel used for growth media reconstitution; cell culture material transfer process from a weldable bottle to a bench-scale production bioreactor; feed medium transfer process from a feed bag into a production bioreactor during fed-batch cultivation; inoculum transfer process from a seed bioreactor or inoculum bag into a production bioreactor</skos:example>
+		<iof-av:explanatoryNote>A material transfer process represents the full movement of the same material entity from a defined source to a defined target. The material is withdrawn from the source, passes through a transfer path, and is introduced to or into the target. It has a material removal process and a material addition process as parts, but is not equivalent to either part alone. Use this class when the source, target, and path between them are relevant to the process, including transfer failures such as loss, blockage, delay, misdirection, contamination, or change in material state. Use material removal process for withdrawal without target-side introduction. Use material addition process for introduction without source-side withdrawal. Do not use material transfer process for shipment, transport, delivery, or warehouse relocation where a material entity is only carried between locations.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialTransferProcess(x) ↔ MaterialLocationChangeProcess(x) ∧ ∃b∃s(MaterialAdditionProcess(b) ∧ MaterialRemovalProcess(s) ∧ hasOccurrentPart(x,b) ∧ hasOccurrentPart(x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>material location change process in which a material entity is physically withdrawn from a defined source and physically introduced into a defined recipient</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material transfer process&apos; is defined as exactly an instance of &apos;material location change process&apos; that has some &apos;material addition process&apos; and &apos;material removal process&apos; as &apos;occurent parts&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialUseProcess">
@@ -440,8 +466,9 @@
 		<rdfs:label>material withdrawal source role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>feed bag bearing material withdrawal source role when feed medium is taken from it for addition to a cell culture; powder tank bearing material withdrawal source role when a 5 g powder portion is taken from it for addition to a flask; cell culture bearing material withdrawal source role during a cell bleed process;</skos:example>
+		<iof-av:explanatoryNote>Use this role for the source from which material is physically taken. Do not use it for the material that is taken. The withdrawn material bears transfer material role.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialWithdrawalSourceRole(x) → Role(x) ∧ ∃b ((MaterialEntity(b) ∨ Site(b)) ∧ roleOf(x, b))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition>role held by a material entity or site when material is being, or is planned to be, physically withdrawn from it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>role held by a material entity or site when a material entity is being, or is planned to be, physically withdrawn from it</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material withdrawal source role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; or some &apos;site&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -571,23 +598,6 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is an output of a manufacturing process and is input of a subsequent manufacturing process or planned to be an input of a subsequent manufacturing process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process intermediate material role&apos; then x &apos;has realization&apos; only in some &apos;manufacturing process&apos; that &apos;has input&apos; some &apos;material entity&apos;, and x is a &apos;role of&apos; either a &apos;material entity&apos; that &apos;is input of&apos; some &apos;manufacturing process&apos; and &apos;is specified output of&apos; some &apos;manufacturing process&apos;, or a &apos;material entity&apos; that &apos;is specified output of&apos; some &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ProcessTransferMaterialRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label>process transfer material role</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<skos:example>5 g powder portion bearing the role when it is taken from a powder tank and added to a flask; 500 mL feed-medium portion bearing the  role when it is taken from a feed bag and added to a cell culture; cryovial bearing the when it is retrieved from cryostorage;</skos:example>
-		<iof-av:explanatoryNote>A process transfer material role identifies the material entity that is physically added or withdrawn as part of a planned process. The role does not require that both a withdrawal source and an addition target are represented. It should be distinguished from cargo role, shipping-related roles, and material location change patterns; it is used for addition and withdrawal contexts such as feed addition, powder addition, cell bleed, cryovial retrieval,</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProcessTransferMaterialRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m)</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition>role held by a material entity when it is being, or is planned to be, physically added to or physically withdrawn from a material entity or site</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process transfer material role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionConsumable">
@@ -830,6 +840,23 @@
 		<iof-av:naturalLanguageDefinition>material entity that is composed primarily of one kind of molecular entity, allowing for minor impurities</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient condition.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;substance material&apos; then x is a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;TransferredMaterialRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>transfer material role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
+		<skos:example>5 g powder portion bearing the role when it is taken from a powder tank and added to a flask; 500 mL feed-medium portion bearing the  role when it is taken from a feed bag and added to a cell culture; cryovial bearing the when it is retrieved from cryostorage;</skos:example>
+		<iof-av:explanatoryNote>Transfer material role identifies the material entity that is physically added or withdrawn as part of a planned process. The role does not require that both a withdrawal source and an addition target are represented. It should be distinguished from cargo role and shipping-related roles. It is intended for manufacturing, laboratory, processing, and material-handling cases, such as feed addition, powder addition, inoculum transfer, gas addition, cell bleed, sample withdrawal, and cryovial retrieval.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>TransferredMaterialRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition>role held by a material entity when it is being, or is planned to be, physically added to or physically withdrawn from a material entity or site</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a  &apos;transferred material role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-construct;isOutsideAssessmentCondition">
