@@ -24,6 +24,7 @@ WHERE
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
   FILTER (!CONTAINS(STR(?source),"https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"))
+  BIND(REPLACE(STR(?source), "https://spec.industrialontologies.org/ontology/(.+)/$", "./$1.rdf") AS ?sourcePath)
 
-  BIND (CONCAT("WARN: A resource ", STR(?resource), " does not have an example.") as ?warning)
+  BIND (CONCAT("::warning file=", STR(?sourcePath), ",title=Examples::A resource ", STR(?resource), " does not have an example.") as ?warning)
 }

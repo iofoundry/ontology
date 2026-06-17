@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY annotation "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY terms "http://purl.org/dc/terms/">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"
+	xmlns:annotation="https://spec.industrialontologies.org/ontology/annotation/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
+	xmlns:terms="http://purl.org/dc/terms/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/">
+		<rdfs:label>recipe procedural occurrence classification utility</rdfs:label>
+		<terms:abstract>This module contains defined utility classes for planned processes with respect to the recipe process element structure. It provides classes for planned processes that are prescribed by recipe procedural elements at the four different levels: 1) recipe procedure, 2) recipe unit procedure, 3) recipe operation, and 4) recipe phase. These classes are intended for reasoning-based classification at both the class level and the individual level based on the asserted prescribed by relation. They are utility classification classes and must not be subclassed directly.</terms:abstract>
+		<terms:license>http://opensource.org/licenses/MIT</terms:license>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202601/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<annotation:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</annotation:copyright>
+		<annotation:maturity rdf:resource="&iof-ind;Released"/>
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeOperationOccurrence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence"/>
+		<rdfs:label xml:lang="en-US">recipe operation occurrence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeOperation"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
+		<annotation:firstOrderLogicDefinition>RecipeOperationOccurrence(x) ↔ RecipeProceduralElementOccurrence(x) ∧ ∃y (RecipeOperation(y) ∧ isPrescribedBy(x, y))</annotation:firstOrderLogicDefinition>
+		<annotation:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe operation</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe operation occurrence&apos; is exactly an instance of &apos;recipe procedural element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe operation&apos;</annotation:semiFormalNaturalLanguageDefinition>
+		<annotation:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted directly as a subclass or instance of this class.</annotation:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipePhaseOccurrence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence"/>
+		<rdfs:label xml:lang="en-US">recipe phase occurrence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipePhase"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
+		<annotation:firstOrderLogicDefinition>RecipePhaseOccurrence(x) ↔ RecipeProceduralElementOccurrence(x) ∧ ∃y (RecipePhase(y) ∧ isPrescribedBy(x, y))</annotation:firstOrderLogicDefinition>
+		<annotation:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe phase</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe phase occurrence&apos; is exactly an instance of &apos;recipe procedural element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe phase&apos;</annotation:semiFormalNaturalLanguageDefinition>
+		<annotation:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted directly as a subclass or instance of this class.</annotation:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">recipe procedural element occurrence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElement"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
+		<annotation:firstOrderLogicDefinition>RecipeProceduralElementOccurrence(x) ↔ PlannedProcess(x) ∧ ∃y (RecipeProceduralElement(y) ∧ isPrescribedBy(x, y))</annotation:firstOrderLogicDefinition>
+		<annotation:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe procedural element</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe procedural element occurrence&apos; is exactly an instance of &apos;planned process&apos; that &apos;is prescribed by&apos; some &apos;recipe procedural element&apos;</annotation:semiFormalNaturalLanguageDefinition>
+		<annotation:usageNote>This class is intended as a defined utility class for axiomatization and assertion convenience. Other than ontology-defined subclasses created to represent recipe procedrual occurrence classes, it must not be subclassed directly.</annotation:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProcedureOccurrence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence"/>
+		<rdfs:label xml:lang="en-US">recipe procedure occurrence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProcedure"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
+		<annotation:firstOrderLogicDefinition>RecipeProcedureOccurrence(x) ↔RecipeProceduralElementOccurrence(x) ∧ ∃y (RecipeProcedure(y) ∧ isPrescribedBy(x, y))</annotation:firstOrderLogicDefinition>
+		<annotation:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe procedure</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe procedure occurrence&apos; is exactly an instance of &apos;recipe procedural element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe procedure&apos;</annotation:semiFormalNaturalLanguageDefinition>
+		<annotation:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted directly as a subclass or instance of this class.</annotation:usageNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeUnitProcedureOccurrence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence"/>
+		<rdfs:label xml:lang="en-US">recipe unit procedure occurrence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/RecipeProceduralOccurrenceClassificationUtility/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/RecipeProceduralElementOccurrence">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/RecipeUnitProcedure"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>see the corresponding specification class as well as the inferred hierarchy when using a reasoner such as Hermit</skos:example>
+		<annotation:firstOrderLogicDefinition>RecipeUnitProcedure(x) ↔ RecipeProceduralElementOccurrence(x) ∧ ∃y (RecipeUnitProcedure(y) ∧ isPrescribedBy(x, y))</annotation:firstOrderLogicDefinition>
+		<annotation:naturalLanguageDefinition xml:lang="en-US">planned process that is prescribed by some recipe unit procedure</annotation:naturalLanguageDefinition>
+		<annotation:semiFormalNaturalLanguageDefinition>every instance of &apos;recipe unit procedure occurrence&apos; is exactly an instance of &apos;recipe procedural element occurrence&apos; that &apos;is prescribed by&apos; some &apos;recipe unit procedure&apos;</annotation:semiFormalNaturalLanguageDefinition>
+		<annotation:usageNote>This class is intended to be a defined class used for axiomatization and assertion convenience. It is not expected nor recommended that entities will be asserted directly as a subclass or instance of this class.</annotation:usageNote>
+	</owl:Class>
+
+</rdf:RDF>
