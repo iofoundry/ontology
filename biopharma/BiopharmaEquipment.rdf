@@ -383,7 +383,7 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;depth filter&apos; then x is a &apos;filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;DissolvedOxygenControlCapability">
+	<owl:Class rdf:about="&iof-construct;DissolvedOxygenControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterControllingCapability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -413,7 +413,7 @@
 				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label>dissolved oxygen control capability</rdfs:label>
+		<rdfs:label>dissolved oxygen controlling capability</rdfs:label>
 		<iof-av:abbreviation>DO control capability</iof-av:abbreviation>
 		<iof-av:naturalLanguageDefinition>process parameter controlling capability that an agent or piece of equipment has to control dissolved oxygen level within a particular liquid</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -519,7 +519,7 @@
 											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;TransferMaterialRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 											</owl:Restriction>
 										</owl:intersectionOf>
 									</owl:Class>
@@ -534,9 +534,9 @@
 		<iof-av:naturalLanguageDefinition>capability of an agent or piece of equipment to enable controlled movement of a fluid to or from a material entity or site</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;FoamLevelControlCapability">
+	<owl:Class rdf:about="&iof-construct;FoamLevelControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterControllingCapability"/>
-		<rdfs:label>foam level control capability</rdfs:label>
+		<rdfs:label>foam level controlling capability</rdfs:label>
 		<iof-av:naturalLanguageDefinition>process parameter controlling capability that an agent or piece of equipment has to control foam level</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -563,7 +563,7 @@
 											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;TransferMaterialRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 											</owl:Restriction>
 										</owl:intersectionOf>
 									</owl:Class>
@@ -659,7 +659,7 @@
 											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;TransferMaterialRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 											</owl:Restriction>
 										</owl:intersectionOf>
 									</owl:Class>
@@ -676,6 +676,12 @@
 	
 	<owl:Class rdf:about="&iof-construct;MaterialContainmentCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>material containment capability</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
 		<skos:example>Capability of a sealed bottle to hold a liquid buffer; Capability of a stainless-steel tank to hold process intermediate material; Capability of a single-use bag to hold cell culture medium; Capability of a flask to hold a cell suspension within its interior during handling or cultivation; Capability of a beaker to hold a liquid solution in an open contained site</skos:example>
@@ -695,25 +701,14 @@
 				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
 				<owl:allValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialAdditionProcess">
 							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000040">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;TransferMaterialRole"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:intersectionOf>
+							<rdf:Description rdf:about="&iof-construct;MaterialRemovalProcess">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;MaterialTransferProcess">
+							</rdf:Description>
+						</owl:unionOf>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
@@ -844,9 +839,9 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mobile phase role&apos; then x is a &apos;role&apos; and x is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;PHControlCapability">
+	<owl:Class rdf:about="&iof-construct;PHControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterControllingCapability"/>
-		<rdfs:label>pH control capability</rdfs:label>
+		<rdfs:label>pH controlling capability</rdfs:label>
 		<iof-av:naturalLanguageDefinition>process parameter controlling capability that an agent or piece of equipment has to control pH</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -880,9 +875,9 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;preparative chromatography system&apos; then x is a &apos;chromatography system&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;PressureControlCapability">
+	<owl:Class rdf:about="&iof-construct;PressureControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterControllingCapability"/>
-		<rdfs:label>pressure control capability</rdfs:label>
+		<rdfs:label>pressure controlling capability</rdfs:label>
 		<iof-av:naturalLanguageDefinition>process parameter controlling capability that an agent or piece of equipment has to control pressure</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1159,7 +1154,7 @@
 											</owl:Restriction>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;TransferMaterialRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
 											</owl:Restriction>
 										</owl:intersectionOf>
 									</owl:Class>
@@ -1294,7 +1289,7 @@
 	
 	<owl:Class rdf:about="&iof-construct;TemperatureControllingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessParameterControllingCapability"/>
-		<rdfs:label>temperature control capability</rdfs:label>
+		<rdfs:label>temperature controlling capability</rdfs:label>
 		<iof-av:naturalLanguageDefinition>process parameter controlling capability that an agent or piece of equipment has to control temperature</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
