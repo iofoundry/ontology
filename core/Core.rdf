@@ -2280,13 +2280,69 @@ Services as products as well as software products will be considered in the next
 
 2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
 
-3. The term as introduced here is not intended to be used for modeling what we might call the &quot;state of a process&quot; (e.g., equilibrium state for chemical, physical and biological processes or steady-state or discrete or continuous production processes), nor for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition). Extensions to the BFO framework as well as further work on &apos;process characteristic&apos; may be first needed to handle these use cases and such specialized state classes will be introduced in a future release.</iof-av:explanatoryNote>
+3. The term as introduced here is not intended to be used for for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Process(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize range,limits and constant values over a period of time are still lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material state&apos; then x is a &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">stasis</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialStateConditionSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialStateConditionSpecification"/>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000029">
+											</rdf:Description>
+											<rdf:Description rdf:about="&bfo;BFO_0000040">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000124"/>
+										<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material state condition specification</rdfs:label>
+		<iof-av:explanatoryNote>&apos;Unchanged&apos; is not limited to exact numerical sameness. A state condition specification has as parts the criteria that determine whether the prescribed location, process profile, process characteristic, or specifically dependent continuant remains unchanged during the material state. These criteria may require the prescribed item to remain the same, remain at a specified value, or remain within a prescribed value expression such as a tolerance, target range, control range, limit, or other bounded value region. For location-based cases, the criteria may specify the site or material entity relative to which the material entity remains located.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that prescribes a location, process profile, process characteristic, or specifically dependent continuant that is to remain unchanged during a particular material state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialStateSpecification">
@@ -2301,6 +2357,12 @@ Services as products as well as software products will be considered in the next
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
 				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateConditionSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>material state specification</rdfs:label>
@@ -2908,7 +2970,7 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>process boundary state requirement specification</rdfs:label>
@@ -4101,7 +4163,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasMaterialState">
-		<rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
 		<rdfs:label>has material state</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
@@ -4388,7 +4449,6 @@ category within a classification scheme of an entity that the value expression i
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMaterialStateOf">
-		<rdf:type rdf:resource="&owl;FunctionalProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000167"/>
 		<rdfs:label>is material state of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
@@ -4499,7 +4559,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<iof-av:explanatoryNote>This does not require the two states to have the same temporal extent. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state occurs throughout the duration of the second material state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state at least occurs for the duration of the second material state</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;measuredByAtSomeTime">
@@ -5185,6 +5245,19 @@ category within a classification scheme of an entity that the value expression i
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
+		<owl:unionOf rdf:parseType="Collection">
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</owl:unionOf>
+	</owl:Class>
+	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;ObjectiveSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
@@ -5250,20 +5323,4 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-		<owl:someValuesFrom>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;MaterialState">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;describes"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
-					</owl:Restriction>
-				</owl:unionOf>
-			</owl:Class>
-		</owl:someValuesFrom>
-	</owl:Restriction>
 </rdf:RDF>
