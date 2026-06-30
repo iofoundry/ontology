@@ -101,10 +101,19 @@
     
 
 
+    <!-- https://spec.industrialontologies.org/ontology/construct/DetectingFunction -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/DetectingFunction">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        <rdfs:label xml:lang="en-us">signaling function</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://spec.industrialontologies.org/ontology/construct/DetectingProcess -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/DetectingProcess">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PlannedProcess"/>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ObservingProcess"/>
         <rdfs:label xml:lang="en-us">detecting process</rdfs:label>
         <iof-av:naturalLanguageDefinition>a process that discovers or determines the existence, presence, or fact of some entity</iof-av:naturalLanguageDefinition>
     </owl:Class>
@@ -114,16 +123,34 @@
     <!-- https://spec.industrialontologies.org/ontology/construct/Detector -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Detector">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Sensor"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/DetectorSpecification"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MaterialArtifact"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasRole"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/DetectorRole"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/DetectorSpecification"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:label xml:lang="en-us">detector</rdfs:label>
         <skos:example>litmus paper</skos:example>
         <iof-av:naturalLanguageDefinition>a device or instrument designed to detect the presence of a particular object or substance and to emit a signal in response</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>material artifact that bears a detector role</iof-av:semiFormalNaturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/DetectorRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/DetectorRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en-us">detector role</rdfs:label>
     </owl:Class>
     
 
@@ -154,6 +181,8 @@
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/MonitoringProcess">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PlannedProcess"/>
         <rdfs:label xml:lang="en-us">monitoring process</rdfs:label>
+        <iof-av:explanatoryNote>goes along a timeline, it&apos;s a tracking process, following a value along time during the process time</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>check Biopharma definition</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -179,7 +208,18 @@
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:label xml:lang="en-us">observer</rdfs:label>
+        <iof-av:naturalLanguageDefinition>a person or a system that watches or notices or measures something to gain information</iof-av:naturalLanguageDefinition>
         <iof-av:naturalLanguageDefinition>an entity that can perceive (be aware) something by distinguishing it from other entities in its environment and is aware of it context</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/ObservingCapability -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ObservingCapability">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Capability"/>
+        <rdfs:label xml:lang="en-us">observing capability</rdfs:label>
+        <iof-av:naturalLanguageDefinition></iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -199,34 +239,6 @@
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Pressure">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
     </owl:Class>
-    
-
-
-    <!-- https://spec.industrialontologies.org/ontology/construct/SensingCapability -->
-
-    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/SensingCapability">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Capability"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensingProcess"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/capabilityOf"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/Sensor"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:label xml:lang="en-us">sensing capability</rdfs:label>
-        <iof-av:naturalLanguageDefinition>capability that a sensor has to acquire(?) a quality value</iof-av:naturalLanguageDefinition>
-    </owl:Class>
-    <owl:Axiom>
-        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensingCapability"/>
-        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/annotation/naturalLanguageDefinition"/>
-        <owl:annotatedTarget>capability that a sensor has to acquire(?) a quality value</owl:annotatedTarget>
-        <iof-av:adaptedFrom>https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensing</iof-av:adaptedFrom>
-    </owl:Axiom>
     
 
 
@@ -256,7 +268,7 @@
     <!-- https://spec.industrialontologies.org/ontology/construct/SensingProcess -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/SensingProcess">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PlannedProcess"/>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ObservingProcess"/>
         <rdfs:label xml:lang="en-us">sensing process</rdfs:label>
         <iof-av:naturalLanguageDefinition>a process to detect especially in response to a stimulus</iof-av:naturalLanguageDefinition>
     </owl:Class>
@@ -266,19 +278,21 @@
     <!-- https://spec.industrialontologies.org/ontology/construct/Sensor -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Sensor">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialArtifact"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasRole"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensorRole"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensorSpecification"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MaterialArtifact"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasRole"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensorRole"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensorSpecification"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:comment>provides physical property?</rdfs:comment>
         <rdfs:comment>From SSN: A sensor can do (implements) sensing: that is, a sensor is any entity that can follow a sensing method and thus observe some Property of a  FeatureOfInterest. Sensors may be physical devices, computational methods, a laboratory setup with a person following a method, or any other thing that can follow a Sensing Method to observe a Property.
 https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensor</rdfs:comment>
@@ -293,38 +307,6 @@ https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensor</rdfs:comment>
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/SensorMeasurementProcess">
         <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MeasurementProcess"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000057"/>
-                <owl:someValuesFrom>
-                    <owl:Class>
-                        <owl:intersectionOf rdf:parseType="Collection">
-                            <owl:Class>
-                                <owl:intersectionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/Sensor"/>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasCapability"/>
-                                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/SensingCapability"/>
-                                    </owl:Restriction>
-                                </owl:intersectionOf>
-                            </owl:Class>
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/measuresAtSomeTime"/>
-                                <owl:someValuesFrom>
-                                    <owl:Class>
-                                        <owl:unionOf rdf:parseType="Collection">
-                                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000008"/>
-                                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000020"/>
-                                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/ProcessCharacteristic"/>
-                                        </owl:unionOf>
-                                    </owl:Class>
-                                </owl:someValuesFrom>
-                            </owl:Restriction>
-                        </owl:intersectionOf>
-                    </owl:Class>
-                </owl:someValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:label xml:lang="en-us">sensor measurement process</rdfs:label>
         <iof-av:naturalLanguageDefinition>measurement of the value of an attribute of a sensor</iof-av:naturalLanguageDefinition>
     </owl:Class>
@@ -342,6 +324,8 @@ https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensor</rdfs:comment>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:label xml:lang="en-us">sensor role</rdfs:label>
+        <iof-av:explanatoryNote>this role may be held by entities other than sensors</iof-av:explanatoryNote>
+        <iof-av:naturalLanguageDefinition>role held by an entity that responds to changes in its environment and is not aware of its context</iof-av:naturalLanguageDefinition>
     </owl:Class>
     
 
@@ -367,6 +351,15 @@ https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensor</rdfs:comment>
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Temperature">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/TransducerRole -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/TransducerRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en-us">transducer role</rdfs:label>
     </owl:Class>
     
 
@@ -397,17 +390,26 @@ https://www.w3.org/2005/Incubator/ssn/wiki/SSN.html#Sensor</rdfs:comment>
     <!-- https://spec.industrialontologies.org/ontology/construct/Transducer/Transducer -->
 
     <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/Transducer/Transducer">
-        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialArtifact"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
-                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/TransducerSpecification"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MaterialArtifact"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasRole"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/TransducerRole"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+                        <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/TransducerSpecification"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:label xml:lang="en-us">transducer</rdfs:label>
         <skos:example>Any device by which variations in one physical quantity (e.g. pressure, brightness) are quantitatively converted into variations in another (e.g. voltage, position)</skos:example>
         <skos:example xml:lang="en-us">a loudspeaker that transforms electrical energy into sound energy</skos:example>
         <iof-av:naturalLanguageDefinition xml:lang="en-us">device for transforming energy between two different forms</iof-av:naturalLanguageDefinition>
+        <iof-av:semiFormalNaturalLanguageDefinition>material artifact that bears a transducer role</iof-av:semiFormalNaturalLanguageDefinition>
     </owl:Class>
     <rdf:Description>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
