@@ -49,38 +49,6 @@
 		<iof-av:maturity rdf:resource="&iof-ind;Provisional"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&bfo;IAO_0000025">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:label>programming language</rdfs:label>
-		<iof-av:naturalLanguageDefinition>A language in which source code is written, intended to executed/run by a software interpreter. Programming languages are ways to write instructions that specify what to do, and sometimes, how to do it.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bfo;IAO_0000027">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:label xml:lang="en">data item</rdfs:label>
-		<skos:example xml:lang="en">Data items include counts of things, analyte concentrations, and statistical summaries.</skos:example>
-		<iof-av:naturalLanguageDefinition xml:lang="en">An information content entity that is intended to be a truthful statement about something (modulo, e.g., measurement precision or other systematic errors) and is constructed/acquired by a method which reliably tends to produce (approximately) truthful statements.</iof-av:naturalLanguageDefinition>
-		<iof-av:synonym xml:lang="en">data</iof-av:synonym>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bfo;IAO_0000098">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:label xml:lang="en">data format specification</rdfs:label>
-		<iof-av:directSource xml:lang="en">OBI_0000187</iof-av:directSource>
-		<iof-av:naturalLanguageDefinition xml:lang="en">A data format specification is the information content borne by the document published defining the specification.
-Example: The ISO document specifying what encompasses an XML document; The instructions in a XSD file</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&bfo;IAO_0000100">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:label xml:lang="en">data set</rdfs:label>
-		<skos:example xml:lang="en">Intensity values in a CEL file or from multiple CEL files comprise a dataset (as opposed to the CEL files themselves).</skos:example>
-		<iof-av:directSource xml:lang="en">OBI_0000042</iof-av:directSource>
-		<iof-av:explanatoryNote xml:lang="en">1.The intention is that this term represent collections of like data. So this isn&apos;t for, e.g. the whole contents of a cel file, which includes parameters, metadata etc. This is more like java arrays of a certain rather specific type
-2. Data sets are aggregates and thus must include two or more data items. We have chosen not to add logical axioms to make this restriction.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en">Information content entity that is an aggregate of data items of the same type that have something in common. Averages and distributions can be determined for data sets.</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&bfo;STATO_0000225">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label xml:lang="en">probability distribution</rdfs:label>
@@ -290,7 +258,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;Hyperparameter"/>
 		<rdfs:label xml:lang="en-US">batch size</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:directSource>https://medium.com/geekculture/how-does-batch-size-impact-your-model-learning-2dd34d9fb1fa</iof-av:directSource>
+		<iof-av:directSource rdf:resource="https://medium.com/geekculture/how-does-batch-size-impact-your-model-learning-2dd34d9fb1fa"/>
 		<iof-av:explanatoryNote xml:lang="en-US">sample in the case of supervised learning consists of the input feature vector as well as the target variable</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">parameter that defines the number of samples to work through before updating the internal model parameters</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -649,7 +617,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-						<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasDataOutput"/>
@@ -667,6 +635,14 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<skos:example xml:lang="en-US">use of PCA to identify which tumor types share a similar RNA expression pattern</skos:example>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">model execution objective to describe some underlying characteristic of the input data items</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DataFormatSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">data format specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<iof-av:adaptedFrom rdf:resource="&bfo;IAO_0000098"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">A data format specification is the information content borne by the document published defining the specification. Examples include the ISO document specifying what encompasses an XML document and the instructions in an XSD file.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;DataImputationAlgorithm">
@@ -706,6 +682,16 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">computing process in which missing values are replaced by some encoded data imputation algorithm</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;DataItem">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">data item</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<skos:example xml:lang="en-US">Data items include counts of things, analyte concentrations, and statistical summaries.</skos:example>
+		<iof-av:adaptedFrom rdf:resource="&bfo;IAO_0000027"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">An information content entity that is intended to be a truthful statement about something, modulo measurement precision or other systematic errors, and is constructed or acquired by a method which reliably tends to produce approximately truthful statements.</iof-av:naturalLanguageDefinition>
+		<iof-av:synonym xml:lang="en-US">data</iof-av:synonym>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;DataItemCharacteristic">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntityCharacteristic"/>
 		<rdfs:label xml:lang="en-US">data item characteristic</rdfs:label>
@@ -713,7 +699,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<owl:equivalentClass>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;informationContentEntityCharacteristicOf"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000027"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataItem"/>
 			</owl:Restriction>
 		</owl:equivalentClass>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity characteristic of a data item</iof-av:naturalLanguageDefinition>
@@ -741,13 +727,13 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000027"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataOutput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000027"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataItem"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">data processing operation</rdfs:label>
@@ -766,13 +752,13 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataOutput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">data processing pipeline</rdfs:label>
@@ -791,7 +777,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">data quality assessment</rdfs:label>
@@ -851,6 +837,16 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data processing operation that changes the dimensions of one or more data sets or data items</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;DataSet">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">data set</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<skos:example xml:lang="en-US">Intensity values in a CEL file or from multiple CEL files comprise a data set, as opposed to the CEL files themselves.</skos:example>
+		<iof-av:adaptedFrom rdf:resource="&bfo;IAO_0000100"/>
+		<iof-av:explanatoryNote xml:lang="en-US">The intention is that this term represent collections of like data. Data sets are aggregates and thus must include two or more data items.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">Information content entity that is an aggregate of data items of the same type that have something in common. Averages and distributions can be determined for data sets.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;DataSetCharacteristic">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntityCharacteristic"/>
 		<rdfs:label xml:lang="en-US">data set characteristic</rdfs:label>
@@ -858,7 +854,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<owl:equivalentClass>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;informationContentEntityCharacteristicOf"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 			</owl:Restriction>
 		</owl:equivalentClass>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data item characteristic of a data set</iof-av:naturalLanguageDefinition>
@@ -874,7 +870,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
-						<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
@@ -1052,7 +1048,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;DigitalImage">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataItem"/>
 		<rdfs:label xml:lang="en-US">digital image</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">data item that is a rectangular or cuboid grid of elements (pixels or voxels respectively), whose values are finite, discrete quantities derived from measurements of some quality of a number of entities repeated at regular intervals across a spatial range</iof-av:naturalLanguageDefinition>
@@ -1130,7 +1126,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;isEncodedIn"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000025"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;ProgrammingLanguage"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 	</owl:Class>
@@ -1307,7 +1303,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-				<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -1333,13 +1329,13 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Feature">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataItem"/>
 		<rdfs:label xml:lang="en-US">feature</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
@@ -1356,7 +1352,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;IAO_0000027">
+											<rdf:Description rdf:about="&iof-constr;DataItem">
 											</rdf:Description>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
@@ -1394,7 +1390,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;FeatureColumn">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
@@ -1479,7 +1475,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;IAO_0000100">
+							<rdf:Description rdf:about="&iof-constr;DataSet">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
@@ -1578,7 +1574,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;FeatureVector">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
@@ -1652,9 +1648,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -1943,7 +1939,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;MachineLearningFramework"/>
 		<rdfs:label xml:lang="en-US">keras</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:directSource>https://keras.io/</iof-av:directSource>
+		<iof-av:directSource rdf:resource="https://keras.io/"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">A multi-backend deep learning framework that provides a high-level API for defining, training, and executing neural network models using backends such as TensorFlow, JAX, and PyTorch.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1993,7 +1989,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MachineLearningDataSet">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
@@ -2034,7 +2030,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasDataInput"/>
-						<owl:someValuesFrom rdf:resource="&bfo;IAO_0000100"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DataSet"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasDataOutput"/>
@@ -2642,13 +2638,13 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ModelOutput">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataItem"/>
 		<rdfs:label xml:lang="en-US">model output</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;dataOutputOf"/>
@@ -2665,14 +2661,14 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ModelOutputDataSet">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:label xml:lang="en-US">model output data set</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<owl:disjointWith rdf:resource="&iof-constr;PreProcessedDataSet"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;dataOutputOf"/>
@@ -3046,7 +3042,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;MachineLearningModel"/>
 		<rdfs:label xml:lang="en-US">non-parametric model</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:adaptedFrom>https://www.kaggle.com/discussions/general/324532</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom rdf:resource="https://www.kaggle.com/discussions/general/324532"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model that does not have a fixed pre-determined number of parameters</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -3220,7 +3216,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;PreProcessedDataSet">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:label xml:lang="en-US">preprocessed data set</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<owl:disjointWith rdf:resource="&iof-constr;RawDataSet"/>
@@ -3275,6 +3271,14 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning data set that is used as input to the execution of a deployed model</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;ProgrammingLanguage">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">programming language</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<iof-av:adaptedFrom rdf:resource="&bfo;IAO_0000025"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">A language in which source code is written, intended to be executed or run by a software interpreter. Programming languages are ways to write instructions that specify what to do, and sometimes, how to do it.</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;RSquared">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PerformanceMetric"/>
 		<rdfs:label xml:lang="en-US">r squared</rdfs:label>
@@ -3283,7 +3287,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;RawDataSet">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:label xml:lang="en-US">raw data set</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<skos:example xml:lang="en-US">dataset that consists of unprocessed outputs from a series of measurement processes</skos:example>
@@ -3295,7 +3299,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:label xml:lang="en-US">rectified linear unit</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<iof-av:abbreviation>ReLU</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://www.kaggle.com/code/dansbecker/rectified-linear-units-relu-in-deep-learning</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom rdf:resource="https://www.kaggle.com/code/dansbecker/rectified-linear-units-relu-in-deep-learning"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">activation function that sets all negative output values to 0 and does not modify non-negative output values</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -3476,7 +3480,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
-						<owl:someValuesFrom rdf:resource="&bfo;IAO_0000027"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DataItem"/>
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
@@ -3497,9 +3501,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;IAO_0000027">
+							<rdf:Description rdf:about="&iof-constr;DataItem">
 							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;IAO_0000100">
+							<rdf:Description rdf:about="&iof-constr;DataSet">
 							</rdf:Description>
 						</owl:unionOf>
 					</owl:Class>
@@ -3528,7 +3532,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;ActivationFunction"/>
 		<rdfs:label xml:lang="en-US">softmax</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Softmax_function</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom rdf:resource="https://en.wikipedia.org/wiki/Softmax_function"/>
 		<iof-av:explanatoryNote xml:lang="en-US">the exponential function has been applied to all output values prior to the sum</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">activation function that transforms all output values to probability values by applying a standard exponential function to each individual output value and then normalizing each value by dividing it by the sum of all the exponentials</iof-av:naturalLanguageDefinition>
 	</owl:Class>
@@ -3598,18 +3602,18 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;InstanceBasedModel"/>
 		<rdfs:label xml:lang="en-US">support vector machine</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:adaptedFrom>https://www.iso.org/obp/ui/#iso:std:iso-iec:22989:ed-1:v1:en:term:3.3.13</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom rdf:resource="https://www.iso.org/obp/ui/#iso:std:iso-iec:22989:ed-1:v1:en:term:3.3.13"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">instance-based model that consists of a hyperplane (decision boundary) with maximal margins from the selected group of feature vectors (support vectors)</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;TargetVariable">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataItem"/>
 		<rdfs:label xml:lang="en-US">target variable</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;targetVariableOf"/>
@@ -3623,7 +3627,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;TargetVariableVector">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000100"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataSet"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
@@ -3639,7 +3643,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:subClassOf rdf:resource="&iof-constr;MachineLearningFramework"/>
 		<rdfs:label xml:lang="en-US">tensorflow</rdfs:label>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:directSource>https://www.tensorflow.org/</iof-av:directSource>
+		<iof-av:directSource rdf:resource="https://www.tensorflow.org/"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">An end-to-end open-source machine learning platform that provides libraries and tools for numerical computation, automatic differentiation, model training, deployment, and execution.</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -3678,7 +3682,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 										<owl:someValuesFrom>
 											<owl:Class>
 												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;IAO_0000100">
+													<rdf:Description rdf:about="&iof-constr;DataSet">
 													</rdf:Description>
 													<owl:Restriction>
 														<owl:onProperty rdf:resource="&iof-constr;isComposedOf"/>
@@ -3765,7 +3769,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ValueExpression">
-		<rdfs:subClassOf rdf:resource="&bfo;IAO_0000027"/>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DataItem"/>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;configurationVariableOf">
@@ -3791,9 +3795,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:domain>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -3810,9 +3814,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:domain>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -3896,9 +3900,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:range>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -3914,9 +3918,9 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:range>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;IAO_0000027">
+					<rdf:Description rdf:about="&iof-constr;DataItem">
 					</rdf:Description>
-					<rdf:Description rdf:about="&bfo;IAO_0000100">
+					<rdf:Description rdf:about="&iof-constr;DataSet">
 					</rdf:Description>
 				</owl:unionOf>
 			</owl:Class>
@@ -4115,7 +4119,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 		<rdfs:label xml:lang="en-US">is encoded in</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;EncodedAlgorithm"/>
 		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
-		<iof-av:adaptedFrom>http://www.ebi.ac.uk/efo/swo/SWO_0000741</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom rdf:resource="&swo;SWO_0000741"/>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from an encoded algorithm to a programming language or framework in which the encoded algorithm was written</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -4209,7 +4213,7 @@ For a continuous random variable, a curve described by a mathematical formula wh
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;PreProcessedDataSet"/>
 		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&bfo;IAO_0000100">
+			<rdf:Description rdf:about="&iof-constr;DataSet">
 			</rdf:Description>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;dataOutputOf"/>
