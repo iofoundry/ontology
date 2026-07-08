@@ -363,22 +363,8 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;charge variant classifier&apos; then x is a &apos;classifier&apos; that is &apos;is about&apos; some &apos;design specification&apos; that &apos;prescribes&apos; some &apos;material entity&apos;, and x &apos;classifies&apos; some &apos;object aggregate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;CriticaInputlMaterialAttributeSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
-		<rdfs:label>critical input material attribute specification</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>the CMA specification for manganese concentration in a chemically defined medium when variation in manganese concentration can affect glycosylation of the output material; the CMA specification for glucose concentration in a feed medium when variation in glucose concentration can affect glycan profile of the output material; the CMA specification for culture medium osmolality when variation in osmolality can affect charge variant profile or aggregation level of the output material;</skos:example>
-		<iof-av:abbreviation>CMA specification</iof-av:abbreviation>
-		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>CriticalInputMaterialAttributeSpecification(x) → InputMaterialAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>input material attribute specification that prescribes some quality, capability, constitution, or composition whose variation can have a significant impact on the quality of the output material</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;critical input material attribute specification&apos; then x is an &apos;input material attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;CriticalMaterialAttribute">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAttribute"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;InputMaterialAttribute"/>
 		<rdfs:label>critical material attribute</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
@@ -394,13 +380,16 @@
 					</owl:Class>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CriticaInputlMaterialAttributeSpecification"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;InputCriticalMaterialAttributeSpecification"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>manganese concentration in a chemically defined medium whose variation can affect glycosylation of the output material; glucose concentration in a feed medium whose variation can affect glycan profile of the output material;</skos:example>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>CriticalMaterialAttribute(x) ↔ (Quality(x) ∨ Capability(x)) ∧ ∃s(InputCriticalMaterialAttributeSpecification(s) ∧ prescribedBy(x, s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by a critical input material attribute specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;critical material attribute&apos; is defined as exactly an instance of &apos;quality&apos; or &apos;capability&apos; that is &apos;prescribed by&apos; some &apos;input critical material attribute specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticalProcessParameter">
@@ -530,7 +519,7 @@ The  deviations of CQAs beyond defined limits have significant adverse impacts o
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							<rdf:Description rdf:about="&iof-construct;InputMaterialAttribute">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
 							</rdf:Description>
@@ -649,7 +638,7 @@ The resource also clarifies that potency is distinct from a physicochemical meas
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							<rdf:Description rdf:about="&iof-construct;InputMaterialAttribute">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;ProcessParameter">
 							</rdf:Description>
@@ -737,18 +726,47 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;glucose uptake rate&apos; then x is a &apos;metabolite uptake rate&apos; that &apos;has participant at some time&apos; some &apos;glucose&apos; that a &apos;culture medium&apos; &apos;is made of at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;InVitroCellAge">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000202"/>
-		<rdfs:label>in vitro cell age</rdfs:label>
+	<owl:Class rdf:about="&iof-construct;InputCriticalMaterialAttributeSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
+		<rdfs:label xml:lang="en-US">input critical material attribute specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>the in vitro cell age of a production cell population calculated from initiation of master cell bank thaw through completion of production bioreactor harvest; the in vitro cell age reported as elapsed culture time from MCB thaw to harvest;</skos:example>
-		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-d-derivation-and-characterisation-cell-substrates-used-production-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>In vitro cell age is a CMC and regulatory term used to define the interval over which the in vitro cultivation of a production cell population is assessed. The exact procedural details for identifying the start of master cell bank thaw and the start or completion of production vessel harvest should be specified by the applicable manufacturing procedure or batch-record convention. The interval may be quantified by elapsed chronological time in culture, population doubling level, or passage level. Although called “cell age,” it does not denote the total duration for which the cells have existed.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>InVitroCellAge(x) → TemporalInterval(x)</iof-av:firstOrderLogicAxiom>
+		<skos:example>the CMA specification for manganese concentration in a chemically defined medium when variation in manganese concentration can affect glycosylation of the output material; the CMA specification for glucose concentration in a feed medium when variation in glucose concentration can affect glycan profile of the output material; the CMA specification for culture medium osmolality when variation in osmolality can affect charge variant profile or aggregation level of the output material;</skos:example>
+		<iof-av:abbreviation>CMA specification</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>InputCriticalIMaterialAttributeSpecification(x) → InputMaterialAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>temporal interval that spans from master cell bank thaw to production vessel harvest</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>input material attribute specification that prescribes some quality, capability, constitution, or composition whose variation can have a significant impact on the quality of the output material</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;in vitro cell age&apos; then x is a &apos;temporal interval&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;input critical material attribute specification&apos; then x is an &apos;input material attribute specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;InputMaterialAttribute">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000020"/>
+		<rdfs:label xml:lang="en-US">input material attribute</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000019">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-construct;Capability">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>pH of a buffer used for elution; vitamin concentration of a cell culture medium used in a production culture process;</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>InputMaterialAttribute(x) ↔ (Quality(x) ∨ Capability(x)) ∧ ∃s(InputMaterialAttributeSpecification(s) ∧ prescribedBy(x, s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by an input material attribute specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;input material attribute&apos; is defined as exactly an instance of &apos;quality&apos; or &apos;capability&apos; that is &apos;prescribed by&apos; some &apos;input material attribute specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InputMaterialAttributeSpecification">
@@ -1001,32 +1019,6 @@ In a single-parameter case, pH ≥ 7.8 marking aggregation onset would be a one-
 		<iof-av:naturalLanguageDefinition>flow rate that tracks the mass of fluid material transported through a surface per unit time</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mass flow rate&apos; then x is a &apos;flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MaterialAttribute">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000020"/>
-		<rdfs:label>material attribute</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000019">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;Capability">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;InputMaterialAttributeSpecification"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>quality or capability that is prescribed by an input material attribute specification</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MetaboliteUptakeRate">
@@ -1997,7 +1989,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							<rdf:Description rdf:about="&iof-construct;InputMaterialAttribute">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;PerformanceIndicator">
 							</rdf:Description>
@@ -2020,7 +2012,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;MaterialAttribute">
+							<rdf:Description rdf:about="&iof-construct;InputMaterialAttribute">
 							</rdf:Description>
 							<rdf:Description rdf:about="&iof-construct;PerformanceIndicator">
 							</rdf:Description>
@@ -2050,7 +2042,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0000146</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>Temperature(x) → Quality(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition>quality of the thermal energy of a system</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>quality that is the thermal energy of a system</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;temperature&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
