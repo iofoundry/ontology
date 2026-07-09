@@ -2173,6 +2173,28 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;yield per substrate&apos; then x is a &apos;planned process yield&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:ObjectProperty rdf:about="&iof-construct;hasPerformanceIndicator">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>has performance indicator</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Agent">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;Organization">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&iof-construct;PerformanceIndicator"/>
+		<skos:example>manufacturing organization has performance indicator 12-month on-time delivery percentage; sales organization has performance indicator yearly sales; production culture process has performance indicator product titer; chromatography purification process has performance indicator product recovery</skos:example>
+		<iof-av:naturalLanguageDefinition>relation between an agent, planned process, organization, or piece of equipment and a performance indicator indicating that measurements of the indicator are used to evaluate the effectiveness of that entity with respect to a particular objective</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-construct;hasProcessParameter">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>has process parameter</rdfs:label>
@@ -2186,13 +2208,36 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 In other words, the monitoring or control of a process parameter at execution level must be traceable to a parameter specification at the plan level via bfo:continuantPartOf</iof-av:usageNote>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-construct;isPerformanceIndicatorOf">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>is performance indicator of</rdfs:label>
+		<rdfs:domain rdf:resource="&iof-construct;PerformanceIndicator"/>
+		<rdfs:range>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;Agent">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;Organization">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:range>
+		<skos:example>manufacturing organization has performance indicator 12-month on-time delivery percentage; sales organization has performance indicator yearly sales; production culture process has performance indicator product titer; chromatography purification process has performance indicator product recovery</skos:example>
+		<iof-av:naturalLanguageDefinition>relation between a performance indicator and an agent, planned process, organization, or piece of equipment indicating that measurements of the indicator are used to evaluate the effectiveness of that entity with respect to a particular objective</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-construct;isProcessParameterOf">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>is process parameter of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-construct;ProcessParameter"/>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-construct;PlannedProcess"/>
-		<iof-av:naturalLanguageDefinition>inverse of has process parameter relation</iof-av:naturalLanguageDefinition>
+		<skos:example>cell culture expansion process has process parameter pH; production culture process has process parameter temperature; production phase has process parameter agitation speed</skos:example>
+		<iof-av:naturalLanguageDefinition>relation between a process parameter and a planned process indicating that the parameter is monitored or controlled during the execution of that planned process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:DatatypeProperty rdf:about="&iof-construct;prescribesScaleInvariantParameter">
