@@ -156,7 +156,9 @@
 		<skos:example>Polydimethylsiloxane serving as an antifoam in a mammalian cell culture bioreactor to minimize surface foaming; Silicone-based antifoam used during protein purification to prevent foam buildup in chromatographic buffers</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_77973</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>AntifoamingAgent(x) ↔ MaterialEntity(x) ∧ ∃r(AntifoamingAgentRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with an antifoaming agent role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;antifoaming agent&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;antifoaming agent role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntifoamingAgentRole">
@@ -168,7 +170,7 @@
 		<iof-av:explanatoryNote>This role is typically realized during mixing, aeration, fermentation, or other processing steps where gas–liquid interfaces promote foam generation. Substances bearing this role are often surfactants or hydrophobic agents that disrupt bubble stability and ensure process continuity</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>AntifoamingAgentRole(x) → ProtectiveAgentRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">protective agent role of a material entity when it is used, or planned to be used, to reduce or prevent foam formation in a liquid</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">protective agent role of a material entity when it is added, or planned to be added, to reduce or prevent foam formation in a liquid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;antifoaming agent role&apos; then x is a &apos;protective agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -193,11 +195,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>Escherichia coli; Bacillus subtilis; Pseudomonas aeruginosa; Staphylococcus aureus; Lactobacillus species; bacterial contaminants detected in a bioburden tes</skos:example>
 		<iof-av:adaptedFrom>https://pubmed.ncbi.nlm.nih.gov/19819658/ and https://www.britannica.com/science/bacteria</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>Bacterium(x) → Organism(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Bacterium(x) → Object(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">single-celled organism that lacks a membrane-bound nucleus and has ribosomes of the bacterial type</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive. While the IOF might introduce a term for &apos;organism&apos; in the future, speciation is out of the scope of IOF and should be utilized if needed from a biological ontology</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;bacterium&apos; then x is an &apos;organism&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;bacterium&apos; then x is an &apos;object&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BasalCultureMedium">
@@ -267,7 +269,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BufferingAgentRole">
-		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialComponentRole"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
@@ -337,11 +339,11 @@
 		<iof-av:counterExample>sodium chloride solution adjusting ionic strength but not buffering pH;
 phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lacking conjugate base and unable to resist pH change; hydrochloric acid solution changing rather than maintaining pH</iof-av:counterExample>
 		<iof-av:explanatoryNote>A buffer role inheres in a material entity that serves as the material basis of buffering capacity in a system. The role connects the substance or combination of substances to the capacity by which the system resists a change in hydrogen-ion concentration when small amounts of acid or base are added. The role may also be assigned to powders or concentrated materials before they are dissolved, reflecting the planned use of those substances to establish buffering capacity once introduced into a solution.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>BufferingAgentRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m) ∧ ((∃c (BufferingCapability(c) ∧ materialBasisOfAtSomeTime(m, c))) ∨ ∃i∃p∃o∃c (InputSpecification(i) ∧ PlanSpecification(p) ∧ continuantPartOfAtAllTimes(i, p) ∧ prescribes(i, o) ∧ PlannedProcess(o) ∧ Solution(c) ∧ hasSpecifiedOutput(o, c) ∧ ∃b (BufferingCapability(b) ∧ hasCapability(c, b)) ∧ prescribedBy(m, i))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>BufferingAgentRole(x) → MaterialComponentRole(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m) ∧ ((∃c (BufferingCapability(c) ∧ materialBasisOfAtSomeTime(m, c))) ∨ ∃i∃p∃o∃c (InputSpecification(i) ∧ PlanSpecification(p) ∧ continuantPartOfAtAllTimes(i, p) ∧ prescribes(i, o) ∧ PlannedProcess(o) ∧ Solution(c) ∧ hasSpecifiedOutput(o, c) ∧ ∃b (BufferingCapability(b) ∧ hasCapability(c, b)) ∧ prescribedBy(m, i))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added or planned to be added to a solution, typically aqueous, to resist changes in pH upon the introduction of small amounts of acid or base</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material component role of a material entity when it is added or planned to be added to a solution, typically aqueous, to resist changes in pH upon the introduction of small amounts of acid or base</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;buffering agent role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that either is the &apos;material basis of at some time&apos; some &apos;buffering capability&apos;, or is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; and &apos;prescribes&apos; some &apos;planned process&apos; that &apos;has specified output&apos; some &apos;solution&apos; that &apos;has capability&apos; some &apos;buffering capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;buffering agent role&apos; then x is a &apos;material component role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that either is the &apos;material basis of at some time&apos; some &apos;buffering capability&apos;, or is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; and &apos;prescribes&apos; some &apos;planned process&apos; that &apos;has specified output&apos; some &apos;solution&apos; that &apos;has capability&apos; some &apos;buffering capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BufferingCapability">
@@ -446,7 +448,9 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S0032591017301511 and https://www.sciencedirect.com/science/article/abs/pii/S1004954118308747</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Caking propensity is typically realized when a particulate material experiences environmental or mechanical conditions over time, such as during storage, transport, or handling. Conditions such as humidity or moisture exposure, temperature, applied pressure, self-weight consolidation, particle dissolution and recrystallization, electrostatic effects, and particle-particle adhesion can influence whether and how rapidly caking develops. Caking propensity should be distinguished from caked form, which is the material form resulting when caking has occurred, and from flowability, which concerns the capability of a material to flow under a handling or processing context.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CakingPropensity(x) → Disposition(x) ∧ ∃m (MaterialEntity(m) ∧ dispositionOf(x, m) ∧ ∃f (ParticulateForm(f) ∧ hasQuality(m, f)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">disposition of a particulate material entity to form persistent lumps, agglomerates, or a coherent solid mass</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;caking propensity&apos; then x is a &apos;disposition&apos; that is the &apos;disposition of&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;particulate form&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -870,23 +874,6 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MixedMaterial"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtSomeTime"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000040">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;NutrientRole"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">culture medium</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>DMEM;LB agar;AMBIC medium</skos:example>
@@ -894,11 +881,11 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:explanatoryNote>1) “Specific metabolic activity” refers to those metabolic processes that are intentionally supported or induced by the medium in a manufacturing or experimental context. This includes the synthesis and secretion of desired biomolecules (e.g., recombinant proteins, metabolites) or the replication and viability of cells when the cells themselves are the intended product. It excludes background or non-targeted metabolic processes such as basal energy maintenance or stress responses not relevant to the production goal.
 2) In the context of biomanufacturing, “specific metabolic activity” typically refers to the set of biochemical processes carried out by microorganisms or cells that result in the synthesis, modification, and/or secretion of desired biological products. This includes processes such as the expression of recombinant proteins (e.g., monoclonal antibodies, enzymes), production of metabolites (e.g., amino acids, organic acids, antibiotics), or replication of the cells themselves when they are the product. These activities require the uptake and transformation of nutrients and are influenced by the composition and physicochemical properties of the culture medium.
 4)Some types of culture media also include selection agents or antibiotics to suppress the growth of unwanted or contaminating organisms.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CultureMedium(x) → MaterialEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CultureMedium(x) → MixedMaterial(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixed material that is a solid or liquid aqueous formulation that provides essential nutrients (such as carbon, nitrogen, vitamins, and minerals) and controlled physicochemical conditions (such as pH and osmotic balance) required for the growth, maintenance, or specific metabolic activity of microorganisms or cells</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive because it encompasses a broad set of media that are used for different purposes and have different compositions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium&apos; then x is a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium&apos; then x is a &apos;mixed material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumSupplementRole">
@@ -1145,7 +1132,10 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>the subpopulation of propidium iodide-positive CHO cells identified by flow cytometry within a cell culture; the population of trypan blue-positive cells counted in a bioreactor sample during a cell viability measurement process; the population of nonviable mammalian cells separated from a mixed cell population by fluorescence-activated cell sorting using a membrane-integrity viability stain;</skos:example>
+		<iof-av:firstOrderLogicDefinition>DeadCellPopulation(x) ↔ CellPopulation(x) ∧ ∃y(Cell(y) ∧ ∃q(Dead(q) ∧ hasQuality(y, q)) ∧ hasMemberPartAtSomeTime(x, y)) ∧ ∀z(hasMemberPartAtSomeTime(x, z) → (Cell(z) ∧ ∃r(Dead(r) ∧ hasQuality(z, r))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell population consisting of only dead cells</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;dead cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some (&apos;cell&apos; that &apos;has quality&apos; some &apos;dead&apos;) and &apos;has member part at some time&apos; only (&apos;cell&apos; that &apos;has quality&apos; some &apos;dead&apos;)</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolvedOxygenSaturationRatio">
@@ -1228,9 +1218,20 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 	
 	<owl:Class rdf:about="&iof-construct;EmulsionPropensity">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000016"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;dispositionOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">emulsion propensity</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>the emulsion propensity of an oil-containing process intermediate when mixed with an aqueous buffer during liquid-liquid extraction; the emulsion propensity of a protein formulation containing surfactant when subjected to vigorous agitation;</skos:example>
+		<iof-av:firstOrderLogicAxiom>EmulsionPropensity(x) → Disposition(x) ∧ ∃m (MaterialEntity(m) ∧ dispositionOf(x, m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">disposition of a material entity to form an emulsion</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;emulsion propensity&apos; then x is a &apos;disposition&apos; that is the &apos;disposition of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EnergySubstrateRole">
@@ -1457,7 +1458,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>A HEK293 cell that has been infected by an adenovirus vector; MDCK cell infected by influenza virus; A CHO cell infected by vesicular stomatitis virus (VSV)</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C93037</iof-av:adaptedFrom>
 		<iof-av:counterExample>A HEK293T cell that has been transduced with a replication-deficient AAV vector to express a therapeutic gene</iof-av:counterExample>
+		<iof-av:firstOrderLogicAxiom>InfectedHostCell(x) → Cell(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell that is infected by a virus or another type of microorganism</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs available to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;infected host cell&apos; then x is a &apos;cell&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InoculumRole">
@@ -1677,7 +1682,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>IL-7 and IL-15 solutions are used as differentiation inducers when added to CAR-T cell cultures to promote memory T-cell phenotype; Activin A is a differentiation inducer when added to human pluripotent stem cell cultures to direct differentiation toward definitive endoderm lineage</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC10215625/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC9043864/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialDifferentiationInducer(x) ↔ MaterialFunctionalInducer(x) ∧ ∃r(MaterialDifferentiationInducerRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a material differentiation inducer role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material differentiation inducer&apos; is defined as exactly an instance of &apos;material functional inducer&apos; that &apos;has role&apos; some &apos;material differentiation inducer role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialDifferentiationInducerRole">
@@ -1713,7 +1720,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		</owl:equivalentClass>
 		<skos:example>IL-7 and IL-15 solutions are used as differentiation inducers when added to CAR-T cell cultures to promote memory T-cell phenotype; Tetracycline is a production inducer when added to a mammalian cell culture to activate a Tet-regulated promoter driving recombinant protein expression.</skos:example>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialFunctionalInducer(x) ↔ MaterialEntity(x) ∧ ∃r(MaterialFunctionalInducerRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a material functional inducer role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material functional inducer&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;material functional inducer role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialFunctionalInducerRole">
@@ -1785,7 +1794,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>Lactose as a metabolic inducer in E. coli cell culture via lac operon activation.;Arabinose serving as a metabolic inducer in gut microbial communities.;Hydrocarbons acting as metabolic inducers in soil bacteria activating catabolic pathways.</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC3815394/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialMetabolicInducer(x) ↔ MaterialFunctionalInducer(x) ∧ ∃r(MaterialMetabolicInducerRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a material metabolic inducer role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material metabolic inducer&apos; is defined as exactly an instance of &apos;material functional inducer&apos; that &apos;has role&apos; some &apos;material metabolic inducer role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialMetabolicInducerRole">
@@ -1822,7 +1833,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>Tetracycline is a production inducer when added to a mammalian cell culture to activate a Tet-regulated promoter driving recombinant protein expression.</skos:example>
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC8015268/pdf/nihms-1685084.pdf and https://microbialcellfactories.biomedcentral.com/articles/10.1186/s12934-024-02523-w</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MaterialProductionInducer(x) ↔ MaterialFunctionalInducer(x) ∧ ∃r(MaterialProductionInducerRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a material production inducer role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material production inducer&apos; is defined as exactly an instance of &apos;material functional inducer&apos; that &apos;has role&apos; some &apos;material production inducer role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialProductionInducerRole">
@@ -1859,7 +1872,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>Albumin is a media supplement when added to serum-free medium to stabilize cells; ITS+3 Liquid Media Supplement (100×), a defined mixture of insulin, human transferrin, sodium selenite, linoleic acid, oleic acid ) added to serum-free medium to support viability and specialized functions; G418 (geneticin) added to impose selective pressure on a stable CHO line; 10% DMSO added to a cryopreservation medium for cell banking</skos:example>
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html and https://www.thermofisher.com/rs/en/home/life-science/cell-culture/mammalian-cell-culture/media-supplements.html</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>MediaSupplement(x) ↔ MaterialEntity(x) ∧ ∃r(CultureMediumSupplementRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a media supplement role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;media supplement&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;culture medium supplement role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Miscibility">
@@ -2105,17 +2120,25 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>concentrated glucose feed pumped to maintain glucose above a target setpoint; galactose feed added to modulate glycosylation; feed solution containing glucose, amino acids, vitamins, trace metals, and lipids added during cultivation to support high cell density and balanced metabolism</skos:example>
 		<iof-av:adaptedFrom>https://www.bioprocessintl.com/biochemicals-raw-materials/nutrient-supplementation-strategies-for-biopharmaceutical-production</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>NutrientFeed(x) ↔ MaterialEntity(x) ∧ ∃r(NutrientFeedRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a nutrient feed role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;nutrient feed&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;nutrient feed role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NutrientFeedRole">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">nutrient feed role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<skos:example>concentrated glucose feed pumped to maintain glucose above a target setpoint; galactose feed added to modulate glycosylation; feed solution containing glucose, amino acids, vitamins, trace metals, and lipids added during cultivation to support high cell density and balanced metabolism</skos:example>
+		<skos:example>concentrated glucose feed pumped to maintain glucose above a target setpoint; feed solution containing glucose, amino acids, vitamins, trace metals, and lipids added during cultivation to support high cell density and balanced metabolism</skos:example>
 		<iof-av:adaptedFrom>https://www.bioprocessintl.com/biochemicals-raw-materials/nutrient-supplementation-strategies-for-biopharmaceutical-production</iof-av:adaptedFrom>
 		<iof-av:counterExample>IPTG induction; glucose already present in the medium</iof-av:counterExample>
-		<iof-av:explanatoryNote>This role applies to additions that are part of a controlled feeding strategy after inoculation. The purpose of nutrient feeds can include sustaining cell growth and viability, preventing nutrient depletion, extending the productive phase, optimizing productivity, or steering metabolic activity to achieve desired product quality attributes (e.g., modulating glycosylation). Feeds are often chemically defined solutions and can be single or multicomponent solutioncontaining glucose, amino acids, vitamins, trace elements, and sometimes lipids, but may also be provided as powders or slurries in some settings.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>This role applies to additions that are part of a controlled feeding strategy after inoculation. The purpose of nutrient feeds can include sustaining cell growth and viability, preventing nutrient depletion, extending the productive phase, optimizing productivity, or steering metabolic activity. Feeds are often chemically defined solutions and can be single or multicomponent solutioncontaining glucose, amino acids, vitamins, trace elements, and sometimes lipids, but may also be provided as powders or slurries in some settings.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NutrientFeedRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is added, or planned to be added, to a cell culture during cultivation or production to supply or replenish nutrients</iof-av:naturalLanguageDefinition>
@@ -2224,6 +2247,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001842 and http://purl.obolibrary.org/obo/NCIT_C45997</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>pH is used in biopharmaceutical and laboratory practice as the standard indicator of how acidic or basic an aqueous material is. It is formally based on hydrogen-ion activity, often understood in aqueous systems through hydronium ion behavior, and is reported as a dimensionless value commonly near the 0–14 scale. In routine process and quality contexts, pH is treated as a practical measured attribute of buffers, culture media, process intermediates, and formulations. For heterogeneous materials, pH should be understood as referring to the relevant aqueous phase or sampled liquid portion, rather than to every part of the heterogeneous material.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>PH(x) → RelationalQuality(x) ∧ ∃m (HomogeneousMixture(m) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a homogeneous mixture that is determined by the hydrogen-ion activity in that mixture and conventionally expressed as the negative decimal logarithm of that activity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;pH&apos; then x is a &apos;relational quality&apos; that is the &apos;quality of&apos; some &apos;homogeneous mixture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
@@ -2490,7 +2514,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:explanatoryNote>Covers protection from physical, mechanical, thermal, chemical, or radiative stress. Subclasses are defined by the stressor type, for example cryoprotective agent role and shearprotective agent role. This notion is distinct from clinical “protective agents” used to prevent disease or treat poisoning and should not be mapped to CHEBI:50267.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ProtectiveAgentRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added, or prescribed for addition, to protect one or more other material entities from stress or damage</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added, or planned to be added to protect one or more other material entities from stress or damage</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;protective agent role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2744,7 +2768,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:adaptedFrom>https://www.labome.com/method/Cell-Culture-Media-A-Review.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>Serum-free chemically defined medium;culture medium with hydrolysates (yeastolate, soy peptone, etc.) but no animal serum</iof-av:counterExample>
 		<iof-av:explanatoryNote>Serum-containing media are historically the most common type of complete culture media, typically supplemented with fetal bovine serum (FBS), calf serum, horse serum, or other animal sera. Serum provides a complex, undefined mix of nutrients, hormones, adhesion factors, binding proteins, protease inhibitors, and detoxifying agents, making such media broadly supportive of many cell types. However, the presence of serum introduces lot-to-lot variability and potential contaminants, including adventitious agents, endotoxin, and mycoplasma. In biomanufacturing, serum use raises regulatory concerns, and the trend has shifted toward serum-free and chemically defined media to improve reproducibility and control.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>SerumContainingCultureMedium(x) ↔ CultureMedium(x) ∧ ∃y(Serum(y) ∧ hasContinuantPartAtAllTimes(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">culture medium that contains serum</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;serum containing culture medium&apos; is defined as exactly an instance of &apos;culture medium&apos; that &apos;has continuant part at all times&apos; some &apos;serum&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SerumFreeCultureMedium">
@@ -3052,7 +3078,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:explanatoryNote>he term medium refers broadly to a surrounding phase system, such as a liquid, gas, or solid, not only to culture medium. Materials bearing a surfactant role are used to promote wetting, dispersion, emulsification, foam control, or cleaning by reducing surface or interfacial tension. A material bearing this role may be a single compound or a formulated mixture.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>SurfactantRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added, or prescribed for addition, to lower the surface tension of a medium or the interfacial tension between phases by preferentially adsorbing at liquid-vapor or other phase interfaces</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added, or planned to be added, to lower the surface tension of a medium or the interfacial tension between phases by preferentially adsorbing at liquid-vapor or other phase interfaces</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;surfactant role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -3299,7 +3325,10 @@ Leachables: material entities that migrate from manufacturing components/systems
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>the subpopulation of CHO cells within a mixed cell culture that is capable of continued growth and proliferation under suitable culture conditions, as determined by a validated cell viability assay; the population of colony-forming cells identified in a clonogenic assay following exposure of a broader cell population to a process stress; the population of cells recovered from a cryopreserved cell bank vial that retains the capacity to resume proliferation after thawing and transfer to suitable culture medium;</skos:example>
+		<iof-av:firstOrderLogicDefinition>ViableCellPopulation(x) ↔ CellPopulation(x) ∧ ∃y(Cell(y) ∧ ∃q(Viable(q) ∧ hasQuality(y, q)) ∧ hasMemberPartAtSomeTime(x, y)) ∧ ∀z(hasMemberPartAtSomeTime(x, z) → (Cell(z) ∧ ∃r(Viable(r) ∧ hasQuality(z, r))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell population consisting of only viable cells</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;viable cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;cell&apos; that &apos;has quality&apos; some &apos;viable&apos; and &apos;has member part at some time&apos; only &apos;cell&apos; that &apos;has quality&apos; some &apos;viable&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Virus">
@@ -3369,8 +3398,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a batch of purified water classified as water for injection following manufacture and testing against the applicable water-for-injection specification; a portion of water for injection transferred from a pharmaceutical water distribution system for use in preparing a parenteral drug-product formulation; a lot of commercially supplied water classified as water for injection and documented as conforming to the applicable pharmacopeial requirements</skos:example>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>WaterForInjection(x) ↔ Water(x) ∧ ∃y(WaterForInjectionClassifier(y) ∧ classifiedBy(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">water that is classified by a water for injection classifier</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;water for injection&apos; is defined as exactly an instance of &apos;water&apos; that is &apos;classified by&apos; some &apos;water for injection classifier&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;WaterForInjectionClassifier">
