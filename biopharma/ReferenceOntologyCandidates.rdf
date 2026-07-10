@@ -89,8 +89,11 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">dissolution role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
+		<skos:example>a sodium chloride portion bearing a dissolution role that is realized in a buffer preparation process having a sodium chloride solution as specified output; a sucrose portion bearing a dissolution role that is realized in a formulation preparation process having an aqueous sucrose solution as specified output</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000274</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → Role(x) ∧ ∀y(hasRealization(x, y) → (PlannedProcess(y) ∧ ∃z(Solution(z) ∧ hasSpecifiedOutput(y, z))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity that is realized in a dissolution process in which it participates in forming a solution</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dissolution role&apos;, then x is a &apos;role&apos; and every process that is a &apos;realization of&apos; x is a &apos;planned process&apos; that &apos;has specified output&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HomogenousMixture">
@@ -349,6 +352,7 @@
 	<owl:Class rdf:about="&iof-construct;MaterialTransferProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialLocationChangeProcess"/>
 		<rdfs:label xml:lang="en-US">material transfer process</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -760,9 +764,12 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a sodium chloride portion bearing a solute role in a buffer preparation process; a glucose portion bearing a solute role in a culture medium preparation process; dry amino acid mixture bearing a solute role in a feed preparation process</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000270</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Solute(x) ↔ MaterialEntity(x) ∧ ∃r(SoluteRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a solute role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;solute&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;solute role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SoluteRole">
@@ -770,8 +777,11 @@
 		<rdfs:label xml:lang="en-US">solute role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&iof-construct;SolventRole"/>
+		<skos:example>a sodium chloride portion bearing a solute role in a buffer preparation process; a glucose portion bearing a solute role in a culture medium preparation process; dry amino acid mixture bearing a solute role in a feed preparation process</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000270</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → SoluteRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">dissolution role held by a material entity that is realized in a dissolution process where it is dispersed or dissolved within another substance (the solvent) to form a solution.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solute role&apos;, then x is a &apos;dissolution role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Solution">
@@ -814,18 +824,24 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>a purified water portion bearing a solvent role in a buffer preparation process; a water for injection portion bearing a solvent role in a formulation preparation process;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Solvent(x) ↔ MaterialEntity(x) ∧ ∃r(SolventRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a solvent role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;solvent&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;solvent role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolventRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
 		<rdfs:label xml:lang="en-US">solvent role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
+		<skos:example>a purified water portion bearing a solvent role in a buffer preparation process; a water for injection portion bearing a solvent role in a formulation preparation process;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The bearer of solvent role may be a pure substance or a mixture (e.g., a buffer or culture medium)</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">dissolution role held by a material entity that is realized in a dissolution process where it dissolves another substance (the solute) to form a solution.</iof-av:naturalLanguageDefinition>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → SolventRole(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">dissolution role held by a material entity that is realized in a dissolution process where it dissolves another substance (the solute) to form a solution</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solvent role&apos;, then x is a &apos;dissolution role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SubstanceMaterial">
@@ -855,6 +871,7 @@
 		<skos:example>5 g powder portion bearing the role when it is taken from a powder tank and added to a flask; 500 mL feed-medium portion bearing the  role when it is taken from a feed bag and added to a cell culture; cryovial bearing the when it is retrieved from cryostorage;</skos:example>
 		<iof-av:explanatoryNote>transferred material role identifies the material entity that is physically added or withdrawn as part of a planned process. The role does not require that both a withdrawal source and an addition target are represented. It should be distinguished from cargo role and shipping-related roles. It is intended for manufacturing, laboratory, processing, and material-handling cases, such as feed addition, powder addition, inoculum transfer, gas addition, cell bleed, sample withdrawal, and cryovial retrieval.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>TransferredMaterialRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is being, or is planned to be, physically added to or physically withdrawn from a material entity or site</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a  &apos;transferred material role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
