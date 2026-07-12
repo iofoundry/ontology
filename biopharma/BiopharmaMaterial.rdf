@@ -262,16 +262,16 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;BufferingCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;BufferingFunction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>phosphate buffer used during protein purification; acetate buffer used during chromatography; citrate buffer used in formulation development; Tris buffer used during biochemical processing; HEPES-buffered culture medium; bicarbonate-buffered culture medium under CO₂ contro</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C70815 and https://www.fda.gov/files/drugs/published/pH-Adjuster-Webinar-Slides.pdf</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicDefinition>BufferSolution(x) ↔ Solution(x) ∧ ∃f (BufferingCapability(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>BufferSolution(x) ↔ Solution(x) ∧ ∃f (BufferingFunction(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">solution consisting of a mixture of a weak acid and its conjugate base or a weak base and its conjugate acid which is resistant to pH changes upon addition of an acidic or basic component</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;buffer solution&apos; is defined as exactly an instance of &apos;solution&apos; that &apos;has function&apos; some &apos;buffering capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;buffer solution&apos; is defined as exactly an instance of &apos;solution&apos; that &apos;has function&apos; some &apos;buffering function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BufferingAgentRole">
@@ -403,6 +403,28 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capacity of a solution that is the extent to which the solution can resist a change in pH when acid or base is added</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;buffering capacity&apos; then x is a &apos;capacity&apos; that &apos;specifically depends on&apos; some &apos;solution&apos; and is &apos;specifically depended on by&apos; some &apos;buffering capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;BufferingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;BufferingCapability"/>
+		<rdfs:label>buffering function</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;BufferingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>the pH buffering function of a phosphate buffer solution prepared for buffer exchange; the pH buffering function of a Tris buffer solution prepared for a chromatography process; the pH buffering function of an acetate buffer solution prepared for protein formulation;</skos:example>
+		<iof-av:firstOrderLogicDefinition>BufferingFunction(x) ↔ BufferingCapability(x) ∧ ∃s (Solution(s) ∧ functionOf(x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>function of a solution to resist a change in pH when an acid or base is added</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;pH buffering function&apos; is exactly an instance of &apos;buffering capability&apos; that is the &apos;function of&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BulkDensity">
@@ -752,6 +774,27 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:firstOrderLogicDefinition>CellViabilityRatio(x) ↔ RelativeAbundance(x) ∧ ((∃v∃t (ViableCellCount(v) ∧ TotalCellCount(t) ∧ specificallyDependsOn(x, v) ∧ specificallyDependsOn(x, t))) ∨ (∃v∃t (ViableCellDensity(v) ∧ TotalCellDensity(t) ∧ specificallyDependsOn(x, v) ∧ specificallyDependsOn(x, t))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relative abundance that is the number of viable cells in a cell population relative to the total number of cells in that population</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;cell viability ratio&apos; is defined as exactly an instance of &apos;relative abundance&apos; when it &apos;specifically depends on&apos; some &apos;viable cell count&apos; and some &apos;total cell count&apos;, or when it &apos;specifically depends on&apos; some &apos;viable cell density&apos; and some &apos;total cell density&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ChemicalSubstanceMaterial">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MolecularEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">chemical substance material</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>a portion of water; a lot of Water for Injection; a sodium chloride raw material; a glucose powder; an ethanol material; an L-glutamine powder; portion of CO2 gas; portion of crystaline sucrose</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0001060</iof-av:adaptedFrom>
+		<iof-av:counterExample>a 70 percent ethanol solution; phosphate-buffered saline; a chemically defined culture medium; a glucose powder blend containing compositionally intentional excipients; air; polymer composite</iof-av:counterExample>
+		<iof-av:explanatoryNote>A chemical substance material is a material entity whose identity is based primarily on being made of molecular entities of one chemically specified kind. The term does not require absolute purity. Minor impurities may include trace contaminants, residual water, dissolved gases, degradation products, residual process chemicals, or other low-level material present below the level at which the material is treated as a mixed material for the applicable modeling purpose. Materials whose identity depends on the joint presence of multiple compositionally relevant constituents, such as solutions, culture media, buffers, formulations, and hydrolysates, should be modeled as mixed materials.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ChemicalSubstanceMaterial(x) → MaterialEntity(x) ∧ ∃m (MolecularEntity(m) ∧ isMadeOfAtAllTimes(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity that is made of primarily of one kind of molecular entity, allowing for minor impurities</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient condition.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;chemical substance material&apos; then x is a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChemicallyDefinedCultureMedium">
@@ -1175,6 +1218,36 @@ phenol red acting as a pH indicator rather than stabilizer;pure acetic acid lack
 		<iof-av:firstOrderLogicDefinition>DeadCellPopulation(x) ↔ CellPopulation(x) ∧ ∃y(Cell(y) ∧ ∃q(Dead(q) ∧ hasQuality(y, q)) ∧ hasMemberPartAtSomeTime(x, y)) ∧ ∀z(hasMemberPartAtSomeTime(x, z) → (Cell(z) ∧ ∃r(Dead(r) ∧ hasQuality(z, r))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell population consisting of only dead cells</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;dead cell population&apos; is defined as exactly an instance of &apos;cell population&apos; that &apos;has member part at some time&apos; some (&apos;cell&apos; that &apos;has quality&apos; some &apos;dead&apos;) and &apos;has member part at some time&apos; only (&apos;cell&apos; that &apos;has quality&apos; some &apos;dead&apos;)</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;DissolutionRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasOutput"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">dissolution role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>a sodium chloride portion bearing a dissolution role that is realized in a buffer preparation process having a sodium chloride solution as specified output; a sucrose portion bearing a dissolution role that is realized in a formulation preparation process having an aqueous sucrose solution as specified output</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000274</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → Role(x) ∧ ∀y(hasRealization(x, y) → (Process(y) ∧ ∃z(Solution(z) ∧ hasOutput(y, z))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity that is realized in a dissolution process in which it participates in forming a solution</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dissolution role&apos;, then x is a &apos;role&apos; and every y that is a &apos;realization of&apos; x is a &apos;process&apos; that &apos;has output&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolvedOxygenSaturationRatio">
@@ -1896,23 +1969,6 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000015">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;hasOutput"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;HomogenousMixture"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
@@ -1923,11 +1979,36 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:adaptedFrom>https://www.sigmaaldrich.com/RS/en/technical-documents/technical-article/analytical-chemistry/purification/solvent-miscibility-table and https://goldbook.iupac.org/terms/view/MT07230</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Miscibility concerns whether combined materials form one homogeneous phase rather than separating into multiple phases, such as liquid-liquid layering or solid-liquid phase separation. The term is used most often for liquids, but it can also be applied to gases and solid phases. 
 2) Whether a single phase forms and persists depends on properties of the combined materials, including chemical structure, composition, molar-mass distribution, molecular architecture, temperature, pressure, and mixing conditions.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Miscibility(x) → Capability(x) ∧ ∃m1∃m2 (MaterialEntity(m1) ∧ MaterialEntity(m2) ∧ m1 ≠ m2 ∧ capabilityOf(x, m1) ∧ capabilityOf(x, m2)) ∧ ∀p (hasRealization(x, p) → (Process(p) ∧ ∃h (HomogeneousMixture(h) ∧ hasOutput(p, h))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Miscibility(x) → Capability(x) ∧ ∃m1∃m2 (MaterialEntity(m1) ∧ MaterialEntity(m2) ∧ m1 ≠ m2 ∧ capabilityOf(x, m1) ∧ capabilityOf(x, m2))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of two or more material entities to form and maintain a single homogeneous phase when combined as a mixture</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of two or more material entities to form a single homogeneous phase when combined as a mixture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>f x is a &apos;miscibility&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; at least two distinct &apos;material entities&apos;, and if x &apos;has realization&apos; some p, then p is a &apos;process&apos; that &apos;has output&apos; some &apos;homogeneous mixture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>f x is a &apos;miscibility&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; at least two distinct &apos;material entities&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MixedMaterial">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">mixed material</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>a portion of air made of nitrogen, oxygen, argon, carbon dioxide, and other compositionally significant gases; a portion of phosphate-buffered saline made of water, sodium chloride, and phosphate constituents; a portion of chemically defined cell culture medium made of water, amino acids, glucose, vitamins, salts, and other constituents; a dry cell culture medium powder blend made of amino acid, sugar, salt, vitamin, and trace-element materials;</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0001038 and https://goldbook.iupac.org/terms/view/M03949</iof-av:adaptedFrom>
+		<iof-av:counterExample>a portion of carbon dioxide gas containing trace impurities; a portion of water containing low levels of naturally occurring minerals;</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) A mixed material is made of at least two material constituents that differ in chemical identity or material composition. The constituents need not belong to different broad material categories. Two different proteins, peptides, salts, polymers, gases, or formulated materials may be distinct constituents of a mixed material. For example, a blend of two purified protein materials is a mixed material even though both constituents are proteins.
+2) The constituents may be chemical substance materials or materials that are themselves mixtures. They may be distributed homogeneously or occur as distinct grains, particles, droplets, phases, or regions. In a solution, gas mixture, or alloy, the constituents may not be distinguishable at the scale of ordinary observation. In a powder blend, suspension, or emulsion, they may occur as distinguishable grains, particles, or droplets.
+3) A constituent is not a minor impurity merely because it is present at a low concentration. A low-concentration constituent that is specified as part of the composition, intentionally included, or otherwise substantively contributes to the material remains a constituent.
+4) Trace contaminants, incidental residual materials, degradation products, and other low-level materials may be treated as minor impurities when they do not substantively contribute to how the material is compositionally characterized. A carbon dioxide gas containing trace water or nitrogen may therefore remain a chemical substance material, whereas a specified carbon dioxide and oxygen gas blend is a mixed material.
+5) A material entity is not a mixed material merely because its component parts are made of different materials. At least two distinct materials must directly constitute the material entity itself. For example, a bioreactor is not a mixed material merely because its vessel is made of stainless steel and its tubing is made of polymer. Those materials constitute different structural components rather than the bioreactor as a single material.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MixedMaterial(x) → MaterialEntity(x) ∧ ∃m∃m1(MaterialEntity(m) ∧ MaterialEntity(m1) ∧ isMadeOfAtAllTimes(x, m) ∧ isMadeOfAtAllTimes(x, m1) ∧ ¬(m = m1 ∨ isMadeOfAtAllTimes(m, m1) ∨ isMadeOfAtAllTimes(m1, m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity composed of at least two material constituents that are distinct in chemical identity or material composition, excluding constituents present only as minor impurities</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient condition.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mixed material&apos;, then x is a &apos;material entity&apos; that &apos;is made of at all times&apos; at least two material entities that are distinct and neither of which &apos;is made of at all times&apos; the other</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MoistureContent">
@@ -2254,7 +2335,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;HomogenousMixture"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">pH</rdfs:label>
@@ -2262,11 +2343,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>the pH of a phosphate-buffered saline solution measured as 7.4 at 25 °C; the pH of a chemically defined cell culture medium measured before inoculation; the pH of the aqueous phase of a mammalian cell culture during fed-batch cultivation;</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001842 and http://purl.obolibrary.org/obo/NCIT_C45997</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>pH is used in biopharmaceutical and laboratory practice as the standard indicator of how acidic or basic an aqueous material is. It is formally based on hydrogen-ion activity, often understood in aqueous systems through hydronium ion behavior, and is reported as a dimensionless value commonly near the 0–14 scale. In routine process and quality contexts, pH is treated as a practical measured attribute of buffers, culture media, process intermediates, and formulations. For heterogeneous materials, pH should be understood as referring to the relevant aqueous phase or sampled liquid portion, rather than to every part of the heterogeneous material.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PH(x) → RelationalQuality(x) ∧ ∃m (HomogeneousMixture(m) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PH(x) → RelationalQuality(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a homogeneous mixture that is determined by the hydrogen-ion activity in that mixture and conventionally expressed as the negative decimal logarithm of that activity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a material entity that is quantified as the negative decimal logarithm of the relative activity of hydrogen ions in that material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;pH&apos; then x is a &apos;relational quality&apos; that is the &apos;quality of&apos; some &apos;homogeneous mixture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;pH&apos; then x is a &apos;relational quality&apos; that is the &apos;quality of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PHAdjustingAgentRole">
@@ -2392,6 +2473,51 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pharmaceutical product-related impurity role&apos; then x is a &apos;material impurity role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that is a &apos;proper continuant part of at all times&apos; some &apos;material product&apos; or some &apos;process intermediate material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;product-related impurity role&apos; then x is a &apos;material impurity role&apos; that is the &apos;role of&apos; some &apos;molecular entity&apos; or some &apos;molecular entity population</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PortionOfWater">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ChemicalSubstanceMaterial"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;PortionOfWater"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">portion of water</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>purified water; Water for Injection; process water; deionized water; drinking water; water used as a raw material in buffer preparation</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0000105</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) This class represents bulk water materials whose identity is based on being composed primarily of water molecules. It is intended to capture the common practical meaning of water as used in scientific, industrial, and pharmaceutical settings, where real-world water is not expected to consist solely of H₂O molecules.
+2) This class is distinct from the molecular entity water molecule, which represents H₂O at the molecular level. The molecular entity should be used when referring to individual water molecules or chemical reactions involving H₂O, whereas this class should be used for bulk water materials, water grades, and water handled in processes.
+3) This class includes bulk water materials that may contain low-level dissolved gases, minerals, ions, residual disinfectants, or other minor impurities or treatment-related constituents, provided the material is still handled and classified as water. It excludes materials whose identity depends on water serving as the solvent or principal constituent of a formulated mixture, such as buffer solutions, saline solutions, culture media, cleaning solutions, or pharmaceutical formulations.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>PortionOfWater(x) → ChemicalSubstanceMaterial(x) ∧ ∃m (WaterMolecule(m) ∧ isMadeOfAtAllTimes(x, m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">chemical substance material composed primarily of water molecules, allowing for minor impurities arising from production, handling, or environmental exchange</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient condition.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is &apos;portion of water&apos; then x is a &apos;chemical substance material&apos; that &apos;is made of at all times&apos; some &apos;water molecule&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;PortionOfWaterForInjection">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PortionOfWater"/>
+		<rdfs:label xml:lang="en-US">portion of water for injection</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;PortionOfWater">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;WaterForInjectionClassifier"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>a batch of purified water classified as water for injection following manufacture and testing against the applicable water-for-injection specification; a portion of water for injection transferred from a pharmaceutical water distribution system for use in preparing a parenteral drug-product formulation; a lot of commercially supplied water classified as water for injection and documented as conforming to the applicable pharmacopeial requirements</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>PortionOfWaterForInjection(x) ↔ PortionOfWater(x) ∧ ∃y(WaterForInjectionClassifier(y) ∧ classifiedBy(x, y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">water that is classified by a water for injection classifier</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;portion of water for injection&apos; is defined as exactly an instance of &apos;portion of water&apos; that is &apos;classified by&apos; some &apos;water for injection classifier&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PrecipitationPropensity">
@@ -2576,7 +2702,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProteinHydrolysate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;HomogenousMixture"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MixedMaterial"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
@@ -2687,7 +2813,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;Water"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;PortionOfWater"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -2750,17 +2876,17 @@ Leachables: material entities that migrate from manufacturing components/systems
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Serum">
-		<rdfs:subClassOf rdf:resource="&iof-construct;HomogenousMixture"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;MixedMaterial"/>
 		<rdfs:label xml:lang="en-US">serum</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>fetal bovine serum used as a cell culture supplement; bovine serum used in mammalian cell culture medium; human serum used in specialized cell culture applications; heat-inactivated serum used during cell culture;</skos:example>
 		<iof-av:adaptedFrom>https://www.cancer.gov/publications/dictionaries/cancer-terms/def/serum and https://aiche.onlinelibrary.wiley.com/doi/10.1002/btpr.2706 and https://www.sigmaaldrich.com/RS/en/technical-documents/technical-article/cell-culture-and-cell-culture-analysis/mammalian-cell-culture/serum-cell-tissue-faq?srsltid=AfmBOoqsTcOCHsAwgJqKH161qBbhuNQnVpAj3Pp091G9mogrrQMyek82</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Serum is added to cell culture media as a complex, biologically derived supplement that supports cell viability and growth. It provides a broad spectrum of nutrients, growth factors, hormones, carrier proteins, and attachment or protective factors that collectively promote proliferation and maintain homeostasis in cultured cells. Because serum is obtained from blood and not chemically defined, its molecular composition can vary significantly between production lots and source populations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Serum(x) → HomogeneousMixture(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Serum(x) → MixedMaterial(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">homogeneous mixture that is obtained from blood following coagulation and removal of cells and clotting factors</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixed material that is obtained from blood following coagulation and removal of cells and clotting factors</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;serum&apos; then x is a &apos;homogeneous mixture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is &apos;serum&apos; then x is a &apos;mixed material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SerumContainingCultureMedium">
@@ -2869,6 +2995,69 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solubiltiy capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material entity&apos; and x &apos;has realization&apos; only a process that &apos;has input&apos; a &apos;solvent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;Solute">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label xml:lang="en-US">solute</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;SoluteRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>a sodium chloride portion bearing a solute role in a buffer preparation process; a glucose portion bearing a solute role in a culture medium preparation process; dry amino acid mixture bearing a solute role in a feed preparation process</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000270</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Solute(x) ↔ MaterialEntity(x) ∧ ∃r(SoluteRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a solute role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;solute&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;solute role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SoluteRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
+		<rdfs:label xml:lang="en-US">solute role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<owl:disjointWith rdf:resource="&iof-construct;SolventRole"/>
+		<skos:example>a sodium chloride portion bearing a solute role in a buffer preparation process; a glucose portion bearing a solute role in a culture medium preparation process; dry amino acid mixture bearing a solute role in a feed preparation process</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000270</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → SoluteRole(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">dissolution role held by a material entity that is realized in a process where it is dissolved within another substance (the solvent) to form a solution</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solute role&apos;, then x is a &apos;dissolution role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Solution">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MixedMaterial"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;Solvent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">solution</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>a sodium chloride solution in which sodium chloride is the solute and water is the solvent; a glucose feed solution in which glucose is the solute and water is the solvent; a phosphate-buffered saline solution in which dissolved salts are solutes and water is the solvent; a protein formulation solution in which the protein and excipients are solutes and water is the solvent; an ethanol-water solution in which ethanol is assigned the solute role and water the solvent role</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0000012</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>Solution(x) → MixedMaterial(x) ∧ ∃s∃v (Solute(s) ∧ Solvent(v) ∧ isMadeOf(x, s) ∧ isMadeOf(x, v))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixed material composed of one homogenous phase where particles are not visible to the naked eye and that does not scatter a light beam</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs available to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;solution&apos;, then x is a &apos;mixed material&apos; that &apos;is made of&apos; some &apos;solute&apos; and &apos;is made of&apos; some &apos;solvent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;SolutionSaturationConcentration">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
 		<rdfs:subClassOf>
@@ -2944,6 +3133,44 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state of a solution in which the dissolved solute concentration stays below, at, or above the solute&apos;s equilibrium saturation concentration in that solution under prevailing conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution saturation state&apos; then x is a &apos;material state&apos; that &apos;is material state of&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;Solvent">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label xml:lang="en-US">solvent</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;SolventRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>a purified water portion bearing a solvent role in a buffer preparation process; a water for injection portion bearing a solvent role in a formulation preparation process;</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>Solvent(x) ↔ MaterialEntity(x) ∧ ∃r(SolventRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a solvent role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;solvent&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;solvent role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;SolventRole">
+		<rdfs:subClassOf rdf:resource="&iof-construct;DissolutionRole"/>
+		<rdfs:label xml:lang="en-US">solvent role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
+		<skos:example>a purified water portion bearing a solvent role in a buffer preparation process; a water for injection portion bearing a solvent role in a formulation preparation process;</skos:example>
+		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000269</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The bearer of solvent role may be a pure substance or a mixture (e.g., a buffer or culture medium)</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DissolutionRole(x) → SolventRole(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">dissolution role held by a material entity that is realized in a process where it dissolves another substance (the solute) to form a solution</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solvent role&apos;, then x is a &apos;dissolution role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SpecializedCultureMedium">
@@ -3373,54 +3600,6 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;virus seed&apos; then x is an &apos;object aggregate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;Water">
-		<rdfs:subClassOf rdf:resource="&iof-construct;SubstanceMaterial"/>
-		<rdfs:label xml:lang="en-US">water</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;SubstanceMaterial">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;Water"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>purified water; Water for Injection; process water; deionized water; drinking water; water used as a raw material in buffer preparation</skos:example>
-		<iof-av:explanatoryNote>1) This class represents bulk water materials whose identity is based on being composed primarily of water molecules. It is intended to capture the common practical meaning of water as used in scientific, industrial, and pharmaceutical settings, where real-world water is not expected to consist solely of H₂O molecules.
-2) This class is distinct from the molecular entity water molecule, which represents H₂O at the molecular level. The molecular entity should be used when referring to individual water molecules or chemical reactions involving H₂O, whereas this class should be used for bulk water materials, water grades, and water handled in processes.
-3) This class includes bulk water materials that may contain low-level dissolved gases, minerals, ions, residual disinfectants, or other minor impurities or treatment-related constituents, provided the material is still handled and classified as water. It excludes materials whose identity depends on water serving as the solvent or principal constituent of a formulated mixture, such as buffer solutions, saline solutions, culture media, cleaning solutions, or pharmaceutical formulations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>Water(x) ↔ SubstanceMaterial(x) ∧ ∃m (WaterMolecule(m) ∧ isMadeOfAtAllTimes(x, m))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">substance material composed primarily of water molecules, allowing for minor impurities arising from production, handling, or environmental exchange</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;water&apos; is defined as exactly an instance of &apos;substance material&apos; that &apos;is made of at all times&apos; some &apos;water molecule&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;WaterForInjection">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Water"/>
-		<rdfs:label xml:lang="en-US">water for injection</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;Water">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;classifiedBy"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;WaterForInjectionClassifier"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>a batch of purified water classified as water for injection following manufacture and testing against the applicable water-for-injection specification; a portion of water for injection transferred from a pharmaceutical water distribution system for use in preparing a parenteral drug-product formulation; a lot of commercially supplied water classified as water for injection and documented as conforming to the applicable pharmacopeial requirements</skos:example>
-		<iof-av:explanatoryNote>See the expanded definition under the corresponding classifier class</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>WaterForInjection(x) ↔ Water(x) ∧ ∃y(WaterForInjectionClassifier(y) ∧ classifiedBy(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">water that is classified by a water for injection classifier</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;water for injection&apos; is defined as exactly an instance of &apos;water&apos; that is &apos;classified by&apos; some &apos;water for injection classifier&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;WaterForInjectionClassifier">
 		<rdfs:subClassOf rdf:resource="&iof-construct;CompendialGradeClassifier"/>
 		<rdfs:subClassOf>
@@ -3429,7 +3608,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Water">
+							<rdf:Description rdf:about="&iof-construct;PortionOfWater">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
