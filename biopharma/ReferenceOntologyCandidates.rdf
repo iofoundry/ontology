@@ -57,36 +57,19 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;RequirementSpecification"/>
 		<rdfs:label xml:lang="en-US">acceptance criteria</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<skos:example>An analytical specification for a drug substance has as part an acceptance criterion requiring residual host cell protein to be not more than 100 ng/mg protein; A batch release specification has as part an acceptance criterion requiring product purity to be at least 95 %; A drug product specification has as part an acceptance criterion requiring endotoxin to be not more than 0.25 EU/mL;</skos:example>
+		<skos:example>An analytical specification for a drug substance has as part acceptance criteria requiring residual host cell protein to be not more than 100 ng/mg protein; A batch release specification has as part acceptance criteria requiring product purity to be at least 95 %; A drug product specification has as part acceptance criteria requiring endotoxin to be not more than 0.25 EU/mL;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.fda.gov/files/drugs/published/Process-Validation--General-Principles-and-Practices.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In the ICH specifications (Q6B) context, acceptance criteria are defined as “numerical limits, ranges, or other suitable measures for acceptance of the results of analytical procedures” (applying to drug substance, drug product, or materials at other manufacturing stages).
 2) In a process-validation context, protocols are expected to include tests and acceptance criteria for significant processing steps, i.e., criteria used to judge whether process performance is acceptable.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>AcceptanceCriteria(x) → RequirementSpecification</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>AcceptanceCriteria(x) → RequirementSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that has as parts one or more limits, ranges, or other conditions used to determine whether an entity is acceptable for a specified purpose</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.In particular constructs for exaustively representing conditions that are part of acceptance criteria are missing</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acceptance criteria&apos; then x is an &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. In particular, constructs for exhaustively representing conditions that are parts of acceptance criteria are missing.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acceptance criteria&apos; then x is a &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;ManufacturingProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
-							</owl:Restriction>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
@@ -104,15 +87,15 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">manufacturing capability</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<skos:example>the capability of a technician to perform aseptic connections during a formulation procedure;the capability of a mixing vessel to achieve uniform suspension of components during buffer preparation; the capability of a fill-finish robot to accurately dispense liquid into vials</skos:example>
-		<iof-av:counterExample>the capability of a chromatography system to analyze protein purity during analytical method development - realizable in quality control or R&amp;D, not in manufacturing;the capability of a liquid handling robot to automate compound dispensing during a high-throughput screening (HTS) assay in a clinical trial biomarker study</iof-av:counterExample>
-		<iof-av:firstOrderLogicAxiom>LA1: ManufacturingCapability(x) → Capability(x) ∧ ∃y((Agent(y) ∨ PieceOfEquipment(y)) ∧ capabilityOf(x, y)) ∧ ∀z(hasRealization(x, z) → (ManufacturingProcess(z) ∨ ∃p(ManufacturingProcess(p) ∧ occurrentPartOf(z, p))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: Capability(x) ∧ ∃y((Agent(y) ∨ PieceOfEquipment(y)) ∧ capabilityOf(x, y)) ∧ ∃z(hasRealization(x, z) ∧ (ManufacturingProcess(z) ∨ ∃p(ManufacturingProcess(p) ∧ occurrentPartOf(z, p)))) → ManufacturingCapability(x)</iof-av:firstOrderLogicAxiom>
+		<skos:example>the capability of a technician to perform aseptic connections during a formulation procedure; the capability of a mixing vessel to achieve uniform suspension of components during buffer preparation; the capability of a fill-finish robot to accurately dispense liquid into vials</skos:example>
+		<iof-av:counterExample>the capability of a chromatography system to analyze protein purity during analytical method development - realizable in quality control or R&amp;D, not in manufacturing; the capability of a liquid handling robot to automate compound dispensing during a high-throughput screening (HTS) assay in a clinical trial biomarker study</iof-av:counterExample>
+		<iof-av:firstOrderLogicAxiom>LA1:Capability(x) ∧ ∃y((Agent(y) ∨ PieceOfEquipment(y)) ∧ capabilityOf(x, y)) ∧ ∃z(hasRealization(x, z) ∧ (ManufacturingProcess(z) ∨ ∃p(ManufacturingProcess(p) ∧ occurrentPartOf(z, p)))) → ManufacturingCapability(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2:ManufacturingCapability(x) → Capability(x) ∧ ∃y((Agent(y) ∨ PieceOfEquipment(y)) ∧ capabilityOf(x,y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of an agent or a piece of equipment that is realizable in a manufacturing process or its part</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This class is expected to remain primitive as it is difficult to find a set of mutually necessary and sufficient set of conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;manufacturing capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;agent&apos; or &apos;piece of equipment&apos; and whenever some y &apos;realizes&apos; x then y is a &apos;manufacturing process&apos; or an &apos;occurrent part of&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;capability&apos; and x is the &apos;capability of&apos; some &apos;agent&apos; or &apos;piece of equipment&apos; and x &apos;has realization&apos; in some &apos;manufacturing process&apos; or in some &apos;occurrent part of&apos; a &apos;manufacturing process&apos;, then x is a &apos;manufacturing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;capability&apos; and x is the &apos;capability of&apos; some &apos;agent&apos; or &apos;piece of equipment&apos; and x &apos;has realization&apos; in some &apos;manufacturing process&apos; or in some &apos;occurrent part of&apos; a &apos;manufacturing process&apos;, then x is a &apos;manufacturing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;manufacturing capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;agent&apos; or some &apos;piece of equipment&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialAdditionProcess">
@@ -212,10 +195,11 @@
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>residual solvent bearing a material impurity role in a drug-substance batch; an oxidized protein species bearing a material impurity role in a biologic; a trace metal contaminant bearing a material impurity role in a raw-material lot</skos:example>
 		<iof-av:explanatoryNote>See expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>MaterialImpurity(x) ↔ MaterialEntity(x) ∧ ∃r(MaterialImpurityRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the material impurity role</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material impurity&apos; is defined as exactly an instance of &apos;material entity&apos; that is the &apos;has role&apos; some &apos;material impurity role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material impurity&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;material impurity role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialImpurityRole">
@@ -229,7 +213,7 @@
 							<rdf:Description rdf:about="&bfo;BFO_0000040">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:unionOf rdf:parseType="Collection">
@@ -254,11 +238,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>residual solvent remaining after synthesis; oxidation product formed during storage of a biologic; trace contaminant present in a raw material lot</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/role#AFRL_0000364 and http://purl.obolibrary.org/obo/CHEBI_143130 and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>MaterialImpurityRole(x) → Role(x) ∧ ∃a (roleOf(x, a) ∧ MaterialEntity(a) ∧ ∃b (continuantPartOfAtAllTimes(a, b) ∧ (MaterialProduct(b) ∨ ProcessIntermediateMaterial(b) ∨ ProductionConsumable(b) ∨ RawMaterial(b))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MaterialImpurityRole(x) → Role(x) ∧ ∃a∃b(roleOf(x,a) ∧ MaterialEntity(a) ∧ continuantPartOfAtSomeTime(a,b) ∧ (MaterialProduct(b) ∨ ProcessIntermediateMaterial(b) ∨ ProductionConsumable(b) ∨ RawMaterial(b)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity that is present within a process intermediate material, raw material, production consumable, or material product as a non-target constituent arising from manufacturing, storage, handling, or use, and that is not included in the material composition defined for the relevant stage of manufacture, handling, storage, or release</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. In particular all the constructs necessary for representing not being a defined or specified part of the entity in question are missing</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material impurity role&apos; then x is a &apos;role&apos; and x is a &apos;role of&apos; some &apos;material entity&apos; that is a &apos;continuant part of at all times&apos; some &apos;material product&apos;, &apos;process intermediate material&apos;, &apos;production consumable&apos;, or &apos;raw material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material impurity role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that is a &apos;continuant part of at some time&apos; some &apos;material product&apos;, &apos;process intermediate material&apos;, &apos;production consumable&apos;, or &apos;raw material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialRemovalProcess">
@@ -308,7 +292,7 @@
 		<skos:example>cell bleed process in a perfusion culture process, in which a portion of cell-containing culture material is withdrawn from the culture system; culture material withdrawal during a fed-batch harvest process, in which culture material is physically withdrawn from a production bioreactor; product-containing harvest stream withdrawal during a perfusion culture process, in which culture fluid is withdrawn through a cell retention system; eluate withdrawal from a chromatography column, in which product-containing eluate is physically withdrawn into a product pool; permeate withdrawal from a tangential flow filtration process, in which permeate is physically withdrawn across the filtration membrane; cryovial retrieval from cryostorage, in which a cryovial containing frozen cell material is physically withdrawn from a cryostorage system.</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003574</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A material removal process involves physical withdrawal of a material entity from the source from which it is taken. The withdrawn entity may be bulk material or a containerized material entity, such as a vial or bag containing material. Material removal process should be distinguished from broader processes that may include material removal as a part, such as harvest, clarification, purification, or recovery processes. It should also be distinguished from uses of “removal” that refer to reducing, separating, clearing, or inactivating something within a material stream, such as viral removal, impurity removal, or host-cell protein removal.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialRemovalProcess(x) → PlannedProcess(x) ∧ ∃s ∃sr ((Site(s) ∨ Material ((Site(s) ∨ MaterialEntity(s)) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasParticipantAtSomeTime(x, s) ∧ hasRole(s, sr)) ∧ ∃m ∃mr (MaterialEntity(m) ∧ TransferredMaterialRole(mr) ∧ hasSpecifiedOutput(x, m) ∧ hasRole(m, mr))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MaterialRemovalProcess(x) → PlannedProcess(x) ∧ ∃s∃sr((Site(s) ∨ MaterialEntity(s)) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasParticipantAtSomeTime(x,s) ∧ hasRole(s,sr)) ∧ ∃m∃mr(MaterialEntity(m) ∧ TransferredMaterialRole(mr) ∧ hasSpecifiedOutput(x,m) ∧ hasRole(m,mr))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a material entity is physically withdrawn from a defined source</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
@@ -317,29 +301,27 @@
 	
 	<owl:Class rdf:about="&iof-construct;MaterialTransferProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialLocationChangeProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialAdditionProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material transfer process</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;MaterialLocationChangeProcess">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialAdditionProcess"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>cryovial transfer process from cryostorage to a thawing device, in which a cryovial containing frozen cell material is withdrawn from a cryostorage system and introduced into a thawing device; Milli-Q water transfer process from a Milli-Q water production system into a vessel used for growth media reconstitution; cell culture material transfer process from a weldable bottle to a bench-scale production bioreactor; feed medium transfer process from a feed bag into a production bioreactor during fed-batch cultivation; inoculum transfer process from a seed bioreactor or inoculum bag into a production bioreactor</skos:example>
 		<iof-av:explanatoryNote>A material transfer process represents the full movement of the same material entity from a defined source to a defined target. The material is withdrawn from the source, passes through a transfer path, and is introduced to or into the target. It has a material removal process and a material addition process as parts, but is not equivalent to either part alone. Use this class when the source, target, and path between them are relevant to the process, including transfer failures such as loss, blockage, delay, misdirection, contamination, or change in material state. Use material removal process for withdrawal without target-side introduction. Use material addition process for introduction without source-side withdrawal. Do not use material transfer process for shipment, transport, delivery, or warehouse relocation where a material entity is only carried between locations.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MaterialTransferProcess(x) ↔ MaterialLocationChangeProcess(x) ∧ ∃b∃s(MaterialAdditionProcess(b) ∧ MaterialRemovalProcess(s) ∧ hasOccurrentPart(x,b) ∧ hasOccurrentPart(x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>MaterialTransferProcess(x) → MaterialLocationChangeProcess(x) ∧ ∃r∃a∃m(MaterialRemovalProcess(r) ∧ MaterialAdditionProcess(a) ∧ MaterialEntity(m) ∧ hasOccurrentPart(x,r) ∧ hasOccurrentPart(x,a) ∧ hasSpecifiedOutput(r,m) ∧ hasParticipantAtSomeTime(a,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material location change process in which a material entity is physically withdrawn from a defined source and physically introduced into a defined recipient</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material transfer process&apos; is defined as exactly an instance of &apos;material location change process&apos; that has some &apos;material addition process&apos; and &apos;material removal process&apos; as &apos;occurent parts&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>This term is expected to remain primitive as the precision of requiring the same material across the processes is difficult to express in OWL</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material transfer process&apos; then x is a &apos;material location change process&apos; that &apos;has occurrent part&apos; some &apos;material removal process&apos; that &apos;has specified output&apos; some &apos;material entity&apos;, and &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has participant at some time&apos; that same &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialUseProcess">
@@ -411,9 +393,9 @@
 		<skos:example>When a customer drives a car off from the dealership after purchasing the car, a material use process has started. A container/lot of a chemical may be considered used when the seal is opened or when the first portion is taken out from the container. The portion taken out from the container is also subjected to another material use process.</skos:example>
 		<iof-av:firstOrderLogicAxiom>MaterialUseProcess(x) → PlannedProcess(x) ∧ ∃m∃p∃c(MaterialEntity(m) ∧ PlannedProcess(p) ∧ Capability(c) ∧ specificallyDependsOn(c, m) ∧ hasParticipantAtAllTimes(x, m) ∧ hasOccurrentPart(x, p) ∧ temporallyStartedBy(x, p) ∧ realizes(p, c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is a part of a material entity lifecyle and which starts with a realization of the capability of that material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is a part of a material entity lifecycle and which starts with a realization of the capability of that material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive because different kinds of material entities, use processes, and business practices may have different definitions of when a material use process starts.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;material use process&apos;, then x is a &apos;planned process&apos; that &apos;has participant at all times&apos; some &apos;material entity&apos; m, and &apos;has as occurrent part&apos; some &apos;planned process&apos; p that both &apos;temporally starts&apos; x and &apos;realizes&apos; a &apos;capability&apos; c that &apos;specifically depends on&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;material use process&apos;, then x is a &apos;planned process&apos; that &apos;has participant at all times&apos; some &apos;material entity&apos; m, and &apos;has occurrent part&apos; some &apos;planned process&apos; p that both &apos;temporally starts&apos; x and &apos;realizes&apos; a &apos;capability&apos; c that &apos;specifically depends on&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialWithdrawalSourceRole">
@@ -462,7 +444,7 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Yoghurt held after fermentation and before finishing with flavorings and packaging; Cocoa paste stored after conching and before molding and packaging; Dried PVC resin stored before compounding with additives; Harvested cell culture fluid held before primary clarification; Protein A eluate stored before viral inactivation; Concentrated bulk drug substance stored before final formulation and filling</skos:example>
-		<iof-av:counterExample>Cocoa paste, which is produced by a Cocoa manufacturer, sold, and shipped in heated tanker trucks to other food companies; Dried PVC resin produced by Company ABC and sold in bags or big bags to other companies that manufacture PVC pipes, different PVC compounds, etc.,</iof-av:counterExample>
+		<iof-av:counterExample>Cocoa paste, which is produced by a Cocoa manufacturer, sold, and shipped in heated tanker trucks to other food companies; Dried PVC resin produced by Company ABC and sold in bags or big bags to other companies that manufacture PVC pipes, different PVC compounds, etc.</iof-av:counterExample>
 		<iof-av:firstOrderLogicDefinition>ProcessIntermediateMaterial(x) ↔ MaterialEntity(x) ∧ ∃r(ProcessIntermediateMaterialRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the process intermediate material role</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;process intermediate material&apos; is defined as exactly an instance of &apos;material entity&apos; that &apos;has role&apos; some &apos;process intermediate material role&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -557,11 +539,11 @@
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>role of a yoghurt when held after fermentation for use in finishing and packaging; role of a cocoa paste when stored after conching for use in molding and cooling; role of a dried PVC resin when kept after drying for use in compounding; role of a harvested cell culture fluid when held after bioreactor harvest for use in clarification; role of a Protein A eluate when collected after chromatography for use in viral inactivation; role of a bulk drug substance when stored after purification for use in formulation and filling</skos:example>
-		<iof-av:firstOrderLogicAxiom>ProcessIntermediateMaterialRole(x) → (∀y (HasRealization(x, y) → ManufacturingProcess(y) ∧ ∃e (HasInput(y, e) ∧ MaterialEntity(e)))) ∧ (∃a (RoleOf(x, a) ∧ MaterialEntity(a) ∧ ∃b (IsInputOf(a, b) ∧ ManufacturingProcess(b)) ∧ ∃c (IsSpecifiedOutputOf(a, c) ∧ ManufacturingProcess(c))) ∨ ∃a (RoleOf(x, a) ∧ MaterialEntity(a) ∧ ∃d (IsSpecifiedOutputOf(a, d) ∧ ManufacturingProcess(d)) ∧ ∃s (PrescribedBy(a, s) ∧ InputSpecification(s) ∧ ∃p (ContinuantPartOfAtAllTimes(s, p) ∧ PlanSpecification(p) ∧ ∃m (Prescribes(p, m) ∧ ManufacturingProcess(m))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ProcessIntermediateMaterialRole(x) → Role(x) ∧ ∃a(roleOf(x,a) ∧ MaterialEntity(a) ∧ ∀y(hasRealization(x,y) → (ManufacturingProcess(y) ∧ hasInput(y,a))) ∧ ((∃c∃b(isSpecifiedOutputOf(a,c) ∧ ManufacturingProcess(c) ∧ isInputOf(a,b) ∧ ManufacturingProcess(b))) ∨ (∃d∃s∃p∃m(isSpecifiedOutputOf(a,d) ∧ ManufacturingProcess(d) ∧ prescribedBy(a,s) ∧ InputSpecification(s) ∧ continuantPartOfAtAllTimes(s,p) ∧ PlanSpecification(p) ∧ prescribes(p,m) ∧ ManufacturingProcess(m)))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is an output of a manufacturing process and is input of a subsequent manufacturing process or planned to be an input of a subsequent manufacturing process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process intermediate material role&apos; then x &apos;has realization&apos; only in some &apos;manufacturing process&apos; that &apos;has input&apos; some &apos;material entity&apos;, and x is a &apos;role of&apos; either a &apos;material entity&apos; that &apos;is input of&apos; some &apos;manufacturing process&apos; and &apos;is specified output of&apos; some &apos;manufacturing process&apos;, or a &apos;material entity&apos; that &apos;is specified output of&apos; some &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process intermediate material role&apos; then x is a &apos;role of&apos; some &apos;material entity&apos; such that every &apos;realization of&apos; x is a &apos;manufacturing process&apos; that &apos;has input&apos; that same &apos;material entity&apos;, and either that &apos;material entity&apos; &apos;is specified output of&apos; some &apos;manufacturing process&apos; and &apos;is input of&apos; some &apos;manufacturing process&apos;, or that &apos;material entity&apos; &apos;is specified output of&apos; some &apos;manufacturing process&apos; and is &apos;prescribed by&apos; some &apos;input specification&apos; that is &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionConsumable">
@@ -582,7 +564,7 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>Benzoyl Peroxide used as a free-radical initiator in vinyl chloride polymerization; Deionized water used as a suspension medium in PVC polymerization and partially lost through evaporation; High-speed steel drill bits used in drilling operations and consumed after 200–400 drilling cycles; Single-use bioreactor bag used for mammalian cell culture and discarded after use; sterile filter used for media sterilization and discarded after filtration; Disposable depth filter used in harvest clarification and discarded post-use;</skos:example>
-		<iof-av:counterExample>Water employed in the Steam Reforming Process of Methane. Steam reacts with Methane at very high temperature in the presence of a Ni catalyst to produce Hydrogen and a CO/CO2 mixture. Though steam is fed in excess to avoid the carbonization of the catalyst, and is partly lost, certain amount of it is converted into Hydrogen. Therefore, water plays a raw material role;Water inside a closed-loop cooling system circuit that is part of a chemical reaction process. Since it is a closed system, water is not lost through evaporation, and it does not need a chemical/biological treatment. In consequence, it does not need to be recovered.</iof-av:counterExample>
+		<iof-av:counterExample>Water employed in the Steam Reforming Process of Methane. Steam reacts with Methane at very high temperature in the presence of a Ni catalyst to produce Hydrogen and a CO/CO2 mixture. Though steam is fed in excess to avoid the carbonization of the catalyst, and is partly lost, certain amount of it is converted into Hydrogen. Therefore, water plays a raw material role; Water inside a closed-loop cooling system circuit that is part of a chemical reaction process. Since it is a closed system, water is not lost through evaporation, and it does not need a chemical/biological treatment. In consequence, it does not need to be recovered.</iof-av:counterExample>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>ProductionConsumable(x) ↔ Consumable(x) ∧ ∃r(ProductionConsumableRole(r) ∧ hasRole(x, r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity which has the production consumable role</iof-av:naturalLanguageDefinition>
@@ -592,15 +574,55 @@
 	<owl:Class rdf:about="&iof-construct;ProductionConsumableRole">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ConsumableRole"/>
 		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+				<owl:allValuesFrom>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
-						<owl:someValuesFrom>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
+					</owl:Restriction>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
 							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000040">
-									</rdf:Description>
+								<owl:unionOf rdf:parseType="Collection">
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;Capability">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
+														<owl:someValuesFrom>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+																<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
+															</owl:Restriction>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-construct;isInputOf"/>
+										<owl:someValuesFrom>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
+											</owl:Restriction>
+										</owl:someValuesFrom>
+									</owl:Restriction>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&iof-construct;prescribedBy"/>
 										<owl:someValuesFrom>
@@ -632,80 +654,25 @@
 											</owl:Class>
 										</owl:someValuesFrom>
 									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;roleOf"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&bfo;BFO_0000040">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-construct;isInputOf"/>
-												<owl:someValuesFrom>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-														<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
-													</owl:Restriction>
-												</owl:someValuesFrom>
-											</owl:Restriction>
-										</owl:intersectionOf>
-									</owl:Class>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&iof-construct;Capability">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-														<owl:someValuesFrom>
-															<owl:Restriction>
-																<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-																<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
-															</owl:Restriction>
-														</owl:someValuesFrom>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
 								</owl:unionOf>
 							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000054"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ProductProductionProcess"/>
-					</owl:Restriction>
-				</owl:allValuesFrom>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production consumable role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
 		<skos:example>Benzoyl Peroxide in the role of a consumable in the polymerization of vinyl chloride; Deionized water in the role of a consumable in PVC polymerization as a suspension medium; Sterile filter in the role of a consumable in media sterilization; Single-use bioreactor bag in the role of a consumable in mammalian cell culture; Disposable depth filter in the role of a consumable in harvest clarification</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/voc/afo/REC/2022/03/afo</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1.  &apos;Used up&apos; in this context means  that either a) the material entity no longer exist at the end of the process or b) the material entity has reduced or lost capability as a result of the process.
-2.  In many cases, organizations monitor the number of hours or frequency with which such consumables are used. 
-3. Consumables includes resources that are typically not specified in recipes, not included in the bill of materials, and not lot-tracked.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProductionConsumableRole(x) → ConsumableRole(x) ∧ (∀y (hasRealization(x, y) → ∃z (occurrentPartOf(y, z) ∧ ProductProductionProcess(z)))) ∧ (∃a (roleOf(x, a) ∧ MaterialEntity(a) ∧ ∃b (prescribedBy(a, b) ∧ InputSpecification(b) ∧ ∃c (continuantPartOfAtAllTimes(b, c) ∧ PlanSpecification(c) ∧ ∃d (prescribes(c,d) ∧ ∃z (occurrentPartOf(d, z) ∧ ProductProductionProcess(z)))))) ∨ ∃a (roleOf(x, a) ∧ ((MaterialEntity(a) ∧ ∃e (isInputOf(a, e) ∧ ∃z (occurrentPartOf(e, z) ∧ ProductProductionProcess(z)))) ∨ (HasCapability(a, f) ∧ Capability(f) ∧ ∃g (hasRealization(f, g) ∧ ∃z (occurrentPartOf(g, z) ∧ ProductProductionProcess(z)))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>1. &apos;Used up&apos; in this context means that either a) the material entity no longer exists at the end of the process or b) the material entity has reduced or lost capability as a result of the process.
+2. In many cases, organizations monitor the number of hours or frequency with which such consumables are used.
+3. Production consumables include resources that are typically not specified in recipes, not included in the bill of materials, and not lot-tracked.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProductionConsumableRole(x) → ConsumableRole(x) ∧ ∀y(hasRealization(x,y) → ∃z(occurrentPartOf(y,z) ∧ ProductProductionProcess(z))) ∧ ∃a(roleOf(x,a) ∧ MaterialEntity(a) ∧ (∃b∃c∃d∃z(prescribedBy(a,b) ∧ InputSpecification(b) ∧ continuantPartOfAtAllTimes(b,c) ∧ PlanSpecification(c) ∧ prescribes(c,d) ∧ occurrentPartOf(d,z) ∧ ProductProductionProcess(z)) ∨ ∃e∃z(isInputOf(a,e) ∧ occurrentPartOf(e,z) ∧ ProductProductionProcess(z)) ∨ ∃f∃g∃z(hasCapability(a,f) ∧ Capability(f) ∧ hasRealization(f,g) ∧ occurrentPartOf(g,z) ∧ ProductProductionProcess(z))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">consumable role held by a material entity when it is planned to be, or is partially or fully consumed in a process that is part of a product production process</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions. Specifically constructs for representing partially consumed are missing</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production consumable role&apos; then x  is a &apos;consumable role&apos; and x &apos;has realization&apos; only in some &apos;occurrent part of&apos; a &apos;product production process&apos; and x is a &apos;role of&apos; either a &apos;material entity&apos; that is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;is input of&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or a &apos;material entity&apos; that &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;occurrent part of&apos; a &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions. Specifically constructs for representing partially consumed are missing.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production consumable role&apos; then x is a &apos;consumable role&apos;, x &apos;has realization&apos; only in some &apos;occurrent part of&apos; a &apos;product production process&apos;, and x is a &apos;role of&apos; some &apos;material entity&apos; that either is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, &apos;is input of&apos; some &apos;occurrent part of&apos; a &apos;product production process&apos;, or &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;occurrent part of&apos; a &apos;product production process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TransferredMaterialRole">
@@ -718,36 +685,14 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">transferred material role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<skos:example>5 g powder portion bearing the role when it is taken from a powder tank and added to a flask; 500 mL feed-medium portion bearing the  role when it is taken from a feed bag and added to a cell culture; cryovial bearing the when it is retrieved from cryostorage;</skos:example>
+		<skos:example>5 g powder portion bearing the role when it is taken from a powder tank and added to a flask; 500 mL feed-medium portion bearing the role when it is taken from a feed bag and added to a cell culture; cryovial bearing the role when it is being retrieved from cryostorage;</skos:example>
 		<iof-av:explanatoryNote>transferred material role identifies the material entity that is physically added or withdrawn as part of a planned process. The role does not require that both a withdrawal source and an addition target are represented. It should be distinguished from cargo role and shipping-related roles. It is intended for manufacturing, laboratory, processing, and material-handling cases, such as feed addition, powder addition, inoculum transfer, gas addition, cell bleed, sample withdrawal, and cryovial retrieval.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>TransferredMaterialRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>TransferredMaterialRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is being, or is planned to be, physically added to or physically withdrawn from a material entity or site</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a  &apos;transferred material role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;transferred material role&apos; then x is a &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
-	<owl:ObjectProperty rdf:about="&iof-construct;isOutsideAssessmentCondition">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-US">is outside assesment condition</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-construct;InformationContentEntity"/>
-		<skos:example>A product purity measurement result of 93 % is outside an acceptance criterion requiring purity of at least 95 %; A residual host cell protein result of 125 ng/mg is outside an acceptance criterion requiring not more than 100 ng/mg; A pH monitoring result of 6.6 is outside a normal operating range of 6.8–7.2; A visual inspection result stating “visible particles present” is outside a criterion requiring no visible particles.</skos:example>
-		<iof-av:explanatoryNote>This relation is used when recorded content has been assessed against specified criteria and does not meet them. The domain is the recorded content being assessed, such as a measurement result, monitoring result, qualitative observation, process trend, or calculated result. The range is the criterion or condition used for the assessment, such as an acceptance criterion, limit, or range. This relation records only the assessment outcome; it does not state the cause, product-quality impact, severity, investigation outcome, or whether the entity that the recorded content is about satisfies a broader requirement.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an information content entity and a second information content entity that specifies criteria, which holds when the content of the first does not meet the criteria specified by the second</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&iof-construct;isWithinAssesmentCondition">
-		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-		<rdfs:label xml:lang="en-US">is within assesment condition</rdfs:label>
-		<rdfs:domain rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-construct;InformationContentEntity"/>
-		<skos:example>A product purity measurement result of 97 % is within an acceptance criterion requiring purity of at least 95 %; A residual host cell protein result of 80 ng/mg is within an acceptance criterion requiring not more than 100 ng/mg; A pH monitoring result of 7.0 is within a normal operating range of 6.8–7.2; A conductivity monitoring result of 11 mS/cm is within an alert range of 10–12 mS/cm; A visual inspection result stating “no visible particles observed” is within a criterion requiring no visible particles.</skos:example>
-		<iof-av:explanatoryNote>This relation is used when recorded content has been assessed against a specified assessment condition and meets it. The domain is the recorded content being assessed, such as a measurement result, monitoring result, qualitative observation, process trend, or calculated result. The range is the condition used for the assessment, such as an acceptance criterion, limit, range, normal operating range, alert range, trend condition, or qualitative criterion. This relation records only the assessment outcome; it does not state the cause, product-quality impact, investigation outcome, or whether the entity that the recorded content is about satisfies a broader requirement</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an information content entity and a second information content entity that specifies an assessment condition, which holds when the content of the first meets the condition specified by the second</iof-av:naturalLanguageDefinition>
-	</owl:ObjectProperty>
 	
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingCapability"/>
