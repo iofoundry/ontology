@@ -354,7 +354,7 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<iof-av:explanatoryNote>A buffering agent role inheres in a material entity that serves as the material basis of buffering capacity in a system. The role connects the substance or combination of substances to the capacity by which the system resists a change in hydrogen-ion concentration when small amounts of acid or base are added. The role may also be assigned to powders or concentrated materials before they are dissolved, reflecting the planned use of those substances to establish buffering capacity once introduced into a solution.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>BufferingAgentRole(x) → Role(x) ∧ ∃m(MaterialEntity(m) ∧ roleOf(x, m) ∧ ((∃s∃b(MixedMaterial(s) ∧ BufferingCapability(b) ∧ hasCapability(s, b) ∧ continuantPartOfAtSomeTime(m, s) ∧ materialBasisOfAtSomeTime(m, b))) ∨ (∃i∃p∃o∃s∃b(InputSpecification(i) ∧ PlanSpecification(p) ∧ continuantPartOfAtAllTimes(i, p) ∧ prescribes(p, o) ∧ PlannedProcess(o) ∧ prescribedBy(m, i) ∧ MixedMaterial(s) ∧ hasSpecifiedOutput(o, s) ∧ BufferingCapability(b) ∧ hasCapability(s, b)))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added or planned to be added to a mixture, typically aqueous, to resist changes in pH upon the introduction of small amounts of acid or base</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is added or planned to be added to a mixture, typically aqueous, to enable or enhance the mixture&apos;s resistance to changes in pH upon the addition of small amounts of acid or base</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;buffering agent role&apos;, then x is a  &apos;role&apos; that is the &apos;role of&apos; some &apos;material entity&apos; that either is a &apos;continuant part of at some time&apos; some &apos;mixed material&apos; and is the &apos;material basis of at some time&apos; some &apos;buffering capability&apos; that is a &apos;capability of&apos; that solution, or is &apos;prescribed by&apos; some &apos;input specification&apos; that is a &apos;continuant part of at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;planned process&apos; that &apos;has specified output&apos; some &apos;mixed material&apos; that &apos;has capability&apos; some &apos;buffering capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -547,27 +547,18 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Cell">
-							</rdf:Description>
-							<rdf:Description rdf:about="&iof-construct;CellPopulation">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
+				<owl:allValuesFrom rdf:resource="&iof-construct;Cell"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell count</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the viable cell count of a cell culture sample; the cell count of a cell suspension before seeding; the cell count of a thawed cell vial;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000184</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>CellCount(x) → Count(x) ∧ ∀p(dependsOnBearerPart(x,p) → (Cell(p) ∨ CellPopulation(p)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellCount(x) → Count(x) ∧ ∀p(dependsOnBearerPart(x,p) → Cell(p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">count that is the number of cells that are present as parts of a material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell count&apos; then x is a &apos;count&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;cell&apos; or &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell count&apos; then x is a &apos;count&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;cell&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCulture">
@@ -856,7 +847,7 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">culture medium that consists of a basal medium supplemented with additional components, such as serum, proteins, growth factors, hormones, or other nutrients, sufficient to support robust cell growth, proliferation, and metabolic activity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a  &apos;complete culture medium&apos; then x is a &apos;culture medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;complete culture medium&apos; then x is a &apos;culture medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Concentration">
@@ -928,7 +919,7 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">protective agent role of a material entity when it is used, or planned to be used, to protect one or more other material entities from damage during cooling, freezing, frozen storage, or thawing</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;cryoprotective agent role&apos; then x is a &apos;protective agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cryoprotective agent role&apos; then x is a &apos;protective agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMedium">
@@ -939,7 +930,7 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<iof-av:adaptedFrom>https://pmc.ncbi.nlm.nih.gov/articles/PMC7417654/pdf/fbioe-08-00911.pdf and https://www.sigmaaldrich.com/US/en/technical-documents/technical-article/microbiological-testing/microbial-culture-media-preparation/types-of-media-in-microbiology?srsltid=AfmBOopAW7ApixpJ8J-96cmEfgfSiT8dX8wszs06BrclD3tYImJkEcYV</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) “Specific metabolic activity” refers to those metabolic processes that are intentionally supported or induced by the medium in a manufacturing or experimental context. This includes the synthesis and secretion of desired biomolecules (e.g., recombinant proteins, metabolites) or the replication and viability of cells when the cells themselves are the intended product. It excludes background or non-targeted metabolic processes such as basal energy maintenance or stress responses not relevant to the production goal.
 2) In the context of biomanufacturing, “specific metabolic activity” typically refers to the set of biochemical processes carried out by microorganisms or cells that result in the synthesis, modification, and/or secretion of desired biological products. This includes processes such as the expression of recombinant proteins (e.g., monoclonal antibodies, enzymes), production of metabolites (e.g., amino acids, organic acids, antibiotics), or replication of the cells themselves when they are the product. These activities require the uptake and transformation of nutrients and are influenced by the composition and physicochemical properties of the culture medium.
-4) Some types of culture media also include selection agents or antibiotics to suppress the growth of unwanted or contaminating organisms.</iof-av:explanatoryNote>
+3) Some types of culture media also include selection agents or antibiotics to suppress the growth of unwanted or contaminating organisms.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CultureMedium(x) → MixedMaterial(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixed material formulated to provide essential nutrients and controlled physicochemical conditions required for growth, maintenance, or specified metabolic activity of microorganisms or cells, either directly or after preparation as an aqueous or gelled material</iof-av:naturalLanguageDefinition>
@@ -1123,20 +1114,14 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
 				<owl:allValuesFrom>
 					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;DeadCellPopulation">
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Cell">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;Cell">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;Dead"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Dead"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
@@ -1145,11 +1130,11 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the dead cell count of a cell suspension determined during viability analysis; the dead cell count of a thawed cell stock assessed after trypan blue staining; the dead cell count of a stressed cell culture sample used in cell death analysis;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000187</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>DeadCellCount(x) → CellCount(x) ∧ ∀p(dependsOnBearerPart(x,p) → (DeadCellPopulation(p) ∨ (Cell(p) ∧ ∃d(Dead(d) ∧ hasQuality(p,d)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DeadCellCount(x) → CellCount(x) ∧ ∀p(dependsOnBearerPart(x,p) → (Cell(p) ∧ ∃d(Dead(d) ∧ hasQuality(p,d))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell count that is the number of dead cells that are present as parts of a material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘dead cell count’ then x is a ‘cell count’, and if x ‘depends on bearer part’ some p, then p is a ‘cell’ that ‘has quality’ some ‘dead’ or p is a &apos;dead cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘dead cell count’ then x is a ‘cell count’, and if x ‘depends on bearer part’ some p, then p is a ‘cell’ that ‘has quality’ some ‘dead’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DeadCellDensity">
@@ -1346,7 +1331,7 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">disposition of a material entity to form an emulsion</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;emulsion propensity&apos; then x is a &apos;disposition&apos; that is the &apos;disposition of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;emulsion propensity&apos; then x is a &apos;disposition&apos; that is the &apos;disposition of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;EnergySubstrateRole">
@@ -1428,7 +1413,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material impurity role held by a material entity in virtue of that material entity being present in a target material as a result of transfer from an artifact that contacts the target material</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;extractable and leachable impurity role&apos; then x is a &apos;material impurity role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;extractable and leachable impurity role&apos; then x is a &apos;material impurity role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Filterability">
@@ -1455,7 +1440,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>the filterability of a clarified harvest feed before sterile filtration; the filterability of a cell culture harvest containing residual cell debris; the filterability of a protein formulation containing aggregates</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/chemistry/filterability and  https://www.cytivalifesciences.com/en/us/insights/how-to-run-a-filterability-test-for-bioprocess-development</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Filterability is realized in filtration and concerns the tendency of a fluid-solid material to continue passing through a filtration medium rather than rapidly forming deposits that reduce permeability or cause plugging.
-2) The bearer can be a fluid material entity containing suspended solids, with slurries and suspensions being common examples.Filterability can vary with the amount and character of suspended solids, properties of the continuous phase, and the filtration medium used. 
+2) The bearer can be a fluid material entity containing suspended solids, with slurries and suspensions being common examples. Filterability can vary with the amount and character of suspended solids, properties of the continuous phase, and the filtration medium used. 
 3) Practical indications of poor filterability include early blockage, marked decline in throughput, rapid pressure increase, or rapid increase in filtration resistance during filtration.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Filterability(x) → Capability(x) ∧ ∃m (MaterialEntity(m) ∧ capabilityOf(x, m) ∧ ∃s (FluidAggregateState(s) ∧ hasQuality(m, s)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -1604,7 +1589,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:subClassOf rdf:resource="&iof-construct;MolecularMass"/>
 		<rdfs:label xml:lang="en-US">intact molecular mass</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<skos:example>the intact MW of a monoclonal antibody of approximately 150 kDa; the intact MW of an antibody-drug conjugate including its conjugated drug-linker species; the intact MW of a glycosylated protein including its glycan forms;</skos:example>
+		<skos:example>the intact molecular mass of a monoclonal antibody of approximately 150 kDa; the intact molecular mass of an antibody-drug conjugate including its conjugated drug-linker species; the intact molecular mass of a glycosylated protein including its glycan forms;</skos:example>
 		<iof-av:abbreviation>intact MW</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>IntactMolecularMass(x) → MolecularMass(x)</iof-av:firstOrderLogicAxiom>
@@ -1651,29 +1636,14 @@ Leachables: material entities that migrate from manufacturing components/systems
 	
 	<owl:Class rdf:about="&iof-construct;LightLevel">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&bfo;BFO_0000029">
-							</rdf:Description>
-							<rdf:Description rdf:about="&bfo;BFO_0000040">
-							</rdf:Description>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">light level</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>a photostability chamber site with high light level; a cleanroom work area with controlled light level; a storage location with low light level; a drug product container exposed to elevated light level; a sample surface receiving a defined light level during visual inspection</skos:example>
-		<iof-av:firstOrderLogicAxiom>LightLevel(x) → Quality(x) ∧ ∃b ((Site(b) ∨ MaterialEntity(b)) ∧ qualityOf(x, b))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LightLevel(x) → Quality(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a site or material entity that is the amount of light present at or within it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality that is the amount of light present at or within the bearer</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;light level&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;site&apos; or some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;light level&apos; then x is a &apos;quality&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ManufacturingProcessRelatedImpurityRole">
@@ -1986,7 +1956,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of two or more material entities to form a single homogeneous phase when combined as a mixture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;miscibility&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; at least two distinct &apos;material entities&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;miscibility&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; at least two distinct &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MixedMaterial">
@@ -2220,9 +2190,9 @@ Leachables: material entities that migrate from manufacturing components/systems
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">non-glycosylated molecular mass</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<skos:example>the non-glycosylated molecular weight of a monoclonal antibody heavy chain after excluding attached N-glycans; the non-glycosylated molecular weight of a glycoprotein therapeutic after enzymatic deglycosylation; the deglycosylated molecular weight of an Fc-fusion protein after removal of covalently attached glycans</skos:example>
+		<skos:example>the non-glycosylated molecular mass of a monoclonal antibody heavy chain after excluding attached N-glycans; the non-glycosylated molecular mass of a glycoprotein therapeutic after enzymatic deglycosylation; the deglycosylated molecular mass of an Fc-fusion protein after removal of covalently attached glycans</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) 1) Non-glycosylated molecular mass characterizes a glycoprotein or population of glycoproteins by the molecular mass attributable to the non-glycan portions of the molecular entities.
+		<iof-av:explanatoryNote>1) Non-glycosylated molecular mass characterizes a glycoprotein or population of glycoproteins by the molecular mass attributable to the non-glycan portions of the molecular entities.
 2) It is commonly determined by removing covalently attached glycans through an enzymatic or chemical deglycosylation process and measuring the molecular masses of the resulting molecular entities.
 3) The deglycosylated molecular entities produced during sample preparation directly bear the molecular masses that are measured. The resulting measurement value is used to determine the non-glycosylated molecular mass.
 4) Non-glycosylated molecular mass should be distinguished from the intact molecular mass of the glycoform population, which includes the mass contributions of covalently attached glycans.</iof-av:explanatoryNote>
@@ -2291,7 +2261,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>glucose serving as a carbon source and energy source in mammalian cell culture medium; ammonium ion serving as a nitrogen source in microbial fermentation medium; glutamine serving as a nitrogen source and energy-relevant nutrient in cell culture medium; yeast extract serving as a nutrient material in microbial culture medium; protein hydrolysate serving as a nutrient material in cell culture medium; chemically defined feed material serving as a nutrient source during fed-batch cultivation</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHEBI_33284</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>This role applies to material entities that are available to an organism or cell from an external material source, such as culture medium, feed material, supplement material, food material, or another surrounding material. It is intended to distinguish externally supplied nutritive material from material synthesized internally by the organism or cell. Materials bearing this role may support catabolic processes by providing energy for cellular activities, support anabolic processes by providing material used in biosynthesis, repair, maintenance, or biomass formation, or do both. More specific nutrient roles include carbon source role, nitrogen source role, and energy source role.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>This role applies to material entities that are available to an organism or cell from an external material source, such as culture medium, feed material, supplement material, food material, or another surrounding material. It is intended to distinguish externally supplied nutritive material from material synthesized internally by the organism or cell. Materials bearing this role may support catabolic processes by providing energy for cellular activities, support anabolic processes by providing material used in biosynthesis, repair, maintenance, or biomass formation, or do both.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NutrientRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity that is made available to an organism or cell to support metabolism, growth, maintenance, or biomass formation by providing energy for cellular activities or to build or maintain cellular material</iof-av:naturalLanguageDefinition>
@@ -2418,12 +2388,23 @@ Leachables: material entities that migrate from manufacturing components/systems
 							<rdf:Description rdf:about="&bfo;BFO_0000040">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000175"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Solution"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;GaseousAggregateState"/>
+								<owl:onProperty>
+									<rdf:Description>
+										<owl:inverseOf rdf:resource="&iof-construct;isMadeOfAtSomeTime"/>
+									</rdf:Description>
+								</owl:onProperty>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;MixedMaterial">
+											</rdf:Description>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+												<owl:someValuesFrom rdf:resource="&iof-construct;GaseousAggregateState"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -2436,7 +2417,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Solution">
+							<rdf:Description rdf:about="&iof-construct;MixedMaterial">
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
@@ -2451,11 +2432,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>oxygen contributing to the total pressure of air in a bioreactor headspace; carbon dioxide contributing to the total pressure of incubator air; water vapor contributing to the total pressure of humidified air; nitrogen contributing to the total pressure of compressed air</skos:example>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/P04819</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>PartialPressure(x) → Pressure(x) ∧ ∃s∃gs (Solution(s) ∧ qualityOf(x, s) ∧ GaseousAggregateState(gs) ∧ hasQuality(s, gs) ∧ ∀p (dependsOnBearerPart(x, p) → (MaterialEntity(p) ∧ properContinuantPartOfAtSomeTime(p, s) ∧ ∃pgs (GaseousAggregateState(pgs) ∧ hasQuality(p, pgs)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PartialPressure(x) → Pressure(x) ∧ ∃m∃g(MixedMaterial(m) ∧ qualityOf(x,m) ∧ GaseousAggregateState(g) ∧ hasQuality(m,g) ∧ ∀p(dependsOnBearerPart(x,p) → (MaterialEntity(p) ∧ isMadeOfAtSomeTime(m,p))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">pressure that is the contribution of a particular gaseous constituent of a gas mixture to the total pressure of that mixture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;partial pressure&apos; then x is a &apos;pressure&apos; that is the &apos;quality of&apos; some &apos;solution&apos; that has some &apos;gaseous aggregate state&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;material entity&apos; that is a &apos;proper continuant part of at some time&apos; that same solution and has some &apos;gaseous aggregate state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;partial pressure&apos; then x is a &apos;pressure&apos; that is the &apos;quality of&apos; some &apos;mixed material&apos; y that &apos;has quality&apos; some &apos;gaseous aggregate state&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;material entity&apos; of which y &apos;is made of at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PharmaceuticalDegradationProductImpurityRole">
@@ -2689,7 +2670,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:label xml:lang="en-US">protective agent role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>Dimethyl sulfoxide (DMSO) added to freezing medium for cell preservation; Poloxamer 188 (Pluronic F-68) is a surface-active nonionic polymer used in cell culture media to reduce shear stress from agitation and sparging</skos:example>
-		<iof-av:explanatoryNote>Covers protection from physical, mechanical, thermal, chemical, or radiative stress. Subclasses are defined by the stressor type, for example cryoprotective agent role and shearprotective agent role. This notion is distinct from clinical “protective agents” used to prevent disease or treat poisoning and should not be mapped to CHEBI:50267.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Covers protection from physical, mechanical, thermal, chemical, or radiative stress. Subclasses are defined by the stressor type, for example cryoprotective agent role and shear protective agent role. This notion is distinct from clinical “protective agents” used to prevent disease or treat poisoning and should not be mapped to CHEBI:50267.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ProtectiveAgentRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role of a material entity when it is used or planned to be used to protect one or more other material entities from stress or damage</iof-av:naturalLanguageDefinition>
@@ -2849,7 +2830,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;PortionOfWater"/>
+				<owl:allValuesFrom rdf:resource="&iof-construct;WaterMolecule"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -2872,11 +2853,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:label xml:lang="en-US">relative humidity</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the relative humidity of incubator air at 37 °C; the relative humidity of cleanroom air during environmental monitoring; the relative humidity of humidified air supplied to a cell culture incubator; the relative humidity of air in a stability chamber; the relative humidity of air in a storage area for moisture-sensitive material</skos:example>
-		<iof-av:firstOrderLogicAxiom>RelativeHumidity(x) → SaturationRatio(x) ∧ ∃m∃g(MixedMaterial(m) ∧ qualityOf(x,m) ∧ GaseousAggregateState(g) ∧ hasQuality(m,g)) ∧ ∀p(dependsOnBearerPart(x,p) → PortionOfWater(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>RelativeHumidity(x) → SaturationRatio(x) ∧ ∃m∃g(MixedMaterial(m) ∧ qualityOf(x,m) ∧ GaseousAggregateState(g) ∧ hasQuality(m,g)) ∧ ∀p(dependsOnBearerPart(x,p) → WaterMolecule(p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">saturation ratio that is the extent to which water vapor is present in the mixture relative to the amount of water vapor required for saturation at the same temperature</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;relative humidity&apos; then x is a &apos;saturation ratio&apos; that is the &apos;quality of&apos; some &apos;mixed material&apos; that has some &apos;gaseous aggregate state&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;portion of water&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;relative humidity&apos; then x is a &apos;saturation ratio&apos; that is the &apos;quality of&apos; some &apos;mixed material&apos; that has some &apos;gaseous aggregate state&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;water molecule&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SaturatedState">
@@ -2994,7 +2975,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">protective agent role of a material entity when it is used, or planned to be used, to protect one or more other material entities from mechanical damage caused by shear stress</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;shear protective agent role&apos; then x is a &apos;protective agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shear protective agent role&apos; then x is a &apos;protective agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolubilityCapability">
@@ -3072,37 +3053,19 @@ Leachables: material entities that migrate from manufacturing components/systems
 	
 	<owl:Class rdf:about="&iof-construct;Solution">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MixedMaterial"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Solute"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Solvent"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">solution</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
-		<skos:example>a sodium chloride solution in which sodium chloride is the solute and water is the solvent; a glucose feed solution in which glucose is the solute and water is the solvent; a phosphate-buffered saline solution in which dissolved salts are solutes and water is the solvent; a protein formulation solution in which the protein and excipients are solutes and water is the solvent; an ethanol-water solution in which ethanol is assigned the solute role and water the solvent role</skos:example>
+		<skos:example>a sodium chloride solution; a glucose feed solution; a phosphate-buffered saline solution; a protein formulation solution; an ethanol-water solution</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/material#AFM_0000012</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>Solution(x) → MixedMaterial(x) ∧ ∃s∃v(Solute(s) ∧ Solvent(v) ∧ isMadeOfAtAllTimes(x,s) ∧ isMadeOfAtAllTimes(x,v))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Solution(x) → MixedMaterial(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixed material composed of one homogeneous phase in which constituent particles are not visible to the naked eye and that does not exhibit visible light scattering characteristic of a colloidal dispersion</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs available to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘solution’, then x is a ‘mixed material’ that ‘is made of at all times’ some ‘solute’ and ‘is made of at all times’ some ‘solvent’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘solution’, then x is a ‘mixed material’</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolutionSaturationConcentration">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Concentration"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;Solute"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;qualityOf"/>
@@ -3114,21 +3077,15 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<skos:example>The saturation concentration of glucose in an aqueous solution at 25 °C; the saturation concentration of sodium chloride in water at 20 °C; the saturation concentration of dissolved oxygen in culture medium at 37 °C and 40% oxygen in the inlet gas; the saturation concentration of carbon dioxide in buffer at pH 7.2 under 5% CO₂ gas-phase composition; the saturation concentration of a poorly soluble drug substance in a formulation vehicle containing polysorbate at 25 °C; the saturation concentration of calcium phosphate in a cell culture medium at pH 7.0 and 37 °C; the saturation concentration of oxygen in a bioreactor culture medium at 37 °C under air sparging</skos:example>
 		<iof-av:adaptedFrom>https://chem.libretexts.org/Courses/Heartland_Community_College/HCC%3A_Chem_161/12%3A_Solutions/12.3%3A_Solubility_Limit_and_Saturation</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Stated conditions refers to the environmental and compositional conditions under which a solubility limit is given. Examples include temperature; pressure, especially for gases; solvent identity and solvent composition; the identity and composition of any coexisting phase that constrains equilibrium, such as gas-phase partial pressures or the identity or polymorph of a solid phase; and solution-chemistry factors such as pH, ionic strength, and the presence and concentrations of other solutes or additives, including salts, cosolvents, complexing agents, or surfactants. Reported saturation concentration values are conditional on the stated condition set and may not be comparable across differing condition sets</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>SolutionSaturationConcentration(x) → Concentration(x) ∧ ∃s (Solution(s) ∧ qualityOf(x, s)) ∧ ∀p (dependsOnBearerPart(x, p) → Solute(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>SolutionSaturationConcentration(x) → Concentration(x) ∧ ∃s(Solution(s) ∧ qualityOf(x,s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">concentration of a solution that is the concentration of a dissolved solute at the solubility limit of that solute in the solution under stated conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution saturation concentration&apos; then x is a &apos;concentration&apos; that is the &apos;quality of&apos; some &apos;solution&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;solute&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution saturation concentration&apos; then x is a &apos;concentration&apos; that is the &apos;quality of&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolutionSaturationRatio">
 		<rdfs:subClassOf rdf:resource="&iof-construct;SaturationRatio"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
-				<owl:allValuesFrom rdf:resource="&iof-construct;Solute"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
@@ -3145,11 +3102,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the solution saturation ratio of dissolved oxygen in cell culture medium at 37 °C during bioreactor operation; the solution saturation ratio of carbon dioxide in a bicarbonate-buffered medium under 5% CO₂; the solution saturation ratio of calcium phosphate in a cell culture medium at pH 7.0 and 37 °C;</skos:example>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/S05476</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>SolutionSaturationRatio(x) → SaturationRatio(x) ∧ ∃s∃c (Solution(s) ∧ qualityOf(x, s) ∧ SolutionSaturationConcentration(c) ∧ qualityOf(c, s) ∧ specificallyDependsOn(x, c)) ∧ ∀p (dependsOnBearerPart(x, p) → Solute(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>SolutionSaturationRatio(x) → SaturationRatio(x) ∧ ∃s∃c(Solution(s) ∧ qualityOf(x,s) ∧ SolutionSaturationConcentration(c) ∧ qualityOf(c,s) ∧ specificallyDependsOn(x,c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">saturation ratio of a solution that is determined by the concentration of a solute in that solution relative to the saturation concentration of that solute in the solution under the same conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution saturation ratio&apos; then x is a &apos;saturation ratio&apos; that is the &apos;quality of&apos; some &apos;solution&apos; and &apos;specifically depends on&apos; some &apos;solution saturation concentration&apos; that is the &apos;quality of&apos; that same &apos;solution&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;solute&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution saturation ratio&apos; then x is a &apos;saturation ratio&apos; that is the &apos;quality of&apos; some &apos;solution&apos; and &apos;specifically depends on&apos; some &apos;solution saturation concentration&apos; that is the &apos;quality of&apos; that same &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SolutionSaturationState">
@@ -3466,7 +3423,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state of a solution in which the dissolved solute concentration stays below the solute&apos;s equilibrium saturation concentration in that solution under prevailing conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;unsaturated state&apos; then x is a  &apos;solution saturation state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;unsaturated state&apos; then x is a &apos;solution saturation state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ViabilityStatus">
@@ -3509,20 +3466,14 @@ Leachables: material entities that migrate from manufacturing components/systems
 				<owl:onProperty rdf:resource="&iof-construct;DependsOnBearerPart"/>
 				<owl:allValuesFrom>
 					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;ViableCellPopulation">
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;Cell">
 							</rdf:Description>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;Cell">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;Viable"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;Viable"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
@@ -3531,11 +3482,11 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the viable cell count of a thawed cell suspension after viability staining; the viable cell count of a seed culture before passaging;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000185</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>ViableCellCount(x) → CellCount(x) ∧ ∀p(dependsOnBearerPart(x,p) → (ViableCellPopulation(p) ∨ (Cell(p) ∧ ∃v(Viable(v) ∧ hasQuality(p,v)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ViableCellCount(x) → CellCount(x) ∧ ∀p(dependsOnBearerPart(x,p) → (Cell(p) ∧ ∃v(Viable(v) ∧ hasQuality(p,v))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell count that is the number of viable cells that are present as parts of a material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;viable cell count&apos; then x is a &apos;cell count&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;cell&apos; that &apos;has quality&apos; some &apos;viable&apos; or p is a &apos;viable cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;viable cell count&apos; then x is a &apos;cell count&apos;, and if x &apos;depends on bearer part&apos; some p, then p is a &apos;cell&apos; that &apos;has quality&apos; some &apos;viable&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ViableCellDensity">
