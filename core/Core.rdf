@@ -700,7 +700,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:Class rdf:about="&iof-constr;ComplexMaterialState">
 		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialState"/>
 		<rdfs:label>complex material state</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -817,7 +816,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:Class rdf:about="&iof-constr;Consumable">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-US">consumable</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -901,7 +900,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">consumable role</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<skos:example>Deionized water in the role of a consumable in PVC polymerization as a suspension medium; Sterile filter in the role of a consumable in media sterilization; Coolant/antifreeze in the role of a consumable in cooling system maintenance as a heat-transfer fluid; Cleaning solvent in the role of a consumable in equipment cleaning as a cleaning agent; Packing tape in the role of a consumable in case sealing as a sealing material; Dry ice in the role of a consumable in cold-chain shipping as a refrigerant medium</skos:example>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Consumables</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>&apos;Used up&apos; (consumed) in this context means  that either a) the material entity no longer exist at the end of the process or b) the material entity has reduced or lost capability as a result of the process.</iof-av:explanatoryNote>
@@ -910,6 +909,29 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is planned to be, or is partially or fully used up in a planned process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define necessary and sufficient conditions. Specifically constructs that fully model capability loss or degradation are missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;consumable role&apos; then x is a &apos;role&apos; that  &apos;has realization&apos; only &apos;planned process&apos; and x is a &apos;role of&apos; either a &apos;material entity&apos; that is &apos;prescribed by&apos; some &apos;input specification&apos;, or a &apos;material entity&apos; that &apos;is input of&apos; some &apos;planned process&apos;, or a &apos;material entity&apos; that &apos;has capability&apos; some &apos;capability&apos; that &apos;has realization&apos; in some &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;Container">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialArtifact"/>
+		<rdfs:label xml:lang="en-US">container</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;MaterialArtifact">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasFunction"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialContainmentFunction"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>ISO 20-foot freight container; ISO 40-foot freight container; high-cube container; refrigerated container (reefer); open-top container; flat-rack container; tank container; dry-cargo container; bulk container; pallet-wide container; double-door container; ventilated container; insulated container; reusable transport tote; intermediate bulk container; grain silo; warehouse bin; stainless-steel process tank; single-use bioprocess bag; bioreactor vessel; cell-culture flask; media bottle; cryogenic vial; beaker</skos:example>
+		<iof-av:firstOrderLogicDefinition>Container(x) ↔ MaterialArtifact(x) ∧ ∃f(MaterialContainmentFunction(f) ∧ hasFunction(x,f))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact designed to hold one or more material entities within a bounded interior, cavity, surface-delimited area, or contained site</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;container&apos; is exactly an instance of &apos;material artifact&apos; that &apos;has function&apos; some &apos;material containment function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Customer">
@@ -972,7 +994,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:Class rdf:about="&iof-constr;Denoter">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">denoter</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -1136,6 +1158,36 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that is the implementation of an algorithm encoded in a specific programming language or framework and that is readily executable</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>In addition to the general discussion provided for information content enty,there are insufficient constructs to create necessary and sufficient conditions. Namely constructs for &apos;encoded in&apos;, &apos;implementation of&apos; and &apos;programming language&apos; or &apos;framework&apos; as well as &apos;compiling process&apos; are still missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;computing process&apos; then x is an instance of &apos;encoded algorithm&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;EndStateRequirementSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessBoundaryStateRequirementSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;requirementSatisfiedBy"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000015">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-constr;Event">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasPostMaterialState"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>end state requirement specification</rdfs:label>
+		<skos:example>blended material with blend uniformity RSD ≤ 3% after blending ends, heated liquid with bulk temperature between 80 °C and 85 °C after heating ends, drilled part with bore diameter 10.000 mm ± 0.010 mm and burr height ≤ 0.05 mm after drilling ends, assembled unit with four M6 fasteners torqued to 12 N·m ± 1 N·m after assembly ends, cleaned tank with no visible residue and rinse conductivity ≤ 1.3 µS/cm after cleaning ends, packaged case with 24 units, verified label, and case weight between 4.8 kg and 5.2 kg after packaging ends, machine in safe-stopped state with spindle speed 0 rpm, axis motion disabled, and pneumatic pressure below 0.5 bar after shutdown ends, process material in quarantined state after an early termination event, batch in aborted state with active feeds stopped, agitation stopped, and batch status recorded as aborted after an abort sequence ends</skos:example>
+		<iof-av:naturalLanguageDefinition>process boundary state requirement specification that prescribes a state that a process or event is required to have as its post state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;EngineeredSystem">
@@ -1509,6 +1561,36 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:synonym xml:lang="en-US">Information</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;InitialStateRequirementSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ProcessBoundaryStateRequirementSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;requirementSatisfiedBy"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000015">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-constr;Event">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasPreMaterialState"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>initial state requirement specification</rdfs:label>
+		<skos:example>vessel containing 950 L to 1050 L of liquid at 20 °C to 25 °C before transfer starts, pump with inlet valve open, outlet valve open, and suction pressure between 1.5 bar and 3.0 bar before pumping starts, workpiece clamped with datum A seated and X-Y position within ±0.05 mm before machining starts, packaging line with zero prior-product units detected and correct label roll installed before packaging starts, milling tool T12 installed with spindle runout ≤ 5 µm and tool life remaining at least 30 minutes before milling starts, culture in contamination-detected state before deviation investigation starts, machine in alarm-active state before emergency shutdown starts</skos:example>
+		<iof-av:naturalLanguageDefinition>process boundary state requirement specification that prescribes a state that a process or event is required to have as its pre state</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;InputSpecification">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:subClassOf>
@@ -1554,7 +1636,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">input specification</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<skos:example>A specification indicating that the cell culture media used in the expansion procedure must contain glutamine at ≥ 2 mM and be supplemented with a validated serum lot; A formulation recipe operation with an input specification stating that the stabilizing excipient must be Trehalose Dihydrate, USP grade, and present in sufficient quantity to reach 50 mM final concentration; A specification for a cell imaging protocol requiring input slides to contain at least 90% confluency before proceeding with high-content imaging; A maintenance work instruction with an input specification requiring the replacement filter cartridge used in the filter replacement operation to be the specified model and micron rating; A specification for a batch calculation step requiring the input sensor readings to be time-stamped and include units for each measured quantity; A specification stating that a freight shipment must be palletized on standard pallets and secured for transport before loading.</skos:example>
 		<iof-av:counterExample>Machine must be powered on before starting the procedure; The system must be depressurized and isolated before maintenance begins; The workspace must be cleaned and cleared of tools before starting the task; The room temperature must be between 18 °C and 22 °C before initiating the process</iof-av:counterExample>
 		<iof-av:firstOrderLogicAxiom>InputSpecification(x) → InformationContentEntity(x) ∧ ∀y(prescribes(x,y) → ((Continuant(y) ∧ ∃p(isInputOf(y,p) ∧ PlannedProcess(p))) ∨ (SpecificallyDependentContinuant(y) ∧ ∃z(specificallyDependsOn(y,z) ∧ Continuant(z) ∧∃p (isInputOf(z,p) ∧ PlannedProcess(p))))))</iof-av:firstOrderLogicAxiom>
@@ -1913,6 +1995,50 @@ This is addressed by output in the axiom. Setup =&gt; does not have output. Tear
 		<iof-av:semiFormalNaturalLanguageAxiom>If x is a &apos;material component role&apos; then x is a &apos;role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;MaterialContainmentCapability">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Capability"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material containment capability</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<skos:example>the material containment capability of a sealed bottle to hold a liquid buffer; the material containment capability of a single-use bioprocess bag to hold material undergoing cell cultivation; the material containment capability of a stainless-steel tank to hold process intermediate material; the material containment capability of an ISO freight container to hold packaged goods during transportation; the material containment capability of a tank container to hold bulk liquid cargo; the material containment capability of a concave rock to hold rainwater</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0000370</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) This capability applies to material entites that hold material contents by means of their physical structure.
+2) This capability does not by itself imply environmental control, mixing, sterility, pressure resistance, or suitability for a specific process. Those should be represented by more specific capabilities where needed.
+3) The capability does not require that the bearer was designed for containment. For example, a naturally occurring or accidentally shaped object may have a containment capability if its structure allows it to hold material contents.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MaterialContainmentCapability(x) → Capability(x) ∧ ∃z(MaterialEntity(z) ∧ capabilityOf(x,z))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of a material entity that is grounded in the entity’s physical structure and that can be realized in a process in which the entity holds one or more material entities within a bounded interior, cavity, surface-delimited area, or contained site</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient construct to create a set of necessary and sufficient conditions. Detailed constructs will be developed as part of the Supply Chain WG effort.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material containment capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialContainmentFunction">
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialContainmentCapability"/>
+		<rdfs:label xml:lang="en-US">material containment function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;MaterialContainmentCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>the material containment function of a stainless-steel process tank to contain process material during manufacturing; the material containment function of a media bottle to contain prepared culture medium; the material containment function of a cryogenic vial to contain a cell-bank aliquot; the material containment function of an ISO freight container to contain packaged goods during transportation; the material containment function of a tank container to contain bulk liquid cargo; the material containment function of an intermediate bulk container to contain liquid or granular material during storage and transport; the material containment function of a grain silo to contain harvested grain during storage; the material containment function of a warehouse bin to contain inventory items during storage and handling</skos:example>
+		<iof-av:firstOrderLogicDefinition>MaterialContainmentFunction(x) ↔ MaterialContainmentCapability(x) ∧ ∃m(MaterialEntity(m) ∧ functionOf(x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material containment capability that is a function of a material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material containment function&apos; is exactly an instance of &apos;material containment capability&apos; that is the &apos;function of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;MaterialLocationChangeProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -2182,6 +2308,26 @@ Services as products as well as software products will be considered in the next
 	<owl:Class rdf:about="&iof-constr;MaterialState">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
 		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:complementOf>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasPostMaterialState"/>
+						<owl:hasSelf rdf:datatype="&xsd;boolean">true</owl:hasSelf>
+					</owl:Restriction>
+				</owl:complementOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:complementOf>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasPreMaterialState"/>
+						<owl:hasSelf rdf:datatype="&xsd;boolean">true</owl:hasSelf>
+					</owl:Restriction>
+				</owl:complementOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
 				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
@@ -2201,13 +2347,93 @@ Services as products as well as software products will be considered in the next
 
 2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
 
-3. The term as introduced here is not intended to be used for modeling what we might call the &quot;state of a process&quot; (e.g., equilibrium state for chemical, physical and biological processes or steady-state or discrete or continuous production processes), nor for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition). Extensions to the BFO framework as well as further work on &apos;process characteristic&apos; may be first needed to handle these use cases and such specialized state classes will be introduced in a future release.</iof-av:explanatoryNote>
+3. The term as introduced here is not intended to be used for for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialState(x) → Process(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize range,limits and constant values over a period of time are still lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material state&apos; then x is a &apos;process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">stasis</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialStateConditionSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialStateConditionSpecification"/>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
+							</rdf:Description>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000029">
+											</rdf:Description>
+											<rdf:Description rdf:about="&bfo;BFO_0000040">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000124"/>
+										<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material state condition specification</rdfs:label>
+		<iof-av:explanatoryNote>&apos;Unchanged&apos; is not limited to exact numerical sameness. A state condition specification has as parts the criteria that determine whether the prescribed location, process profile, process characteristic, or specifically dependent continuant remains unchanged during the material state. These criteria may require the prescribed item to remain the same, remain at a specified value, or remain within a prescribed value expression such as a tolerance, target range, control range, limit, or other bounded value region. For location-based cases, the criteria may specify the site or material entity relative to which the material entity remains located.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>information content entity that prescribes a location, process profile, process characteristic, or specifically dependent continuant that is to remain unchanged during a particular material state</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;MaterialStateSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateConditionSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>material state specification</rdfs:label>
+		<iof-av:naturalLanguageDefinition>information content entity that describes or prescribes a material state</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialStateTrajectoryProcessProfile">
@@ -2225,7 +2451,6 @@ Services as products as well as software products will be considered in the next
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>material state trajectory process profile</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<iof-av:naturalLanguageDefinition>process profile consisting of an ordered sequence of material states and state transition processes of a material entity that participates in the process which has the process profile</iof-av:naturalLanguageDefinition>
 	</owl:Class>
 	
@@ -2250,7 +2475,6 @@ Services as products as well as software products will be considered in the next
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>material state transition process</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<iof-av:explanatoryNote>1) A state transition process captures a process that moves a material entity from one recognized condition to another. The focus is not on every property of the entity changing, but on a specific state-relevant condition being different before and after the process.The initial and resulting states must both be states of the same participating material entity and must be associated with the same particular condition. 
 2) The process may also have additional pre-material or post-material states, including complex material states in which the transition-relevant states hold in. These additional states provide broader context, while the transition-relevant initial and resulting states identify the transition.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>process that results in a material state of a participating material entity that is different from an initial material state associated with the same particular condition of that same entity</iof-av:naturalLanguageDefinition>
@@ -2452,7 +2676,7 @@ Services as products as well as software products will be considered in the next
 5. The material entity measuring the attribute must be capable of measuring that attribute. This is axiomatically captured by mandating that the material entity that is measuring the attribute must have a measurement capability.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: MeasurementProcess(x) ↔ PlannedProcess(x) ∧ ∃m∃y∃z∃c(MaterialEntity(m) ∧ MeasurementCapability(c) ∧ hasCapability(m,c) ∧ (((IndependentContinuant(y) ∧ ¬SpatialRegion(y)) ∧ SpecificallyDependentContinuant(z) ∧ bearerOf(y,z) ∧ participatesInAtSomeTime(y,x)) ∨ ((Process(y) ∨ ProcessBoundary(y)) ∧ TemporalRegion(z) ∧ occupiesTemporalRegion(y,z) ∧ ∃t(temporalRegion(t) ∧ occupiesTemporalRegion(x,t) ∧ (occurrentPartOf(t,z) ∨ hasOccurrentPart(t,z))) ∨ (ProcessCharacteristic(z) ∧ processCharacteristicOf(z,y)) ∨ (ProcessProfile(z) ∧ processProfileOf(z,y) ∧ (preceedes(y,x) ∨ ∃t1∃t2(temporalRegion(t1) ∧ temporalRegion(t2) ∧ occupiesTemporalRegion(x,t1) ∧ occupiesTemporalRegion(y,t2) ∧ (occurrentPartOf(t1,t2) ∨ hasOccurrentPart(t1,t2))))))) ∧ measuresAtSomeTime(m,z)) ∧ ∀b(hasSpecifiedOutput(x,b) → MeasurementInformationContentEntity(b))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process to determine the value of an attribute (specifically dependent continuant or temporal region or process characteristic) of an entity of interest</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process to determine the value of an attribute (specifically dependent continuant or temporal region or process characteristic or process profile) of an entity of interest</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. Namely, n-ary constructs that are able to adequately capture the relation between the process, attribute and the entity of interest are still lacking. Also formalization of being an entity of interest is lacking.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;measurement process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; y that &apos;has capability&apos; some &apos;measurement capability&apos; and y &apos;measures at some time&apos; either 
 (1) a &apos;process characteristic&apos; that is &apos;process characteristic of&apos; a &apos;process&apos; that &apos;precedes&apos; or temporally overlaps with x, or 
@@ -2636,7 +2860,7 @@ and whenever x &apos;has specified output&apos; b, b must be a &apos;measurement
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">output objective specification</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<skos:example>A specification stating that the chromatography step must yield purified monoclonal antibody at a purity &gt; 98% and recovery &gt; 85%; An analytical procedure specification requiring a quantified measurement of total protein concentration with CV &lt; 5% across replicates; A fill-finish procedure output specification requiring that each vial is filled with 1.0 mL ± 0.05 mL of formulated drug product and passes visual inspection; A machining operation output objective specification stating that the finished shaft must have diameter 25.00 mm ± 0.01 mm and surface roughness Ra ≤ 0.8 µm; A parcel fulfillment output objective specification requiring that each sealed carton has total mass 10.0 kg ± 0.1 kg and contains the correct item count per packing list; A data processing step output objective specification requiring that the generated report contains the specified summary fields and that all numeric values are rounded to the required precision.</skos:example>
 		<iof-av:counterExample>A specification about waste collected after cleaning, e.g., “The waste stream from CIP must be neutralized before disposal.”; A specification limiting the number of rejected vials during inspection (this constrains process acceptability, not what is intended to be produced); A specification stating that the equipment must be cleaned and verified as clean before the procedure is considered complete (a completion criterion/post-condition, not an output objective for a product); A specification requiring that the process log and electronic batch record are reviewed and approved after execution (a documentation/release post-condition, not an output objective for the produced entity).</iof-av:counterExample>
 		<iof-av:explanatoryNote>As a subclass of objective specification, the output specification defines the intended results of a planned process. As such it should exclude waste and unintended products (e.g., byproducts or impurities generated during synthesis) that are not part of the process objective.</iof-av:explanatoryNote>
@@ -2777,10 +3001,54 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;planned process&apos; is defined as exactly an instance of &apos;process&apos; that is &apos;prescribed by&apos; some &apos;plan specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;ProcessBoundaryStateRequirementSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;RequirementSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;requirementSatisfiedBy"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000015">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-constr;Event">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasPostMaterialState"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasPreMaterialState"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+									</owl:Restriction>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>process boundary state requirement specification</rdfs:label>
+		<skos:example>reactor charged with 100.0 kg ± 0.5 kg of material before blending starts, workpiece clamped with datum A seated and clamp force at least 8 kN before machining starts, blend with sample concentration RSD ≤ 3% after blending ends, drilled part with bore diameter 10.000 mm ± 0.010 mm after drilling ends, machine in safe-stopped state with spindle speed 0 rpm and pneumatic pressure below 0.5 bar after shutdown ends, batch in aborted state with feed addition stopped and operator notification recorded after an early termination event</skos:example>
+		<iof-av:naturalLanguageDefinition>information content entity that prescribes a state that is required to be a pre state or post state of a process or event</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;ProcessCharacteristic">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000002"/>
 		<rdfs:label xml:lang="en-US">process characteristic</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -3487,7 +3755,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;classifiedBy"/>
 		<rdfs:label xml:lang="en-US">categorized by</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
 		<owl:inverseOf rdf:resource="&iof-constr;categorizes"/>
 		<iof-av:explanatoryNote>see the explanation under categorizes</iof-av:explanatoryNote>
@@ -3500,7 +3768,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;classifies"/>
 		<rdfs:label xml:lang="en-US">categorizes</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
 		<owl:propertyChainAxiom rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;categorizes">
@@ -3532,7 +3800,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -3543,14 +3810,15 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
-		<iof-av:naturalLanguageDefinition>relation between a process or event and another process or event that holds when a material-state condition resulting from the first process or event is required for the initiation of the second process or event</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote>This relation represents state-mediated transition causation. It applies when a material state reached through one process or event is also a pre material state of another process or event, and that shared material state is part of how the second process or event is initiated. The shared material state is not merely a state that temporally precedes, meets, starts, or overlaps the second process or event. It is the material state through which the transition represented by the first process or event is linked to the initiation of the second.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between a process or event and another process or event that holds when the first has a post material state that is also a pre material state in virtue of which the second is initiated</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;classifiedBy">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
 		<rdfs:label xml:lang="en-US">classified by</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000001"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;InformationContentEntity"/>
 		<owl:inverseOf rdf:resource="&iof-constr;classifies"/>
 		<iof-av:explanatoryNote>See the explanatory note and detailed FOL formalization under classifies</iof-av:explanatoryNote>
@@ -3563,7 +3831,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotes"/>
 		<rdfs:label xml:lang="en-US">classifies</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000001"/>
 		<owl:propertyChainAxiom rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;generalizes">
@@ -3685,6 +3953,27 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;contains occurrence of&apos; and &apos;occurs during&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;controls">
+		<rdfs:subPropertyOf rdf:resource="&iof-constr;modulates"/>
+		<rdfs:label>controls</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000144">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;processProfileOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;PlannedProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<skos:example>jacket-temperature profile controls a reactor heating process, valve-position profile controls a tank filling process, pump-speed profile controls a liquid transfer process, conveyor-speed profile controls a packaging process, robot-arm-position profile controls a part placement process</skos:example>
+		<iof-av:explanatoryNote>The controls relation specializes modulates for planned control. The relation applies to the process profile that carries the control-relevant behavior, rather than to the entire planned process, because the broader planned process may include other state changes such as logging, calculation, operator review, or alarm handling. The relation does not imply successful control. It only indicates that the specified process profile causally influences the target process.</iof-av:explanatoryNote>
+		<iof-av:naturalLanguageDefinition>relation between a process profile and a process that holds when the process profile modulates the process and concretizes one or more action specifications as part of a planned process</iof-av:naturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;denotedBy">
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;isSubjectOf"/>
 		<rdfs:label xml:lang="en-US">denoted by</rdfs:label>
@@ -3790,7 +4079,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotes"/>
 		<rdfs:label xml:lang="en-US">generalizes</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
 		<owl:inverseOf rdf:resource="&iof-constr;specializes"/>
 		<skos:example>UNSPSC classifier code 26101500 for engines genralizes commodity classifier code 26101507 for turboshaft engines.</skos:example>
@@ -3941,11 +4230,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasMaterialState">
-		<rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000056"/>
 		<rdfs:label>has material state</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000040"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<owl:inverseOf rdf:resource="&iof-constr;isMaterialStateOf"/>
 		<iof-av:naturalLanguageDefinition>relation between  a material entity and a material state in which the material entity participates throughout the material states duration</iof-av:naturalLanguageDefinition>
@@ -3988,7 +4275,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<iof-av:explanatoryNote>A post-material state is a material state at the end of a process or event. It may begin when the process or event ends, begin during the final part of the process or event and continue after it, or begin during the process or event and end together with it.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the process or event meets or overlaps the material state, or when the material state finishes the process or event</iof-av:naturalLanguageDefinition>
@@ -4007,7 +4293,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<iof-av:explanatoryNote>The pre-material state is a material state at the beginning of a process or event. It may end when the process or event begins, begin together with it, or begin before it and continue into its initial part.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the material state meets, overlaps, or starts the process or event</iof-av:naturalLanguageDefinition>
@@ -4029,9 +4314,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessProfile">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000118"/>
 		<rdfs:label xml:lang="en-US">has process profile</rdfs:label>
-		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:domain rdf:resource="&bfo;BFO_0000015"/>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&bfo;BFO_0000144"/>
 		<owl:inverseOf rdf:resource="&iof-constr;processProfileOf"/>
 		<skos:example>The pH profile is a process profile of the cell culture growth process, the spindle speed profile is a process profile of the milling process, the flow rate profile is a process profile of the pipeline transport process.</skos:example>
 		<iof-av:firstOrderLogicDefinition>hasProcessProfile(p, x) → processProfileOf(x, p)</iof-av:firstOrderLogicDefinition>
@@ -4043,7 +4328,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000117"/>
 		<rdfs:label>has processual material state</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000015"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<iof-av:explanatoryNote>It relates a process to a material state of a material entity participating in that process. The material state is processual because the condition that remains unchanged during the state is not a static quality or location, but a process profile or process characteristic of the process, such as a steady regime, equilibrium phase, oscillatory behavior, monotonic change, speed profile, or temperature-change profile.</iof-av:explanatoryNote>
 		<iof-av:naturalLanguageDefinition>relation between a process and a material state that holds when the material state is a state of a material entity participating in that process throughout the material state’s duration, and the condition that remains unchanged during the material state is a process profile or process characteristic of that process</iof-av:naturalLanguageDefinition>
@@ -4232,11 +4516,9 @@ category within a classification scheme of an entity that the value expression i
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMaterialStateOf">
-		<rdf:type rdf:resource="&owl;FunctionalProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000167"/>
 		<rdfs:label>is material state of</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
 		<iof-av:naturalLanguageDefinition>relation between a material state and a material entity that participates in that state throughout its duration</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
@@ -4342,10 +4624,9 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>material state holds in</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<iof-av:explanatoryNote>This does not require the two states to have the same temporal extent. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
-		<iof-av:naturalLanguageDefinition>relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state occurs throughout the duration of the second material state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition>relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state at least occurs for the duration of the second material state</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;measuredByAtSomeTime">
@@ -4435,6 +4716,24 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:firstOrderLogicAxiom>metBy(x,y) ↔ meets(y,x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation that holds between two intervals or processes i and j when the last instant of the temporal extent of j is the same as the first instant of the temporal extent of i</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>&apos;met by&apos; and &apos;meets&apos; are inverse relations</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;modulates">
+		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+		<rdfs:label>modulates</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000015">
+					</rdf:Description>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Class>
+				</owl:intersectionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<iof-av:naturalLanguageDefinition>relation between a process and another process that holds when the first overlaps the second in time and every state-changing temporal part of the first causes some temporal part of the second</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;observedByAtSomeTime">
@@ -4587,7 +4886,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000138"/>
 		<rdfs:label xml:lang="en-US">process profile of</rdfs:label>
 		<rdfs:domain rdf:resource="&bfo;BFO_0000144"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
 		<skos:example>pH profile is a process profile of culture growth, agitation speed profile is a process profile of a mixing process, tool vibration profile is a process profile of a engine running</skos:example>
 		<iof-av:adaptedFrom>axiom label in BFO2 Reference (094-005) in http://purl.obolibrary.org/obo/BFO_0000144 from BFO 2.0</iof-av:adaptedFrom>
@@ -4669,7 +4968,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
 		<rdfs:label xml:lang="en-US">specializes</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;Classifier"/>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Classifier"/>
 		<iof-av:explanatoryNote>See the expanded formalization and explanation under generalizes</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>specializes(c1, c2) ↔ generalizes(c2, c1)</iof-av:firstOrderLogicDefinition>
@@ -4866,6 +5165,13 @@ category within a classification scheme of an entity that the value expression i
 	</owl:AllDisjointClasses>
 	<owl:Axiom>
 		<owl:annotatedProperty rdf:resource="&iof-av;wasDefinedBy"/>
+		<owl:annotatedSource rdf:resource="&iof-constr;Container"/>
+		<owl:annotatedTarget></owl:annotatedTarget>
+		<iof-av:wasMovedFrom>https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</iof-av:wasMovedFrom>
+		<iof-av:wasMovedOn>2026-07-17T12:41:00</iof-av:wasMovedOn>
+	</owl:Axiom>
+	<owl:Axiom>
+		<owl:annotatedProperty rdf:resource="&iof-av;wasDefinedBy"/>
 		<owl:annotatedSource rdf:resource="&iof-constr;InputSpecification"/>
 		<owl:annotatedTarget></owl:annotatedTarget>
 		<iof-av:wasMovedFrom>https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</iof-av:wasMovedFrom>
@@ -5011,6 +5317,19 @@ category within a classification scheme of an entity that the value expression i
 				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
+		<owl:unionOf rdf:parseType="Collection">
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</owl:unionOf>
 	</owl:Class>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;ObjectiveSpecification"/>
