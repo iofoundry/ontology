@@ -70,6 +70,28 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;adherent cell culture holding capability&apos; then x is a &apos;cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;AdherentCellCultureHoldingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;AdherentCellCultureHoldingCapability"/>
+		<rdfs:label xml:lang="en-US">adherent cell culture holding function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;AdherentCellCultureHoldingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the adherent cell culture holding function of a T-flask to contain cells attached to its culture surface; the adherent cell culture holding function of a multilayer cell-culture vessel to contain adherent cells and culture medium during scale-up; the adherent cell culture holding function of a fixed-bed bioreactor vessel to contain cells attached to its internal culture-support structure</skos:example>
+		<iof-av:firstOrderLogicDefinition>AdherentCellCultureHoldingFunction(x) ↔ AdherentCellCultureHoldingCapability(x) ∧ ∃m(MaterialEntity(m) ∧ functionOf(x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">adherent cell culture holding capability that is a function of a material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;adherent cell culture holding function&apos; is exactly an instance of &apos;adherent cell culture holding capability&apos; that is the &apos;function of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;AerationCapability">
 		<rdfs:subClassOf rdf:resource="&iof-construct;GasTransferCapability"/>
 		<rdfs:label xml:lang="en-US">aeration capability</rdfs:label>
@@ -194,7 +216,7 @@
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;CultivationEnvironmentFunction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -202,9 +224,9 @@
 		<skos:example>Stainless steel production bioreactor with integrated agitation and feed control; 2000 L single-use production bioreactor for monoclonal antibody manufacturing; Stirred-tank seed bioreactor with automated pH and DO control; single-use seed bioreactor for mammalian cell expansion; small-scale glass seed bioreactor with temperature regulation; perfusion seed bioreactor with cell retention system</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/earth-and-planetary-sciences/bioreactor and https://www.sciencedirect.com/topics/immunology-and-microbiology/bioreactor and https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/bioreactor</iof-av:adaptedFrom>
 		<iof-av:counterExample>Empty stainless steel vessel without integrated agitation, control skid, or single-use bag system; refrigerated storage unit maintaining cell viability; Incubator designed to maintain temperature and CO₂ for cell culture without agitation, feeding, or waste removal functions; static cell culture flask lacking active environmental controls</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ∃b(BioreactorVessel(b) ∧ hasMemberPartAtSomeTime(x,b)) ∧ ∃f(CultivationEnvironmentCapability(f) ∧ hasFunction(x,f))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>Bioreactor(x) ↔ EngineeredSystem(x) ∧ ∃b(BioreactorVessel(b) ∧ hasMemberPartAtSomeTime(x,b)) ∧ ∃f(CultivationEnvironmentFunction(f) ∧ hasFunction(x,f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to provide a controlled environment for the cultivation of cells, tissues, or microorganisms, or for the production of material products or process intermediate materials by those biological entities</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;bioreactor vessel&apos; and &apos;has function&apos; some &apos;cultivation environment capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;bioreactor&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;bioreactor vessel&apos; and &apos;has function&apos; some &apos;cultivation environment function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BioreactorVessel">
@@ -212,7 +234,7 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureHoldingCapability"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureHoldingFunction"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">bioreactor vessel</rdfs:label>
@@ -220,13 +242,13 @@
 		<skos:example>A 200 L single-use polymer bioreactor vessel; A 2 L borosilicate glass bioreactor vessel with a stainless steel headplate</skos:example>
 		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/insights/single-use-or-stainless-steel-bioreactors and https://atlas-scientific.com/blog/how-to-set-up-a-bioreactor/#:~:text=The%20vessel%20is%20the%20main%20component%20of,and%20dissolved%20oxygen%20levels%20of%20the%20system.</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>The vessel is the primary containment unit of a bioreactor. It provides the physical space for cultivation (growth, maintenance, expansion) or production (of products or intermediates) while relying on integration with the bioreactor system for controlled conditions. Typical features include impellers, spargers, probes, and ports that allow interaction with system-level functions. Vessels may be constructed from stainless steel, glass, or single-use polymers depending on scale and application.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>BioreactorVessel(x) → Container(x)  ∧ ∃f (hasFunction(x, f) ∧ CellCultureHoldingCapability(f))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>BioreactorVessel(x) → Container(x)  ∧ ∃f (hasFunction(x, f) ∧ CellCultureHoldingFunction(f))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">container designed to contain material undergoing a cell cultivation process and to incorporate or interface with one or more components that provide mixing, aeration, monitoring, or control as part of a bioreactor</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions, particularly for representing that a container is designed to incorporate or interface with components of a bioreactor during cell cultivation</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;bioreactor vessel&apos; then x is a &apos;container&apos; that &apos;has function&apos; some &apos;cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;bioreactor vessel&apos; then x is a &apos;container&apos; that &apos;has function&apos; some &apos;cell culture holding function&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-		
+	
 	<owl:Class rdf:about="&iof-construct;CationExchangeChromatographyMedium">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ChromatographyMedium"/>
 		<rdfs:label xml:lang="en-US">cation exchange chromatography medium</rdfs:label>
@@ -255,6 +277,28 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material containment capability to contain material undergoing a cell cultivation process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The formalization of this term requires the processes that are in the manufacturing execution and material module</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture holding capability&apos; then x is a &apos;material containment capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CellCultureHoldingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CellCultureHoldingCapability"/>
+		<rdfs:label xml:lang="en-US">cell culture holding function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;CellCultureHoldingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the cell culture holding function of a T-flask to contain material undergoing adherent-cell cultivation; the cell culture holding function of a single-use bioprocess bag to contain material undergoing cell cultivation; the cell culture holding function of a bioreactor vessel to contain cultivated material during a controlled cultivation process</skos:example>
+		<iof-av:firstOrderLogicDefinition>CellCultureHoldingFunction(x) ↔ CellCultureHoldingCapability(x) ∧ ∃m(MaterialEntity(m) ∧ functionOf(x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell culture holding capability that is a function of a material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;cell culture holding function&apos; is exactly an instance of &apos;cell culture holding capability&apos; that is the &apos;function of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;Centrifuge">
@@ -321,7 +365,7 @@
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;FlowRateControllingCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;FlowRateControllingFunction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -331,12 +375,9 @@
 		<iof-av:explanatoryNote>1) Chromatography systems typically include hardware for sample introduction, flow control, and detection, as well as software interfaces for configuring, monitoring, and automating purification processes across research, clinical, and manufacturing scales. Monitoring may include pH, conductivity, pressure, temperature, or other relevant parameters associated with the separation process.
 2) Chromatography systems are available as single-use or multi-use models to accommodate different operational requirements and separation needs across laboratory, clinical, and manufacturing scales.
 3) The phrase “house or interface with the stationary phase” refers to the system&apos;s ability either to physically contain the stationary phase directly (e.g., in built-in columns or integrated cartridges) or to connect to and operate with external components that contain the stationary phase, such as detachable chromatography columns. This accommodates both fully integrated and modular system designs, ensuring that the stationary phase is part of the fluid path during the chromatography process</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>ChromatographySystem(x) ↔ EngineeredSystem(x) ∧ ∃s(StationaryPhase(s) ∧ hasMemberPartAtSomeTime(x, s)) ∧ ∃c(MeasurementCapability(c) ∧ hasCapability(x, c)) ∧ ∃f(FlowRateControllingCapability(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ChromatographySystem(x) ↔ EngineeredSystem(x) ∧ ∃s(StationaryPhase(s) ∧ hasMemberPartAtSomeTime(x, s)) ∧ ∃c(MeasurementCapability(c) ∧ hasCapability(x, c)) ∧ ∃f(FlowRateControllingFunction(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to control the fluid flow of the mobile phase provide monitoring or detection capabilities and house or interface with the stationary phase for one or more chromatography processes</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;chromatography system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;stationary phase&apos;, &apos;has capability&apos; some &apos;measurement capability&apos;, and &apos;has function&apos; some &apos;flow rate controlling capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;Container">
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;chromatography system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has member part at some time&apos; some &apos;stationary phase&apos;, &apos;has capability&apos; some &apos;measurement capability&apos;, and &apos;has function&apos; some &apos;flow rate controlling function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ControlCapability">
@@ -404,12 +445,34 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cultivation environment capability</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
-		<skos:example>the cultivation environment capability of a CO₂ incubator to maintain temperature, carbon-dioxide concentration, and humidity for adherent mammalian-cell culture; the cultivation environment capability of a seed bioreactor to maintain temperature, pH, dissolved oxygen, mixing, and nutrient supply during cell expansion; the cultivation environment capability of a microbial fermenter to maintain temperature, aeration, agitation, and pH during cultivation</skos:example>
+		<skos:example>the cultivation environment capability of a CO₂ incubator to maintain temperature, carbon-dioxide concentration, and humidity for adherent mammalian-cell culture; the cultivation environment capability of a seed bioreactor to maintain temperature, pH, dissolved oxygen, mixing, and nutrient supply during cell expansion;</skos:example>
 		<iof-av:firstOrderLogicAxiom>CultivationEnvironmentCapability(x) → Capability(x) ∧ ∃z(EngineeredSystem(z) ∧ capabilityOf(x, z)) ∧ ∀y(hasRealization(x, y) → PlannedProcess(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of an engineered system to provide a controlled environment suitable for the growth or maintenance of cells, tissues, or microorganisms, or for the production of material products or process intermediates by those entities</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cultivation environment capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;engineered system&apos; and whenever some y &apos;realizes&apos; x that y must be a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;CultivationEnvironmentFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;CultivationEnvironmentCapability"/>
+		<rdfs:label xml:lang="en-US">cultivation environment function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;CultivationEnvironmentCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;EngineeredSystem"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the cultivation environment function of a CO₂ incubator to provide controlled temperature, carbon-dioxide concentration, and humidity for adherent mammalian-cell cultivation; the cultivation environment function of a seed bioreactor to provide suitable temperature, pH, dissolved oxygen, mixing, and nutrient supply during cell expansion</skos:example>
+		<iof-av:firstOrderLogicDefinition>CultivationEnvironmentFunction(x) ↔ CultivationEnvironmentCapability(x) ∧ ∃e(EngineeredSystem(e) ∧ functionOf(x,e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">cultivation environment capability that is a function of an engineered system</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;cultivation environment function&apos; is exactly an instance of &apos;cultivation environment capability&apos; that is the &apos;function of&apos; some &apos;engineered system&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DepthFilter">
@@ -480,7 +543,7 @@
 		<iof-av:firstOrderLogicAxiom>Flask(x) → Container(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">container that has a narrow opening and a wider body and is designed for holding, mixing, or culturing material</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular the required capabilities and functions are missing.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;flask&apos; then x is a &apos;container&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -495,6 +558,37 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">control capability to carry out control of flow rate</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;flow rate controlling capability&apos; then x is a &apos;control capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;FlowRateControllingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;FlowRateControllingCapability"/>
+		<rdfs:label xml:lang="en-US">flow rate controlling function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;FlowRateControllingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;MaterialArtifact">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the flow rate controlling function of a chromatography system to control mobile-phase flow during column operation; the flow rate controlling function of a mass-flow controller to control gas flow into a bioreactor; the flow rate controlling function of a feed-pump system to control nutrient-feed flow during a fed-batch cultivation process</skos:example>
+		<iof-av:firstOrderLogicDefinition>FlowRateControllingFunction(x) ↔ FlowRateControllingCapability(x) ∧ ∃b((MaterialArtifact(b) ∨ EngineeredSystem(b)) ∧ functionOf(x,b))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">flow rate controlling capability that is a function of a material artifact or engineered system</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;flow rate controlling function&apos; is exactly an instance of &apos;flow rate controlling capability&apos; that is the &apos;function of&apos; some entity that is a &apos;material artifact&apos; or an &apos;engineered system&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FluidTransferCapability">
@@ -643,7 +737,7 @@
 		<rdfs:label xml:lang="en-US">incubator</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
 		<skos:example>CO₂ incubator for mammalian cell culture. A stainless-steel laboratory incubator with HEPA filtration and automated humidity control, maintaining 37 °C and 5 percent CO₂, used for cultivating CHO cells in research and production.</skos:example>
-		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0000136 and https://en.wikipedia.org/wiki/Incubator_(culture)</iof-av:adaptedFrom>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0000136 and https://en.wikipedia.org/wiki/Incubator_(culture) and https://documents.thermofisher.com/TFS-Assets/LED/manuals/7053110r9-EN-3100-Series-Water-Jacket.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>a shaking water bath used to heat and mix samples in tubes, because it does not provide the enclosed and regulated chamber environment characteristic of an incubator; a bioreactor, because it provides controlled conditions directly for material within its integrated bioreactor vessel rather than maintaining a chamber environment around separately placed vessels</iof-av:counterExample>
 		<iof-av:explanatoryNote>1) Incubators may regulate environmental parameters such as temperature, humidity, CO₂, oxygen, or light conditions, depending on their design.
 2) In cultivation or storage contexts, incubators provide environmental control around material entities placed inside the chamber, such as flasks, plates, bags, tubes, vials, or the materials contained in them.
@@ -698,26 +792,6 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">fluid transfer capability to enable movement of a liquid to or from a material entity or site</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;liquid transfer capability&apos; then x is a &apos;fluid transfer capability&apos; and whenever some y &apos;realizes&apos; x then y is a &apos;planned process&apos; that &apos;has participant&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;liquid aggregate state&apos; and &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MaterialContainmentCapability">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Capability"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;capabilityOf"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">material containment capability</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
-		<skos:example>Capability of a sealed bottle to hold a liquid buffer; Capability of a stainless-steel tank to hold process intermediate material; Capability of a single-use bag to hold cell culture medium; Capability of a flask to hold a cell suspension within its interior during handling or cultivation; Capability of a beaker to hold a liquid solution in an open contained site</skos:example>
-		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/OBI_0000370</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>This capability applies to artifacts that hold material contents by means of their physical structure. The wording “bounded interior or contained site” is intended to cover both fully closed vessels, such as sealed bags, bottles, or tanks, and open or partially open vessels, such as flasks, beakers, trays, or wells. In open vessels, the contents are still held within a site bounded by the vessel walls, even though the site is not completely enclosed. This capability does not by itself imply environmental control, mixing, sterility, pressure resistance, or suitability for a specific process. Those should be represented by more specific capabilities where needed.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialContainmentCapability(x) → Capability(x) ∧ ∃z(MaterialEntity(z) ∧ capabilityOf(x,z))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of a material entity that is grounded in the entity’s physical structure and that can be realized in a process in which the entity holds one or more material entities within a bounded interior, cavity, surface-delimited area, or contained site</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient construct to create a set of necessary and sufficient conditions. Detailed constructs will be developed as part of the Supply Chain WG effort.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material containment capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialTransferCapability">
@@ -826,6 +900,37 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of a material artifact or engineered system to combine or redistribute material contents to produce a more uniform material mixture or maintain its uniformity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mixing capability&apos; then x is a &apos;capability&apos; and x is a &apos;capability of&apos; some &apos;engineered system&apos; or &apos;material artifact&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MixingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MixingCapability"/>
+		<rdfs:label xml:lang="en-US">mixing function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;MixingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;MaterialArtifact">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the mixing function of a bioreactor impeller to redistribute cells and medium within a stirred-tank vessel; the mixing function of a rocking platform to redistribute material contents within a single-use bag; the mixing function of a magnetic stirrer to combine and redistribute buffer components within a preparation vessel</skos:example>
+		<iof-av:firstOrderLogicDefinition>MixingFunction(x) ↔ MixingCapability(x) ∧ ∃b((MaterialArtifact(b) ∨ EngineeredSystem(b)) ∧ functionOf(x,b))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">mixing capability that is a function of a material artifact or engineered system</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;mixing function&apos; is exactly an instance of &apos;mixing capability&apos; that is the &apos;function of&apos; some entity that is a &apos;material artifact&apos; or an &apos;engineered system&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MobilePhase">
@@ -1013,7 +1118,7 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureHoldingCapability"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureHoldingFunction"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">rocker bag</rdfs:label>
@@ -1023,13 +1128,13 @@
 		<iof-av:explanatoryNote>1) Rocker bags are single-use or disposable flexible culture chambers typically made from inert plastic film.
 2) They may be used with full rocker-motion bioreactors, as well as simpler incubator rockers or trays
 3) Their design enables mixing and gas transfer by wave or rocking motion rather than by impellers, reducing shear stress.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LA1:RockerBag(x) → Container(x)  ∧ ∃f (hasFunction(x, f) ∧ CellCultureHoldingCapability(f))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1:RockerBag(x) → Container(x)  ∧ ∃f (hasFunction(x, f) ∧ CellCultureHoldingFunction(f))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: RockerBag(x) ∧ ∃b (Bioreactor(b) ∧ memberPartOfAtAllTimes(x, b)) → BioreactorVessel(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">container that is a flexible, sterile bag designed for rocking or wave-motion mixing, gently agitating its contents to provide mixing and gas transfer that enable controlled cultivation of cells or microorganisms under low-shear conditions</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular the required capabilities and functions are missing.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale xml:lang="en-US">There are insufficient constructs to create necessary and sufficient conditions, particularly for representing the flexible bag construction and the rocking or wave-motion configuration.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;rocker bag&apos; and x is a &apos;member part of at all times&apos; some &apos;bioreactor&apos;, then x is a &apos;bioreactor vessel&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;rocker bag&apos; then x is a &apos;container&apos; that &apos;has function&apos; some &apos;cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;rocker bag&apos; then x is a &apos;container&apos; that &apos;has function&apos; some &apos;cell culture holding function&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SeedBioreactor">
@@ -1088,7 +1193,7 @@
 		<iof-av:firstOrderLogicAxiom>ShakeFlask(x) → Flask(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">flask designed for cultivating biological material or conducting chemical reactions that require aeration and mixing under agitated conditions with a shape that minimizes spillage during shaking</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular the constructs for representing flask geometry (shape) are missing and all the necessary functions and capabilities.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shake flask&apos; then x is a &apos;flask&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -1097,18 +1202,18 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;MixingCapability"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MixingFunction"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">shaker</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
 		<skos:example>Orbital shaker used to agitate shake flasks during microbial cultivation; Platform shaker used to agitate tubes or plates during sample preparation; Rocking shaker used to move liquid in a single-use bag; Incubator shaker used to shake culture vessels while maintaining controlled temperature.</skos:example>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Shaker_(laboratory)</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>Shaker(x) → EngineeredSystem(x) ∧ ∃c (hasFunction(x, c) ∧ MixingCapability(c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>Shaker(x) → EngineeredSystem(x) ∧ ∃c (hasFunction(x, c) ∧ MixingFunction(c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system that applies controlled shaking motion to material entities or vessels placed on or in it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to apply shaking motion to material entities placed on or in it</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shaker&apos; then x is an &apos;engineered system&apos; that &apos;has function&apos; some &apos;mixing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;shaker&apos; then x is an &apos;engineered system&apos; that &apos;has function&apos; some &apos;mixing function&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SingleUseRole">
@@ -1217,7 +1322,7 @@
 									</rdf:Description>
 									<owl:Restriction>
 										<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;MixingCapability"/>
+										<owl:someValuesFrom rdf:resource="&iof-construct;MixingFunction"/>
 									</owl:Restriction>
 								</owl:intersectionOf>
 							</owl:Class>
@@ -1225,7 +1330,7 @@
 					</owl:Restriction>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;SuspensionCellCultureHoldingCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;SuspensionCellCultureHoldingFunction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -1234,9 +1339,9 @@
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/spinner-flask</iof-av:adaptedFrom>
 		<iof-av:counterExample>T-flask for adherent cell culture, which lacks any internal component with a mixing function</iof-av:counterExample>
 		<iof-av:explanatoryNote>The mixing component is typically a magnetic stir bar, paddle, or impeller built into the vessel and externally driven to keep cells and medium evenly agitated. This prevents cell settling and improves oxygen and nutrient distribution. Spinner flasks are commonly used for small-scale suspension cultures (e.g., hybridomas, CHO cells) prior to scale-up into bioreactors.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>SpinnerFlask(x) ↔ Flask(x) ∧ ∃c (MaterialComponent(c) ∧ hasComponentPartAtAllTimes(x, c) ∧ ∃a (MixingCapability(a) ∧ hasFunction(c, a))) ∧ ∃h (SuspensionCellCultureHoldingCapability(h) ∧ hasFunction(x, h))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>SpinnerFlask(x) ↔ Flask(x) ∧ ∃c (MaterialComponent(c) ∧ hasComponentPartAtAllTimes(x, c) ∧ ∃a (MixingFunction(a) ∧ hasFunction(c, a))) ∧ ∃h (SuspensionCellCultureHoldingFunction(h) ∧ hasFunction(x, h))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">flask designed for cultivating cells in suspension that has as part a component with a mixing function to keep the culture uniformly agitated</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;spinner flask&apos; is defined as exactly an instance of &apos;flask&apos; that &apos;has component part at all times&apos; some &apos;material component&apos; that &apos;has function&apos; some &apos;mixing capability&apos;, and &apos;has function&apos; some &apos;suspension cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;spinner flask&apos; is defined as exactly an instance of &apos;flask&apos; that &apos;has component part at all times&apos; some &apos;material component&apos; that &apos;has function&apos; some &apos;mixing function&apos;, and x &apos;has function&apos; some &apos;suspension cell culture holding function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;StationaryPhase">
@@ -1296,12 +1401,34 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;suspension cell culture holding capability&apos; then x is a &apos;cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;SuspensionCellCultureHoldingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;SuspensionCellCultureHoldingCapability"/>
+		<rdfs:label xml:lang="en-US">suspension cell culture holding function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;SuspensionCellCultureHoldingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the suspension cell culture holding function of a shake flask to contain a suspension culture during shaking cultivation; the suspension cell culture holding function of a spinner flask to contain a suspension cell culture during stirred cultivation; the suspension cell culture holding function of a stirred-tank bioreactor vessel to contain a suspension cell culture during controlled cultivation</skos:example>
+		<iof-av:firstOrderLogicDefinition>SuspensionCellCultureHoldingFunction(x) ↔ SuspensionCellCultureHoldingCapability(x) ∧ ∃m(MaterialEntity(m) ∧ functionOf(x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">suspension cell culture holding capability that is a function of a material entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;suspension cell culture holding function&apos; is exactly an instance of &apos;suspension cell culture holding capability&apos; that is the &apos;function of&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;TFlask">
 		<rdfs:subClassOf rdf:resource="&iof-construct;Flask"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;AdherentCellCultureHoldingCapability"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;AdherentCellCultureHoldingFunction"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">T-flask</rdfs:label>
@@ -1309,11 +1436,11 @@
 		<skos:example>A T75 polystyrene tissue culture flask with vented cap, used for adherent HEK293 cell expansion.</skos:example>
 		<iof-av:adaptedFrom>https://www.abdoslifesciences.com/how-to-choose-the-right-t-flask-for-your-cell-culture-needs/</iof-av:adaptedFrom>
 		<iof-av:counterExample>A spinner flask for suspension cell culture, which lacks a flat surface for cell attachment and instead has an internal stirring element</iof-av:counterExample>
-		<iof-av:firstOrderLogicAxiom>TFlask(x) → Flask(x) ∧ ∃f (hasFunction(x, f) ∧ AdherentCellCultureHoldingCapability(f))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>TFlask(x) → Flask(x) ∧ ∃f (hasFunction(x, f) ∧ AdherentCellCultureHoldingFunction(f))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">flask designed for cultivating adherent cells that has as part a flat growth surface for cell attachment and a narrow neck for adding or removing material while reducing contamination risk</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular the constructs for representing flask geometry (shape) are missing.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;T-flask&apos; then x is a &apos;flask&apos; and x &apos;has function&apos; some &apos;adherent cell culture holding capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;T-flask&apos; then x is a &apos;flask&apos; and x &apos;has function&apos; some &apos;adherent cell culture holding function&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TemperatureControllingCapability">
@@ -1357,9 +1484,40 @@
 		<iof-av:explanatoryNote>It may be exhibited by complex engineered thawing systems or simpler material artifacts like warm water baths. Precise temperature control and monitoring are important to prevent damage to the material during thawing.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ThawingCapability(x) → Capability(x) ∧ ∃z((EngineeredSystem(z) ∨ MaterialArtifact(z)) ∧ capabilityOf(x, z)) ∧ ∀y(hasRealization(x, y) → PlannedProcess(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability that a engineered system or material artifact has to provide controlled heating to raise the temperature of a material to a specified setpoint, typically to transition the material from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability that an engineered system or material artifact has to provide controlled heating to raise the temperature of a material to a specified setpoint, typically to transition the material from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing capability&apos; then x is a &apos;capability&apos; that is the &apos;capability of&apos; some &apos;engineered system&apos; or &apos;material artifact&apos; and whenever some y &apos;realizes&apos; x that y must be a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;ThawingFunction">
+		<rdfs:subClassOf rdf:resource="&iof-construct;ThawingCapability"/>
+		<rdfs:label xml:lang="en-US">thawing function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-construct;ThawingCapability">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;functionOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;EngineeredSystem">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;MaterialArtifact">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">the thawing function of a temperature-controlled water bath to thaw closed cryovials containing cell-bank aliquots; the thawing function of a controlled-rate freeze-and-thaw system to thaw frozen bulk drug substance</skos:example>
+		<iof-av:firstOrderLogicDefinition>ThawingFunction(x) ↔ ThawingCapability(x) ∧ ∃b((MaterialArtifact(b) ∨ EngineeredSystem(b)) ∧ functionOf(x,b))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">thawing capability that is a function of a material artifact or engineered system</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of &apos;thawing function&apos; is exactly an instance of &apos;thawing capability&apos; that is the &apos;function of&apos; some entity that is a &apos;material artifact&apos; or an &apos;engineered system&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ThawingSystem">
@@ -1373,7 +1531,7 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasFunction"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;ThawingCapability"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;ThawingFunction"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -1381,9 +1539,9 @@
 		<skos:example>Controlled-rate water bath thawing system; sterile dry thawing system with temperature control; microwave-assisted thawing system with setpoint regulation; ultrasonic thawing system with precise temperature monitoring; recirculating warm water thawing system with feedback control; heated plate thawing system with programmable temperature setpoint; single-use thawing chamber with integrated temperature sensors; automated cryopreserved cell thawing device with controlled ramp rates</skos:example>
 		<iof-av:adaptedFrom>https://dictionary.cambridge.org/dictionary/english/thawing, http://purl.obolibrary.org/obo/NCIT_C48165 and https://www.biolifesolutions.com/blog/thawing/how-does-a-water-free-automated-thawing-system-improve-your-cryopreservation-process/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Thawing systems can be applied directly to a material or indirectly by heating the container in which the material is held.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>ThawingSystem(x) ↔ EngineeredSystem(x) ∧ ∃f(ThawingCapability(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ThawingSystem(x) ↔ EngineeredSystem(x) ∧ ∃f(ThawingFunction(f) ∧ hasFunction(x, f))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system designed to raise the temperature of a material in a controlled manner to reach a specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;thawing system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has function&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;thawing system&apos; is defined as exactly an instance of &apos;engineered system&apos; that &apos;has function&apos; some &apos;thawing function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;VesselHeadspace">
@@ -1412,7 +1570,7 @@
 		<iof-av:firstOrderLogicAxiom>Vial(x) → Container(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">container that is small, sealable, and designed for holding, storing, or dispensing small quantities of material</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular the required capabilities and functions are missing.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;vial&apos; then x is a &apos;container&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
