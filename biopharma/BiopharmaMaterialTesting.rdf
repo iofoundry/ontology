@@ -31,7 +31,7 @@
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/">
 		<rdfs:label xml:lang="en-US">Biopharma Material Testing Ontology</rdfs:label>
-		<dcterms:abstract>This module supports representation of material testing activities used to determine whether a material is acceptable for its intended use. It connects testing processes, analytical evidence, specifications, acceptance criteria, out-of-specification results, and release decisions so that material quality and suitability can be described consistently across incoming materials, process intermediates, consumables, and products.</dcterms:abstract>
+		<dcterms:abstract>This module supports representation of material testing activities used to determine whether a material is acceptable for its intended use. It connects testing processes, analytical evidence, specifications, acceptance criteria, out-of-specification results, and release dispositions so that material quality and suitability can be described consistently across incoming materials, process intermediates, consumables, and products.</dcterms:abstract>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
@@ -125,19 +125,90 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">material conformance specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
-		<skos:altLabel>Q6 Specification</skos:altLabel>
 		<skos:example>Drug substance release specification that includes identity, purity, potency, endotoxin, and bioburden tests, with acceptance criteria for release of the drug substance batch; In-process specification for a chromatography pool that includes protein concentration, purity, pH, conductivity, and bioburden tests, with acceptance criteria for allowing further processing; Incoming raw material specification for a media component lot that includes identity, appearance, assay, impurity, and microbial tests, with acceptance criteria for use in media preparation; Cell culture medium specification that includes pH, osmolality, appearance, endotoxin, and bioburden tests, with acceptance criteria for use in cell culture; Production consumable acceptance specification for a single-use bag or tubing assembly that includes sterility, integrity, particulate, and extractables-related tests, with acceptance criteria for manufacturing use.</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In this context, each listed test is intended to evaluate one or more attributes of the material (e.g., identity, purity, concentration, bioburden, endotoxin, osmolality). The referenced analytical procedure describes how the test is performed, and the associated acceptance criteria state how the resulting observations or measurements are evaluated for conformance
 2) This specification type covers release, in-process, incoming/raw material, and consumable acceptance specifications, provided they define tests and acceptance criteria for acceptability of the material for a stated use.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialConformanceSpecification(x) → RequirementSpecification(x) ∧ ∃p (hasContinuantPartAtAllTimes(x, p) ∧ PlanSpecification(p) ∧ ∃t (prescribes(p, t) ∧ TestingProcess(t))) ∧ ∃a (hasContinuantPartAtAllTimes(x, a) ∧ AcceptanceCriteria(a)) ∧ ∀y (requirementSatisfiedBy(x, y) → (MaterialProduct(y) ∨ ProcessIntermediateMaterial(y) ∨ ProductionConsumable(y) ∨ RawMaterial(y)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that establishes tests and acceptance criteria for evaluating whether a material product, process intermediate material, raw material, or production consumable satisfies requirements for a particular use</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">requirement specification that specifies tests and acceptance criteria for evaluating whether a material product, process intermediate material, raw material, or production consumable satisfies requirements for a particular use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material conformance specification&apos; then x is a &apos;requirement specification&apos;, x &apos;has continuant part at all times&apos; some &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;testing process&apos;, x &apos;has continuant part at all times&apos; some &apos;acceptance criteria&apos;, and x &apos;requirement satisfied by&apos; only &apos;material product&apos;, &apos;process intermediate material&apos;, &apos;production consumable&apos;, or &apos;raw material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym>Q6 Specification</iof-av:synonym>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialHoldState">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialState"/>
+		<rdfs:label xml:lang="en-US">material hold state</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
+		<skos:example>the hold state of a raw-material lot pending release for use in media preparation; the hold state of a chromatography pool pending authorization for further processing; the hold state of a drug-substance batch pending release for formulation; the hold state of a finished-product batch pending release for distribution</skos:example>
+		<iof-av:firstOrderLogicAxiom>MaterialHoldState(x) → MaterialState(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state during which a material entity remains restricted from one or more specified uses or handling activities</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material hold state&apos; then x is a &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-construct;MaterialReleaseDispositionSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialStateSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialReleaseProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;MaterialState">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isMaterialStateOf"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&iof-construct;MaterialProduct">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
+											</rdf:Description>
+											<rdf:Description rdf:about="&iof-construct;RawMaterial">
+											</rdf:Description>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+							<owl:Restriction>
+								<owl:onProperty>
+									<rdf:Description>
+										<owl:inverseOf rdf:resource="&iof-construct;hasPostMaterialState"/>
+									</rdf:Description>
+								</owl:onProperty>
+								<owl:someValuesFrom rdf:resource="&iof-construct;MaterialReleaseProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">material release disposition specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
+		<skos:example>QA disposition specifying that raw-material lot RM-041 may be used in media preparation; material disposition specifying that process-intermediate lot INT-204 must remain on hold pending completion of an OOS investigation; material disposition specifying that drug-substance batch DS-117 may be used in formulation;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://pharmagmpguide.com/raw-material-receipt-sop-in-pharma/ and https://sgsystemsglobal.com/glossary/batch-release/ and https://sgsystemsglobal.com/glossary/lot-release-qa-disposition/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The post material state specified by a material release disposition specification represents the status assigned to the evaluated material with respect to the relevant use, such as release from hold, conditional release, continuation of hold, or rejection.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MaterialReleaseDispositionSpecification(x) → MaterialStateSpecification(x) ∧ ∃p∃m∃s(MaterialReleaseProcess(p) ∧ isSpecifiedOutputOf(x,p) ∧ hasInput(p,m) ∧ (MaterialProduct(m) ∨ ProcessIntermediateMaterial(m) ∨ ProductionConsumable(m) ∨ RawMaterial(m)) ∧ MaterialState(s) ∧ hasPostMaterialState(p,s) ∧ isMaterialStateOf(s,m) ∧ prescribes(x,s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state specification that is a specified output of a material release process and specifies the post material state of the evaluated material entity with respect to a particular use</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material release disposition specification&apos; then x is a &apos;material state specification&apos;, x &apos;is specified output of&apos; some &apos;material release process&apos; p that &apos;has input&apos; some &apos;material product&apos;, &apos;process intermediate material&apos;, &apos;production consumable&apos;, or &apos;raw material&apos; m, and x &apos;prescribes&apos; some &apos;material state&apos; s that is the &apos;post material state&apos; of p and &apos;is material state of&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialReleaseProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">material release process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
@@ -158,11 +229,11 @@
 						<owl:someValuesFrom>
 							<owl:Class>
 								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;Consumable">
-									</rdf:Description>
 									<rdf:Description rdf:about="&iof-construct;MaterialProduct">
 									</rdf:Description>
 									<rdf:Description rdf:about="&iof-construct;ProcessIntermediateMaterial">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;ProductionConsumable">
 									</rdf:Description>
 									<rdf:Description rdf:about="&iof-construct;RawMaterial">
 									</rdf:Description>
@@ -171,41 +242,26 @@
 						</owl:someValuesFrom>
 					</owl:Restriction>
 					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;hasOutput"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialReleaseRecord"/>
+						<owl:onProperty rdf:resource="&iof-construct;hasPostMaterialState"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialState"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;hasPreMaterialState"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialHoldState"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;MaterialReleaseDispositionSpecification"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
+		<skos:example>release of an incoming raw material lot for use in media preparation following identity and purity testing; evaluation of a production consumable against receipt inspection results and supplier documentation resulting in rejection for GMP manufacturing use; release of a process intermediate for further processing following assessment of test results and process records; release of a drug substance batch for use in formulation; conditional release of a material lot for a restricted use</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://pharmagmpguide.com/raw-material-receipt-sop-in-pharma/ and https://sgsystemsglobal.com/glossary/batch-release/ and https://sgsystemsglobal.com/glossary/lot-release-qa-disposition/</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A material release process may involve a material entity such as an individual item, material unit, lot, batch, or another material grouping under evaluation. Exiting quarantine or another controlled hold does not necessarily mean that the material is used immediately; it means that the material is no longer restricted from the particular use for which the assessment was performed and may be stored, transferred, or otherwise made available for that use in accordance with applicable procedures. The assessment may include review of identity, sampling, testing, examination, documentation, and other specified criteria. ICH Q7 requires materials to be held under quarantine until they have been sampled, examined or tested as appropriate and released for use</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>MaterialReleaseProcess(x) ↔ PlannedProcess(x) ∧ ∃m (hasInput(x, m) ∧ (Consumable(m) ∨ MaterialProduct(m) ∨ ProcessIntermediateMaterial(m) ∨ RawMaterial(m))) ∧ ∃s (hasInput(x, s) ∧ MaterialConformanceSpecification(s)) ∧ ∃a (hasParticipantAtSomeTime(x, a) ∧ Agent(a)) ∧ ∃r (hasOutput(x, r) ∧ MaterialReleaseRecord(r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a material is assessed against specified requirements to determine whether it may exit quarantine or another controlled hold and be made available for a particular use</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material release process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has input&apos; some &apos;consumable&apos;, &apos;material product&apos;, &apos;process intermediate material&apos;, or &apos;raw material&apos;, &apos;has input&apos; some &apos;material conformance specification&apos;, &apos;has participant at some time&apos; some &apos;agent&apos;, and &apos;has output&apos; some &apos;material release record&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;MaterialReleaseRecord">
-		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;describes"/>
-				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isOutputOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;MaterialReleaseProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">material release record</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
-		<iof-av:explanatoryNote>1) The specified status indicates the outcome of the material release process, determining whether the evaluated material entity remains under quarantine, is fully released, or is made available under restricted, conditional, or otherwise defined terms. The status is determined in relation to the purpose for which the material release process was performed, such as further processing, manufacturing, storage, transfer, or distribution.
-2) A material release record may also include information about the criteria used in the evaluation, and the results of tests, examinations, or reviews performed on the material entity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>MaterialReleaseRecord(x) → InformationContentEntity(x) ∧ ∃p (isOutputOf(x, p) ∧ MaterialReleaseProcess(p)) ∧ ∃m (describes(x, m) ∧ MaterialEntity(m))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is the output of a material release process and that specifies the status of the evaluated material entity with respect to a particular use</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material release record&apos; then x is an &apos;information content entity&apos;, x &apos;is output of&apos; some &apos;material release process&apos;, and x &apos;describes&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:firstOrderLogicDefinition>MaterialReleaseProcess(x) ↔ PlannedProcess(x) ∧ ∃a∃q∃m∃h∃s∃d(Agent(a) ∧ hasParticipantAtSomeTime(x,a) ∧ MaterialConformanceSpecification(q) ∧ hasInput(x,q) ∧ (MaterialProduct(m) ∨ ProcessIntermediateMaterial(m) ∨ ProductionConsumable(m) ∨ RawMaterial(m)) ∧ hasInput(x,m) ∧ MaterialHoldState(h) ∧ hasPreMaterialState(x,h) ∧ isMaterialStateOf(h,m) ∧ MaterialState(s) ∧ hasPostMaterialState(x,s) ∧ isMaterialStateOf(s,m) ∧ MaterialReleaseDispositionSpecification(d) ∧ hasSpecifiedOutput(x,d) ∧ prescribes(d,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a material entity together with relevant evidence, is assessed against specified requirements to determine whether, and under what conditions, the material entity may exit quarantine or another controlled hold and be made available for a particular use</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;material release process&apos; is exactly an instance of &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;agent&apos;, &apos;has input&apos; some &apos;material conformance specification&apos;, &apos;has input&apos; some &apos;material product&apos;, &apos;process intermediate material&apos;, &apos;production consumable&apos;, or &apos;raw material&apos; m, &apos;has pre material state&apos; some &apos;material hold state&apos; that &apos;is material state of&apos; m, &apos;has post material state&apos; some &apos;material state&apos; s that &apos;is material state of&apos; m, and &apos;has specified output&apos; some &apos;material release disposition specification&apos; that &apos;prescribes&apos; s</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialStabilityTesting">
@@ -250,7 +306,7 @@
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q1A%28R2%29%20Guideline.pdf</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>MaterialStabilityTesting(x) → TestingProcess(x) ∧ ∃m∃s∃o (MaterialEntity(m) ∧ Stability(s) ∧ InformationContentEntity(o) ∧ hasInput(x, m) ∧ hasCapability(m, s) ∧ hasSpecifiedOutput(x, o) ∧ describes(o, s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">testing process to determine whether a material entity maintains one or more attributes within specified stability criteria after storage or exposure under specified conditions for a specified interval.</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material testing process to determine whether a material entity maintains one or more attributes within specified stability criteria after storage or exposure under specified conditions for a specified interval</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions. In particular constructs for representing exposure process are still missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;material stability testing&apos; then x is a &apos;testing process&apos; that &apos;has input&apos; some &apos;material entity&apos; m that &apos;has capability&apos; some &apos;stability&apos; s, and x &apos;has specified output&apos; some &apos;information content entity&apos; that &apos;describes&apos; the same &apos;stability&apos; s</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -261,8 +317,6 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
 		<skos:example>Small-scale testing of a culture medium lot to determine whether it is acceptable for supporting expected cell growth and productivity in a specified upstream process; Analytical and functional testing of a chromatography resin lot to determine whether it is acceptable for achieving the required separation performance in a specified purification step ; Integrity and performance testing of a membrane filter to determine whether it is acceptable for use in a specified sterile filtration application</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) A material suitability testing process may be part of another material suitability testing process. In such cases, the subprocess typically evaluates acceptability with respect to a subset of the acceptance criteria used by the larger process (e.g., a rapid incoming check as part of a full release-to-use determination).
-2) A material suitability testing process may evaluate a material entity directly or may evaluate a sample taken from that material entity. The evaluated requirements may concern identity, purity, concentration, appearance, microbial quality, endotoxin, osmolality, integrity, or other use-relevant attributes.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MaterialSuitabilityTesting(x) → TestingProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">testing process that evaluates whether a material entity satisfies one or more requirements for a particular use</iof-av:naturalLanguageDefinition>
@@ -274,36 +328,13 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;MeasurementInformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">out of specification result</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterialTesting/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;MeasurementInformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;isOutsideAssessmentCondition"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-construct;AcceptanceCriteria">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-										<owl:someValuesFrom rdf:resource="&iof-construct;MaterialConformanceSpecification"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>Assay result for drug substance potency that is below the acceptance criterion in the material conformance specification; Bioburden test result for an in-process pool that exceeds the specified acceptance criterion; Endotoxin result for a buffer lot that is above the acceptance criterion in the applicable specification; Osmolality result for a cell culture medium lot that is outside the specified acceptance range; isual inspection result for a drug product lot reporting visible particulate matter, assessed as outside the appearance acceptance criterion requiring no visible particles; Color assessment result for a formulation sample reporting yellow discoloration, assessed as outside the appearance criterion for a colorless to slightly opalescent solution;</skos:example>
+		<skos:example>Assay result for drug substance potency that is below the acceptance criterion in the material conformance specification; Bioburden test result for an in-process pool that exceeds the specified acceptance criterion; Endotoxin result for a buffer lot that is above the acceptance criterion in the applicable specification; Osmolality result for a cell culture medium lot that is outside the specified acceptance range; visual inspection result for a drug product lot reporting visible particulate matter, assessed as outside the appearance acceptance criterion requiring no visible particles; Color assessment result for a formulation sample reporting yellow discoloration, assessed as outside the appearance criterion for a colorless to slightly opalescent solution;</skos:example>
 		<iof-av:abbreviation>OOS result</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/158416/download</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Relevant specifications include those set in drug applications, drug master files, official compendia, or by the manufacturer. This class also includes in-process laboratory test results that are outside acceptance criteria that are part of such specifications. A result of this kind is indicative that the tested material does not conform to the corresponding material conformance specification.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>OutOfSpecificationResult(x) ↔ MeasurementInformationContentEntity(x) ∧ ∃c (isOutsideAssessmentCondition(x, c) ∧ AcceptanceCriteria(c) ∧ ∃s (MaterialConformanceSpecification(s) ∧ continuantPartOfAtAllTimes(c, s)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>OutOfSpecificationResult(x) -&gt; MeasurementInformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">measurement information content entity assessed as outside an acceptance criterion that is part of an applicable specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;out of specification result&apos; is defined as exactly an instance of &apos;measurement information content entity&apos; that &apos;is outside assessment condition&apos; some &apos;acceptance criteria&apos; that is &apos;continuant part of at all times&apos; some &apos;material conformance specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;out of specification result&apos; then x is a &apos;measurement information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SpentMediaAnalysis">
@@ -321,7 +352,7 @@
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-construct;SamplingProcess">
+											<rdf:Description rdf:about="&iof-construct;MaterialSamplingProcess">
 											</rdf:Description>
 											<owl:Restriction>
 												<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
@@ -377,11 +408,11 @@
 		<skos:example>measurement of glucose, glutamine, lactate, and ammonia in spent culture medium collected at multiple process time points to assess nutrient depletion and metabolite accumulation; time-course analysis of spent culture medium to compare concentrations of specified nutrients and metabolites with those in fresh medium</skos:example>
 		<iof-av:adaptedFrom>https://api.sartorius.com/document-hub/dam/download/247594/Spent-Media-Analytics-whitepaper-en-B.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Spent media analysis may use samples taken from culture medium directly or from a cell culture that contains culture medium in a spent culture medium state. In many workflows, the sampled material may initially contain cells, particulates, or other culture-associated material before clarification, centrifugation, filtration, or other sample preparation.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>SpentMediaAnalysis(x) → MeasurementProcess(x) ∧ ∃s (MaterialSample(s) ∧ hasInput(x, s) ∧ ∃p (SamplingProcess(p) ∧ isSpecifiedOutputOf(s, p) ∧ ∃m (hasInput(p, m) ∧ ((CultureMedium(m) ∧ ∃q (hasMaterialState(m, q) ∧ SpentCultureMediumState(q))) ∨ (CellCulture(m) ∧ ∃cm (hasContinuantPartAtSomeTime(m, cm) ∧ CultureMedium(cm) ∧ ∃q (hasMaterialState(cm, q) ∧ SpentCultureMediumState(q))))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>SpentMediaAnalysis(x) → MeasurementProcess(x) ∧ ∃s (MaterialSample(s) ∧ hasInput(x, s) ∧ ∃p (MaterialSamplingProcess(p) ∧ isSpecifiedOutputOf(s, p) ∧ ∃m (hasInput(p, m) ∧ ((CultureMedium(m) ∧ ∃q (hasMaterialState(m, q) ∧ SpentCultureMediumState(q))) ∨ (CellCulture(m) ∧ ∃cm (hasContinuantPartAtSomeTime(m, cm) ∧ CultureMedium(cm) ∧ ∃q (hasMaterialState(cm, q) ∧ SpentCultureMediumState(q))))))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">measurement process in which one or more samples containing spent culture medium are analyzed to determine changes in specified extracellular nutrients, metabolites, or other medium components relative to fresh medium or to one or more earlier sampling points</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;spent media analysis&apos; then x is a &apos;measurement process&apos; and x &apos;has input&apos; some &apos;material sample&apos; that &apos;is specified output of&apos; some &apos;sampling process&apos; that &apos;has input&apos; some &apos;culture medium&apos; that &apos;has material state&apos; some &apos;spent culture medium state&apos; or some &apos;cell culture&apos; that &apos;has continuant part at some time&apos; some &apos;culture medium&apos; that &apos;has material state&apos; some &apos;spent culture medium state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;spent media analysis&apos; then x is a &apos;measurement process&apos; and x &apos;has input&apos; some &apos;material sample&apos; that &apos;is specified output of&apos; some &apos;material sampling process&apos; that &apos;has input&apos; some &apos;culture medium&apos; that &apos;has material state&apos; some &apos;spent culture medium state&apos; or some &apos;cell culture&apos; that &apos;has continuant part at some time&apos; some &apos;culture medium&apos; that &apos;has material state&apos; some &apos;spent culture medium state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TestingProcess">
@@ -395,6 +426,12 @@
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;RequirementSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -403,7 +440,7 @@
 		<skos:example>Endotoxin testing performed to determine whether a buffer lot satisfies an endotoxin acceptance criterion; Identity testing performed to determine whether a raw material lot satisfies an identity criterion; pH testing performed to determine whether a culture medium batch satisfies a pH acceptance range; Visual inspection performed to determine whether a drug product unit satisfies an appearance criterion for visible particles; Bioburden testing performed to determine whether an in-process material satisfies a microbial limit.</skos:example>
 		<iof-av:firstOrderLogicAxiom>TestingProcess(x) → PlannedProcess(x) ∧ ∃c (hasInput(x, c) ∧ RequirementSpecification(c)) ∧ ∃m (hasOccurrentPart(x, m) ∧ MeasurementProcess(m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process to determine whether an entity of interest, or an attribute of an entity of interest, satisfies one or more specified test criteria</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process to determine whether a material entity or one of its attributes satisfies one or more specified test criteria</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;testing process&apos; then x is a &apos;planned process&apos;, x &apos;has input&apos; some &apos;requirement specification&apos;, and x &apos;has occurrent part&apos; some &apos;measurement process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 
