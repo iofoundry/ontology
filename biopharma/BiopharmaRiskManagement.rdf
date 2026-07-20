@@ -52,7 +52,7 @@
 4) Recommended actions identified during FMEA may be implemented, followed up, and verified in separate risk control or risk reduction processes.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>FailureModeAndEffectsAnalysisSpecification(x) → RiskManagementMethodSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">risk management method specification that prescribes systematic identification of potential failure modes, evaluation of their causes and effects, and estimation of associated risk using defined scoring or ranking criteria</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">risk management method specification that prescribes systematic identification of potential failure modes and evaluation of their causes and effects</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;failure mode and effects analysis specification&apos; then x is a  &apos;risk management method specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -61,7 +61,7 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;ValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;HarmSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -74,11 +74,12 @@
 		<rdfs:label xml:lang="en-US">harm likelihood value expression</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
 		<skos:example>likelihood score 2 for patient harm from reduced product availability caused by batch rejection; likelihood category &apos;remote&apos; for hypoxic injury during helium refill after oxygen monitoring controls are implemented</skos:example>
-		<iof-av:firstOrderLogicAxiom>HarmLikelihoodValueExpression(x) → ValueExpression(x) ∧ ∃h (HazardSpecification(h) ∧ isAbout(x, h)) ∧ ∃s (HarmSpecification(s) ∧ isAbout(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>HarmLikelihoodValueExpression(x) → ValueExpression(x) ∧ ∃m∃h(HarmSpecification(m) ∧ HazardSpecification(h) ∧ continuantPartOfAtAllTimes(x,m) ∧ isAbout(x,h))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that represents the assessed likelihood that a specified harm will come about in relation to a specified potential source of harm</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that represents the assessed likelihood that a specified harm will occur in relation to one or more specified potential sources of harm</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;harm likelihood value expression&apos; then x is a &apos;value expression&apos; that &apos;is about&apos; some &apos;hazard specification&apos; and &apos;is about&apos; some &apos;harm specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;harm likelihood value expression&apos; then x is a &apos;value expression&apos; that &apos;is about&apos; some &apos;hazard specification&apos; and is &apos;continuant part of at all times&apos; some &apos;harm specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HarmSeverityValueExpression">
@@ -104,13 +105,15 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
 		<rdfs:label xml:lang="en-US">harm specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>Harm specification that describes a patient being in a bloodstream infection state after receiving a contaminated injectable biologic; Harm specification that describes a patient being in an anaphylactic state after administration of a product containing an unintended immunogenic contaminant; Harm specification that describes an operator being in a hypoxic injury state after remaining in an oxygen-deficient room following helium discharge; Harm specification that prescribes loss of batch sterility as a harm to be prevented during aseptic processing; Harm specification that describes unauthorized disclosure of batch genealogy data as a cybersecurity-related harm;</skos:example>
+		<skos:example>Harm specification that describes a patient being in a bloodstream infection state after receiving a contaminated injectable biologic; Harm specification that describes a patient being in an anaphylactic state after administration of a product containing an unintended immunogenic contaminant; Harm specification that describes an operator being in a hypoxic injury state after remaining in an oxygen-deficient room following helium discharge; Harm specification that describes loss of batch sterility as a harm to be prevented during aseptic processing; Harm specification that describes unauthorized disclosure of batch genealogy data as a cybersecurity-related harm;</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf and https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-30r1.pdf and ISO 31000</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) In the current model, many harms can be represented through harmed states, especially when the harm involves damage to, degradation of, or loss of required qualities in a material entity, product, process output, equipment item, organism, person, population, or environment. For these cases, an information content entity that describes or prescribes a harmed state is sufficient for classification as a harm specification.
+		<iof-av:explanatoryNote>1) In the current model, many harms can be represented through harmed states, especially when the harm involves damage to, degradation of, or loss of required qualities in a material entity, product, process output, equipment item, organism, person, population, or environment. For these cases, an information content entity that describes a harmed state is sufficient for classification as a harm specification.
 2) The class is intentionally left open because not all relevant harms are expected to be adequately represented as material harmed states. In cybersecurity, information governance, software, and digital infrastructure contexts, harms may involve loss of confidentiality, loss of data integrity, loss of system availability, unauthorized access, loss of control over an automated process, or compromise of decision-relevant information. Some of these may require future modeling patterns that are not reducible to harmed states in the material domain.
 3) A harm specification should not be confused with the harm itself. The harm specification is the information content entity used to represent, communicate, evaluate, or reason about the harm. The harm itself is the adverse condition, consequence, or loss being specified.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>InformationContentEntity(x) ∧ ∃h (HarmedState(h) ∧ describes(x, h)) → HarmSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that describes an adverse condition, consequence, or loss</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;information content entity&apos; that &apos;describes&apos; some &apos;harmed state&apos;, then x is a &apos;harm specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -136,11 +139,10 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">harmed state</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>a patient has a bloodstream infection after receiving a contaminated injectable biologic; a patient is in an anaphylactic state after administration of a product containing an unintended immunogenic contaminant;a patient has recurrent thrombosis after not receiving a needed anticoagulant because of product shortage; the coil and cryostat are in a severely damaged state after a magnet quench; an operator is in a hypoxic injury state after remaining in an oxygen-deficient room following helium discharge</skos:example>
+		<skos:example>a patient has a bloodstream infection after receiving a contaminated injectable biologic; a patient is in an anaphylactic state after administration of a product containing an unintended immunogenic contaminant; a patient has recurrent thrombosis after not receiving a needed anticoagulant because of product shortage; the coil and cryostat are in a severely damaged state after a magnet quench; an operator is in a hypoxic injury state after remaining in an oxygen-deficient room following helium discharge</skos:example>
 		<iof-av:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso-iec:guide:51:ed-3:v1:en</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) “Persists” is used to signal that this is a state over time (not merely the damaging event).
-2) “Damage to health” includes damage that can occur from loss of product quality (e.g., unsafe or ineffective product) or loss of product availability (e.g., delayed or absent access to a needed product)
-3) In this ontology, injury and damage are treated as the particular condition a harm state is focused on, modeled as one or more specifically dependent continuants that depend on a material entity for as long as they exist; in practice this condition is typically a detrimental quality (a quality that inheres in the bearer and corresponds to deterioration relative to an appropriate baseline, e.g., tissue lesion, contamination, corrosion, fracture), and it may also include changes in realizable entities, such as a reduced or lost function/capability (what the bearer is able to do) and altered dispositions (tendencies such as a disposition to leak, fail, corrode further, or propagate contamination).</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1) “Damage to health” includes damage that can occur from loss of product quality (e.g., unsafe or ineffective product) or loss of product availability (e.g., delayed or absent access to a needed product)
+2) In this ontology, injury and damage are treated as the particular condition a harm state is focused on, modeled as one or more specifically dependent continuants that depend on a material entity for as long as they exist; in practice this condition is typically a detrimental quality (a quality that inheres in the bearer and corresponds to deterioration relative to an appropriate baseline, e.g., tissue lesion, contamination, corrosion, fracture), and it may also include changes in realizable entities, such as a reduced or lost function/capability (what the bearer is able to do) and altered dispositions (tendencies such as a disposition to leak, fail, corrode further, or propagate contamination).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>HarmedState(x) → MaterialState(x) ∧ (∃h (HazardousSituation(h) ∧ precededBy(x, h)) ∨ ∃h (HazardousSituation(h) ∧ hasPostMaterialState(h, x)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state of one or more persons, property, or an environment in which a person is injured or has damaged health, or property or the environment is damaged</iof-av:naturalLanguageDefinition>
@@ -152,7 +154,7 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;ValueExpression"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;HazardSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -160,11 +162,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
 		<skos:example>hazard detectability value expression of high assigned to low bioreactor temperature when continuous temperature monitoring and alarm functions are active; Hazard detectability value expression of medium assigned to oxygen presence in a batch polymerization vessel when oxygen presence is inferred from pressure behavior but not directly measured; Hazard detectability value expression of low assigned to trace metal variability in a powdered medium lot when the material is qualified by supplier certificate of analysis but not routinely tested in-house for each lot</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>HazardDetectabilityValueExpression(x) → ValueExpression(x) ∧ ∃h (HazardSpecification(h) ∧ isAbout(x, h))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>HazardDetectabilityValueExpression(x) → ValueExpression(x) ∧ ∃h (HazardSpecification(h) ∧ continuantPartOfAtAllTimes(x, h))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that represents the degree to which a specified hazard can be discovered or determined to exist</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hazard detectability value expression&apos; then x is a &apos;value expression&apos; that &apos;is about&apos; some &apos;hazard specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hazard detectability value expression&apos; then x is a &apos;value expression&apos; that is &apos;continuant part of at all times&apos; some &apos;hazard specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;HazardIdentificationProcess">
@@ -204,7 +206,7 @@ It answers the question “What might go wrong?” by using information such as 
 		<skos:example>A HAZOP method specification for a monoclonal antibody bioreactor operation prescribes that the team analyze deviations for selected process parameters, document their causes, consequences, and existing safeguards, and recommend risk-reduction actions where needed. When carried out, the resulting HAZOP record includes deviations involving temperature, pH, dissolved oxygen, agitation rate, and nutrient feed rate, and identifies issues such as pH probe drift and setpoint-entry error together with recommendations such as more frequent calibration, redundant sensing, and improved entry controls; A HAZOP method specification for an ortho-xylene oxidation reaction in a fixed-bed catalytic reactor prescribes that the team analyze deviations for selected process parameters, document their causes, consequences, and existing safeguards, and recommend risk-reduction actions where needed. When carried out, the resulting HAZOP record includes deviations involving feed and coolant conditions, feed composition, and catalyst activation, and identifies thermal runaway as a critical outcome, with recommendations such as detailed study of safe operating limits and installation of interlocks and relief systems.</skos:example>
 		<iof-av:abbreviation>HAZOP method specification</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-quality-risk-management-step-5-first-version_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Hazard and Operability Analysis (HAZOP) is a structured, systematic, qualitative technique for identifying potential risks and operability problems in a process, their causes and consequences, evaluating whether the existing safeguards are adequate to prevent hazardous situations, and recommending corrective actions, if necessary. It breaks complex processes into manageable elements. “Guide words” (e.g., No/None, High/More, Low/Less, Reverse, Early, Late, etc.) are applied to process parameters of each element to help identifying potential deviations from normal values or design intentions. For each deviation, causes, consequences, and existing safeguards are analyzed. If risks are unacceptable or safeguards are insufficient, corrective actions are recommended.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Hazard and Operability Analysis (HAZOP) is a structured, systematic, qualitative technique for identifying potential risks and operability problems in a process, their causes and consequences, evaluating whether the existing safeguards are adequate to prevent hazardous situations and recommending risk reduction actions, where appropriate. It breaks complex processes into manageable elements. “Guide words” (e.g., No/None, High/More, Low/Less, Reverse, Early, Late, etc.) are applied to process parameters of each element to help identify potential deviations from normal values or design intentions. For each deviation, causes, consequences, and existing safeguards are analyzed. If risks are unacceptable or safeguards are insufficient, risk reduction actions are recommended.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>HazardOperabilityAnalysisMethodSpecification(x) → RiskManagementMethodSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">risk management method specification that prescribes the systematic qualitative identification of potential hazards and operability problems in a process, evaluation of their causes, consequences, and existing safeguards, and, where appropriate, identification of recommended risk-reduction action</iof-av:naturalLanguageDefinition>
@@ -238,15 +240,17 @@ It answers the question “What might go wrong?” by using information such as 
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">hazard specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>Hazard record that specifies a cytotoxic cleaning agent present in product contact equipment as a potential source of harm that can lead to product quality failure; Hazard record that specifies trace iron concentration in culture medium above 5 ppm as a potential source of harm that can lead to CQA being out of specification; Hazard record that specifies unintended omission of the required sterile filter integrity test as a potential source of harm that can lead to contamination; Hazard record that specifies misaddition of base during pH adjustment as a potential source of harm that can lead to increased aggregation; Hazard record that specifies dissolved oxygen level as a potential source of harm that can lead to titer reduction;Hazard record that specifies that high temperature (&gt; 39 °C), high pH of the substrate, and low Carbon to Nitrogen ratio in the fed substrate are identified as potential hazards to the formation of a high amount of ammonia; Hazard record that specifies temperature, pressure, and presence of oxygen as potential hazards to the formation of a flammable/explosive mixture inside the batch reactor</skos:example>
+		<skos:example>Hazard record that specifies a cytotoxic cleaning agent present in product contact equipment as a potential source of harm that can lead to product quality failure; Hazard record that specifies trace iron concentration in culture medium above 5 ppm as a potential source of harm that can lead to CQA being out of specification; Hazard record that specifies unintended omission of the required sterile filter integrity test as a potential source of harm that can lead to contamination; Hazard record that specifies misaddition of base during pH adjustment as a potential source of harm that can lead to increased aggregation; Hazard record that specifies dissolved oxygen below the approved operating range as a potential source of harm that can lead to reduced cell viability and titer; Hazard record that specifies that high temperature (&gt; 39 °C), high pH of the substrate, and low Carbon to Nitrogen ratio in the fed substrate are identified as potential hazards to the formation of a high amount of ammonia; Hazard record that specifies temperature, pressure, and presence of oxygen as potential hazards to the formation of a flammable/explosive mixture inside the batch reactor</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) A potential source of harm is commonly referred to as a hazard.
-2) A hazard may be a material entity, an information content entity, a process, or an attribute of any of these.  
+2) A hazard may be a material entity, an information content entity, a process, or an attribute of any of these.
 3) A hazard identification result may also include as a part, or may reference, criterion values for a material entity attribute or process parameter that determine when the attribute or parameter is treated as a potential source of harm. These criterion values may be qualitative or quantitative, for example a threshold, a limit, an acceptable range, a variability criterion, or a categorical level such as high, low, or out of tolerance.
 4) A process specified as a potential source of harm may be planned or unplanned relative to an applicable plan specification for an execution. This includes omission cases in which a required action does not occur within the time window or at the specified point in the plan.
 5) A hazardous situation is distinct from a potential source of harm, because it is a circumstance of exposure in which one or more potential sources of harm can act on a target and is modeled separately</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>HazardSpecification(x) → InformationContentEntity(x) ∧ ∃h (HarmSpecification(h) ∧ isAbout(x, h)) ∧ ∀y (describes(x, y) → Entity(y) ∧ ¬SpatialRegion(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that describes one or more potential sources of harm</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hazard specification&apos; then x is an &apos;information content entity&apos; that &apos;is about&apos; some &apos;harm specification&apos; and only &apos;describes&apos; entities that are not &apos;spatial region&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -294,9 +298,10 @@ It answers the question “What might go wrong?” by using information such as 
 		<iof-av:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso:14971:ed-3:v1:en:term:3.21</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Potential source of harm is commonly known as a hazard and is in this case an entity that is described by a hazard specification</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>HazardousSituation(x) → Process(x) ∧ ((∃c ∃s (Continuant(c) ∧ HazardSpecification(s) ∧ hasParticipantAtSomeTime(x, c) ∧ (describedBy(c, s)))) ∨ (∃p ∃s (Process(p) ∧ HazardSpecification(s) ∧ occurrentPartOf(x, p) ∧ (describedBy(p, s)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which one or more persons, property, or an environment is exposed to one or more potential sources of harm</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hazardous situation&apos; then x is a &apos;process&apos; and either x &apos;has participant at some time&apos; some &apos;continuant&apos; that is &apos;described by&apos; some &apos;hazard specification&apos;, or x is an &apos;occurrent part of&apos; some &apos;process&apos; that is &apos;described by&apos;  some &apos;hazard specificationcribed by&apos; or &apos;prescribed by&apos; some &apos;hazard specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;hazardous situation&apos; then x is a &apos;process&apos; and either x &apos;has participant at some time&apos; some &apos;continuant&apos; that is &apos;described by&apos; some &apos;hazard specification&apos;, or x is &apos;occurrent part of&apos; some &apos;process&apos; that is &apos;described by&apos; some &apos;hazard specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;QualityRiskManagementProcess">
@@ -305,6 +310,7 @@ It answers the question “What might go wrong?” by using information such as 
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
 		<skos:example>quality risk management process for a monoclonal antibody manufacturing process in which risks to product quality from cell culture pH variability, nutrient feed errors, and harvest timing are assessed, controlled, communicated, and periodically reviewed across development and commercial manufacturing</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Risks to drug product quality include risks arising from drug substances, raw materials, manufacturing processes, equipment, utilities, supply activities, and product availability issues caused by quality or manufacturing failures.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>QualityRiskManagementProcess(x) → RiskManagementProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">risk management process that systematically performs risk assessment, risk control, risk communication, and risk review for risks to drug product quality across the product lifecycle</iof-av:naturalLanguageDefinition>
@@ -335,8 +341,8 @@ It answers the question “What might go wrong?” by using information such as 
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
 		<skos:example>A residual risk estimate of 4 (Medium / Acceptable) has been assigned to the occurrence of microbial contamination in a sterile fill-finish stage of a pharma process, using a 5x5 residual risk matrix evaluation method, after changing both the laminar airflow system over the filling line and the Restricted Access Barrier System (RABS) that minimizes operator access</skos:example>
 		<iof-av:adaptedFrom>https://www.iso.org/obp/ui/en/#iso:std:iso-iec:guide:51:ed-3:v1:en:term:3.9</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1)It is the level of risk that remains after controls, safeguards, or mitigation measures have been applied to address an identified risk.
-2) Severity is referred to as ‘impact’ in other domains, such as cybersecurity (ISO/IEC 27001).
+		<iof-av:explanatoryNote>1) It is the level of risk that remains after controls, safeguards, or mitigation measures have been applied to address an identified risk.
+2) Severity is referred to as ‘impact’ in other domains, such as cybersecurity (ISO/IEC 27001) .
 3) In many domains the residual risk estimate is calculated iteratively until it reaches an acceptable value.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ResidualRiskEstimate(x) → RiskEstimate(x) ∧ ∃a (RiskAnalysisProcess(a) ∧ isSpecifiedOutputOf(x, a) ∧ ∃r (RiskReductionProcess(r) ∧ precededBy(a, r)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -359,16 +365,33 @@ It answers the question “What might go wrong?” by using information such as 
 				<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk acceptance process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>After implementing a backup pH probe and enhanced calibration checks, the quality unit decides whether to accept the residual risk of pH measurement drift for routine manufacturing</skos:example>
+		<skos:example>After implementation of a backup pH probe and enhanced calibration checks, the quality unit accepts the residual risk of pH measurement drift for routine manufacturing.</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Risk acceptance is the decision to accept risk. It may be a formal decision to accept residual risk or a passive decision in which residual risks are not specified.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>RiskAcceptanceProcess(x) → PlannedProcess(x) ∧ ∃r (RiskEstimate(r) ∧ hasInput(x, r)) ∧ ∃a (Agent(a) ∧ hasParticipantAtSomeTime(x, a))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>RiskAcceptanceProcess(x) → PlannedProcess(x) ∧ ∃r∃a∃o(RiskEstimate(r) ∧ Agent(a) ∧ InformationContentEntity(o) ∧ hasInput(x,r) ∧ hasParticipantAtSomeTime(x,a) ∧ hasSpecifiedOutput(x,o) ∧ isAbout(o,r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which an agent makes a decision whether to accept a estimated risk</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which an agent makes an informed decision to accept an estimated risk</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk acceptance process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;risk estimate&apos; and &apos;has participant at some time&apos; some &apos;agent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk acceptance process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;risk estimate&apos;, &apos;has participant at some time&apos; some &apos;agent&apos;, and &apos;has specified output&apos; some &apos;information content entity&apos; that &apos;is about&apos; that same &apos;risk estimate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskAnalysisProcess">
@@ -395,13 +418,13 @@ It answers the question “What might go wrong?” by using information such as 
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example>A team performs a risk analysis for contamination scenarios that have already been identified, using an FMEA scoring rubric to assign severity, occurrence, and detectability ratings for “operator error leading to aseptic breach.” The resulting scores and any derived composite value, such as an Risk Priority Number (RPN), provide a comparable risk characterization that supports prioritizing additional controls and operator training; A team performs a risk analysis for the formation of hydrogen sulfide scenarios that have been identified as part of an Anaerobic digestion stage of a hazard identification process. The team uses an RPN +B (Risk Priority Number that also considers biohazardous aspects) indicator to perform a semi-quantitative risk analysis process, which includes severity and frequency of occurrence of the deviations, associated biohazards, and the existence of counter measures.</skos:example>
+		<skos:example>A team performs a risk analysis for contamination scenarios that have already been identified, using an FMEA scoring rubric to assign severity, occurrence, and detectability ratings for “operator error leading to aseptic breach.” The resulting scores and any derived composite value, such as a Risk Priority Number (RPN), provide a comparable risk characterization that supports prioritizing additional controls and operator training; A team performs a risk analysis for the formation of hydrogen sulfide scenarios that have been identified as part of an Anaerobic digestion stage of a hazard identification process. The team uses an RPN +B (Risk Priority Number that also considers biohazardous aspects) indicator to perform a semi-quantitative risk analysis process, which includes severity and frequency of occurrence of the deviations, associated biohazards, and the existence of countermeasures.</skos:example>
 		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>Listing possible contamination causes without estimating likelihood, severity, or any comparable risk characterization</iof-av:counterExample>
 		<iof-av:explanatoryNote>Risk analysis transforms identified hazards into measurable or comparable levels of risk. It may be performed qualitatively or quantitatively and can include the likelihood of occurrence, the severity of consequences, and, where appropriate, the ability to detect a failure before harm occurs (detectability).
 In biopharmaceutical development, it supports Quality-by-Design (QbD) by linking process parameters and material attributes to potential effects on product quality and performance.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>RiskAnalysisProcess(x) ↔ PlannedProcess(x) ∧ ∃h (HazardIdentificationProcess(h) ∧ precededBy(x, h)) ∧ ∃s (HazardSpecification(s) ∧ hasInput(x, s)) ∧ ∃r (RiskEstimate(r) ∧ hasSpecifiedOutput(x, r))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that estimates the magnitude of risks associated with identified hazards by evaluating the likelihood of their occurrence and the severity of potential harms</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that estimates the magnitude of risks associated with identified hazards by evaluating the likelihood of harm and the severity of that harm</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk analysis process&apos; is defined as exactly an instance of &apos;planned process&apos; that is &apos;preceded by&apos; some &apos;hazard identification process&apos;, &apos;has input&apos; some &apos;hazard specification&apos;, and &apos;has specified output&apos; some &apos;risk estimate&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -433,14 +456,14 @@ In biopharmaceutical development, it supports Quality-by-Design (QbD) by linking
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-		<skos:example>During process development, a team conducts a risk assessment process for the objective of meeting a target impurity profile. The team identifies candidate risks such as temperature excursions, pH control drift, and raw material variability, analyzes each risk using an agreed method and scoring rubric, and evaluates the results against predefined criteria to produce a ranked list of factors to investigate in the next DoE study; Before tech transfer, a team conducts a risk assessment process focused on maintaining sterility assurance and product potency. The team identifies failure scenarios across unit operations, analyzes likelihood and impact using platform knowledge and available data, and evaluates which scenarios require additional controls, monitoring, or procedural changes before routine manufacturing.</skos:example>
+		<skos:example>During process development, a team conducts a risk assessment process for the objective of meeting a target impurity profile. The team identifies candidate hazards and risk relevant factors such as temperature excursions, pH control drift, and raw material variability analyzes each risk using an agreed method and scoring rubric, and evaluates the results against predefined criteria to produce a ranked list of factors to investigate in the next DoE study; Before tech transfer, a team conducts a risk assessment process focused on maintaining sterility assurance and product potency. The team identifies failure scenarios across unit operations, analyzes likelihood and impact using platform knowledge and available data, and evaluates which scenarios require additional controls, monitoring, or procedural changes before routine manufacturing.</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf and ISO 31000:2018</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A risk-assessment process systematically determines the likelihood and impact of undesirable events or conditions to support informed decision-making.
 It establishes a basis for prioritising control measures, mitigation strategies, or further study.
 In pharmaceutical development, it underpins Quality by Design (QbD) activities by identifying process parameters, material attributes, or operational factors that may affect critical quality attributes (CQAs) or key performance indicators (KPIs).</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>RiskAssessmentProcess(x) ↔ PlannedProcess(x) ∧ ∃h (HazardIdentificationProcess(h) ∧ hasOccurrentPart(x, h)) ∧ ∃a (RiskAnalysisProcess(a) ∧ hasOccurrentPart(x, a)) ∧ ∃e (RiskEvaluationProcess(e) ∧ hasOccurrentPart(x, e)) ∧ ∃r (RiskAssessmentResult(r) ∧ hasSpecifiedOutput(x, r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>RiskAssessmentProcess(x) ↔ PlannedProcess(x) ∧ ∃h∃a∃e∃s∃r∃o(HazardIdentificationProcess(h) ∧ RiskAnalysisProcess(a) ∧ RiskEvaluationProcess(e) ∧ HazardSpecification(s) ∧ RiskEstimate(r) ∧ RiskAssessmentResult(o) ∧ hasOccurrentPart(x,h) ∧ hasOccurrentPart(x,a) ∧ hasOccurrentPart(x,e) ∧ hasSpecifiedOutput(h,s) ∧ hasInput(a,s) ∧ hasSpecifiedOutput(a,r) ∧ hasInput(e,r) ∧ precededBy(a,h) ∧ precededBy(e,a) ∧ hasSpecifiedOutput(x,o) ∧ hasContinuantPartAtAllTimes(o,r))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of the identification of hazards and the analysis and evaluation of the risks associated with those hazards</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk assessment process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;hazard identification process&apos;, &apos;has occurrent part&apos; some &apos;risk analysis process&apos;, &apos;has occurrent part&apos; some &apos;risk evaluation process&apos;, and &apos;has specified output&apos; some &apos;risk assessment result&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk assessment process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;hazard identification process&apos; producing a &apos;hazard specification&apos;, &apos;has occurrent part&apos; some subsequent &apos;risk analysis process&apos; that uses that hazard specification and produces a &apos;risk estimate&apos;, &apos;has occurrent part&apos; some subsequent &apos;risk evaluation process&apos; that uses that same risk estimate, and &apos;has specified output&apos; some &apos;risk assessment result&apos; containing that same &apos;risk estimate&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskAssessmentResult">
@@ -467,9 +490,9 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		<skos:example>a completed quality risk assessment report identifying contamination hazards, recording estimated risk levels for each, and documenting their evaluation against established acceptance categories; a completed equipment risk assessment report identifying magnet quench scenarios, recording estimated damage severity and likelihood, and documenting the resulting risk classification</skos:example>
 		<iof-av:adaptedFrom>https://csrc.nist.gov/glossary/term/risk_assessment_report</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A risk assessment result is the overall documented output of the assessment activity. It typically contains more than a single risk estimate, and it often aggregates qualitative descriptors, scores, rankings, and decision criteria across multiple hazards or scenarios.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>RiskAssessmentResult(x) ↔ InformationContentEntity(x) ∧ ∃e (RiskEstimate(e) ∧ hasContinuantPartAtAllTimes(x, e)) ∧ ∃p (RiskAssessmentProcess(p) ∧ isSpecifiedOutputOf(x, p))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>RiskAssessmentResult(x) ↔ InformationContentEntity(x) ∧ ∃p∃a∃e(RiskAssessmentProcess(p) ∧ RiskAnalysisProcess(a) ∧ RiskEstimate(e) ∧ isSpecifiedOutputOf(x,p) ∧ hasOccurrentPart(p,a) ∧ hasSpecifiedOutput(a,e) ∧ hasContinuantPartAtAllTimes(x,e))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is the output of a risk assessment process and that records the characterization of risk for one or more identified hazards</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk assessment result&apos; is defined as exactly an instance of &apos;information content entity&apos; that &apos;has continuant part at all times&apos; some &apos;risk estimate&apos; and &apos;is specified output of&apos; some &apos;risk assessment process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk assessment result&apos; is defined as exactly an instance of &apos;information content entity&apos; that &apos;is specified output of&apos; some &apos;risk assessment process&apos; and &apos;has continuant part at all times&apos; some &apos;risk estimate&apos; produced by a &apos;risk analysis process&apos; that is part of that same &apos;risk assessment process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskCommunicationProcess">
@@ -526,26 +549,38 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>RiskControlProcess(x) → PlannedProcess(x) ∧ ∃p ((RiskAcceptanceProcess(p) ∨ RiskReductionProcess(p)) ∧ hasOccurrentPart(x, p)) ∧ ∃a (RiskAssessmentProcess(a) ∧ precededBy(x, a))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that has as parts one or more risk reduction processes or risk acceptance processes and that is carried out to bring the estimated risk to an acceptable level</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which risk is reduced or accepted, or both</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk control process&apos; then x is a &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;risk acceptance process&apos; or some &apos;risk reduction process&apos;, and is &apos;preceded by&apos; some &apos;risk assessment process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskEstimate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;HarmSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;HazardSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk estimate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>The estimated risk that pH variability during the production culture process results in patient harm via reduced product availability, because it can cause harvest titer below the acceptance criterion (leading to batch rejection or reduced supply), is medium (likelihood rating = 2, severity = 3, risk score = 6); The estimated risk that lower temperature (&lt;38 °C) during the anaerobic digestion of a biogas production process leads to H2S accumulation has an RPN+B (Risk Priority Number that also considers biohazardous aspects) value of 42 (severity=5, frequency of occurrence = 3, counter measures existence= 2, associated biohazards= 2). This estimated risk is based on possible failures in the CPH (combined heat and power) system, temperature control loop and sludge stirrer</skos:example>
+		<skos:example>The estimated risk that pH variability during the production culture process results in patient harm via reduced product availability, because it can cause harvest titer below the acceptance criterion (leading to batch rejection or reduced supply), is medium (likelihood rating = 2, severity = 3, risk score = 6); The estimated risk that lower temperature (&lt;38 °C) during the anaerobic digestion of a biogas production process leads to H2S accumulation and resulting toxic exposure to personnel has an RPN+B (Risk Priority Number that also considers biohazardous aspects) value of 42 (severity=5, frequency of occurrence = 3, countermeasures existence= 2, associated biohazards= 2). This estimated risk is based on possible failures in the CPH (combined heat and power) system, temperature control loop and sludge stirrer</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Risk estimate may apply to processes, materials, equipment, or other operational elements and can be expressed as a numerical score, category (e.g., high–medium–low), or risk-priority number (RPN).
-2) In regulatory documents such as ICH Q9 (R1), this same concept is typically referred to simply as risk. The term risk estimate is used here to emphasize its informational nature as the assessed level of risk rather than the underlying harmful event or hazard itself.  
+2) In regulatory documents such as ICH Q9 (R1), this same concept is typically referred to simply as risk. The term risk estimate is used here to emphasize its informational nature as the assessed level of risk rather than the underlying harmful event or hazard itself.
 3) Likelihood is used here instead of &apos;probability of occurrence&apos; to cover both numerical probabilities (quantitative estimation) and defined ordinal categories/ratings (qualitative range descriptions).
-4) In some risk management tools, the ability to detect the harm (detectability) also factors in the estimation of risk.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>RiskEstimate(x) → InformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+4) In some risk management tools, an assessed detectability value for a specified hazard also factors in the estimation of risk.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>RiskEstimate(x) → InformationContentEntity(x) ∧ ∃h∃m(HazardSpecification(h) ∧ HarmSpecification(m) ∧ isAbout(x,h) ∧ isAbout(x,m) ∧ isAbout(h,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is a combination of the assessed likelihood of harm and the assessed severity of that harm</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk estimate&apos; then x is an &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk estimate&apos; then x is an &apos;information content entity&apos; that &apos;is about&apos; some &apos;hazard specification&apos; and some &apos;harm specification&apos; that the same &apos;hazard specification&apos; &apos;is about&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskEvaluationProcess">
@@ -564,14 +599,14 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk evaluation process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>comparing FMEA-derived risk-priority numbers (RPNs) for dissolved-oxygen variation against an established risk-ranking scale; comparing the value of the RPN+B indicator for a scenario of high pressure between the gasometer membranes of an anaerobic digestor against defined risk acceptability categories</skos:example>
-		<iof-av:explanatoryNote>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:explanatoryNote>
+		<skos:example>comparing FMEA-derived risk-priority numbers (RPNs) for dissolved-oxygen variation against an established risk-ranking scale; comparing the value of the RPN+B indicator for a scenario of high pressure between the gasometer membranes of an anaerobic digester against defined risk acceptability categories</skos:example>
+		<iof-av:adaptedFrom>ISO 31000:2018 and https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Risk evaluation is the comparison of estimated risk against predefined risk criteria, using a qualitative or quantitative scale, in order to determine the significance of the risk. It interprets the results of risk analysis in light of criteria such as regulatory thresholds, process capability limits, or business objectives.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>RiskEvaluationProcess(x) → PlannedProcess(x) ∧ ∃r (RiskEstimate(r) ∧ hasInput(x, r)) ∧ ∃a (RiskAnalysisProcess(a) ∧ precededBy(x, a))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>RiskEvaluationProcess(x) → PlannedProcess(x) ∧ ∃a∃r(RiskAnalysisProcess(a) ∧ RiskEstimate(r) ∧ precededBy(x,a) ∧ hasSpecifiedOutput(a,r) ∧ hasInput(x,r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that compares analyzed risks againts predefined criteria to determine the significance of the estimated risk</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that compares analyzed risks against predefined criteria to determine the significance of the estimated risk</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk evaluation process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;risk estimate&apos; and is &apos;preceded by&apos; some &apos;risk analysis process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk evaluation process&apos; then x is a &apos;planned process&apos; that is &apos;preceded by&apos; some &apos;risk analysis process&apos; and &apos;has input&apos; the &apos;risk estimate&apos; produced by that same &apos;risk analysis process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskManagementMethodSpecification">
@@ -625,11 +660,11 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		<iof-av:explanatoryNote>1) A risk management plan specifies the approach, management components, and resources to be applied in managing risk.
 2) Management components may include procedures, practices, assignment of responsibilities, and the sequence and timing of activities.
 3) A risk management plan may apply to a particular product, process, project, organizational unit, or the organization as a whole.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>RiskManagementPlanSpecification(x) → PlanSpecification(x) ∧ ∀y (prescribes(x, y) → RiskManagementProcess(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>RiskManagementPlanSpecification(x) → PlanSpecification(x) ∧ ∃m(RiskManagementMethodSpecification(m) ∧ hasContinuantPartAtAllTimes(x,m)) ∧ ∀y(prescribes(x,y) → RiskManagementProcess(y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes a risk management process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>See the general discussion under information content entity</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk management plan specification&apos; then x is a &apos;plan specification&apos; that only &apos;prescribes&apos;  &apos;risk management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk management plan specification&apos; then x is a &apos;plan specification&apos; that &apos;has continuant part at all times&apos; some &apos;risk management method specification&apos; and only &apos;prescribes&apos; &apos;risk management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskManagementProcess">
@@ -709,9 +744,9 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk reduction process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<skos:example>To prevent human exposure to VCM (Vinyl Chloride Monomer) in the polymerization facility, a new detection system was installed that doubled the number of valves automatically sampling the air in the polymerization room, tripled the sampling frequency, and added a gas chromatography system with an electron capture detector capable of processing the full sample load, reporting results within two minutes of sampling, and detecting increases in VCM concentration at designated sampling points.; To reduce the risk of microbial contamination during aseptic filling, an automated isolator with integrated VHP  (Vaporized Hydrogen Peroxide) decontamination was installed for the filling line, and the transfer of sterile components was changed from open handling to closed, decontaminated rapid-transfer port; To reduce the risk of cell-culture viability loss due to pH control failures, redundant pH probes were installed on the production bioreactor, a validated probe calibration and drift-check procedure was implemented, and an automated control logic change was deployed to hold base addition and trigger operator intervention when probe disagreement exceeded the defined threshold</skos:example>
+		<skos:example>To prevent human exposure to VCM (Vinyl Chloride Monomer) in the polymerization facility, a new detection system was installed that doubled the number of valves automatically sampling the air in the polymerization room, tripled the sampling frequency, and added a gas chromatography system with an electron capture detector capable of processing the full sample load, reporting results within two minutes of sampling, and detecting increases in VCM concentration at designated sampling points.; To reduce the risk of microbial contamination during aseptic filling, an automated isolator with integrated VHP (Vaporized Hydrogen Peroxide) decontamination was installed for the filling line, and the transfer of sterile components was changed from open handling to closed, decontaminated rapid-transfer port; To reduce the risk of cell-culture viability loss due to pH control failures, redundant pH probes were installed on the production bioreactor, a validated probe calibration and drift-check procedure was implemented, and an automated control logic change was deployed to hold base addition and trigger operator intervention when probe disagreement exceeded the defined threshold</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/international-conference-harmonisation-technical-requirements-registration-pharmaceuticals-human-use-ich-guideline-q9-r1-quality-risk-management-step-5-revision-2_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Risk reduction may be realized through many different kinds of actions and subprocesses, including actions that eliminate a particular hazard, measures that mitigate the severity and or probability of harm, and measures that improve the detectability of hazards and quality risks. In practice, these measures are typically made explicit in recorded outputs such as risk control plans, control strategy specifications, CAPA (Corrective Action and Preventive Action) plans, change controls, and associated implementation records. However, because the concrete form of risk reduction varies widely across organizations and contexts, the ontology treats these measures primarily as occurrent parts of the risk reduction process, rather than axiomatically constraining a fixed set of required action types or outputs.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Risk reduction may be realized through many different kinds of actions and subprocesses, including actions that eliminate a particular hazard, measures that mitigate the severity and/or probability of harm, and measures that improve the detectability of hazards and quality risks. In practice, these measures are typically made explicit in recorded outputs such as risk control plans, control strategy specifications, CAPA (Corrective Action and Preventive Action) plans, change controls, and associated implementation records. However, because the concrete form of risk reduction varies widely across organizations and contexts, the ontology treats these measures primarily as occurrent parts of the risk reduction process, rather than axiomatically constraining a fixed set of required action types or outputs.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>RiskReductionProcess(x) → PlannedProcess(x) ∧ ∃r (RiskEstimate(r) ∧ hasInput(x, r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of actions taken to lessen an estimated risk</iof-av:naturalLanguageDefinition>
@@ -758,6 +793,12 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskManagementProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk review process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
 		<skos:example>A biopharmaceutical manufacturer evaluates prior risk management outcomes concerning raw material variability after a supplier change; An organization evaluates prior risk management outcomes after an audit identifies that an existing approval step is not being performed consistently; A team evaluates prior risk management outcomes in light of findings from a failure investigation; During a periodic review, monitoring data and change records are considered to determine whether an existing inspection frequency remains appropriate</skos:example>
@@ -769,23 +810,13 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 5) Unplanned events may include deviations, failure investigation findings, complaints, recalls, or newly identified sources of risk.
 6) Information considered in this process may include monitoring data, trend data, investigation outcomes, change records, audit observations, and other records relevant to the risk.
 7) This process may lead to confirmation of current or prior outcomes or to their revision, including updates to risk acceptance decisions, risk controls, or associated records</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>RiskReviewProcess(x) → PlannedProcess(x) ∧ ∃r (RiskManagementProcess(r) ∧ occurrentPartOf(x, r)) ∧ (∃p (PlannedProcess(p) ∧ RiskManagementProcess(r) ∧ occurrentPartOf(p, r) ∧ precededBy(x, p)) ∨ ∃p (PlannedProcess(p) ∧ RiskManagementProcess(r) ∧ occurrentPartOf(p, r) ∧ isTemporallyOverlappedBy(x, p)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>RiskReviewProcess(x) → PlannedProcess(x) ∧ ∃r(RiskManagementProcess(r) ∧ occurrentPartOf(x,r) ∧ (∃p(PlannedProcess(p) ∧ occurrentPartOf(p,r) ∧ precededBy(x,p)) ∨ ∃p(PlannedProcess(p) ∧ occurrentPartOf(p,r) ∧ isTemporallyOverlappedBy(x,p))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the outcomes of risk management activities are monitored or evaluated</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;risk review process&apos; then x is a &apos;planned process&apos; that is &apos;occurrent part of&apos; some &apos;risk management process&apos; and either is &apos;preceded by&apos; some &apos;planned process&apos; that is &apos;occurrent part of&apos; that same &apos;risk management process&apos;, or is &apos;temporally overlapped by&apos; some &apos;planned process&apos; that is &apos;occurrent part of&apos; that same &apos;risk management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:AllDisjointClasses>
-		<owl:members rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-construct;FailureModeAndEffectsAnalysisSpecification">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;HazardOperabilityAnalysisMethodSpecification">
-			</rdf:Description>
-			<rdf:Description rdf:about="&iof-construct;RiskRankingAndFilteringSpecification">
-			</rdf:Description>
-		</owl:members>
-	</owl:AllDisjointClasses>
 	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-construct;HarmSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
@@ -794,6 +825,21 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;describes"/>
 				<owl:someValuesFrom rdf:resource="&iof-construct;HarmedState"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-construct;RiskManagementPlanSpecification"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-construct;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskManagementMethodSpecification"/>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskManagementProcess"/>
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
