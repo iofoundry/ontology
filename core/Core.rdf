@@ -699,6 +699,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	<owl:Class rdf:about="&iof-constr;ComplexMaterialState">
 		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialState"/>
 		<rdfs:label>complex material state</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:equivalentClass>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
@@ -717,7 +718,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</owl:equivalentClass>
 		<skos:example>culture in a oxygen-limited state in which a high cell density state, low glucose-concentration state, and elevated lactate-concentration state of the culture, maximum-agitation state of the impeller, and high oxygen-flow state of the gas supply holds in; warehouse in a acceptable storage state in which the storage site&apos;s acceptable temperature state, acceptabe humidity state, and package&apos;s undamaged state holds in; a CNC machine is in ready state in which the spindle’s stopped state, safety door’s closed state, workpiece’s clamped state, lubricant’s sufficient-pressure state, and tool’s acceptable-condition state.</skos:example>
 		<iof-av:explanatoryNote>A complex material state is not merely a collection of co-occurring material states. It is a material state whose condition is aggregated from the conditions of other material states, for example by conjunction, threshold rule, weighted rule, or constraint satisfaction. The contributing material states are related to the complex material state by &apos;material state holds in&apos;. This means that they cover the duration of the complex material state as required by that relation, but they do not need to have the same temporal extent as the complex material state and should not be treated as ordinary occurrent parts. Additioanlly, it is also not required for every state holding in a complex state is a state of same material entity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>∀s(ComplexMaterialState(s) ↔ (MaterialState(s) ∧∃s′(MaterialState(s′) ∧ materialStateHoldsIn(s′,s))))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>ComplexMaterialState(s) ↔ MaterialState(s) ∧∃s′(MaterialState(s′) ∧ materialStateHoldsIn(s′,s))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>material state whose condition is an aggregated condition composed from the conditions of two or more material states that hold in it</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;complex material state&apos; is defined as exactly an instance of &apos;material state&apos; in which some other instance of &apos;material state&apos; &apos;material state holds in&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
@@ -2183,29 +2184,18 @@ Services as products as well as software products will be considered in the next
 	<owl:Class rdf:about="&iof-constr;MaterialState">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000015"/>
 		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:complementOf>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasPostMaterialState"/>
-						<owl:hasSelf rdf:datatype="&xsd;boolean">true</owl:hasSelf>
-					</owl:Restriction>
-				</owl:complementOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Class>
-				<owl:complementOf>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasPreMaterialState"/>
-						<owl:hasSelf rdf:datatype="&xsd;boolean">true</owl:hasSelf>
-					</owl:Restriction>
-				</owl:complementOf>
-			</owl:Class>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
-				<owl:allValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000035">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;MaterialState">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -2223,13 +2213,13 @@ Services as products as well as software products will be considered in the next
 2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
 
 3. The term as introduced here is not intended to be used for for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition).</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀s(MaterialState(s) → ∃m(MaterialEntity(m) ∧ isMaterialStateOf(s,m)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀s,s′,m((stateOf(s,m) ∧ occurrentPartOf(s′,s)) → (MaterialState(s′) ∧ stateOf(s′,m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA1: MaterialState(s) → ∃m(MaterialEntity(m) ∧ isMaterialStateOf(s,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀s,s′,m((isMaterialStateOf(s,m) ∧ occurrentPartOf(s′,s) ∧ Process(s′)) → (MaterialState(s′) ∧ isMaterialStateOf(s′,m)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale xml:lang="en">insufficient constructs to create necessary and sufficient conditions. Namely, constructs to formalize the &quot;unchanging&quot; condition with range, limits and constant values over a period of time are still lacking.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if s is &apos;state of&apos; m and s&apos; is &apos;occurrent part of&apos; s, then s&apos; is an instance of &apos;material state&apos; and s&apos; is &apos;state of&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition>LA1: if s is an instance of &apos;material state&apos;, then s &apos;is material state of&apos; some instance of &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale xml:lang="en">Insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if s is a &apos;material state&apos;, then s &apos;is material state of&apos; a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if s &apos;is material state of&apos; m and s&apos; is an &apos;occurrent part of&apos; s that is a &apos;process&apos; then s&apos; is a &apos;material state&apos; that &apos;is material state of&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym xml:lang="en-US">stasis</iof-av:synonym>
 	</owl:Class>
 	
@@ -2247,116 +2237,45 @@ Services as products as well as software products will be considered in the next
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtSomeTime"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000031">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
 				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>material state condition expression</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;ValueExpression">
-					</rdf:Description>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;describes"/>
-										<owl:someValuesFrom rdf:resource="&bfo;BFO_0000029"/>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;describes"/>
-										<owl:allValuesFrom rdf:resource="&bfo;BFO_0000029"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtAllTimes"/>
-										<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtAllTimes"/>
-										<owl:allValuesFrom rdf:resource="&bfo;BFO_0000040"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtAllTimes"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000020">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000031">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000144">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtAllTimes"/>
-										<owl:allValuesFrom>
-											<owl:Class>
-												<owl:unionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000020">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000031">
-													</rdf:Description>
-													<rdf:Description rdf:about="&bfo;BFO_0000144">
-													</rdf:Description>
-													<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
-													</rdf:Description>
-												</owl:unionOf>
-											</owl:Class>
-										</owl:allValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
-					</owl:Class>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-constr;MaterialStateSpecification">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-										<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀e,c,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ SpecificallyDependentContinuant(c) ∧ specificallyDependsOn(c,m) ∧ isValueExpressionOfAtAllTimes(e,c)) → ∀t(occursAt(x,t) → isValueExpressionOfAt(e,c,t)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀e,c,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ GenericallyDependentContinuant(c) ∧ genericallyDependsOn(c,m) ∧ isValueExpressionOfAtAllTimes(e,c)) → ∀t(occursAt(x,t) → isValueExpressionOfAt(e,c,t)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀e,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ isValueExpressionOfAtAllTimes(e,m)) → ∀t(occursAt(x,t) → (existsAt(m,t) ∧ isValueExpressionOfAt(e,m,t))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA4: ∀e,r,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ Site(r) ∧ describes(e,r)) → ∀t(occursAt(x,t) → locationOfAt(r,m,t)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA5: ∀e,p,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ ProcessProfile(p) ∧ isValueExpressionOfAtAllTimes(e,p)) → ∀t(occursAt(x,t) → (hasParticipantAt(p,m,t) ∧ isValueExpressionOfAt(e,p,t))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA6: ∀e,c,d,x,m((MaterialStateConditionExpression(e) ∧ MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(e,d) ∧ MaterialState(x) ∧ prescribes(d,x) ∧ MaterialEntity(m) ∧ isMaterialStateOf(x,m) ∧ ProcessCharacteristic(c) ∧ isValueExpressionOfAtAllTimes(e,c)) → ∃p(Process(p) ∧ processCharacteristicOf(c,p) ∧ ∀t(occursAt(x,t) → (hasParticipantAt(p,m,t) ∧ isValueExpressionOfAt(e,c,t)))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition xml:lang="en">MaterialStateConditionExpression(v) ↔ ValueExpression(v) ∧ ∃d(MaterialStateSpecification(d) ∧ continuantPartOfAtAllTimes(v,d) ∧ ∃x(MaterialState(x) ∧ prescribes(d,x))) ∧ ((∃m(MaterialEntity(m) ∧ isValueExpressionOfAtAllTimes(v,m)) ∧ ∀m&apos;(isValueExpressionOfAtAllTimes(v,m&apos;) → MaterialEntity(m&apos;))) ∨ (∃c((SpecificallyDependentContinuant(c) ∨ GenericallyDependentContinuant(c) ∨ ProcessProfile(c) ∨ ProcessCharacteristic(c)) ∧ isValueExpressionOfAtAllTimes(v,c)) ∧ ∀c&apos;(isValueExpressionOfAtAllTimes(v,c&apos;) → (SpecificallyDependentContinuant(c&apos;) ∨ GenericallyDependentContinuant(c&apos;) ∨ ProcessProfile(c&apos;) ∨ ProcessCharacteristic(c&apos;)))) ∨ (∃r(Site(r) ∧ describes(v,r)) ∧ ∀r&apos;(describes(v,r&apos;) → Site(r&apos;))))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en">value expression that, as part of a Material State Specification, expresses a condition on a characteristic, profile, quality, location, or other relevant feature, to which the material state prescribed by that specification continuously conforms throughout its occurrence.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;is value expression of at all times&apos; a &apos;specifically dependent continuant&apos; c that &apos;specifically depends on&apos; m, then whenever x &apos;occurs at&apos; t, e &apos;is value expression of&apos; c at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;is value expression of at all times&apos; a &apos;generically dependent continuant&apos; c that &apos;generically depends on&apos; m, then whenever x &apos;occurs at&apos; t, e &apos;is value expression of&apos; c at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;is value expression of at all times&apos; m, then whenever x &apos;occurs at&apos; t, m &apos;exists at&apos; t and e &apos;is value expression of at&apos; m at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA4: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;describes&apos; a &apos;site&apos; r, then whenever x &apos;occurs at&apos; t, r is &apos;location of at&apos; m at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA5: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;is value expression of at all times&apos; a &apos;process profile&apos; p, then whenever x &apos;occurs at&apos; t, p &apos;has participant at&apos; m at t and e &apos;is value expression of at&apos; p at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA6: if e is an instance of &apos;material state condition expression&apos; that is &apos;continuant part of at all times&apos; a &apos;material state specification&apos; d that &apos;prescribes&apos; a &apos;material state&apos; x, x &apos;is material state of&apos; a &apos;material entity&apos; m, and e &apos;is value expression of at all times&apos; a &apos;process characteristic&apos; c, then c is &apos;process characteristic of&apos; some &apos;process&apos; p such that whenever x &apos;occurs at&apos; t, p &apos;has participant at&apos; m at t and e &apos;is value expression of at&apos; c at t</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en">every instance of &apos;material state condition expression&apos; is defined as exactly an instance of &apos;value expression&apos; that is &apos;continuant part of at all times&apos; some &apos;material state specification&apos; that &apos;prescribes&apos; some &apos;material state&apos;, and that either &apos;is value expression of at all times&apos; some and only instances of &apos;material entity&apos;, &apos;is value expression of at all times&apos; some and only instances of &apos;specifically dependent continuant&apos;, &apos;generically dependent continuant&apos;, &apos;process profile&apos;, or &apos;process characteristic&apos;, or &apos;describes&apos; some and only instances of &apos;site&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<skos:example>the expression specifying that a material is located in a refrigerator as part of a refrigerated condition specification; the expression specifying that the temperature of the material is between 2 °C and 8 °C as part of the same refrigerated condition specification;</skos:example>
+		<iof-av:explanatoryNote>A material state condition expression expresses one aspect of the condition specified by a material state specification. Multiple material state condition expressions may be parts of the same material state specification. For example, a refrigerated condition specification may contain one expression specifying that the material is located in a refrigerator and another specifying that its temperature is between 2 °C and 8 °C.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: MaterialStateConditionExpression(x) → ValueExpression(x) ∧ ∃y(MaterialStateSpecification(y) ∧ continuantPartOfAtAllTimes(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: MaterialStateConditionExpression(x) ∧ isValueExpressionOfAtSomeTime(x,y) → SpecificallyDependentContinuant(y) ∨ GenericallyDependentContinuant(y) ∨ ProcessProfile(y) ∨ ProcessCharacteristic(y)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA3: MaterialStateConditionExpression(x) ∧ hasContinuantPartAtSomeTime(x,y) → ¬MaterialStateConditionExpression(y)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA4: ValueExpression(x) ∧ ∃y(MaterialStateSpecification(y) ∧ continuantPartOfAtAllTimes(x,y)) ∧ ∃z((SpecificallyDependentContinuant(z) ∨ GenericallyDependentContinuant(z) ∨ ProcessProfile(z) ∨ ProcessCharacteristic(z)) ∧ isValueExpressionOfAtAllTimes(x,z)) → MaterialStateConditionExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en">value expression that, as part of a material state specification, expresses a condition on a characteristic, profile, quality, location, or other relevant feature, to which the material state prescribed by that specification continuously conforms throughout its occurrence</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;material state condition expression&apos; then x is a &apos;value expression&apos; that is &apos;continuant part of at all times&apos; some &apos;material state specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;material state condition expression&apos; and x &apos;is value expression of at some time&apos; y then y is a &apos;specifically dependent continuant&apos;, &apos;generically dependent continuant&apos;, &apos;process profile&apos;, or &apos;process characteristic&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA3: if x is a &apos;material state condition expression&apos; and x &apos;has continuant part at some time&apos; y then y is not a &apos;material state condition expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA4: if x is a &apos;value expression&apos; that is &apos;continuant part of at all times&apos; some &apos;material state specification&apos; and &apos;is value expression of at all times&apos; some &apos;specifically dependent continuant&apos; or &apos;generically dependent continuant&apos; or &apos;process profile&apos; or &apos;process characteristic&apos; then x is a &apos;material state condition expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialStateSpecification">
@@ -2368,13 +2287,14 @@ Services as products as well as software products will be considered in the next
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>material state specification</rdfs:label>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀d(∃e(MaterialStateConditionExpression(e) ∧ hasContinuantPartAtAllTimes(d,e)) → MaterialStateSpecification(d))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA3: ∀d(∃x(MaterialState(x) ∧ prescribes(d,x)) → MaterialStateSpecification(d))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>∀sp,s((MaterialStateSpecification(sp)∧prescribes(sp,s))→MaterialState(s))</iof-av:firstOrderLogicAxiom>
+		<skos:example>a refrigerated condition specification that specifies that a material is in a refrigerated state when it is located in a refrigerator and its temperature is between 2 °C and 8 °C; a frozen condition specification that specifies that a material is in a frozen state when its aggregate state is solid and its temperature is below the applicable freezing temperature; a sterile condition specification that specifies that a material is in a sterile state when it contains no viable microorganisms; a clamped-workpiece condition specification that specifies that a workpiece is in a clamped state when it is seated against the required datum surfaces and held by the clamps; a machine-ready condition specification that specifies that a machine is in a ready state when the safety door is closed, the workpiece is secured, and the required utilities are available</skos:example>
+		<iof-av:firstOrderLogicAxiom>LA1: MaterialStateSpecification(sp) → ∀s(prescribes(sp,s)→MaterialState(s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: InformationContentEntity(d) ∧ MaterialState(x) ∧ prescribes(d,x)) → MaterialStateSpecification(d))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition>information content entity that prescribes a material state</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if d is an instance of &apos;material state specification&apos; and d &apos;prescribes&apos; x, then x is an instance of &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if d &apos;has continuant part at all times&apos; some instance e of &apos;material state condition expression&apos;, then d is an instance of &apos;material state specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA3: if d &apos;prescribes&apos; some instance x of &apos;material state&apos;, then d is an instance of &apos;material state specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if d is a &apos;material state specification&apos; and d &apos;prescribes&apos; x, then x is a &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if d is an &apos;information content entity&apos; that &apos;prescribes&apos; some &apos;material state&apos;, then d is a &apos;material state specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MeasuredValueExpression">
@@ -3145,6 +3065,22 @@ http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#106</iof-av:explanatory
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">requirement specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;RequirementSpecification"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+						<owl:allValuesFrom rdf:resource="&iof-constr;RequirementSpecification"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
 		<skos:example xml:lang="en-US">UML use case document, competency questions, high level activity diagram</skos:example>
 		<iof-av:adaptedFrom>https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/requirement-ontology/core/A01A</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Being a requirement specification can be context specific. For example, a UML class diagram may be a requirement specification for a data exchange specification or a design specification for software code.</iof-av:explanatoryNote>
@@ -3641,7 +3577,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;causes">
-		<rdf:type rdf:resource="&owl;AsymmetricProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>causes</rdfs:label>
 		<rdfs:domain>
@@ -3654,6 +3589,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:domain>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -3664,6 +3600,7 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:unionOf>
 			</owl:Class>
 		</rdfs:range>
+		<skos:example>an ignition event causes a combustion process; a collision event causes a deformation process; a valve-opening process causes a fluid-flow process</skos:example>
 		<iof-av:explanatoryNote>This relation represents state-mediated transition causation. It applies when a material state reached through one process or event is also a pre material state of another process or event, and that shared material state is part of how the second process or event is initiated. The shared material state is not merely a state that temporally precedes, meets, starts, or overlaps the second process or event. It is the material state through which the transition represented by the first process or event is linked to the initiation of the second.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: ∀o,o&apos;(causes(o,o&apos;) → ∃m,m&apos;,p,p&apos;,d,d&apos;(hasPostState(o,m) ∧ hasPreState(o&apos;,m) ∧ prescribes(p,o) ∧ hasPostcondition(p,d) ∧ prescribes(p&apos;,o&apos;) ∧ hasPrecondition(p&apos;,d&apos;) ∧ prescribes(d,m&apos;) ∧ prescribes(d&apos;,m&apos;) ∧ materialStateHoldsIn(m&apos;,m)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicAxiom>LA2: ∀o,o&apos;(causes(o,o&apos;) → ∃t,t&apos;(occupiesTemporalRegion(o,t) ∧ occupiesTemporalRegion(o&apos;,t&apos;) ∧ (precedes(t,t&apos;) ∨ meets(t,t&apos;) ∨ temporallyOverlaps(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
@@ -4137,10 +4074,11 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
-		<iof-av:explanatoryNote>A post-material state is a material state at the end of a process or event. It may begin when the process or event ends, begin during the final part of the process or event and continue after it, or begin during the process or event and end together with it.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀e,s(hasPostState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t&apos;) ∧ (meets(t,t&apos;) ∨ overlaps(t,t&apos;) ∨ finishedBy(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
+		<skos:example>a thawing process has post material state the thawed state of the material; a mixing process has post material state the homogeneous state of the material; a filling process has post material state the filled state of the receiving container; a cleaning process has post material state the cleaned state of the equipment; a valve-opening process has post material state the open state of the valve</skos:example>
+		<iof-av:explanatoryNote>A post material state is a material state at the end of a process or event. It may begin when the process or event ends, begin during the final part of the process or event and continue after it, or begin during the process or event and end together with it.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>∀e,s(hasPostMaterialState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t&apos;) ∧ (meets(t,t&apos;) ∨ overlaps(t,t&apos;) ∨ finishedBy(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the process or event meets or overlaps the material state, or when the material state finishes the process or event</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>if e &apos;has post state&apos; s, then e &apos;occupies temporal region&apos; some t and s &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;overlaps&apos; t&apos;, or t is &apos;finished by&apos; t&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if e &apos;has post material state&apos; s, then e &apos;occupies temporal region&apos; some t and s &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;overlaps&apos; t&apos;, or t is &apos;finished by&apos; t&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPreMaterialState">
@@ -4158,10 +4096,11 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<skos:example>a thawing process has pre material state the frozen state of the material; a mixing process has pre material state the heterogeneous state of the material; a filling process has pre material state the empty state of the receiving container;</skos:example>
 		<iof-av:explanatoryNote>The pre-material state is a material state at the beginning of a process or event. It may end when the process or event begins, begin together with it, or begin before it and continue into its initial part.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀e,s(hasPreState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(s,t) ∧ occupiesTemporalRegion(e,t&apos;) ∧ (meets(t,t&apos;) ∨ starts(t,t&apos;) ∨ overlaps(t,t&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>∀e,s(hasPreMaterialState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(s,t) ∧ occupiesTemporalRegion(e,t&apos;) ∧ (meets(t,t&apos;) ∨ starts(t,t&apos;) ∨ overlaps(t,t&apos;)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition>relation between a process or event and a material state that holds when the material state meets, overlaps, or starts the process or event</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if e &apos;has pre state&apos; s, then s &apos;occupies temporal region&apos; some t and e &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;starts&apos; t&apos;, or t &apos;overlaps&apos; t&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if e &apos;has pre material state&apos; s, then s &apos;occupies temporal region&apos; some t and e &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;starts&apos; t&apos;, or t &apos;overlaps&apos; t&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessCharacteristic">
@@ -4484,11 +4423,13 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>material state holds in</rdfs:label>
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
+		<skos:example>a high-oxygen-flow state of a gas supply holds in an oxygen-limited state of a culture; an acceptable-temperature state of a storage site holds in an acceptable-storage state of a warehouse; an undamaged state of a package holds in an acceptable-storage state of a warehouse</skos:example>
 		<iof-av:explanatoryNote>This does not require the two states to have the same temporal extent. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀s,s&apos;(materialStateHoldsIn(s,s&apos;) → ∀t(occupiesTemporalRegion(s&apos;,t) → occupiesTemporalRegion(s,t)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>materialStateHoldsIn(s,s′) → occupiesTemporalRegion(s,rs​)∧occupiesTemporalRegion(s′,r′) ∧ temporalPartOf(r&apos;,rs​))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en">relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state at least occurs for the duration of the second material state</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if s &apos;material state holds in&apos; s&apos;, then whenever s&apos; &apos;occupies temporal region&apos; t, s also &apos;occupies temporal region&apos; t</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if s &apos;material state holds in&apos; s&apos; then s &apos;occupies temporal region&apos; some rs, s&apos; &apos;occupies temporal region&apos; some r&apos;, and r&apos; is a &apos;temporal part of&apos; rs</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;measuredByAtSomeTime">
@@ -4581,7 +4522,6 @@ category within a classification scheme of an entity that the value expression i
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;modulates">
-		<rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label>modulates</rdfs:label>
 		<rdfs:domain>
@@ -4595,9 +4535,11 @@ category within a classification scheme of an entity that the value expression i
 				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:domain>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
+		<skos:example>jacket-temperature profile modulates a reactor heating process; valve-position profile modulates a tank filling process; pump-speed profile modulates a liquid transfer process; ambient-temperature profile modulates a material-temperature profile; relative-humidity profile modulates a moisture-content profile of a drying material; applied-force profile modulates a deformation profile of a workpiece</skos:example>
 		<iof-av:firstOrderLogicDefinition>∀p,q(modulates(p,q) ↔ (temporallyOverlaps(p,q) ∧ ∀q&apos;((temporalPartOf(q&apos;,q) ∧ temporallyOverlaps(q&apos;,p)) → ∃p&apos;(temporalPartOf(p&apos;,p) ∧ causes(p&apos;,q&apos;)))))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en">relation between a process and another process that holds when the first overlaps the second in time and every state-changing temporal part of the first causes some temporal part of the second</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en">relation between a process and another process that holds when the first overlaps the second in time and every state changing temporal part of the first causes some temporal part of the second</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>p &apos;modulates&apos; q if and only if p &apos;temporally overlaps&apos; q and, whenever a temporal part q&apos; of q &apos;temporally overlaps&apos; p, some temporal part p&apos; of p &apos;causes&apos; q&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
@@ -4772,6 +4714,14 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a quality to an independent continuant (the bearer), in which the quality specifically depends on the bearer for its existence</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>x disposition of y holds when x is a &apos;quality&apos; and y is a &apos;independent continuant&apos; and x is &apos;inheres in&apos; y</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;r1">
+		<rdf:type rdf:resource="&iof-constr;RequirementSpecification"/>
+		<bfo:BFO_0000177 rdf:resource="&iof-constr;r2"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&iof-constr;r2">
+	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;recognizedByAtSomeTime">
 		<rdfs:label xml:lang="en-US">recognized by at some time</rdfs:label>
@@ -5033,9 +4983,10 @@ category within a classification scheme of an entity that the value expression i
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀p,d,o,m((hasPrecondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPreState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">relation between an action specification or plan specification and a material state specification such that every material state prescribed by the material state specification holds in a pre-state of every process or event prescribed by the action specification or plan specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if p &apos;has precondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has pre-state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<skos:example>a mixing specification has post-condition a material state specification specifying that the material is homogeneous; a cleaning specification has post-condition a material state specification specifying that the equipment is clean; a filling specification has post-condition a material state specification specifying that the receiving container is filled to the specified level; a thawing specification has post-condition a material state specification specifying that the material is completely thawed; a valve-opening specification has post-condition a material state specification specifying that the valve is open</skos:example>
+		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPostCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPostMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en">relation between an action specification or plan specification and a material state specification such that every material state prescribed by the material state specification holds in a post-state of every process or event prescribed by the action specification or plan specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has post condition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has post material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/hasPreCondition">
@@ -5053,9 +5004,10 @@ category within a classification scheme of an entity that the value expression i
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀p,d,o,m((hasPostcondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPostState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en">relation between an Action Specification or Plan Specification and a Material State Specification such that every material state prescribed by the Material State Specification holds in a post-state of every process or event prescribed by the Action Specification or Plan Specification.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if p &apos;has postcondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has post-state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<skos:example>a sample-loading specification has pre-condition a material state specification specifying that the chromatography column is equilibrated; an inoculation specification has pre-condition a material state specification specifying that the bioreactor is sterile and the culture medium is at the inoculation temperature</skos:example>
+		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPreCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPreMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en">relation between an Action Specification or Plan Specification and a Material State Specification such that every material state prescribed by the Material State Specification holds in a pre-state of every process or event prescribed by the Action Specification or Plan Specification.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has postcondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has pre material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:AllDisjointClasses>
@@ -5217,6 +5169,45 @@ category within a classification scheme of an entity that the value expression i
 		</owl:intersectionOf>
 	</owl:Class>
 	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateConditionExpression"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;ValueExpression">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000177"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateSpecification"/>
+			</owl:Restriction>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isValueExpressionOfAtAllTimes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000020">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000031">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000144">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;ProcessCharacteristic">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
 		<rdfs:subClassOf rdf:resource="&iof-constr;ObjectiveSpecification"/>
 		<owl:intersectionOf rdf:parseType="Collection">
 			<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
@@ -5282,14 +5273,4 @@ category within a classification scheme of an entity that the value expression i
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-		<owl:someValuesFrom rdf:resource="&iof-constr;MaterialStateConditionExpression"/>
-	</owl:Restriction>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-		<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
-	</owl:Restriction>
 </rdf:RDF>
