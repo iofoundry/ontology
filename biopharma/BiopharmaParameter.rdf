@@ -54,7 +54,7 @@
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/TargetsLimitsRanges/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202603/biopharma/BiopharmaParameter/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaParameter/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
@@ -71,19 +71,6 @@
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which imposed motion is applied to agitate a material</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agitation rate&apos; then x is a &apos;rate process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;BatchFailureProportion">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
-		<rdfs:label xml:lang="en-US">batch failure proportion</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>the batch failure proportion of a PPQ campaign in which 1 of 3 validation batches failed a release criterion; the batch failure proportion of a manufacturing campaign in which 2 of 20 production batches failed sterility or bioburden acceptance criteria; the batch failure proportion of engineering batches that failed to meet a target glycan profile; the batch failure proportion of chromatography batch runs that failed impurity clearance criteria;</skos:example>
-		<iof-av:explanatoryNote>Batch failure proportion is evaluated over a set of batch runs, such as a manufacturing campaign, PPQ campaign, engineering batch set, or historical production set. It is not a characteristic of a single batch run. A batch run is counted as failed only relative to specified criteria, such as release criteria, acceptance criteria, critical quality attribute specifications, or process performance criteria.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>BatchFailureProportion(x) → ProcessCharacteristic(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process characteristic that is the proportion of batch runs in a set of batch runs that failed to meet specified criteria</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;batch failure proportion&apos; then x is a &apos;process characteristic&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiologicalActivity">
@@ -160,7 +147,7 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>the primary structure of a monoclonal antibody heavy chain; the primary structure of a phosphorylated peptide; the primary structure of a methylated DNA molecule; the primary structure of an mRNA molecule; the primary structure of a protein variant with a single amino acid substitution</skos:example>
 		<iof-av:adaptedFrom>http://www.bioassayontology.org/bao#BAO_0000013</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Biomolecule primary structure may be described as unmodified or modified. Examples of modifications include methylation, phosphorylation, and other covalent modifications of nucleotide or amino acid residues</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Biomolecule primary structure may be described together with covalent modifications of particular residues, such as methylation or phosphorylation; these modifications do not change the linear residue order.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>BiomoleculePrimaryStructure(x) → Quality(x) ∧ ∃m ((DeoxyribonucleicAcid(m) ∨ RibonucleicAcid(m) ∨ Peptide(m) ∨ Protein(m)) ∧ qualityOf(x, m)) ∧ ∃s (BiologicalSequence(s) ∧ concretizesAtAllTimes(x, s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a DNA, RNA, peptide, or protein molecule that is determined by the linear order of its nucleotide or amino acid residues</iof-av:naturalLanguageDefinition>
@@ -170,20 +157,14 @@
 	
 	<owl:Class rdf:about="&iof-construct;CarbonDioxideEvolutionRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;RateProcessProfile"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;CarbonDioxide"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">carbon dioxide evolution rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>carbon dioxide evolution rate of a CHO fed-batch culture calculated from exhaust gas carbon dioxide concentration and gas flow rate;</skos:example>
-		<iof-av:firstOrderLogicAxiom>CarbonDioxideEvolutionRate(x) → RateProcessProfile(x) ∧ ∃c (CarbonDioxide(c) ∧ hasParticipantAtSomeTime(x, c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CarbonDioxideEvolutionRate(x) → RateProcessProfile(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which carbon dioxide is transferred from a culture system to an exhaust gas stream</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which carbon dioxide is produced by cells within a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;carbon dioxide evolution rate&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;carbon dioxide&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;carbon dioxide evolution rate&apos; then x is a &apos;rate process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureDoublingTime">
@@ -254,7 +235,7 @@
 		<skos:example>manganese concentration in a chemically defined medium whose variation can affect glycosylation of the output material; glucose concentration in a feed medium whose variation can affect glycan profile of the output material;</skos:example>
 		<iof-av:explanatoryNote>See the expanded definition under the corresponding specification class. The term is formalized here as a defined class by referring to its corresponding specification class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>CriticalMaterialAttribute(x) ↔ (Quality(x) ∨ Capability(x)) ∧ ∃s(InputCriticalMaterialAttributeSpecification(s) ∧ prescribedBy(x, s))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality or capability that is prescribed by a critical input material attribute specification</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality or capability that is prescribed by an input critical material attribute specification</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;critical material attribute&apos; is defined as exactly an instance of &apos;quality&apos; or &apos;capability&apos; that is &apos;prescribed by&apos; some &apos;input critical material attribute specification&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -350,7 +331,7 @@
 		<iof-av:explanatoryNote>1) From ICH: critical quality attribute is a physical, chemical, biological or microbiological property or characteristic that should be within an appropriate limit, range, or distribution to ensure the desired product quality.
 The deviations of CQAs beyond defined limits have significant adverse impacts on product quality and, therefore, mandate stringent control, monitoring, and validation measures.
 2) This specification serves as a formal constraint on a quality attribute that is critical to product performance, safety, or efficacy, and is used to assess the acceptability of materials or products in manufacturing and quality control processes.
-3) Critical quality attributes are monitored throughout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated or used during the product production process .</iof-av:explanatoryNote>
+3) Critical quality attributes are monitored throughout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated during the product production process .</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CriticalQualityAttributeSpecification(x) → QualityAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality attribute specification that prescribes some quality, capability, constitution, or composition deemed critical to ensuring the safety, efficacy, or performance of a material product</iof-av:naturalLanguageDefinition>
@@ -363,26 +344,13 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:label xml:lang="en-US">culture split ratio</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>1:3 culture split ratio in which one flask of cell culture is divided to establish three resulting flasks; 1:5 culture split ratio in which one part of source cell culture is transferred according to a passaging protocol and fresh medium is added to establish the resulting culture; 1:10 culture split ratio used during suspension-cell passaging to reduce culture density for continued growth; 1:2 culture split ratio in which a recovered culture is divided to establish two resulting cultures</skos:example>
+		<iof-av:adaptedFrom>https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>CultureSplitRatio(x) → Ratio(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">ratio of a particular quantity of source culture to the corresponding total quantity of one or more resulting cultures established from that source culture</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">ratio of a source cell culture to one or more resulting cell cultures established from that source culture during passaging</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture split ratio&apos; then x is a &apos;ratio&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:synonym>subculturing ratio</iof-av:synonym>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;DilutionRatio">
-		<rdfs:subClassOf rdf:resource="&iof-construct;Ratio"/>
-		<rdfs:label xml:lang="en-US">dilution ratio</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>a 1:5 dilution ratio of a cell culture sample to diluent, consisting of one volume unit of sample and five corresponding volume units of diluent; a 1:9 dilution ratio used to prepare a diluted protein assay sample from one volume of source sample and nine volumes of assay buffer; a 2:3 dilution ratio used to combine two volume units of concentrated process solution with three corresponding volume units of purified water; a 1:1 dilution ratio used to mix one volume of chromatography fraction with one corresponding volume of formulation buffer;</skos:example>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000177</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>A dilution ratio is a relational quality whose value is determined from corresponding quantities of the source liquid and the diluent. For example, a 1:5 dilution ratio indicates one quantity unit of source liquid relative to five corresponding quantity units of diluent. The ratio should be distinguished from a dilution factor, which commonly relates the quantity of the final diluted liquid to the quantity of source liquid.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>DilutionRatio(x) → Ratio(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">ratio of a particular quantity of liquid to the corresponding quantity of diluent used to dilute that liquid</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dilution ratio&apos; then x is a &apos;ratio&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DissolutionRate">
@@ -474,39 +442,6 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which material is transported across a specified surface or boundary</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;flow rate&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;GlucoseUptakeRate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MetaboliteUptakeRate"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;Glucose">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty>
-									<rdf:Description>
-										<owl:inverseOf rdf:resource="&iof-construct;isMadeOfAtSomeTime"/>
-									</rdf:Description>
-								</owl:onProperty>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">glucose uptake rate</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>glucose uptake rate by a CHO cell population during fed-batch cultivation; glucose uptake rate whose value is calculated from a material balance using measured changes in glucose concentration; glucose uptake rate of an E. coli culture during exponential growth;</skos:example>
-		<iof-av:firstOrderLogicAxiom>GlucoseUptakeRate(x) → MetaboliteUptakeRate(x) ∧ ∃g (Glucose(g) ∧ hasParticipantAtSomeTime(x, g) ∧ ∃m (CultureMedium(m) ∧ isMadeOfAtSomeTime(m, g)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which glucose is taken up by a cell population from culture medium</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;glucose uptake rate&apos; then x is a &apos;metabolite uptake rate&apos; that &apos;has participant at some time&apos; some &apos;glucose&apos; that a &apos;culture medium&apos; &apos;is made of at some time&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;InputCriticalMaterialAttributeSpecification">
@@ -684,10 +619,10 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:subClassOf rdf:resource="&iof-construct;PerformanceIndicatorSpecification"/>
 		<rdfs:label xml:lang="en-US">key performance indicator specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>Target final harvest titer for the production batch; Target viral clearance log reduction value for purification step; Target batch release time within specified regulatory window</skos:example>
+		<skos:example>final harvest titer specification for the production batch, measured in pooled harvested cell culture fluid at completion of harvest, with a target range of 3.5 to 5.0 grams per liter; viral clearance log reduction value specification for the purification step, calculated from the viral loads measured before and after the step, with a target of at least 4.0; batch release cycle time specification for the production batch, measured from completion of manufacturing to authorization of the batch for release, with a target of no more than 10 calendar days</skos:example>
 		<iof-av:adaptedFrom>ISO-22400 and https://www.gmp-compliance.org/gmp-news/fdas-current-thinking-on-kpis-and-quality-metrics</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Per the ISO-22400 standard a good KPI has certain criteria which ensure its usefulness in achieving various goals in the manufacturing operation. For more details the user should take a look at the standard. Also the KPI specification should contain information about its context, including timing, audience, production methodology, effect model diagram, and notes.
-2) In case of KPIs for (bio)pharmaceutical manufacturing processes KPIs are indirectly related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too. Also, KPIs reflect the consistency or reproducibility of the associated manufacturing process.</iof-av:explanatoryNote>
+2) In case of KPIs for (bio)pharmaceutical manufacturing processes KPIs are typically indirectly related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too. Also, KPIs reflect the consistency or reproducibility of the associated manufacturing process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>KeyPerformanceIndicatorSpecification(x) → PerformanceIndicatorSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">performance indicator specification that prescribes a measurable characteristic whose measurements reflect effectiveness with respect to some objective determined as important by a person or organization</iof-av:naturalLanguageDefinition>
@@ -788,7 +723,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<iof-av:explanatoryNote>Manufacturing process productivity concerns production of process intermediate material or material product per unit time. It should be distinguished from labor productivity, equipment effectiveness, process yield, resource efficiency, and economic productivity.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ManufacturingProcessProductivity(x) → RateProcessProfile(x) ∧ ∃m((ProcessIntermediateMaterial(m) ∨ MaterialProduct(m)) ∧ hasParticipantAtSomeTime(x,m)) ∧ ∃p(ManufacturingProcess(p) ∧ processProfileOf(x,p) ∧ ∃o((ProcessIntermediateMaterial(o) ∨ MaterialProduct(o)) ∧ hasSpecifiedOutput(p,o)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which process intermediate material or material product is produced in a manufacturing process</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which process intermediate material or material product is produced in a manufacturing process under specified conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process productivity&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;process intermediate material&apos; or &apos;material product&apos; and is the &apos;process profile of&apos; some &apos;manufacturing process&apos; that &apos;has specified output&apos; some &apos;process intermediate material&apos; or &apos;material product&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -810,6 +745,12 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:subClassOf rdf:resource="&iof-construct;RateProcessProfile"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;MolecularEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
 				<owl:someValuesFrom>
 					<owl:Class>
@@ -818,11 +759,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
-							</owl:Restriction>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CultureMedium"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -832,11 +769,11 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:label xml:lang="en-US">metabolite uptake rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>glucose uptake rate by a CHO cell population during fed-batch cultivation; glutamine uptake rate by a mammalian cell culture during early growth phase; amino acid uptake rate by a cell population during a nutrient-limited culture process;</skos:example>
-		<iof-av:firstOrderLogicAxiom>MetaboliteUptakeRate(x) → RateProcessProfile(x) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellPopulation(c) ∧ hasParticipantAtSomeTime(p, c)) ∧ ∃cm (CultureMedium(cm) ∧ hasParticipantAtSomeTime(p, cm)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MetaboliteUptakeRate(x) → RateProcessProfile(x) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellCulture(c) ∧ hasParticipantAtSomeTime(p, c))) ∧ ∃me (MolecularEntity(me) ∧ hasParticipantAtSomeTime(x, me)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which a metabolite is taken up by a cell population from culture medium</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which a metabolite is taken up by cells within a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;metabolite uptake rate&apos; then x is a &apos;rate process profile&apos; that is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell population&apos; and some &apos;culture medium&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;metabolite uptake rate&apos; then x is a &apos;rate process profile&apos; that is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos; and x &apos;has participant at some time&apos; some &apos;molecular entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;NormalizedFlowRate">
@@ -844,10 +781,10 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:label xml:lang="en-US">normalized flow rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>permeate flow rate normalized to membrane area during ultrafiltration, expressed as L m⁻² h⁻¹; a perfusion culture operated at 1 VVD, meaning one working volume of medium is exchanged over one day;</skos:example>
-		<iof-av:explanatoryNote>Normalization in this class means normalization by a specified reference quantity such as membrane area, working volume, or cell amount. It does not mean conversion of a volumetric gas flow to standard or normal reference temperature and pressure conditions.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>The reference quantity used for normalization may be, for example, membrane area, working volume, or cell amount. The resulting normalized flow rate may therefore have different units depending on the reference quantity. Normalization in this sense does not refer to conversion of a gas flow rate to standard or normal temperature and pressure conditions.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NormalizedFlowRate(x) → FlowRate(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">flow rate whose magnitude is normalized by a specified reference quantity</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">flow rate whose magnitude is expressed relative to a specified reference quantity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;normalized flow rate&apos; then x is a &apos;flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -857,7 +794,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;Dioxygen"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;DioxygenMolecule"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -870,7 +807,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CellPopulation"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -880,11 +817,11 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:label xml:lang="en-US">oxygen uptake rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>oxygen uptake rate of a CHO cell culture during fed-batch cultivation; oxygen uptake rate of an E. coli fermentation during exponential growth;</skos:example>
-		<iof-av:firstOrderLogicAxiom>OxygenUptakeRate(x) → RateProcessProfile(x) ∧ ∃o (Dioxygen(o) ∧ hasParticipantAtSomeTime(x, o)) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellPopulation(c) ∧ hasParticipantAtSomeTime(p, c)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>OxygenUptakeRate(x) → RateProcessProfile(x) ∧ ∃o (DioxygenMolecule(o) ∧ hasParticipantAtSomeTime(x, o)) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellCulture(c) ∧ hasParticipantAtSomeTime(p, c)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which oxygen is consumed by a cell population</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which oxygen is consumed by cells within a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;oxygen uptake rate&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;dioxygen&apos; and is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;oxygen uptake rate&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;dioxygen molecule&apos; and is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerformanceIndicator">
@@ -949,7 +886,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">performance indicator specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>Target sales this year, target throughput this month, target overall equipment effectiveness this quarter, target 12-month on-time delivery percentage.</skos:example>
+		<skos:example>annual sales revenue specification for the organization for the applicable fiscal year, with a target of at least USD 10 million; monthly production throughput specification for the manufacturing line, expressed as conforming units completed per operating hour, with a target range of 120 to 150 units per hour; quarterly overall equipment effectiveness specification for the production line, calculated as availability multiplied by performance multiplied by quality, with a target of at least 85 percent; rolling 12-month on-time delivery percentage specification for customer orders, calculated from orders delivered on or before the committed delivery date relative to the applicable orders in the reporting period, with a target of at least 95 percent</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf and ISO 22400</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Performance indicators are:
 Measurable: It’s based on quantifiable data (e.g. percentages, counts, ratios). Goal-oriented: It reflects progress toward a defined objective.
@@ -1066,7 +1003,7 @@ Actionable: It provides insight into what’s working and what might need improv
 		<rdfs:label xml:lang="en-US">process parameter specification</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&iof-construct;QualityAttributeSpecification"/>
-		<skos:example>agitation speed specification for the mixing process in a cell culture step; incubation time specification for the cell expansion process; temperature specification for the fermentation process; flow rate specification for the loading phase of a chromatography process; pH specification for the neutralization process in buffer preparation; and residence time specification for the viral inactivation process</skos:example>
+		<skos:example>agitation speed specification for the mixing process in a cell culture step; incubation time specification for the cell expansion process; temperature specification for the fermentation process; flow rate specification for the loading phase of a chromatography process; pH specification for the neutralization process in buffer preparation; residence time specification for the viral inactivation process</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/wp-content/uploads/bp_downloads/CPV-Case-Study-Interactive-Version.pdf; https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-manufacture-finished-dosage-form-revision-1_en.pdf and ISA88</iof-av:adaptedFrom>
 		<iof-av:counterExample>a material specification for a raw material, which defines material properties rather than process behavior; and a specification stating the amount of glucose to be added to a bioreactor, which is an input specification describing material inputs rather than a process parameter; model number of a chromatography column or chromatography type (affinity)</iof-av:counterExample>
 		<iof-av:explanatoryNote>1) Process parameters must be specified with their target value or acceptable range. A process parameter may be critical or non-critical.
@@ -1276,7 +1213,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000144"/>
 		<rdfs:label xml:lang="en-US">rate process profile</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>glucose consumption rate during a fed-batch cell culture process; product formation rate during a fermentation process; biomass formation rate during microbial cultivation; feed addition rate during a material feeding process;</skos:example>
+		<skos:example>glucose consumption rate during a fed-batch cell culture process; product formation rate during a fermentation process; biomass formation rate during microbial cultivation; feed addition rate during a material feeding process; number of Tetra Pak cartons filled per hour by a packaging line; rate of potable water output from a water treatment plant</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003454 and http://purl.allotrope.org/ontologies/result#AFR_0000954 and https://philpapers.org/archive/SMICPA-5.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>An attribute captured by a rate process profile may itself be represented by another process profile, as when an acceleration profile captures variation in a speed profile per unit of elapsed time.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>RateProcessProfile(x) → ProcessProfile(x)</iof-av:firstOrderLogicAxiom>
@@ -1296,19 +1233,6 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">cell population growth rate whose magnitude is normalized by the size of that cell population</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;specific cell population growth rate&apos; then x is a &apos;cell population growth rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;StirringRate">
-		<rdfs:subClassOf rdf:resource="&iof-construct;AgitationRate"/>
-		<rdfs:label xml:lang="en-US">stirring rate</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>stirring rate of 250 revolutions per minute applied by an impeller to stir a cell culture fluid in a bioreactor; a stirring rate of 120 revolutions per minute applied by a magnetic stir bar during buffer preparation</skos:example>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0003750</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>StirringRate(x) → AgitationRate(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">agitation rate at which rotational motion is applied to agitate a material</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;stirring rate&apos; then x is an &apos;agitation rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;TotalMaterialAdded">
@@ -1334,13 +1258,13 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC4070262/pdf/12248_2014_Article_9598.pdf
 		<rdfs:subClassOf rdf:resource="&iof-construct;NormalizedFlowRate"/>
 		<rdfs:label xml:lang="en-US">vessel volumes per day</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
-		<skos:example>a perfusion culture operated at 1 VVD, meaning one working volume of medium is exchanged over one day; a 2 L working-volume bioreactor with 2 L of medium exchanged per day, corresponding to 1 VVD; a perfusion process reported as 0.5 VVD when the daily exchanged medium volume is half of the working volume; a process comparison in which VVD is calculated using only spent-medium outlet flow and therefore excludes sampling or bleed withdrawals</skos:example>
+		<skos:example>a perfusion culture operated at 1 VVD, meaning one working volume of medium is exchanged over one day; a 2 L working-volume bioreactor with 2 L of medium exchanged per day, corresponding to 1 VVD; a perfusion process reported as 0.5 VVD when the daily exchanged medium volume is half of the working volume;</skos:example>
 		<iof-av:abbreviation>VVD</iof-av:abbreviation>
 		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>VVD is typically intended to represent the total medium exchange normalized by working volume. In some uses, VVD is computed only from the spent-medium outlet flow, while other withdrawals such as sampling, bleed, or additional removal streams are not included. When this narrower accounting is used, the reported VVD can underestimate the true total exchange and can lead to misleading comparisons unless the boundary is made explicit.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>VesselVolumesPerDay(x) → NormalizedFlowRate(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">normalized flow rate whose magnitude is the volume of medium exchanged per unit time relative to the working volume</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">normalized flow rate whose magnitude is the volume of medium exchanged per day relative to the working volume</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;vessel volumes per day&apos; then x is a &apos;normalized flow rate&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>

@@ -34,8 +34,8 @@
 		<dcterms:abstract xml:lang="en-US">The Biopharma Risk Management Ontology provides constructs for representing risk in biopharmaceutical development and manufacturing. It supports modeling how risks are identified, analyzed, evaluated, controlled, communicated, and reviewed, as well as the documented outputs of those activities. The module enables hazards, hazardous situations, possible harm states, risk estimates, residual risks, and method-based assessments to be represented in relation to biopharmaceutical processes, materials, equipment, products, and lifecycle decisions. It is intended to support consistent representation of risk-management knowledge across development, manufacturing, technology transfer, contamination control, process characterization, and ongoing lifecycle management.</dcterms:abstract>
 		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202603/biopharma/BiopharmaRiskManagement/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaRiskManagement/"/>
+		<iof-av:copyright>Copyright (c) 2024, 2025, Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-av;Provisional"/>
 	</owl:Ontology>
 	
@@ -462,31 +462,29 @@ In pharmaceutical development, it underpins Quality by Design (QbD) activities b
 	
 	<owl:Class rdf:about="&iof-construct;RiskAssessmentResult">
 		<rdfs:subClassOf rdf:resource="&iof-construct;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssessmentProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">risk assessment result</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaRiskManagement/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-construct;InformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskEstimate"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-construct;isSpecifiedOutputOf"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;RiskAssessmentProcess"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
 		<skos:altLabel>risk assessment report</skos:altLabel>
 		<skos:example>a completed quality risk assessment report identifying contamination hazards, recording estimated risk levels for each, and documenting their evaluation against established acceptance categories; a completed equipment risk assessment report identifying magnet quench scenarios, recording estimated damage severity and likelihood, and documenting the resulting risk classification</skos:example>
 		<iof-av:adaptedFrom>https://csrc.nist.gov/glossary/term/risk_assessment_report</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A risk assessment result is the overall documented output of the assessment activity. It typically contains more than a single risk estimate, and it often aggregates qualitative descriptors, scores, rankings, and decision criteria across multiple hazards or scenarios.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>RiskAssessmentResult(x) ↔ InformationContentEntity(x) ∧ ∃p∃a∃e(RiskAssessmentProcess(p) ∧ RiskAnalysisProcess(a) ∧ RiskEstimate(e) ∧ isSpecifiedOutputOf(x,p) ∧ hasOccurrentPart(p,a) ∧ hasSpecifiedOutput(a,e) ∧ hasContinuantPartAtAllTimes(x,e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicAxiom>RiskAssessmentResult(x) → InformationContentEntity(x) ∧ ∃p∃a∃e(RiskAssessmentProcess(p) ∧ RiskAnalysisProcess(a) ∧ RiskEstimate(e) ∧ isSpecifiedOutputOf(x,p) ∧ hasOccurrentPart(p,a) ∧ hasSpecifiedOutput(a,e) ∧ hasContinuantPartAtAllTimes(x,e))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that is the output of a risk assessment process and that records the characterization of risk for one or more identified hazards</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;risk assessment result&apos; is defined as exactly an instance of &apos;information content entity&apos; that &apos;is specified output of&apos; some &apos;risk assessment process&apos; and &apos;has continuant part at all times&apos; some &apos;risk estimate&apos; produced by a &apos;risk analysis process&apos; that is part of that same &apos;risk assessment process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageDefinition>if x is a &apos;risk assessment result&apos; then x is an &apos;information content entity&apos; that &apos;is specified output of&apos; some &apos;risk assessment process&apos; and &apos;has continuant part at all times&apos; some &apos;risk estimate&apos; produced by a &apos;risk analysis process&apos; that is part of that same &apos;risk assessment process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;RiskCommunicationProcess">

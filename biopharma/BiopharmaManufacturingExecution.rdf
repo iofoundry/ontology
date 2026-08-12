@@ -60,7 +60,7 @@
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/Recipe/"/>
-		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202603/biopharma/BiopharmaManufacturingExecution/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaManufacturingExecution/"/>
 		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
@@ -69,7 +69,7 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -85,7 +85,7 @@
 							</owl:Restriction>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-construct;isMadeOfAtAllTimes"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;Dioxygen"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;DioxygenMolecule"/>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
@@ -96,18 +96,18 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>sparging of air into a bioreactor to supply oxygen for mammalian cell culture; sparging of oxygen-enriched gas into a microbial fermenter to support high oxygen demand; oxygen gas addition to a bioreactor to maintain dissolved oxygen within a target range; air addition through a gas inlet into a cell culture vessel to support oxygen transfer; oxygen-containing gas addition to an enzymatic reaction vessel to support an oxygen-dependent reaction</skos:example>
 		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Aeration</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>AerationProcess(x) → MaterialAdditionProcess(x) ∧ ∃g ∃q ∃r ∃o (MaterialEntity(g) ∧ hasParticipantAtSomeTime(x, g) ∧ GaseousAggregateState(q) ∧ hasQuality(g, q) ∧ TransferredMaterialRole(r) ∧ hasRole(g, r) ∧ Dioxygen(o) ∧ isMadeOfAtAllTimes(g, o))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>AerationProcess(x) → MaterialAdditionProcess(x) ∧ ∃g ∃q ∃r ∃o (MaterialEntity(g) ∧ hasInput(x, g) ∧ GaseousAggregateState(q) ∧ hasQuality(g, q) ∧ TransferredMaterialRole(r) ∧ hasRole(g, r) ∧ DioxygenMolecule(o) ∧ isMadeOfAtAllTimes(g, o))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which an oxygen-containing gas is added to a defined recipient to provide oxygen or support gas exchange</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;aeration process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;gaseous aggregate state&apos;, &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;is made of at all times&apos; some &apos;dioxygen&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;aeration process&apos; then x is a &apos;material addition process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;gaseous aggregate state&apos;, &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;is made of at all times&apos; some &apos;dioxygen molecule&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;AntifoamAdditionProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -126,11 +126,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>polypropylene glycol addition in microbial fermentation to prevent foam overflow and support stable dissolved oxygen control; antifoam addition to a mammalian cell culture bioreactor in response to foam detection; silicone-based antifoam addition during mixing of a foaming process solution</skos:example>
 		<iof-av:adaptedFrom>https://www.biophorum.com/download/cvp-case-study-interactive-version/</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>AntifoamAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r (AntifoamingAgent(m) ∧ TransferredMaterialRole(r) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, r))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>AntifoamAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r (AntifoamingAgent(m) ∧ TransferredMaterialRole(r) ∧ hasInput(x, m) ∧ hasRole(m, r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which an antifoam agent is introduced into a defined recipient to suppress, reduce, or prevent foam formation</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;antifoam addition process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;antifoaming agent&apos; that &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;antifoam addition process&apos; then x is a &apos;material addition process&apos; that &apos;has input&apos; some &apos;antifoaming agent&apos; that &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BatchProcessOperatingMode">
@@ -152,7 +152,7 @@
 		<rdfs:label xml:lang="en-US">biomanufacturing production process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<owl:disjointWith rdf:resource="&iof-construct;SeedTrain"/>
-		<skos:example>recombinant protein expression using CHO cells; monoclonal antibody production in a bioreactor; viral vector production using HEK293 cells; fermentation process for production of penicillin by Penicillium chrysogenum; mRNA synthesis using enzymatic in vitro transcription;</skos:example>
+		<skos:example>Biomanufacturing production process where Chinese Hamster Ovary (CHO) cells serve as the mammalian host platform for producing recombinant protein therapeutics; monoclonal antibody production in a bioreactor; viral vector production using HEK293 cells; fermentation process for production of penicillin by Penicillium chrysogenum; mRNA synthesis using enzymatic in vitro transcription;</skos:example>
 		<iof-av:explanatoryNote>1) The target products may include proteins, nucleic acids, metabolites, or whole cells
 2) This construct is labeled as a biomanufacturing production process and is distinct from a full product production process. In a biomanufacturing production process, the desired biological product is synthesized, secreted, or accumulated by a biological system. At this stage, the product is typically present in a complex mixture containing process-related and product-related impurities. Additional processing steps such as purification, concentration, and formulation are generally required to isolate the product and prepare it in its final usable form.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>BiomanufacturingProductionProcess(x) → ManufacturingProcess(x)</iof-av:firstOrderLogicAxiom>
@@ -188,7 +188,7 @@
 		<rdfs:label xml:lang="en-US">cell banking</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>establishing a master cell bank by freezing aliquots of a cloned HEK293 cell line under GMP conditions; banking the Vero cell line in cryopreservation medium supplemented with DMSO and storing it in vapor-phase liquid nitrogen for future vaccine manufacturing; banking a hybridoma cell line after single-cell cloning and characterization to preserve monoclonal antibody production capability</skos:example>
+		<skos:example>establishing a master cell bank by freezing aliquots of a cloned HEK293 cell line under GMP conditions; banking the Vero cell line in cryopreservation medium supplemented with DMSO (dimethyl sulfoxide) and storing it in vapor-phase liquid nitrogen for future vaccine manufacturing; banking a hybridoma cell line after single-cell cloning and characterization to preserve monoclonal antibody production capability</skos:example>
 		<iof-av:explanatoryNote>1) It ensures a reliable, consistent, and well-characterized source of cells, reducing the need for constant cell culture and mitigating risks associated with genetic drift or contamination.
 2) Examples of future use include research, drug development, and manufacturing of biopharmaceuticals</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CellBanking(x) → StorageProcess(x) ∧ ∃y (CellLine(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
@@ -300,7 +300,24 @@
 		<rdfs:subClassOf rdf:resource="&iof-construct;InoculationProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -323,33 +340,16 @@
 				</owl:someValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;PlannedProcess">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell culture inoculation process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>introducing resuspended cells into a shake flask containing fresh medium to initiate a recovery culture; adding thawed ultra-high-density CHO cell material from a working cell bank into a wave-mixed perfusion bioreactor to start culture growth; using seed culture to inoculate an N-1 perfusion bioreactor; inoculating fed-batch production bioreactors with cells from an N-1 perfusion bioreactor</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q7%20Guideline.pdf and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A cell culture inoculation process typically involves introducing cell-containing inoculum from a cryovial, seed culture, or intermediate vessel into fresh culture medium or vessel contents under controlled conditions. It marks the start of a new cell culture process within recovery, expansion, seed train, N-1, or production culture. It should be distinguished from culture medium charging, which occurs before inoculation, and from culture feed addition, which occurs after the cell culture process has begun.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellCultureInoculationProcess(x) → InoculationProcess(x) ∧ ∃m ∃c ∃ir ∃tr (MaterialEntity(m) ∧ CellPopulation(c) ∧ hasParticipantAtSomeTime(x, m) ∧ hasContinuantPartAtAllTimes(m, c) ∧ InoculumRole(ir) ∧ hasRole(m, ir) ∧ TransferredMaterialRole(tr) ∧ hasRole(m, tr)) ∧ ∃p ∃cc (PlannedProcess(p) ∧ occurrentPartOf(x, p) ∧ CellCulture(cc) ∧ hasParticipantAtSomeTime(p, cc))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellCultureInoculationProcess(x) → InoculationProcess(x) ∧ ∃m ∃c ∃ir ∃tr (MaterialEntity(m) ∧ CellPopulation(c) ∧ hasInput(x, m) ∧ hasContinuantPartAtAllTimes(m, c) ∧ InoculumRole(ir) ∧ hasRole(m, ir) ∧ TransferredMaterialRole(tr) ∧ hasRole(m, tr)) ∧ ∃p ∃cc (PlannedProcess(p) ∧ occurrentPartOf(x, p) ∧ CellCulture(cc) ∧ hasParticipantAtSomeTime(p, cc))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">inoculation process in which a cell-containing inoculum is introduced to initiate a cell culture process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture inoculation process&apos; then x is an &apos;inoculation process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has continuant part at all times&apos; some &apos;cell population&apos; and &apos;has role&apos; some &apos;inoculum role&apos; and some &apos;transferred material role&apos;, and x is &apos;occurrent part of&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture inoculation process&apos; then x is an &apos;inoculation process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has continuant part at all times&apos; some &apos;cell population&apos; and &apos;has role&apos; some &apos;inoculum role&apos; and some &apos;transferred material role&apos;, and x is &apos;occurrent part of&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureRecoveryProcess">
@@ -375,7 +375,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellLineDevelopment">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ManufacturingProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:unionOf rdf:parseType="Collection">
@@ -436,11 +436,11 @@
 3) Cell line development is one of the first steps in the process of developing a biopharmaceutical product. This step is time consuming and resource-intense.
 4) Engineering in this context means that the cell line is created, either through passaging of a primary cell culture to relative genetic stability and compositional homogeneity, or through some experimental modification of an existing cell line to produce a new line with novel characteristics (e.g. immortalization or some other stable genetic modification).
 5) Regulatory standards in biologics require proof of monoclonality for a production cell line. This implies that it originates from a single progenitor cell, regardless of whether one calls it a clone or a line. In practice, a clone is the starting point for development: once selected and scaled, it becomes a permanent cell line with specific attributes used for product manufacture.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → ManufacturingProcess(x) ∧ ∃g ∃c ((GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → PlannedProcess(x) ∧ ∃g ∃c ((GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which a cell line is engineered to produce a therapeutic biomolecule or biologic</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a cell line is engineered to produce a therapeutic biomolecule or biologic</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;manufacturing process&apos; and &apos;has occurrent part&apos; some &apos;genetic transformation process&apos; that &apos;precedes&apos; some &apos;clone selection process&apos; and &apos;has occurrent part&apos; some &apos;clone selection process&apos; and &apos;has specified output&apos; some &apos;cell line&apos; and is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; and either &apos;meets&apos; some &apos;cell banking&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;planned process&apos; and &apos;has occurrent part&apos; some &apos;genetic transformation process&apos; that &apos;precedes&apos; some &apos;clone selection process&apos; and &apos;has occurrent part&apos; some &apos;clone selection process&apos; and &apos;has specified output&apos; some &apos;cell line&apos; and is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; and either &apos;meets&apos; some &apos;cell banking&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellPopulationProliferation">
@@ -536,7 +536,7 @@
 		<iof-av:adaptedFrom>https://www.cellandgene.com/topic/cell-therapy-manufacturing and https://www.fda.gov/media/156896/download</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>CellTherapyProductionProcess(x) → BiomanufacturingProductionProcess(x) ∧ ∃o ((MaterialProduct(o) ∨ ProcessIntermediateMaterial(o)) ∧ hasSpecifiedOutput(x, o) ∧ ∃p (CulturedCellPopulation(p) ∧ hasContinuantPartAtAllTimes(o, p)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">biomanufacturing production process during which cells are cultured under controlled conditions such that the resulting cell population constitutes the targeted product material</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">biomanufacturing production process that results in a cell population which constitutes the targeted product material</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions. In particular constructs for representing cells as the target product are still missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell therapy production process&apos; then x is a &apos;biomanufacturing production process&apos; that &apos;has specified output&apos; some &apos;material product&apos; or some &apos;process intermediate material&apos; that &apos;has continuant part at all times&apos; some &apos;cultured cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -715,10 +715,22 @@
 										<owl:intersectionOf rdf:parseType="Collection">
 											<rdf:Description rdf:about="&iof-construct;MaterialAdditionProcess">
 											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-construct;occursSimultaneouslyWith"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
-											</owl:Restriction>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-construct;isTemporallyOverlappedBy"/>
+														<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-construct;occursSimultaneouslyWith"/>
+														<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-construct;temporallyOverlaps"/>
+														<owl:someValuesFrom rdf:resource="&iof-construct;MaterialRemovalProcess"/>
+													</owl:Restriction>
+												</owl:unionOf>
+											</owl:Class>
 										</owl:intersectionOf>
 									</owl:Class>
 								</owl:someValuesFrom>
@@ -760,13 +772,13 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">continuous process operating mode</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>continuous process operating mode of perfusion cell culture with fresh medium introduction and concomitant harvest removal through a cell retention device; continuous process operating mode of simulated moving-bed chromatography with feed introduction and concomitant product-stream removal; continuous process operating mode of single-pass TFF with feed and buffer introduction and concomitant product containing retentate removal; continuous process operating mode of crystallization with solute feed introduction and concomitant product slurry withdrawal</skos:example>
+		<skos:example>continuous process operating mode of perfusion cell culture with fresh medium introduction and concomitant harvest removal through a cell retention device; continuous process operating mode of simulated moving-bed chromatography with feed introduction and concomitant product-stream removal; continuous process operating mode of single-pass TFF with feed and buffer introduction and concomitant product containing retentate removal; continuous process operating mode of crystallization with solute feed introduction and concomitant product slurry withdrawal; Continuous process operating mode of a hydrodealkylation (HDA) process where toluene reacts with hydrogen gas at high temperature (500–660 °C) and pressure (20–60 bar) to produce benzene and methane and diphenyl as a side-product; Continuous process operating mode of a Haber-Bosch process for the synthesis of ammonia from nitrogen and hydrogen gases reacting over an iron-based catalyst at high pressure (150–250 atm) and temperature (400°C–500°C)</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-q13-continuous-manufacturing-drug-substances-and-drug-products-step-5_en.pdf and https://gmpua.com/Process/ContinuousManufacturing/ContinuousManufacturing.pdf</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>ContinuousProcessOperatingMode(x) → PlannedProcessOperatingMode(x) ∧ ∃p (PlannedProcess(p) ∧ processCharacteristicOf(x, p) ∧ ∃a ∃r ∃m (MaterialAdditionProcess(a) ∧ MaterialRemovalProcess(r) ∧ MaterialEntity(m) ∧ hasOccurrentPart(p, a) ∧ hasOccurrentPart(p, r) ∧ occursSimultaneouslyWith(a, r) ∧ occursSimultaneouslyWith(r, a) ∧ hasSpecifiedOutput(r, m) ∧ isOutputOf(m, p)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ContinuousProcessOperatingMode(x) → PlannedProcessOperatingMode(x) ∧ ∃p∃a∃r∃m (PlannedProcess(p) ∧ processCharacteristicOf(x,p) ∧ MaterialAdditionProcess(a) ∧ MaterialRemovalProcess(r) ∧ MaterialEntity(m) ∧ hasOccurrentPart(p,a) ∧ hasOccurrentPart(p,r) ∧ (occursSimultaneouslyWith(a,r) ∨ temporallyOverlaps(a,r) ∨ isTemporallyOverlappedBy(a,r)) ∧ hasSpecifiedOutput(r,m) ∧ isOutputOf(m,p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process operating mode that characterizes a planned process in which input material is introduced into the process while output material is concomitantly removed from the same process over an operating interval</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process operating mode that characterizes a planned process in which input material is introduced into the process while output material is concomitantly removed from the same process over the whole operating interval</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;continuous process operating mode&apos; then x is a &apos;planned process operating mode&apos; that is the &apos;process characteristic of&apos; some &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; and &apos;has occurrent part&apos; some &apos;material removal process&apos;, where the material addition process and material removal process &apos;occurs simultaneously with&apos; each other, and the material removal process &apos;has specified output&apos; some &apos;material entity&apos; that &apos;is output of&apos; that same &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;continuous process operating mode&apos; then x is a &apos;planned process operating mode&apos; that is the &apos;process characteristic of&apos; some &apos;planned process&apos; p that &apos;has occurrent part&apos; some &apos;material addition process&apos; a and some &apos;material removal process&apos; r, where a either &apos;occurs simultaneously with&apos;, &apos;temporally overlaps&apos;, or &apos;is temporally overlapped by&apos; r, and r &apos;has specified output&apos; some &apos;material entity&apos; that &apos;is output of&apos; p</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureFeedAdditionProcess">
@@ -790,7 +802,7 @@
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -826,11 +838,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>addition of carbohydrate and amino acid feed to a CHO fed-batch culture; bolus addition of nutrient mix to maintain viable cell density during CHO production; controlled exponential glucose feeding in an E. coli high-cell-density culture; perfusion feed supplying fresh medium to a CHO bioreactor</skos:example>
 		<iof-av:explanatoryNote>A culture feed addition process occurs after a cell culture has been established by inoculation. It should be distinguished from initial medium charging before inoculation and from inoculation itself.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CultureFeedAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃c ∃t∃p(NutrientFeed(m) ∧ TransferredMaterialRole(r) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, r) ∧ CellCulture(c) ∧ MaterialAdditionTargetRole(t) ∧ hasParticipantAtSomeTime(x, c) ∧ hasRole(c, t) ∧ PlannedProcess(p) ∧ occursDuring(x, p) ∧ hasParticipantAtSomeTime(p, c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CultureFeedAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃c ∃t∃p(NutrientFeed(m) ∧ TransferredMaterialRole(r) ∧ hasInput(x, m) ∧ hasRole(m, r) ∧ CellCulture(c) ∧ MaterialAdditionTargetRole(t) ∧ hasParticipantAtSomeTime(x, c) ∧ hasRole(c, t) ∧ PlannedProcess(p) ∧ occursDuring(x, p) ∧ hasParticipantAtSomeTime(p, c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which a nutrient feed is added to a cell culture during a culture process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture feed addition process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;nutrient feed&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, &apos;has participant at some time&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material addition target role&apos;, and &apos;occurs during&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; that same &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture feed addition process&apos; then x is a &apos;material addition process&apos; that &apos;has input&apos; some &apos;nutrient feed&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, &apos;has participant at some time&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material addition target role&apos;, and &apos;occurs during&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; that same &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureFeedingStrategy">
@@ -861,23 +873,6 @@
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-construct;CultureMedium">
-							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
-								<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
-					</owl:Class>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
-				<owl:someValuesFrom>
-					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
 							<rdf:Description rdf:about="&iof-construct;MaterialArtifact">
 							</rdf:Description>
 							<owl:Restriction>
@@ -899,16 +894,33 @@
 				<owl:someValuesFrom rdf:resource="&iof-construct;CellCultureInoculationProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-construct;CultureMedium">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasRole"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;TransferredMaterialRole"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">culture medium charging process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>charging medium into a production bioreactor before seed culture inoculation; adding recovery medium to a shake flask before thawed cell suspension inoculation; charging fermentation medium into a vessel before microbial inoculum addition.</skos:example>
 		<iof-av:adaptedFrom>https://www.emerson.com/documents/automation/article-electronic-workflow-for-a-bioreactor-deltav-en-56666.pdf and https://www.eppendorf.com/product-media/doc/en/897339/Fermentors-Bioreactors_Publication_Bioprocess_Bioprocessing-basics.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>A culture medium charging process establishes the culture medium contents that will receive inoculum. The charged medium may be complete culture medium, growth medium, seed medium, expansion medium, production medium, or another culture-medium formulation, depending on the culture process. It should be distinguished from cell culture inoculation, where inoculum is added to establish a cell culture, and from culture feed addition, where culture medium or nutrient feed is added to an already inoculated cell culture during a culture process.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CultureMediumChargingProcess(x) → MaterialAdditionProcess(x) ∧ ∃a∃c∃ar∃m∃mr∃i(MaterialArtifact(a) ∧ CellCultureHoldingCapability(c) ∧ hasCapability(a,c) ∧ MaterialAdditionTargetRole(ar) ∧ hasParticipantAtSomeTime(x,a) ∧ hasRole(a,ar) ∧ CultureMedium(m) ∧ TransferredMaterialRole(mr) ∧ hasParticipantAtSomeTime(x,m) ∧ hasRole(m,mr) ∧ CellCultureInoculationProcess(i) ∧ precedes(x,i))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CultureMediumChargingProcess(x) → MaterialAdditionProcess(x) ∧ ∃a∃c∃ar∃m∃mr∃i(MaterialArtifact(a) ∧ CellCultureHoldingCapability(c) ∧ hasCapability(a,c) ∧ MaterialAdditionTargetRole(ar) ∧ hasParticipantAtSomeTime(x,a) ∧ hasRole(a,ar) ∧ CultureMedium(m) ∧ TransferredMaterialRole(mr) ∧ hasInput(x,m) ∧ hasRole(m,mr) ∧ CellCultureInoculationProcess(i) ∧ precedes(x,i))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which culture medium is added to a culture vessel in preparation for cell culture inoculation</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium charging process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;material artifact&apos; that &apos;has capability&apos; some &apos;cell culture holding capability&apos; and &apos;has role&apos; some &apos;material addition target role&apos;, &apos;has participant at some time&apos; some &apos;culture medium&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;precedes&apos; some &apos;cell culture inoculation process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium charging process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;material artifact&apos; that &apos;has capability&apos; some &apos;cell culture holding capability&apos; and &apos;has role&apos; some &apos;material addition target role&apos;, &apos;has input&apos; some &apos;culture medium&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;precedes&apos; some &apos;cell culture inoculation process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CultureMediumExchangeProcess">
@@ -922,7 +934,7 @@
 							<rdf:Description rdf:about="&iof-construct;MaterialAdditionProcess">
 							</rdf:Description>
 							<owl:Restriction>
-								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 								<owl:someValuesFrom>
 									<owl:Class>
 										<owl:intersectionOf rdf:parseType="Collection">
@@ -953,14 +965,39 @@
 								<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
 								<owl:someValuesFrom>
 									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="&iof-construct;CultureMedium">
-											</rdf:Description>
-											<owl:Restriction>
-												<owl:onProperty rdf:resource="&iof-construct;hasMaterialState"/>
-												<owl:someValuesFrom rdf:resource="&iof-construct;SpentCultureMediumState"/>
-											</owl:Restriction>
-										</owl:intersectionOf>
+										<owl:unionOf rdf:parseType="Collection">
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&bfo;BFO_0000040">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:intersectionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&iof-construct;CultureMedium">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&iof-construct;hasMaterialState"/>
+																		<owl:someValuesFrom rdf:resource="&iof-construct;SpentCultureMediumState"/>
+																	</owl:Restriction>
+																</owl:intersectionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&iof-construct;CultureMedium">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-construct;hasMaterialState"/>
+														<owl:someValuesFrom rdf:resource="&iof-construct;SpentCultureMediumState"/>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:unionOf>
 									</owl:Class>
 								</owl:someValuesFrom>
 							</owl:Restriction>
@@ -994,11 +1031,11 @@
 		<iof-av:explanatoryNote>1) Culture medium exchange process includes both removal of existing culture medium or culture-medium-containing material and addition of fresh culture medium.
 2) The process is distinct from feeding alone because feeding adds fresh material without requiring removal of existing culture medium.
 3) Medium exchange may be partial or complete and is commonly applied in mammalian cell culture, virus production, and cell therapy to restore nutrient levels, reduce metabolite accumulation, remove inhibitory compounds, or otherwise adjust the culture environment.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CultureMediumExchangeProcess(x) → PlannedProcess(x) ∧ ∃a∃m∃t(MaterialAdditionProcess(a) ∧ hasOccurrentPart(x,a) ∧ CultureMedium(m) ∧ TransferredMaterialRole(t) ∧ hasInput(a,m) ∧ hasRole(m,t)) ∧ ∃r∃o∃s(MaterialRemovalProcess(r) ∧ hasOccurrentPart(x,r) ∧ CultureMedium(o) ∧ hasSpecifiedOutput(r,o) ∧ SpentCultureMediumState(s) ∧ hasMaterialState(o,s)) ∧ ∃p∃c(PlannedProcess(p) ∧ occurrentPartOf(x,p) ∧ CellCulture(c) ∧ hasParticipantAtSomeTime(p,c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CultureMediumExchangeProcess(x) → PlannedProcess(x) ∧ ∃a∃f∃t (MaterialAdditionProcess(a) ∧ hasOccurrentPart(x,a) ∧ CultureMedium(f) ∧ hasInput(a,f) ∧ TransferredMaterialRole(t) ∧ hasRole(f,t)) ∧ ∃r∃o∃m∃s (MaterialRemovalProcess(r) ∧ hasOccurrentPart(x,r) ∧ MaterialEntity(o) ∧ hasSpecifiedOutput(r,o) ∧ CultureMedium(m) ∧ SpentCultureMediumState(s) ∧ hasMaterialState(m,s) ∧ (o = m ∨ hasContinuantPartAtAllTimes(o,m))) ∧ ∃p∃c (PlannedProcess(p) ∧ occurrentPartOf(x,p) ∧ CellCulture(c) ∧ hasParticipantAtSomeTime(p,c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which part or all of the spent culture medium associated with a cell culture is removed and fresh culture medium is added</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium exchange process&apos; then x is a &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has input&apos; some &apos;culture medium&apos; that &apos;has role&apos; some &apos;transferred material role&apos;, &apos;has occurrent part&apos; some &apos;material removal process&apos; that &apos;has specified output&apos; some &apos;culture medium&apos; that &apos;has material state&apos; some &apos;spent culture medium state&apos;, and is &apos;occurrent part of&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;culture medium exchange process&apos; then x is a &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has input&apos; some &apos;culture medium&apos; bearing some &apos;transferred material role&apos;, &apos;has occurrent part&apos; some &apos;material removal process&apos; that &apos;has specified output&apos; some &apos;material entity&apos; that either is some &apos;culture medium&apos; having some &apos;spent culture medium state&apos; or &apos;has continuant part at all times&apos; some &apos;culture medium&apos; having some &apos;spent culture medium state&apos;, and is &apos;occurrent part of&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DegassingProcess">
@@ -1075,13 +1112,14 @@
 		<rdfs:label xml:lang="en-US">degassing process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>vacuum degassing of culture medium prior to sterilization; nitrogen sparging to remove dissolved oxygen from buffer solution</skos:example>
-		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/process#AFP_0000593</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Degassing process separates material commonly described as dissolved, entrained, or adsorbed gas from a liquid or solid material. In this context, dissolved gas does not imply that the material is in a gaseous aggregate state while dissolved; for example, dissolved dioxygen in culture medium is molecular material present in a liquid solution. Entrained gas may be present as gas bubbles, while adsorbed gas may be associated with a solid surface or solid material</iof-av:explanatoryNote>
+		<iof-av:adaptedFrom>https://en.wikipedia.org/wiki/Degassing</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Degassing process separates material commonly described as dissolved, entrained, or adsorbed gas from a liquid or solid material. In this context, dissolved gas does not imply that the material is in a gaseous aggregate state while dissolved; for example, dissolved dioxygen molecule in culture medium is molecular material present in a liquid solution. Entrained gas may be present as gas bubbles, while adsorbed gas may be associated with a solid surface or solid material</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>DegassingProcess(x) → PlannedProcess(x) ∧ ∃m ∃q ∃g ∃gq (MaterialEntity(m) ∧ hasInput(x, m) ∧ hasSpecifiedOutput(x, m) ∧ ((LiquidAggregateState(q) ∨ SolidAggregateState(q)) ∧ hasQuality(m, q)) ∧ MaterialEntity(g) ∧ hasOutput(x, g) ∧ GaseousAggregateState(gq) ∧ hasQuality(g, gq))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process during which dissolved, entrained, or adsorbed gas is separated from a liquid or solid material</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;degassing process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;liquid aggregate state&apos; or some &apos;solid aggregate state&apos;, that same &apos;material entity&apos; is also the &apos;specified output&apos; of x, and x &apos;has output&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;gaseous aggregate state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym xml:lang="en-US">degasification process</iof-av:synonym>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DepthFiltrationProcess">
@@ -1201,7 +1239,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-construct;hasProcessProfile"/>
-						<owl:someValuesFrom rdf:resource="&iof-construct;PerpendicularlFlowOrientation"/>
+						<owl:someValuesFrom rdf:resource="&iof-construct;PerpendicularFlowOrientation"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
@@ -1280,7 +1318,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>CHO culture with bolus glucose feeds to maintain viable cell density, harvested in a single terminal step; Semi-batch polymerization where monomer is added gradually to control heat release, then reactor is emptied;</skos:example>
 		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/insights/what-are-the-different-types-of-bioreactors and https://gmpua.com/Process/ContinuousManufacturing/ContinuousManufacturing.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>Simple batch bioreactor run with no feeding; Perfusion culture</iof-av:counterExample>
-		<iof-av:explanatoryNote>In fed batch process operating mode, the process remains organized around a finite quantity of process material processed as a single unit, but additional process material is intentionally introduced during the main processing interval. Fed batch process operating mode should be distinguished from batch process operating mode, where additional process material is not introduced during that interval, and from continuous process operating mode, where material is introduced while output material is concomitantly removed from the process. Ancillary additions such as pH adjusters, antifoam, sparging gas, buffers, wash solutions, or cleaning solutions do not by themselves make the mode fed batch.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>In fed batch process operating mode, the process remains organized around a finite quantity of process material processed as a single unit, but additional process material is intentionally introduced during the main processing interval. Fed batch process operating mode should be distinguished from batch process operating mode, where additional process material is not introduced during that interval, and from continuous process operating mode, where all input materials are introduced while all the output materials are concomitantly removed during the whole processing interval. Ancillary additions such as pH adjusters, antifoam, sparging gas, buffers, wash solutions, or cleaning solutions do not by themselves make the mode fed batch.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>FedBatchProcessOperatingMode(x) → PlannedProcessOperatingMode(x) ∧ ∃p∃i∃m∃r(PlannedProcess(p) ∧ processCharacteristicOf(x,p) ∧ MaterialAdditionProcess(i) ∧ hasOccurrentPart(p,i) ∧ (ProcessIntermediateMaterial(m) ∨ RawMaterial(m)) ∧ hasInput(i,m) ∧ TransferredMaterialRole(r) ∧ hasRole(m,r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process operating mode of a planned process in which a finite quantity of process material is introduced before or at the start of the main processing interval, and additional process material is introduced during that interval while the process material is retained and processed as a single unit</iof-av:naturalLanguageDefinition>
@@ -1301,7 +1339,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>depth filtration; TFF filtration; direct flow filtration; membrane filtration</skos:example>
 		<iof-av:explanatoryNote>1) Passing can be conducted by using gravity or by using pressure.
-2) According to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal, direct, perpendicular) filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration are modeled as defined subclasses of filtration.
+2) According to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal, direct, perpendicular) filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration (direct flow filtration) are modeled as defined subclasses of filtration.
 3) Filtration is a separation technique predominantly based on particle size, where components are retained or passed through a porous medium depending on their dimensions relative to the pore size. However, in some cases, additional characteristics such as particle shape and electrostatic charge can significantly influence retention behavior and selectivity of the filter used in the process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (Filter(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -1339,7 +1377,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">genetic transformation process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>transfection of a mammalian cell; transduction of a CHO cell by a retrovirus containing a genetic sequence of a particular mAb; Gene deletion by CRISPR-CAS9; introducing mutation in the cells by error prone PCR</skos:example>
+		<skos:example>transfection of a mammalian cell; transduction of a CHO cell by a retrovirus containing a genetic sequence of a particular mAb; Gene deletion by using the CRISPR-CAS9 gene editing technology;</skos:example>
 		<iof-av:firstOrderLogicAxiom>GeneticTransformationProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that results in the introduction, alteration, or integration of genetic material into a cell or organism</iof-av:naturalLanguageDefinition>
@@ -1383,7 +1421,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:label xml:lang="en-US">induction process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>IPTG addition to induce recombinant protein expression under a lac promoter; Temperature downshift from 37 °C to 32 °C to initiate production phase</skos:example>
+		<skos:example>IPTG (Isopropyl-β-D-1-thiogalactopyranoside) addition to induce recombinant protein expression under a lac promoter; Temperature downshift from 37 °C to 32 °C to initiate production phase</skos:example>
 		<iof-av:adaptedFrom>https://www.genscript.com/biology-glossary/1499/induction and https://www.healthcare.nikon.com/en/ss/cell-image-lab/glossary/induction.html</iof-av:adaptedFrom>
 		<iof-av:counterExample>galactose addition to shift glycosylation profile</iof-av:counterExample>
 		<iof-av:explanatoryNote>An induction process is intentionally designed to push the culture into a new physiological or metabolic state. This may include activation or repression of gene expression, initiation of a production phase, promotion of differentiation, or induction of a stress response that enhances productivity. The mechanism of induction can vary and may involve material addition (e.g., IPTG, tetracycline, retinoic acid), material depletion or starvation (e.g., serum withdrawal, nutrient limitation), environmental changes (e.g., temperature shift, pH shift), or physical stimuli (e.g., light pulse for optogenetic activation).</iof-av:explanatoryNote>
@@ -1398,7 +1436,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -1423,43 +1461,24 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/NCIT_C68774 and https://database.ich.org/sites/default/files/ICH_Q5A%28R2%29_Guideline_2023_1101.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) In the context of inoculation, biological preparations refers to non-living, biologically derived materials that are intentionally introduced to elicit a response or initiate a process. This category includes vaccines (live-attenuated, inactivated, or subunit), purified antigens, toxoids, inactivated microorganisms, viral particles, and similar immunobiological products. Unlike cells, microorganisms, or viruses, biological preparations do not replicate autonomously but are used to stimulate, test, or modulate biological systems.
 2) Defined recipient in this case encompasses medium, host, or vessel.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>InoculationProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃tr (MaterialEntity(m) ∧ InoculumRole(r) ∧ TransferredMaterialRole(tr) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, r) ∧ hasRole(m, tr))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>InoculationProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃tr (MaterialEntity(m) ∧ InoculumRole(r) ∧ TransferredMaterialRole(tr) ∧ hasInput(x, m) ∧ hasRole(m, r) ∧ hasRole(m, tr))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which cells, microorganisms, viruses, or biological preparations are deliberately introduced into a defined recipient to initiate growth, infection, testing, production, or a biological response</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;inoculation process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;inoculum role&apos; and &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;inoculation process&apos; then x is a &apos;material addition process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;inoculum role&apos; and &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;LiquidChromatographyProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;ChromatographyProcess"/>
 		<rdfs:label xml:lang="en-US">liquid chromatography process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>separating protein isoforms using ion exchange chromatography with a buffered liquid mobile phase; analyzing small molecule impurities in a drug product using reversed-phase HPLC; quantifying monoclonal antibody titer using protein A affinity chromatography;</skos:example>
+		<skos:example>separating protein isoforms using ion exchange chromatography with a buffered liquid mobile phase; analyzing small molecule impurities in a drug product using reversed-phase High-Performance Liquid Chromatography (HPLC); quantifying monoclonal antibody titer using protein A affinity chromatography;</skos:example>
 		<iof-av:adaptedFrom>AFO_/process#AFP:0000225</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>LiquidChromatographyProcess(x) → ChromatographyProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">chromatography process in which the phase moving in a definite direction (mobile phase) is a liquid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;liquid chromatography process&apos; then x is a &apos;chromatography process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;ManufacturingProcessScale">
-		<rdfs:subClassOf rdf:resource="&iof-construct;ProcessCharacteristic"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;processCharacteristicOf"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;ManufacturingProcess"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">manufacturing process scale</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>a 250 mL ambr microbioreactor scale; a 2 L bench-scale stirred-tank bioreactor scale; a 50 L pilot-scale single-use bioreactor scale; a 2,000 L production bioreactor scale; a 500 L harvest clarification scale;</skos:example>
-		<iof-av:explanatoryNote>The specified material used to determine manufacturing process scale depends on the process boundary and the convention used for that process type. It may be a starting material, input charge, in-process material, culture material, chromatography load, formulation bulk, output material, or discrete product units.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ManufacturingProcessScale(x) → ProcessCharacteristic(x) ∧ ∃p (ManufacturingProcess(p) ∧ processCharacteristicOf(x, p))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process characteristic that is the magnitude of a manufacturing process in terms of equipment capacity, the quantity of a specified material processed per batch or lot, the throughput rate of the process, or the duration of the process at a defined throughput rate</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process scale&apos; then x is a &apos;process characteristic&apos; that is the &apos;process characteristic of&apos; some &apos;manufacturing process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MediaSolutionPreparation">
@@ -1484,7 +1503,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:label xml:lang="en-US">media solution preparation</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>dissolving CHO cell culture media powder in water for use in a fed-batch bioreactor; diluting a 10× DMEM stock solution with water to prepare a 1× working media solution; preparing Glasgow Minimum Essential Medium (GMEM) by dissolving powdered GMEM in a sodium bicarbonate buffer</skos:example>
+		<skos:example>dissolving CHO cell culture media powder in water for use in a fed-batch bioreactor; diluting a 10× Dulbecco&apos;s Modified Eagle Medium (DMEM) stock solution with water to prepare a 1× working media solution; preparing Glasgow Minimum Essential Medium (GMEM) by dissolving powdered GMEM in a sodium bicarbonate buffer</skos:example>
 		<iof-av:counterExample>thawing pre-made liquid media before use in cell culture; sterilizing a commercially available ready-to-use media without any modification;</iof-av:counterExample>
 		<iof-av:explanatoryNote>This process may involve adjusting pH, sterile filtration, or supplementation with additives depending on the application.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MediaSolutionPreparation(x) → SolutionPreparationProcess(x) ∧ ∃y(CultureMedium(y) ∧ hasSpecifiedOutput(x,y) ∧ ∃z(InputSpecification(z) ∧ satisfiesRequirement(y,z)))</iof-av:firstOrderLogicAxiom>
@@ -1512,6 +1531,43 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;membrane filtration process&apos; then x is a &apos;filtration process&apos; that &apos;has participant at some time&apos; some &apos;membrane filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-construct;MixingProcess">
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-construct;Agent">
+									</rdf:Description>
+									<rdf:Description rdf:about="&iof-construct;PieceOfEquipment">
+									</rdf:Description>
+								</owl:unionOf>
+							</owl:Class>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-construct;hasCapability"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;MixingCapability"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">mixing process</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
+		<skos:example>mixing a buffer solution; mixing a cell culture suspension; mixing two liquid process streams; maintaining a suspension by agitation</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHMO_0001685</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Mixing may involve combining initially separate materials or redistributing parts of an existing material. It may be performed manually or mechanically and may involve liquids, solids, gases, suspensions, pastes or other materials. Homogeneity need not be absolute; the process may increase homogeneity or maintain it by preventing segregation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>MixingProcess(x) → PlannedProcess(x) ∧ ∃y∃c ((Agent(y) ∨ PieceOfEquipment(y)) ∧ MixingCapability(c) ∧ hasCapability(y,c) ∧ hasParticipantAtSomeTime(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that combines material entities or redistributes parts of a material entity to increase or maintain the homogeneity of the material being processed</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mixing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;agent&apos; or &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;mixing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-construct;NanofiltrationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MembraneFiltrationProcess"/>
 		<rdfs:label xml:lang="en-US">nanofiltration process</rdfs:label>
@@ -1530,7 +1586,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:label xml:lang="en-US">normal phase chromatography process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>A phospholipid extract was separated into distinct lipid classes using a polar silica stationary phase and a mobile phase consisting of hexane and isopropanol; A racemic small molecule API was purified to isolate the active enantiomer using a chiral polar stationary phase and a mobile phase of heptane and ethanol; A glycan mixture derived from enzymatic deglycosylation was separated based on polarity using an amino-functionalized silica stationary phase and an acetonitrile–water mobile phase</skos:example>
+		<skos:example>Chromatography process in which a phospholipid extract was separated into distinct lipid classes using a polar silica stationary phase and a mobile phase consisting of hexane and isopropanol; Chromatography process in which a racemic small molecule API was purified to isolate the active enantiomer using a chiral polar stationary phase and a mobile phase of heptane and ethanol; Chromatography process in which a glycan mixture derived from enzymatic deglycosylation was separated based on polarity using an amino-functionalized silica stationary phase and an acetonitrile–water mobile phase</skos:example>
 		<iof-av:adaptedFrom>AFO_/process#AFP:0002328</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>This process is commonly used to separate small, polar organic compounds. Components with higher polarity interact more strongly with the stationary phase and elute later, while less polar components elute earlier with the nonpolar mobile phase.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NormalPhaseChromatographyProcess(x) → LiquidChromatographyProcess(x)</iof-av:firstOrderLogicAxiom>
@@ -1544,7 +1600,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialAdditionProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -1577,11 +1633,11 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>Controlled dosing of sodium hydroxide (NaOH) into a mammalian cell culture bioreactor during production scale to neutralize acidity from lactate accumulation.</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S1871678424005533 and https://pmc.ncbi.nlm.nih.gov/articles/PMC10818583/</iof-av:adaptedFrom>
 		<iof-av:counterExample>Addition of nutrient feeds (e.g., glucose, amino acids) might indirectly affect pH, their purpose is metabolic, not direct pH control.</iof-av:counterExample>
-		<iof-av:firstOrderLogicAxiom>PHAdjustmentAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃a (MaterialEntity(m) ∧ TransferredMaterialRole(r) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, r) ∧ ((AcidifyingAgentRole(a) ∨ AlkalizingAgentRole(a)) ∧ hasRole(m, a)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PHAdjustmentAdditionProcess(x) → MaterialAdditionProcess(x) ∧ ∃m ∃r ∃a (MaterialEntity(m) ∧ TransferredMaterialRole(r) ∧ hasInput(x, m) ∧ hasRole(m, r) ∧ ((AcidifyingAgentRole(a) ∨ AlkalizingAgentRole(a)) ∧ hasRole(m, a)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material addition process in which an acidifying or alkalizing material is introduced into a defined recipient to modify pH</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pH adjustment addition process&apos; then x is a &apos;material addition process&apos; that &apos;has participant at some time&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;transferred material role&apos; and &apos;has role&apos; some &apos;acidifying agent role&apos; or some &apos;alkalizing agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pH adjustment addition process&apos; then x is a &apos;material addition process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;transferred material role&apos; and &apos;has role&apos; some &apos;acidifying agent role&apos; or some &apos;alkalizing agent role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PerfusionCultureProcessOperatingMode">
@@ -1628,15 +1684,15 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">perfusion medium exchange process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>perfusion culture medium exchange in a CHO perfusion culture, where fresh medium is supplied while product-containing harvest is removed through an ATF cell retention device; perfusion culture medium exchange in a high-cell-density mammalian cell culture, where fresh medium is added while spent medium or harvest is removed through tangential-flow filtration; perfusion culture medium exchange using a spin filter, where medium is exchanged while cells are preferentially kept in the culture.</skos:example>
+		<skos:example>perfusion culture medium exchange in a CHO perfusion culture, where fresh medium is supplied while product-containing harvest is removed through an Alternating Tangential Flow (ATF) cell retention device; perfusion culture medium exchange in a high-cell-density mammalian cell culture, where fresh medium is added while spent medium or harvest is removed through tangential-flow filtration; perfusion culture medium exchange using a spin filter, where medium is exchanged while cells are preferentially kept in the culture</skos:example>
 		<iof-av:firstOrderLogicAxiom>PerfusionMediumExchangeProcess(x) → CultureMediumExchangeProcess(x) ∧ ∃r (CellRetentionProcess(r) ∧ hasOccurrentPart(x, r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">culture medium exchange process in which fresh culture medium is supplied to a cell culture while material is continuously or quasi-continuously removed from the cell culture, with cell retention used to preferentially keep cells in the culture</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">culture medium exchange process in which fresh culture medium is added to a cell culture while material is continuously or quasi-continuously removed from the cell culture, with cell retention used to preferentially keep cells in the culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;perfusion medium exchange process&apos; then x is a &apos;culture medium exchange process&apos; that &apos;has occurrent part&apos; some &apos;cell retention process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;PerpendicularlFlowOrientation">
+	<owl:Class rdf:about="&iof-construct;PerpendicularFlowOrientation">
 		<rdfs:subClassOf rdf:resource="&iof-construct;FluidFlowOrientation"/>
 		<rdfs:label xml:lang="en-US">perpendicular flow orientation</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
@@ -1842,22 +1898,16 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 				<owl:someValuesFrom rdf:resource="&iof-construct;ProductionCultureProcess"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;hasSpecifiedOutput"/>
-				<owl:someValuesFrom rdf:resource="&iof-construct;ProcessIntermediateMaterial"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">production culture production phase</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>production-focused window after a planned process transition; culture window managed primarily for target product production; production culture period where monitoring is organized around titer, productivity, viability, and product quality</skos:example>
+		<skos:example>production-focused window after a planned process transition; culture window managed primarily for target product production; production culture period where monitoring and control is organized around titer, productivity, viability, and product quality</skos:example>
 		<iof-av:explanatoryNote>1) A production phase is an operational window within a production culture process, not the production culture process as a whole. During this phase, process conditions are managed to support accumulation of the target product. It is distinguished from an expansion-focused part of the same process because operating decisions and process monitoring are organized around product accumulation rather than increase in cell number.
 2) The word &quot;phase&quot; here does not imply that this process is prescribed by an ISA88 phase</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ProductionCultureProductionPhase(x) → ManufacturingProcess(x) ∧ ∃c (CellCulture(c) ∧ hasParticipantAtSomeTime(x, c)) ∧ ∃o (ProcessIntermediateMaterial(o) ∧ hasSpecifiedOutput(x, o)) ∧ ∃p (ProductionCultureProcess(p) ∧ temporalPartOf(x, p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ProductionCultureProductionPhase(x) → ManufacturingProcess(x) ∧ ∃c (CellCulture(c) ∧ hasParticipantAtSomeTime(x, c)) ∧ ∃p (ProductionCultureProcess(p) ∧ temporalPartOf(x, p))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process that is a temporal part of a production culture process and during which process conditions are managed primarily to support target product production</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production culture production phase&apos; then x is a &apos;manufacturing process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;, &apos;has specified output&apos; some &apos;process intermediate material&apos;, and is a &apos;temporal part of&apos; some &apos;production culture process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;production culture production phase&apos; then x is a &apos;manufacturing process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;, and is a &apos;temporal part of&apos; some &apos;production culture process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;PurificationProcess">
@@ -1881,8 +1931,8 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:label xml:lang="en-US">reverse phase chromatography process</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>A synthetic peptide was purified to remove synthesis byproducts using a C18-bonded silica stationary phase and a mobile phase composed of water and acetonitrile with 0.1% TFA; A monoclonal antibody digest was resolved to quantify fragment abundance using a hydrophobic C18 stationary phase and a mobile phase gradient of water and methanol with 0.1% formic acid</skos:example>
-		<iof-av:adaptedFrom>http://wolfson.huji.ac.il/purification/PDF/affinity/GE_Affinity_Chromatography_Handbook-Antibodies.pdf and CHMO:0002302 and https://www.sigmaaldrich.com/RS/en/technical-documents/protocol/analytical-chemistry/purification/reverse-phased-chromatography-in-practice?srsltid=AfmBOorOQim54doE5guL_YoH41EUR9xT6oikpa5rJhbNFAYeFTiIxs0I</iof-av:adaptedFrom>
+		<skos:example>Chromatography process in which a synthetic peptide was purified to remove synthesis byproducts using a C18-bonded silica stationary phase and a mobile phase composed of water and acetonitrile with 0.1% trifluoroacetic acid (TFA); Chromatography process in which a monoclonal antibody digest was resolved to quantify fragment abundance using a hydrophobic C18 stationary phase and a mobile phase gradient of water and methanol with 0.1% formic acid</skos:example>
+		<iof-av:adaptedFrom>http://wolfson.huji.ac.il/purification/PDF/affinity/GE_Affinity_Chromatography_Handbook-Antibodies.pdf and http://purl.obolibrary.org/obo/CHMO_0002302 and https://www.sigmaaldrich.com/RS/en/technical-documents/protocol/analytical-chemistry/purification/reverse-phased-chromatography-in-practice?srsltid=AfmBOorOQim54doE5guL_YoH41EUR9xT6oikpa5rJhbNFAYeFTiIxs0I</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Reverse-phase chromatography (RPC) is utilized for the purification, separation, and analysis of biological molecules, including proteins, peptides, antibodies, and other metabolites. It is also employed in the separation and purification of intermediates and final products in chemical synthesis processes.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ReversePhaseChromatographyProcess(x) → LiquidChromatographyProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -2014,20 +2064,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which a batch or lot of a product or intermediate is divided into two or more separately managed portions for further processing, handling, storage or release</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This term is expected to remain primitive as formalization in OWL requires cardinality constraints.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;splitting process&apos; then x is a &apos;manufacturing process&apos; that &apos;has input&apos; some &apos;material product&apos; or some &apos;process intermediate material&apos;, and &apos;has specified output&apos; at least two &apos;material entities&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-construct;SterileMaterialState">
-		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialState"/>
-		<rdfs:label xml:lang="en-US">sterile material state</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>the sterile material state of culture medium after filtration through a sterilizing-grade membrane filter; the sterile material state of a stainless-steel bioreactor vessel after steam sterilization; the sterile material state of glassware after autoclaving;</skos:example>
-		<iof-av:adaptedFrom>https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-and-format-premarket-notification-510k-submissions-liquid-chemical-sterilantshigh-level</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>sterile material state applies to a material entity when the relevant condition that remains unchanged is that the material entity is free of viable microorganisms. It may apply to process materials, vessels, equipment parts, containers, closures, filters, tubing assemblies, fluid pathways, or other product-contact materials expected to remain sterile. In regulated manufacturing contexts, sterile status is typically established through validated sterilization or aseptic processing controls and sterility assurance, rather than by direct demonstration of the absence of every viable microorganism. Sterile material state should be distinguished from clean state or disinfected state, which may involve reduction or removal of bioburden without necessarily rendering the material entity free of viable microorganisms.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>SterileMaterialState(x) → MaterialState(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state in which a participating material entity is free of viable microorganisms</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>There are insufficient constructs to represent absence of viable microorganisms</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;sterile material state&apos; then x is a &apos;material state&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SterilizationProcess">
@@ -2294,7 +2330,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -2331,11 +2367,11 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>addition of working virus seed to a confluent Vero cell culture to initiate viral propagation; inoculation of Sf9 insect cells with baculovirus seed stock in a production bioreactor; infection of HEK293 cells with adenoviral vector for recombinant protein expression; co-culture of producer and target cells for lentivirus amplification</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/science/article/pii/S0166093422002099 and https://www.bioprocessintl.com/assays/nucleic-acid-impurity-reduction-in-viral-vaccine-manufacturing and https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/165/693/vaccine-handbook-process-br5237en-mk.pdf?srsltid=AfmBOopAab20MIAUvkPCifVu5keJOr4OPkvV65xNUwgIB9Ji9xExNOPn</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>VirusInoculationProcess(x) → InoculationProcess(x) ∧ ∃c ∃tr (CellCulture(c) ∧ MaterialAdditionTargetRole(tr) ∧ hasParticipantAtSomeTime(x, c) ∧ hasRole(c, tr)) ∧ ∃m ∃ir ∃mr (((VirusSeed(m)) ∨ (CellPopulation(m) ∧ ∃h (InfectedHostCell(h) ∧ hasMemberPartAtSomeTime(m, h)))) ∧ InoculumRole(ir) ∧ TransferredMaterialRole(mr) ∧ hasParticipantAtSomeTime(x, m) ∧ hasRole(m, ir) ∧ hasRole(m, mr))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>VirusInoculationProcess(x) → InoculationProcess(x) ∧ ∃c ∃tr (CellCulture(c) ∧ MaterialAdditionTargetRole(tr) ∧ hasParticipantAtSomeTime(x, c) ∧ hasRole(c, tr)) ∧ ∃m ∃ir ∃mr (((VirusSeed(m)) ∨ (CellPopulation(m) ∧ ∃h (InfectedHostCell(h) ∧ hasMemberPartAtSomeTime(m, h)))) ∧ InoculumRole(ir) ∧ TransferredMaterialRole(mr) ∧ hasInput(x, m) ∧ hasRole(m, ir) ∧ hasRole(m, mr))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">inoculation process in which a virus seed or infected host-cell-containing material is deliberately introduced into a cell culture to initiate viral propagation</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;virus inoculation process&apos; then x is an &apos;inoculation process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material addition target role&apos;, and &apos;has participant at some time&apos; some &apos;virus seed&apos; or some &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;infected host cell&apos;, where that participant &apos;has role&apos; some &apos;inoculum role&apos; and some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;virus inoculation process&apos; then x is an &apos;inoculation process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material addition target role&apos;, and &apos;has input&apos; some &apos;virus seed&apos; or some &apos;cell population&apos; that &apos;has member part at some time&apos; some &apos;infected host cell&apos;, where that participant &apos;has role&apos; some &apos;inoculum role&apos; and some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:AllDisjointClasses>
