@@ -71,7 +71,7 @@
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example>making nice slides, cooking indian food, changing tools on CNC machine, NC programmer</skos:example>
-		<iof-av:firstOrderLogicDefinition>Capability(x) ∧ ∃y (capabilityOf(x, y) ∧ Agent(y)) → AgentialCapability(x)</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>Capability(x) ∧ ∃y (Agent(y) ∧ capabilityOf(x, y)) → AgentialCapability(x)</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">capability that is borne by an agent</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>x is a capability and there exists some y such that y is an agent and x is a capability of y</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:usageNote>Synonym: skill</iof-av:usageNote>
@@ -321,12 +321,7 @@ As the natural language suggests, planning in warehouse will require a more deta
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MaterialProductSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-constr;DesignSpecification"/>
-		<rdfs:label xml:lang="en-us">material product specification</rdfs:label>
-		<rdfs:comment>This class will be harmonized with ProductDesignSpecification in ProductServiceSystem ontology</rdfs:comment>
-		<rdfs:comment xml:lang="en-us">specification of a product may contain a simple description of a product to a detailed CAD design, including geometry, structure, dimension, and tolerances. It may also contain reference to PLM system entity.</rdfs:comment>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
+		<rdfs:subClassOf>
 			<owl:Class>
 				<owl:intersectionOf rdf:parseType="Collection">
 					<rdf:Description rdf:about="&iof-constr;DesignSpecification">
@@ -337,10 +332,14 @@ As the natural language suggests, planning in warehouse will require a more deta
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
-		</owl:equivalentClass>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-us">material product specification</rdfs:label>
+		<rdfs:comment>This class will be harmonized with ProductDesignSpecification in ProductServiceSystem ontology</rdfs:comment>
+		<rdfs:comment xml:lang="en-us">specification of a product may contain a simple description of a product to a detailed CAD design, including geometry, structure, dimension, and tolerances. It may also contain reference to PLM system entity.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-us">engineering drawing specifying the geometry and tolerances of an aluminum bracket; technical data sheet defining the composition and properties of a polymer resin; formulation and packaging requirements for an industrial coating; product specification requiring a tablet mass of 650 ± 10 milligrams</skos:example>
 		<iof-av:firstOrderLogicAxiom>DesignSpecification(d) ∧ ∃m(MaterialProduct(m) ∧ prescribes(d,m)) → MaterialProductSpecification(d)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>MaterialProductSpecification(x) ↔ DesignSpecification(x) ∧ ∃y (prescribes(x, y) ∧ MaterialProduct(y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>MaterialProductSpecification(x) → DesignSpecification(x) ∧ ∀y (prescribes(x, y) → MaterialProduct(y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">false</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-us">design specification that prescribes a material product</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageAxiom>if an instance of &apos;design specification&apos; &apos;prescribes&apos; some instance of &apos;material product&apos;, then it is an instance of &apos;material product specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
@@ -459,10 +458,12 @@ As the natural language suggests, planning in warehouse will require a more deta
 			</owl:Class>
 		</owl:equivalentClass>
 		<skos:example xml:lang="en-us">person as a CNC operator has an operator role of operating, mantaining, and utilizing the assigned CNC machine before, during, and after a manufacturing process</skos:example>
+		<iof-av:explanatoryNote>In this definition, enabling an equipment capability is not limited to directly operating the equipment. A skill may enable the realization of an equipment capability by allowing the agent to set up, start, stop, monitor, adjust, or otherwise use the equipment; monitor and control a process through the equipment; coordinate multiple pieces of equipment; interpret equipment states, process conditions, alarms, and outputs; respond to normal or abnormal conditions; inspect or assess equipment condition or performance; or perform operator-level cleaning, troubleshooting, or routine maintenance. Relevant skills may also include those needed to apply applicable quality, occupational safety, process safety, biosafety, hygiene, contamination-control, environmental, or other domain-specific requirements.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>Relevant skills may enable a capability of a single piece of equipment or the coordinated realization of capabilities of multiple pieces of equipment, such as those operating together in a process cell or production line</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>AgentRole(x) ∧ ∃a (Agent(a) ∧ roleOf(x, a) ∧ participatesIn(a, p) ∧ ManufacturingProcess(p)) → OperatorRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:firstOrderLogicDefinition>OperatorRole(r) ↔ AgentRole(r) ∧ ∃g(Agent(g) ∧ roleOf(r,g) ∧ ∃c(AgentialCapability(c) ∧ hasCapability(g,c) ∧ ∃x(enables(c,x) ∧ ∃e(PieceOfEquipment(e) ∧ capabilityOf(x,e)))))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by an agent when it possesses a skill that enables a capability of a piece of equipment</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">role held by an agent when it possesses some skill that enables a capability of some piece of equipment</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>The ontology does not yet include a construct for &apos;skill&apos;. The current definition refers to &apos;capability&apos;, which is intended to serve as a supertype of &apos;skill&apos;, but this class is still under development.
 The definition employs the primitive relation enables, which has recently been introduced. Its adoption is pending discussion and approval by the IOF community. It is expected that this relation may be relocated to the IOF Core ontology upon acceptance.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agent role&apos; that is the &apos;role of&apos; some &apos;agent&apos; who &apos;participates in&apos; a &apos;manufacturing process&apos;, then x is an &apos;operator role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
@@ -810,9 +811,9 @@ Other references (Shumaker et al. 2011; Jones &amp; Kamil 1973; Hauser 2000; B
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/productionplanning/ProductionPlanning/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Capability"/>
 		<skos:example xml:lang="en-us">the cutting capability of an installed drill bit enables the hole-making capability of a drilling machine</skos:example>
-		<iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∃p1 ∃p2 ((realizes(p1, c1) → realizes(p2, c2)) ∨ (realizes(p2, c2) → realizes(p1, c1)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>enables(c1, c2) → ∀p1 (realizes(p1, c1) → ∃p2 realizes(p2, c2))</iof-av:firstOrderLogicDefinition>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-us">relation from one capability to another capability such that associated performance of the first capability makes possible another capability</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-us">a capability enables another capability only if realization of the first capability implies realization of the second capability</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>This property is included to define &apos;operator role&apos; but it is part of the set of construct for modeling the combined or emergent capability of systems stemming from capabilities of its sub-systems (components). THe other constructs are not completely developed yet and it is not decided which IOF module they will be part of.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageDefinition>if c1 &apos;enables&apos; c2, then there exist processes p1 and p2 such that p1 &apos;realizes&apos; c1 implies p2 &apos;realizes&apos; c2, or p2 &apos;realizes&apos; c2 implies p1 &apos;realizes&apos; c1</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
