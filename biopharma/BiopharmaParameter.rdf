@@ -113,7 +113,7 @@
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process productivity whose magnitude is normalized by biomass mass</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomass-specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomass specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;BiomoleculePrimaryStructure">
@@ -148,23 +148,40 @@
 		<skos:example>the primary structure of a monoclonal antibody heavy chain; the primary structure of a phosphorylated peptide; the primary structure of a methylated DNA molecule; the primary structure of an mRNA molecule; the primary structure of a protein variant with a single amino acid substitution</skos:example>
 		<iof-av:adaptedFrom>http://www.bioassayontology.org/bao#BAO_0000013</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>Biomolecule primary structure may be described together with covalent modifications of particular residues, such as methylation or phosphorylation; these modifications do not change the linear residue order.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>BiomoleculePrimaryStructure(x) → Quality(x) ∧ ∃m ((DeoxyribonucleicAcid(m) ∨ RibonucleicAcid(m) ∨ Peptide(m) ∨ Protein(m)) ∧ qualityOf(x, m)) ∧ ∃s (BiologicalSequence(s) ∧ concretizesAtAllTimes(x, s))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>BiomoleculePrimaryStructure(x) → Quality(x) ∧ ∃m∃s((DeoxyribonucleicAcid(m) ∨ RibonucleicAcid(m) ∨ Peptide(m) ∨ Protein(m)) ∧ qualityOf(x,m) ∧ BiologicalSequence(s) ∧ concretizesAtAllTimes(x,s) ∧ genericallyDependsOnAtSomeTime(s,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a DNA, RNA, peptide, or protein molecule that is determined by the linear order of its nucleotide or amino acid residues</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomolecule primary structure&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;deoxyribonucleic acid&apos;, &apos;ribonucleic acid&apos;, &apos;peptide&apos;, or &apos;protein&apos;, and x &apos;concretizes at all times&apos; some &apos;biological sequence&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;biomolecule primary structure&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;deoxyribonucleic acid&apos;, &apos;ribonucleic acid&apos;, &apos;peptide&apos;, or &apos;protein&apos; m and x &apos;concretizes at all times&apos; some &apos;biological sequence&apos; that &apos;generically depends on at some time&apos; that same m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CarbonDioxideEvolutionRate">
 		<rdfs:subClassOf rdf:resource="&iof-construct;RateProcessProfile"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-construct;processProfileOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+								<owl:someValuesFrom rdf:resource="&iof-construct;CellCulture"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">carbon dioxide evolution rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>carbon dioxide evolution rate of a CHO fed-batch culture calculated from exhaust gas carbon dioxide concentration and gas flow rate;</skos:example>
-		<iof-av:firstOrderLogicAxiom>CarbonDioxideEvolutionRate(x) → RateProcessProfile(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CarbonDioxideEvolutionRate(x) → RateProcessProfile(x) ∧ ∃p(Process(p) ∧ processProfileOf(x,p) ∧ ∃c(CellCulture(c) ∧ hasParticipantAtSomeTime(p,c)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which carbon dioxide is produced by cells within a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;carbon dioxide evolution rate&apos; then x is a &apos;rate process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;carbon dioxide evolution rate&apos; then x is a &apos;rate process profile&apos; that is the &apos;process profile of&apos; some &apos;process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureDoublingTime">
@@ -207,7 +224,7 @@
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process productivity whose magnitude is normalized by cell amount, typically viable cell amount</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell-specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell specific productivity&apos; then x is a &apos;manufacturing process productivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CriticalMaterialAttribute">
@@ -328,10 +345,9 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>host-cell protein impurity specification in the clarified lysate; aggregate level specification for the purified monoclonal antibody; endotoxin level specification for the filled drug product; glycan profile specification for the monoclonal antibody drug substance</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q8%28R2%29%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) From ICH: critical quality attribute is a physical, chemical, biological or microbiological property or characteristic that should be within an appropriate limit, range, or distribution to ensure the desired product quality.
-The deviations of CQAs beyond defined limits have significant adverse impacts on product quality and, therefore, mandate stringent control, monitoring, and validation measures.
+		<iof-av:explanatoryNote>1) From ICH: critical quality attribute is a physical, chemical, biological or microbiological property or characteristic that should be within an appropriate limit, range, or distribution to ensure the desired product quality. The deviations of CQAs beyond defined limits have significant adverse impacts on product quality and, therefore, mandate stringent control, monitoring, and validation measures.
 2) This specification serves as a formal constraint on a quality attribute that is critical to product performance, safety, or efficacy, and is used to assess the acceptability of materials or products in manufacturing and quality control processes.
-3) Critical quality attributes are monitored throughout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated during the product production process .</iof-av:explanatoryNote>
+3) Critical quality attributes are monitored throughout the manufacturing process and as such are measured on attributes of both final products and intermediate materials generated during the product production process.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>CriticalQualityAttributeSpecification(x) → QualityAttributeSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality attribute specification that prescribes some quality, capability, constitution, or composition deemed critical to ensuring the safety, efficacy, or performance of a material product</iof-av:naturalLanguageDefinition>
@@ -418,11 +434,11 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<skos:example>the drug potency of a monoclonal antibody drug product determined by a cell-based neutralization assay; the drug potency of an enzyme therapeutic drug substance determined by an enzymatic activity assay; the drug potency of a cytokine drug product determined by a receptor-mediated bioassay; the drug potency of a vaccine antigen lot determined by an immunological potency assay</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-development-production-characterisation-and-specification-monoclonal-antibodies-and-related-products-revision-1_en.pdf and  https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-6-b-test-procedures-and-acceptance-criteria-biotechnologicalbiological-products-step-5_en.pdf</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>According to ICH Q6B, a relevant validated potency assay should ordinarily be part of the specification for a biotechnological or biological drug substance or drug product. In justified cases, physicochemical methods may be used for quantitative assessment when sufficient physicochemical information is available, an appropriate correlation with biological activity has been demonstrated, and the manufacturing history or corresponding cross-stage assay strategy supports their use. Potency should be distinguished from a simple determination of product quantity because it characterizes the degree of the relevant biological activity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>DrugPotency(x) → Quality(x) ∧ ∃m ((MaterialProduct(m) ∨ ProcessIntermediateMaterial(m)) ∧ qualityOf(x, m)) ∧ ∃a (BiologicalActivity(a) ∧ specificallyDependsOn(x, a))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>DrugPotency(x) → Quality(x) ∧ ∃m∃a((MaterialProduct(m) ∨ ProcessIntermediateMaterial(m)) ∧ qualityOf(x,m) ∧ BiologicalActivity(a) ∧ capabilityOf(a,m) ∧ specificallyDependsOn(x,a))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality of a drug substance, drug product, or relevant process intermediate material that is the quantitative degree of its biological activity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug potency&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;material product&apos; or some &apos;process intermediate material&apos; and &apos;specifically depends on&apos; some &apos;biological activity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;drug potency&apos; then x is a &apos;quality&apos; that is the &apos;quality of&apos; some &apos;material product&apos; or &apos;process intermediate material&apos; m and &apos;specifically depends on&apos; some &apos;biological activity&apos; that is the &apos;capability of&apos; that same m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FlowRate">
@@ -622,7 +638,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<skos:example>final harvest titer specification for the production batch, measured in pooled harvested cell culture fluid at completion of harvest, with a target range of 3.5 to 5.0 grams per liter; viral clearance log reduction value specification for the purification step, calculated from the viral loads measured before and after the step, with a target of at least 4.0; batch release cycle time specification for the production batch, measured from completion of manufacturing to authorization of the batch for release, with a target of no more than 10 calendar days</skos:example>
 		<iof-av:adaptedFrom>ISO-22400 and https://www.gmp-compliance.org/gmp-news/fdas-current-thinking-on-kpis-and-quality-metrics</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Per the ISO-22400 standard a good KPI has certain criteria which ensure its usefulness in achieving various goals in the manufacturing operation. For more details the user should take a look at the standard. Also the KPI specification should contain information about its context, including timing, audience, production methodology, effect model diagram, and notes.
-2) In case of KPIs for (bio)pharmaceutical manufacturing processes KPIs are typically indirectly related to CQAs and therefore influenced, as well, by the CPPs. As the CPPs remain within the pre-defined limits, the KPIs should indicate that each production step proceeds accordingly resulting, in the end, in a product having its CQAs within the appropriate limits, too. Also, KPIs reflect the consistency or reproducibility of the associated manufacturing process.</iof-av:explanatoryNote>
+2) In (bio)pharmaceutical manufacturing, some process-focused KPIs may be related to CQAs and influenced by CPPs. Such KPIs can provide evidence of process consistency, reproducibility, or performance and can support assessment of whether manufacturing steps are proceeding as expected. Other KPIs may address operational performance, such as throughput, cycle time, equipment utilization, or schedule adherence, without being directly related to CQAs or CPPs.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>KeyPerformanceIndicatorSpecification(x) → PerformanceIndicatorSpecification(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">performance indicator specification that prescribes a measurable characteristic whose measurements reflect effectiveness with respect to some objective determined as important by a person or organization</iof-av:naturalLanguageDefinition>
@@ -721,11 +737,11 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>monoclonal antibody mass produced per day during a fed-batch manufacturing process; recombinant enzyme activity units produced per hour during a microbial fermentation process;</skos:example>
 		<iof-av:explanatoryNote>Manufacturing process productivity concerns production of process intermediate material or material product per unit time. It should be distinguished from labor productivity, equipment effectiveness, process yield, resource efficiency, and economic productivity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>ManufacturingProcessProductivity(x) → RateProcessProfile(x) ∧ ∃m((ProcessIntermediateMaterial(m) ∨ MaterialProduct(m)) ∧ hasParticipantAtSomeTime(x,m)) ∧ ∃p(ManufacturingProcess(p) ∧ processProfileOf(x,p) ∧ ∃o((ProcessIntermediateMaterial(o) ∨ MaterialProduct(o)) ∧ hasSpecifiedOutput(p,o)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ManufacturingProcessProductivity(x) → RateProcessProfile(x) ∧ ∃m∃p((ProcessIntermediateMaterial(m) ∨ MaterialProduct(m)) ∧ ManufacturingProcess(p) ∧ hasParticipantAtSomeTime(x,m) ∧ processProfileOf(x,p) ∧ hasSpecifiedOutput(p,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which process intermediate material or material product is produced in a manufacturing process under specified conditions</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process productivity&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;process intermediate material&apos; or &apos;material product&apos; and is the &apos;process profile of&apos; some &apos;manufacturing process&apos; that &apos;has specified output&apos; some &apos;process intermediate material&apos; or &apos;material product&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;manufacturing process productivity&apos; then x is a &apos;rate process profile&apos; that &apos;has participant at some time&apos; some &apos;process intermediate material&apos; or &apos;material product&apos; m and is the &apos;process profile of&apos; some &apos;manufacturing process&apos; that &apos;has specified output&apos; that same m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MassFlowRate">
@@ -769,7 +785,7 @@ The deviations of CQAs beyond defined limits have significant adverse impacts on
 		<rdfs:label xml:lang="en-US">metabolite uptake rate</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaParameter/</rdfs:isDefinedBy>
 		<skos:example>glucose uptake rate by a CHO cell population during fed-batch cultivation; glutamine uptake rate by a mammalian cell culture during early growth phase; amino acid uptake rate by a cell population during a nutrient-limited culture process;</skos:example>
-		<iof-av:firstOrderLogicAxiom>MetaboliteUptakeRate(x) → RateProcessProfile(x) ∧ ∃p (Process(p) ∧ processProfileOf(x, p) ∧ ∃c (CellCulture(c) ∧ hasParticipantAtSomeTime(p, c))) ∧ ∃me (MolecularEntity(me) ∧ hasParticipantAtSomeTime(x, me)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MetaboliteUptakeRate(x) → RateProcessProfile(x) ∧ ∃p(Process(p) ∧ processProfileOf(x,p) ∧ ∃c(CellCulture(c) ∧ hasParticipantAtSomeTime(p,c))) ∧ ∃me(MolecularEntity(me) ∧ hasParticipantAtSomeTime(x,me))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">rate process profile at which a metabolite is taken up by cells within a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
