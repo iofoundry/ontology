@@ -178,7 +178,7 @@
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellBanking">
-		<rdfs:subClassOf rdf:resource="&iof-construct;StorageProcess"/>
+		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
@@ -188,21 +188,21 @@
 		<rdfs:label xml:lang="en-US">cell banking</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>establishing a master cell bank by freezing aliquots of a cloned HEK293 cell line under GMP conditions; banking the Vero cell line in cryopreservation medium supplemented with DMSO (dimethyl sulfoxide) and storing it in vapor-phase liquid nitrogen for future vaccine manufacturing; banking a hybridoma cell line after single-cell cloning and characterization to preserve monoclonal antibody production capability</skos:example>
-		<iof-av:explanatoryNote>1) It ensures a reliable, consistent, and well-characterized source of cells, reducing the need for constant cell culture and mitigating risks associated with genetic drift or contamination.
-2) Examples of future use include research, drug development, and manufacturing of biopharmaceuticals</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellBanking(x) → StorageProcess(x) ∧ ∃y (CellLine(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
+		<skos:example>establishing a master cell bank by freezing portions of a cloned HEK293 cell line under GMP conditions; banking the Vero cell line in cryopreservation medium supplemented with DMSO (dimethyl sulfoxide) and storing it in vapor-phase liquid nitrogen for future vaccine manufacturing; banking a hybridoma cell line after single-cell cloning and characterization to provide a preserved source of cells for monoclonal antibody production</skos:example>
+		<iof-av:explanatoryNote>1) Cell banking provides a reliable and consistent source of a cell line for future use, reducing the need for continued propagation and helping to mitigate risks associated with genetic drift or contamination. 
+2) Examples of future use include research, drug development, and manufacturing of biopharmaceuticals.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CellBanking(x) → PlannedProcess(x) ∧ ∃y (CellLine(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">storage process of preserving and maintaining cell lines for future use</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process of preserving and maintaining a cell line for future use</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell banking&apos; then x is a &apos;storage process&apos; that &apos;has participant at some time&apos; some &apos;cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell banking&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;cell line&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellBleedProcess">
 		<rdfs:subClassOf rdf:resource="&iof-construct;MaterialRemovalProcess"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-construct;hasInput"/>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
 				<owl:someValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
@@ -261,11 +261,11 @@
 		<iof-av:adaptedFrom>https://documents.thermofisher.com/TFS-Assets/BPD/Reference-Materials/perfusion-terminology-white-paper.pdf</iof-av:adaptedFrom>
 		<iof-av:counterExample>At the end of a fed-batch run, the entire bioreactor contents are removed to recover product (harvesting). Although this involves material removal, it is not considered bleeding because the goal is not to regulate culture properties during an ongoing process, but rather to terminate the culture and collect the final product.</iof-av:counterExample>
 		<iof-av:explanatoryNote>A cell bleed process is commonly used in perfusion culture processes to regulate viable cell density or biomass concentration, but it is not limited to continuous process operating mode. It may also occur in semi-continuous or other ongoing culture processes when cell-containing culture material is deliberately withdrawn to regulate culture properties. It should be distinguished from terminal harvest, which removes culture material to collect product or conclude the culture process, and from sampling, which removes material for measurement or testing</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellBleedProcess(x) → MaterialRemovalProcess(x) ∧ ∃c ∃sr ∃o ∃tr ∃p (CellCulture(c) ∧ hasInput(x, c) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasRole(c, sr) ∧ MaterialEntity(o) ∧ hasSpecifiedOutput(x, o) ∧ ∃cp (CellPopulation(cp) ∧ hasContinuantPartAtAllTimes(o, cp)) ∧ TransferredMaterialRole(tr) ∧ hasRole(o, tr) ∧ PlannedProcess(p) ∧ occursDuring(x, p) ∧ hasParticipantAtSomeTime(p, c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellBleedProcess(x) → MaterialRemovalProcess(x) ∧ ∃c ∃sr ∃o ∃tr ∃p (CellCulture(c) ∧ hasParticipantAtSomeTime(x, c) ∧ MaterialWithdrawalSourceRole(sr) ∧ hasRole(c, sr) ∧ MaterialEntity(o) ∧ hasSpecifiedOutput(x, o) ∧ ∃cp (CellPopulation(cp) ∧ hasContinuantPartAtAllTimes(o, cp)) ∧ TransferredMaterialRole(tr) ∧ hasRole(o, tr) ∧ PlannedProcess(p) ∧ occursDuring(x, p) ∧ hasParticipantAtSomeTime(p, c))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material removal process in which a portion of cell-containing culture material is withdrawn from a cell culture during an ongoing culture process to regulate culture properties such as viable cell density, biomass concentration, or metabolite accumulation</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell bleed process&apos; then x is a &apos;material removal process&apos; that &apos;has input&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material withdrawal source role&apos;, &apos;has specified output&apos; some &apos;material entity&apos; that &apos;has continuant part at all times&apos; some &apos;cell population&apos; and &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;occurs during&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; that same &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell bleed process&apos; then x is a &apos;material removal process&apos; that &apos;has participant at some time&apos; some &apos;cell culture&apos; that &apos;has role&apos; some &apos;material withdrawal source role&apos;, &apos;has specified output&apos; some &apos;material entity&apos; that &apos;has continuant part at all times&apos; some &apos;cell population&apos; and &apos;has role&apos; some &apos;transferred material role&apos;, and &apos;occurs during&apos; some &apos;planned process&apos; that &apos;has participant at some time&apos; that same &apos;cell culture&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellCultureExpansionProcess">
@@ -432,15 +432,15 @@
 		<skos:example>Cell line development that starts with transfecting a CHO population with a vector containing the genetic sequence for the cNIST mAb and ends with banking the cell line stemming from a clone that had the highest mAb productivity</skos:example>
 		<iof-av:adaptedFrom>https://www.sartorius.com/en/applications/biopharmaceutical-manufacturing/cell-line-development/what-is-cell-line-development and from OBI:establishing cell lines</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Cell line development involves one or more clonal selection processes to isolate and expand a genetically stable monoclonal population with desirable traits.
-2) Cell line development process ends with the banking of the particular cell line
-3) Cell line development is one of the first steps in the process of developing a biopharmaceutical product. This step is time consuming and resource-intense.
-4) Engineering in this context means that the cell line is created, either through passaging of a primary cell culture to relative genetic stability and compositional homogeneity, or through some experimental modification of an existing cell line to produce a new line with novel characteristics (e.g. immortalization or some other stable genetic modification).
+2) A cell line development process ends with the banking of the resulting cell line.
+3) Cell line development is one of the first steps in the process of developing a biopharmaceutical product. This step is time consuming and resource-intensive.
+4) Engineering in this context includes experimental modification of an existing cell population or cell line to establish a new cell line with desired characteristics, such as introduction of genetic material, immortalization, or another stable genetic modification.
 5) Regulatory standards in biologics require proof of monoclonality for a production cell line. This implies that it originates from a single progenitor cell, regardless of whether one calls it a clone or a line. In practice, a clone is the starting point for development: once selected and scaled, it becomes a permanent cell line with specific attributes used for product manufacture.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → PlannedProcess(x) ∧ ∃g ∃c ((GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ hasOccurrentPart(x, g) ∧ hasOccurrentPart(x, c) ∧ precedes(g, c)) ∧ ∃o (CellLine(o) ∧ hasSpecifiedOutput(x, o)) ∧ temporallyStartedBy(x, g) ∧ (∃b (CellBanking(b) ∧ meets(x, b)) ∨ ∃b (CellBanking(b) ∧ temporallyOverlaps(x, b))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>CellLineDevelopment(x) → PlannedProcess(x) ∧ ∃g∃c∃l∃b(GeneticTransformationProcess(g) ∧ CloneSelectionProcess(c) ∧ ClonedCellLine(l) ∧ CellBanking(b) ∧ hasOccurrentPart(x,g) ∧ hasOccurrentPart(x,c) ∧ precedes(g,c) ∧ temporallyStartedBy(x,g) ∧ hasSpecifiedOutput(c,l) ∧ hasSpecifiedOutput(x,l) ∧ hasParticipantAtSomeTime(b,l) ∧ (meets(x,b) ∨ temporallyOverlaps(x,b)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a cell line is engineered to produce a therapeutic biomolecule or biologic</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;planned process&apos; and &apos;has occurrent part&apos; some &apos;genetic transformation process&apos; that &apos;precedes&apos; some &apos;clone selection process&apos; and &apos;has occurrent part&apos; some &apos;clone selection process&apos; and &apos;has specified output&apos; some &apos;cell line&apos; and is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; and either &apos;meets&apos; some &apos;cell banking&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell line development&apos; then x is a &apos;planned process&apos; that is &apos;temporally started by&apos; some &apos;genetic transformation process&apos; g and &apos;has occurrent part&apos; g and some &apos;clone selection process&apos; c, where g &apos;precedes&apos; c, and c &apos;has specified output&apos; some &apos;cloned cell line&apos; l that is also the &apos;specified output&apos; of x, and x either &apos;meets&apos; or &apos;temporally overlaps&apos; some &apos;cell banking&apos; that &apos;has participant at some time&apos; that same l</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;CellPopulationProliferation">
@@ -459,7 +459,7 @@
 		<iof-av:firstOrderLogicAxiom>CellPopulationProliferation(x) → Process(x) ∧ ∃y (CellPopulation(y) ∧ hasParticipantAtAllTimes(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which cells reproduce or multiply, resulting in an increase in the number of cells</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>This term is expected to remain primitive. Details of cellular reproduction or multiplications are out of scope and should be utilized if needed from a biological ontology.</iof-av:primitiveRationale>
+		<iof-av:primitiveRationale>This term is expected to remain primitive. Details of cellular reproduction or multiplication are out of scope and should be utilized if needed from a biological ontology.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell population proliferation&apos; then x is a &apos;process&apos; that &apos;has participant at all times&apos; some &apos;cell population&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
@@ -557,7 +557,7 @@
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which particles such as cells, organelles, or molecules are separated based on size or density by applying centrifugal forces generated by a spinning rotor</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘centrifugation process’ then x is a ‘planned process’ that ‘has participant at some time’ some ‘centrifuge’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;centrifugation process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;centrifuge&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ChemicalSynthesisProcess">
@@ -1225,7 +1225,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">solution preparation process in which a solvent is added to a solution to reduce the concentration of one or more solutes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘dilution process’ then x is a ‘solution preparation process’ that ‘has input’ some ‘solution’ and ‘has input’ some ‘solvent’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;dilution process&apos; then x is a &apos;solution preparation process&apos; that &apos;has input&apos; some &apos;solution&apos; and &apos;has input&apos; some &apos;solvent&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;DirectFlowFiltration">
@@ -1323,7 +1323,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process operating mode of a planned process in which a finite quantity of process material is introduced before or at the start of the main processing interval, and additional process material is introduced during that interval while the process material is retained and processed as a single unit</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to define a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘fed batch process operating mode’ then x is a ‘planned process operating mode’ that is the ‘process characteristic of’ some ‘planned process’ that ‘has occurrent part’ some ‘material addition process’ that ‘has input’ some ‘process intermediate material’ or some ‘raw material’ that ‘has role’ some ‘transferred material role’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;fed batch process operating mode&apos; then x is a &apos;planned process operating mode&apos; that is the &apos;process characteristic of&apos; some &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has input&apos; some &apos;process intermediate material&apos; or some &apos;raw material&apos; that &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;FiltrationProcess">
@@ -1821,11 +1821,11 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:explanatoryNote>1) This process is typically employed to reduce batch-to-batch variability or to ensure consistent quality attributes before further processing or final release.
 2) Pooling can be used to define a lot of material for further processing or release, ensuring a consistent product stream.
 3) Not to be confused with Test pooling, which is a testing strategy where individual samples are combined into a single pooled sample for initial testing. If the pooled sample tests negative/correct, all individuals in the pool are considered negative/correct. If the pooled sample tests positive/out of specification, individual samples within the pool are then re-tested to identify the positive/out of specification individual(s). This method is used to reduce testing costs and resources, particularly when dealing with a large number of samples and a low prevalence of the target condition.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>PoolingProcess(x) → ManufacturingProcess(x) ∧ ∃m((MaterialProduct(m) ∨ ProcessIntermediateMaterial(m)) ∧ hasInput(x,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>PoolingProcess(x) → ∃m1∃m2(((MaterialProduct(m1) ∨ ProcessIntermediateMaterial(m1)) ∧ (MaterialProduct(m2) ∨ ProcessIntermediateMaterial(m2))) ∧ hasInput(x,m1) ∧ hasInput(x,m2) ∧ m1 ≠ m2)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process in which two or more batches of a product or intermediate are combined to produce a single, larger volume that is more homogeneous</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘pooling process’ then x is a ‘manufacturing process’ that ‘has input’ some ‘material product’ or some ‘process intermediate material’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;pooling process&apos; then x &apos;has input&apos; at least two distinct entities that are each a &apos;material product&apos; or &apos;process intermediate material&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ProductionCultureGrowthPhase">
@@ -2027,7 +2027,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a homogeneous mixture is created by dissolving one or more solutes in a solvent, or by diluting an existing solution with additional solvent</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a ‘solution preparation process’ then x is a ‘planned process’ that ‘has specified output’ some ‘solution’</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;solution preparation process&apos; then x is a &apos;planned process&apos; that &apos;has specified output&apos; some &apos;solution&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;SplittingProcess">
@@ -2091,19 +2091,6 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;sterilization process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;material entity&apos; that &apos;has material state&apos; some &apos;sterile material state&apos; that is also the &apos;post material state&apos; of x</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-construct;StorageProcess">
-		<rdfs:subClassOf rdf:resource="&iof-construct;PlannedProcess"/>
-		<rdfs:label xml:lang="en-US">storage process</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/supplychain/SupplyChain/</rdfs:isDefinedBy>
-		<skos:example>the process of storing cutting tools in a tool cabinet for future use, the process of storing dishes in my kitchen cabinet, the process of storing products by a retailer for selling them in the future</skos:example>
-		<iof-av:explanatoryNote>this class refers to the storage process in a generic sense and it is not necessarily limited to industrial storage in a factory warehouse for example.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>StorageProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process of putting and keeping material entities in a specified location for future use</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>The required constructs for creation of a formal definition are not available in this release.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;storage process&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-construct;TangentialFlowFiltration">
 		<rdfs:subClassOf rdf:resource="&iof-construct;FiltrationProcess"/>
 		<rdfs:label xml:lang="en-US">tangential flow filtration</rdfs:label>
@@ -2124,7 +2111,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>Tangential flow filtration is used to purify and concentrate viral vectors by separating them from residual DNA, cell debris, and small fragments;
 Tangential flow filtration is applied to concentrate monoclonal antibodies before anion exchange chromatography;</skos:example>
 		<iof-av:acronym>TFF</iof-av:acronym>
-		<iof-av:explanatoryNote>TFF can operate in batch mode (Batch TFF) and continuous mode Single-pass TFF)</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>TFF can operate in batch mode (Batch TFF) and continuous mode (single-pass TFF)</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>TangentialFlowFiltration(x) ↔ FiltrationProcess(x) ∧ ∃y (TangentialFlowOrientation(y) ∧ hasProcessProfile(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which the liquid travels tangentially across the surface of the membrane or bed filter</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;tangential flow filtration&apos; is defined as exactly an instance of &apos;filtration process&apos; that &apos;has process profile&apos; some &apos;tangential flow orientation&apos;</iof-av:semiFormalNaturalLanguageDefinition>
@@ -2167,7 +2154,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<skos:example>Cryopreserved cells contained in cryovials are thawed in a 37°C water bath, with gentle swirling, to facilitate even thawing; A frozen dough, like puff pastry, is thawed in a refrigerator at 5°C, with air circulation, for a certain period of time, before baking; In the fish industry, frozen blocks of Cod are thawed into large tanks with water, which are designed to facilitate the continuous movement of the product through a counter-flow stream of temperature controlled, agitated water</skos:example>
 		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner to specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner to a specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -2300,7 +2287,7 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:subClassOf rdf:resource="&iof-construct;ViralClearance"/>
 		<rdfs:label xml:lang="en-US">viral removal process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>anion exchange chromatography operated in flow-through mode to remove retrovirus-like particles from CHO cell harvest; nanofiltration of plasma-derived products to remove non-enveloped viruses; use of tangential flow filtration to separate viral particles from cell lysate during vaccine production</skos:example>
+		<skos:example>anion exchange chromatography operated in flow-through mode to remove retrovirus-like particles from CHO cell harvest; nanofiltration of plasma-derived products to remove non-enveloped viruses; tangential flow filtration used to remove contaminating virus particles from a process intermediate during manufacture of a nonviral biological product</skos:example>
 		<iof-av:adaptedFrom>https://www.ema.europa.eu/en/documents/scientific-guideline/ich-q-5-r1-viral-safety-evaluation-biotechnology-products-derived-cell-lines-human-animal-origin_en.pdf</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>ViralRemovalProcess(x) → ViralClearance(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
