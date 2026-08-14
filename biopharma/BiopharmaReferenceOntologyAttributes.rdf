@@ -282,11 +282,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaReferenceOntologyAttributes/</rdfs:isDefinedBy>
 		<skos:example>Electrical conductivity of a chromatography buffer measured before column equilibration; Electrical conductivity of purified water used for buffer preparation; Electrical conductivity of a cell culture medium lot during release testing;</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/PATO_0001585</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>ElectricalConductivity(x) → Conductivity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ElectricalConductivity(x) → ElectricalQuality(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">electrical quality that is the extent to which the material entity conducts electric charge in response to an electric field</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;electrical conductivity&apos; then x is a &apos;conductivity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;electrical conductivity&apos; then x is an &apos;electrical quality&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;ElectricalQuality">
@@ -465,11 +465,11 @@
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaReferenceOntologyAttributes/</rdfs:isDefinedBy>
 		<skos:example>the mass fraction of glucose in a powdered medium; the mass fraction of sodium chloride in a buffer formulation; the mass fraction of water molecules in a lyophilized drug product cake;</skos:example>
 		<iof-av:adaptedFrom>http://purl.allotrope.org/ontologies/quality#AFQ_0000173</iof-av:adaptedFrom>
-		<iof-av:firstOrderLogicAxiom>MassFraction(x) → Fraction(x) ∧ ∀p (hasMagnitudeBasisInBearerPart(x, p) → MaterialEntity(p) ∧ ∃m (MaterialEntity(m) ∧ properContinuantPartOfAtSomeTime(p, m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>MassFraction(x) → Fraction(x) ∧ ∃m(MaterialEntity(m) ∧ qualityOf(x,m) ∧ ∀p(hasMagnitudeBasisInBearerPart(x,p) → (MaterialEntity(p) ∧ properContinuantPartOfAtSomeTime(p,m))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">fraction of a material entity that is determined by the mass of a specified part of that material entity relative to the total mass of the material entity</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs for creating a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mass fraction&apos; then x is a &apos;fraction&apos;, and if x &apos;has magnitude basis in bearer part&apos; some p, then p is a &apos;material entity&apos; that is a &apos;proper continuant part of at some time&apos; some &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;mass fraction&apos; then x is a &apos;fraction&apos; that is the &apos;quality of&apos; some &apos;material entity&apos; m, and if x &apos;has magnitude basis in bearer part&apos; some p, then p is a &apos;material entity&apos; that is a &apos;proper continuant part of at some time&apos; that same material entity m</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-construct;MaterialForm">
@@ -919,7 +919,7 @@
 		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">specific surface area</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaReferenceOntologyAttributes/</rdfs:isDefinedBy>
-		<skos:example>powdered cell culture medium with high specific surface area; porous chromatography resin particles with high specific surface area;mesoporous silica with high specific surface area to support Palladium to be used as catalyst in the hydrogenation of carbon dioxide; activated carbon with high available surface for adsorption;</skos:example>
+		<skos:example>powdered cell culture medium with high specific surface area; porous chromatography resin particles with high specific surface area; mesoporous silica with high specific surface area to support palladium to be used as catalyst in the hydrogenation of carbon dioxide; activated carbon with high available surface for adsorption;</skos:example>
 		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/S05806</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>SpecificSurfaceArea(x) → Quality(x) ∧ ∃m∃s (MaterialEntity(m) ∧ qualityOf(x, m) ∧ SolidAggregateState(s) ∧ hasQuality(m, s))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
@@ -1018,8 +1018,8 @@
 		<skos:example>cell culture medium has low viscosity at 37 °C; concentrated monoclonal antibody formulation has elevated viscosity at 20 °C to 25 °C; glycerol-containing cryopreservation medium has higher viscosity at low temperature; chromatography buffer has viscosity relevant to column pressure drop;</skos:example>
 		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/fluid-viscosity and https://pmc.ncbi.nlm.nih.gov/articles/PMC1258811/ and http://purl.obolibrary.org/obo/PATO_0000992</iof-av:adaptedFrom>
 		<iof-av:explanatoryNote>1) Viscosity is a material quality grounded in interactions among constituents of a fluid. In solutions and suspensions it reflects, among other factors, solvent–solute interactions, concentration, molecular association or aggregation, and the size and shape of dissolved or suspended entities. These features condition the degree of internal friction opposing relative motion within the fluid.
-2) In fluid mechanics, the field of Newtonian fluids having constant viscosity, this material quality viscosity characterizes how readily a fluid undergoes motion under shear generated by agitation, pressure-driven flow, or gravity-driven flow.
-3) The viscosity of non-Newtonian fluids, like blood, polymers, gels, paint, starch solutions, is not constant and changes depending on the magnitude and duration of the applied shear stress or shear rate. The quality of interest is in this case the apparent viscosity.
+2) For a Newtonian fluid, viscosity is constant with respect to shear rate under specified conditions and characterizes the fluid&apos;s resistance to shear during agitation, pressure-driven flow, or gravity-driven flow.
+3) For non-Newtonian fluids, such as blood, polymer solutions, gels, paints, or starch suspensions, apparent viscosity may vary with shear rate, shear stress, or the duration of applied shear.
 4) In bioprocessing and formulation, viscosity affects mixing efficiency and mixing time, the shear environment experienced by cells or particles, pumpability and pressure drop, filtration behavior, and the maintenance of homogeneous distributions of solutes or suspended matter.
 5) Process actions such as adjusting temperature or formulation composition may be used to manage viscosity so that transfer and mixing operations remain predictable and controlled.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>Viscosity(x) → Quality(x) ∧ ∃m (MaterialEntity(m) ∧ qualityOf(x, m) ∧ ∃s (FluidAggregateState(s) ∧ hasQuality(m, s)))</iof-av:firstOrderLogicAxiom>
