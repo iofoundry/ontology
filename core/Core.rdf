@@ -4112,6 +4112,27 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation from a process to someone or something physical or digital (continuant) that participates in the process such that it is generated or modified during the process, and that it exists at the end of the process</iof-av:naturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasPostCondition">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
+		<rdfs:label xml:lang="en-US">has post-condition</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;ActionSpecification">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;PlanSpecification">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
+		<skos:example>a mixing specification has post-condition a material state specification specifying that the material is homogeneous; a cleaning specification has post-condition a material state specification specifying that the equipment is clean; a filling specification has post-condition a material state specification specifying that the receiving container is filled to the specified level; a thawing specification has post-condition a material state specification specifying that the material is completely thawed; a valve-opening specification has post-condition a material state specification specifying that the valve is open</skos:example>
+		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPostCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPostMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an action specification or plan specification and a material state specification such that every material state prescribed by the material state specification holds in a post-state of every process or event prescribed by the action specification or plan specification</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has post condition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has post material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPostMaterialState">
 		<rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
 		<rdfs:label xml:lang="en-US">has post material state</rdfs:label>
@@ -4132,6 +4153,27 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:firstOrderLogicAxiom>∀e,s(hasPostMaterialState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t&apos;) ∧ (meets(t,t&apos;) ∨ overlaps(t,t&apos;) ∨ finishedBy(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process or event and a material state that holds when the process or event meets or overlaps the material state, or when the material state finishes the process or event</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>if e &apos;has post material state&apos; s, then e &apos;occupies temporal region&apos; some t and s &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;overlaps&apos; t&apos;, or t is &apos;finished by&apos; t&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&iof-constr;hasPreCondition">
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
+		<rdfs:label xml:lang="en-US">has pre-condition</rdfs:label>
+		<rdfs:domain>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;ActionSpecification">
+					</rdf:Description>
+					<rdf:Description rdf:about="&iof-constr;PlanSpecification">
+					</rdf:Description>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:domain>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
+		<skos:example>a sample-loading specification has pre-condition a material state specification specifying that the chromatography column is equilibrated; an inoculation specification has pre-condition a material state specification specifying that the bioreactor is sterile and the culture medium is at the inoculation temperature</skos:example>
+		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPreCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPreMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an Action Specification or Plan Specification and a Material State Specification such that every material state prescribed by the Material State Specification holds in a pre-state of every process or event prescribed by the Action Specification or Plan Specification.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has postcondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has pre material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPreMaterialState">
@@ -5011,48 +5053,6 @@ category within a classification scheme of an entity that the value expression i
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: If both i and j are &apos;temporal intervals&apos; and i &apos;temporally starts&apos; j then the &apos;first instant’ of i ‘occurs simultaneously with’ the &apos;first instant of&apos; j and the &apos;last instant of&apos; i &apos;precedes&apos; the &apos;last instant of&apos; j</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA3: If both i and j are &apos;process&apos; and i &apos;temporally starts&apos; j then the &apos;temporal interval&apos; that i occupies &apos;temporally starts&apos; the &apos;temporal interval&apos; that j occupies</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA4: i &apos;temporally starts&apos; j if and only if there exists k that &apos;meets&apos; i and j and there exists l such that i is &apos;before&apos; l and j &apos;meets&apos; l</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/hasPostCondition">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
-		<rdfs:label xml:lang="en-US">has post-condition</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;ActionSpecification">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;PlanSpecification">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<skos:example>a mixing specification has post-condition a material state specification specifying that the material is homogeneous; a cleaning specification has post-condition a material state specification specifying that the equipment is clean; a filling specification has post-condition a material state specification specifying that the receiving container is filled to the specified level; a thawing specification has post-condition a material state specification specifying that the material is completely thawed; a valve-opening specification has post-condition a material state specification specifying that the valve is open</skos:example>
-		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPostCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPostMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an action specification or plan specification and a material state specification such that every material state prescribed by the material state specification holds in a post-state of every process or event prescribed by the action specification or plan specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has post condition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has post material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/core/Core/hasPreCondition">
-		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
-		<rdfs:label xml:lang="en-US">has pre-condition</rdfs:label>
-		<rdfs:domain>
-			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;ActionSpecification">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;PlanSpecification">
-					</rdf:Description>
-				</owl:unionOf>
-			</owl:Class>
-		</rdfs:domain>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
-		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
-		<skos:example>a sample-loading specification has pre-condition a material state specification specifying that the chromatography column is equilibrated; an inoculation specification has pre-condition a material state specification specifying that the bioreactor is sterile and the culture medium is at the inoculation temperature</skos:example>
-		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPreCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPreMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an Action Specification or Plan Specification and a Material State Specification such that every material state prescribed by the Material State Specification holds in a pre-state of every process or event prescribed by the Action Specification or Plan Specification.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has postcondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has pre material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:AllDisjointClasses>
