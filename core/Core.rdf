@@ -47,7 +47,6 @@
 		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202603/core/Core/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Released"/>
 	</owl:Ontology>
 	
@@ -2282,9 +2281,9 @@ Services as products as well as software products will be considered in the next
 
 3. The term as introduced here is not intended to be used for for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: MaterialState(s) → ∃m(MaterialEntity(m) ∧ isMaterialStateOf(s,m))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀s,s′,m((isMaterialStateOf(s,m) ∧ occurrentPartOf(s′,s) ∧ Process(s′)) → (MaterialState(s′) ∧ isMaterialStateOf(s′,m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: isMaterialStateOf(s,m) ∧ occurrentPartOf(s′,s) ∧ Process(s′) → (MaterialState(s′) ∧ isMaterialStateOf(s′,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which a material entity that participates in the process has a condition that remains unchanged throughout its occurrence</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale xml:lang="en">Insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if s is a &apos;material state&apos;, then s &apos;is material state of&apos; a &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if s &apos;is material state of&apos; m and s&apos; is an &apos;occurrent part of&apos; s that is a &apos;process&apos; then s&apos; is a &apos;material state&apos; that &apos;is material state of&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
@@ -3634,31 +3633,51 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:label xml:lang="en-US">causes</rdfs:label>
 		<rdfs:domain>
 			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;Event">
-					</rdf:Description>
-				</owl:unionOf>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;Event">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Class>
+				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:domain>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range>
 			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;Event">
-					</rdf:Description>
-				</owl:unionOf>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;Event">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Class>
+				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:range>
 		<skos:example>an ignition event causes a combustion process; a collision event causes a deformation process; a valve-opening process causes a fluid-flow process</skos:example>
-		<iof-av:explanatoryNote>This relation represents state-mediated transition causation. It applies when a material state reached through one process or event is also a pre material state of another process or event, and that shared material state is part of how the second process or event is initiated. The shared material state is not merely a state that temporally precedes, meets, starts, or overlaps the second process or event. It is the material state through which the transition represented by the first process or event is linked to the initiation of the second.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LA1: ∀o,o&apos;(causes(o,o&apos;) → ∃m,m&apos;,p,p&apos;,d,d&apos;(hasPostState(o,m) ∧ hasPreState(o&apos;,m) ∧ prescribes(p,o) ∧ hasPostcondition(p,d) ∧ prescribes(p&apos;,o&apos;) ∧ hasPrecondition(p&apos;,d&apos;) ∧ prescribes(d,m&apos;) ∧ prescribes(d&apos;,m&apos;) ∧ materialStateHoldsIn(m&apos;,m)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ∀o,o&apos;(causes(o,o&apos;) → ∃t,t&apos;(occupiesTemporalRegion(o,t) ∧ occupiesTemporalRegion(o&apos;,t&apos;) ∧ (precedes(t,t&apos;) ∨ meets(t,t&apos;) ∨ temporallyOverlaps(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process or event and another process or event that holds when the first has a post material state that is also a pre material state in virtue of which the second is initiated</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if o &apos;causes&apos; o&apos;, then there is some material state m that is both a &apos;post-state&apos; of o and a &apos;pre-state&apos; of o&apos;, and there are specifications p and p&apos; prescribing o and o&apos; respectively, where a &apos;postcondition&apos; d of p and a &apos;precondition&apos; d&apos; of p&apos; prescribe the same material state m&apos;, which &apos;holds in&apos; m</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:explanatoryNote>1. A shared material state alone is not sufficient for one process or event to cause another. The material state that is the post-material state of the causing process or event and the pre-material state of the caused process or event must also satisfy the corresponding prescribed postcondition and precondition. This qualification distinguishes a causally relevant state transition from a merely coincidental sharing of a material state.
+
+2. This relation holds between two non-state processes or events. A non-state process—i.e., any process that is not a MaterialState—may be loosely referred to as a “change,” since in many cases its pre- and post-material states differ, although this is not necessary. In BFO terms, both material states and non-state processes are kinds of processes, distinguished by whether the criteria for being a MaterialState are satisfied. A non-state process may therefore contain features that remain unchanged, while a material state may permit variation in features not constrained by the conditions defining that state.
+
+3. In this ontology, causes is restricted to causal relations between non-state processes or events. Other commonly used notions of causation—such as a material entity causing an outcome, a person or agent causing an event, or a state being described as a cause—can be defined in terms of this core process-level causal relation. For example, a material entity participating in the causing process or event may be identified as a material cause, while an agent participating in that process or event may be identified as an agential cause. Such derived relations preserve the underlying causal structure while allowing domain-specific causal descriptions.
+
+4. The relation causes is intended to represent a directed causal transition between distinct non-state processes or events. It is therefore irreflexive: no process or event causes itself. It is also asymmetric: if one process or event causes another, the second does not cause the first under the same causal relation. Finally, causes is not transitive: if one process or event causes a second, and the second causes a third, the first is not thereby taken to directly cause the third. Such chains may instead be represented by a separate notion of indirect or mediated causation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: causes(o,o&apos;) → (((Process(o) ∨ Event(o)) ∧ ¬MaterialState(o)) ∧ ((Process(o&apos;) ∨ Event(o&apos;)) ∧ ¬MaterialState(o&apos;)) ∧ ∃m,m&apos;,p,p&apos;,d,d&apos;(hasPostMaterialState(o,m) ∧ hasPreMaterialState(o&apos;,m) ∧ prescribes(p,o) ∧ hasPostcondition(p,d) ∧ prescribes(p&apos;,o&apos;) ∧ hasPrecondition(p&apos;,d&apos;) ∧ prescribes(d,m&apos;) ∧ materialStateHoldsIn(m&apos;,m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀o,o&apos;(causes(o,o&apos;) → ∃t,t&apos;(occupiesTemporalRegion(o,t) ∧ occupiesTemporalRegion(o&apos;,t&apos;) ∧ (before(t,t&apos;) ∨ meets(t,t&apos;) ∨ temporallyOverlaps(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a non-state process or event and another non-state process or event that holds when the first brings about a material state satisfying its postcondition, and that same material state satisfies a precondition under which the second process or event begins.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: If o &apos;causes&apos; o&apos;, then o and o&apos; are each instances of &apos;process&apos; or &apos;event&apos;, but not &apos;material state&apos;. There is some material state m that is both a &apos;post material state&apos; of o and a &apos;pre material state&apos; of o&apos;, and there are specifications p and p&apos; prescribing o and o&apos;, respectively, where a &apos;postcondition&apos; d of p and a &apos;precondition&apos; d&apos; of p&apos; prescribe the same material state m&apos;, which &apos;holds in&apos; m.</iof-av:semiFormalNaturalLanguageAxiom>
 		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if o &apos;causes&apos; o&apos;, then o &apos;occupies temporal region&apos; some t and o&apos; &apos;occupies temporal region&apos; some t&apos; such that t &apos;precedes&apos;, &apos;meets&apos;, or &apos;temporally overlaps&apos; t&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
@@ -4128,9 +4147,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
 		<skos:example>a mixing specification has post-condition a material state specification specifying that the material is homogeneous; a cleaning specification has post-condition a material state specification specifying that the equipment is clean; a filling specification has post-condition a material state specification specifying that the receiving container is filled to the specified level; a thawing specification has post-condition a material state specification specifying that the material is completely thawed; a valve-opening specification has post-condition a material state specification specifying that the valve is open</skos:example>
-		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPostCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPostMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>((ActionSpecification(p) ∨ PlanSpecification(p))∧MaterialStateSpecification(d) ∧ hasPostCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → (Process(o) ∧ MaterialState(m) ∧ ∃m′ (MaterialState(m′) ∧ hasPostMaterialState(o,m′) ∧ materialStateHoldsIn(m,m′)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an action specification or plan specification and a material state specification such that every material state prescribed by the material state specification holds in a post-state of every process or event prescribed by the action specification or plan specification</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has post condition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has post material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If p is an action specification or plan specification, d is a material state specification, p has post condition d, p prescribes o, and d prescribes m, then o is a process, m is a material state, and o has post material state some material state m′ in which m material state holds in</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPostMaterialState">
@@ -4138,21 +4157,32 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:label xml:lang="en-US">has post material state</rdfs:label>
 		<rdfs:domain>
 			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;Event">
-					</rdf:Description>
-				</owl:unionOf>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;Event">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Class>
+				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<skos:example>a thawing process has post material state the thawed state of the material; a mixing process has post material state the homogeneous state of the material; a filling process has post material state the filled state of the receiving container; a cleaning process has post material state the cleaned state of the equipment; a valve-opening process has post material state the open state of the valve</skos:example>
-		<iof-av:explanatoryNote>A post material state is a material state at the end of a process or event. It may begin when the process or event ends, begin during the final part of the process or event and continue after it, or begin during the process or event and end together with it.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀e,s(hasPostMaterialState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t&apos;) ∧ (meets(t,t&apos;) ∨ overlaps(t,t&apos;) ∨ finishedBy(t,t&apos;))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process or event and a material state that holds when the process or event meets or overlaps the material state, or when the material state finishes the process or event</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>if e &apos;has post material state&apos; s, then e &apos;occupies temporal region&apos; some t and s &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;overlaps&apos; t&apos;, or t is &apos;finished by&apos; t&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:explanatoryNote>1. This relation, together with has pre material state, allows users to represent state transitions associated with a process or event. It captures the material state obtaining at or toward the end of the process or event, in relation to the material state obtaining before or at its beginning. Although there is no constraint requiring the pre- and post-material states to differ, these relations can be used to represent changes in qualities, locations, configurations, participation structures, or other state-relevant features.
+
+2. This relation holds between a non-state process and a material state. A non-state process—i.e., any process that is not a MaterialState—may be loosely referred to as a “change,” since in many cases its pre- and post-material states differ, although this is not necessary. In BFO terms, both material states and non-state processes are kinds of processes, distinguished by whether the criteria for being a MaterialState are satisfied.
+
+3. A post-material state exists independently of any specification or postcondition (i.e., a has post-condition relation associated with an action or plan specification prescribing the process). When an action or plan specification prescribes a postcondition, it constrains the prescribed process to have a post-material state that satisfies the material state prescribed by that postcondition; however, the post-material state may exist without any such postcondition.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>hasPostMaterialState(e,s) → ((Process(e) ∨ Event(e)) ∧ ¬MaterialState(e) ∧ MaterialState(s) ∧ ∃t∃t′(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t′) ∧ ((TemporalInterval(t) ∧ TemporalInterval(t′) ∧ (meets(t,t′) ∨ temporallyOverlaps(t,t′) ∨ temporallyFinishedBy(t,t′))) ∨ (TemporalInstant(t) ∧ TemporalInterval(t′) ∧ hasFirstInstant(t′,t)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a non-state process or event and a Material State that holds when the Material State temporally follows from the occurrence, either by meeting or overlapping the process, by beginning before the process ends, or by beginning at the instant occupied by the event</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>If e ‘has post material state’ s, then e is an instance of ‘process’ or ‘event’, but not ‘material state’, and s is an instance of ‘material state’. Furthermore, e and s occupy temporal regions t and t′, respectively, where either both are temporal intervals and t ‘meets’, ‘temporally overlaps’, or is ‘temporally finished by’ t′, or t is a temporal instant that is the ‘first instant’ of the temporal interval t′.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPreCondition">
@@ -4171,9 +4201,9 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialStateSpecification"/>
 		<skos:example>a sample-loading specification has pre-condition a material state specification specifying that the chromatography column is equilibrated; an inoculation specification has pre-condition a material state specification specifying that the bioreactor is sterile and the culture medium is at the inoculation temperature</skos:example>
-		<iof-av:firstOrderLogicAxiom>∀p,d,o,m((hasPreCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → ∃m&apos;(hasPreMaterialState(o,m&apos;) ∧ holdsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>((ActionSpecification(p) ∨ PlanSpecification(p)) ∧ MaterialStateSpecification(d) ∧ hasPreCondition(p,d) ∧ prescribes(p,o) ∧ prescribes(d,m)) → (Process(o) ∧ MaterialState(m) ∧ ∃m&apos;(MaterialState(m&apos;) ∧ hasPreMaterialState(o,m&apos;) ∧ materialStateHoldsIn(m,m&apos;)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between an Action Specification or Plan Specification and a Material State Specification such that every material state prescribed by the Material State Specification holds in a pre-state of every process or event prescribed by the Action Specification or Plan Specification.</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if p &apos;has postcondition&apos; d, p &apos;prescribes&apos; o, and d &apos;prescribes&apos; m, then o &apos;has pre material state&apos; some m&apos; in which m &apos;holds in&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If p is an action specification or plan specification, d is a material state specification, p has pre-condition d, p prescribes o, and d prescribes m, then o is a process, m is a material state, and o has pre material state some material state m′ in which m material state holds in</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasPreMaterialState">
@@ -4181,21 +4211,32 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<rdfs:label xml:lang="en-US">has pre material state</rdfs:label>
 		<rdfs:domain>
 			<owl:Class>
-				<owl:unionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&bfo;BFO_0000015">
-					</rdf:Description>
-					<rdf:Description rdf:about="&iof-constr;Event">
-					</rdf:Description>
-				</owl:unionOf>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;Event">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+					<owl:Class>
+						<owl:complementOf rdf:resource="&iof-constr;MaterialState"/>
+					</owl:Class>
+				</owl:intersectionOf>
 			</owl:Class>
 		</rdfs:domain>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<skos:example>a thawing process has pre material state the frozen state of the material; a mixing process has pre material state the heterogeneous state of the material; a filling process has pre material state the empty state of the receiving container;</skos:example>
-		<iof-av:explanatoryNote>The pre-material state is a material state at the beginning of a process or event. It may end when the process or event begins, begin together with it, or begin before it and continue into its initial part.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>∀e,s(hasPreMaterialState(e,s) → ∃t,t&apos;(occupiesTemporalRegion(s,t) ∧ occupiesTemporalRegion(e,t&apos;) ∧ (meets(t,t&apos;) ∨ starts(t,t&apos;) ∨ overlaps(t,t&apos;)))</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process or event and a material state that holds when the material state meets, overlaps, or starts the process or event</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if e &apos;has pre material state&apos; s, then s &apos;occupies temporal region&apos; some t and e &apos;occupies temporal region&apos; some t&apos; such that t &apos;meets&apos; t&apos;, t &apos;starts&apos; t&apos;, or t &apos;overlaps&apos; t&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:explanatoryNote>1. This relation, together with &apos;has post material state&apos;, allows users to represent state transitions associated with a process or event. It captures both the material state obtaining before or at the beginning of the process or event and the material state obtaining at or toward its end. Although there is no constraint requiring the pre- and post-material states of a process or event to differ, these relations can be used to represent changes in qualities, locations, configurations, participation structures, or other state-relevant features.
+
+2. This relation holds between a non-state process and a material state. A non-state process—i.e., any process that is not a MaterialState—may be loosely referred to as a “change,” since in many cases its pre- and post-material states differ, although this is not necessary. In BFO terms, both material states and non-state processes are kinds of processes, distinguished by whether the criteria for being a MaterialState are satisfied.
+
+3. A pre-material state exists independently of any specification or precondition (having pre-condition of the corresponsing action prescribing the process). When an action or plan specification prescribes a precondition, it constrains the prescribed process to have a pre-material state that satisfies the material state prescribed by that precondition but the pre-state may exist without such pre-conditions.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>hasPreMaterialState(e,s) → ((Process(e) ∨ Event(e)) ∧ ¬MaterialState(e) ∧ MaterialState(s) ∧ ∃t∃t′(occupiesTemporalRegion(e,t) ∧ occupiesTemporalRegion(s,t′) ∧ ((TemporalInterval(t) ∧ TemporalInterval(t′) ∧ (meets(t′,t) ∨ temporallyOverlaps(t′,t) ∨ temporallyStarts(t′,t))) ∨ (TemporalInstant(t) ∧ TemporalInterval(t′) ∧ hasLastInstant(t′,t)))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a non-state process or event and a Material State that holds when the Material State temporally precedes the occurrence, either by ending when the process or event begins, overlapping its beginning, or ending at the instant occupied by the event</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom>If e &apos;has pre material state&apos; s, then e is an instance of &apos;process&apos; or &apos;event&apos;, but not &apos;material state&apos;, and s is an instance of &apos;material state&apos; and e and s occupy temporal regions t and t′, respectively, then either both are temporal intervals and t′ &apos;meets&apos;, &apos;temporally overlaps&apos;, or &apos;temporally starts&apos; t, or t is a temporal instant that is the &apos;last instant&apos; of the temporal interval t′</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;hasProcessCharacteristic">
@@ -4412,9 +4453,9 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:domain rdf:resource="&iof-constr;MaterialState"/>
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000040"/>
-		<iof-av:firstOrderLogicDefinition>∀s,m(isMaterialStateOf(s,m) → ∀t(occupiesTemporalRegion(s,t) → participatesIn(m,s,t)))</iof-av:firstOrderLogicDefinition>
+		<iof-av:firstOrderLogicDefinition>isMaterialStateOf(s,m) → MaterialState(s) ∧ MateriaEntity(m) ∧ ∀t(occupiesTemporalRegion(s,t) → participatesIn(m,s,t))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a material state and a material entity that participates in that state throughout its duration</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>if s &apos;is material state of&apos; m, then whenever s &apos;occupies temporal region&apos; t, m &apos;participates in&apos; s at t</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>if s &apos;is material state of&apos; m, then s is a &apos;material state&apos; and m is a &apos;material entity&apos; and whenever s &apos;occupies temporal region&apos; t, m &apos;participates in&apos; s at t</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMeasuredValueOfAtSomeTime">
@@ -4521,10 +4562,10 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;MaterialState"/>
 		<skos:example>a high-oxygen-flow state of a gas supply holds in an oxygen-limited state of a culture; an acceptable-temperature state of a storage site holds in an acceptable-storage state of a warehouse; an undamaged state of a package holds in an acceptable-storage state of a warehouse</skos:example>
-		<iof-av:explanatoryNote>This does not require the two states to have the same temporal extent. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>materialStateHoldsIn(s,s′) → occupiesTemporalRegion(s,rs​)∧occupiesTemporalRegion(s′,r′) ∧ temporalPartOf(r&apos;,rs​))</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>This relation does not require the the holding state to have the same temporal extent as the state it holds in. The first material state may begin before the second material state or end after it. The requirement is only that the first material state does not cease to occur during the duration of the second material state.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>materialStateHoldsIn(s,s&apos;) → MaterialState(s) ∧ MaterialState(s&apos;) ∧ ∃r,r&apos;(occupiesTemporalRegion(s,r) ∧ occupiesTemporalRegion(s&apos;,r&apos;) ∧ temporalPartOf(r&apos;,r))</iof-av:firstOrderLogicAxiom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between two material states that holds when the first material state is one of the states whose condition contributes to the aggregated condition of the second material state, and the first material state at least occurs for the duration of the second material state</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom>if s &apos;material state holds in&apos; s&apos; then s &apos;occupies temporal region&apos; some rs, s&apos; &apos;occupies temporal region&apos; some r&apos;, and r&apos; is a &apos;temporal part of&apos; rs</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>If s material state holds in s′, then s and s′ are instances of material state; s occupies temporal region some r, s′ occupies temporal region some r′, and r′ is a temporal part of r</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;measuredByAtSomeTime">
@@ -4633,9 +4674,14 @@ category within a classification scheme of an entity that the value expression i
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&bfo;BFO_0000015"/>
 		<skos:example>jacket-temperature profile modulates a reactor heating process; valve-position profile modulates a tank filling process; pump-speed profile modulates a liquid transfer process; ambient-temperature profile modulates a material-temperature profile; relative-humidity profile modulates a moisture-content profile of a drying material; applied-force profile modulates a deformation profile of a workpiece</skos:example>
-		<iof-av:firstOrderLogicDefinition>∀p,q(modulates(p,q) ↔ (temporallyOverlaps(p,q) ∧ ∀q&apos;((temporalPartOf(q&apos;,q) ∧ temporallyOverlaps(q&apos;,p)) → ∃p&apos;(temporalPartOf(p&apos;,p) ∧ causes(p&apos;,q&apos;)))))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a process and another process that holds when the first overlaps the second in time and every state changing temporal part of the first causes some temporal part of the second</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>p &apos;modulates&apos; q if and only if p &apos;temporally overlaps&apos; q and, whenever a temporal part q&apos; of q &apos;temporally overlaps&apos; p, some temporal part p&apos; of p &apos;causes&apos; q&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+		<iof-av:explanatoryNote>1. The modulating process need not exercise modulation throughout every temporal part of its own occurrence. Rather, the constraint is imposed from the perspective of the modulated process: every temporal part of the modulated process must be caused by some temporal part of the modulating process. Thus, portions of the modulating process may occur without directly contributing to the modulation, while the modulated process remains continuously covered by causal influence from parts of the modulating process.
+
+2. The modulating process may either temporally overlap the modulated process or precede it. Allowing precedes accounts for delayed modulation, where causal influence is transmitted or takes effect only after some temporal delay. This includes cases such as remote control, transport or communication delays, thermal inertia, or other systems in which temporal parts of the modulating process cause later temporal parts of the modulated process without themselves overlapping them.
+
+3. The modulates relation does not by itself characterize the quantitative or qualitative extent of the modulation. It only asserts the sustained causal dependence of the modulated process on the modulating process. The magnitude, direction, rate, variability, or other qualitative features of that influence should instead be determined from process profiles, process characteristics, quality measurements, and other observations associated with the modulating and modulated processes. Thus, modulates captures the causal structure of the interaction, while the extent and nature of the modulation are represented through the corresponding profiles and measurements.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>modulates(p,q) ↔ (Process(p) ∧ ¬MaterialState(p) ∧ Process(q) ∧ (precedes(p,q) ∨ temporallyOverlaps(p,q)) ∧ ∀q′(temporalPartOf(q′,q) → ∃p′(temporalPartOf(p′,p) ∧ causes(p′,q′))))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a non-state process, i.e., a process but not a material state, and a process that holds when the course of the second process is sustainedly causally influenced by the first.</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>a process p ‘modulates’ a process q if and only if p is not an instance of ‘material state’, p ‘precedes’ or ‘temporally overlaps’ q, and every ‘temporal part of’ q is ‘caused’ by some ‘temporal part of’ p.</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&iof-constr;observedByAtSomeTime">
