@@ -696,33 +696,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;commercial service&apos; then x is a &apos;commercial service specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;ComplexMaterialState">
-		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialState"/>
-		<rdfs:label xml:lang="en-US">complex material state</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;MaterialState">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty>
-							<rdf:Description>
-								<owl:inverseOf rdf:resource="&iof-constr;materialStateholdsIn"/>
-							</rdf:Description>
-						</owl:onProperty>
-						<owl:someValuesFrom rdf:resource="&iof-constr;MaterialState"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>culture in a oxygen-limited state in which a high cell density state, low glucose-concentration state, and elevated lactate-concentration state of the culture, maximum-agitation state of the impeller, and high oxygen-flow state of the gas supply holds in; warehouse in a acceptable storage state in which the storage site&apos;s acceptable temperature state, acceptabe humidity state, and package&apos;s undamaged state holds in; a CNC machine is in ready state in which the spindle’s stopped state, safety door’s closed state, workpiece’s clamped state, lubricant’s sufficient-pressure state, and tool’s acceptable-condition state.</skos:example>
-		<iof-av:explanatoryNote>A complex material state is not merely a collection of co-occurring material states. It is a material state whose condition is aggregated from the conditions of other material states, for example by conjunction, threshold rule, weighted rule, or constraint satisfaction. The contributing material states are related to the complex material state by &apos;material state holds in&apos;. This means that they cover the duration of the complex material state as required by that relation, but they do not need to have the same temporal extent as the complex material state and should not be treated as ordinary occurrent parts. Additioanlly, it is also not required for every state holding in a complex state is a state of same material entity.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>ComplexMaterialState(s) ↔ MaterialState(s) ∧∃s′(MaterialState(s′) ∧ materialStateHoldsIn(s′,s))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material state whose condition is an aggregated condition composed from the conditions of two or more material states that hold in it</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;complex material state&apos; is defined as exactly an instance of &apos;material state&apos; in which some other instance of &apos;material state&apos; &apos;material state holds in&apos;</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-	
 	<owl:Class rdf:about="&iof-constr;ComputingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -2275,9 +2248,9 @@ Services as products as well as software products will be considered in the next
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<skos:example xml:lang="en-US">the lightswitch in the off state from 9 PM to 8 AM; the machine in fail state from 4 PM to 5 PM; perfusion bioreactor was run in steady state for two days, a truck is in a stop state because its position has been unchanged</skos:example>
 		<iof-av:adaptedFrom>Oxford Languages, term by the name ‘state’</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1. Although the notion of &quot;particular condition&quot;; has not been introduced in this release, the IOF&apos;s approach will be to model this as a dependent entity such that at any timeframe during which it exists, it depends on some material entity -- meaning a material state will necessarily &quot;be focused on&quot; a particular condition of some material entity for which the state is ascribed. Condition here would encompass BFO: specifically-dependent continuants (qualities, dispositions and other realizable entities types) as well as site (the absolute or relative location of a material entity). In the future, the coverage will be expanded to include some currently &quot;missing dependent entity types&quot;; including orientation, and cases wherein a material entity is in a particular condition because it has or is in particular composition or configuration (e.g. the setup action of a machine and jig is complete and it is not in a setup/ready-for-run state). 
+		<iof-av:explanatoryNote>1. The “condition” associated with a material state is made explicit through one or more &apos;material state condition expression&apos;. A &apos;material state condition expression&apos; is a &apos;value expression&apos; within a &apos;material state specification&apos; that states a condition the prescribed material state must continuously satisfy throughout its occurrence. Such conditions may concern dependent continuants, process profiles, process characteristics, or related state-relevant features, including qualities, realizable entities, locations, and similar aspects. Multiple condition expressions may jointly define a single material state, but all specified constraints must hold continuously for the entire duration of the state, e.g., a refrigerated state may require both that a material be located in a refrigerator and that its temperature remain between 2 °C and 8 °C throughout that period. Accordingly, a “condition remains unchanged” means that the features constrained by the relevant condition expressions associated with the state continue to satisfy those constraints; other, unconstrained features may vary without terminating the material state.
 
-2. Unchanging, is intended to encompass not just having a particular condition for the duration of the state, but potentially being value-bound to some constant or even within a given range as prescribed by some design or requirement specification. Specialized sub-types may be introduced to handle such value-based constant and range-bound states and conditions.
+2. In this ontology, &apos;material state&apos; is a subclass of BFO Process. BFO uses &apos;process&apos; broadly for occurrents that unfold through time; it does not imply that change must occur. The distinction between a material state and other processes is therefore not simply one between “no change” and “change.” A material state is a process during which specified conditions concerning its material participants continuously hold. These conditions may require a feature to remain constant, stay within a range, or maintain a particular location or configuration, while unconstrained features may vary without terminating the state. A &apos;material state&apos; is therefore not necessarily static. Conversely, a process that is not a &apos;material state&apos; may still have features that remain unchanged. What distinguishes a material state is that its occurrence is characterized by state-defining conditions that hold throughout its duration. “Change” may therefore describe many non-state processes, especially when their pre- and post-material states differ, but it is not equivalent to the BFO notion of Process.
 
 3. The term as introduced here is not intended to be used for for modeling the states of non-real entities (e.g., virtual entities participating in virtual simulation program and any other informational or abstract entities, when they are considered to be in a particular condition).</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>LA1: MaterialState(s) → ∃m(MaterialEntity(m) ∧ isMaterialStateOf(s,m))</iof-av:firstOrderLogicAxiom>
