@@ -1,4 +1,4 @@
-![Industrial Ontologies Foundry](https://cdn.shopify.com/s/files/1/0715/9303/4025/files/IOF_480x480.png?v=1678423553)
+![Industrial Ontologies Foundry](https://cdn.shopify.com/s/files/1/0715/9303/4025/files/IOF_240x240.png?v=1678423553)
 
 # Industrial Ontologies Foundry
 
