@@ -12,9 +12,9 @@ SELECT DISTINCT ?warning ?resource
 WHERE
 {
   ?resource ?property ?object.
+  FILTER (STR(?property) != "https://spec.industrialontologies.org/ontology/annotation/wasDefinedBy")
   FILTER (ISLITERAL(?object))
   FILTER (STRLEN(STR(?object)) = 0)
-
   FILTER REGEX(STR(?resource), <HYGIENE_TESTS_FILTER_PARAMETER>)
   
   BIND (CONCAT("::warning title=<HYGIENE_TEST_NAME>::A resource ", STR(?resource), " has a null value for property ", STR(?property)) as ?warning)

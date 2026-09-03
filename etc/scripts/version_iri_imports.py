@@ -2,17 +2,20 @@ import re
 import sys
 from pathlib import Path
 import argparse
+import xml.etree.ElementTree as ET
+import os
+from itertools import groupby
+from recreate_catalog_file import recreate_catalog_file
 
-def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) -> None:
+def update_owl_imports(file_path: Path, release_number: str, import_release_number: str, skip_imports: bool) -> None:
   """
   Update owl:import elements in an RDF XML file to use version IRIs with release numbers.
   
   Args:
     file_path: Path to the RDF XML file
     release_number: Release number to append to version IRIs
-  """
-  file_path = Path(file_path)
-  
+    import_release_number: Release number to use for imports
+  """  
   # Read the file
   with open(file_path, 'r', encoding='utf-8') as f:
     content = f.read()
@@ -24,18 +27,24 @@ def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) 
     suffix = match.group(4)
     
     if re.match(r'^\d{6}', iri):
-      if iri.startswith(release_number):
-        print(f"Skipping already versioned IRI: {iri}")
+      if import_release_number == '':
+        print(f"::notice title=Replace Import::Skipping already versioned IRI: {iri}")
+        return match.group(0)
+      elif iri.startswith(import_release_number):
+        print(f"::notice title=Replace Import::Skipping already versioned IRI: {iri}")
         return match.group(0)
       else:
-        print(f"Updating release number in IRI: {iri} to {release_number}")
-        iri = re.sub(r'^\d{6}', release_number, iri)
+        print(f"::notice title=Replace Import::Updating release number in IRI: {iri} to {import_release_number}")
+        iri = re.sub(r'^\d{6}', import_release_number, iri)
         new_iri = f"{prefix}{root}{iri}{suffix}"
-      return match.group(0)  # Already versioned, skip
-    else:
-      new_iri = f"{prefix}{root}{release_number}/{iri}{suffix}"
-      print(f"Replacing import IRI: {match.group(0)} with {new_iri}")
+        return new_iri
+    elif import_release_number != '':
+      new_iri = f"{prefix}{root}{import_release_number}/{iri}{suffix}"
+      print(f"::notice title=Replace Import::Replacing import IRI: {match.group(0)} with {new_iri}")
       return new_iri
+    else:
+      print(f"::notice title=Replace Import::Skipping unversioned IRI: {iri}")
+      return match.group(0)
   
   def correct_version_iri(match):
     prefix = match.group(1)
@@ -45,11 +54,11 @@ def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) 
     suffix = match.group(5)
     
     if version == release_number:
-      print(f"Skipping already versioned versionIRI: {match.group(0)}")
+      print(f"::notice title=Correct Version IRI::Skipping already versioned versionIRI: {match.group(0)}")
       return match.group(0)
     else:
       new_iri = f"{prefix}{root}{release_number}{iri}{suffix}"
-      print(f"Replacing versionIRI: {match.group(0)} with {new_iri}")
+      print(f"::notice title=Correct Version IRI::Replacing versionIRI: {match.group(0)} with {new_iri}")
       return new_iri
   
   updated_content = content
@@ -74,7 +83,7 @@ def update_owl_imports(file_path: str, release_number: str, skip_imports: bool) 
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(updated_content)
   
-  print(f"Updated {file_path} with version IRIs for release number {release_number}")
+  print(f"::notice title=Update OWL Imports::Updated {file_path} with version IRIs for release number {release_number}")
 
 
 if __name__ == "__main__":
@@ -82,14 +91,19 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Version IRI import updater for RDF XML files")
   parser.add_argument("release", help="release number")              # positional
   parser.add_argument("-s", "--skip_imports", action="store_true", help="skip updating imports")
+  parser.add_argument("-n", "--unversion_imports", action="store_true", help="remove vesion from imports")
 
   args = parser.parse_args()
     
   release_number = args.release
   skip_imports = args.skip_imports
-  
+  import_release_number = release_number if not args.unversion_imports else ''
+    
   # Recurse all .rdf files in the current and subdirectories
   rdf_files = Path('.').rglob('*.rdf')
   for file_path in rdf_files:
-    print("Processing: ", file_path)
-    update_owl_imports(file_path, release_number, skip_imports)
+    print("::notice title=Main::Processing: ", file_path)
+    update_owl_imports(file_path, release_number, import_release_number, skip_imports)
+    
+  # Recreate the catalog file with all versioned and non-versioned IRIs
+  recreate_catalog_file(release_number)
