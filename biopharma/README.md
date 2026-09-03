@@ -353,7 +353,7 @@ Released BMIC currently comprises 13 Released domain modules plus two Released o
 |---|---|
 | [`BiopharmaAgent.rdf`](./BiopharmaAgent.rdf) | Human actors, engineered systems, and organizations |
 | [`BiopharmaEquipment.rdf`](./BiopharmaEquipment.rdf) | Equipment types, capabilities, functions, qualities, and equipment-related roles |
-| [`BiopharmaManufacturingExecution.rdf`](./BiopharmaManufacturingExecution.rdf) | Actual manufacturing-process occurrences and biopharmaceutical process types |
+| [`BiopharmaManufacturingExecution.rdf`](./BiopharmaManufacturingExecution.rdf) | Actual process occurrences and biopharmaceutical process types |
 | [`BiopharmaMaterial.rdf`](./BiopharmaMaterial.rdf) | Manufacturing materials, roles, attributes, culture-media concepts, impurities, and cell-related material concepts |
 | [`BiopharmaMaterialProcurementAndStorage.rdf`](./BiopharmaMaterialProcurementAndStorage.rdf) | CoA/CoC information, material timing, tracking/tracing, procurement, and storage |
 | [`BiopharmaMonitoringAndControl.rdf`](./BiopharmaMonitoringAndControl.rdf) | Monitoring plans/processes, sampling, and inline/online/atline/offline monitoring |
