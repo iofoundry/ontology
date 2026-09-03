@@ -342,7 +342,7 @@ Core reuses or adapts concepts from established ontology, standards, and technic
 
 The AV OWL file defines the annotation properties themselves; the IOF Annotation Property Guide specifies how IOF authors are expected to use them consistently when authoring and reviewing ontology content.
 
-[IOF Annotation Property Guide V2.5](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5)
+[IOF Annotation Property Guide](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5)
 
 ---
 
@@ -436,4 +436,5 @@ Drobnjakovic, M., Kulvatunyou, B., Ameri, F., Will, C., Smith, B., & Jones, A. (
 - [OMG Commons Ontology Library](https://www.omg.org/spec/Commons/)
 - [W3C OWL-Time](https://www.w3.org/TR/owl-time/)
 - [IOF Guideline for Using QUDT with IOF Ontologies](https://oagi.atlassian.net/wiki/spaces/IOF/pages/4679696397/Guideline+for+Using+QUDT+if+were+to+use+with+IOF+Ontologies) — non-normative guidance for representing quantitative values and units
+- [IOF Annotation Property Guide](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5) — IOF guidance for ontology annotations, definitions, provenance, maturity, and related documentation
 
