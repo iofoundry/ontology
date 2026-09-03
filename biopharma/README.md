@@ -444,7 +444,7 @@ Exact source URLs are recorded on relevant ontology terms. `adaptedFrom` records
 
 ### Definitions, logic, and annotation policy
 
-BMIC follows the broader [IOF Annotation Property Guide V2.5](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5) rather than defining a separate annotation scheme. Every BMIC class and property has a human-readable label, natural-language definition, and examples. Every BMIC class also has OWL axiomatization, a first-order-logic (FOL) definition or axiom, and a corresponding semi-formal natural-language statement.
+BMIC follows the broader [IOF Annotation Property Guide](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5) rather than defining a separate annotation scheme. Every BMIC class and property has a human-readable label, natural-language definition, and examples. Every BMIC class also has OWL axiomatization, a first-order-logic (FOL) definition or axiom, and a corresponding semi-formal natural-language statement.
 
 | Layer / annotation | BMIC practice |
 |---|---|
@@ -532,7 +532,7 @@ Useful resources:
 - **[NIIMBL - OAGi and NIIMBL Announce Release of Biopharmaceutical Manufacturing Ontologies](https://www.niimbl.org/news/oagi-and-niimbl-announce-release-of-biopharmaceutical-manufacturing-ontologies-to-advance-interoperability-and-analytics/)**: November 2025 public-release history and industry context.
 - **[White House OSTP - *Science & Technology Highlights: Year One*](https://www.whitehouse.gov/wp-content/uploads/2026/01/WHOSTP-2025-Wins.pdf)**: includes the NIIMBL-OAGi ontology release among Advanced Manufacturing highlights.
 - [IOF Guideline for Using QUDT with IOF Ontologies](https://oagi.atlassian.net/wiki/spaces/IOF/pages/4679696397/Guideline+for+Using+QUDT+if+were+to+use+with+IOF+Ontologies): non-normative guidance for quantitative values and units.
-- [IOF Annotation Property Guide V2.5](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5): IOF requirements and guidance for ontology and construct annotations.
+- [IOF Annotation Property Guide](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5): IOF requirements and guidance for ontology and construct annotations.
 
 The RDF files, their import declarations, `owl:versionIRI` values, and `iof-av:maturity` annotations remain the source of truth for BMIC's current technical scope and maturity.
 
