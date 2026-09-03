@@ -442,21 +442,25 @@ Regulatory and standards provenance includes ICH Q8(R2), Q9(R1), Q10, Q6B, Q5A/Q
 
 Exact source URLs are recorded on relevant ontology terms. `adaptedFrom` records conceptual or definitional reuse. It does not by itself assert `owl:equivalentClass`, `owl:equivalentProperty`, identity with the source term, or formal conformance. Stronger mappings are asserted only where explicitly defined.
 
-### Definitions, logic, and guidance
+### Definitions, logic, and annotation policy
 
-BMIC terms are more than labels in a hierarchy. Important classes may include:
+BMIC follows the broader [IOF Annotation Property Guide V2.5](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5) rather than defining a separate annotation scheme. Every BMIC class and property has a human-readable label, natural-language definition, and examples. Every BMIC class also has OWL axiomatization, a first-order-logic (FOL) definition or axiom, and a corresponding semi-formal natural-language statement.
 
-| Layer | Purpose |
+| Layer / annotation | BMIC practice |
 |---|---|
-| Natural-language definition | States the intended domain meaning |
-| Examples and counterexamples | Clarify what the term covers |
-| OWL axioms | Provide machine-processable restrictions and classifications where appropriate |
-| First-order-logic (FOL) definitions and axioms | Record stronger formal commitments that OWL cannot faithfully express or should not encode as strong equivalences |
-| Semi-formal statements | Express the corresponding FOL meaning in readable language |
-| Explanatory and usage notes | Record domain distinctions and modeling guidance |
-| Provenance annotations | Record source and adaptation information |
+| Label | Provided for every class and property as the preferred human-readable term |
+| Natural-language definition | Provided for every class and property and states the intended meaning |
+| Examples | Provided for every class and property to illustrate intended use |
+| OWL axioms | Provide the machine-processable representation used for reasoning, classification, and consistency checking |
+| First-order-logic (FOL) definition or axiom | Provided for every class; captures the intended formal meaning represented in OWL and, where needed, augments it with conditions that OWL cannot directly express |
+| Semi-formal natural-language definition or axiom | Provided for every class as a readable counterpart to the FOL formalization |
+| Explanatory notes *(as applicable)* | Clarify important distinctions, modeling rationale, or interpretation that is not appropriate to place in the definition itself |
+| Usage notes *(as applicable)* | Provide guidance on how a construct should or should not be used in modeling or implementation |
+| Counterexamples *(as applicable)* | Clarify important exclusions or commonly confused cases |
+| Synonyms, acronyms, and abbreviations *(as applicable)* | Record alternative terminology used by domain experts, standards, systems, or literature |
+| Source and provenance annotations *(as applicable)* | Record sources and conceptual or definitional adaptation, including `adaptedFrom` where appropriate |
 
-OWL provides the machine-processable layer used for reasoning, classification, and consistency checking. FOL is used where intended meaning cannot be represented faithfully in OWL or where stronger OWL classification would be unsafe. Semi-formal statements make those commitments easier to review.
+The OWL and FOL layers are intended to be consistent with one another rather than alternative models of the same term. FOL provides the fuller formal statement where the intended meaning goes beyond what can be captured directly in OWL, while the semi-formal annotation makes that same statement easier to review.
 
 FOL annotations are not executed by standard OWL reasoners.
 
@@ -528,6 +532,7 @@ Useful resources:
 - **[NIIMBL - OAGi and NIIMBL Announce Release of Biopharmaceutical Manufacturing Ontologies](https://www.niimbl.org/news/oagi-and-niimbl-announce-release-of-biopharmaceutical-manufacturing-ontologies-to-advance-interoperability-and-analytics/)**: November 2025 public-release history and industry context.
 - **[White House OSTP - *Science & Technology Highlights: Year One*](https://www.whitehouse.gov/wp-content/uploads/2026/01/WHOSTP-2025-Wins.pdf)**: includes the NIIMBL-OAGi ontology release among Advanced Manufacturing highlights.
 - [IOF Guideline for Using QUDT with IOF Ontologies](https://oagi.atlassian.net/wiki/spaces/IOF/pages/4679696397/Guideline+for+Using+QUDT+if+were+to+use+with+IOF+Ontologies): non-normative guidance for quantitative values and units.
+- [IOF Annotation Property Guide V2.5](https://oagi.atlassian.net/wiki/spaces/IOF/pages/6750797825/IOF+Annotation+Property+Guide+V2.5): IOF requirements and guidance for ontology and construct annotations.
 
 The RDF files, their import declarations, `owl:versionIRI` values, and `iof-av:maturity` annotations remain the source of truth for BMIC's current technical scope and maturity.
 
