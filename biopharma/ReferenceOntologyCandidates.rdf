@@ -67,7 +67,26 @@
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions. In particular, constructs for exhaustively representing conditions that are parts of acceptance criteria are missing.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;acceptance criteria&apos; then x is a &apos;requirement specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
+
+	<owl:Class rdf:about="&iof-constr;Capacity">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000019"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isCapacityOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;Capability"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">capacity</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">quality that is the extent to which a particular capability of the bearer can be realized</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote xml:lang="en-US">A capacity and the capability on which it specifically depends inhere in the same bearer. The capacity requires the capability to exist, but not to be realized. Its magnitude may depend on operating conditions, material properties, and equipment configuration, and may be expressed as an amount, rate, range, or performance curve. A capability may have multiple capacities corresponding to different quantitative dimensions.</iof-av:explanatoryNote>
+		<skos:example>the flow-rate capacity of a centrifugal pump to deliver 100 L/min under specified operating conditions; the throughput capacity of a depth filter to process 400 L/m² before reaching a specified differential-pressure limit; the production capacity of a water purification skid to produce 1000 L/day of purified water; the buffering capacity of a phosphate buffer solution to resist changes in pH upon addition of acid or base</skos:example>
+		<iof-av:firstOrderLogicAxiom>Capacity(x) → Quality(x) ∧ ∃y (Capability(y) ∧ isCapacityOf(x,y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'capacity', then x is a 'quality' and 'is capacity of' some 'capability'</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+	</owl:Class>
+
 	<owl:Class rdf:about="&iof-constr;ManufacturingCapability">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Capability"/>
 		<rdfs:subClassOf>
@@ -815,4 +834,17 @@
 			</owl:Restriction>
 		</owl:intersectionOf>
 	</owl:Class>
+
+	<owl:ObjectProperty rdf:about="&iof-constr;isCapacityOf">
+		<rdf:type rdf:resource="&owl;FunctionalProperty"/>
+		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000195"/>
+		<rdfs:domain rdf:resource="&iof-constr;Capacity"/>
+		<rdfs:range rdf:resource="&iof-constr;Capability"/>
+		<rdfs:label xml:lang="en-US">is capacity of</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/</rdfs:isDefinedBy>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">relation between a capacity and a capability on which the capacity specifically depends</iof-av:naturalLanguageDefinition>
+		<iof-av:explanatoryNote xml:lang="en-US">A capacity specifically depends on exactly one capability, and both inhere in the same bearer. If the capability ceases to exist, the capacity also ceases to exist. A capability may have multiple distinct capacities associated with different quantitative dimensions.</iof-av:explanatoryNote>
+		<skos:example>the flow-rate capacity of a centrifugal pump is capacity of its pumping capability; the head capacity of a centrifugal pump is capacity of its pumping capability; the throughput capacity of a depth filter is capacity of its filtration capability; the buffering capacity of a phosphate buffer solution is capacity of its buffering capability</skos:example>
+	</owl:ObjectProperty>
+
 </rdf:RDF>
