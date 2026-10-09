@@ -133,3 +133,6 @@ Getting involved will also give you access to discussions on issues regarding is
 - [Resources and Papers](https://oagi.org/pages/resources-about-from-iof-project) 
 - [Basic Formal Ontology](https://basic-formal-ontology.org/bfo-2020.html) 
 
+# Acknowledgements
+
+This work made possible in part by NIIMBL and award 70NANB17H002 from the U.S Department of Commerce, National Institute of Standards and Technology (NIST).
