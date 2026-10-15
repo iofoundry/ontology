@@ -1,0 +1,114 @@
+name: Deploy Ontology Portal
+
+# Rebuild the multi-site IOF portal (https://spec.industrialontologies.org/portal/)
+# whenever a portal branch is pushed or deleted. The portal builder (wsobel/ontology_viewer,
+# `build_portal.py`) discovers *every* releases/ staging/ review/ branch on the
+# remote and builds them all, and `deploy_portal` replaces the whole /portal tree
+# on the server — so each run publishes the full portal, not just the pushed branch.
+#
+# Required repository secrets:
+#   PORTAL_REPO_DEPLOY_KEY  read-only deploy key for the private wsobel/ontology_viewer repo
+#   PORTAL_SSH_KEY          private SSH key for ontologist@spec.industrialontologies.org
+#   PORTAL_SSH_KNOWN_HOSTS  output of `ssh-keyscan spec.industrialontologies.org`
+
+on:
+  push:
+    branches:
+      - 'releases/**'
+      - 'staging/**'
+      - 'review/**'
+  # `delete` can't be filtered by branch here — see the job's `if`. GitHub runs
+  # delete-triggered workflows from the default branch, so this file must be on master.
+  delete:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild every version, ignoring the build cache
+        type: boolean
+        default: false
+
+# deploy_portal wipes and re-fills the server directory, so never run two at once
+# (and never cancel one mid-deploy). A queued run rebuilds from the latest remote
+# state, so superseded pending runs are dropped automatically.
+concurrency:
+  group: ontology-portal-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    # On delete, only rebuild when a portal branch went away (the builder then
+    # drops its site, since it is no longer on the remote).
+    if: >-
+      github.event_name != 'delete' || (github.event.ref_type == 'branch' && (
+        startsWith(github.event.ref, 'releases/') ||
+        startsWith(github.event.ref, 'staging/') ||
+        startsWith(github.event.ref, 'review/')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out portal generator
+        uses: actions/checkout@v4
+        with:
+          repository: wsobel/iof_ontology_portal
+          ref: main
+          ssh-key: ${{ secrets.PORTAL_REPO_DEPLOY_KEY }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # The Jekyll site builds only under Ruby 3.4.2 (site/.ruby-version and
+      # site/Gemfile.lock are git-ignored, so the version is pinned here).
+      - name: Set up Ruby + Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4.2"
+          working-directory: site
+          bundler-cache: true
+
+      # Restore the previous run's build output so build_portal.py can skip
+      # versions whose content fingerprint is unchanged (build/.portal-cache.json
+      # + the built sites). Ontology checkouts (versions/) are always fresh.
+      - name: Restore portal build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            build
+            _portal_site
+          key: portal-build-${{ github.run_id }}
+          restore-keys: portal-build-
+
+      - name: Build portal
+        run: python build_portal.py ${{ inputs.force && '--force' || '' }}
+
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.PORTAL_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.PORTAL_SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/portal_deploy
+          chmod 600 ~/.ssh/portal_deploy
+          printf '%s\n' "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<'EOF'
+          Host spec.industrialontologies.org
+            IdentityFile ~/.ssh/portal_deploy
+            IdentitiesOnly yes
+          EOF
+
+      - name: Deploy portal
+        run: ./deploy_portal
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/portal_deploy
