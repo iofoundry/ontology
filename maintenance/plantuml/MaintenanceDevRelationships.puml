@@ -1,0 +1,84 @@
+@startuml
+
+'skinparam ranksep 10.0
+hide empty members
+hide circle
+skinparam groupInheritance 2
+skinparam class {
+  BackgroundColor<<iof>> SkyBlue
+  BackgroundColor<<bfo>> PaleGreen
+}
+
+class DegradedState
+class Disposition <<bfo>>
+class DispositionToExhibitUndesirableBehavior
+class DispositionToFail
+class Event <<iof>>
+class FailedState
+class FailureEffect
+class FailureEvent
+class FailureModeCode
+class FailureProcess
+class Function <<bfo>>
+class FunctioningProcess
+class InformationContentEntity <<iof>>
+class MaintainableMaterialItem <<iof>>
+class MaintainableMaterialItemRole <<iof>>
+class MaintenanceActivity
+class MaintenanceProcess
+class MaintenanceState
+class MaintenanceWorkOrderRecord
+class MaterialState <<iof>>
+class OperatingState
+class Person <<iof>>
+class PlannedProcess <<iof>>
+class Process <<bfo>>
+class QualificationSpecification
+class QualifiedMaintenancePerson
+class RequiredFunction
+class RequirementSpecification <<iof>>
+class Role <<bfo>>
+class SupportingMaintenanceActivity
+class UndesirableDisposition
+
+DegradedState                            -u-|> MaintenanceState
+DispositionToExhibitUndesirableBehavior  -u-|> UndesirableDisposition
+DispositionToFail                        -u-|> UndesirableDisposition
+FailedState                              -u-|> MaintenanceState
+FailureEffect                            -u-|> Process
+FailureEvent                             -u->  FailedState                  : initiates
+FailureEvent                             -u->  FailureEffect                : precedes
+FailureEvent                             -u-|> Event
+FailureModeCode                          -u->  UndesirableDisposition       : describes
+FailureModeCode                          -u-|> InformationContentEntity
+FailureProcess                           -u->  DispositionToFail            : realizes
+FailureProcess                           -u->  FailureEffect                : precedes
+FailureProcess                           -u-|> Process
+Function                                 -u-|> Disposition
+FunctioningProcess                       -u->  Function                     : realizes
+FunctioningProcess                       -u-|> Process
+MaintainableMaterialItem                 -u->  MaintainableMaterialItemRole : hasRole
+MaintainableMaterialItem                 -u->  MaintenanceProcess           : participatesInAtAllTimes
+MaintainableMaterialItem                 -u->  RequiredFunction             : hasFunction
+MaintainableMaterialItemRole             -u-|> Role
+MaintenanceActivity                      -u-|> MaintenanceProcess
+MaintenanceProcess                       -u->  MaintenanceActivity          : hasProperOccurrentPart
+MaintenanceProcess                       -u-|> PlannedProcess
+MaintenanceState                         -u-|> MaterialState
+MaintenanceWorkOrderRecord               -u->  MaintenanceProcess           : describes
+MaintenanceWorkOrderRecord               -u->  MaintenanceProcess           : isInputOf
+MaintenanceWorkOrderRecord               -u-|> InformationContentEntity
+OperatingState                           -u-|> MaintenanceState
+Person                                   -u->  PlannedProcess               : participatesInAtSomeTime
+QualificationSpecification               -u-|> RequirementSpecification
+QualifiedMaintenancePerson               -u->  MaintenanceActivity          : participatesInAtSomeTime
+QualifiedMaintenancePerson               -u->  QualificationSpecification   : satisfies
+QualifiedMaintenancePerson               -u-|> Person
+RequiredFunction                         -u-|> Function
+RequirementSpecification                 -u-|> InformationContentEntity
+SupportingMaintenanceActivity            -u-|> PlannedProcess
+UndesirableDisposition                   -u->  DegradedState                : realizes
+UndesirableDisposition                   -u->  FailedState                  : realizes
+UndesirableDisposition                   -u-|> Disposition
+
+@enduml
