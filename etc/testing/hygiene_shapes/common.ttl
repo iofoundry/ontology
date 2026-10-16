@@ -1,0 +1,177 @@
+# baseURI: https://spec.industrialontologies.org/ontology/hygiene/
+
+@base <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://spec.industrialontologies.org/ontology/hygiene/>
+	a owl:Ontology ;
+	rdfs:label "IOF hygiene shapes" ;
+	sh:declare
+		[
+			sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+			sh:prefix "rdf" ;
+		] ,
+		[
+			sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+			sh:prefix "rdfs" ;
+		] ,
+		[
+			sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+			sh:prefix "xsd" ;
+		] ,
+		[
+			sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ;
+			sh:prefix "owl" ;
+		] ,
+		[
+			sh:namespace "https://spec.industrialontologies.org/ontology/annotation/"^^xsd:anyURI ;
+			sh:prefix "iof-av" ;
+		] ,
+		[
+			sh:namespace "https://spec.industrialontologies.org/ontology/hygiene/"^^xsd:anyURI ;
+			sh:prefix "iof-h" ;
+		]
+		;
+	.
+
+iof-h:ActiveConstructCondition
+	a sh:NodeShape ;
+	sh:nodeKind sh:IRI ;
+	sh:not iof-h:Deprecated ;
+	.
+
+iof-h:ClassClassification
+	a sh:NodeShape ;
+	sh:rule
+		[
+			a sh:TripleRule ;
+			sh:condition
+				iof-h:ContentConstructCondition ,
+				iof-h:HasEquivalenceAxiom
+				;
+			sh:object iof-h:DefinedClass ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		] ,
+		[
+			a sh:TripleRule ;
+			sh:condition
+				iof-h:ContentConstructCondition ,
+				iof-h:HasNoEquivalenceAxiom
+				;
+			sh:object iof-h:PrimitiveClass ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		]
+		;
+	sh:targetClass owl:Class ;
+	.
+
+iof-h:ConstructClassification
+	a sh:NodeShape ;
+	sh:rule
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ActiveConstructCondition ;
+			sh:object iof-h:ActiveConstruct ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		] ,
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ContentConstructCondition ;
+			sh:object iof-h:ContentConstruct ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ContentConstructCondition
+	a sh:NodeShape ;
+	sh:node iof-h:ActiveConstructCondition ;
+	sh:property [
+		sh:minCount "1"^^xsd:integer ;
+		sh:not [
+			sh:pattern "/meta/AnnotationVocabulary/" ;
+		] ;
+		sh:path rdfs:isDefinedBy ;
+	] ;
+	.
+
+iof-h:Critical
+	a sh:Severity ;
+	rdfs:label "Critical" ;
+	rdfs:comment "A violation that fails the build regardless of the ontology's maturity." ;
+	.
+
+iof-h:Deprecated
+	a sh:NodeShape ;
+	rdfs:comment "Matches a resource marked owl:deprecated true." ;
+	sh:property [
+		sh:hasValue "true"^^xsd:boolean ;
+		sh:path owl:deprecated ;
+	] ;
+	.
+
+iof-h:HasEquivalenceAxiom
+	a sh:NodeShape ;
+	rdfs:comment "Matches a class that takes part in an owl:equivalentClass axiom." ;
+	sh:property [
+		sh:minCount "1"^^xsd:integer ;
+		sh:path [
+			sh:alternativePath (
+				owl:equivalentClass
+				[
+					sh:inversePath owl:equivalentClass ;
+				]
+			) ;
+		] ;
+	] ;
+	.
+
+iof-h:HasNoEquivalenceAxiom
+	a sh:NodeShape ;
+	sh:not iof-h:HasEquivalenceAxiom ;
+	.
+
+iof-h:NamedObjects
+	a sh:SPARQLTarget ;
+	rdfs:comment "Every IRI used as the object of a triple, other than an owl:versionIRI or a type inferred by the rules above." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+        SELECT DISTINCT ?this WHERE {
+            ?s ?p ?this .
+            FILTER (isIRI(?this) && ?p != owl:versionIRI && !STRSTARTS(STR(?this), STR(iof-h:)))
+        }
+    """ ;
+	.
+
+iof-h:NamedPredicates
+	a sh:SPARQLTarget ;
+	rdfs:comment "Every IRI used as the predicate of a triple." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+        SELECT DISTINCT ?this WHERE { ?s ?this ?o }
+    """ ;
+	.
+
+iof-h:NamedSubjects
+	a sh:SPARQLTarget ;
+	rdfs:comment "Every IRI used as the subject of a triple." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+        SELECT DISTINCT ?this WHERE { ?this ?p ?o . FILTER isIRI(?this) }
+    """ ;
+	.
+

@@ -1,0 +1,82 @@
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:DefinedClassDocumentation
+	a sh:NodeShape ;
+	sh:property
+		iof-h:DefinedClassFOLDefinition ,
+		iof-h:DefinedClassSemiFormalDefinition
+		;
+	sh:targetClass iof-h:DefinedClass ;
+	.
+
+iof-h:DefinedClassFOLDefinition
+	a sh:PropertyShape ;
+	rdfs:label "classes fol definitions" ;
+	sh:message "A non-primitive class {$this} does not have an FOL definition." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:firstOrderLogicDefinition ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:DefinedClassSemiFormalDefinition
+	a sh:PropertyShape ;
+	rdfs:label "classes semiformal definition" ;
+	sh:message "A non-primitive class {$this} does not have a semi-formal natural language definition." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:semiFormalNaturalLanguageDefinition ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:PrimitiveClassDocumentation
+	a sh:NodeShape ;
+	sh:property
+		iof-h:PrimitiveClassExample ,
+		iof-h:PrimitiveClassFOLAxiom ,
+		iof-h:PrimitiveClassSemiFormalAxiom
+		;
+	sh:targetClass iof-h:PrimitiveClass ;
+	.
+
+iof-h:PrimitiveClassExample
+	a sh:PropertyShape ;
+	rdfs:label "classes fol example" ;
+	sh:message "Primitive class {$this} does not have an example." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path skos:example ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:PrimitiveClassFOLAxiom
+	a sh:PropertyShape ;
+	rdfs:label "classes fol axioms" ;
+	sh:message "Primitive class {$this} does not have an FOL axiom." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:firstOrderLogicAxiom ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:PrimitiveClassSemiFormalAxiom
+	a sh:PropertyShape ;
+	rdfs:label "classes semiformal axiom" ;
+	sh:message "Primitive class {$this} does not have a semi-formal natural language axiom." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:semiFormalNaturalLanguageAxiom ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:PrimitiveRationaleDomain
+	a sh:NodeShape ;
+	rdfs:label "resources primitive rationale domain" ;
+	sh:class owl:Class ;
+	sh:message "Primitive rationale is applied not to a class {$this}" ;
+	sh:severity sh:Violation ;
+	sh:targetSubjectsOf iof-av:primitiveRationale ;
+	.
+

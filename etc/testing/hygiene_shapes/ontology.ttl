@@ -1,0 +1,86 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:OntologyAbstract
+	a sh:PropertyShape ;
+	rdfs:label "ontology abstract" ;
+	sh:message "Ontology {$this} does not have an abstract." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path dct:abstract ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyCopyright
+	a sh:PropertyShape ;
+	rdfs:label "ontology copyright" ;
+	sh:message "Ontology {$this} does not have a copyright." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:copyright ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyLabel
+	a sh:PropertyShape ;
+	rdfs:label "ontology label" ;
+	sh:message "Ontology {$this} does not have a label." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path rdfs:label ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyLicense
+	a sh:PropertyShape ;
+	rdfs:label "ontology license" ;
+	sh:message "Ontology {$this} does not have license metadata." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path dct:license ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyMaturity
+	a sh:PropertyShape ;
+	rdfs:label "ontology maturity" ;
+	sh:message "Ontology {$this} does not have a maturity level defined." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:maturity ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyMetadata
+	a sh:NodeShape ;
+	sh:property
+		iof-h:OntologyAbstract ,
+		iof-h:OntologyCopyright ,
+		iof-h:OntologyLabel ,
+		iof-h:OntologyLicense ,
+		iof-h:OntologyMaturity ,
+		iof-h:OntologyTitle ,
+		iof-h:OntologyVersionIRI
+		;
+	sh:targetClass owl:Ontology ;
+	.
+
+iof-h:OntologyTitle
+	a sh:PropertyShape ;
+	rdfs:label "ontology title" ;
+	sh:message "Ontology {$this} does not have a title." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path dct:title ;
+	sh:severity sh:Violation ;
+	.
+
+iof-h:OntologyVersionIRI
+	a sh:PropertyShape ;
+	rdfs:label "ontology versionIRI" ;
+	sh:message "Ontology {$this} does not have a version IRI defined." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path owl:versionIRI ;
+	sh:severity sh:Violation ;
+	.
+

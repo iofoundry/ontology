@@ -1,0 +1,322 @@
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:ConstructDefinition
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "definitions" ;
+		sh:message "Resource {$this} does not have an iof:naturalLanguageDefinition in American English." ;
+		sh:path iof-av:naturalLanguageDefinition ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ContentConstruct ;
+	.
+
+iof-h:ConstructDefinitionCircularity
+	a sh:NodeShape ;
+	rdfs:label "definitions circular" ;
+	sh:deactivated "true"^^xsd:boolean ;
+	sh:severity sh:Warning ;
+	sh:sparql [
+		sh:message "Definition {?value} of {$this} is immediately circular: it uses the resource's own label." ;
+		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+		sh:select '''
+            SELECT $this ?value WHERE {
+                $this iof-av:naturalLanguageDefinition ?value ;
+                      rdfs:label ?label .
+                FILTER (LANG(?value) = LANG(?label))
+                FILTER REGEX(STR(?value), CONCAT("(^|[^A-Za-z])", STR(?label), "([^A-Za-z]|$)"), "i")
+            }
+        ''' ;
+	] ;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ConstructDefinitionForm
+	a sh:NodeShape ;
+	sh:property
+		[
+			rdfs:label "definitions illformed" ;
+			sh:message "Definition {?value} for {$this} is ill-formed because it starts with an article." ;
+			sh:not [
+				sh:pattern "^(a|an|the) " ;
+			] ;
+			sh:path iof-av:naturalLanguageDefinition ;
+			sh:severity sh:Violation ;
+		] ,
+		[
+			rdfs:label "definitions multiple" ;
+			sh:message "Resource {$this} has multiple definitions." ;
+			sh:path iof-av:naturalLanguageDefinition ;
+			sh:severity sh:Violation ;
+			sh:uniqueLang "true"^^xsd:boolean ;
+		] ,
+		[
+			rdfs:label "definitions unique" ;
+			sh:message "Resource {$this} has a definition that defines multiple resources." ;
+			sh:path (
+				iof-av:naturalLanguageDefinition
+				[
+					sh:inversePath iof-av:naturalLanguageDefinition ;
+				]
+			) ;
+			sh:qualifiedMaxCount "1"^^xsd:integer ;
+			sh:qualifiedValueShape iof-h:LabelledConstructKind ;
+			sh:severity sh:Violation ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ConstructExample
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "Examples" ;
+		sh:message "A resource {$this} does not have an example." ;
+		sh:minCount "1"^^xsd:integer ;
+		sh:path skos:example ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass iof-h:ContentConstruct ;
+	.
+
+iof-h:ConstructIsDefinedBy
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "constructs is defined by" ;
+		sh:message "Construct {$this} does not have a rdfs:isDefinedBy annotation." ;
+		sh:minCount "1"^^xsd:integer ;
+		sh:path rdfs:isDefinedBy ;
+		sh:severity iof-h:Critical ;
+	] ;
+	sh:targetClass
+		owl:AnnotationProperty ,
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ConstructLabel
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "labels" ;
+		sh:message "Resource {$this} does not have an rdfs:label in American English." ;
+		sh:path rdfs:label ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ActiveConstruct ;
+	.
+
+iof-h:ConstructLabelCardinality
+	a sh:NodeShape ;
+	sh:property
+		[
+			rdfs:label "labels multiple" ;
+			sh:message "Resource {$this} has multiple labels." ;
+			sh:path rdfs:label ;
+			sh:severity sh:Violation ;
+			sh:uniqueLang "true"^^xsd:boolean ;
+		] ,
+		[
+			rdfs:label "labels unique" ;
+			sh:message "Resource {$this} has a label that names multiple resources." ;
+			sh:path (
+				rdfs:label
+				[
+					sh:inversePath rdfs:label ;
+				]
+			) ;
+			sh:qualifiedMaxCount "1"^^xsd:integer ;
+			sh:qualifiedValueShape iof-h:LabelledConstructKind ;
+			sh:severity sh:Violation ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ConstructSemiFormalDefinitionForm
+	a sh:NodeShape ;
+	sh:property
+		[
+			rdfs:label "semi formal definitions multiple" ;
+			sh:message "Resource {$this} has multiple semi-formal definitions." ;
+			sh:path iof-av:semiFormalNaturalLanguageDefinition ;
+			sh:severity sh:Violation ;
+			sh:uniqueLang "true"^^xsd:boolean ;
+		] ,
+		[
+			rdfs:label "semi formal definitions unique" ;
+			sh:message "Resource {$this} has a semi-formal definition that defines multiple resources." ;
+			sh:path (
+				iof-av:semiFormalNaturalLanguageDefinition
+				[
+					sh:inversePath iof-av:semiFormalNaturalLanguageDefinition ;
+				]
+			) ;
+			sh:qualifiedMaxCount "1"^^xsd:integer ;
+			sh:qualifiedValueShape iof-h:LabelledConstructKind ;
+			sh:severity sh:Violation ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:DataPropertyLabel
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "labels dataproperty ill-formed end" ;
+		sh:message "Label {?value} for data property {$this} has an ill-formed end." ;
+		sh:path rdfs:label ;
+		sh:pattern "value$" ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass owl:DatatypeProperty ;
+	.
+
+iof-h:DataPropertyLabelStart
+	a sh:NodeShape ;
+	rdfs:label "labels dataproperty ill-formed start" ;
+	sh:message "Label for data property {$this} has an ill-formed beginning." ;
+	sh:or (
+		[
+			sh:property
+				[
+					sh:hasValue xsd:boolean ;
+					sh:path rdfs:range ;
+				] ,
+				[
+					sh:path rdfs:label ;
+					sh:pattern "^is" ;
+				]
+				;
+		]
+		[
+			sh:property
+				[
+					sh:not [
+						sh:hasValue xsd:boolean ;
+					] ;
+					sh:path rdfs:range ;
+				] ,
+				[
+					sh:path rdfs:label ;
+					sh:pattern "^has" ;
+				]
+				;
+		]
+	) ;
+	sh:severity sh:Violation ;
+	sh:targetClass owl:DatatypeProperty ;
+	.
+
+iof-h:DeprecatedResourceUsage
+	a sh:NodeShape ;
+	rdfs:label "resources deprecated" ;
+	sh:severity sh:Warning ;
+	sh:sparql [
+		sh:message "Deprecated resource {$this} is still in use." ;
+		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+		sh:select """
+            SELECT DISTINCT $this WHERE {
+                $this owl:deprecated true .
+                FILTER NOT EXISTS { $this rdf:type/rdf:type/rdfs:subClassOf* owl:Class }
+                {
+                    $this ?p ?o .
+                    FILTER (?p NOT IN (owl:equivalentClass, owl:deprecated, rdf:type, owl:equivalentProperty))
+                }
+                UNION
+                {
+                    ?s ?p $this .
+                    FILTER (?p NOT IN (owl:equivalentClass, owl:deprecated, rdf:type, owl:equivalentProperty))
+                }
+            }
+        """ ;
+	] ;
+	sh:targetSubjectsOf owl:deprecated ;
+	.
+
+iof-h:LabelledConstructKind
+	a sh:NodeShape ;
+	sh:or (
+		[
+			sh:class owl:Class ;
+		]
+		[
+			sh:class owl:ObjectProperty ;
+		]
+		[
+			sh:class owl:DatatypeProperty ;
+		]
+	) ;
+	.
+
+iof-h:NoRDFSComment
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "resources rdfs comment" ;
+		sh:maxCount "0"^^xsd:integer ;
+		sh:message "A resource {$this} has an RDFS comment." ;
+		sh:path rdfs:comment ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetSubjectsOf rdfs:comment ;
+	.
+
+iof-h:PropertyPunning
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "properties punning" ;
+		sh:message "Property {$this} is incorrectly punned." ;
+		sh:path rdf:type ;
+		sh:qualifiedMaxCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:in (
+				owl:ObjectProperty
+				owl:AnnotationProperty
+				owl:DatatypeProperty
+			) ;
+		] ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass
+		owl:AnnotationProperty ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+

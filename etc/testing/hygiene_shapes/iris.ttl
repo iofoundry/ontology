@@ -1,0 +1,55 @@
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:AnnotationPropertyIRI
+	a sh:NodeShape ;
+	rdfs:label "annotation property iri" ;
+	sh:message "IRI for property {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/annotation/[a-z]+([A-Z][a-z]+)*" ;
+	sh:severity sh:Warning ;
+	sh:targetClass owl:AnnotationProperty ;
+	.
+
+iof-h:ClassIRI
+	a sh:NodeShape ;
+	rdfs:label "class iri" ;
+	sh:message "IRI for class {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/construct/([A-Z][a-z]+)+" ;
+	sh:severity sh:Warning ;
+	sh:targetClass owl:Class ;
+	.
+
+iof-h:OntologyIRI
+	a sh:NodeShape ;
+	rdfs:label "ontology iri" ;
+	sh:message "IRI for ontology {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/([a-z]+/)+([A-Z](OF|[a-z]+))+/" ;
+	sh:severity sh:Warning ;
+	sh:targetClass owl:Ontology ;
+	.
+
+iof-h:PropertyIRI
+	a sh:NodeShape ;
+	rdfs:label "property iri" ;
+	sh:message "IRI for property {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/construct/[a-z]+([A-Z][a-z]+)*" ;
+	sh:severity sh:Warning ;
+	sh:targetClass
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+iof-h:ResourceIRIAuthority
+	a sh:NodeShape ;
+	rdfs:label "resources iri" ;
+	sh:message "IRI for resource {$this} has foreign authority prefix." ;
+	sh:pattern "(spec|dev)\\.industrialontologies\\.org" ;
+	sh:severity sh:Warning ;
+	sh:target iof-h:NamedSubjects ;
+	.
+
