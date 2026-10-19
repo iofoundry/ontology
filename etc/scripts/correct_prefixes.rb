@@ -7,7 +7,10 @@ prefixes = [
   ["http://www.w3.org/1999/02/22-rdf-syntax-ns#", 'rdf'],
   ["http://www.w3.org/2000/01/rdf-schema#", 'rdfs'],
   ["http://www.w3.org/2004/02/skos/core#", 'skos'],
-  ["http://www.w3.org/2001/XMLSchema#", 'xsd']
+  ["http://www.w3.org/2001/XMLSchema#", 'xsd'],
+  ["https://spec.industrialontologies.org/ontology/annotation/", "iof-av"],
+  ["https://spec.industrialontologies.org/ontology/construct/", "iof-constr"],
+  ["https://spec.industrialontologies.org/ontology/individual/", "iof-ind"]
 ]
 
 puts "Normalizing common prefixes for external ontologies"
