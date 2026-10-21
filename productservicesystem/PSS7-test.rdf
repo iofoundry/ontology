@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/correia/ontologies/2026/9/untitled-ontology-230/"
+     xml:base="http://www.semanticweb.org/correia/ontologies/2026/9/untitled-ontology-230/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:annotation="https://spec.industrialontologies.org/ontology/annotation/">
+    <owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7">
+        <owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202603/productservicesystem/PSS7"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202603/maintenance/Maintenance/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202603/productservicesystem/ProductServiceSystem/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202603/productservicesystem/Sensor/"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/CorrectiveMaintenanceStrategy -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/CorrectiveMaintenanceStrategy">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaintenanceStrategy"/>
+        <owl:disjointWith rdf:resource="https://spec.industrialontologies.org/ontology/construct/PreventiveMaintenanceStrategy"/>
+        <rdfs:label xml:lang="en-us">corrective maintenance strategy</rdfs:label>
+        <annotation:naturalLanguageDefinition>maintenance stragegy to be carried out after the detection of a failure and intended to restore an asset to a state in which it can fulfill a required function</annotation:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/construct/CorrectiveMaintenanceStrategy"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/annotation/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>maintenance stragegy to be carried out after the detection of a failure and intended to restore an asset to a state in which it can fulfill a required function</owl:annotatedTarget>
+        <rdfs:comment>https://de.scribd.com/document/913920638/NF-EN-13306-Terminology-of-Maintenance</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceComputingProcess -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceComputingProcess">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ComputingProcess"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasInput"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity"/>
+                            <owl:Restriction>
+                                <owl:onProperty>
+                                    <rdf:Description>
+                                        <owl:inverseOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasSpecifiedOutput"/>
+                                    </rdf:Description>
+                                </owl:onProperty>
+                                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MeasurementProcess"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">predictive maintenance computing process</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceServiceAgreement -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceServiceAgreement">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/CommercialServiceAgreement"/>
+        <rdfs:label xml:lang="en-us">predictive maintenance service agreement</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceStrategy -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceStrategy">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PreventiveMaintenanceStrategy"/>
+        <rdfs:label xml:lang="en-us">predictive maintenance strategy</rdfs:label>
+        <skos:editorialNote>From NIST: 
+A maintenance strategy that uses condition monitoring, sensor data, and analytics to predict equipment degradation and schedule maintenance tasks only when warranted (before failure occurs)</skos:editorialNote>
+        <annotation:naturalLanguageDefinition>maintenance strategy where maintenance actions are forecasted and scheduled based on the calculated future condition of an asset, derived from the continuous monitoring and analysis of its degradation parameters, to optimize objectives</annotation:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceStrategy"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/annotation/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>maintenance strategy where maintenance actions are forecasted and scheduled based on the calculated future condition of an asset, derived from the continuous monitoring and analysis of its degradation parameters, to optimize objectives</owl:annotatedTarget>
+        <rdfs:comment>Source: ISO 14224:2016</rdfs:comment>
+        <rdfs:comment>https://www.intechopen.com/chapters/1218838</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/PreventiveMaintenanceStrategy -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/PreventiveMaintenanceStrategy">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaintenanceStrategy"/>
+        <rdfs:label xml:lang="en-us">preventive maintenance strategy</rdfs:label>
+        <annotation:naturalLanguageDefinition>maintenance strategy to be carried out at predetermined intervals or according to prescribed criteria and aimed at reducing the probability of failure or degradation of the functioning of an asset</annotation:naturalLanguageDefinition>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="https://spec.industrialontologies.org/ontology/construct/PreventiveMaintenanceStrategy"/>
+        <owl:annotatedProperty rdf:resource="https://spec.industrialontologies.org/ontology/annotation/naturalLanguageDefinition"/>
+        <owl:annotatedTarget>maintenance strategy to be carried out at predetermined intervals or according to prescribed criteria and aimed at reducing the probability of failure or degradation of the functioning of an asset</owl:annotatedTarget>
+        <rdfs:comment>EN 13306 Maintenance Terminology Overview
+https://de.scribd.com/document/913920638/NF-EN-13306-Terminology-of-Maintenance</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/LumpBreaker -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/LumpBreaker">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialProduct"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/Mixer -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/Mixer">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialProduct"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/PredictiveMaintenanceService -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/PredictiveMaintenanceService">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/CommercialService"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000117"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaintenanceProcess"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribedBy"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceServiceAgreement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">predictive maintenance service</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/TemperatureSensor -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/TemperatureSensor">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Sensor"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/VibrationSensor -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/VibrationSensor">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/Sensor"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/CementManufacturerSchmidt -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/CementManufacturerSchmidt">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/ProductServiceSystemBusinessCustomer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/CementMixer1 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/CementMixer1">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/MaterialProduct"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/CementMixerPredictiveMaintenancePSS1 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/CementMixerPredictiveMaintenancePSS1">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/ProductServiceSystem"/>
+        <obo:BFO_0000115 rdf:resource="http://spec.industrialontologies.org/ontology/individual/CementManufacturerSchmidt"/>
+        <obo:BFO_0000115 rdf:resource="http://spec.industrialontologies.org/ontology/individual/CementMixer1"/>
+        <obo:BFO_0000115 rdf:resource="http://spec.industrialontologies.org/ontology/individual/OASFactoryProvider"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/OASFactoryProvider -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/OASFactoryProvider">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/ProductServiceSystemSupplierOrganization"/>
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/ServiceProvider"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/predictiveMaintenanceServiceProcess1 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/predictiveMaintenanceServiceProcess1">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceComputingProcess"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/predictiveMaintenanceServiceSpec4Mixer1 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/predictiveMaintenanceServiceSpec4Mixer1">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceStrategy"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/temperatureLumpBreakerSensor1 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/temperatureLumpBreakerSensor1">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/TemperatureSensor"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/temperatureLumpBreakerSensor2 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/temperatureLumpBreakerSensor2">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/TemperatureSensor"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/vibrationMixerSensor2 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/vibrationMixerSensor2">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/VibrationSensor"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://spec.industrialontologies.org/ontology/individual/vibrationMixerXYZSensor2 -->
+
+    <owl:NamedIndividual rdf:about="http://spec.industrialontologies.org/ontology/individual/vibrationMixerXYZSensor2">
+        <rdf:type rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/VibrationSensor"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/CommercialServiceAgreement"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/productservicesystem/PSS7/PredictiveMaintenanceService"/>
+            </owl:Restriction>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/CustomerRole"/>
+            </owl:Restriction>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/ServiceProviderRole"/>
+            </owl:Restriction>
+        </owl:intersectionOf>
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/PredictiveMaintenanceServiceAgreement"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
