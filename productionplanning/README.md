@@ -3,27 +3,23 @@
 <img src="https://user-images.githubusercontent.com/12449023/166088435-a9fcc4c7-f51d-443a-b1fd-9fe96a204f77.png" >
 </p>
 
-# The ProductionPlanning Ontology
+# The Production Planning Reference Ontology (IOF-PPRO)
 
-Version  202502, December 2025 maturity provisional
+Version  202603, August 2026 maturity **released**
 
 # Introduction
 
-Production Plannig ontology is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being refernce ontology, it is expacted that users of the production planing ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
+Production Planning Reference Ontology (IOF-PPRO) is a domain reference ontology for process and production planning activities within various industries. It include general terms common for different types of manufacturing industries, such as discrete manufacturing, process manufacturing, batch manufacturing, biomanufacturing, and others. Being a reference ontology, it is expected that users of the production planning ontology will extend its classes is ways compatible with common vocabulary in manufacturing domains, such as aerospace, automotive, food industries, and others. 
 
-The IOF ProductionPlanning is a reference ontology for the domain of manufacturing/production planning that resides under  the IOF Core ontolgy (it imports IOF Core)  As a reference ontology, ProductionPlanning contains terms used by most industries utilizing data interoperability in their production planning activities in relation to various ERP amd MES software.
+The IOF-PPRO is a reference ontology for the domain of manufacturing/production planning that resides under the IOF Core ontology (it imports IOF Core).  As a reference ontology, IOF-PPRO contains terms used by most industries utilizing data interoperability in their production planning activities in relation to various CAD/CAM, PLM, ERP, MES, and/or MOM software.
 
-The IOF ProductionPlanning Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in Production Planning is curated by the Production Planning and Schedling Working Group and an attempt is made to validate and ground terms utilizing use cases from industry.
+The IOF-PPRO Ontology is developed and formalized as an ontology using both first-order logic and version 2 of the Web Ontology Language (OWL). The use of logic ensures that each term is defined in a way that is unambiguous to humans and can be processed by computers. The vocabulary in IOF-PPRO is curated by the Production Planning and Scheduling Working Group within IOF and its terms are continuously validated utilizing use cases from industry.
 
 # Release Notes
 
-Version  202502, December 2025 maturity provisional
+Version  202603, August 2026 maturity **released**
 
 This ontology includes constructs for upper level terms found in most manufacturing industries (including discrete, continuous, and batch manufacturing) related to planning, in areas such as specifications (ICEs), artifacts, and processes. The information content entities (ICE) include material product specification and several classes for the levels of plan specifications, the artifacts include fundamental resources, namely production machine and tool, and processes include classes for inspection and manufacturing industrial processes from which users may create domain ontologies that extend those classes for specific manufacturing areas or companies. This module is expected to mature in future release based on the user feedback.
-
-# Contents
-
-1.
 
 # Installing / Getting started
 
