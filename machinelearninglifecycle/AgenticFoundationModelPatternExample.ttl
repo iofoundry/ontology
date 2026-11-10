@@ -1,0 +1,165 @@
+# baseURI: https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModelPatternExample/
+# imports: https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/
+# imports: https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/
+
+@base <https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModelPatternExample/> .
+@prefix afm: <https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix iof-constr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix ns1: <https://example.org/agentic-run/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModelPatternExample/>
+	a owl:Ontology ;
+	rdfs:label "Agentic Foundation Model Pattern Example"@en ;
+	rdfs:comment "Complete object-level instantiation of the Agentic Foundation Model pattern (robot assembly agent use case): one agentic cycle — perception, retrieval, action-plan generation, action execution under a safety constraint — grouped as an AgenticProcess and realized by the agent's capability function, plus the fine-tuning lifecycle that adapted the VLA foundation model. Implements Patterns 1-7 and 9 of AgenticFoundationModelPattern.md; deployment (Pattern 10) is left to application evidence. The agent is intentionally typed only as iof-constr:EngineeredSystem; the reasoner classifies it as afm:AIAgent from the carrier-of / bearer-of facts."@en ;
+	dc:creator "MLLO Working Group" ;
+	owl:imports
+		<https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/> ,
+		<https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/>
+		;
+	owl:versionIRI <https://spec.industrialontologies.org/ontology/202607/machinelearninglifecycle/AgenticFoundationModelPatternExample/> ;
+	.
+
+ns1:action-plan-generation
+	a iof-constr:GenerationProcess ;
+	rdfs:label "action plan generation"@en ;
+	bfo:BFO_0000057 ns1:robot-assembly-agent ;
+	iof-constr:hasInput
+		ns1:assembly-line-world-state ,
+		ns1:manufacturing-vla-model
+		;
+	iof-constr:hasOutput ns1:align-then-assemble-plan ;
+	.
+
+ns1:agentic-cycle-1
+	a afm:AgenticProcess ;
+	rdfs:label "agentic cycle 1"@en ;
+	rdfs:comment "One complete agentic cycle. The three occurrent parts are coupled through the information they exchange: perception outputs the world state that generation consumes, and generation outputs the plan that prescribes the execution."@en ;
+	bfo:BFO_0000117
+		ns1:action-plan-generation ,
+		ns1:align-then-assemble-execution ,
+		ns1:assembly-line-perception
+		;
+	.
+
+ns1:align-then-assemble-execution
+	a iof-constr:ActionExecution ;
+	rdfs:label "align-then-assemble execution"@en ;
+	bfo:BFO_0000057 ns1:robot-assembly-agent ;
+	iof-constr:hasOutput ns1:assembly-trajectory-dataset ;
+	iof-constr:prescribedBy ns1:align-then-assemble-plan ;
+	.
+
+ns1:align-then-assemble-plan
+	a iof-constr:ActionPlan ;
+	rdfs:label "align-then-assemble plan"@en ;
+	.
+
+ns1:assembly-agent-control-program
+	a afm:AgenticEncodedAlgorithm ;
+	rdfs:label "assembly agent control program"@en ;
+	iof-constr:prescribes ns1:agentic-cycle-1 ;
+	.
+
+ns1:assembly-line-perception
+	a iof-constr:PerceptionProcess ;
+	rdfs:label "assembly line perception"@en ;
+	bfo:BFO_0000057 ns1:robot-assembly-agent ;
+	iof-constr:hasInput ns1:robot-camera-perception-dataset ;
+	iof-constr:hasOutput ns1:assembly-line-world-state ;
+	.
+
+ns1:assembly-line-world-state
+	a iof-constr:WorldStateRepresentation ;
+	rdfs:label "assembly line world state"@en ;
+	.
+
+ns1:assembly-trajectory-dataset
+	a iof-constr:TrajectoryDataSet ;
+	rdfs:label "assembly trajectory data set"@en ;
+	rdfs:comment "Read per the pattern document: trajectories from a previous execution of an earlier plan, used for adaptation. For multiple iterations use one execution / trajectory / fine-tuning triple per cycle (Pattern 8)."@en ;
+	.
+
+ns1:manual-retrieval
+	a iof-constr:RetrievalProcess ;
+	rdfs:label "manual retrieval"@en ;
+	bfo:BFO_0000057 ns1:robot-assembly-agent ;
+	bfo:BFO_0000063 ns1:action-plan-generation ;
+	iof-constr:hasInput ns1:manuals-and-cad-knowledge-base ;
+	.
+
+ns1:manuals-and-cad-knowledge-base
+	a iof-constr:KnowledgeBase ;
+	rdfs:label "manuals and CAD knowledge base"@en ;
+	.
+
+ns1:manufacturing-vla-model
+	a iof-constr:FineTunedModel ;
+	rdfs:label "manufacturing VLA model"@en ;
+	.
+
+ns1:manufacturing-vla-model-card
+	a iof-constr:ModelCard ;
+	rdfs:label "manufacturing VLA model card"@en ;
+	iof-constr:isAbout ns1:manufacturing-vla-model ;
+	.
+
+ns1:motion-limit-safety-constraint
+	a iof-constr:SafetyConstraint ;
+	rdfs:label "motion limit safety constraint"@en ;
+	iof-constr:prescribes ns1:align-then-assemble-execution ;
+	.
+
+ns1:robot-assembly-agent
+	a iof-constr:EngineeredSystem ;
+	rdfs:label "robot assembly agent"@en ;
+	rdfs:comment "The material system. Not asserted as afm:AIAgent: carrying the control program and bearing the autonomy function is the class's definition, so the reasoner infers it."@en ;
+	bfo:BFO_0000101 ns1:assembly-agent-control-program ;
+	bfo:BFO_0000196 ns1:robot-assembly-autonomy-function ;
+	.
+
+ns1:robot-assembly-autonomy-function
+	a afm:AgenticCapabilityFunction ;
+	rdfs:label "robot assembly autonomy function"@en ;
+	bfo:BFO_0000054 ns1:agentic-cycle-1 ;
+	.
+
+ns1:robot-camera-perception-dataset
+	a iof-constr:PerceptionDataSet ;
+	rdfs:label "robot camera perception data set"@en ;
+	.
+
+ns1:robotics-assembly-domain-specification
+	a iof-constr:DomainAdaptationSpecification ;
+	rdfs:label "robotics assembly domain specification"@en ;
+	iof-constr:prescribes ns1:robotics-assembly-fine-tuning ;
+	.
+
+ns1:robotics-assembly-fine-tuning
+	a iof-constr:FineTuningProcess ;
+	rdfs:label "robotics assembly fine-tuning"@en ;
+	iof-constr:hasInput
+		ns1:assembly-trajectory-dataset ,
+		ns1:robotics-assembly-domain-specification ,
+		ns1:vla-foundation-model
+		;
+	iof-constr:hasOutput ns1:manufacturing-vla-model ;
+	.
+
+ns1:vector-retrieval-algorithm
+	a iof-constr:RetrievalAlgorithm ;
+	rdfs:label "vector retrieval algorithm"@en ;
+	iof-constr:prescribes ns1:manual-retrieval ;
+	.
+
+ns1:vla-foundation-model
+	a iof-constr:FoundationModel ;
+	rdfs:label "vision-language-action foundation model"@en ;
+	.
+

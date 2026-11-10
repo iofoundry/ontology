@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY cons "https://spec.industrialontologies.org/ontology/construct/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY obo "http://purl.obolibrary.org/obo/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"
+	xmlns:cons="https://spec.industrialontologies.org/ontology/construct/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
+	xmlns:obo="http://purl.obolibrary.org/obo/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/">
+		<rdfs:label xml:lang="en-US">Agentic / Foundation-Model MLLO Extension</rdfs:label>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202607/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<iof-av:maturity rdf:resource="https://spec.industrialontologies.org/ontology/individual/Provisional"/>
+	</owl:Ontology>
+	
+	<owl:AnnotationProperty rdf:about="&obo;IAO_0100001">
+	</owl:AnnotationProperty>
+	
+	<owl:Class rdf:about="&cons;AI_Agent">
+		<rdfs:label xml:lang="en-US">obsolete AI agent</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<obo:IAO_0100001 rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AIAgent"/>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:deprecated rdf:datatype="&xsd;boolean">true</owl:deprecated>
+		<skos:changeNote xml:lang="en-US">Deprecated in favour of afm:AIAgent. Two defects: (1) the IRI was minted in the IOF Core &apos;construct/&apos; namespace by a provisional MLLO extension, and (2) it was asserted as a subclass of Core &apos;agent&apos;, which Core&apos;s &apos;agent role&apos; explicitly excludes computing agents from, and was defined by contingent process participation rather than by a borne function.</skos:changeNote>
+		<skos:example xml:lang="en-US">an autonomous LLM-based assistant that plans and calls tools; a robotic agent that perceives, plans, and acts within a governed lifecycle</skos:example>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">agent that is a software or engineered system bearing an agent role in a machine learning lifecycle, and that is capable of perception, retrieval, planning, and action within a governed lifecycle</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;ActionExecution">
+		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cons;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&cons;ActionPlan"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">action execution</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&obo;BFO_0000015">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&cons;ActionPlan"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process in which an agent carries out an action that is prescribed by an action plan</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;ActionPlan">
+		<rdfs:subClassOf rdf:resource="&cons;PlanSpecification"/>
+		<rdfs:label xml:lang="en-US">action plan</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;PlanSpecification">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&cons;ActionExecution"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes an intended sequence of actions to be executed by an agent in order to achieve a prescribed objective</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;DomainAdaptationSpecification">
+		<rdfs:subClassOf rdf:resource="&cons;DirectiveInformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">domain adaptation specification</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DirectiveInformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&cons;FineTuningProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">directive information content entity that specifies the target domain and utilization objective for which a foundation model is adapted, and that links to the domain ontology used</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;FineTunedModel">
+		<rdfs:subClassOf rdf:resource="&cons;MachineLearningModel"/>
+		<rdfs:label xml:lang="en-US">fine-tuned model</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;MachineLearningModel">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isOutputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;FineTuningProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model that is the output of a fine-tuning process which takes a foundation model as input and adapts it for a particular domain or utilization objective</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;FineTuningProcess">
+		<rdfs:subClassOf rdf:resource="&cons;MachineLearningTraining"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cons;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&cons;FoundationModel"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cons;hasOutput"/>
+				<owl:someValuesFrom rdf:resource="&cons;FineTunedModel"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">fine-tuning process</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;MachineLearningTraining">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&cons;DomainAdaptationSpecification"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&cons;FoundationModel"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasOutput"/>
+						<owl:someValuesFrom rdf:resource="&cons;FineTunedModel"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning training that takes a foundation model as input and produces a fine-tuned model as output, adapting the model to a particular domain or utilization objective</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;FoundationModel">
+		<rdfs:subClassOf rdf:resource="&cons;MachineLearningModel"/>
+		<rdfs:label xml:lang="en-US">foundation model</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model that is pre-trained at scale on a broad, general-purpose data set and is intended to be adapted to a range of downstream tasks</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;GenerationProcess">
+		<rdfs:subClassOf rdf:resource="&cons;ComputingProcess"/>
+		<rdfs:label xml:lang="en-US">generation process</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;ComputingProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000062"/>
+						<owl:someValuesFrom rdf:resource="&cons;RetrievalProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&cons;MachineLearningModel"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasOutput"/>
+						<owl:someValuesFrom rdf:resource="&cons;ActionPlan"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">computing process in which a machine learning model produces an output, and which is preceded by a retrieval process that supplies retrieved context as input</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;KnowledgeBase">
+		<rdfs:subClassOf rdf:resource="&cons;DataSet"/>
+		<rdfs:label xml:lang="en-US">knowledge base</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">data set that is curated for use as an inference information source queried by a retrieval process, as distinct from a data set used for training</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;ModelCard">
+		<rdfs:subClassOf rdf:resource="&cons;DescriptiveInformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">model card</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DescriptiveInformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isAbout"/>
+						<owl:someValuesFrom rdf:resource="&cons;MachineLearningModel"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">descriptive information content entity that documents the intended use, capabilities, limitations, and safety profile of a machine learning model</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;PerceptionDataSet">
+		<rdfs:subClassOf rdf:resource="&cons;DataSet"/>
+		<rdfs:label xml:lang="en-US">perception data set</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DataSet">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isInputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;PerceptionProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">data set composed of sensor-originated data such as image, video, or depth data captured from an environment</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;PerceptionProcess">
+		<rdfs:subClassOf rdf:resource="&obo;BFO_0000015"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cons;hasOutput"/>
+				<owl:someValuesFrom rdf:resource="&cons;WorldStateRepresentation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">perception process</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&obo;BFO_0000015">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&cons;PerceptionDataSet"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasOutput"/>
+						<owl:someValuesFrom rdf:resource="&cons;WorldStateRepresentation"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">process that interprets sensor output into a descriptive representation of the state of an environment</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;RetrievalAlgorithm">
+		<rdfs:subClassOf rdf:resource="&cons;Algorithm"/>
+		<rdfs:label xml:lang="en-US">retrieval algorithm</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;Algorithm">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&cons;RetrievalProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">algorithm that prescribes how relevant items are selected from a knowledge base given a query, for use as context in a downstream generation step</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;RetrievalProcess">
+		<rdfs:subClassOf rdf:resource="&cons;ComputingProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000063"/>
+				<owl:someValuesFrom rdf:resource="&cons;GenerationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&cons;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&cons;KnowledgeBase"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">retrieval process</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;ComputingProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000063"/>
+						<owl:someValuesFrom rdf:resource="&cons;GenerationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&cons;KnowledgeBase"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribedBy"/>
+						<owl:someValuesFrom rdf:resource="&cons;RetrievalAlgorithm"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">computing process that realizes a retrieval algorithm, taking a knowledge base as input and producing retrieved context as output</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;SafetyConstraint">
+		<rdfs:subClassOf rdf:resource="&cons;DirectiveInformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">safety constraint</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DirectiveInformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribes"/>
+						<owl:someValuesFrom rdf:resource="&cons;ActionExecution"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">directive information content entity that prescribes a limit or requirement, such as a motion limit or a bias threshold, that an action execution must satisfy</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;TrajectoryDataSet">
+		<rdfs:subClassOf rdf:resource="&cons;DataSet"/>
+		<rdfs:label xml:lang="en-US">trajectory data set</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DataSet">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isInputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;FineTuningProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isOutputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;ActionExecution"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">data set composed of temporally ordered records of state, action, and outcome produced during the operation of an agent, and linked to action-execution logs</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&cons;WorldStateRepresentation">
+		<rdfs:subClassOf rdf:resource="&cons;DescriptiveInformationContentEntity"/>
+		<rdfs:label xml:lang="en-US">world state representation</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Proposed class for representing agentic-AI and foundation-model lifecycles in MLLO.</rdfs:comment>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;DescriptiveInformationContentEntity">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isInputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;GenerationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;isOutputOf"/>
+						<owl:someValuesFrom rdf:resource="&cons;PerceptionProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">descriptive information content entity that is about the state of an environment, is derived from a perception process, and is consumed by a planning step</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AIAgent">
+		<rdfs:subClassOf rdf:resource="&cons;EngineeredSystem"/>
+		<rdfs:label xml:lang="en-US">AI agent</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;EngineeredSystem">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000101"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticEncodedAlgorithm"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000196"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticCapabilityFunction"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">a mobile manipulator running a vision-language-action policy on its onboard computer; a server deployment of an LLM-based assistant that plans and calls tools</skos:example>
+		<iof-av:counterExample xml:lang="en-US">a foundation model (an information content entity, not a material entity); an agentic encoded algorithm stored in a repository but not carried by any running system; a person who plans and acts</iof-av:counterExample>
+		<iof-av:explanatoryNote xml:lang="en-US">1. This class is deliberately NOT a subclass of IOF Core &apos;agent&apos;. Core&apos;s &apos;agent role&apos; carries an explicit counter-example excluding agents &apos;in computing: intelligent, artificial, mobile, &amp; autonomous&apos;, and Core&apos;s &apos;agent&apos; is about DELEGATED AUTHORITY — acting on behalf of a person, group, or organization — as its subclasses (buyer, supplier, manufacturer, customer) show. Being an AI agent is a matter of autonomous capability, not of delegation. Conflating the two was the modelling error in the earlier revision.
+
+2. An AI agent MAY additionally bear an &apos;agent role&apos; when it is deployed to act on behalf of an organization, and that is where accountability and governance attach. This is a contingent deployment fact, asserted per individual, and is not a defining condition of the class.
+
+3. The three aspects that the informal term &apos;AI agent&apos; bundles together are separated here: the software is an &apos;agentic encoded algorithm&apos; (a generically dependent continuant), the machine is this class (a material entity), and the behaviour is an &apos;agentic process&apos; (an occurrent).</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>AIAgent(x) ↔ EngineeredSystem(x) ∧ ∃f(AgenticCapabilityFunction(f) ∧ bearerOf(x,f)) ∧ ∃s(AgenticEncodedAlgorithm(s) ∧ isCarrierOf(x,s))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">engineered system that bears an agentic capability function and that carries an agentic encoded algorithm</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;AI agent&apos; is defined as exactly an instance of &apos;engineered system&apos; that is &apos;bearer of&apos; some &apos;agentic capability function&apos; and &apos;is carrier of&apos; some &apos;agentic encoded algorithm&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticCapabilityFunction">
+		<rdfs:subClassOf rdf:resource="&cons;DesignedFunction"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000054"/>
+				<owl:allValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">agentic capability function</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<skos:example xml:lang="en-US">the function of a warehouse robot to locate, plan a route to, and retrieve a bin; the function of an inspection system to decide which weld to re-scan and to re-scan it</skos:example>
+		<iof-av:counterExample xml:lang="en-US">the function of a thermostat to hold a setpoint (no action selection over alternatives); the function of a GPU to execute tensor operations; the function of a conveyor to move parts</iof-av:counterExample>
+		<iof-av:explanatoryNote xml:lang="en-US">1. The necessary condition uses a UNIVERSAL restriction (&apos;has realization&apos; only &apos;agentic process&apos;) rather than an existential one. A function that has never been realized — a robot that has been built but never switched on — still bears the function. An existential restriction would make class membership depend on what the system happens to be doing, which is the modelling error this class exists to avoid.
+
+2. Autonomy is a matter of degree; this class draws the line at selection among alternative actions, which is what &apos;action selection objective&apos; captures in MLLO.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>AgenticCapabilityFunction(x) → DesignedFunction(x) ∧ ∀p(hasRealization(x,p) → AgenticProcess(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">designed function of an engineered system to perceive its environment, select its own actions in pursuit of an objective, and carry those actions out without step-by-step human direction</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale xml:lang="en-US">Stating sufficient conditions would require constructs for design intent that IOF Core does not yet provide, in the same way that &apos;encoded algorithm&apos; remains primitive for want of constructs for &apos;implementation of&apos; and &apos;encoded in&apos;. A sufficient condition framed on realization would also wrongly exclude a function that has never been realized.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;agentic capability function&apos; then x is a &apos;designed function&apos; and every realization of x is an &apos;agentic process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticEncodedAlgorithm">
+		<rdfs:subClassOf rdf:resource="&cons;EncodedAlgorithm"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&obo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&cons;ActionSelectionObjective"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">agentic encoded algorithm</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;EncodedAlgorithm">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&cons;prescribes"/>
+						<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">a deployed orchestration program comprising a system prompt, a set of tool schemas, and a control loop that invokes a vision-language-action model; a robot behaviour policy encoded in Python</skos:example>
+		<iof-av:counterExample xml:lang="en-US">a foundation model on its own; a prompt template; a tool schema; a fine-tuned model checkpoint</iof-av:counterExample>
+		<iof-av:explanatoryNote xml:lang="en-US">1. An agentic encoded algorithm is a SIBLING of &apos;machine learning model&apos; under &apos;encoded algorithm&apos;, not a subclass of it. An agentic system INVOKES one or more models; a model is a component it uses, not its genus.
+
+2. It typically has one or more &apos;machine learning model&apos; instances (commonly a &apos;foundation model&apos; or &apos;fine-tuned model&apos;) as continuant parts, but this is not asserted as a necessary condition because a purely symbolic agent has none.
+
+3. Like every &apos;encoded algorithm&apos; it is an information content entity, and so is generically dependent on the material system that carries it. That carrier is the &apos;AI agent&apos;.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>AgenticEncodedAlgorithm(x) ↔ EncodedAlgorithm(x) ∧ ∃p(AgenticProcess(p) ∧ prescribes(x,p))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">encoded algorithm that prescribes an agentic process</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;agentic encoded algorithm&apos; is defined as exactly an instance of &apos;encoded algorithm&apos; that &apos;prescribes&apos; some &apos;agentic process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/AgenticProcess">
+		<rdfs:subClassOf rdf:resource="&cons;PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">agentic process</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/AgenticFoundationModel/"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&cons;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&cons;ActionExecution">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&cons;prescribedBy"/>
+										<owl:someValuesFrom rdf:resource="&cons;ActionPlan"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&cons;GenerationProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&cons;hasInput"/>
+										<owl:someValuesFrom rdf:resource="&cons;WorldStateRepresentation"/>
+									</owl:Restriction>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&cons;hasOutput"/>
+										<owl:someValuesFrom rdf:resource="&cons;ActionPlan"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&obo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&cons;PerceptionProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&cons;hasOutput"/>
+										<owl:someValuesFrom rdf:resource="&cons;WorldStateRepresentation"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">a warehouse robot&apos;s cycle of imaging a shelf, building a scene representation, planning a pick sequence, and executing the pick</skos:example>
+		<iof-av:counterExample xml:lang="en-US">a single model execution that classifies an image; a data processing pipeline that produces a cleaned data set; a generation process that emits text without any action being carried out</iof-av:counterExample>
+		<iof-av:explanatoryNote xml:lang="en-US">1. The occurrent parts are coupled through the information content entities they produce and consume: perception outputs a world state representation, generation consumes one and outputs an action plan, and action execution is prescribed by an action plan. This coupling is what distinguishes an agentic process from an unrelated collection of computing processes running on the same system.
+
+2. OWL 2 existential restrictions cannot require that the world state representation output by the perception process is the SAME individual consumed by the generation process. Enforcing that identity requires a SWRL rule or SHACL shape and is deliberately left outside the class axiom.
+
+3. Retrieval is NOT a defining condition. An agent that selects actions without consulting a knowledge base is still agentic; retrieval-augmented cases are covered by a subclass.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>AgenticProcess(x) ↔ PlannedProcess(x) ∧ ∃p∃w(PerceptionProcess(p) ∧ hasOccurrentPart(x,p) ∧ WorldStateRepresentation(w) ∧ hasOutput(p,w)) ∧ ∃g∃v∃a(GenerationProcess(g) ∧ hasOccurrentPart(x,g) ∧ WorldStateRepresentation(v) ∧ hasInput(g,v) ∧ ActionPlan(a) ∧ hasOutput(g,a)) ∧ ∃e∃b(ActionExecution(e) ∧ hasOccurrentPart(x,e) ∧ ActionPlan(b) ∧ prescribedBy(e,b))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a representation of the state of an environment is produced from perception data, that representation is used to generate an action plan, and that plan is carried out</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;agentic process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;perception process&apos; that &apos;has output&apos; some &apos;world state representation&apos;, and &apos;has occurrent part&apos; some &apos;generation process&apos; that &apos;has input&apos; some &apos;world state representation&apos; and &apos;has output&apos; some &apos;action plan&apos;, and &apos;has occurrent part&apos; some &apos;action execution&apos; that is &apos;prescribed by&apos; some &apos;action plan&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+
+</rdf:RDF>

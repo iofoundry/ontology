@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY xs "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://example.org/mllo-m1-draft/reviewed-definitions-ontology">
+		<rdfs:label xml:lang="en-US">M1 foundation-model and fine-tuning extension (review draft)</rdfs:label>
+		<rdfs:comment xml:lang="en-US">Reviewed-definition v3. All six classes explicitly inherit existing MLLO/Core parents. Primitive/defined status is assessed separately per class, with the unresolved differentia documented. One complete equivalence, five primitive classes with specific formalization gaps. Classification fixtures test against overly broad equivalences. FOL annotations are not executed by HermiT.</rdfs:comment>
+		<dcterms:description>M1 reviewed-definition v3 extension with six proposed candidate classes. Imports MLLO, which imports Core, BFO and AnnotationVocabulary. Dependencies, worked example individuals and classification fixtures are not embedded. Proposed example.org IRIs are retained for working-group review.</dcterms:description>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/machinelearninglifecycle/MachineLearningLifecycle/"/>
+		<owl:versionIRI rdf:resource="https://example.org/mllo-m1-draft/2026-10-27-reviewed-v3/ontology"/>
+		<iof-av:maturity rdf:resource="https://spec.industrialontologies.org/ontology/individual/Provisional"/>
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/DomainAdaptationSpecification">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/DirectiveInformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/ModelExecutionObjective"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
+				<owl:someValuesFrom rdf:resource="https://example.org/mllo-m1-draft/FineTuningProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">domain adaptation specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<skos:example xml:lang="en-US">The synthetic inspection adaptation specification.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: DirectiveInformationContentEntity. Differentia: Prescribes fine-tuning for an explicitly specified target task or domain. Decision: Retain as supporting candidate with necessary restrictions. Target-content semantics require review before an equivalence. Unresolved: prescribes and isAbout an objective do not distinguish the target objective from an incidental objective mentioned in a directive. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: DomainAdaptationSpecification(x) → DirectiveInformationContentEntity(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: DomainAdaptationSpecification(x) → ∃p∃o(FineTuningProcess(p) ∧ ModelExecutionObjective(o) ∧ prescribes(x,p) ∧ isAbout(x,o))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">directive information content entity that specifies a target task or domain and prescribes a fine-tuning process for that target</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/FineTunedModel">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MachineLearningModel"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSpecifiedOutputOf"/>
+				<owl:someValuesFrom rdf:resource="https://example.org/mllo-m1-draft/FineTuningProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">fine-tuned model</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MachineLearningModel">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSpecifiedOutputOf"/>
+						<owl:someValuesFrom rdf:resource="https://example.org/mllo-m1-draft/FineTuningProcess"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example xml:lang="en-US">The synthetic adapted model version 1.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: MachineLearningModel. Differentia: Specified output of a FineTuningProcess. Decision: Retain as defined. Test automatic classification of an output without asserting its FineTunedModel type. Unresolved: Definition is complete relative to FineTuningProcess. The latter still requires expert agreement on its distinguishing conditions. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>FineTunedModel(x) ↔ MachineLearningModel(x) ∧ ∃p(FineTuningProcess(p) ∧ isSpecifiedOutputOf(x,p))</iof-av:firstOrderLogicDefinition>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">false</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model that is a specified output of a fine-tuning process</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/FineTuningProcess">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MachineLearningModelUpdate"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasDataInput"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/TrainingDataSet"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasInput"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MachineLearningModel"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasSpecifiedOutput"/>
+				<owl:someValuesFrom rdf:resource="https://example.org/mllo-m1-draft/FineTunedModel"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">fine-tuning process</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<skos:example xml:lang="en-US">The synthetic training run producing adapted model version 1.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: MachineLearningModelUpdate. Differentia: Further training of previously learned content with adaptation data for a target task or domain. Decision: Retain the closer MLLO update parent. Keep necessary I/O constraints. Do not equate any generic model update with fine-tuning. Unresolved: MLLO ModelUpdate constrains parameter-setting provenance, but does not fully tie the input model, reused learned settings and adaptation objective into one defining condition. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: FineTuningProcess(p) → MachineLearningModelUpdate(p)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: FineTuningProcess(p) → ∃b∃d∃m(MachineLearningModel(b) ∧ TrainingDataSet(d) ∧ FineTunedModel(m) ∧ hasInput(p,b) ∧ hasDataInput(p,d) ∧ hasSpecifiedOutput(p,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model update that further trains previously learned model content using adaptation training data for a target task or domain and produces an adapted model as specified output</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/FoundationModel">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/MachineLearningModel"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSpecifiedOutputOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/MachineLearningTraining">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasDataInput"/>
+								<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/TrainingDataSet"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">foundation model</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<skos:example xml:lang="en-US">A broadly pretrained base model used in the worked example.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: MachineLearningModel. Differentia: Pretraining on broad data and intended adaptation across downstream tasks. Decision: Retain as a subclass with necessary constraints. Primitive status is justified by the specific unformalized differentia, not by missing parentage. Unresolved: No agreed vocabulary/evidence criterion for pretraining breadth, scale and downstream adaptation intent. Training history alone is insufficient. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: FoundationModel(x) → MachineLearningModel(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: FoundationModel(x) → ∃p∃d(MachineLearningTraining(p) ∧ TrainingDataSet(d) ∧ hasDataInput(p,d) ∧ hasSpecifiedOutput(p,x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">machine learning model that is produced by pretraining on data covering a broad range of tasks or domains and is intended for adaptation to a range of downstream tasks</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/ModelCard">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/describes"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/MachineLearningModel"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">model card</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<skos:example xml:lang="en-US">The model-card record documenting the synthetic model.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: DescriptiveInformationContentEntity. Differentia: Prepared as model-level documentation of intended use plus capability/performance, limitation or safety content. Decision: Retain descriptive ICE parent and necessary describes restriction. Keep the documentation-purpose condition explicit for expert review. Unresolved: describes identifies the subject, but does not express the document purpose or required content. A generic report about a model is insufficient. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ModelCard(x) → DescriptiveInformationContentEntity(x) ∧ ∃m(MachineLearningModel(m) ∧ describes(x,m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">descriptive information content entity prepared as model-level documentation that records a machine learning model’s intended use and at least one capability claim, performance claim, limitation or safety statement</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="https://example.org/mllo-m1-draft/ModelLicence">
+		<rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/DirectiveInformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+				<owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">model or data licence</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://example.org/mllo-m1-draft/reviewed-definitions-ontology"/>
+		<skos:example xml:lang="en-US">A synthetic licence record whose permission text is explicitly illustrative.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Parent review: DirectiveInformationContentEntity. Differentia: Normatively specifies permissions, conditions or restrictions on use, modification or distribution. Decision: Retain directive ICE parent. Keep a source report descriptive. Refine permission vocabulary before adding a sufficient class definition. Unresolved: isAbout alone does not express normative permission content. The licence instrument must remain distinct from a report about its terms. Status remains proposed for WG review.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ModelLicence(x) → DirectiveInformationContentEntity(x) ∧ ∃a(InformationContentEntity(a) ∧ isAbout(x,a))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xs;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">directive information content entity that specifies permissions, conditions or restrictions for using, modifying or distributing a machine learning model or an associated information artifact</iof-av:naturalLanguageDefinition>
+	</owl:Class>
+
+</rdf:RDF>
