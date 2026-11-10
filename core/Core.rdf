@@ -613,6 +613,28 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:synonym xml:lang="en-US">ability</iof-av:synonym>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;Classifier">
+		<rdfs:label xml:lang="en-US">classifier</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Denoter">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;classifies"/>
+						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>UNSPSC code 26101507 classifies  turboshaft engine, pBR322 classifies a plasmid</skos:example>
+		<iof-av:counterExample>serial number of a product, lot number of a lot</iof-av:counterExample>
+		<iof-av:firstOrderLogicDefinition>Classifier(x) ↔ Denoter(x) ∧ ∃e(classifies(x, e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">denoter that classifies some entity</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘classifier’ is defined exactly as an ‘information content entity’ that ‘classifies’ some entity</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;Collection">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
 		<rdfs:label>collection</rdfs:label>
@@ -637,28 +659,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		</owl:equivalentClass>
 		<iof-av:firstOrderLogicDefinition>CollectionItemSlot(x) ↔ InformationSlot(x) ∧ ∃y (Collection(y) ∧ isSlotOf(x, y))</iof-av:firstOrderLogicDefinition>
 		<iof-av:naturalLanguageDefinition>information slot that is the slot of a collection</iof-av:naturalLanguageDefinition>
-	</owl:Class>
-
-	<owl:Class rdf:about="&iof-constr;Classifier">
-		<rdfs:label xml:lang="en-US">classifier</rdfs:label>
-		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;Denoter">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;classifies"/>
-						<owl:someValuesFrom rdf:resource="&bfo;BFO_0000001"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>UNSPSC code 26101507 classifies  turboshaft engine, pBR322 classifies a plasmid</skos:example>
-		<iof-av:counterExample>serial number of a product, lot number of a lot</iof-av:counterExample>
-		<iof-av:firstOrderLogicDefinition>Classifier(x) ↔ Denoter(x) ∧ ∃e(classifies(x, e))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">denoter that classifies some entity</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>every instance of ‘classifier’ is defined exactly as an ‘information content entity’ that ‘classifies’ some entity</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;CommercialService">
@@ -847,35 +847,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;computing process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;concretizes at some time&apos; an &apos;encoded algorithm&apos; or &apos;algorithm&apos; y which &apos;generically depends on at some time&apos; some &apos;agent&apos; which &apos;participates in at some time&apos; the &apos;computing process&apos; and the &apos;computing process&apos; either &apos;achieves at some time&apos; some &apos;objective specification&apos; that is &apos;continuant part of at all times y or it &apos;has specified output&apos; some &apos;information content entity&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;ContextualizedInformationSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label>contextualized information slot</rdfs:label>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasContextAnchorSlot"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasInterpretationAnchorSlot"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<skos:example>A list member slot may have as its context anchor slot the list member slot for the previous item and as its interpretation anchor slot a precedence slot, meaning that the ordering of the slots within the list is based on the precedence relation mediated by that precedence slot.</skos:example>
-		<iof-av:explanatoryNote>1) This class is used to represent a ternary contextualisation relation of the form CoS(u,s,t) using only binary relations in OWL. In the source pattern, u is the contextualised slot determined relative to a context slot s and a slot t associated with the filler of s.
-2) Because OWL object properties are binary, we reify the ternary relation by treating the contextualised slot u itself as the locus of the contextualisation and linking it to the other two arguments with two properties: hasContextAnchorSlot(u,s) and hasInterpretationAnchorSlot(u,t).
-3) The defining axioms for these two properties ensure that s and t are not arbitrary: u and s are slots of the same information content entity, the bearer of t is the information content entity that fills s, and u and t share a filler.
-4) This design preserves the intended dependency structure of the original ternary relation while remaining compatible with OWL modeling and validation tooling; additional use-case semantics (e.g., list ordering conditions carried by the slot type of t) can be stated separately without changing the core reification pattern.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicDefinition>ContextualizedInformationSlot(x) ↔ InformationSlot(x) ∧ ∃y∃z (InformationContentEntity(y) ∧ InformationContentEntity(z) ∧ hasContextAnchorSlot(x, y) ∧ hasInterpretationAnchorSlot(x, z))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition>information slot that has a context anchor slot and has an interpretation anchor slot</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;contextualized information slot&apos; if and only if x is an &apos;information slot&apos; and there exists an &apos;information slot&apos; y and  &apos;information slot&apos; z such that x &apos;has context anchor slot&apos; y and x &apos;has interpretation anchor slot&apos; z</iof-av:semiFormalNaturalLanguageDefinition>
-	</owl:Class>
-
 	<owl:Class rdf:about="&iof-constr;Consumable">
 		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
 		<rdfs:label xml:lang="en-US">consumable</rdfs:label>
@@ -995,6 +966,35 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact designed to hold one or more material entities within a bounded interior, cavity, surface-delimited area, or contained site</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;container&apos; is exactly an instance of &apos;material artifact&apos; that &apos;has function&apos; some &apos;material containment function&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;ContextualizedInformationSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:label>contextualized information slot</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;InformationSlot">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasContextAnchorSlot"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasInterpretationAnchorSlot"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;InformationSlot"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>A list member slot may have as its context anchor slot the list member slot for the previous item and as its interpretation anchor slot a precedence slot, meaning that the ordering of the slots within the list is based on the precedence relation mediated by that precedence slot.</skos:example>
+		<iof-av:explanatoryNote>1) This class is used to represent a ternary contextualisation relation of the form CoS(u,s,t) using only binary relations in OWL. In the source pattern, u is the contextualised slot determined relative to a context slot s and a slot t associated with the filler of s.
+2) Because OWL object properties are binary, we reify the ternary relation by treating the contextualised slot u itself as the locus of the contextualisation and linking it to the other two arguments with two properties: hasContextAnchorSlot(u,s) and hasInterpretationAnchorSlot(u,t).
+3) The defining axioms for these two properties ensure that s and t are not arbitrary: u and s are slots of the same information content entity, the bearer of t is the information content entity that fills s, and u and t share a filler.
+4) This design preserves the intended dependency structure of the original ternary relation while remaining compatible with OWL modeling and validation tooling; additional use-case semantics (e.g., list ordering conditions carried by the slot type of t) can be stated separately without changing the core reification pattern.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>ContextualizedInformationSlot(x) ↔ InformationSlot(x) ∧ ∃y∃z (InformationContentEntity(y) ∧ InformationContentEntity(z) ∧ hasContextAnchorSlot(x, y) ∧ hasInterpretationAnchorSlot(x, z))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition>information slot that has a context anchor slot and has an interpretation anchor slot</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;contextualized information slot&apos; if and only if x is an &apos;information slot&apos; and there exists an &apos;information slot&apos; y and  &apos;information slot&apos; z such that x &apos;has context anchor slot&apos; y and x &apos;has interpretation anchor slot&apos; z</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;Customer">
@@ -1635,6 +1635,62 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 		<iof-av:semiFormalNaturalLanguageDefinition>x is an &apos;information slot&apos; if and only if x is a &apos;generically depedent continuant&apos; and there exists an &apos;information content entity&apos; y such that x &apos;is slot of&apos; y</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;InputSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000002">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;isInputOf"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;PlannedProcess"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000020">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
+										<owl:someValuesFrom>
+											<owl:Class>
+												<owl:intersectionOf rdf:parseType="Collection">
+													<rdf:Description rdf:about="&bfo;BFO_0000002">
+													</rdf:Description>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;isInputOf"/>
+														<owl:someValuesFrom rdf:resource="&iof-constr;PlannedProcess"/>
+													</owl:Restriction>
+												</owl:intersectionOf>
+											</owl:Class>
+										</owl:someValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">input specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
+		<skos:example>A specification indicating that the cell culture media used in the expansion procedure must contain glutamine at ≥ 2 mM and be supplemented with a validated serum lot; A formulation recipe operation with an input specification stating that the stabilizing excipient must be Trehalose Dihydrate, USP grade, and present in sufficient quantity to reach 50 mM final concentration; A specification for a cell imaging protocol requiring input slides to contain at least 90% confluency before proceeding with high-content imaging; A maintenance work instruction with an input specification requiring the replacement filter cartridge used in the filter replacement operation to be the specified model and micron rating; A specification for a batch calculation step requiring the input sensor readings to be time-stamped and include units for each measured quantity; A specification stating that a freight shipment must be palletized on standard pallets and secured for transport before loading.</skos:example>
+		<iof-av:counterExample>Machine must be powered on before starting the procedure; The system must be depressurized and isolated before maintenance begins; The workspace must be cleaned and cleared of tools before starting the task; The room temperature must be between 18 °C and 22 °C before initiating the process</iof-av:counterExample>
+		<iof-av:firstOrderLogicAxiom>InputSpecification(x) → InformationContentEntity(x) ∧ ∀y(prescribes(x,y) → ((Continuant(y) ∧ ∃p(isInputOf(y,p) ∧ PlannedProcess(p))) ∨ (SpecificallyDependentContinuant(y) ∧ ∃z(specificallyDependsOn(y,z) ∧ Continuant(z) ∧∃p (isInputOf(z,p) ∧ PlannedProcess(p))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes the entities to be used as inputs to a planned process or the attributes they must posses to serve as valid inputs</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;input specification&apos; then x is an &apos;information content entity&apos; and whenever x &apos;prescribes&apos; some y that y mustbe either a &apos;continuant&apos; that &apos;is input of&apos; some &apos;planned process&apos; or a &apos;specifically dependent continuant&apos; that &apos;specifically depends on&apos; some &apos;continuant&apos; that &apos;is input of&apos; some &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;List">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Collection"/>
 		<rdfs:label>list</rdfs:label>
@@ -1691,62 +1747,6 @@ NL definition: OAGIS and CCO</iof-av:adaptedFrom>
 				</owl:intersectionOf>
 			</owl:Class>
 		</owl:equivalentClass>
-	</owl:Class>
-
-	<owl:Class rdf:about="&iof-constr;InputSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-				<owl:allValuesFrom>
-					<owl:Class>
-						<owl:unionOf rdf:parseType="Collection">
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000002">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&iof-constr;isInputOf"/>
-										<owl:someValuesFrom rdf:resource="&iof-constr;PlannedProcess"/>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&bfo;BFO_0000020">
-									</rdf:Description>
-									<owl:Restriction>
-										<owl:onProperty rdf:resource="&bfo;BFO_0000195"/>
-										<owl:someValuesFrom>
-											<owl:Class>
-												<owl:intersectionOf rdf:parseType="Collection">
-													<rdf:Description rdf:about="&bfo;BFO_0000002">
-													</rdf:Description>
-													<owl:Restriction>
-														<owl:onProperty rdf:resource="&iof-constr;isInputOf"/>
-														<owl:someValuesFrom rdf:resource="&iof-constr;PlannedProcess"/>
-													</owl:Restriction>
-												</owl:intersectionOf>
-											</owl:Class>
-										</owl:someValuesFrom>
-									</owl:Restriction>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:unionOf>
-					</owl:Class>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">input specification</rdfs:label>
-		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
-		<skos:example>A specification indicating that the cell culture media used in the expansion procedure must contain glutamine at ≥ 2 mM and be supplemented with a validated serum lot; A formulation recipe operation with an input specification stating that the stabilizing excipient must be Trehalose Dihydrate, USP grade, and present in sufficient quantity to reach 50 mM final concentration; A specification for a cell imaging protocol requiring input slides to contain at least 90% confluency before proceeding with high-content imaging; A maintenance work instruction with an input specification requiring the replacement filter cartridge used in the filter replacement operation to be the specified model and micron rating; A specification for a batch calculation step requiring the input sensor readings to be time-stamped and include units for each measured quantity; A specification stating that a freight shipment must be palletized on standard pallets and secured for transport before loading.</skos:example>
-		<iof-av:counterExample>Machine must be powered on before starting the procedure; The system must be depressurized and isolated before maintenance begins; The workspace must be cleaned and cleared of tools before starting the task; The room temperature must be between 18 °C and 22 °C before initiating the process</iof-av:counterExample>
-		<iof-av:firstOrderLogicAxiom>InputSpecification(x) → InformationContentEntity(x) ∧ ∀y(prescribes(x,y) → ((Continuant(y) ∧ ∃p(isInputOf(y,p) ∧ PlannedProcess(p))) ∨ (SpecificallyDependentContinuant(y) ∧ ∃z(specificallyDependsOn(y,z) ∧ Continuant(z) ∧∃p (isInputOf(z,p) ∧ PlannedProcess(p))))))</iof-av:firstOrderLogicAxiom>
-		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that prescribes the entities to be used as inputs to a planned process or the attributes they must posses to serve as valid inputs</iof-av:naturalLanguageDefinition>
-		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;input specification&apos; then x is an &apos;information content entity&apos; and whenever x &apos;prescribes&apos; some y that y mustbe either a &apos;continuant&apos; that &apos;is input of&apos; some &apos;planned process&apos; or a &apos;specifically dependent continuant&apos; that &apos;specifically depends on&apos; some &apos;continuant&apos; that &apos;is input of&apos; some &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:wasDefinedBy></iof-av:wasDefinedBy>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;LossOfRole">
@@ -4637,8 +4637,8 @@ category within a classification scheme of an entity that the value expression i
 	<owl:ObjectProperty rdf:about="&iof-constr;isItemOf">
 		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/Core/</rdfs:isDefinedBy>
 		<rdfs:range rdf:resource="&iof-constr;Collection"/>
-  </owl:ObjectProperty>
-
+	</owl:ObjectProperty>
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;isMadeOfAtAllTimes">
 		<rdfs:subPropertyOf rdf:resource="&bfo;BFO_0000110"/>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;isMadeOfAtSomeTime"/>
@@ -5209,7 +5209,7 @@ category within a classification scheme of an entity that the value expression i
 		<rdf:type rdf:resource="&iof-constr;SetMemberSlot"/>
 		<iof-constr:hasFiller rdf:resource="&iof-constr;i5"/>
 	</owl:NamedIndividual>
-
+	
 	<owl:ObjectProperty rdf:about="&iof-constr;specializes">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:subPropertyOf rdf:resource="&iof-constr;denotedBy"/>
