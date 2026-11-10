@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+	<!ENTITY bfo "http://purl.obolibrary.org/obo/">
+	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY dcterms "http://purl.org/dc/terms/">
+	<!ENTITY dtype "http://www.linkedmodel.org/schema/dtype#">
+	<!ENTITY iof-av "https://spec.industrialontologies.org/ontology/annotation/">
+	<!ENTITY iof-constr "https://spec.industrialontologies.org/ontology/construct/">
+	<!ENTITY iof-core "https://spec.industrialontologies.org/ontology/core/Core/">
+	<!ENTITY iof-ind "https://spec.industrialontologies.org/ontology/individual/">
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/"
+	xmlns:bfo="http://purl.obolibrary.org/obo/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dtype="http://www.linkedmodel.org/schema/dtype#"
+	xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/"
+	xmlns:iof-constr="https://spec.industrialontologies.org/ontology/construct/"
+	xmlns:iof-core="https://spec.industrialontologies.org/ontology/core/Core/"
+	xmlns:iof-ind="https://spec.industrialontologies.org/ontology/individual/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+	
+	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/">
+		<rdfs:label xml:lang="en-US">Biopharma Deviation Management Ontology</rdfs:label>
+		<dcterms:abstract xml:lang="en-US">The Biopharma Deviation Management Ontology provides constructs for representing deviations from approved plans, procedures, requirements, limits, and ranges in biopharmaceutical development and manufacturing. It supports modeling how deviation events are documented, contained, investigated, assessed for impact, resolved, and closed, including root-cause determination and corrective and preventive action planning. The module enables deviation-management information to be represented in relation to affected processes, materials, batches, equipment, and product quality decisions. It is intended to support consistent representation of deviation knowledge across GMP manufacturing, process monitoring, batch review, investigations, CAPA follow-up, and lifecycle quality management.</dcterms:abstract>
+		<dcterms:license rdf:datatype="&xsd;anyURI">http://opensource.org/licenses/MIT</dcterms:license>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMonitoringAndControl/"/>
+		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/biopharma/ReferenceOntologyCandidates/"/>
+		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202602/biopharma/BiopharmaDeviationManagement/"/>
+		<iof-av:copyright>Copyright (c) 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
+		<iof-av:maturity rdf:resource="&iof-ind;Provisional"/>
+	</owl:Ontology>
+	
+	<owl:Class rdf:about="&iof-constr;CorrectiveAction">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">corrective action</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Operator retraining performed after a batch record execution error is traced to insufficient training; Cleaning procedure revision performed after residue carryover is traced to an inadequate cleaning instruction; Temperature-control component replacement performed after a temperature excursion is traced to equipment failure; Sensor replacement and calibration-frequency update performed after sensor drift is identified as the cause of an out-of-limit process reading;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Corrective action is taken to prevent recurrence of a detected nonconformity or other undesirable situation, whereas preventive action is taken to prevent occurrence of a potential nonconformity or other potential undesirable situation.
+2) Corrective action should not be confused with a control action that adjusts a process or equipment in response to deviation from a target or setpoint. For example, increasing heating-fluid flow when reactor temperature falls below its setpoint is a control action, not a corrective action.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CorrectiveAction(x) → PlannedProcess(x) ∧ ∃p(CorrectiveActionPreventiveActionPlanSpecification(p) ∧ prescribedBy(x, p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is carried out to eliminate the cause of a detected non-conformity or other undesirable situation</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;corrective action&apos; then x is a &apos;planned process&apos; and x is &apos;prescribed by&apos; some &apos;corrective action preventive action plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;CorrectiveActionPreventiveActionEffectivenessCheck">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;Agent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;CorrectiveAction">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;PreventiveAction">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">corrective action preventive action effectiveness check</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Review of subsequent batch records to confirm that retraining reduced recurrence of batch record execution errors; Review of cleaning verification results after a cleaning procedure revision to confirm that residue carryover has not recurred; Review of temperature monitoring data after equipment repair to confirm that temperature excursions have not recurred;</skos:example>
+		<iof-av:abbreviation>CAPA effectiveness check</iof-av:abbreviation>
+		<iof-av:adaptedFrom>https://www.bioprocessintl.com/qa-qc/biopharmaceutical-quality-managing-good-manufacturing-practice-deviations</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>CAPA effectiveness check may involve review of monitoring results, follow-up observations, subsequent deviations or nonconformities, process or product data, audit findings, or other relevant records.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CorrectiveActionPreventiveActionEffectivenessCheck(x) → PlannedProcess(x) ∧ ∃a (Agent(a) ∧ hasParticipantAtSomeTime(x, a)) ∧ ∃p ((CorrectiveAction(p) ∨ PreventiveAction(p)) ∧ precededBy(x, p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the effectiveness of implemented corrective actions or preventive actions is evaluated</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;corrective action preventive action effectiveness check&apos; then x is a &apos;planned process&apos;, x &apos;has participant at some time&apos; some &apos;agent&apos;, and x is &apos;preceded by&apos; some &apos;corrective action&apos; or &apos;preventive action&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlanSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;CorrectiveAction">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;PreventiveAction">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">corrective action preventive action plan specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:altLabel>CAPA plan specification</skos:altLabel>
+		<skos:example>CAPA plan specification prescribing retraining after repeated batch record errors; CAPA plan specification prescribing procedure revision after an inadequate cleaning instruction is identified; CAPA plan specification prescribing equipment repair after a temperature-control failure; CAPA plan specification prescribing supplier corrective action after repeated raw material documentation issues;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf#page=12.37</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>LA1: CorrectiveActionPreventiveActionPlanSpecification(x) → PlanSpecification(x) ∧ ∀y (prescribes(x, y) → (CorrectiveAction(y) ∨ PreventiveAction(y)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: PlanSpecification(x) ∧ ∃y(prescribes(x,y) ∧ (CorrectiveAction(y) ∨ PreventiveAction(y))) → CorrectiveActionPreventiveActionPlanSpecification(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes one or more corrective actions or preventive actions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA1: if x is a &apos;corrective action preventive action plan specification&apos; then x is a &apos;plan specification&apos; and x &apos;prescribes&apos; only &apos;corrective action&apos; or &apos;preventive action&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>LA2: if x is a &apos;plan specification&apos; that &apos;prescribes&apos; some &apos;corrective action&apos; or &apos;preventive action&apos; then x is a &apos;corrective action preventive action plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationContainmentProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000062"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;isTemporallyOverlappedBy"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000063"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationInvestigationProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;temporallyOverlaps"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationInvestigationProcess"/>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation containment process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Placing an affected raw material lot in quarantine after a temperature excursion before the deviation investigation begins; Holding a process intermediate after a bioburden excursion while the deviation investigation is initiated; Restricting release of a batch after an equipment-control failure while the impact assessment and investigation are underway; Pausing a downstream processing step after use of an incorrect buffer before formal investigation activities begin; Segregating affected product units after a labeling deviation while the deviation investigation proceeds; Stopping use of a potentially compromised single-use assembly after an integrity issue is detected before the investigation determines scope and root cause.</skos:example>
+		<iof-av:adaptedFrom>https://oxmaint.com/industries/steel-plant/quality-deviation-management-system</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) In this context, ‘prevent further propagation of the deviation or its effects’ means either preventing the deviation from causing additional impact through the affected material entity or process, or preventing the affected material entity from proceeding further in processing, release, distribution, or use.
+2) This process is carried out after recognition of a deviation event and before or alongside (overlaps) subsequent deviation investigation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DeviationContainmentProcess(x) → PlannedProcess(x) ∧ ∃d(DeviationEvent(d) ∧ (precededBy(x,d) ∨ isTemporallyOverlappedBy(x,d))) ∧ (∃i(DeviationInvestigationProcess(i) ∧ precedes(x,i)) ∨ ∃j(DeviationInvestigationProcess(j) ∧ temporallyOverlaps(x,j)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process carried out after recognition of a deviation event in which actions are taken with respect to affected material entities or processes to prevent the deviation or its effects from propagating further</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation containment process&apos; then x is a &apos;planned process&apos;, x is either &apos;preceded by&apos; or &apos;is temporally overlapped by&apos; some &apos;deviation event&apos;, and x either &apos;precedes&apos; or &apos;temporally overlaps&apos; some &apos;deviation investigation process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationDescription">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation description</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Description of an occurrence during buffer preparation in which the measured pH was beyond the applicable limit</skos:example>
+		<iof-av:adaptedFrom>https://www.bioprocessintl.com/qa-qc/biopharmaceutical-quality-managing-good-manufacturing-practice-deviations and https://www.biopharminternational.com/view/risk-based-approach-deviation-management</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DeviationDescription(x) → InformationContentEntity(x) ∧ ∃y (describes(x, y) ∧ DeviationEvent(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity generated as part of deviation management to describe the occurrence and relevant circumstances of a deviation event</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation description&apos; then x is an &apos;information content entity&apos; that &apos;describes&apos; some &apos;deviation event&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationEvent">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Event"/>
+		<rdfs:label xml:lang="en-US">deviation event</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Occurrence during buffer preparation in which the measured pH exceeded the applicable action limit; execution of media preparation using a raw-material lot other than the one specified; omission of a required in-process sample during batch execution; continuation of processing beyond the specified hold time for a process intermediate.</skos:example>
+		<iof-av:adaptedFrom>https://www.scilife.io/blog/how-to-handle-deviations and https://www.thefdagroup.com/blog/deviation-management and https://www.biopharminternational.com/view/risk-based-approach-deviation-management</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Deviation events may be detected through monitoring, for example, an excursion of a monitored variable beyond an alert, action, control, or specification boundary where the applicable procedure requires the excursion to be handled as a deviation, or through review of records, for example, procedural departures, documentation errors, use of an unintended material lot, or missed sampling or hold-time requirements. In many quality management settings, deviation events are classified based on their actual or potential impact on product safety, identity, strength, purity, and quality, together with applicable biologics-specific considerations such as potency.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DeviationEvent(x) → Event(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">event in which a departure occurs from an applicable plan, requirement specification, or specified range, target or limit</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation event&apos; then x is an &apos;event&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationEventClassifier">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Classifier"/>
+		<rdfs:label xml:lang="en-US">deviation event classifier</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;Classifier">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;classifies"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Minor deviation classifier applied to a deviation event with no expected quality impact; Major deviation classifier applied to a deviation event requiring formal investigation; Critical deviation classifier applied to a deviation event with highly probable serious patient-safety or product-quality consequences</skos:example>
+		<iof-av:explanatoryNote>1) A deviation event classifier is used to categorize deviation events for investigation, escalation, disposition, or quality-system handling. Examples include classifiers such as minor deviation, major deviation, critical deviation. This class should be distinguished from deviation event identifiers, such as deviation numbers or tracking IDs, which designate a specific deviation event.
+2) The detailed criteria for minor, major, and critical classification are prescribed by the applicable deviation management plan specification and should be based on risk, the nature and scope of the deviation, recurrence, and applicable quality-system requirements.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>DeviationEventClassifier(x) ↔ Classifier(x) ∧ ∃y (classifies(x, y) ∧ DeviationEvent(y))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">classifier that classifies a deviation event</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;deviation event classifier&apos; is defined as exactly an instance of &apos;classifier&apos; that &apos;classifies&apos; some &apos;deviation event&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationImpactAssessment">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">deviation impact assessment</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationDescription"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationImpactAssessmentResult"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Assessment of whether a temperature excursion affected a stored raw material lot; Assessment of whether a pH excursion during buffer preparation affected buffer suitability for use; Assessment of whether a bioburden excursion affected an in-process purification pool; Assessment of whether use of an incorrect buffer affected a downstream processing step or process intermediate;</skos:example>
+		<iof-av:adaptedFrom>https://www.gmp-inspection.com/en/glossary/deviation-management/ and https://www.pharmtech.com/view/regulation-and-compliance-deviation-investigations#:~:text=Impact%20assessment:%20A%20clear%20and,be%20objective%20and%20scientifically%20valid.</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>The assessment evaluates the actual or potential impact of a deviation event on process and product quality and identifies material entities or processes that are affected or potentially affected.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>DeviationImpactAssessment(x) ↔ PlannedProcess(x) ∧ ∃d∃e∃r(DeviationDescription(d) ∧ DeviationEvent(e) ∧ DeviationImpactAssessmentResult(r) ∧ hasInput(x,d) ∧ describes(d,e) ∧ hasSpecifiedOutput(x,r) ∧ isAbout(r,e))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the actual or potential impact of a deviation event is evaluated</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;deviation impact assessment&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has input&apos; some &apos;deviation description&apos; describing a &apos;deviation event&apos; and &apos;has specified output&apos; some &apos;deviation impact assessment result&apos; that &apos;is about&apos; that same &apos;deviation event&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationImpactAssessmentResult">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000015">
+							</rdf:Description>
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation impact assessment result</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Assessment result describing the potential impact of a temperature excursion on a stored raw material lot; Assessment result describing the potential impact of a missed in-process sample on a manufacturing batch; Assessment result describing the potential impact of an out-of-limit pH event on a buffer preparation process; Assessment result describing the potential impact of a bioburden excursion on an in-process purification pool;</skos:example>
+		<iof-av:firstOrderLogicAxiom>DeviationImpactAssessmentResult(x) → InformationContentEntity(x) ∧ ∃d (isAbout(x, d) ∧ DeviationEvent(d)) ∧ ∃y (describes(x, y) ∧ (Process(y) ∨ MaterialEntity(y)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that describes the actual or potential impact of a deviation event on one or more material entities or processes that are affected or potentially affected</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions. In particular, details about impact modeling are missing.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation impact assessment result&apos; then x is an &apos;information content entity&apos;, x &apos;is about&apos; some &apos;deviation event&apos;, and x &apos;describes&apos; some &apos;process&apos; or &apos;material entity&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationInvestigationProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">deviation investigation process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;PlannedProcess">
+					</rdf:Description>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;Agent"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationImpactAssessment"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;PlannedProcess">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasSpecifiedOutput"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationManagementProcess"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationDescription"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasSpecifiedOutput"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;DeviationInvestigationReport"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>Deviation investigation process for a major temperature excursion affecting a raw material lot in warehouse storage; Deviation investigation process for a sterilization-cycle failure involving equipment or materials intended for aseptic processing; Deviation investigation process for a bioburden excursion detected in an in-process purification pool; Deviation investigation process for use of an incorrect buffer during a downstream processing step; Deviation investigation process for an equipment-control failure during cell culture;</skos:example>
+		<iof-av:adaptedFrom>https://www.gmp-inspection.com/en/glossary/deviation-management/ and https://www.bioprocessintl.com/qa-qc/biopharmaceutical-quality-managing-good-manufacturing-practice-deviations</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) The investigation typically begins with fact gathering (for example interviews, record review, inspections/testing, observation, review of similar past events, and, when appropriate, experiments/simulations) and should result in an analysis that supports cause determination rather than a restatement of the problem. 
+2) The extent of investigation activities can be scaled based on risk, and it can include determining the scope of affected materials/batches and whether immediate containment actions are needed.
+3) This process includes establishing a corrective and preventive action plan specification that addresses the deviation event. Implementation of the specified actions may occur subsequently.
+4) In the case of a minor deviation, a formal root cause investigation may not be needed because the cause may be obvious.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>DeviationInvestigationProcess(x) ↔ PlannedProcess(x) ∧ ∃d∃e∃a∃i∃p∃c∃g∃r∃m(DeviationDescription(d) ∧ DeviationEvent(e) ∧ describes(d,e) ∧ hasInput(x,d) ∧ DeviationImpactAssessment(a) ∧ hasOccurrentPart(x,a) ∧ hasInput(a,d) ∧ DeviationImpactAssessmentResult(i) ∧ hasSpecifiedOutput(a,i) ∧ isAbout(i,e) ∧ PlannedProcess(p) ∧ hasOccurrentPart(x,p) ∧ CorrectiveActionPreventiveActionPlanSpecification(c) ∧ hasSpecifiedOutput(p,c) ∧ Agent(g) ∧ hasParticipantAtSomeTime(x,g) ∧ DeviationInvestigationReport(r) ∧ hasSpecifiedOutput(x,r) ∧ hasContinuantPartAtAllTimes(r,d) ∧ hasContinuantPartAtAllTimes(r,i) ∧ hasContinuantPartAtAllTimes(r,c) ∧ DeviationManagementProcess(m) ∧ occurrentPartOf(x,m))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which an agent gathers and analyzes information about a deviation event to assess its cause and actual or potential impact and to establish a CAPA plan specification that addresses the deviation event</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;deviation investigation process&apos; is defined as exactly an instance of &apos;planned process&apos; that &apos;has input&apos; some &apos;deviation description&apos; describing a &apos;deviation event&apos;, &apos;has occurrent part&apos; some &apos;deviation impact assessment&apos; that uses that description and produces a &apos;deviation impact assessment result&apos; about that same event, &apos;has occurrent part&apos; some &apos;planned process&apos; that produces a &apos;corrective action preventive action plan specification&apos;, &apos;has participant at some time&apos; some &apos;agent&apos;, &apos;has specified output&apos; some &apos;deviation investigation report&apos; containing that same description, impact assessment result, and CAPA plan specification, and is &apos;occurrent part of&apos; some &apos;deviation management process&apos;</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationInvestigationReport">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationDescription"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationImpactAssessmentResult"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSpecifiedOutputOf"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationInvestigationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation investigation report</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Deviation investigation report for a major temperature excursion affecting a raw material lot in warehouse storage, including investigation findings and conclusions; deviation investigation report for a sterilization-cycle failure affecting equipment or materials intended for aseptic processing, including investigation findings, conclusions, and resulting corrective actions; deviation investigation report for a bioburden excursion detected in a purification pool, including investigation findings and conclusions</skos:example>
+		<iof-av:firstOrderLogicAxiom>DeviationInvestigationReport(x) → InformationContentEntity(x) ∧ ∃p∃d∃e∃i∃c(DeviationInvestigationProcess(p) ∧ isSpecifiedOutputOf(x,p) ∧ DeviationDescription(d) ∧ hasContinuantPartAtAllTimes(x,d) ∧ DeviationEvent(e) ∧ describes(d,e) ∧ DeviationImpactAssessmentResult(i) ∧ hasContinuantPartAtAllTimes(x,i) ∧ isAbout(i,e) ∧ CorrectiveActionPreventiveActionPlanSpecification(c) ∧ hasContinuantPartAtAllTimes(x,c))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that records the findings and conclusions of a deviation investigation process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation investigation report&apos; then x is an &apos;information content entity&apos; that &apos;is specified output of&apos; some &apos;deviation investigation process&apos;, &apos;has continuant part at all times&apos; some &apos;deviation description&apos; describing a &apos;deviation event&apos;, &apos;has continuant part at all times&apos; some &apos;deviation impact assessment result&apos; about that same event, and &apos;has continuant part at all times&apos; some &apos;corrective action preventive action plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationManagementPlanSpecification">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlanSpecification"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;DeviationManagementProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation management plan specification</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:altLabel>deviation management strategy</skos:altLabel>
+		<skos:example>Deviation management plan specification defining how deviations are detected, documented, classified, investigated, assessed, resolved, and closed; Site deviation management plan specification defining the process for handling minor, major, and critical deviations; Deviation management plan specification defining escalation paths, investigation expectations, closure conditions, and follow-up requirements; Deviation management plan specification for manufacturing deviations occurring during batch execution;</skos:example>
+		<iof-av:explanatoryNote>1) A deviation management plan specification prescribes the overall approach by which deviations are to be detected, documented, classified, investigated, assessed, resolved, and closed.
+2) It may prescribe roles, required documentation, classification criteria, timelines, decision points, closure conditions, and expectations for defining, implementing, and following up corrective and preventive actions.
+3) In many quality systems, it functions as a higher-level specification that is implemented through more detailed procedural specifications and work instructions.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DeviationManagementPlanSpecification(x) → PlanSpecification(x) ∧ ∀y (prescribes(x, y) → DeviationManagementProcess(y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">plan specification that prescribes a deviation management process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>See the general discussion and rationale provided for informational entities under &apos;information content entity&apos;.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation management plan specification&apos; then x is a &apos;plan specification&apos; and x &apos;prescribes&apos; only &apos;deviation management process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationManagementProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationManagementPlanSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation management process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Site-level deviation management process for handling manufacturing deviations from discovery through documentation, classification, investigation, impact assessment, CAPA planning, and closure; Deviation management process for batch execution deviations identified during upstream or downstream processing; Deviation management process for laboratory deviations identified during sample handling, testing, result review, or data entry; Deviation management process for raw material or consumable deviations identified during incoming inspection, CoA review, or release-to-use assessment; Deviation management process for storage or transport excursions affecting materials, intermediates, or products;</skos:example>
+		<iof-av:adaptedFrom>https://www.gmp-inspection.com/en/glossary/deviation-management/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Deviation management is typically broader than the investigation of a single deviation.
+2) It includes the overall framework for identifying, documenting, classifying, investigating, assessing, resolving, and closing deviations, as well as defining and following up corrective and preventive actions.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>DeviationManagementProcess(x) → PlannedProcess(x) ∧ ∃p (prescribedBy(x, p) ∧ DeviationManagementPlanSpecification(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process for the identification, documentation, classification, investigation, assessment, resolution, and closure of deviations, including the definition, implementation, and follow-up of appropriate corrective and preventive actions</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation management process&apos; then x is a &apos;planned process&apos; and x is &apos;prescribed by&apos; some &apos;deviation management plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationRootCauseDescription">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;describes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000001">
+							</rdf:Description>
+							<owl:Class>
+								<owl:complementOf rdf:resource="&bfo;BFO_0000006"/>
+							</owl:Class>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationEvent"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation root cause description</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Root cause documented as incorrect equipment setup before batch execution; Inadequate cleaning procedure identified as the root cause of residue carryover; Operator training gap identified as the root cause of repeated batch record errors; Sensor calibration drift identified as the root cause of an out-of-limit temperature reading; Raw material mix-up identified as the root cause of use of an incorrect media component; Bioreactor temperature-control failure identified as the root cause of a culture temperature excursion;</skos:example>
+		<iof-av:firstOrderLogicAxiom>DeviationRootCauseDescription(x) → InformationContentEntity(x) ∧ ∃d (isAbout(x, d) ∧ DeviationEvent(d)) ∧ ∃e (describes(x, e) ∧ Entity(e) ∧ ¬SpatialRegion(e))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information content entity that records a conclusion concerning the root cause or most probable cause of a deviation event</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation root cause description&apos; then x is an &apos;information content entity&apos;, x &apos;is about&apos; some &apos;deviation event&apos;, and x &apos;describes&apos; some &apos;entity&apos; that is not a &apos;spatial region&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;DeviationRootCauseInvestigation">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationInvestigationProcess"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationDescription"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasSpecifiedOutput"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationRootCauseDescription"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">deviation root cause investigation</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Root cause investigation evaluating equipment history, calibration records, alarm data, control-loop performance, operator actions, and batch records after a bioreactor temperature excursion</skos:example>
+		<iof-av:adaptedFrom>https://www.pharmtech.com/view/regulation-and-compliance-deviation-investigations and https://www.gmp-inspection.com/en/glossary/deviation-management/</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>DeviationRootCauseInvestigation(x) → PlannedProcess(x) ∧ ∃d∃e∃r∃p(DeviationDescription(d) ∧ DeviationEvent(e) ∧ describes(d,e) ∧ hasInput(x,d) ∧ DeviationRootCauseDescription(r) ∧ isAbout(r,e) ∧ hasSpecifiedOutput(x,r) ∧ DeviationInvestigationProcess(p) ∧ occurrentPartOf(x,p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that evaluates candidate causes of a deviation event using relevant evidence to determine the most probable cause or causes and any contributing factors</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;deviation root cause investigation&apos; then x is a &apos;planned process&apos;, x &apos;has input&apos; some &apos;deviation description&apos; describing a &apos;deviation event&apos;, x &apos;has specified output&apos; some &apos;deviation root cause description&apos; that &apos;is about&apos; that same &apos;deviation event&apos;, and x is &apos;occurrent part of&apos; some &apos;deviation investigation process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;PreventiveAction">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribedBy"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">preventive action</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>Procedure revision performed after trend analysis identifies increasing risk of batch record errors; Additional operator training implemented before a new process step is introduced to prevent execution errors; Preventive maintenance added for a temperature-control unit after reliability review identifies increased failure risk; Supplier monitoring increased after early warning trends suggest potential raw material documentation issues;</skos:example>
+		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q10%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Corrective action is taken to prevent recurrence of a detected nonconformity or other undesirable situation, whereas preventive action is taken to prevent occurrence of a potential nonconformity or other potential undesirable situation.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>PreventiveAction(x) → PlannedProcess(x) ∧ ∃p (prescribedBy(x, p) ∧ CorrectiveActionPreventiveActionPlanSpecification(p))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that is carried out to eliminate the cause of a potential non-conformity or other undesirable potential situation</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;preventive action&apos; then x is a &apos;planned process&apos; and x is &apos;prescribed by&apos; some &apos;corrective action preventive action plan specification&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;ProcessExcursion">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Event"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000132"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;PlannedProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;MonitoringProcess"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">process excursion</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaDeviationManagement/</rdfs:isDefinedBy>
+		<skos:example>temperature excursion during a cell culture process when the monitored temperature exceeds the action limit; pH excursion during buffer preparation when the measured pH is outside the approved range; dissolved oxygen excursion during bioreactor operation when the monitored value falls below the control limit; conductivity excursion during chromatography when the monitored conductivity is outside the specified range</skos:example>
+		<iof-av:adaptedFrom>https://www.biopharminternational.com/view/monitoring-biopharmaceutical-processes-present-and-future-approaches and https://insideautomation.net/workflow-for-biopharmaceutical-excursions/ and https://database.ich.org/sites/default/files/Q8_Q9_Q10_Q%26As_R4_Points_to_Consider_0.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>A process excursion may or may not constitute a deviation event. Whether a process excursion constitutes a deviation event depends on the applicable plan, specification, limit, range, procedure, or other requirement.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>ProcessExcursion(x) → Event(x) ∧ ∃p (occurrentPartOf(x, p) ∧ PlannedProcess(p) ∧ ∃m (hasOccurrentPart(p, m) ∧ MonitoringProcess(m)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">event in which the value of a variable monitored during a planned process is beyond a predefined limit or outside a predefined range during that process</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;process excursion&apos; then x is an &apos;event&apos; and x is an &apos;occurrent part of&apos; some &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;monitoring process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;CorrectiveActionPreventiveActionPlanSpecification"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;CorrectiveAction">
+							</rdf:Description>
+							<rdf:Description rdf:about="&iof-constr;PreventiveAction">
+							</rdf:Description>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+	<owl:Class>
+		<rdfs:subClassOf rdf:resource="&iof-constr;DeviationManagementPlanSpecification"/>
+		<owl:intersectionOf rdf:parseType="Collection">
+			<rdf:Description rdf:about="&iof-constr;PlanSpecification">
+			</rdf:Description>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;DeviationManagementProcess"/>
+			</owl:Restriction>
+		</owl:intersectionOf>
+	</owl:Class>
+</rdf:RDF>

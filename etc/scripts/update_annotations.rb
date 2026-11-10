@@ -65,7 +65,7 @@ Dir['**/*.rdf'].each do |file|
     copyright = REXML::Element.new("iof-av:copyright")
     ontology.add_element(copyright)
   end
-  copyright.text = "Copyright (c) 2022, 2023, 2024, 2025 Open Applications Group"
+  copyright.text = "Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group"
 
   File.open(file, 'w') do |file|
     doc.write(output: file, indent: -1, transitive: false)
