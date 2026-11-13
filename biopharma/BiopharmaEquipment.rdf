@@ -482,15 +482,15 @@
 		<rdfs:label xml:lang="en-US">depth filter</rdfs:label>
 		<dcterms:contributor xml:lang="en-US">Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
-		<owl:disjointWith rdf:resource="&iof-constr;MembraneFilter"/>
-		<skos:example>Cellulose-based depth filter; polypropylene depth filter; glass fiber depth filter; cellulose acetate depth filter; polyester depth filter; diatomaceous earth (DE) depth filter; mixed cellulose ester depth filter; cellulose nitrate depth filter</skos:example>
-		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/solutions/lab-filtration/knowledge-center/glossary/depth-filter and https://www.iso.org/obp/ui#iso:std:iso:3857:-4:ed-1:v1:en:term:2.25</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Particles are entrapped or adsorbed both within and on the filter due to a randomly arranged matrix or structure that creates a tortuous flow path through the filter medium. This enables the retention of a broad range of particle sizes throughout the depth of the filter.</iof-av:explanatoryNote>
+		<skos:example>cellulose-based depth filter; polypropylene depth filter; glass-fiber depth filter; polyester depth filter; diatomaceous earth (DE) depth filter</skos:example>
+		<iof-av:adaptedFrom>https://www.cytivalifesciences.com/en/us/solutions/lab-filtration/knowledge-center/glossary/depth-filter; https://www.iso.org/obp/ui#iso:std:iso:3857:-4:ed-1:v1:en:term:2.25; https://www.afssociety.org/publications-resources/filtration-separation-glossary-of-terminology/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Constituents may be retained at multiple locations within the filter, with additional surface retention possible. Retention may involve mechanical entrapment, interception, adsorption, or electrostatic interactions.
+	2) Depth filters commonly have fibrous, granular, or layered structures and may include filter aids. They are widely used for clarification and prefiltration. A uniform, precisely defined pore size is not required.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>DepthFilter(x) → Filter(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filter that does not rely on a uniform, defined pore size and that is designed to retain particles both on its surface and within its internal matrix</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filter designed to retain constituents within the depth of a porous structure as fluid passes through it</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;depth filter&apos; then x is a &apos;filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'depth filter' then x is a 'filter'</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;DissolvedOxygenControllingCapability">
@@ -520,19 +520,136 @@
 	
 	<owl:Class rdf:about="&iof-constr;Filter">
 		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialArtifact"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFunction"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;FiltrationFunction"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000178"/>
+				<owl:someValuesFrom rdf:resource="&iof-constr;FiltrationMedium"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">filter</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
-		<skos:example>Polyvinylidene Fluoride (PVDF) membrane filter; Hollow-fiber Polyethersulfone (PES) membrane filter; Aramid/Nomex dust collector heat-resistant filter bag; Millistak+® HC Pro Pod Depth Filter</skos:example>
-		<iof-av:adaptedFrom>https://www.sciencedirect.com/topics/engineering/filtration-process</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Retention is achieved either by deposition of suspended particles on the filter surface or by capture of particles in the porous medium
-2) This definition uses &quot;retain&quot; to indicate the physical exclusion or capture of particles above a defined size. In the case of filters, this retention is achieved through structural exclusion or entrapment and is not reversible under normal operating conditions.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>Filter(x) → MaterialArtifact(x)</iof-av:firstOrderLogicAxiom>
+		<skos:example>PVDF membrane filter; hollow-fiber PES membrane filter; heat-resistant aramid (Nomex®) filter bag used in a dust collector; Millistak+® HC Pro Pod depth filter</skos:example>
+		<iof-av:adaptedFrom>https://www.afssociety.org/publications-resources/filtration-separation-glossary-of-terminology/; https://goldbook.iupac.org/terms/view/F02384</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>Filters may take the form of membrane discs, cartridges, capsules, cassettes, filter bags, or other configurations. Depending on their design, they may be self-contained or used with separate housings or holders.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>Filter(x) → MaterialArtifact(x) ∧ ∃f(FiltrationFunction(f) ∧ hasFunction(x,f)) ∧ ∃m(FiltrationMedium(m) ∧ hasContinuantPartAtSomeTime(x,m))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact that is porous and designed to retain particles above a certain size threshold when a fluid is passed through it</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material artifact designed to separate constituents of a fluid using a filtration medium that it has as part</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filter&apos; then x is a &apos;material artifact&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'filter' then x is a 'material artifact' that 'has function' some 'filtration function' and 'has continuant part at some time' some 'filtration medium'</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
+
+	<owl:Class rdf:about="&iof-constr;FiltrationCapability">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Capability"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">filtration capability</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<iof-av:adaptedFrom>https://www.afssociety.org/publications-resources/filtration-separation-glossary-of-terminology/; https://goldbook.iupac.org/terms/view/F02388</iof-av:adaptedFrom>
+		<skos:example>the filtration capability of a depth filter to retain cells and cell debris during harvest clarification; the filtration capability of a membrane filter to remove bacteria from a process fluid; the filtration capability of an ultrafiltration cassette to concentrate a protein solution by retaining proteins while buffer components pass through</skos:example>
+		<iof-av:counterExample>the capability of a centrifuge to separate cells from culture fluid by sedimentation; the capability of a Protein A chromatography column to separate antibodies through binding and subsequent elution</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) Filtration may involve sieving, interception, entrapment, adsorption, or selective membrane rejection. No individual retention mechanism is universally required.
+	2) The capability does not require complete retention of every instance of a selected constituent species or permanent retention following filtration.
+	3) Chromatography separates constituents through differential distribution between stationary and mobile phases. These separation principles may overlap in adsorption-based filtration and flow-through chromatography.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FiltrationCapability(x) → Capability(x) ∧ ∃m (MaterialEntity(m) ∧ capabilityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability to separate constituents of a fluid by preventing selected constituents from passing through a permeable medium while part of the fluid passes through</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'filtration capability' then x is a 'capability' that is the 'capability of' some 'material entity'</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+
+	<owl:Class rdf:about="&iof-constr;FiltrationFunction">
+		<rdfs:subClassOf rdf:resource="&iof-constr;FiltrationCapability"/>
+		<rdfs:label xml:lang="en-US">filtration function</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&iof-constr;FiltrationCapability"/>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;functionOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:unionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;MaterialArtifact"/>
+									<rdf:Description rdf:about="&iof-constr;EngineeredSystem"/>
+								</owl:unionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>the filtration function of a depth filter to remove cells and cell debris during harvest clarification; the filtration function of a membrane filter to remove bacteria from a process fluid; the filtration function of a tangential-flow filtration system to retain proteins while allowing water and smaller solutes to pass through the membrane</skos:example>
+		<iof-av:firstOrderLogicDefinition>FiltrationFunction(x) ↔ FiltrationCapability(x) ∧ ∃b((MaterialArtifact(b) ∨ EngineeredSystem(b)) ∧ functionOf(x,b))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration capability that is a function of a material artifact or engineered system</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of 'filtration function' is exactly an instance of 'filtration capability' that is the 'function of' some entity that is a 'material artifact' or an 'engineered system'</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+
+	<owl:Class rdf:about="&iof-constr;FiltrationMedium">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000040"/>
+		<rdfs:label xml:lang="en-US">filtration medium</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<rdf:Description rdf:about="&bfo;BFO_0000040"/>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+						<owl:someValuesFrom rdf:resource="&iof-constr;FiltrationMediumRole"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:example>a PES membrane serving as the filtration medium in a membrane filter; a cellulose-based depth-filter layer serving as the filtration medium in a depth filter; a sand bed serving as the filtration medium in gravity filtration; a filter cake serving as an additional filtration medium during cake filtration</skos:example>
+		<iof-av:explanatoryNote>See the expanded definition under the corresponding role class. The term is formalized here as a defined class by referring to its corresponding role class and exists primarily for ontological modeling and implementation convenience.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicDefinition>FiltrationMedium(x) ↔ MaterialEntity(x) ∧ ∃r(FiltrationMediumRole(r) ∧ hasRole(x,r))</iof-av:firstOrderLogicDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material entity with a filtration medium role</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageDefinition xml:lang="en-US">every instance of 'filtration medium' is defined as exactly an instance of 'material entity' that 'has role' some 'filtration medium role'</iof-av:semiFormalNaturalLanguageDefinition>
+	</owl:Class>
+
+	<owl:Class rdf:about="&iof-constr;FiltrationMediumRole">
+		<rdfs:subClassOf rdf:resource="&bfo;BFO_0000023"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040"/>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasCapability"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;SelectiveRetentionCapability"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">filtration medium role</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<iof-av:adaptedFrom>https://www.afssociety.org/publications-resources/filtration-separation-glossary-of-terminology/; https://goldbook.iupac.org/terms/view/F02388</iof-av:adaptedFrom>
+		<skos:example>the filtration medium role of a PES membrane in a membrane filter cartridge; the filtration medium role of a cellulose-based depth-filter layer; the filtration medium role of a sand bed used for water filtration; the filtration medium role of a filter cake when it contributes to further separation</skos:example>
+		<iof-av:counterExample>the filtrate role of material passing through a filtration medium; the retentate role of material remaining on the feed side of a filtration medium</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) The role may be held by manufactured or naturally occurring material entities, including membranes, fibrous or granular media, and filter cakes.
+	2) Constituents may include dissolved substances, suspended solid particles, dispersed liquid droplets, gas bubbles, or gaseous components. The term does not imply that constituents are dissolved or belong to the same physical phase.
+	3) The role does not imply that its bearer is itself a complete Filter artifact.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FiltrationMediumRole(x) → Role(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m) ∧ ∃c (SelectiveRetentionCapability(c) ∧ hasCapability(m, c)))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">role held by a material entity when it is used or planned to be used to separate constituents of a fluid by allowing some to pass through or across it while restricting the passage of others</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'filtration medium role' then x is a 'role' that is the 'role of' some 'material entity' that 'has capability' some 'selective retention capability'</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+
 	<owl:Class rdf:about="&iof-constr;Flask">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Container"/>
 		<rdfs:label xml:lang="en-US">flask</rdfs:label>
@@ -846,17 +963,16 @@
 		<rdfs:subClassOf rdf:resource="&iof-constr;Filter"/>
 		<rdfs:label xml:lang="en-US">membrane filter</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
-		<skos:example>Regenerated cellulose membrane filter; PES (Polyethersulfone) membrane filter; Amicon® Ultra Centrifugal Filter, 10 kDa MWCO</skos:example>
-		<iof-av:adaptedFrom>https://link.springer.com/chapter/10.1007/978-1-4615-0549-5_5 and https://www.biopharminternational.com/view/advances-in-filtration-technology and https://www.iso.org/obp/ui#iso:std:iso:7704:ed-2:v1:en:term:3.1.1</iof-av:adaptedFrom>
-		<iof-av:counterExample>Metal filters; Activated carbon sheets; Glass fibers</iof-av:counterExample>
-		<iof-av:explanatoryNote>1) Typical requirements of membrane filters used in the production of protein pharmaceuticals are (1) low adsorption of protein to the filter membrane, (2) high total liquid throughput, (3) minimum fouling of the filter, and (4) fulfillment of all applicable regulatory requirements.
-2) These filters are used in biopharmaceutical manufacturing for purposes including bioburden control, virus retention, concentration, and buffer exchange. They are employed across multiple unit operations, including sterilizing filtration (e.g., 0.2-micron for aseptic processing), mycoplasma protection (e.g., 0.1-micron), and high-throughput buffer filtration, and may feature multi-layer or single-layer constructions to meet specific performance requirements such as flux and capacity
-3) Examples of polymers used for membrane filters are surface-modified polyether sulfones</iof-av:explanatoryNote>
+		<skos:example>regenerated cellulose membrane filter; PES (polyethersulfone) membrane filter; mixed cellulose ester membrane filter; cellulose nitrate membrane filter; Amicon® Ultra centrifugal filter with a 10 kDa MWCO</skos:example>
+		<iof-av:adaptedFrom>https://link.springer.com/chapter/10.1007/978-1-4615-0549-5_5; https://www.biopharminternational.com/view/advances-in-filtration-technology; https://www.iso.org/obp/ui#iso:std:iso:7704:ed-2:v1:en:term:3.1.1; https://www.afssociety.org/publications-resources/filtration-separation-glossary-of-terminology/</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Membrane filters may use polymeric or inorganic membranes and occur in flat-sheet, pleated, hollow-fiber, tubular, spiral-wound, or other configurations.
+	2) Membrane filters are used for bioburden control, sterilizing filtration, virus retention, concentration, buffer exchange, and other applications. Separation may involve size exclusion, adsorption, charge-dependent interactions, or selective permeation. A defined physical pore size is not universally required.
+	3) In biopharmaceutical manufacturing, membrane-filter selection commonly considers product binding, throughput, fouling, and compatibility with process conditions and applicable regulatory requirements.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>MembraneFilter(x) → Filter(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filter consisting of one or more flat or pleated porous layers made from polymers, that has a defined pore size enabling the removal of particles from liquids by (physical exclusion) sieving or surface adsorption</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filter designed to separate constituents of a fluid using one or more membranes</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;membrane filter&apos; then x is a &apos;filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'membrane filter' then x is a 'filter'</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;MixedModeChromatographyMedium">
@@ -1177,7 +1293,30 @@
 		<iof-av:primitiveRationale>There are insufficient constructs in the ontology to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;seed bioreactor role&apos; then x is an &apos;equipment role&apos; and x is a &apos;role of&apos; some &apos;bioreactor&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	
+
+
+	<owl:Class rdf:about="&iof-constr;SelectiveRetentionCapability">
+		<rdfs:subClassOf rdf:resource="&iof-constr;Capability"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;capabilityOf"/>
+				<owl:someValuesFrom rdf:resource="&bfo;BFO_0000040"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">selective retention capability</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaEquipment/</rdfs:isDefinedBy>
+		<iof-av:adaptedFrom>https://goldbook.iupac.org/terms/view/R05359; https://doi.org/10.1351/pac199668071479</iof-av:adaptedFrom>
+		<skos:example>the selective retention capability of a PES ultrafiltration membrane characterized by a 30 kDa molecular weight cutoff; the selective retention capability of a size-exclusion chromatography resin characterized by a molecular-weight exclusion limit; the selective retention capability of a Protein A chromatography resin to bind IgG; the selective retention capability of a charged depth-filter medium to retain host-cell DNA; the selective retention capability of activated carbon to adsorb selected compounds</skos:example>
+		<iof-av:counterExample>the mixing capability of an impeller; the fluid transfer capability of a pump</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) Selective retention may involve physical exclusion, adsorption, or differential partitioning and does not require permanent capture.
+	2) Constituents may include dissolved substances, suspended particles, cells, dispersed droplets, or gaseous components. They need not be dissolved, belong to the same physical phase, or be present in substantial quantities.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>SelectiveRetentionCapability(x) → Capability(x) ∧ ∃m (MaterialEntity(m) ∧ capabilityOf(x, m))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">capability of a material entity to restrict or delay the movement of some constituents of a material relative to others</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'selective retention capability' then x is a 'capability' that is the 'capability of' some 'material entity'</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+
 	<owl:Class rdf:about="&iof-constr;ShakeFlask">
 		<rdfs:subClassOf rdf:resource="&iof-constr;Flask"/>
 		<rdfs:label xml:lang="en-US">shake flask</rdfs:label>
