@@ -2313,14 +2313,35 @@ Discontinuous diafiltration: Involves diluting the sample and concentrating it b
 	
 	<owl:Class rdf:about="&iof-constr;ThawingProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;Agent"/>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;PieceOfEquipment"/>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasCapability"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;ThawingCapability"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">thawing process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Cryopreserved cells contained in cryovials are thawed in a 37°C water bath, with gentle swirling, to facilitate even thawing; A frozen dough, like puff pastry, is thawed in a refrigerator at 5°C, with air circulation, for a certain period of time, before baking; In the fish industry, frozen blocks of Cod are thawed into large tanks with water, which are designed to facilitate the continuous movement of the product through a counter-flow stream of temperature controlled, agitated water</skos:example>
-		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ (∃a (Agent(a) ∧ hasParticipantAtSomeTime(x, a)) ∨ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a 'thawing process' then x is a 'planned process' and 'has participant at some time' some 'agent' or some 'piece of equipment' that 'has capability' some 'thawing capability'</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;TransfectionProcess">
