@@ -11,11 +11,11 @@ Version 1 Beta, 2022-11-18
 
 # Introduction
 
-Supply Chain Reference Ontology (SCRO) aims to represent the generic constructs (including classes and properties) related to the domain of supply chain and logistics. SCRO uses BFO as the top-level ontology and IOF Core as the mid-level ontology. The purpose of the ontology is to serve as a foundation for ensuring consistency and interoperability across various supply chain and logistics ontologies that use IOF reference ontolgies. The Supply Chain Reference Ontology can be extended to create application ontologies addressing the needs of specific use cases. The development of SCRO was initially motivated by use cases related to supplier discovery (i.e., supplier capability matching with manufacturing requirements), shipment request and fulfillment,  and agri-food supply chain traceability. While the ontology is driven by specific use cases, the definitions of terms are intended to be applicable beyond these use cases and are extracted from widely accepted industry standards such as GS1 and APICS.
+The Supply Chain Ontology aims to represent generic constructs, including classes and properties, related to the domains of supply chain and logistics. The ontology uses BFO as its top-level ontology and IOF Core as its mid-level ontology. Its purpose is to provide a common semantic foundation for ensuring consistency and interoperability across supply chain and logistics ontologies developed for different domains and applications.
+
+The Supply Chain Ontology can be extended to create application ontologies that address the requirements of specific use cases. Its development was initially motivated by use cases related to supplier discovery (i.e., matching supplier capabilities with manufacturing requirements), shipment request and fulfillment, and agri-food supply chain traceability. While the development of the ontology is driven by specific use cases, its terms and definitions are intended to be broadly applicable beyond these use cases. Whenever possible, terminology and definitions are derived from widely accepted industry standards to promote consistency, reuse, and interoperability across supply chain applications.
 
 
-
-SCRO.owl imports IOF Core directly. BFO-2020.owl and IOF-AnnotationVocabulary.rdf are imported through IOF Core.  
 
 ### Taxonomy of SCRO Continuants
 > click the image to view the enlarged image in a new tab
@@ -34,18 +34,11 @@ This dataset represents a hypothetical supply chain as depicted in [this image](
 =======
 Additional class diagrams can be found [here](https://oagiscore.atlassian.net/wiki/spaces/IOF/pages/4554031140/SCRO+Class+Diagrams). 
 
-## Glossary of Terms
-[The glossary](https://htmlpreview.github.io/?https://github.com/InfoneerTXST/Glossary/blob/master/index.html) provides the natural language definitions of SCRO classes and properties
 
 ## Example Data in RDF
 This dataset represents a hypothetical supply chain as depicted in [this image](https://github.com/iofoundry/ontology/blob/SCRO-pre-vote-branch/supplychain/Documentation%20%26%20Resources/images/FORD-SupplyChain.png). The RDF dataset demonstrates how the class "Supply Chain Relationship' is used to represent the strucrue of a supply chain.
 - [RDF Dataset](https://github.com/iofoundry/ontology/tree/SCRO-pre-vote-branch/supplychain/data)
 
-
-## Current Outstanding Issues
-- Classifers are excluded from the first release. The plan is to reuse the identifer/classifers patterns provided by Commons Ontologies. However, since their adoption requires some architectural decisions at the core level, this release only includes a few classes related to identifiers.
-- Representation of various states of a shipment (delayed, delivered, etc) requires some temporal interval properties (based Allen's Inverval Algebra) which are currently missing.
-- The base ontology is large and can be split into several smaller ontologies. Once the geeral approach for using 'sub-topics' in IOF is further formalized, the based ontology will be re-architectured.
 
 
 ## Related Publications
