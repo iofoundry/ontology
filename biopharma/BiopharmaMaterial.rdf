@@ -591,16 +591,105 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 	
 	<owl:Class rdf:about="&iof-constr;CellCultureDerivedImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-constr;ManufacturingProcessRelatedImpurityRole"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+												<owl:someValuesFrom rdf:resource="&iof-constr;CellCulture"/>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-constr;isOutputOf"/>
+												<owl:someValuesFrom>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:unionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&iof-constr;CellCulture">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+																		<owl:someValuesFrom rdf:resource="&iof-constr;CellCulture"/>
+																	</owl:Restriction>
+																</owl:unionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000027">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+														<owl:someValuesFrom rdf:resource="&iof-constr;CellCulture"/>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;isOutputOf"/>
+														<owl:someValuesFrom>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+																<owl:someValuesFrom>
+																	<owl:Class>
+																		<owl:unionOf rdf:parseType="Collection">
+																			<rdf:Description rdf:about="&iof-constr;CellCulture">
+																			</rdf:Description>
+																			<owl:Restriction>
+																				<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+																				<owl:someValuesFrom rdf:resource="&iof-constr;CellCulture"/>
+																			</owl:Restriction>
+																		</owl:unionOf>
+																	</owl:Class>
+																</owl:someValuesFrom>
+															</owl:Restriction>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell culture derived impurity role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the cell culture-derived impurity role of residual insulin from a cell culture medium supplement remaining in a harvested process intermediate; the cell culture-derived impurity role of residual antibiotic from a selection medium remaining in a downstream intermediate; the cell culture-derived impurity role of residual antifoam agent carried from a bioreactor culture into a harvest pool; the cell culture-derived impurity role of residual surfactant from a culture medium additive detected in a process intermediate; the cell culture-derived impurity role of residual inducer used during recombinant protein expression and carried into a clarified harvest; the cell culture-derived impurity role of residual nutrient feed component remaining in a harvested cell culture fluid;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.ema.europa.eu/en/documents/scientific-guideline/draft-ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnological-biological-entities_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Cell culture-derived impurity role applies to impurities that originate from acellular materials present in or used to maintain a cell culture, such as media components, media supplements, inducers, antibiotics, surfactants, antifoam agents, selection agents, or other culture additives. These materials may remain in downstream or later manufacturing intermediates after harvest or purification. This role excludes materials originating from the production cells or host cell line itself, such as host cell proteins, host cell DNA, cell debris, or other host-cell-derived material. The term cell culture-derived therefore refers to the culture environment and non-cellular materials present in that environment, not to cells, cell parts, or host-cell molecules.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellCultureDerivedImpurityRole(x) → ManufacturingProcessRelatedImpurityRole(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>Cell culture-derived impurities originate from acellular materials present in or added to a cell culture, including medium components, supplements, nutrient feeds, inducers, antibiotics, surfactants, antifoam agents, and selection agents. These materials may be introduced before inoculation or during cultivation and may persist into harvested or downstream manufacturing materials. This role is distinct from cell substrate-derived impurity role, which applies to materials originating from the cells themselves, such as host cell proteins, host cell DNA, and cell debris. Cellular uptake of an externally supplied material does not, by itself, change its original provenance. The role may also be borne by an object aggregate of acellular-derived materials whose members satisfy the cell culture parthood or process-output conditions. Such an aggregate need not represent a physically bound assembly. The process-output condition may encompass chemical or physical transformations without requiring their individual representation. Future extensions of the broader IOF ontology suite may provide additional relations for representing material provenance more explicitly.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CellCultureDerivedImpurityRole(x) → ManufacturingProcessRelatedImpurityRole(x) ∧ ∃m (roleOf(x, m) ∧ ((MaterialEntity(m) ∧ ((∃c (CellCulture(c) ∧ continuantPartOfAtSomeTime(m, c))) ∨ (∃p∃i (Process(p) ∧ isOutputOf(m, p) ∧ hasInput(p, i) ∧ (CellCulture(i) ∨ ∃c (CellCulture(c) ∧ continuantPartOfAtSomeTime(i, c)))))) ∨ (ObjectAggregate(m) ∧ ∀u (hasMemberPartAtSomeTime(m, u) → ((∃c (CellCulture(c) ∧ continuantPartOfAtSomeTime(u, c))) ∨ (∃p∃i (Process(p) ∧ isOutputOf(u, p) ∧ hasInput(p, i) ∧ (CellCulture(i) ∨ ∃c (CellCulture(c) ∧ continuantPartOfAtSomeTime(i, c)))))))))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process related impurity role held by a material entity that originates from an acellular material component of a cell culture</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture derived impurity role&apos; then x is a &apos;manufacturing process related impurity role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell culture derived impurity role&apos; then x is a &apos;manufacturing process related impurity role&apos; and either x is the &apos;role of&apos; some &apos;material entity&apos; that is a &apos;continuant part of at some time&apos; some &apos;cell culture&apos; or &apos;is output of&apos; some process that &apos;has input&apos; some &apos;cell culture&apos; or some entity that is a &apos;continuant part of at some time&apos; some &apos;cell culture&apos;, or x is the &apos;role of&apos; some &apos;object aggregate&apos; that &apos;has member part at some time&apos; only entities satisfying either of those cell culture parthood or process-output conditions</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;CellDensity">
@@ -706,16 +795,105 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 	
 	<owl:Class rdf:about="&iof-constr;CellSubstrateDerivedImpurityRole">
 		<rdfs:subClassOf rdf:resource="&iof-constr;ManufacturingProcessRelatedImpurityRole"/>
+		<rdfs:subClassOf>
+			<owl:Class>
+				<owl:unionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Class>
+										<owl:unionOf rdf:parseType="Collection">
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+												<owl:someValuesFrom rdf:resource="&iof-constr;CellPopulation"/>
+											</owl:Restriction>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-constr;isOutputOf"/>
+												<owl:someValuesFrom>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:unionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&iof-constr;CellPopulation">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+																		<owl:someValuesFrom rdf:resource="&iof-constr;CellPopulation"/>
+																	</owl:Restriction>
+																</owl:unionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:someValuesFrom>
+											</owl:Restriction>
+										</owl:unionOf>
+									</owl:Class>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&iof-constr;roleOf"/>
+						<owl:someValuesFrom>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000027">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&bfo;BFO_0000115"/>
+										<owl:allValuesFrom>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+														<owl:someValuesFrom rdf:resource="&iof-constr;CellPopulation"/>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;isOutputOf"/>
+														<owl:someValuesFrom>
+															<owl:Restriction>
+																<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+																<owl:someValuesFrom>
+																	<owl:Class>
+																		<owl:unionOf rdf:parseType="Collection">
+																			<rdf:Description rdf:about="&iof-constr;CellPopulation">
+																			</rdf:Description>
+																			<owl:Restriction>
+																				<owl:onProperty rdf:resource="&bfo;BFO_0000176"/>
+																				<owl:someValuesFrom rdf:resource="&iof-constr;CellPopulation"/>
+																			</owl:Restriction>
+																		</owl:unionOf>
+																	</owl:Class>
+																</owl:someValuesFrom>
+															</owl:Restriction>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+												</owl:unionOf>
+											</owl:Class>
+										</owl:allValuesFrom>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:someValuesFrom>
+					</owl:Restriction>
+				</owl:unionOf>
+			</owl:Class>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">cell substrate derived impurity role</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the cell substrate-derived impurity role of host cell protein remaining in a monoclonal antibody process intermediate; the cell substrate-derived impurity role of residual host cell DNA detected in a drug substance intermediate; the cell substrate-derived impurity role of host cell RNA remaining after harvest clarification;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf and https://www.ema.europa.eu/en/documents/scientific-guideline/draft-ich-guideline-q11-development-and-manufacture-drug-substances-chemical-entities-and-biotechnological-biological-entities_en.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>Cell-derived impurity role applies to impurities originating from cells used in manufacturing. Examples include host cell proteins, host cell DNA, host cell RNA, cell debris, host-cell-derived lipids, or other material released from or derived from production cells. This role should be distinguished from cell culture-derived impurity role, which applies to impurities originating from non-cellular materials present in or added to the culture environment, such as media components, nutrient feeds, supplements, inducers, antibiotics, surfactants, or antifoam agents.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>CellSubstrateDerivedImpurityRole(x) → ManufacturingProcessRelatedImpurityRole(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>Cell substrate-derived impurities originate from cells used in manufacturing. Examples include host cell proteins, host cell DNA, host cell RNA, cell debris, host-cell-derived lipids, and other material released from or derived from production cells. This role is distinct from cell culture-derived impurity role, which applies to impurities originating from non-cellular materials present in or added to the culture environment, such as medium components, nutrient feeds, supplements, inducers, antibiotics, surfactants, or antifoam agents. The role may also be borne by an object aggregate, such as a host cell protein or DNA population, whose members all satisfy the cellular-parthood or process-output conditions. Such an aggregate need not have existed as a whole within the cells or represent a physically bound assembly. The process-output condition may encompass chemical or physical transformations, including oxidation, fragmentation, or aggregation, without requiring their individual representation. Future extensions of the broader IOF ontology suite may provide additional relations for representing material provenance more explicitly.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>CellSubstrateDerivedImpurityRole(x) → ManufacturingProcessRelatedImpurityRole(x) ∧ ∃m (roleOf(x, m) ∧ ((MaterialEntity(m) ∧ ((∃c (CellPopulation(c) ∧ continuantPartOfAtSomeTime(m, c))) ∨ (∃p∃i (Process(p) ∧ isOutputOf(m, p) ∧ hasInput(p, i) ∧ (CellPopulation(i) ∨ ∃c (CellPopulation(c) ∧ continuantPartOfAtSomeTime(i, c)))))) ∨ (ObjectAggregate(m) ∧ ∀u (hasMemberPartAtSomeTime(m, u) → ((∃c (CellPopulation(c) ∧ continuantPartOfAtSomeTime(u, c))) ∨ (∃p∃i (Process(p) ∧ isOutputOf(u, p) ∧ hasInput(p, i) ∧ (CellPopulation(i) ∨ ∃c (CellPopulation(c) ∧ continuantPartOfAtSomeTime(i, c)))))))))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process related impurity role held by a material entity that originates from cells used in a manufacturing process</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell substrate derived impurity role&apos; then x is a &apos;manufacturing process related impurity role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;cell substrate derived impurity role&apos; then x is a &apos;manufacturing process related impurity role&apos; and either x is the &apos;role of&apos; some &apos;material entity&apos; that is a &apos;continuant part of at some time&apos; some &apos;cell population&apos; or &apos;is output of&apos; some process that &apos;has input&apos; some &apos;cell population&apos; or some entity that is a &apos;continuant part of at some time&apos; some &apos;cell population&apos;, or x is the &apos;role of&apos; some &apos;object aggregate&apos; that &apos;has member part at some time&apos; only entities satisfying either of those cellular parthood or process-output conditions</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;CellViabilityRatio">
@@ -904,12 +1082,13 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the contaminant role of mycoplasma adventitiously introduced into a mammalian cell culture; the contaminant role of an adventitious virus introduced through contaminated biological raw material; the contaminant role of bacterial cells introduced into a buffer preparation during manufacturing; the contaminant role of environmental particulate matter introduced during an open handling step of a manufacturing process</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Manufacturing contaminants are adventitiously introduced materials, including chemical, biochemical, and microbial materials. Adventitious introduction may occur during raw-material preparation, storage, transportation, handling, packaging, or manufacturing operations.
-2) This role distinguishes adventitiously introduced materials from process-related impurities arising from the materials, operations, or inherent mechanisms of the intended manufacturing process, such as host-cell proteins, residual culture components, and chromatography resin leachates
-3) Regulators expect manufacturing programs to prioritize avoidance, or controlled removal to meet drug substance or drug product specifications, using appropriate in-process acceptance criteria or measurable action thresholds for the affected material stream, while recognizing that adventitious viral or mycoplasma contamination is not managed by allowable-range action limits, and instead requires control strategies guided by dedicated ICH viral-safety and cell-substrate characterization guidance, as part of validated contamination-prevention or mitigation safeguards</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>1) Manufacturing contaminants are adventitiously introduced materials, including chemical, biochemical, and microbial materials. Adventitious introduction may occur during raw-material preparation, storage, transportation, handling, packaging, or manufacturing operations. Examples include mycoplasma, adventitious viruses, cross-contamination, and extraneous chemical materials.
+	2) This role distinguishes adventitiously introduced materials from process-related impurities arising from the materials, operations, or inherent mechanisms of the intended manufacturing process, such as host-cell proteins, residual culture components, and chromatography resin leachates
+	3) Regulators expect manufacturing programs to prioritize avoidance, or controlled removal to meet drug substance or drug product specifications, using appropriate in-process acceptance criteria or measurable action thresholds for the affected material stream, while recognizing that adventitious viral or mycoplasma contamination is not managed by allowable-range action limits, and instead requires control strategies guided by dedicated ICH viral-safety and cell-substrate characterization guidance, as part of validated contamination-prevention or mitigation safeguards
+	4) Contamination may occur before manufacturing, such as in incoming raw materials, or after manufacturing, such as when a finished product becomes contaminated during storage, transportation, or handling. The affected raw material or product is the contaminated material, whereas the adventitiously introduced material bears the contaminant role.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ContaminantRole(x) → MaterialImpurityRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">material impurity role held by a material entity adventitiously introduced into or onto material used in produced by or planned for use in manufacturing</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">material impurity role held by a material entity adventitiously introduced into or onto material used in, produced by, or planned for use in manufacturing</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>There are insufficient constructs to create necessary and sufficient conditions.</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;contaminant role&apos; then x is a &apos;material impurity role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1310,6 +1489,9 @@ phenol red acting as a pH indicator rather than stabilizer; pure acetic acid lac
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the downstream-derived impurity role of residual Protein A ligand leached from chromatography resin into a drug substance intermediate; the downstream-derived impurity role of chromatography resin leachable material detected in an elution pool; the downstream-derived impurity role of filter-derived particulate matter introduced during sterile filtration; the downstream-derived impurity role of a filter-derived organic leachable detected in a formulation intermediate; the downstream-derived impurity role of residual low-pH viral inactivation reagent carried into a neutralized process intermediate;</skos:example>
 		<iof-av:adaptedFrom>https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) Downstream-derived impurities include residual processing reagents, enzymes, salts, solvents, chromatography ligands, and materials released from equipment or consumables used in downstream manufacturing.
+	2) This role also encompasses materials resulting from chemical or physical transformations of these sources. Detailed representation of such transformations is outside the current scope of BMIC.
+	3) Molecular variants of the intended product formed during downstream manufacturing are not classified as downstream-derived impurities solely because of when they arise. Such variants may instead bear a product-related impurity role.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>DownstreamDerivedImpurityRole(x) → ManufacturingProcessRelatedImpurityRole(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">manufacturing process related impurity role held by a material entity that originates from a raw material, production consumable, or equipment used in a downstream manufacturing process</iof-av:naturalLanguageDefinition>
@@ -1737,7 +1919,7 @@ Leachables: material entities that migrate from manufacturing components/systems
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaMaterial/</rdfs:isDefinedBy>
 		<skos:example>the manufacturing process related impurity role of residual Protein A ligand leached from chromatography resin into a drug substance intermediate; the manufacturing process related impurity role of host cell protein remaining in a purified monoclonal antibody intermediate; the manufacturing process related impurity role of residual host cell DNA in a drug substance intermediate; the manufacturing process related impurity role of residual solvent remaining after a synthesis or purification step;</skos:example>
 		<iof-av:adaptedFrom>https://www.fda.gov/media/182387/download and https://database.ich.org/sites/default/files/Q6B%20Guideline.pdf</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>manufacturing process related impurity role covers impurities whose presence is attributable to the manufacturing process rather than to adventitious contamination. Planned aspects include materials, equipment, consumables, or process aids that are intentionally used in the process, such as reagents, solvents, chromatography resins, filters, tubing, bags, cleaning agents, or product-contact surfaces. Inherent aspects include materials generated or released as a normal consequence of executing the process, such as process-derived byproducts, residual intermediates, host cell proteins, residual DNA, wear particles, lubricants, extractables, or leachables. This role should be distinguished from contaminant role, which applies to material adventitiously introduced during manufacturing.</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>manufacturing process related impurity role covers impurities whose presence is attributable to the manufacturing process rather than to adventitious contamination. Planned aspects include materials, equipment, consumables, or process aids that are intentionally used in the process, such as reagents, solvents, chromatography resins, filters, tubing, bags, cleaning agents, or product-contact surfaces. Inherent aspects include materials generated or released as a normal consequence of executing the process, such as process-derived byproducts, residual intermediates, host cell proteins, residual DNA, wear particles, lubricants, extractables, or leachables. This role should be distinguished from contaminant role, which applies to material adventitiously introduced into or onto material used in, produced by, or planned for use in manufacturing.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>ManufacturingProcessRelatedImpurityRole(x) → MaterialImpurityRole(x) ∧ ∃m (MaterialEntity(m) ∧ roleOf(x, m) ∧ ∃w ((MaterialProduct(w) ∨ ProcessIntermediateMaterial(w)) ∧ properContinuantPartOfAtSomeTime(m, w)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">material impurity role held by a material entity that is present in a process intermediate material or material product and whose presence is attributable to planned or inherent aspects of manufacturing execution</iof-av:naturalLanguageDefinition>
