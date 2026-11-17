@@ -12,7 +12,10 @@ For every IOF ontology transitively imported by ``AboutIOFDev.rdf`` /
   4. adds ``rdfs:isDefinedBy <ontology IRI>`` to IOF entities (owl:Class,
      ObjectProperty, DatatypeProperty, NamedIndividual, AnnotationProperty) that
      have none anywhere in the import closure, in the file that defines them
-     (see ``plan_is_defined_by``).
+     (see ``plan_is_defined_by``);
+  5. sets ``xml:lang="en-US"`` (upper-case ``US``) on natural-language annotations
+     (labels, definitions, examples, notes … see ``ENGLISH_ANNOTATIONS``) that
+     have no tag or an ``en`` / ``en-us`` tag.
 
 Edits are made on the raw text (no RDF parse/serialize round trip), so the DOCTYPE
 entities, comments, attribute quoting, ordering and indentation are preserved and
@@ -65,6 +68,25 @@ ENTITY_DECLARATIONS = {"owl:Class", "owl:ObjectProperty", "owl:DatatypeProperty"
                        "owl:NamedIndividual", "owl:AnnotationProperty"}
 # Children that mark a declaration as the defining one rather than a re-declared stub.
 DEFINING_CHILDREN = {"rdfs:label", "skos:prefLabel", "skos:definition"}
+
+# Natural-language (American English) annotations: plain literals of these must
+# carry xml:lang="en-US" (hygiene: testHygiene_labels / _annotations_language_tag).
+# Deliberately excluded: FOL formulas, IRIs/citations (adaptedFrom, isDefinedBy),
+# acronyms/abbreviations, contributor/creator names and the copyright statement.
+LANGUAGE = "en-US"
+ENGLISH_ANNOTATIONS = {
+    "rdfs:label", "rdfs:comment",
+    "skos:prefLabel", "skos:altLabel", "skos:definition", "skos:example",
+    "skos:scopeNote", "skos:note", "skos:editorialNote", "skos:changeNote",
+    "dcterms:title", "dcterms:abstract", "dcterms:description",
+    "iof-av:naturalLanguageDefinition",
+    "iof-av:semiFormalNaturalLanguageDefinition", "iof-av:semiFormalNaturalLanguageAxiom",
+    "iof-av:explanatoryNote", "iof-av:usageNote", "iof-av:primitiveRationale",
+    "iof-av:synonym", "iof-av:counterExample",
+}
+# Tags treated as a mis-spelling of en-US (compared lower-case); any other
+# language (fr, de, …) is left alone.
+ENGLISH_VARIANTS = {"", "en", "en-us"}
 
 # --------------------------------------------------------------------------- #
 # Minimal XML tag scanner (positions in the raw text, so we can splice edits)
@@ -376,6 +398,48 @@ def _reparse(text: str) -> OntologyFile:
     return OntologyFile(Path(), text, root, onto, iri, ents, base)
 
 
+LANG_ATTR_RE = re.compile(r"""(\sxml:lang\s*=\s*)(["'])(.*?)\2""")
+
+
+def fix_language(text: str) -> tuple[str, list[str]]:
+    """Give every plain-literal natural-language annotation xml:lang="en-US"."""
+    msgs: list[str] = []
+    root = parse(text)
+    edits: list[Element] = []
+    typed = 0
+
+    def walk(el: Element, inherited: str) -> None:
+        nonlocal typed
+        lang = el.attrs.get("xml:lang", inherited)
+        if (el.name in ENGLISH_ANNOTATIONS and not el.empty and not el.children
+                and not {"rdf:resource", "rdf:parseType", "rdf:nodeID"} & el.attrs.keys()):
+            if "rdf:datatype" in el.attrs:
+                typed += 1
+            elif lang != LANGUAGE and lang.lower() in ENGLISH_VARIANTS:
+                edits.append(el)
+        for c in el.children:
+            walk(c, lang)
+
+    walk(root, "")
+    for el in sorted(edits, key=lambda e: e.start, reverse=True):
+        tag = text[el.start:el.open_end]
+        if LANG_ATTR_RE.search(tag):
+            new_tag = LANG_ATTR_RE.sub(lambda m: f"{m.group(1)}{m.group(2)}{LANGUAGE}{m.group(2)}", tag, count=1)
+        else:
+            new_tag = tag[:1 + len(el.name)] + f' xml:lang="{LANGUAGE}"' + tag[1 + len(el.name):]
+        text = text[:el.start] + new_tag + text[el.open_end:]
+    if edits:
+        counts: dict[tuple[str, str], int] = {}
+        for el in edits:
+            key = (el.name, el.attrs.get("xml:lang", "none"))
+            counts[key] = counts.get(key, 0) + 1
+        for (name, was), n in sorted(counts.items()):
+            msgs.append(f"xml:lang {was} → {LANGUAGE} on {n} {name}")
+    if typed:
+        msgs.append(f"::warning::{typed} natural-language annotation(s) are typed literals (rdf:datatype), not en-US strings; left unchanged")
+    return text, msgs
+
+
 def subject_iri(el: Element, of: OntologyFile) -> str | None:
     if "rdf:about" in el.attrs:
         return urljoin(of.base, expand(el.attrs["rdf:about"], of.ents))
@@ -459,6 +523,7 @@ def normalize(path: Path, version: str, copyright_text: str, defined_here: set[s
     text, msgs = original, []
     for step in (fix_prefixes,
                  lambda t: fix_header(t, version, copyright_text),
+                 fix_language,
                  lambda t: fix_is_defined_by(t, defined_here)):
         text, m = step(text)
         msgs += m
