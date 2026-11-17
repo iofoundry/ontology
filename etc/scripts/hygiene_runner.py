@@ -1,150 +1,193 @@
+"""Run the IOF hygiene tests: validate ontologies against the SHACL shapes in
+etc/testing/hygiene_shapes and report the results as GitHub Actions annotations.
+
+    python etc/scripts/hygiene_runner.py AboutIOFDev.rdf AboutIOFProd.rdf
+
+Each About file is resolved through the catalog next to it into the set of ontology
+files it imports; those are validated together with pySHACL (SHACL Core, SHACL-SPARQL
+and the SHACL-AF rules that classify constructs). See the header of
+etc/testing/hygiene_shapes/common.ttl for the conventions the shapes follow.
+"""
 import argparse
+import contextlib
+import functools
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 
-from rdflib import Graph
+from pyshacl import validate
+from rdflib import Graph, Literal, Namespace
+from rdflib.namespace import OWL, RDF, RDFS, SH
+from rdflib.plugins.sparql import prepareQuery
 
-def parse_catalog(catalog_file_path: str):
+IOF_H = Namespace('https://spec.industrialontologies.org/ontology/hygiene/')
+IOF_AV = Namespace('https://spec.industrialontologies.org/ontology/annotation/')
+INDIVIDUAL_PREFIX = 'https://spec.industrialontologies.org/ontology/individual/'
+
+
+def parse_catalog(catalog_file_path: str) -> dict:
+    """Map ontology IRIs to their .rdf files (relative to the catalog's folder)."""
     resolution = dict()
-    print('::notice file=' + catalog_file_path + ',title=Parse Catalog::Parsing file ', catalog_file_path)
+    print('::notice file=' + catalog_file_path + ',title=Parse Catalog::Parsing file', catalog_file_path)
     catalog = ET.parse(catalog_file_path)
     for uri in catalog.getroot().findall('{urn:oasis:names:tc:entity:xmlns:xml:catalog}uri'):
         ontology_path = uri.attrib['uri']
         if ontology_path.endswith('.rdf'):
             resolution[uri.attrib['name']] = ontology_path
     return resolution
-  
-def recursesively_find_imports(iri: str, resolution: dict, found_iris: set):
-  if iri in found_iris:
-    return
-  found_iris.add(iri)
-  if iri in resolution:
+
+
+def find_imports(iri: str, resolution: dict, found_iris: set):
+    if iri in found_iris:
+        return
+    found_iris.add(iri)
+    if iri not in resolution:
+        print('::warning file=' + iri + ',title=Find Imports::Could not find ontology for IRI:', iri)
+        return
     print('::notice file=' + resolution[iri] + ',title=Find Imports::Getting imports from file:', resolution[iri])
     graph = Graph()
     graph.parse(source=resolution[iri])
-    imports = '''
-    PREFIX owl:   <http://www.w3.org/2002/07/owl#>
-    SELECT ?iri WHERE {
-      ?ontology a owl:Ontology .
-      ?ontology owl:imports ?iri .
-    }'''
-    results = graph.query(imports)
-    for result in results:
-      recursesively_find_imports(str(result.iri), resolution, found_iris)
-  else:
-    print('::warning file=' + iri + ',title=Find Imports::Could not find ontology for IRI:', iri)
+    for ontology in graph.subjects(RDF.type, OWL.Ontology):
+        for imported in graph.objects(ontology, OWL.imports):
+            find_imports(str(imported), resolution, found_iris)
 
-def parse_about(about_file_path: str, resolution: dict):
-  ontologies = list()
-  print('::notice file=' + about_file_path + ',title=Parse About::Parsing file ', about_file_path)
-  graph = Graph()
-  graph.parse(source=about_file_path)
-  
-  maturity = 'unknown'
-  maturity_query = '''
-  PREFIX iof-av: <https://spec.industrialontologies.org/ontology/annotation/>
-  PREFIX owl:   <http://www.w3.org/2002/07/owl#>
-  PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-  SELECT ?maturity ?ontology WHERE {
-    ?ontology a owl:Ontology .
-    ?ontology iof-av:maturity ?maturity .
-  }'''
-  results = graph.query(maturity_query)
-  iri = None
-  try:
-    row = next(iter(results))
-    iri = str(row.ontology)
-    maturity = str(row.maturity). \
-      replace('https://spec.industrialontologies.org/ontology/individual/', '')
-    print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
-  except StopIteration:
-    print('::warning file=' + about_file + ',title=Parse About::Could not find maturity level in about file.')
-    sys.exit(1)
-  
-  found_iris = set()
-  recursesively_find_imports(iri, resolution, found_iris)
-  ontologies = [resolution[iri] for iri in found_iris if iri in resolution]
-  return ontologies, maturity
 
 def find_ontologies(about_file: str):
-  abs_path_about_file = os.path.abspath(about_file)
-  print('::notice file=' + about_file + ',title=Find Ontologies::About file absolute path:', abs_path_about_file)
-  folder = os.path.dirname(abs_path_about_file)
-  print('::notice file=' + about_file + ',title=Find Ontologies::Working directory:', folder)
-  resolution = parse_catalog(os.path.join(folder, 'catalog-v001.xml'))
-  return parse_about(abs_path_about_file, resolution)
+    """Return (ontology files, maturity, catalog resolution) for an About file."""
+    about_path = os.path.abspath(about_file)
+    folder = os.path.dirname(about_path)
+    resolution = parse_catalog(os.path.join(folder, 'catalog-v001.xml'))
 
-def run_hygiene(
-        folder_with_hygiene_tests: str,
-        parameter_input_value: str,
-        parameter_output_value: str,
-        error_label='::error',
-        error_output='::error',  
-        files: list[str] = [],
-        maturity: str = 'unknown') -> bool:
-    ontology_is_clean = True
-    ontology = Graph()
-    for file in files:
-        ontology.parse(source=file)
-    for root, subfolder_paths, file_names in os.walk(folder_with_hygiene_tests):
-        for file_name in file_names:
-            if 'sparql' in file_name:
-                print('::notice file=' + os.path.join(folder_with_hygiene_tests, file_name) + ',title=Run Hygiene::Running test file:', file_name)
-                input_file_path = os.path.join(folder_with_hygiene_tests, file_name)
-                input_file = open(input_file_path, 'r')
-                input_file_content = input_file.read()
-                input_file_content = input_file_content.replace(parameter_input_value, '"'+parameter_output_value+'"')
-                test_name = file_name.replace('testHygiene_', '').replace('.sparql', '').replace('_', ' ')
-                input_file_content = input_file_content.replace('<HYGIENE_TEST_NAME>', test_name)
-                results = ontology.query(input_file_content)
-                # print('Results found:', list(results))
-                for result in results:
-                    result.warning = result.warning.replace(error_label, error_output)
-                    result.warning = result.warning.replace("::critical", "::error")
-                    print(result.warning)
-                    if result.warning.startswith('::error'):
-                        ontology_is_clean = False
-    return ontology_is_clean
+    print('::notice file=' + about_file + ',title=Parse About::Parsing file', about_file)
+    graph = Graph()
+    graph.parse(source=about_path)
+    about = next(((o, m) for o in graph.subjects(RDF.type, OWL.Ontology)
+                  for m in graph.objects(o, IOF_AV.maturity)), None)
+    if about is None:
+        print('::error file=' + about_file + ',title=Parse About::Could not find maturity level in about file.')
+        sys.exit(1)
+    iri, maturity = str(about[0]), str(about[1]).replace(INDIVIDUAL_PREFIX, '')
+    print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
+
+    found_iris = set()
+    find_imports(iri, resolution, found_iris)
+    files = [os.path.join(folder, resolution[i]) for i in found_iris if i in resolution]
+    return files, maturity, resolution
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Run hygiene tests')
-    parser.add_argument('--folder_with_hygiene_tests', help='Path to folder with hygiene tests', metavar='HYGIENE', default='etc/testing/hygiene_parameterized')
-    parser.add_argument('--parameter_input_value', help='Hygiene test filter constant', metavar='HYGIENEPLACEHOLDER', default='<HYGIENE_TESTS_FILTER_PARAMETER>')
-    parser.add_argument('--parameter_output_value', help='Hygiene test filter variable', metavar='HYGIENEPLACEHOLDER', default='industrialontologies')
-    args, rest = parser.parse_known_args()
+def load_shapes(shapes_folder: str) -> Graph:
+    shapes = Graph()
+    for file_name in sorted(os.listdir(shapes_folder)):
+        if file_name.endswith('.ttl'):
+            shapes.parse(os.path.join(shapes_folder, file_name), format='turtle')
+    return shapes
 
-    ontology_is_clean = True
-    for about_file in rest:
-      print("========================================")
-      print("::group::Running tests:", about_file)
-      ontologies, maturity = find_ontologies(about_file)
-      print("::notice title=" + about_file + " Maturity::" + about_file + " has maturity:", maturity)
-      
-      if maturity == 'Provisional':
-        error_output = "::warning"
-      else:
-        error_output = "::error"
-      clean = \
-        run_hygiene(
-            folder_with_hygiene_tests=args.folder_with_hygiene_tests,
-            error_output=error_output,
-            parameter_input_value=args.parameter_input_value,
-            parameter_output_value=args.parameter_output_value, 
-            files=ontologies,
-            maturity=maturity)
-      if not clean:
-        ontology_is_clean = False
-      print("::endgroup::")
-      if clean:
-        print("::notice title=" + about_file + "::Hygiene tests passed for about file:", about_file)
-      else:
-        print("::error title=" + about_file + "::Hygiene tests failed for about file:", about_file)
-    
-    if not ontology_is_clean:
-      print ("::error title=Hygiene Tests::some hygiene tests failed.")
-      sys.exit(1)
+
+@contextlib.contextmanager
+def cached_sparql_parsing():
+    """pySHACL re-parses a SPARQL constraint for every focus node, and parsing costs far
+    more than evaluating these small queries; reuse the parsed query instead."""
+    original_query = Graph.query
+    prepare = functools.lru_cache(maxsize=None)(prepareQuery)
+
+    def query(self, query_object, *args, **kwargs):
+        if isinstance(query_object, str):
+            query_object = prepare(query_object)
+        return original_query(self, query_object, *args, **kwargs)
+
+    Graph.query = query
+    try:
+        yield
+    finally:
+        Graph.query = original_query
+
+
+def format_message(template: str, focus, value, path) -> str:
+    """Fill the {$this}/{?value}/{?path} placeholders pySHACL leaves in Core messages."""
+    for placeholder, term in (('{$this}', focus), ('{?value}', value), ('{?path}', path)):
+        if term is not None:
+            template = template.replace(placeholder, str(term))
+    return template
+
+
+def source_file(data: Graph, focus, resolution: dict):
+    """The ontology file that defines the focus node, for the annotation's file= field."""
+    if (focus, RDF.type, OWL.Ontology) in data:
+        iri = str(focus)
     else:
-      print ("::notice title=Hygiene Tests::all hygiene tests passed.")
-      sys.exit(0)
+        iri = next((str(o) for o in data.objects(focus, RDFS.isDefinedBy)), None)
+    return resolution.get(iri) if iri else None
+
+
+def annotation_level(severity, maturity: str) -> str:
+    if severity == IOF_H.Critical:
+        return '::error'
+    if severity == SH.Violation:
+        return '::warning' if maturity == 'Provisional' else '::error'
+    if severity == SH.Warning:
+        return '::warning'
+    return '::notice'
+
+
+def run_hygiene(files: list, shapes: Graph, maturity: str, resolution: dict, focus_filter: str) -> bool:
+    data = Graph()
+    for file in files:
+        data.parse(source=file)
+    with cached_sparql_parsing():
+        _, results, _ = validate(
+            data, shacl_graph=shapes, advanced=True, inference='none', allow_warnings=True)
+
+    in_scope = re.compile(focus_filter)
+    annotations = set()
+    for result in results.subjects(RDF.type, SH.ValidationResult):
+        focus = results.value(result, SH.focusNode)
+        if not isinstance(focus, Literal) and not in_scope.search(str(focus)):
+            continue
+        # A SPARQL constraint may carry its own label; otherwise use the shape's.
+        source = results.value(result, SH.sourceConstraint)
+        if source is None or shapes.value(source, RDFS.label) is None:
+            source = results.value(result, SH.sourceShape)
+        title = str(shapes.value(source, RDFS.label) or source)
+        message = format_message(
+            str(results.value(result, SH.resultMessage)), focus,
+            results.value(result, SH.value), results.value(result, SH.resultPath))
+        level = annotation_level(results.value(result, SH.resultSeverity), maturity)
+        file = source_file(data, focus, resolution)
+        location = 'file=' + file + ',' if file else ''
+        annotations.add(level + ' ' + location + 'title=' + title + '::' + message)
+
+    for annotation in sorted(annotations):
+        print(annotation)
+    return not any(a.startswith('::error') for a in annotations)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Run the IOF hygiene tests (SHACL)')
+    parser.add_argument('about_files', nargs='+', metavar='ABOUT', help='About*.rdf files to test')
+    parser.add_argument('--shapes', default='etc/testing/hygiene_shapes',
+                        help='Folder of SHACL shape files (*.ttl)')
+    parser.add_argument('--focus-filter', default='industrialontologies',
+                        help='Only report results whose focus node IRI matches this regex')
+    args = parser.parse_args()
+
+    shapes = load_shapes(args.shapes)
+    ontology_is_clean = True
+    for about_file in args.about_files:
+        print('========================================')
+        print('::group::Running tests:', about_file)
+        files, maturity, resolution = find_ontologies(about_file)
+        print('::notice title=' + about_file + ' Maturity::' + about_file + ' has maturity:', maturity)
+        clean = run_hygiene(files, shapes, maturity, resolution, args.focus_filter)
+        ontology_is_clean = ontology_is_clean and clean
+        print('::endgroup::')
+        if clean:
+            print('::notice title=' + about_file + '::Hygiene tests passed for about file:', about_file)
+        else:
+            print('::error title=' + about_file + '::Hygiene tests failed for about file:', about_file)
+
+    if not ontology_is_clean:
+        print('::error title=Hygiene Tests::some hygiene tests failed.')
+        sys.exit(1)
+    print('::notice title=Hygiene Tests::all hygiene tests passed.')
+    sys.exit(0)

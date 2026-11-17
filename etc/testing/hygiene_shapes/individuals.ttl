@@ -1,0 +1,76 @@
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:IndividualClassification
+	a sh:NodeShape ;
+	rdfs:comment "Types named individuals the way iof-h:ConstructClassification types classes and properties: iof-h:ActiveIndividual is a named, non-deprecated individual; iof-h:ContentIndividual is an active individual defined by a content ontology, not the IOF annotation vocabulary." ;
+	sh:rule
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ActiveConstructCondition ;
+			sh:object iof-h:ActiveIndividual ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		] ,
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ContentConstructCondition ;
+			sh:object iof-h:ContentIndividual ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		]
+		;
+	sh:targetClass owl:NamedIndividual ;
+	.
+
+iof-h:IndividualDefinition
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "individuals definitions" ;
+		sh:message "Individual {$this} does not have an iof:naturalLanguageDefinition in American English." ;
+		sh:path iof-av:naturalLanguageDefinition ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ContentIndividual ;
+	.
+
+iof-h:IndividualIsDefinedBy
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "individuals is defined by" ;
+		sh:message "Individual {$this} does not have a rdfs:isDefinedBy annotation." ;
+		sh:minCount "1"^^xsd:integer ;
+		sh:path rdfs:isDefinedBy ;
+		sh:severity iof-h:Critical ;
+	] ;
+	sh:targetClass owl:NamedIndividual ;
+	.
+
+iof-h:IndividualLabel
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "individuals labels" ;
+		sh:message "Individual {$this} does not have an rdfs:label in American English." ;
+		sh:path rdfs:label ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ActiveIndividual ;
+	.
+

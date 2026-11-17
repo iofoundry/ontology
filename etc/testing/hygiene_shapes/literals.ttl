@@ -1,0 +1,109 @@
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+iof-h:AnnotationLanguageTag
+	a sh:NodeShape ;
+	rdfs:label "annotations language tag" ;
+	sh:deactivated "true"^^xs:boolean ;
+	sh:severity sh:Warning ;
+	sh:sparql [
+		sh:message "Annotation {?value} of {$this} does not have a language tag in property: {?path}" ;
+		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+		sh:select """
+            SELECT DISTINCT $this ?path ?value WHERE {
+                ?path a owl:AnnotationProperty .
+                $this ?path ?value .
+                FILTER (isLiteral(?value) && DATATYPE(?value) = xsd:string)
+            }
+        """ ;
+	] ;
+	sh:target iof-h:NamedSubjects ;
+	.
+
+iof-h:LanguageTagCase
+	a sh:NodeShape ;
+	rdfs:label "language tag case" ;
+	sh:severity sh:Violation ;
+	sh:sparql [
+		sh:message 'Resource {$this} has property {?path} with language tag "{?lang}" instead of "en-US".' ;
+		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+		sh:select '''
+            SELECT DISTINCT $this ?path ?lang WHERE {
+                $this ?path ?value .
+                BIND (LANG(?value) AS ?lang)
+                FILTER (LCASE(?lang) = "en-us" && ?lang != "en-US")
+            }
+        ''' ;
+	] ;
+	sh:target iof-h:NamedSubjects ;
+	.
+
+iof-h:LiteralLeadingBlanks
+	a sh:SPARQLConstraint ;
+	rdfs:label "literals leading blanks" ;
+	sh:message "Resource {$this} has property {?path} whose value contains leading space(s)." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select '''
+        SELECT DISTINCT $this ?path WHERE {
+            $this ?path ?value .
+            FILTER (isLiteral(?value) && REGEX(STR(?value), "^[ \\t]+."))
+        }
+    ''' ;
+	.
+
+iof-h:LiteralMultipleBlanks
+	a sh:SPARQLConstraint ;
+	rdfs:label "literals multiple blanks" ;
+	sh:message "Resource {$this} has property {?path} whose value contains multiple embedded spaces." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select '''
+        SELECT DISTINCT $this ?path WHERE {
+            $this ?path ?value .
+            FILTER (isLiteral(?value) && REGEX(STR(?value), "[^ \\t\\r\\n][ \\t][ \\t]+[^ \\t\\r\\n]"))
+        }
+    ''' ;
+	.
+
+iof-h:LiteralNullValue
+	a sh:SPARQLConstraint ;
+	rdfs:label "null literal values" ;
+	sh:message "A resource {$this} has a null value for property {?path}" ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+        SELECT DISTINCT $this ?path WHERE {
+            $this ?path ?value .
+            FILTER (?path != iof-av:wasDefinedBy)
+            FILTER (isLiteral(?value) && STRLEN(STR(?value)) = 0)
+        }
+    """ ;
+	.
+
+iof-h:LiteralTrailingBlanks
+	a sh:SPARQLConstraint ;
+	rdfs:label "literals trailing blanks" ;
+	sh:message "Resource {$this} has property {?path} whose value contains trailing space(s)." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select '''
+        SELECT DISTINCT $this ?path WHERE {
+            $this ?path ?value .
+            FILTER (isLiteral(?value) && REGEX(STR(?value), ".[ \\t]+$"))
+        }
+    ''' ;
+	.
+
+iof-h:LiteralValues
+	a sh:NodeShape ;
+	sh:severity sh:Warning ;
+	sh:sparql
+		iof-h:LiteralLeadingBlanks ,
+		iof-h:LiteralMultipleBlanks ,
+		iof-h:LiteralNullValue ,
+		iof-h:LiteralTrailingBlanks
+		;
+	sh:target iof-h:NamedSubjects ;
+	.
+
