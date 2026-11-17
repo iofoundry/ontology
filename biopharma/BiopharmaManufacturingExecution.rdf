@@ -668,6 +668,54 @@
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;clone stability study&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;cloned cell line&apos; and &apos;has occurrent part&apos; some &apos;measurement process&apos; or &apos;monitoring process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;ConcentrationProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;MixedMaterial">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;Concentration"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasSpecifiedOutput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;MixedMaterial">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;Concentration"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">concentration process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
+		<skos:example>Concentrating a monoclonal antibody solution by ultrafiltration from 5 g/L to 25 g/L antibody mass concentration; Removing water from a glucose solution by evaporation to increase its glucose concentration; Concentrating whey proteins by membrane filtration.</skos:example>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHMO_0002771</iof-av:adaptedFrom>
+		<iof-av:firstOrderLogicAxiom>ConcentrationProcess(x) → PlannedProcess(x) ∧ ∃i∃o∃ci∃co∃ei∃eo∃vi∃vo (MixedMaterial(i) ∧ hasInput(x,i) ∧ Concentration(ci) ∧ hasQuality(i,ci) ∧ MixedMaterial(o) ∧ hasSpecifiedOutput(x,o) ∧ Concentration(co) ∧ hasQuality(o,co) ∧ ValueExpression(ei) ∧ hasValueExpressionAtSomeTime(ci,ei) ∧ hasSimpleExpressionValue(ei,vi) ∧ ValueExpression(eo) ∧ hasValueExpressionAtSomeTime(co,eo) ∧ hasSimpleExpressionValue(eo,vo) ∧ vo &gt; vi)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the concentration of a constituent is increased</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;concentration process&apos; then x is a &apos;planned process&apos; that &apos;has input&apos; some &apos;mixed material&apos; having a &apos;concentration&apos; quality and &apos;has specified output&apos; some &apos;mixed material&apos; having a &apos;concentration&apos; quality, with the output concentration value greater than the input concentration value</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:synonym xml:lang="en-US">concentrating</iof-av:synonym>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;ContinuousCultureProcessOperatingMode">
 		<rdfs:subClassOf rdf:resource="&iof-constr;ContinuousProcessOperatingMode"/>
 		<rdfs:subClassOf>
@@ -1135,7 +1183,7 @@
 		<skos:example>A depth filtration process is used to clarify harvested cell culture by removing cells and large debris; A depth filtration process removes insoluble material after cell lysis before purification; A depth filtration process serves as the primary clarification step prior to sterile filtration;</skos:example>
 		<iof-av:firstOrderLogicAxiom>DepthFiltrationProcess(x) → FiltrationProcess(x) ∧ ∃y (DepthFilter(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a fluid is passed through a depth filter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a depth filter is used to separate constituents of a fluid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;depth filtration process&apos; then x is a &apos;filtration process&apos; that &apos;has participant at some time&apos; some &apos;depth filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1196,10 +1244,10 @@
 		<skos:example>After mAb purification, the protein solution undergoes diafiltration to exchange the buffer and remove residual salts before formulation; Whey is concentrated by ultrafiltration to retain proteins, followed by continuous water addition during filtration to remove residual lactose and salts through diafiltration.</skos:example>
 		<iof-av:explanatoryNote>Diafiltration can be conducted either in a continuous or discontinuous manner:
 Continuous diafiltration: Buffer is added continuously as filtrate is removed, maintaining a constant volume and concentration of the target molecule.
-Discontinuous diafiltration: Involves diluting the sample, concentrating it back, and repeating this process multiple times.</iof-av:explanatoryNote>
+Discontinuous diafiltration: Involves diluting the sample and concentrating it back, with the cycle repeated as needed.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>DiafiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (DilutionProcess(y) ∧ hasOccurrentPart(x, y)) ∧ ∃z (FiltrationProcess(z) ∧ hasOccurrentPart(x, z)) ∧ (∃y ∃z (DilutionProcess(y) ∧ FiltrationProcess(z) ∧ hasOccurrentPart(x, y) ∧ hasOccurrentPart(x, z) ∧ (before(y, z) ∨ occursSimultaneouslyWith(y, z))))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of either multiple cycles of dilution followed by filtration, or of dilution and filtration occurring simultaneously, to remove unretained solutes or to exchange the solution&apos;s solvent or buffer environment</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process that consists of either one or more cycles of dilution followed by filtration, or of dilution and filtration occurring simultaneously, to remove unretained solutes or to exchange the solution&apos;s solvent or buffer environment</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;diafiltration process&apos; then x is a &apos;planned process&apos; and &apos;has occurrent part&apos; some &apos;dilution process&apos; and &apos;has occurrent part&apos; some &apos;filtration process&apos; and the &apos;dilution process&apos; is such that it either &apos;occurs before&apos; the &apos;filtration process&apos; or &apos;occurs simultaneously with&apos; the &apos;filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1248,7 +1296,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:altLabel>normal flow filtration</skos:altLabel>
 		<skos:example>In brewing, dead-end filtration separates wort from barley husks after mashing; Dead-end filtration removes particulates from buffer solutions before chromatography;</skos:example>
 		<iof-av:firstOrderLogicDefinition>DirectFlowFiltration(x) ↔ FiltrationProcess(x) ∧ ∃y (PerpendicularFlowOrientation(y) ∧ hasProcessProfile(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration in which the fluid travels in the direction that is perpendicular to the surface of the filter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which fluid undergoing filtration flows perpendicular to the surface of the filter medium</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;direct flow filtration&apos; is defined as exactly an instance of &apos;filtration process&apos; that &apos;has process profile&apos; some &apos;perpendicular flow orientation&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -1326,6 +1374,70 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;fed batch process operating mode&apos; then x is a &apos;planned process operating mode&apos; that is the &apos;process characteristic of&apos; some &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has input&apos; some &apos;process intermediate material&apos; or some &apos;raw material&apos; that &apos;has role&apos; some &apos;transferred material role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;FiltrationAidApplicationProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&bfo;BFO_0000117"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;MaterialAdditionProcess">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+								<owl:someValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="&bfo;BFO_0000040">
+											</rdf:Description>
+											<owl:Class>
+												<owl:unionOf rdf:parseType="Collection">
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&bfo;BFO_0000110"/>
+														<owl:someValuesFrom>
+															<owl:Class>
+																<owl:intersectionOf rdf:parseType="Collection">
+																	<rdf:Description rdf:about="&bfo;BFO_0000040">
+																	</rdf:Description>
+																	<owl:Restriction>
+																		<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+																		<owl:someValuesFrom rdf:resource="&iof-constr;FiltrationAidRole"/>
+																	</owl:Restriction>
+																</owl:intersectionOf>
+															</owl:Class>
+														</owl:someValuesFrom>
+													</owl:Restriction>
+													<owl:Restriction>
+														<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+														<owl:someValuesFrom rdf:resource="&iof-constr;FiltrationAidRole"/>
+													</owl:Restriction>
+												</owl:unionOf>
+											</owl:Class>
+											<owl:Restriction>
+												<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+												<owl:someValuesFrom rdf:resource="&iof-constr;TransferredMaterialRole"/>
+											</owl:Restriction>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:someValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">filtration aid application process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
+		<skos:example>incorporating diatomaceous earth into harvested cell culture before clarification; introducing filtration aid into a laboratory sample before filtration; circulating a prepared diatomaceous earth slurry through a filter to form a precoat; dosing perlite into a suspension during filtration</skos:example>
+		<iof-av:explanatoryNote>Filtration aid may be introduced directly or as a constituent of another material, such as a slurry. Depending on the application method, the process may also involve mixing, circulation, or filtration.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FiltrationAidApplicationProcess(x) → PlannedProcess(x) ∧ ∃a ∃m ∃t (MaterialAdditionProcess(a) ∧ hasOccurrentPart(x,a) ∧ MaterialEntity(m) ∧ hasInput(a,m) ∧ TransferredMaterialRole(t) ∧ hasRole(m,t) ∧ (∃r (FiltrationAidRole(r) ∧ hasRole(m,r)) ∨ ∃f ∃r (MaterialEntity(f) ∧ hasContinuantPartAtAllTimes(m,f) ∧ FiltrationAidRole(r) ∧ hasRole(f,r))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which filtration aid is incorporated into material to be filtered or deposited onto a filter to improve filtration performance</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>There are insufficient constructs to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filtration aid application process&apos; then x is a &apos;planned process&apos; that &apos;has occurrent part&apos; some &apos;material addition process&apos; that &apos;has input&apos; some &apos;material entity&apos; bearing a &apos;transferred material role&apos; and either bearing a &apos;filtration aid role&apos; or having as a continuant part at all times a material entity bearing a &apos;filtration aid role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;FiltrationProcess">
 		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
 		<rdfs:subClassOf>
@@ -1334,19 +1446,68 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 				<owl:someValuesFrom rdf:resource="&iof-constr;Filter"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasInput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&bfo;BFO_0000040">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;hasQuality"/>
+								<owl:someValuesFrom rdf:resource="&iof-constr;FluidAggregateState"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasOutput"/>
+				<owl:someValuesFrom>
+					<owl:Class>
+						<owl:unionOf rdf:parseType="Collection">
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;FiltrateRole"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&bfo;BFO_0000040">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasRole"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;RetentateRole"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
+					</owl:Class>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">filtration process</rdfs:label>
 		<dcterms:contributor>Merck KGaA</dcterms:contributor>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>depth filtration; TFF filtration; direct flow filtration; membrane filtration</skos:example>
 		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHMO_0001640</iof-av:adaptedFrom>
-		<iof-av:explanatoryNote>1) Passing can be conducted by using gravity or by using pressure.
-2) According to the direction of the fluid feed in relation to the filter medium there are two broad types of filtrations. In conventional (a.k.a normal, direct, perpendicular) filtration, the fluid flows perpendicular to the medium which results in a cake of solids depositing on the filter medium. In tangential flow filtration the fluid flows parallel to the medium to minimize buildup of solids on the medium. Given that flow direction is the key differentiating characteristic, tangential flow filtration and normal flow filtration (direct flow filtration) are modeled as defined subclasses of filtration.
-3) Filtration is a separation technique predominantly based on particle size, where components are retained or passed through a porous medium depending on their dimensions relative to the pore size. However, in some cases, additional characteristics such as particle shape and electrostatic charge can significantly influence retention behavior and selectivity of the filter used in the process.</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃y (Filter(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:explanatoryNote>1) Filtration may involve liquid or gaseous fluids. Fluid flow through a filter may be driven by gravity, an applied pressure difference, or centrifugal force.
+	2) Based on the direction of fluid flow relative to the filter medium, two broad types of filtration are distinguished. In normal-flow filtration (also called direct-flow filtration), the fluid undergoing filtration flows predominantly perpendicular to the filter medium. In tangential-flow filtration, the fluid flows predominantly tangentially along the medium.
+	3) Filtration selectivity commonly depends on particle or solute size relative to the retention characteristics of the filter medium. Other factors, including particle shape, adsorption, entrapment, and electrostatic interactions, may also influence retention and separation.
+	4) Depending on the filtration configuration and process boundaries, outputs may include filtrate, retentate, or both.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FiltrationProcess(x) → PlannedProcess(x) ∧ ∃f (Filter(f) ∧ hasParticipantAtSomeTime(x, f)) ∧ ∃i∃q (MaterialEntity(i) ∧ hasInput(x, i) ∧ FluidAggregateState(q) ∧ hasQuality(i, q)) ∧ ∃m∃r (MaterialEntity(m) ∧ hasOutput(x, m) ∧ hasRole(m, r) ∧ (FiltrateRole(r) ∨ RetentateRole(r)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which suspended solids or dissolved components are separated from a fluid by passing it through a filter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a filter is used to separate constituents of a fluid through selective passage or retention</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filtration process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;filtration process&apos; then x is a &apos;planned process&apos; that &apos;has participant at some time&apos; some &apos;filter&apos;, &apos;has input&apos; some &apos;material entity&apos; that &apos;has quality&apos; some &apos;fluid aggregate state&apos;, and &apos;has output&apos; some &apos;material entity&apos; that &apos;has role&apos; some &apos;filtrate role&apos; or some &apos;material entity&apos; that &apos;has role&apos; some &apos;retentate role&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;FluidFlowOrientation">
@@ -1359,6 +1520,21 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">process profile that is the orientation of fluid movement in a process with respect to a reference surface or spatial axis</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;fluid flow orientation&apos; then x is a &apos;process profile&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;FlushingProcess">
+		<rdfs:subClassOf rdf:resource="&iof-constr;PlannedProcess"/>
+		<rdfs:label xml:lang="en-US">flushing process</rdfs:label>
+		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
+		<skos:example>pre-use flushing of a depth filtration assembly with MilliQ water to displace trapped air; flushing residual product from a filtration assembly using buffer after filtration; flushing residual cleaning solution from a process transfer line using water; circulating fluid through a piping loop to remove particulate residues remaining from assembly</skos:example>
+		<iof-av:counterExample>elution of a deliberately retained target protein from a chromatography column as part of chromatographic separation</iof-av:counterExample>
+		<iof-av:explanatoryNote>1) Residual material refers to material remaining in or on a recipient from a preceding activity or condition, such as processing, cleaning, storage, or assembly. It is distinguished from material retained in the recipient for further processing. Residual material may include retained product, process fluids, cleaning agents, particulate matter, or trapped air, and need not be an impurity.
+	2) Flushing may involve fluid introduction, circulation, and material removal. Displaced material may be collected, recovered, discarded, or retained elsewhere in the system. Neither collection nor a particular flow direction or equipment configuration is required.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>FlushingProcess(x) → PlannedProcess(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which a fluid is used to displace or remove residual material from a recipient</iof-av:naturalLanguageDefinition>
+		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions.</iof-av:primitiveRationale>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;flushing process&apos; then x is a &apos;planned process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;GasChromatographyProcess">
@@ -1527,7 +1703,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>A membrane filtration process is used to sterilize media solutions by removing microorganisms; A membrane filtration process clarifies protein solutions before column chromatography; A membrane filtration process removes aggregates and particulates from monoclonal antibody formulations;</skos:example>
 		<iof-av:firstOrderLogicAxiom>MembraneFiltrationProcess(x) → FiltrationProcess(x) ∧ ∃y (MembraneFilter(y) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a fluid is passed through a membrane</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter is used to separate constituents of a fluid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;membrane filtration process&apos; then x is a &apos;filtration process&apos; that &apos;has participant at some time&apos; some &apos;membrane filter&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1573,11 +1749,14 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<rdfs:subClassOf rdf:resource="&iof-constr;MembraneFiltrationProcess"/>
 		<rdfs:label xml:lang="en-US">nanofiltration process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>A nanofiltration process is used to remove endotoxins while allowing most proteins to pass through; A nanofiltration process concentrates therapeutic peptides while separating out small salts and solvents; A nanofiltration process is applied after viral inactivation to clear potential viral contaminants; A nanofiltration process is used to reduce water content and impurities in antibiotic purification;</skos:example>
-		<iof-av:explanatoryNote>The stated pore-size values indicate the characteristic scale associated with nanofiltration and are not intended to establish exact lower or upper classification boundaries. A membrane filtration process may still be classified as a nanofiltration process when the nominal pore-size rating lies near or modestly outside this interval, provided that the membrane and its retention performance are recognized as nanofiltration.</iof-av:explanatoryNote>
+		<skos:example>Nanofiltration of water to reduce hardness by preferentially retaining calcium and magnesium ions; Nanofiltration of aqueous solutions to selectively retain low-molecular-weight organic solutes; Virus-retentive nanofiltration of therapeutic protein solutions to reduce viral particle content</skos:example>
+		<iof-av:acronym>NF</iof-av:acronym>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHMO_0001642</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) In dissolved-solute separations, nanofiltration membranes generally exhibit greater rejection of multivalent ions than monovalent ions and may selectively retain low-molecular-weight organic solutes. In biopharmaceutical manufacturing, nanofiltration also encompasses virus-retentive membrane filtration. Retention need not be complete and depends on membrane characteristics, constituent properties, and operating conditions.
+	2) Nanofiltration membranes may be characterized by molecular-weight cutoff (MWCO) or nominal or effective pore size. For dissolved-solute separations, EPA reports a typical MWCO of 200–1,000 Da and WHO cites pore sizes of approximately 1–10 nm. For virus-retentive applications, WHO documents 15 and 35 nm nanofilters, while Roth et al. (2020; https://doi.org/10.1111/trf.16022) report nanofiltration platforms with nominal pore sizes of 15–50 nm in their viral clearance validation dataset. These values are indicative rather than strict classification boundaries. Classification should consider the specified retention target and demonstrated performance, recognizing potential overlap with ultrafiltration and reverse osmosis.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>NanofiltrationProcess(x) → MembraneFiltrationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter that is used has pore size in the range of 0.001 to 0.01 μm</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">membrane filtration process in which a membrane preferentially restricts the passage of low-molecular-weight dissolved solutes or nanoscale constituents of a fluid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;nanofiltration process&apos; then x is a &apos;membrane filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
@@ -1774,7 +1953,7 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		<skos:example>Lentiviral transduction of primary human T cells in CAR-T manufacturing; AAV-mediated delivery of a therapeutic gene to retinal cells in gene therapy; Engineered phage transduction of E. coli in a laboratory setting</skos:example>
 		<iof-av:adaptedFrom>http://id.nlm.nih.gov/mesh/D014161 and https://www.sciencedirect.com/topics/medicine-and-dentistry/genetic-transduction</iof-av:adaptedFrom>
 		<iof-av:counterExample>Lipofection of plasmid DNA into CHO cells; Natural bacteriophage transfer of genes between gut bacteria</iof-av:counterExample>
-		<iof-av:explanatoryNote>This class is restricted to planned applications of transduction, such as therapeutic, manufacturing, or experimental procedures. Examples include lentiviral transduction of T cells in CAR-T therapy, adeno-associated viral (AAV) gene delivery in gene therapy, and bacteriophage-mediated gene transfer in synthetic biology. Natural occurrences of transduction (e.g., bacteriophage-driven horizontal gene transfer in the environment) are out of scope and can be captured through external biological process ontologies (e.g., transduction in GO).</iof-av:explanatoryNote>
+		<iof-av:explanatoryNote>This class is restricted to planned applications of transduction, such as therapeutic, manufacturing, or experimental procedures. Examples include lentiviral transduction of T cells in CAR-T therapy, adeno-associated viral (AAV) gene delivery in gene therapy, and bacteriophage-mediated gene transfer in synthetic biology. Natural occurrences of transduction (e.g., bacteriophage-driven horizontal gene transfer in the environment) are out of scope and can be captured through external biological process ontologies (e.g., transduction in GO). In this context, modification of a cell&apos;s genetic material includes the introduction of exogenous DNA or RNA and does not require alteration of or integration into the host genome.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>PlannedTransductionProcess(x) → GeneticTransformationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
 		<iof-av:naturalLanguageDefinition xml:lang="en-US">genetic transformation process of introducing DNA or RNA into cells by a virus or viral vector to modify the cell&apos;s genetic material</iof-av:naturalLanguageDefinition>
@@ -2110,11 +2289,11 @@ Discontinuous diafiltration: Involves diluting the sample, concentrating it back
 		</owl:equivalentClass>
 		<skos:altLabel>cross-flow filtration</skos:altLabel>
 		<skos:example>Tangential flow filtration is used to purify and concentrate viral vectors by separating them from residual DNA, cell debris, and small fragments;
-Tangential flow filtration is applied to concentrate monoclonal antibodies before anion exchange chromatography;</skos:example>
+	Tangential flow filtration is applied to concentrate monoclonal antibodies before anion exchange chromatography;</skos:example>
 		<iof-av:acronym>TFF</iof-av:acronym>
 		<iof-av:explanatoryNote>TFF can operate in batch mode (Batch TFF) and continuous mode (single-pass TFF)</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicDefinition>TangentialFlowFiltration(x) ↔ FiltrationProcess(x) ∧ ∃y (TangentialFlowOrientation(y) ∧ hasProcessProfile(x, y))</iof-av:firstOrderLogicDefinition>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which the liquid travels tangentially across the surface of the membrane or bed filter</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which fluid undergoing filtration flows tangentially along the surface of the filter medium</iof-av:naturalLanguageDefinition>
 		<iof-av:semiFormalNaturalLanguageDefinition>every instance of &apos;tangential flow filtration&apos; is defined as exactly an instance of &apos;filtration process&apos; that &apos;has process profile&apos; some &apos;tangential flow orientation&apos;</iof-av:semiFormalNaturalLanguageDefinition>
 	</owl:Class>
 	
@@ -2138,14 +2317,20 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 				<owl:onProperty rdf:resource="&bfo;BFO_0000057"/>
 				<owl:someValuesFrom>
 					<owl:Class>
-						<owl:intersectionOf rdf:parseType="Collection">
-							<rdf:Description rdf:about="&iof-constr;PieceOfEquipment">
+						<owl:unionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;Agent">
 							</rdf:Description>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;hasCapability"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;ThawingCapability"/>
-							</owl:Restriction>
-						</owl:intersectionOf>
+							<owl:Class>
+								<owl:intersectionOf rdf:parseType="Collection">
+									<rdf:Description rdf:about="&iof-constr;PieceOfEquipment">
+									</rdf:Description>
+									<owl:Restriction>
+										<owl:onProperty rdf:resource="&iof-constr;hasCapability"/>
+										<owl:someValuesFrom rdf:resource="&iof-constr;ThawingCapability"/>
+									</owl:Restriction>
+								</owl:intersectionOf>
+							</owl:Class>
+						</owl:unionOf>
 					</owl:Class>
 				</owl:someValuesFrom>
 			</owl:Restriction>
@@ -2153,11 +2338,11 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:label xml:lang="en-US">thawing process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
 		<skos:example>Cryopreserved cells contained in cryovials are thawed in a 37°C water bath, with gentle swirling, to facilitate even thawing; A frozen dough, like puff pastry, is thawed in a refrigerator at 5°C, with air circulation, for a certain period of time, before baking; In the fish industry, frozen blocks of Cod are thawed into large tanks with water, which are designed to facilitate the continuous movement of the product through a counter-flow stream of temperature controlled, agitated water</skos:example>
-		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>ThawingProcess(x) → PlannedProcess(x) ∧ (∃a (Agent(a) ∧ hasParticipantAtSomeTime(x, a)) ∨ ∃y ∃c (PieceOfEquipment(y) ∧ ThawingCapability(c) ∧ hasCapability(y, c) ∧ hasParticipantAtSomeTime(x, y)))</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner to a specified setpoint, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">planned process in which the temperature of a material entity is raised in a controlled manner, typically to transition it from a solid or frozen state to a soft or liquid state</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
-		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom>if x is a &apos;thawing process&apos; then x is a &apos;planned process&apos; and &apos;has participant at some time&apos; some &apos;agent&apos; or some &apos;piece of equipment&apos; that &apos;has capability&apos; some &apos;thawing capability&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;TransfectionProcess">
@@ -2180,12 +2365,14 @@ Tangential flow filtration is applied to concentrate monoclonal antibodies befor
 		<rdfs:subClassOf rdf:resource="&iof-constr;MembraneFiltrationProcess"/>
 		<rdfs:label xml:lang="en-US">ultrafiltration process</rdfs:label>
 		<rdfs:isDefinedBy rdf:datatype="&xsd;anyURI">https://spec.industrialontologies.org/ontology/biopharma/BiopharmaManufacturingExecution/</rdfs:isDefinedBy>
-		<skos:example>Ultrafiltration is used in cheese making to concentrate casein and whey proteins while removing water, lactose, and soluble components; In mAb production, ultrafiltration concentrates antibody solutions before formulation; Ultrafiltration is applied to remove host cell proteins and as part of buffer exchange before viral filtration</skos:example>
-		<iof-av:explanatoryNote>1) Ultrafiltration (UF) is a variety of membrane filtration in which forces such as pressure or concentration gradients lead to a separation through a semipermeable membrane. Suspended solids and solutes of high molecular weight are retained in the so-called retentate, while water and low molecular weight solutes pass through the membrane in the permeate (filtrate).
-2) The stated pore-size values indicate the characteristic scale associated with ultrafiltration and are not intended to establish exact lower or upper classification boundaries. A membrane filtration process may still be classified as an ultrafiltration process when the nominal pore-size rating lies near or modestly outside this interval, provided that the membrane and its retention performance are recognized as ultrafiltration.</iof-av:explanatoryNote>
+		<skos:example>Ultrafiltration is used in cheese making to concentrate casein and whey proteins; In monoclonal antibody manufacturing, ultrafiltration concentrates antibody solutions before formulation; Ultrafiltration combined with diafiltration enables buffer exchange while retaining therapeutic proteins</skos:example>
+		<iof-av:acronym>UF</iof-av:acronym>
+		<iof-av:adaptedFrom>http://purl.obolibrary.org/obo/CHMO_0001645</iof-av:adaptedFrom>
+		<iof-av:explanatoryNote>1) In ultrafiltration, macromolecules or colloidal constituents are preferentially retained in the retentate, while solvent and smaller or otherwise less-retained constituents may pass through the membrane into the permeate. Retention need not be complete and depends on the membrane&apos;s characteristics, the properties of the constituents being separated, and the operating conditions.
+	2) Ultrafiltration membranes are commonly characterized by molecular-weight cutoff (MWCO) or nominal pore size. IUPAC, for example, reports a usual membrane pore-size range of approximately 0.001–0.1 µm. Reported ranges and classification conventions vary across sources, membrane types, and applications, and may overlap with those associated with nanofiltration. These values are indicative rather than strict classification boundaries. Classification should consider the separation objective and the membrane&apos;s specified or demonstrated retention performance, rather than nominal pore size alone.</iof-av:explanatoryNote>
 		<iof-av:firstOrderLogicAxiom>UltrafiltrationProcess(x) → MembraneFiltrationProcess(x)</iof-av:firstOrderLogicAxiom>
 		<iof-av:isPrimitive rdf:datatype="&xsd;boolean">true</iof-av:isPrimitive>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">filtration process in which a membrane filter that is used has pore size in the range of 0.01 to 0.1 μm</iof-av:naturalLanguageDefinition>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">membrane filtration process in which a membrane preferentially restricts the passage of macromolecules or colloidal constituents of a fluid</iof-av:naturalLanguageDefinition>
 		<iof-av:primitiveRationale>Insufficient constructs are present to create a set of necessary and sufficient conditions</iof-av:primitiveRationale>
 		<iof-av:semiFormalNaturalLanguageAxiom>if x is an &apos;ultrafiltration process&apos; then x is a &apos;membrane filtration process&apos;</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
