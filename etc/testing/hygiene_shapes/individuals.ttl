@@ -1,3 +1,10 @@
+##
+# Named individuals.
+#
+# Individuals such as the maturity levels (iof-ind:Released, iof-ind:Provisional) are
+# published terms like classes and properties, so they need the same minimum
+# documentation: a defining module, a label and a natural language definition.
+
 @prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
 @prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -5,6 +12,11 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+##
+# Types each named individual as iof-h:ActiveIndividual (named, not deprecated) and
+# iof-h:ContentIndividual (also defined by a content ontology), with the same
+# conditions iof-h:ConstructClassification uses for classes and properties.
 
 iof-h:IndividualClassification
 	a sh:NodeShape ;
@@ -28,22 +40,9 @@ iof-h:IndividualClassification
 	sh:targetClass owl:NamedIndividual ;
 	.
 
-iof-h:IndividualDefinition
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "individuals definitions" ;
-		sh:message "Individual {$this} does not have an iof:naturalLanguageDefinition in American English." ;
-		sh:path iof-av:naturalLanguageDefinition ;
-		sh:qualifiedMinCount "1"^^xsd:integer ;
-		sh:qualifiedValueShape [
-			sh:languageIn (
-				"en-US"
-			) ;
-		] ;
-		sh:severity sh:Violation ;
-	] ;
-	sh:targetClass iof-h:ContentIndividual ;
-	.
+##
+# Every named individual says which module defines it (rdfs:isDefinedBy). Critical,
+# as for classes and properties: tooling attributes entities to modules by it.
 
 iof-h:IndividualIsDefinedBy
 	a sh:NodeShape ;
@@ -56,6 +55,9 @@ iof-h:IndividualIsDefinedBy
 	] ;
 	sh:targetClass owl:NamedIndividual ;
 	.
+
+##
+# Every active individual has an rdfs:label in American English ("en-US").
 
 iof-h:IndividualLabel
 	a sh:NodeShape ;
@@ -74,3 +76,23 @@ iof-h:IndividualLabel
 	sh:targetClass iof-h:ActiveIndividual ;
 	.
 
+##
+# Every content individual has an iof-av:naturalLanguageDefinition in American
+# English.
+
+iof-h:IndividualDefinition
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "individuals definitions" ;
+		sh:message "Individual {$this} does not have an iof:naturalLanguageDefinition in American English." ;
+		sh:path iof-av:naturalLanguageDefinition ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ContentIndividual ;
+	.

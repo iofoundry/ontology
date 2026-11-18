@@ -1,3 +1,15 @@
+##
+# Formal documentation required of classes.
+#
+# IOF documents every content class formally as well as in natural language, and what
+# is required depends on whether the class is primitive or defined. iof-h:PrimitiveClass
+# and iof-h:DefinedClass are inferred by the rules in common.ttl from whether the class
+# has an owl:equivalentClass axiom -- not from the iof-av:isPrimitive annotation.
+#
+# Each requirement is a named property shape so each is reported with its own title.
+# Severity: sh:Violation -- an error for Released ontologies, a warning while
+# Provisional.
+
 @prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
 @prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -7,32 +19,12 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xs: <http://www.w3.org/2001/XMLSchema#> .
 
-iof-h:DefinedClassDocumentation
-	a sh:NodeShape ;
-	sh:property
-		iof-h:DefinedClassFOLDefinition ,
-		iof-h:DefinedClassSemiFormalDefinition
-		;
-	sh:targetClass iof-h:DefinedClass ;
-	.
-
-iof-h:DefinedClassFOLDefinition
-	a sh:PropertyShape ;
-	rdfs:label "classes fol definitions" ;
-	sh:message "A non-primitive class {$this} does not have an FOL definition." ;
-	sh:minCount "1"^^xs:integer ;
-	sh:path iof-av:firstOrderLogicDefinition ;
-	sh:severity sh:Violation ;
-	.
-
-iof-h:DefinedClassSemiFormalDefinition
-	a sh:PropertyShape ;
-	rdfs:label "classes semiformal definition" ;
-	sh:message "A non-primitive class {$this} does not have a semi-formal natural language definition." ;
-	sh:minCount "1"^^xs:integer ;
-	sh:path iof-av:semiFormalNaturalLanguageDefinition ;
-	sh:severity sh:Violation ;
-	.
+# ======================================================================================
+# Primitive classes
+#
+# A primitive class has only necessary conditions (SubClassOf), so it is documented
+# by axioms that hold of all its instances, and an example of one.
+# ======================================================================================
 
 iof-h:PrimitiveClassDocumentation
 	a sh:NodeShape ;
@@ -44,14 +36,8 @@ iof-h:PrimitiveClassDocumentation
 	sh:targetClass iof-h:PrimitiveClass ;
 	.
 
-iof-h:PrimitiveClassExample
-	a sh:PropertyShape ;
-	rdfs:label "classes fol example" ;
-	sh:message "Primitive class {$this} does not have an example." ;
-	sh:minCount "1"^^xs:integer ;
-	sh:path skos:example ;
-	sh:severity sh:Violation ;
-	.
+##
+# At least one iof-av:firstOrderLogicAxiom.
 
 iof-h:PrimitiveClassFOLAxiom
 	a sh:PropertyShape ;
@@ -62,6 +48,9 @@ iof-h:PrimitiveClassFOLAxiom
 	sh:severity sh:Violation ;
 	.
 
+##
+# At least one iof-av:semiFormalNaturalLanguageAxiom.
+
 iof-h:PrimitiveClassSemiFormalAxiom
 	a sh:PropertyShape ;
 	rdfs:label "classes semiformal axiom" ;
@@ -71,3 +60,54 @@ iof-h:PrimitiveClassSemiFormalAxiom
 	sh:severity sh:Violation ;
 	.
 
+##
+# At least one skos:example.
+
+iof-h:PrimitiveClassExample
+	a sh:PropertyShape ;
+	rdfs:label "classes fol example" ;
+	sh:message "Primitive class {$this} does not have an example." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path skos:example ;
+	sh:severity sh:Violation ;
+	.
+
+# ======================================================================================
+# Defined classes
+#
+# A defined class has necessary and sufficient conditions (EquivalentTo), so it is
+# documented by a definition in each formal notation.
+# ======================================================================================
+
+iof-h:DefinedClassDocumentation
+	a sh:NodeShape ;
+	sh:property
+		iof-h:DefinedClassFOLDefinition ,
+		iof-h:DefinedClassSemiFormalDefinition
+		;
+	sh:targetClass iof-h:DefinedClass ;
+	.
+
+##
+# An iof-av:firstOrderLogicDefinition.
+
+iof-h:DefinedClassFOLDefinition
+	a sh:PropertyShape ;
+	rdfs:label "classes fol definitions" ;
+	sh:message "A non-primitive class {$this} does not have an FOL definition." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:firstOrderLogicDefinition ;
+	sh:severity sh:Violation ;
+	.
+
+##
+# An iof-av:semiFormalNaturalLanguageDefinition.
+
+iof-h:DefinedClassSemiFormalDefinition
+	a sh:PropertyShape ;
+	rdfs:label "classes semiformal definition" ;
+	sh:message "A non-primitive class {$this} does not have a semi-formal natural language definition." ;
+	sh:minCount "1"^^xs:integer ;
+	sh:path iof-av:semiFormalNaturalLanguageDefinition ;
+	sh:severity sh:Violation ;
+	.

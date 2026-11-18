@@ -1,3 +1,14 @@
+##
+# Documentation and declaration of classes and properties (constructs).
+#
+# The targets iof-h:ActiveConstruct and iof-h:ContentConstruct are inferred by the
+# classification rules in common.ttl:
+#   ActiveConstruct  -- any named, non-deprecated class or object/data property;
+#   ContentConstruct -- an active construct defined by a content ontology (not by the
+#                       IOF annotation vocabulary).
+# Labels are required of every active construct; definitions and examples only of
+# content constructs.
+
 @prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
 @prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -6,6 +17,185 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ======================================================================================
+# Helpers
+# ======================================================================================
+
+##
+# Matches a class, object property or data property -- the constructs that carry
+# labels and definitions. The uniqueness checks below count only resources of these
+# kinds, so an annotation property or individual sharing a label is not a clash.
+
+iof-h:LabelledConstructKind
+	a sh:NodeShape ;
+	sh:or (
+		[
+			sh:class owl:Class ;
+		]
+		[
+			sh:class owl:ObjectProperty ;
+		]
+		[
+			sh:class owl:DatatypeProperty ;
+		]
+	) ;
+	.
+
+# ======================================================================================
+# Module attribution
+# ======================================================================================
+
+##
+# Every class and property must say which module defines it (rdfs:isDefinedBy).
+# Critical: the portal, normalize_ontologies.py and check_module_iris.py attribute
+# each entity to its module by this annotation, and the content-construct
+# classification depends on it. Targets the raw OWL types rather than
+# iof-h:ContentConstruct, which itself requires rdfs:isDefinedBy.
+
+iof-h:ConstructIsDefinedBy
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "constructs is defined by" ;
+		sh:message "Construct {$this} does not have a rdfs:isDefinedBy annotation." ;
+		sh:minCount "1"^^xsd:integer ;
+		sh:path rdfs:isDefinedBy ;
+		sh:severity iof-h:Critical ;
+	] ;
+	sh:targetClass
+		owl:AnnotationProperty ,
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+# ======================================================================================
+# Labels
+# ======================================================================================
+
+##
+# Every active construct has an rdfs:label in American English ("en-US").
+
+iof-h:ConstructLabel
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "labels" ;
+		sh:message "Resource {$this} does not have an rdfs:label in American English." ;
+		sh:path rdfs:label ;
+		sh:qualifiedMinCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:languageIn (
+				"en-US"
+			) ;
+		] ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetClass iof-h:ActiveConstruct ;
+	.
+
+##
+# At most one label per language (sh:uniqueLang), and no two constructs with the
+# same label: the path rdfs:label/^rdfs:label reaches every resource with an
+# identical label (same text and language tag), which may only be the construct
+# itself.
+
+iof-h:ConstructLabelCardinality
+	a sh:NodeShape ;
+	sh:property
+		[
+			rdfs:label "labels multiple" ;
+			sh:message "Resource {$this} has multiple labels." ;
+			sh:path rdfs:label ;
+			sh:severity sh:Violation ;
+			sh:uniqueLang "true"^^xsd:boolean ;
+		] ,
+		[
+			rdfs:label "labels unique" ;
+			sh:message "Resource {$this} has a label that names multiple resources." ;
+			sh:path (
+				rdfs:label
+				[
+					sh:inversePath rdfs:label ;
+				]
+			) ;
+			sh:qualifiedMaxCount "1"^^xsd:integer ;
+			sh:qualifiedValueShape iof-h:LabelledConstructKind ;
+			sh:severity sh:Violation ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+##
+# Data property labels start with a verb: "is ..." for a boolean data property
+# (rdfs:range xsd:boolean), "has ..." for any other.
+
+iof-h:DataPropertyLabelStart
+	a sh:NodeShape ;
+	rdfs:label "labels dataproperty ill-formed start" ;
+	sh:message "Label for data property {$this} has an ill-formed beginning." ;
+	sh:or (
+		# boolean data properties are labelled "is ..."
+		[
+			sh:property
+				[
+					sh:hasValue xsd:boolean ;
+					sh:path rdfs:range ;
+				] ,
+				[
+					sh:path rdfs:label ;
+					sh:pattern "^is" ;
+				]
+				;
+		]
+		# every other data property is labelled "has ..."
+		[
+			sh:property
+				[
+					sh:not [
+						sh:hasValue xsd:boolean ;
+					] ;
+					sh:path rdfs:range ;
+				] ,
+				[
+					sh:path rdfs:label ;
+					sh:pattern "^has" ;
+				]
+				;
+		]
+	) ;
+	sh:severity sh:Violation ;
+	sh:targetClass owl:DatatypeProperty ;
+	.
+
+##
+# A data property label should not end in "value" ("has weight", not "has weight
+# value"): the property already relates its subject to a value.
+
+iof-h:DataPropertyLabel
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "labels dataproperty ill-formed end" ;
+		sh:message "Label {?value} for data property {$this} has an ill-formed end." ;
+		sh:path rdfs:label ;
+		sh:pattern "value$" ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass owl:DatatypeProperty ;
+	.
+
+# ======================================================================================
+# Definitions
+# ======================================================================================
+
+##
+# Every content construct has an iof-av:naturalLanguageDefinition in American
+# English.
 
 iof-h:ConstructDefinition
 	a sh:NodeShape ;
@@ -24,29 +214,12 @@ iof-h:ConstructDefinition
 	sh:targetClass iof-h:ContentConstruct ;
 	.
 
-iof-h:ConstructDefinitionCircularity
-	a sh:NodeShape ;
-	rdfs:label "definitions circular" ;
-	sh:deactivated "true"^^xsd:boolean ;
-	sh:severity sh:Warning ;
-	sh:sparql [
-		sh:message "Definition {?value} of {$this} is immediately circular: it uses the resource's own label." ;
-		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
-		sh:select '''
-            SELECT $this ?value WHERE {
-                $this iof-av:naturalLanguageDefinition ?value ;
-                      rdfs:label ?label .
-                FILTER (LANG(?value) = LANG(?label))
-                FILTER REGEX(STR(?value), CONCAT("(^|[^A-Za-z])", STR(?label), "([^A-Za-z]|$)"), "i")
-            }
-        ''' ;
-	] ;
-	sh:targetClass
-		owl:Class ,
-		owl:DatatypeProperty ,
-		owl:ObjectProperty
-		;
-	.
+##
+# The form of natural language definitions:
+#   - written as a genus and differentia ("process that ..."), so not starting with
+#     an article ("a", "an", "the");
+#   - at most one definition per language;
+#   - no two constructs with an identical definition (same check as for labels).
 
 iof-h:ConstructDefinitionForm
 	a sh:NodeShape ;
@@ -88,82 +261,9 @@ iof-h:ConstructDefinitionForm
 		;
 	.
 
-iof-h:ConstructExample
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "Examples" ;
-		sh:message "A resource {$this} does not have an example." ;
-		sh:minCount "1"^^xsd:integer ;
-		sh:path skos:example ;
-		sh:severity sh:Warning ;
-	] ;
-	sh:targetClass iof-h:ContentConstruct ;
-	.
-
-iof-h:ConstructIsDefinedBy
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "constructs is defined by" ;
-		sh:message "Construct {$this} does not have a rdfs:isDefinedBy annotation." ;
-		sh:minCount "1"^^xsd:integer ;
-		sh:path rdfs:isDefinedBy ;
-		sh:severity iof-h:Critical ;
-	] ;
-	sh:targetClass
-		owl:AnnotationProperty ,
-		owl:Class ,
-		owl:DatatypeProperty ,
-		owl:ObjectProperty
-		;
-	.
-
-iof-h:ConstructLabel
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "labels" ;
-		sh:message "Resource {$this} does not have an rdfs:label in American English." ;
-		sh:path rdfs:label ;
-		sh:qualifiedMinCount "1"^^xsd:integer ;
-		sh:qualifiedValueShape [
-			sh:languageIn (
-				"en-US"
-			) ;
-		] ;
-		sh:severity sh:Violation ;
-	] ;
-	sh:targetClass iof-h:ActiveConstruct ;
-	.
-
-iof-h:ConstructLabelCardinality
-	a sh:NodeShape ;
-	sh:property
-		[
-			rdfs:label "labels multiple" ;
-			sh:message "Resource {$this} has multiple labels." ;
-			sh:path rdfs:label ;
-			sh:severity sh:Violation ;
-			sh:uniqueLang "true"^^xsd:boolean ;
-		] ,
-		[
-			rdfs:label "labels unique" ;
-			sh:message "Resource {$this} has a label that names multiple resources." ;
-			sh:path (
-				rdfs:label
-				[
-					sh:inversePath rdfs:label ;
-				]
-			) ;
-			sh:qualifiedMaxCount "1"^^xsd:integer ;
-			sh:qualifiedValueShape iof-h:LabelledConstructKind ;
-			sh:severity sh:Violation ;
-		]
-		;
-	sh:targetClass
-		owl:Class ,
-		owl:DatatypeProperty ,
-		owl:ObjectProperty
-		;
-	.
+##
+# The same uniqueness checks for iof-av:semiFormalNaturalLanguageDefinition. Whether
+# a class needs one at all is checked in classes.ttl.
 
 iof-h:ConstructSemiFormalDefinitionForm
 	a sh:NodeShape ;
@@ -196,53 +296,110 @@ iof-h:ConstructSemiFormalDefinitionForm
 		;
 	.
 
-iof-h:DataPropertyLabel
+##
+# Definitions shouldn't be circular -- this finds a definition that uses the
+# resource's own label.
+#
+# Deactivated: the original SPARQL test could never match (it referenced an unbound
+# ?label), and the check as intended reports ~60 definitions per release, mostly the
+# "material entity with a solvent role" pattern for roles' bearers. Remove
+# sh:deactivated to enable it.
+
+iof-h:ConstructDefinitionCircularity
 	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "labels dataproperty ill-formed end" ;
-		sh:message "Label {?value} for data property {$this} has an ill-formed end." ;
-		sh:path rdfs:label ;
-		sh:pattern "value$" ;
-		sh:severity sh:Warning ;
+	rdfs:label "definitions circular" ;
+	sh:deactivated "true"^^xsd:boolean ;
+	sh:severity sh:Warning ;
+	sh:sparql [
+		sh:message "Definition {?value} of {$this} is immediately circular: it uses the resource's own label." ;
+		sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+		sh:select '''
+            SELECT $this ?value WHERE {
+                $this iof-av:naturalLanguageDefinition ?value ;
+                      rdfs:label ?label .
+                FILTER (LANG(?value) = LANG(?label))
+                FILTER REGEX(STR(?value), CONCAT("(^|[^A-Za-z])", STR(?label), "([^A-Za-z]|$)"), "i")
+            }
+        ''' ;
 	] ;
-	sh:targetClass owl:DatatypeProperty ;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
 	.
 
-iof-h:DataPropertyLabelStart
+# ======================================================================================
+# Examples
+# ======================================================================================
+
+##
+# Every content construct should have a skos:example. A warning: classes.ttl makes
+# an example an error-level requirement for primitive classes.
+
+iof-h:ConstructExample
 	a sh:NodeShape ;
-	rdfs:label "labels dataproperty ill-formed start" ;
-	sh:message "Label for data property {$this} has an ill-formed beginning." ;
-	sh:or (
-		[
-			sh:property
-				[
-					sh:hasValue xsd:boolean ;
-					sh:path rdfs:range ;
-				] ,
-				[
-					sh:path rdfs:label ;
-					sh:pattern "^is" ;
-				]
-				;
-		]
-		[
-			sh:property
-				[
-					sh:not [
-						sh:hasValue xsd:boolean ;
-					] ;
-					sh:path rdfs:range ;
-				] ,
-				[
-					sh:path rdfs:label ;
-					sh:pattern "^has" ;
-				]
-				;
-		]
-	) ;
-	sh:severity sh:Violation ;
-	sh:targetClass owl:DatatypeProperty ;
+	sh:property [
+		rdfs:label "Examples" ;
+		sh:message "A resource {$this} does not have an example." ;
+		sh:minCount "1"^^xsd:integer ;
+		sh:path skos:example ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass iof-h:ContentConstruct ;
 	.
+
+# ======================================================================================
+# Declarations and usage
+# ======================================================================================
+
+##
+# Properties should not be punned: a property is declared as exactly one of
+# owl:ObjectProperty, owl:DatatypeProperty or owl:AnnotationProperty.
+
+iof-h:PropertyPunning
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "properties punning" ;
+		sh:message "Property {$this} is incorrectly punned." ;
+		sh:path rdf:type ;
+		sh:qualifiedMaxCount "1"^^xsd:integer ;
+		sh:qualifiedValueShape [
+			sh:in (
+				owl:ObjectProperty
+				owl:AnnotationProperty
+				owl:DatatypeProperty
+			) ;
+		] ;
+		sh:severity sh:Warning ;
+	] ;
+	sh:targetClass
+		owl:AnnotationProperty ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
+	.
+
+##
+# IOF documents resources with the iof-av: annotations (naturalLanguageDefinition,
+# explanatoryNote, ...), so a resource must not have an rdfs:comment.
+
+iof-h:NoRDFSComment
+	a sh:NodeShape ;
+	sh:property [
+		rdfs:label "resources rdfs comment" ;
+		sh:maxCount "0"^^xsd:integer ;
+		sh:message "A resource {$this} has an RDFS comment." ;
+		sh:path rdfs:comment ;
+		sh:severity sh:Violation ;
+	] ;
+	sh:targetSubjectsOf rdfs:comment ;
+	.
+
+##
+# A deprecated resource shouldn't be used. "Used" is any triple with the resource as
+# subject or object other than its own deprecation/type/equivalence bookkeeping;
+# resources that are instances of a class (individuals) are exempt.
 
 iof-h:DeprecatedResourceUsage
 	a sh:NodeShape ;
@@ -269,54 +426,3 @@ iof-h:DeprecatedResourceUsage
 	] ;
 	sh:targetSubjectsOf owl:deprecated ;
 	.
-
-iof-h:LabelledConstructKind
-	a sh:NodeShape ;
-	sh:or (
-		[
-			sh:class owl:Class ;
-		]
-		[
-			sh:class owl:ObjectProperty ;
-		]
-		[
-			sh:class owl:DatatypeProperty ;
-		]
-	) ;
-	.
-
-iof-h:NoRDFSComment
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "resources rdfs comment" ;
-		sh:maxCount "0"^^xsd:integer ;
-		sh:message "A resource {$this} has an RDFS comment." ;
-		sh:path rdfs:comment ;
-		sh:severity sh:Violation ;
-	] ;
-	sh:targetSubjectsOf rdfs:comment ;
-	.
-
-iof-h:PropertyPunning
-	a sh:NodeShape ;
-	sh:property [
-		rdfs:label "properties punning" ;
-		sh:message "Property {$this} is incorrectly punned." ;
-		sh:path rdf:type ;
-		sh:qualifiedMaxCount "1"^^xsd:integer ;
-		sh:qualifiedValueShape [
-			sh:in (
-				owl:ObjectProperty
-				owl:AnnotationProperty
-				owl:DatatypeProperty
-			) ;
-		] ;
-		sh:severity sh:Warning ;
-	] ;
-	sh:targetClass
-		owl:AnnotationProperty ,
-		owl:DatatypeProperty ,
-		owl:ObjectProperty
-		;
-	.
-

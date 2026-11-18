@@ -1,4 +1,40 @@
 # baseURI: https://spec.industrialontologies.org/ontology/hygiene/
+##
+# Shared vocabulary for the IOF hygiene shapes.
+#
+# The hygiene tests are the SHACL shapes in this folder. hygiene_runner.py loads every
+# *.ttl file here into one shapes graph and validates each About file's import closure
+# against it with pySHACL (SHACL Core, SHACL-SPARQL and the SHACL-AF rules below).
+#
+# Files:
+#   common.ttl        prefixes, severities, reusable conditions, the classification
+#                     rules and the SPARQL targets the other files build on
+#   ontology.ttl      ontology header metadata
+#   iris.ttl          IRI naming conventions
+#   untyped.ttl       every term used in a triple has a declared type
+#   constructs.ttl    labels, definitions and examples of classes and properties, and
+#                     misuse of rdfs:comment, punning and deprecated resources
+#   classes.ttl       formal documentation of primitive and defined classes
+#   individuals.ttl   rdfs:isDefinedBy, labels and definitions of named individuals
+#   literals.ttl      whitespace and language tags of literal values
+#   antipatterns.ttl  modeling patterns that conflict with IOF modeling principles
+#
+# Conventions used by every shape in this folder (read by etc/scripts/hygiene_runner.py):
+#   rdfs:label   -> the annotation title shown in the GitHub Actions log. For a SPARQL
+#                   constraint with its own label, that label; otherwise the shape's.
+#   sh:message   -> the annotation text. {$this}, {?value} and {?path} are replaced by
+#                   the focus node, value node and result path of the validation result;
+#                   an anonymous class expression value is written in Manchester syntax.
+#   sh:severity  -> sh:Violation   error (reported as a warning for Provisional ontologies)
+#                   sh:Warning     warning
+#                   iof-h:Critical error, even for Provisional ontologies
+#                   pySHACL ignores sh:severity on a SPARQL constraint node, so a SPARQL
+#                   check takes its severity from the shape that holds it.
+#
+# The runner only reports results whose focus node IRI matches its --focus-filter
+# (default "industrialontologies"), so shapes may target every construct of a kind
+# (including BFO and Commons terms) and leave the namespace restriction to the runner.
+# Accepted findings are listed in etc/testing/hygiene_suppressions.ttl.
 
 @base <https://spec.industrialontologies.org/ontology/hygiene/> .
 @prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
@@ -8,10 +44,18 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+##
+# The prefixes SPARQL constraints and targets may use. Each one points here with
+# sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/>.
+
 <https://spec.industrialontologies.org/ontology/hygiene/>
 	a owl:Ontology ;
 	rdfs:label "IOF hygiene shapes" ;
 	sh:declare
+		[
+			sh:namespace "http://purl.obolibrary.org/obo/"^^xsd:anyURI ;
+			sh:prefix "obo" ;
+		] ,
 		[
 			sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
 			sh:prefix "rdf" ;
@@ -39,10 +83,129 @@
 		;
 	.
 
+# ======================================================================================
+# Severities
+# ======================================================================================
+
+##
+# Critical findings fail the build at any maturity. Used for problems that break
+# tooling, such as a construct without rdfs:isDefinedBy (the portal and the module
+# checks attribute every entity to its module by it).
+
+iof-h:Critical
+	a sh:Severity ;
+	rdfs:label "Critical" ;
+	rdfs:comment "A violation that fails the build regardless of the ontology's maturity." ;
+	.
+
+# ======================================================================================
+# Conditions
+#
+# Reusable node shapes. They have no targets of their own: the classification rules
+# use them as sh:condition, and other shapes refer to them with sh:node / sh:not.
+# ======================================================================================
+
+iof-h:Deprecated
+	a sh:NodeShape ;
+	rdfs:comment "Matches a resource marked owl:deprecated true." ;
+	sh:property [
+		sh:hasValue "true"^^xsd:boolean ;
+		sh:path owl:deprecated ;
+	] ;
+	.
+
+##
+# An IRI that is not deprecated: the constructs worth checking at all.
+
 iof-h:ActiveConstructCondition
 	a sh:NodeShape ;
 	sh:nodeKind sh:IRI ;
 	sh:not iof-h:Deprecated ;
+	.
+
+##
+# An active construct that belongs to a content ontology: it has rdfs:isDefinedBy,
+# and is not defined by the IOF annotation vocabulary (.../meta/AnnotationVocabulary/).
+
+iof-h:ContentConstructCondition
+	a sh:NodeShape ;
+	sh:node iof-h:ActiveConstructCondition ;
+	sh:property [
+		sh:minCount "1"^^xsd:integer ;
+		sh:not [
+			sh:pattern "/meta/AnnotationVocabulary/" ;
+		] ;
+		sh:path rdfs:isDefinedBy ;
+	] ;
+	.
+
+iof-h:HasEquivalenceAxiom
+	a sh:NodeShape ;
+	rdfs:comment "Matches a class that takes part in an owl:equivalentClass axiom." ;
+	sh:property [
+		sh:minCount "1"^^xsd:integer ;
+		sh:path [
+			sh:alternativePath (
+				owl:equivalentClass
+				[
+					sh:inversePath owl:equivalentClass ;
+				]
+			) ;
+		] ;
+	] ;
+	.
+
+##
+# A class with no owl:equivalentClass axiom in either direction.
+
+iof-h:HasNoEquivalenceAxiom
+	a sh:NodeShape ;
+	sh:not iof-h:HasEquivalenceAxiom ;
+	.
+
+# ======================================================================================
+# Construct classification (SHACL-AF rules)
+#
+# Before validation the rules below type the constructs in the data graph so the
+# hygiene shapes can target them directly:
+#
+#   iof-h:ActiveConstruct  a named, non-deprecated class, object property or data
+#                          property.
+#   iof-h:ContentConstruct an active construct defined (rdfs:isDefinedBy) by a content
+#                          ontology, i.e. not by the IOF annotation vocabulary.
+#   iof-h:DefinedClass     a content class with an equivalence axiom (owl:equivalentClass,
+#                          in either direction) -- it has necessary and sufficient
+#                          conditions.
+#   iof-h:PrimitiveClass   a content class without an equivalence axiom.
+#
+# Primitive/defined status is inferred from the axioms, not from the iof-av:isPrimitive
+# annotation, so the two can never disagree. Named individuals are classified the
+# same way by iof-h:IndividualClassification in individuals.ttl.
+# ======================================================================================
+
+iof-h:ConstructClassification
+	a sh:NodeShape ;
+	sh:rule
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ActiveConstructCondition ;
+			sh:object iof-h:ActiveConstruct ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		] ,
+		[
+			a sh:TripleRule ;
+			sh:condition iof-h:ContentConstructCondition ;
+			sh:object iof-h:ContentConstruct ;
+			sh:predicate rdf:type ;
+			sh:subject sh:this ;
+		]
+		;
+	sh:targetClass
+		owl:Class ,
+		owl:DatatypeProperty ,
+		owl:ObjectProperty
+		;
 	.
 
 iof-h:ClassClassification
@@ -72,88 +235,19 @@ iof-h:ClassClassification
 	sh:targetClass owl:Class ;
 	.
 
-iof-h:ConstructClassification
-	a sh:NodeShape ;
-	sh:rule
-		[
-			a sh:TripleRule ;
-			sh:condition iof-h:ActiveConstructCondition ;
-			sh:object iof-h:ActiveConstruct ;
-			sh:predicate rdf:type ;
-			sh:subject sh:this ;
-		] ,
-		[
-			a sh:TripleRule ;
-			sh:condition iof-h:ContentConstructCondition ;
-			sh:object iof-h:ContentConstruct ;
-			sh:predicate rdf:type ;
-			sh:subject sh:this ;
-		]
-		;
-	sh:targetClass
-		owl:Class ,
-		owl:DatatypeProperty ,
-		owl:ObjectProperty
-		;
-	.
+# ======================================================================================
+# SPARQL targets
+#
+# Targets for checks that range over every term in the data graph, which SHACL Core
+# targets cannot express. Use them with sh:target.
+# ======================================================================================
 
-iof-h:ContentConstructCondition
-	a sh:NodeShape ;
-	sh:node iof-h:ActiveConstructCondition ;
-	sh:property [
-		sh:minCount "1"^^xsd:integer ;
-		sh:not [
-			sh:pattern "/meta/AnnotationVocabulary/" ;
-		] ;
-		sh:path rdfs:isDefinedBy ;
-	] ;
-	.
-
-iof-h:Critical
-	a sh:Severity ;
-	rdfs:label "Critical" ;
-	rdfs:comment "A violation that fails the build regardless of the ontology's maturity." ;
-	.
-
-iof-h:Deprecated
-	a sh:NodeShape ;
-	rdfs:comment "Matches a resource marked owl:deprecated true." ;
-	sh:property [
-		sh:hasValue "true"^^xsd:boolean ;
-		sh:path owl:deprecated ;
-	] ;
-	.
-
-iof-h:HasEquivalenceAxiom
-	a sh:NodeShape ;
-	rdfs:comment "Matches a class that takes part in an owl:equivalentClass axiom." ;
-	sh:property [
-		sh:minCount "1"^^xsd:integer ;
-		sh:path [
-			sh:alternativePath (
-				owl:equivalentClass
-				[
-					sh:inversePath owl:equivalentClass ;
-				]
-			) ;
-		] ;
-	] ;
-	.
-
-iof-h:HasNoEquivalenceAxiom
-	a sh:NodeShape ;
-	sh:not iof-h:HasEquivalenceAxiom ;
-	.
-
-iof-h:NamedObjects
+iof-h:NamedSubjects
 	a sh:SPARQLTarget ;
-	rdfs:comment "Every IRI used as the object of a triple, other than an owl:versionIRI or a type inferred by the rules above." ;
+	rdfs:comment "Every IRI used as the subject of a triple." ;
 	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
 	sh:select """
-        SELECT DISTINCT ?this WHERE {
-            ?s ?p ?this .
-            FILTER (isIRI(?this) && ?p != owl:versionIRI && !STRSTARTS(STR(?this), STR(iof-h:)))
-        }
+        SELECT DISTINCT ?this WHERE { ?this ?p ?o . FILTER isIRI(?this) }
     """ ;
 	.
 
@@ -166,12 +260,19 @@ iof-h:NamedPredicates
     """ ;
 	.
 
-iof-h:NamedSubjects
+##
+# owl:versionIRI values are skipped: a version IRI names a release, not a term, and
+# is never declared. The iof-h: types added by the classification rules are skipped
+# too, since they only exist in the validation copy of the data.
+
+iof-h:NamedObjects
 	a sh:SPARQLTarget ;
-	rdfs:comment "Every IRI used as the subject of a triple." ;
+	rdfs:comment "Every IRI used as the object of a triple, other than an owl:versionIRI or a type inferred by the rules above." ;
 	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
 	sh:select """
-        SELECT DISTINCT ?this WHERE { ?this ?p ?o . FILTER isIRI(?this) }
+        SELECT DISTINCT ?this WHERE {
+            ?s ?p ?this .
+            FILTER (isIRI(?this) && ?p != owl:versionIRI && !STRSTARTS(STR(?this), STR(iof-h:)))
+        }
     """ ;
 	.
-

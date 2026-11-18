@@ -27,7 +27,7 @@ import xml.etree.ElementTree as ET
 import owlready2
 
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace, URIRef
+from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH
 from rdflib.plugins.sparql import prepareQuery
 
@@ -113,12 +113,92 @@ def cached_sparql_parsing():
         Graph.query = original_query
 
 
-def format_message(template: str, focus, value, path) -> str:
-    """Fill the {$this}/{?value}/{?path} placeholders pySHACL leaves in Core messages."""
+MANCHESTER_RESTRICTIONS = (
+    (OWL.someValuesFrom, 'some'), (OWL.allValuesFrom, 'only'), (OWL.hasValue, 'value'),
+    (OWL.minQualifiedCardinality, 'min'), (OWL.maxQualifiedCardinality, 'max'),
+    (OWL.qualifiedCardinality, 'exactly'), (OWL.minCardinality, 'min'),
+    (OWL.maxCardinality, 'max'), (OWL.cardinality, 'exactly'))
+
+
+def manchester(data: Graph, node, nested: bool = False) -> str:
+    """Render a class expression in Manchester syntax, naming entities by their label."""
+    if not isinstance(node, BNode):
+        if isinstance(node, Literal):
+            return str(node)
+        labels = list(data.objects(node, RDFS.label))
+        label = next((l for l in labels if getattr(l, 'language', None) == 'en-US'), None) or \
+            next(iter(labels), None)
+        name = str(label) if label is not None else re.split(r'[/#]', str(node))[-1]
+        return "'" + name + "'" if re.search(r'\W', name) else name
+
+    def members(predicate):
+        return [manchester(data, m, True) for m in data.items(data.value(node, predicate))]
+
+    if data.value(node, OWL.intersectionOf) is not None:
+        text = ' and '.join(members(OWL.intersectionOf))
+    elif data.value(node, OWL.unionOf) is not None:
+        text = ' or '.join(members(OWL.unionOf))
+    elif data.value(node, OWL.oneOf) is not None:
+        return '{' + ', '.join(members(OWL.oneOf)) + '}'
+    elif data.value(node, OWL.complementOf) is not None:
+        return 'not ' + manchester(data, data.value(node, OWL.complementOf), True)
+    elif data.value(node, OWL.inverseOf) is not None:
+        return 'inverse ' + manchester(data, data.value(node, OWL.inverseOf), True)
+    elif data.value(node, OWL.onProperty) is not None:
+        prop = manchester(data, data.value(node, OWL.onProperty), True)
+        if data.value(node, OWL.hasSelf) is not None:
+            text = prop + ' Self'
+        else:
+            text = prop + ' ?'
+            for predicate, keyword in MANCHESTER_RESTRICTIONS:
+                filler = data.value(node, predicate)
+                if filler is not None:
+                    text = prop + ' ' + keyword + ' ' + manchester(data, filler, True)
+                    on_class = data.value(node, OWL.onClass)
+                    if on_class is not None:
+                        text += ' ' + manchester(data, on_class, True)
+                    break
+    else:
+        return '_:' + str(node)
+    return '(' + text + ')' if nested else text
+
+
+def format_message(template: str, focus, value, path, data: Graph) -> str:
+    """Fill the {$this}/{?value}/{?path} placeholders pySHACL leaves in messages; an
+    anonymous class expression value is written out in Manchester syntax (in place of the
+    blank node id pySHACL itself substitutes into SPARQL constraint messages)."""
+    if isinstance(value, BNode):
+        expression = manchester(data, value)
+        template = template.replace('{?value}', expression).replace(str(value), expression)
     for placeholder, term in (('{$this}', focus), ('{?value}', value), ('{?path}', path)):
         if term is not None:
             template = template.replace(placeholder, str(term))
     return template
+
+
+def load_suppressions(path: str) -> dict:
+    """{(focus node, rule): justification} from the suppressions file, if there is one."""
+    suppressions = {}
+    if not path or not os.path.exists(path):
+        return suppressions
+    graph = Graph().parse(path, format='turtle')
+    for entry in graph.subjects(RDF.type, IOF_H.Suppression):
+        focus, rule = graph.value(entry, IOF_H.focusNode), graph.value(entry, IOF_H.rule)
+        justification = graph.value(entry, RDFS.comment)
+        if focus is None or rule is None or justification is None:
+            print('::warning file=' + path + ',title=Suppressions::Ignoring a suppression without '
+                  'iof-h:focusNode, iof-h:rule and an rdfs:comment justification.')
+            continue
+        suppressions[(focus, rule)] = str(justification)
+    return suppressions
+
+
+def result_rules(results: Graph, shapes: Graph, result) -> set:
+    """Everything a suppression may name for a result: the constraint, its shape, and the
+    node shape a property shape belongs to."""
+    rules = {results.value(result, SH.sourceConstraint), results.value(result, SH.sourceShape)}
+    rules |= set(shapes.subjects(SH.property, results.value(result, SH.sourceShape)))
+    return rules - {None}
 
 
 def source_file(data: Graph, focus, resolution: dict):
@@ -147,7 +227,8 @@ def load_data(files: list) -> Graph:
     return data
 
 
-def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, focus_filter: str) -> bool:
+def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, focus_filter: str,
+                suppressions: dict) -> bool:
     with cached_sparql_parsing():
         _, results, _ = validate(
             data, shacl_graph=shapes, advanced=True, inference='none', allow_warnings=True)
@@ -165,8 +246,12 @@ def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, foc
         title = str(shapes.value(source, RDFS.label) or source)
         message = format_message(
             str(results.value(result, SH.resultMessage)), focus,
-            results.value(result, SH.value), results.value(result, SH.resultPath))
+            results.value(result, SH.value), results.value(result, SH.resultPath), data)
         level = annotation_level(results.value(result, SH.resultSeverity), maturity)
+        justification = next((suppressions[(focus, rule)] for rule in result_rules(results, shapes, result)
+                              if (focus, rule) in suppressions), None)
+        if justification is not None:
+            level, message = '::notice', 'Suppressed (' + justification + '): ' + message
         file = source_file(data, focus, resolution)
         location = 'file=' + file + ',' if file else ''
         annotations.add(level + ' ' + location + 'title=' + title + '::' + message)
@@ -243,6 +328,8 @@ if __name__ == '__main__':
                         help='Folder of SHACL shape files (*.ttl)')
     parser.add_argument('--focus-filter', default='industrialontologies',
                         help='Only report results whose focus node IRI matches this regex')
+    parser.add_argument('--suppressions', default='etc/testing/hygiene_suppressions.ttl',
+                        help='Turtle file of accepted findings (iof-h:Suppression), reported as notices')
     parser.add_argument('--no-reasoner', action='store_true', help='Skip the HermiT classification')
     parser.add_argument('--reasoner-timeout', type=int, default=3600, metavar='SECONDS',
                         help='Time limit for classifying all the About files combined (default 3600)')
@@ -251,6 +338,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     shapes = load_shapes(args.shapes)
+    suppressions = load_suppressions(args.suppressions)
     ontology_is_clean = True
     closures = []
     for about_file in args.about_files:
@@ -260,7 +348,7 @@ if __name__ == '__main__':
         print('::notice title=' + about_file + ' Maturity::' + about_file + ' has maturity:', maturity)
         data = load_data(files)
         closures.append((about_file, data, resolution))
-        clean = run_hygiene(data, shapes, maturity, resolution, args.focus_filter)
+        clean = run_hygiene(data, shapes, maturity, resolution, args.focus_filter, suppressions)
         ontology_is_clean = ontology_is_clean and clean
         print('::endgroup::')
         if clean:

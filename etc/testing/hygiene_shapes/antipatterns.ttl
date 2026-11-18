@@ -1,0 +1,246 @@
+##
+# IOF modeling antipatterns: axioms and patterns that conflict with IOF modeling
+# principles.
+#
+# Each antipattern is one sh:NodeShape typed iof-h:Antipattern, targeting
+# iof-h:ActiveConstruct. The shape holds the severity (pySHACL ignores sh:severity on a
+# SPARQL constraint) and one named SPARQL constraint per axiom form it detects. A
+# constraint:
+#   - is an IRI with an rdfs:label, which becomes the title of the report so each
+#     finding names the rule that fired;
+#   - selects $this, the affected named class, and ?value, the anonymous class
+#     expression of the triggering axiom (the runner prints it in Manchester syntax);
+#   - says in sh:message what the complete axiom is, why it is a problem and what to do.
+#
+# Findings are warnings for review, not build failures. To accept one that has an
+# exceptional modeling justification, add a suppression naming the class and the rule
+# (the constraint, or the whole antipattern shape) to etc/testing/hygiene_suppressions.ttl.
+#
+# To add an antipattern: add a section below with an iof-h:Antipattern shape and its
+# constraints, following AP1 and AP2, and a positive and a negative example of it to
+# your test data to check the queries.
+#
+# Performance: each query runs once per class. Match the cheap axiom triple first, and
+# test property/class hierarchies with FILTER EXISTS rather than UNION groups: rdflib
+# can evaluate a UNION group before joining it, so a path like ?p rdfs:subPropertyOf* X
+# with ?p still unbound walks the whole graph for every class.
+
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+##
+# The type of every antipattern shape, so the set can be listed and queried.
+
+iof-h:Antipattern
+	a rdfs:Class ;
+	rdfs:label "antipattern" ;
+	rdfs:comment "A shape that detects a modeling pattern conflicting with IOF modeling principles." ;
+	.
+
+# ======================================================================================
+# AP1: a role defined sufficiently by conditions satisfied only by its bearer
+#
+#
+# 'role of' some (person and 'has qualification' some 'medical degree')
+#     SubClassOf 'doctor role'
+#
+# makes every role of a person with a medical degree a doctor role, including that
+# person's employee, parent or passenger role. Bearer conditions are fine as
+# necessary conditions ('doctor role' SubClassOf 'role of' some ...) but cannot
+# identify the role.
+#
+# A "bearer-only" expression is a restriction on 'inheres in' or one of its
+# subproperties (e.g. 'role of') or on the inverse of 'bearer of' or one of its
+# subproperties (e.g. inverse 'has role'), or an intersection whose members are all
+# named classes or such restrictions (with at least one restriction). Anything else
+# in the intersection (e.g. a restriction on how the role is realized, or its
+# context) is a distinguishing condition that is not about the bearer, so the axiom
+# is not flagged. The flagged class must be a role: a subclass of BFO role, directly
+# or through the named members of its equivalence axioms.
+# ======================================================================================
+
+iof-h:RoleDefinedByBearer
+	a
+		sh:NodeShape ,
+		iof-h:Antipattern
+		;
+	rdfs:label "antipattern: role defined by its bearer" ;
+	sh:severity sh:Warning ;
+	sh:sparql
+		iof-h:RoleDefinedByBearerEquivalentTo ,
+		iof-h:RoleDefinedByBearerSubClassOf
+		;
+	sh:targetClass iof-h:ActiveConstruct ;
+	.
+
+##
+# The general class axiom form: <bearer-only expression> SubClassOf <role>.
+
+iof-h:RoleDefinedByBearerSubClassOf
+	a sh:SPARQLConstraint ;
+	rdfs:label "antipattern AP1: role defined by its bearer (general class axiom)" ;
+	sh:message "Role {$this} is identified by its bearer alone: general class axiom ({?value}) SubClassOf {$this}. A bearer may bear many unrelated roles, so conditions on the bearer cannot be sufficient for a particular role; state them as necessary conditions ({$this} SubClassOf ...) instead." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+		SELECT DISTINCT $this ?value WHERE {
+			FILTER isIRI($this)
+			?value rdfs:subClassOf $this .
+			FILTER isBlank(?value)
+
+			$this (rdfs:subClassOf|owl:equivalentClass/owl:intersectionOf/rdf:rest*/rdf:first)* obo:BFO_0000023 .
+
+			# at least one restriction on a bearer property ...
+			FILTER EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?restriction .
+				?restriction owl:onProperty ?property .
+				FILTER (EXISTS { ?property rdfs:subPropertyOf* obo:BFO_0000197 } || EXISTS { ?property owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000196 })
+			}
+			# ... and nothing that is neither a named class nor a bearer restriction
+			FILTER NOT EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?member .
+				FILTER isBlank(?member)
+				FILTER NOT EXISTS { ?member owl:intersectionOf ?list }
+				FILTER NOT EXISTS {
+					?member owl:onProperty ?memberProperty .
+					FILTER (EXISTS { ?memberProperty rdfs:subPropertyOf* obo:BFO_0000197 } || EXISTS { ?memberProperty owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000196 })
+				}
+			}
+		}
+	""" ;
+	.
+
+##
+# The equivalence form: <role> EquivalentTo <bearer-only expression>, e.g.
+# <role> EquivalentTo role and ('role of' some <bearer condition>).
+
+iof-h:RoleDefinedByBearerEquivalentTo
+	a sh:SPARQLConstraint ;
+	rdfs:label "antipattern AP1: role defined by its bearer (equivalence)" ;
+	sh:message "Role {$this} is defined only by conditions on its bearer: {$this} EquivalentTo {?value}. A bearer may bear many unrelated roles, so conditions on the bearer cannot be sufficient for a particular role; keep them as necessary conditions ({$this} SubClassOf ...) and define the role by what distinguishes it, or make the class primitive." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+		SELECT DISTINCT $this ?value WHERE {
+			FILTER isIRI($this)
+			$this owl:equivalentClass|^owl:equivalentClass ?value .
+			FILTER isBlank(?value)
+
+			$this (rdfs:subClassOf|owl:equivalentClass/owl:intersectionOf/rdf:rest*/rdf:first)* obo:BFO_0000023 .
+
+			# at least one restriction on a bearer property ...
+			FILTER EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?restriction .
+				?restriction owl:onProperty ?property .
+				FILTER (EXISTS { ?property rdfs:subPropertyOf* obo:BFO_0000197 } || EXISTS { ?property owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000196 })
+			}
+			# ... and nothing that is neither a named class nor a bearer restriction
+			FILTER NOT EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?member .
+				FILTER isBlank(?member)
+				FILTER NOT EXISTS { ?member owl:intersectionOf ?list }
+				FILTER NOT EXISTS {
+					?member owl:onProperty ?memberProperty .
+					FILTER (EXISTS { ?memberProperty rdfs:subPropertyOf* obo:BFO_0000197 } || EXISTS { ?memberProperty owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000196 })
+				}
+			}
+		}
+	""" ;
+	.
+
+# ======================================================================================
+# AP2: every realizable entity of a class required to have a realization
+#
+#
+# 'fire suppression function'
+#     SubClassOf 'has realization' some 'fire extinguishing process'
+#
+# says every such function IS realized, but an unused extinguisher still has the
+# function. 'has realization' only <process> constrains realizations that do occur
+# and is not flagged.
+#
+# Flagged: a restriction on 'has realization' (or a subproperty, or the inverse of
+# 'realizes' or a subproperty) that requires at least one value - someValuesFrom,
+# hasValue, or a min/exact cardinality of 1 or more - used directly or inside an
+# intersection as a necessary (SubClassOf) or necessary-and-sufficient
+# (EquivalentTo) condition. 'has realization' has domain 'realizable entity', so any
+# class using it this way is a class of realizable entities. Restrictions inside a
+# union are not flagged: they do not require a realization.
+# ======================================================================================
+
+iof-h:RequiredRealization
+	a
+		sh:NodeShape ,
+		iof-h:Antipattern
+		;
+	rdfs:label "antipattern: realizable entity required to be realized" ;
+	sh:severity sh:Warning ;
+	sh:sparql
+		iof-h:RequiredRealizationEquivalentTo ,
+		iof-h:RequiredRealizationSubClassOf
+		;
+	sh:targetClass iof-h:ActiveConstruct ;
+	.
+
+##
+# The necessary-condition form: <class> SubClassOf ... 'has realization' some <process>.
+
+iof-h:RequiredRealizationSubClassOf
+	a sh:SPARQLConstraint ;
+	rdfs:label "antipattern AP2: realizable entity required to be realized (necessary condition)" ;
+	sh:message "Every {$this} is required to have a realization: {$this} SubClassOf {?value}. A realizable entity can exist without ever being realized; to constrain only the kind of process that realizes it, use 'has realization' only <process> instead." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+		SELECT DISTINCT $this ?value WHERE {
+			FILTER isIRI($this)
+			$this rdfs:subClassOf ?value .
+			FILTER isBlank(?value)
+
+			FILTER EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?restriction .
+				?restriction owl:onProperty ?property .
+				FILTER (EXISTS { ?property rdfs:subPropertyOf* obo:BFO_0000054 } ||
+				        EXISTS { ?property owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000055 })
+				FILTER (EXISTS { ?restriction owl:someValuesFrom|owl:hasValue ?filler } ||
+				        EXISTS {
+				            ?restriction owl:minCardinality|owl:minQualifiedCardinality|owl:cardinality|owl:qualifiedCardinality ?count .
+				            FILTER (xsd:integer(?count) >= 1)
+				        })
+			}
+		}
+	""" ;
+	.
+
+##
+# The equivalence form: <class> EquivalentTo <parent> and ('has realization' some
+# <process>).
+
+iof-h:RequiredRealizationEquivalentTo
+	a sh:SPARQLConstraint ;
+	rdfs:label "antipattern AP2: realizable entity required to be realized (equivalence)" ;
+	sh:message "Every {$this} is required to have a realization: {$this} EquivalentTo {?value}. A realizable entity can exist without ever being realized, so an unrealized one is excluded from the class; to constrain only the kind of process that realizes it, use 'has realization' only <process> instead." ;
+	sh:prefixes <https://spec.industrialontologies.org/ontology/hygiene/> ;
+	sh:select """
+		SELECT DISTINCT $this ?value WHERE {
+			FILTER isIRI($this)
+			$this owl:equivalentClass|^owl:equivalentClass ?value .
+			FILTER isBlank(?value)
+
+			FILTER EXISTS {
+				?value (owl:intersectionOf/rdf:rest*/rdf:first)* ?restriction .
+				?restriction owl:onProperty ?property .
+				FILTER (EXISTS { ?property rdfs:subPropertyOf* obo:BFO_0000054 } ||
+				        EXISTS { ?property owl:inverseOf/rdfs:subPropertyOf* obo:BFO_0000055 })
+				FILTER (EXISTS { ?restriction owl:someValuesFrom|owl:hasValue ?filler } ||
+				        EXISTS {
+				            ?restriction owl:minCardinality|owl:minQualifiedCardinality|owl:cardinality|owl:qualifiedCardinality ?count .
+				            FILTER (xsd:integer(?count) >= 1)
+				        })
+			}
+		}
+	""" ;
+	.

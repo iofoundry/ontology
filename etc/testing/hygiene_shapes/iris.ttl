@@ -1,3 +1,13 @@
+##
+# IRI naming conventions.
+#
+# IRIs should follow the IOF naming guidelines: https://oagi.atlassian.net/wiki/x/AYBzYwE
+#
+# sh:pattern is an unanchored regular expression -- it matches anywhere in the IRI, as
+# the original SPARQL REGEX tests did -- so these checks catch the wrong namespace or a
+# badly cased name, not every stray character. All are warnings: a mismatch may be a
+# deliberate exception and should be reviewed, not fail the build.
+
 @prefix iof-h: <https://spec.industrialontologies.org/ontology/hygiene/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -5,14 +15,23 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xs: <http://www.w3.org/2001/XMLSchema#> .
 
-iof-h:AnnotationPropertyIRI
+##
+# Ontology IRIs: lower-case path segments, then the module name in UpperCamelCase,
+# ending in a slash, e.g. .../ontology/core/meta/AnnotationVocabulary/. The "OF"
+# alternative admits names containing IOF, such as AboutIOFDev.
+
+iof-h:OntologyIRI
 	a sh:NodeShape ;
-	rdfs:label "annotation property iri" ;
-	sh:message "IRI for property {$this} may be ill-formed" ;
-	sh:pattern "https://[a-z/.]+/ontology/annotation/[a-z]+([A-Z][a-z]+)*" ;
+	rdfs:label "ontology iri" ;
+	sh:message "IRI for ontology {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/([a-z]+/)+([A-Z](OF|[a-z]+))+/" ;
 	sh:severity sh:Warning ;
-	sh:targetClass owl:AnnotationProperty ;
+	sh:targetClass owl:Ontology ;
 	.
+
+##
+# Class IRIs: the shared construct namespace and an UpperCamelCase name, e.g.
+# .../ontology/construct/MaterialArtifact.
 
 iof-h:ClassIRI
 	a sh:NodeShape ;
@@ -23,14 +42,9 @@ iof-h:ClassIRI
 	sh:targetClass owl:Class ;
 	.
 
-iof-h:OntologyIRI
-	a sh:NodeShape ;
-	rdfs:label "ontology iri" ;
-	sh:message "IRI for ontology {$this} may be ill-formed" ;
-	sh:pattern "https://[a-z/.]+/ontology/([a-z]+/)+([A-Z](OF|[a-z]+))+/" ;
-	sh:severity sh:Warning ;
-	sh:targetClass owl:Ontology ;
-	.
+##
+# Object and data property IRIs: the construct namespace and a lowerCamelCase name,
+# e.g. .../ontology/construct/hasFunction.
 
 iof-h:PropertyIRI
 	a sh:NodeShape ;
@@ -44,6 +58,24 @@ iof-h:PropertyIRI
 		;
 	.
 
+##
+# Annotation property IRIs: the annotation namespace and a lowerCamelCase name, e.g.
+# .../ontology/annotation/naturalLanguageDefinition.
+
+iof-h:AnnotationPropertyIRI
+	a sh:NodeShape ;
+	rdfs:label "annotation property iri" ;
+	sh:message "IRI for property {$this} may be ill-formed" ;
+	sh:pattern "https://[a-z/.]+/ontology/annotation/[a-z]+([A-Z][a-z]+)*" ;
+	sh:severity sh:Warning ;
+	sh:targetClass owl:AnnotationProperty ;
+	.
+
+##
+# Every IRI that is the subject of a triple must use the spec. or dev. authority of
+# industrialontologies.org. Combined with the runner's focus filter this catches IOF
+# IRIs minted under another host, such as www.industrialontologies.org.
+
 iof-h:ResourceIRIAuthority
 	a sh:NodeShape ;
 	rdfs:label "resources iri" ;
@@ -52,4 +84,3 @@ iof-h:ResourceIRIAuthority
 	sh:severity sh:Warning ;
 	sh:target iof-h:NamedSubjects ;
 	.
-
