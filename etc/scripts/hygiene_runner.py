@@ -1,5 +1,6 @@
 """Run the IOF hygiene tests: validate ontologies against the SHACL shapes in
-etc/testing/hygiene_shapes and report the results as GitHub Actions annotations.
+etc/testing/hygiene_shapes, then classify them with HermiT, and report the results as
+GitHub Actions annotations.
 
     python etc/scripts/hygiene_runner.py AboutIOFDev.rdf AboutIOFProd.rdf
 
@@ -7,17 +8,26 @@ Each About file is resolved through the catalog next to it into the set of ontol
 files it imports; those are validated together with pySHACL (SHACL Core, SHACL-SPARQL
 and the SHACL-AF rules that classify constructs). See the header of
 etc/testing/hygiene_shapes/common.ttl for the conventions the shapes follow.
+
+After all the SHACL tests, each About file's merged import closure is classified with
+the HermiT reasoner bundled with owlready2 (needs Java on the PATH). An inconsistent
+ontology, an unsatisfiable class, or a reasoner failure or timeout is an error.
 """
 import argparse
 import contextlib
 import functools
 import os
 import re
+import subprocess
 import sys
+import tempfile
+import time
 import xml.etree.ElementTree as ET
 
+import owlready2
+
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace
+from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH
 from rdflib.plugins.sparql import prepareQuery
 
@@ -130,10 +140,14 @@ def annotation_level(severity, maturity: str) -> str:
     return '::notice'
 
 
-def run_hygiene(files: list, shapes: Graph, maturity: str, resolution: dict, focus_filter: str) -> bool:
+def load_data(files: list) -> Graph:
     data = Graph()
     for file in files:
         data.parse(source=file)
+    return data
+
+
+def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, focus_filter: str) -> bool:
     with cached_sparql_parsing():
         _, results, _ = validate(
             data, shacl_graph=shapes, advanced=True, inference='none', allow_warnings=True)
@@ -162,6 +176,66 @@ def run_hygiene(files: list, shapes: Graph, maturity: str, resolution: dict, foc
     return not any(a.startswith('::error') for a in annotations)
 
 
+HERMIT_DIR = os.path.join(os.path.dirname(owlready2.__file__), 'hermit')
+HERMIT_CLASSPATH = os.pathsep.join([HERMIT_DIR, os.path.join(HERMIT_DIR, 'HermiT.jar')])
+
+
+def reasoner_input(data: Graph, path: str):
+    """Write the merged closure as one self-contained ontology for HermiT.
+
+    owl:imports are dropped (everything they name is already merged in, and HermiT
+    would otherwise fetch them from the web). rdf:langString is replaced by
+    rdf:PlainLiteral: HermiT only accepts the OWL 2 datatype map, which lacks
+    rdf:langString, and the Commons Text datatype is defined as
+    xsd:string or rdf:langString -- the same value space as rdf:PlainLiteral.
+    """
+    graph = Graph()
+    for s, p, o in data:
+        if p == OWL.imports:
+            continue
+        graph.add((RDF.PlainLiteral if s == RDF.langString else s, p,
+                   RDF.PlainLiteral if o == RDF.langString else o))
+    graph.serialize(path, format='nt', encoding='utf-8')
+
+
+def run_reasoner(data: Graph, about_file: str, resolution: dict, timeout: float, memory: str) -> bool:
+    """Classify with HermiT within ``timeout`` seconds; report inconsistency,
+    unsatisfiable classes and failures."""
+    with tempfile.TemporaryDirectory() as folder:
+        path = os.path.join(folder, 'closure.nt')
+        reasoner_input(data, path)
+        command = ['java', '-Xmx' + memory, '-cp', HERMIT_CLASSPATH,
+                   'org.semanticweb.HermiT.cli.CommandLine', '--unsatisfiable', 'file://' + path]
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            print('::error title=Reasoner::HermiT did not finish classifying ' + about_file +
+                  ' within the ' + str(round(timeout)) + ' seconds left of the reasoner time limit.')
+            return False
+        except FileNotFoundError:
+            print('::error title=Reasoner::java was not found on the PATH; HermiT needs Java.')
+            return False
+
+    if 'InconsistentOntologyException' in result.stderr:
+        print('::error title=Reasoner::' + about_file + ' is inconsistent: its ontologies have no model.')
+        return False
+    if result.returncode != 0:
+        detail = next((line for line in result.stderr.splitlines() if 'Exception' in line), 'see log')
+        print(result.stderr, file=sys.stderr)
+        print('::error title=Reasoner::HermiT failed on ' + about_file + ': ' + detail)
+        return False
+
+    # --unsatisfiable prints "Classes equivalent to 'owl:Nothing':" then one class per line.
+    unsatisfiable = sorted(m.group(1) for m in re.finditer(r'^\s*<([^>]+)>\s*$', result.stdout, re.M))
+    for iri in unsatisfiable:
+        file = source_file(data, URIRef(iri), resolution)
+        location = 'file=' + file + ',' if file else ''
+        print('::error ' + location + 'title=Reasoner::Class ' + iri + ' is unsatisfiable (equivalent to owl:Nothing).')
+    if not unsatisfiable:
+        print('::notice title=Reasoner::' + about_file + ' is consistent and has no unsatisfiable classes.')
+    return not unsatisfiable
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run the IOF hygiene tests (SHACL)')
     parser.add_argument('about_files', nargs='+', metavar='ABOUT', help='About*.rdf files to test')
@@ -169,22 +243,47 @@ if __name__ == '__main__':
                         help='Folder of SHACL shape files (*.ttl)')
     parser.add_argument('--focus-filter', default='industrialontologies',
                         help='Only report results whose focus node IRI matches this regex')
+    parser.add_argument('--no-reasoner', action='store_true', help='Skip the HermiT classification')
+    parser.add_argument('--reasoner-timeout', type=int, default=3600, metavar='SECONDS',
+                        help='Time limit for classifying all the About files combined (default 3600)')
+    parser.add_argument('--reasoner-memory', default='4g', metavar='SIZE',
+                        help='Java heap for HermiT, e.g. 4g (default 4g)')
     args = parser.parse_args()
 
     shapes = load_shapes(args.shapes)
     ontology_is_clean = True
+    closures = []
     for about_file in args.about_files:
         print('========================================')
         print('::group::Running tests:', about_file)
         files, maturity, resolution = find_ontologies(about_file)
         print('::notice title=' + about_file + ' Maturity::' + about_file + ' has maturity:', maturity)
-        clean = run_hygiene(files, shapes, maturity, resolution, args.focus_filter)
+        data = load_data(files)
+        closures.append((about_file, data, resolution))
+        clean = run_hygiene(data, shapes, maturity, resolution, args.focus_filter)
         ontology_is_clean = ontology_is_clean and clean
         print('::endgroup::')
         if clean:
             print('::notice title=' + about_file + '::Hygiene tests passed for about file:', about_file)
         else:
             print('::error title=' + about_file + '::Hygiene tests failed for about file:', about_file)
+
+    if not args.no_reasoner:
+        deadline = time.monotonic() + args.reasoner_timeout
+        for about_file, data, resolution in closures:
+            print('========================================')
+            print('::group::Reasoning:', about_file)
+            remaining = deadline - time.monotonic()
+            if remaining > 0:
+                consistent = run_reasoner(data, about_file, resolution, remaining, args.reasoner_memory)
+            else:
+                print('::error title=Reasoner::Not classified: the ' + str(args.reasoner_timeout) +
+                      ' second reasoner time limit was used up before ' + about_file + '.')
+                consistent = False
+            ontology_is_clean = ontology_is_clean and consistent
+            print('::endgroup::')
+            if not consistent:
+                print('::error title=' + about_file + '::Reasoner found errors for about file:', about_file)
 
     if not ontology_is_clean:
         print('::error title=Hygiene Tests::some hygiene tests failed.')
