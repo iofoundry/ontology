@@ -28,6 +28,11 @@ jobs:
         run: |
           pip install -r ./etc/scripts/requirements.txt
 
+      - name: Check Module IRIs
+        run: |
+          python etc/scripts/check_module_iris.py
+
       - name: Run Hygiene Tests
+        if: success() || failure()
         run: |
           python etc/scripts/hygiene_runner.py AboutIOFDev.rdf AboutIOFProd.rdf

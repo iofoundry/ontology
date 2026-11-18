@@ -7,12 +7,16 @@ For every IOF ontology transitively imported by ``AboutIOFDev.rdf`` /
   1. normalizes namespace prefixes to the canonical set in ``PREFIXES``
      (xmlns declarations, DOCTYPE ``<!ENTITY>`` declarations, ``&prefix;``
      references and ``prefix:`` element/attribute names);
+  1a. sets the ``owl:Ontology`` IRI (and ``xml:base``) to the module's path,
+     e.g. ``core/meta/AnnotationVocabulary.rdf`` → ``.../ontology/core/meta/AnnotationVocabulary/``
+     (see ``module_iri``); imports of the old IRI elsewhere are reported, not rewritten;
   2. sets ``iof-av:copyright`` on the ``owl:Ontology`` header (adding it if missing);
   3. sets ``owl:versionIRI`` to ``.../ontology/<version>/<path>`` (adding it if missing);
   4. adds ``rdfs:isDefinedBy <ontology IRI>`` to IOF entities (owl:Class,
      ObjectProperty, DatatypeProperty, NamedIndividual, AnnotationProperty) that
-     have none anywhere in the import closure, in the file that defines them
-     (see ``plan_is_defined_by``);
+     have none anywhere in the import closure, in the file that defines them, and
+     corrects an ``rdfs:isDefinedBy`` that names a module other than the one it is
+     in (see ``plan_is_defined_by``);
   5. sets ``xml:lang="en-US"`` (upper-case ``US``) on natural-language annotations
      (labels, definitions, examples, notes … see ``ENGLISH_ANNOTATIONS``) that
      have no tag or an ``en`` / ``en-us`` tag.
@@ -389,6 +393,38 @@ def fix_header(text: str, version: str, copyright_text: str) -> tuple[str, list[
     return text, msgs
 
 
+def module_iri(path: Path, repo: Path) -> str:
+    """The ontology IRI a module must have: its path under the repository, minus .rdf."""
+    return IOF_BASE + path.relative_to(repo).with_suffix("").as_posix() + "/"
+
+
+ABOUT_ATTR_RE = re.compile(r"""(rdf:about\s*=\s*)(["']).*?\2""")
+BASE_ATTR_RE = re.compile(r"""(xml:base\s*=\s*)(["']).*?\2""")
+RESOURCE_ATTR_RE = re.compile(r"""(rdf:resource\s*=\s*)(["']).*?\2""")
+
+
+def set_attr(text: str, el: Element, attr_re: re.Pattern, value: str) -> str:
+    tag = attr_re.sub(lambda m: f"{m.group(1)}{m.group(2)}{value}{m.group(2)}",
+                      text[el.start:el.open_end], count=1)
+    return text[:el.start] + tag + text[el.open_end:]
+
+
+def fix_ontology_iri(text: str, expected: str) -> tuple[str, list[str]]:
+    """Make the owl:Ontology IRI and xml:base match the module path. The versionIRI
+    follows from the ontology IRI and is fixed by ``fix_header``, which runs after."""
+    msgs: list[str] = []
+    of = _reparse(text)
+    if of.iri != expected:
+        msgs.append(f"ontology IRI <{of.iri}> → <{expected}>")
+        msgs.append(f"::warning::imports of <{of.iri}> in other modules and catalog entries are not updated; fix them by hand")
+        text = set_attr(text, of.onto, ABOUT_ATTR_RE, expected)
+        of = _reparse(text)
+    if "xml:base" in of.root.attrs and of.base != expected:
+        msgs.append(f"xml:base <{of.base}> → <{expected}>")
+        text = set_attr(text, of.root, BASE_ATTR_RE, expected)
+    return text, msgs
+
+
 def _reparse(text: str) -> OntologyFile:
     root = parse(text)
     ents = entities(text)
@@ -453,78 +489,119 @@ def is_defining(el: Element) -> bool:
     return any(c.name in DEFINING_CHILDREN for c in el.children)
 
 
-def plan_is_defined_by(files: list[Path]) -> tuple[dict[Path, set[str]], list[str]]:
-    """Decide, across the whole import closure, which file should get an
-    ``rdfs:isDefinedBy`` for which entity.
+def defined_by_value(child: Element, of: OntologyFile) -> str:
+    """The IRI an ``rdfs:isDefinedBy`` element names, whatever its form."""
+    if "rdf:resource" in child.attrs:
+        return urljoin(of.base, expand(child.attrs["rdf:resource"], of.ents))
+    return expand(child.text, of.ents).strip()
+
+
+@dataclass
+class DefinedByPlan:
+    add: dict[Path, set[str]] = field(default_factory=dict)       # entities to give an rdfs:isDefinedBy
+    correct: dict[Path, set[str]] = field(default_factory=dict)   # entities whose rdfs:isDefinedBy is wrong
+    warnings: list[str] = field(default_factory=list)             # cases for a person to resolve
+
+
+def plan_is_defined_by(files: list[Path], repo: Path) -> DefinedByPlan:
+    """Decide, across the whole import closure, which IOF entities need an
+    ``rdfs:isDefinedBy`` added or corrected, and in which file.
 
     IOF entities live in shared namespaces (``construct/``, ``annotation/``, …),
     not under their module's IRI, and modules re-declare each other's entities
-    as empty stubs. So an entity only gets an ``isDefinedBy`` when it has none
-    anywhere in the closure, and only in the one file that defines it (the sole
-    declaration, or the sole declaration carrying a label/definition).
+    as empty stubs. So:
+
+    * an entity with one ``rdfs:isDefinedBy`` (anywhere in the closure) is defined by
+      the file that has it, and the value must be that module's IRI (``module_iri``);
+    * an entity with none gets one only in the one file that defines it (the sole
+      declaration, or the sole declaration carrying a label/definition);
+    * anything else (several ``rdfs:isDefinedBy``, no single defining file) is a warning.
     """
-    have: set[str] = set()
+    plan = DefinedByPlan()
+    defined: dict[str, list[tuple[Path, list[str]]]] = {}
     decls: dict[str, list[tuple[Path, bool]]] = {}
     for path in files:
         of = load(path)
         for el in of.root.children:
             iri = subject_iri(el, of)
-            if iri is None:
+            if iri is None or el.name == "owl:Ontology" or not iri.startswith(IOF_BASE):
                 continue
-            if any(c.name == "rdfs:isDefinedBy" for c in el.children):
-                have.add(iri)
-            if el.name in ENTITY_DECLARATIONS and iri.startswith(IOF_BASE):
+            values = [defined_by_value(c, of) for c in el.children if c.name == "rdfs:isDefinedBy"]
+            if values:
+                defined.setdefault(iri, []).append((path, values))
+            if el.name in ENTITY_DECLARATIONS:
                 decls.setdefault(iri, []).append((path, is_defining(el)))
 
-    plan: dict[Path, set[str]] = {}
-    warnings: list[str] = []
+    for iri, occurrences in defined.items():
+        if len(occurrences) > 1:
+            where = ", ".join(f"{p} ({', '.join(v)})" for p, v in occurrences)
+            plan.warnings.append(f"::warning::<{iri}> has rdfs:isDefinedBy in several files: {where}; resolve by hand")
+            continue
+        path, values = occurrences[0]
+        if len(values) > 1:
+            plan.warnings.append(f"::warning file={path.relative_to(repo)}::<{iri}> has {len(values)} rdfs:isDefinedBy; resolve by hand")
+        elif values[0] != module_iri(path, repo):
+            plan.correct.setdefault(path, set()).add(iri)
+
     for iri, ds in decls.items():
-        if iri in have:
+        if iri in defined:
             continue
         owners = {p for p, _ in ds}
         if len(owners) > 1:
             owners = {p for p, defining in ds if defining}
         if len(owners) == 1:
-            plan.setdefault(owners.pop(), set()).add(iri)
+            plan.add.setdefault(owners.pop(), set()).add(iri)
         else:
             where = ", ".join(sorted(str(p) for p, _ in ds))
-            warnings.append(f"::warning::<{iri}> has no rdfs:isDefinedBy and no single defining file ({where}); add it by hand")
-    return plan, warnings
+            plan.warnings.append(f"::warning::<{iri}> has no rdfs:isDefinedBy and no single defining file ({where}); add it by hand")
+    return plan
 
 
-def fix_is_defined_by(text: str, iris: set[str]) -> tuple[str, list[str]]:
+def fix_is_defined_by(text: str, add: set[str], correct: set[str]) -> tuple[str, list[str]]:
     msgs: list[str] = []
-    if not iris:
+    if not add and not correct:
         return text, msgs
     of = _reparse(text)
-    targets: dict[str, Element] = {}
+    targets: dict[str, tuple[Element, Element | None]] = {}   # iri -> (entity, isDefinedBy to correct | None to add)
     for el in of.root.children:
         iri = subject_iri(el, of)
-        if iri in iris and el.name in ENTITY_DECLARATIONS and iri not in targets:
-            if any(c.name == "rdfs:isDefinedBy" for c in el.children):
-                iris = iris - {iri}
-            else:
-                targets[iri] = el
+        if iri is None or iri in targets:
+            continue
+        current = next((c for c in el.children if c.name == "rdfs:isDefinedBy"), None)
+        if iri in correct and current is not None and defined_by_value(current, of) != of.iri:
+            targets[iri] = (el, current)
+        elif iri in add and el.name in ENTITY_DECLARATIONS and current is None:
+            targets[iri] = (el, None)
     xsd_ref = "&xsd;" if entities(text).get("xsd") == XSD else XSD
     child = f'<rdfs:isDefinedBy rdf:datatype="{xsd_ref}anyURI">{of.iri}</rdfs:isDefinedBy>'
     # splice from the end of the file backwards so earlier offsets stay valid
-    for iri, el in sorted(targets.items(), key=lambda x: x[1].start, reverse=True):
-        msgs.append(f"add rdfs:isDefinedBy to {el.name} <{iri}>")
-        text = insert_child(text, el, child)
+    for iri, (el, current) in sorted(targets.items(), key=lambda x: x[1][0].start, reverse=True):
+        if current is None:
+            msgs.append(f"add rdfs:isDefinedBy to {el.name} <{iri}>")
+            text = insert_child(text, el, child)
+        else:
+            # keep the existing form (rdf:resource, xsd:anyURI or plain literal)
+            msgs.append(f"rdfs:isDefinedBy of {el.name} <{iri}>: <{defined_by_value(current, of)}> → <{of.iri}>")
+            if "rdf:resource" in current.attrs:
+                text = set_attr(text, current, RESOURCE_ATTR_RE, of.iri)
+            else:
+                text = text[:current.open_end] + of.iri + text[current.close_start:]
     msgs.reverse()
     return text, msgs
 
 
 # --------------------------------------------------------------------------- #
 
-def normalize(path: Path, version: str, copyright_text: str, defined_here: set[str]) -> tuple[str, str, list[str]]:
+def normalize(path: Path, repo: Path, version: str, copyright_text: str,
+              plan: DefinedByPlan) -> tuple[str, str, list[str]]:
     with path.open(encoding="utf-8", newline="") as f:
         original = f.read()
     text, msgs = original, []
     for step in (fix_prefixes,
+                 lambda t: fix_ontology_iri(t, module_iri(path, repo)),
                  lambda t: fix_header(t, version, copyright_text),
                  fix_language,
-                 lambda t: fix_is_defined_by(t, defined_here)):
+                 lambda t: fix_is_defined_by(t, plan.add.get(path, set()), plan.correct.get(path, set()))):
         text, m = step(text)
         msgs += m
     return original, text, msgs
@@ -554,13 +631,13 @@ def main() -> int:
     copyright_text = args.copyright or default_copyright(args.version)
 
     files = discover([repo / a for a in args.about], repo)
-    plan, warnings = plan_is_defined_by(files)
-    for w in warnings:
+    plan = plan_is_defined_by(files, repo)
+    for w in plan.warnings:
         print(w)
     changed = 0
     for path in files:
         rel = path.relative_to(repo)
-        original, text, msgs = normalize(path, args.version, copyright_text, plan.get(path, set()))
+        original, text, msgs = normalize(path, repo, args.version, copyright_text, plan)
         if text == original:
             if not args.quiet:
                 print(f"ok      {rel}")
