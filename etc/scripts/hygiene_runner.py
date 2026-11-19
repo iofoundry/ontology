@@ -23,13 +23,15 @@ import sys
 import tempfile
 import time
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
-import owlready2
 
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH
 from rdflib.plugins.sparql import prepareQuery
+
+from ontology_closure import CATALOG_NS, HERMIT_CLASSPATH, import_closure, merge, reasoner_input
 
 IOF_H = Namespace('https://spec.industrialontologies.org/ontology/hygiene/')
 IOF_AV = Namespace('https://spec.industrialontologies.org/ontology/annotation/')
@@ -38,29 +40,10 @@ INDIVIDUAL_PREFIX = 'https://spec.industrialontologies.org/ontology/individual/'
 
 def parse_catalog(catalog_file_path: str) -> dict:
     """Map ontology IRIs to their .rdf files (relative to the catalog's folder)."""
-    resolution = dict()
     print('::notice file=' + catalog_file_path + ',title=Parse Catalog::Parsing file', catalog_file_path)
     catalog = ET.parse(catalog_file_path)
-    for uri in catalog.getroot().findall('{urn:oasis:names:tc:entity:xmlns:xml:catalog}uri'):
-        ontology_path = uri.attrib['uri']
-        if ontology_path.endswith('.rdf'):
-            resolution[uri.attrib['name']] = ontology_path
-    return resolution
-
-
-def find_imports(iri: str, resolution: dict, found_iris: set):
-    if iri in found_iris:
-        return
-    found_iris.add(iri)
-    if iri not in resolution:
-        print('::warning file=' + iri + ',title=Find Imports::Could not find ontology for IRI:', iri)
-        return
-    print('::notice file=' + resolution[iri] + ',title=Find Imports::Getting imports from file:', resolution[iri])
-    graph = Graph()
-    graph.parse(source=resolution[iri])
-    for ontology in graph.subjects(RDF.type, OWL.Ontology):
-        for imported in graph.objects(ontology, OWL.imports):
-            find_imports(str(imported), resolution, found_iris)
+    return {uri.attrib['name']: uri.attrib['uri'] for uri in catalog.getroot().iter(CATALOG_NS + 'uri')
+            if uri.attrib['uri'].endswith('.rdf')}
 
 
 def find_ontologies(about_file: str):
@@ -80,9 +63,15 @@ def find_ontologies(about_file: str):
     iri, maturity = str(about[0]), str(about[1]).replace(INDIVIDUAL_PREFIX, '')
     print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
 
-    found_iris = set()
-    find_imports(iri, resolution, found_iris)
-    files = [os.path.join(folder, resolution[i]) for i in found_iris if i in resolution]
+    absolute = {i: (Path(folder) / f).resolve() for i, f in resolution.items()}
+    as_written = {path: resolution[i] for i, path in absolute.items()}
+    closure = import_closure([iri], absolute)
+    for file in closure.files:
+        print('::notice file=' + as_written[file] + ',title=Find Imports::Getting imports from file:',
+              as_written[file])
+    for missing, _ in closure.missing:
+        print('::warning file=' + missing + ',title=Find Imports::Could not find ontology for IRI:', missing)
+    files = [str(f) for f in closure.files]
     return files, maturity, resolution
 
 
@@ -221,10 +210,7 @@ def annotation_level(severity, maturity: str) -> str:
 
 
 def load_data(files: list) -> Graph:
-    data = Graph()
-    for file in files:
-        data.parse(source=file)
-    return data
+    return merge(files)
 
 
 def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, focus_filter: str,
@@ -259,28 +245,6 @@ def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, foc
     for annotation in sorted(annotations):
         print(annotation)
     return not any(a.startswith('::error') for a in annotations)
-
-
-HERMIT_DIR = os.path.join(os.path.dirname(owlready2.__file__), 'hermit')
-HERMIT_CLASSPATH = os.pathsep.join([HERMIT_DIR, os.path.join(HERMIT_DIR, 'HermiT.jar')])
-
-
-def reasoner_input(data: Graph, path: str):
-    """Write the merged closure as one self-contained ontology for HermiT.
-
-    owl:imports are dropped (everything they name is already merged in, and HermiT
-    would otherwise fetch them from the web). rdf:langString is replaced by
-    rdf:PlainLiteral: HermiT only accepts the OWL 2 datatype map, which lacks
-    rdf:langString, and the Commons Text datatype is defined as
-    xsd:string or rdf:langString -- the same value space as rdf:PlainLiteral.
-    """
-    graph = Graph()
-    for s, p, o in data:
-        if p == OWL.imports:
-            continue
-        graph.add((RDF.PlainLiteral if s == RDF.langString else s, p,
-                   RDF.PlainLiteral if o == RDF.langString else o))
-    graph.serialize(path, format='nt', encoding='utf-8')
 
 
 def run_reasoner(data: Graph, about_file: str, resolution: dict, timeout: float, memory: str) -> bool:
