@@ -114,13 +114,22 @@ jobs:
           java-version: "21"
       - name: Install dependencies
         run: pip install -r ./etc/scripts/requirements.txt
-      # The runner keys its own cache on the suite's exact import closure, so a restored
-      # but stale entry is simply re-entailed; this key only decides when a new one is saved.
+      # The runner keys its own cache on the suite's exact import closure and its own code,
+      # so a restored but stale entry is simply re-entailed; this key only decides when a
+      # new one is saved. Saved even when tests fail: the runner writes its cache only after
+      # a successful entailment, so a failing expected CSV must not force HermiT next push.
       - name: Restore entailment cache
-        uses: actions/cache@v4
+        id: cache
+        uses: actions/cache/restore@v4
         with:
           path: build/competency/${{ matrix.suite }}
-          key: competency-${{ matrix.suite }}-${{ hashFiles('**/*.rdf', 'catalog-v001.xml', format('etc/testing/competency/{0}/**', matrix.suite)) }}
+          key: competency-${{ matrix.suite }}-${{ hashFiles('**/*.rdf', 'catalog-v001.xml', 'etc/scripts/*.py', format('etc/testing/competency/{0}/**', matrix.suite)) }}
           restore-keys: competency-${{ matrix.suite }}-
       - name: Run competency tests
         run: ./competency ${{ matrix.suite }}
+      - name: Save entailment cache
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: build/competency/${{ matrix.suite }}
+          key: ${{ steps.cache.outputs.cache-primary-key }}

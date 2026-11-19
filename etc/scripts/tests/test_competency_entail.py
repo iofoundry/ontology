@@ -68,6 +68,19 @@ class EntailTest(unittest.TestCase):
         (self.tmp / 'unrelated.rq').write_text('SELECT * {}')
         self.assertEqual(cache_key([copy], True), before)
 
+    def test_cache_key_changes_with_runner_code(self):
+        import competency_entail
+        code = self.tmp / 'code.py'
+        code.write_text('a = 1\n')
+        saved = competency_entail.CODE_FILES
+        competency_entail.CODE_FILES = [code]
+        try:
+            before = cache_key([FIX / 'Defined.ttl'], True)
+            code.write_text('a = 2\n')
+            self.assertNotEqual(cache_key([FIX / 'Defined.ttl'], True), before)
+        finally:
+            competency_entail.CODE_FILES = saved
+
     def test_timeout_kills_worker(self):
         r = self.run_entail([FIX / 'Defined.ttl'], timeout=0.05)
         self.assertEqual(r.failure, 'timeout')

@@ -95,6 +95,30 @@ class RunnerTest(unittest.TestCase):
         self.assertLess(out.index('::group::release/broken'), out.index('::group::release/good'))
         self.assertIn('release/good passed', out)
 
+    def test_malformed_suite_ontology_is_error_and_others_run(self):
+        bad = self.base / 'release' / 'bad'
+        bad.mkdir()
+        (bad / 'Example.ttl').write_text('this is not turtle')
+        code, out = self.run_main('release/bad', 'release/good')
+        self.assertEqual(code, 1)
+        self.assertIn('::error file=', out)
+        self.assertIn('release/good passed', out)
+
+    def test_catalog_entry_to_missing_file_is_error_and_others_run(self):
+        (self.base / 'DevOnly.ttl').unlink()
+        code, out = self.run_main('provisional/dev', 'release/good')
+        self.assertEqual(code, 1)
+        self.assertIn('DevOnly.ttl', out)
+        self.assertIn('release/good passed', out)
+
+    def test_corrupt_cache_is_error_and_others_run(self):
+        self.run_main('release/good')
+        (self.tmp / 'build' / 'release' / 'good' / 'entailed.nq').write_text('not n-quads at all\n')
+        code, out = self.run_main('release/good', 'release/broken')
+        self.assertEqual(code, 1)
+        self.assertIn('release/good failed', out)
+        self.assertIn('::group::release/broken', out)
+
     def test_list_prints_suite_names_as_json(self):
         code, out = self.run_main('release', '--list')
         self.assertEqual(code, 0)

@@ -34,6 +34,9 @@ ASSERTED, INFERRED, CLOSURE = URIRef('urn:asserted'), URIRef('urn:inferred'), UR
 INFERENCE_ONTOLOGY = 'http://inferrences/'     # where owlready2 stores what the reasoner adds
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CACHE_SCHEMA = '1'
+# The entailment code is part of the cache key: changing how the input is prepared or how
+# triples are split into graphs must invalidate every cached result.
+CODE_FILES = [Path(__file__).resolve(), Path(__file__).resolve().parent / 'ontology_closure.py']
 
 
 @dataclass
@@ -51,6 +54,8 @@ def cache_key(files: list[Path], property_values: bool) -> str:
     for name, content in sorted((os.path.relpath(Path(f).resolve(), REPO_ROOT),
                                  hashlib.sha256(Path(f).read_bytes()).hexdigest()) for f in files):
         digest.update(f'{name}\0{content}\n'.encode())
+    for code in CODE_FILES:
+        digest.update(hashlib.sha256(Path(code).read_bytes()).digest())
     digest.update(f'owlready2={owlready2.VERSION}\0pv={property_values}\0schema={CACHE_SCHEMA}'.encode())
     return digest.hexdigest()
 

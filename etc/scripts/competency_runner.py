@@ -59,6 +59,9 @@ def _prepare(suite: Suite, args, report: list) -> list[Path] | None:
     except SuiteError as e:
         report.append(('::error', 'Imports', str(e), suite.root))
         return None
+    except Exception as e:  # noqa: BLE001 — unparseable ontology, catalog entry to a missing file, ...
+        report.append(('::error', 'Imports', f'cannot load {suite.name}: {type(e).__name__}: {e}', suite.root))
+        return None
     for iri in tier_violations(suite, closure, args.prod_about, args.catalog):
         report.append(('::error', 'Tier', f'release suite {suite.name} depends on provisional module {iri} '
                                           '— move the suite to provisional/', suite.root))
@@ -66,8 +69,11 @@ def _prepare(suite: Suite, args, report: list) -> list[Path] | None:
 
 
 def _entail(suite: Suite, files: list[Path], args) -> EntailResult:
-    return entail(files, Path(args.build_dir) / suite.name, timeout=args.reasoner_timeout,
-                  memory=args.reasoner_memory, use_cache=not args.no_cache)
+    try:
+        return entail(files, Path(args.build_dir) / suite.name, timeout=args.reasoner_timeout,
+                      memory=args.reasoner_memory, use_cache=not args.no_cache)
+    except Exception as e:  # noqa: BLE001 — e.g. a corrupt cached entailed.nq; report it for this suite only
+        return EntailResult(None, [], f'error: {type(e).__name__}: {e} (try --no-cache)', 0.0, False)
 
 
 def _report_suite(suite: Suite, prepared: list, result: EntailResult | None, args, out: Reporter) -> None:

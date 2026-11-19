@@ -47,8 +47,11 @@ def run_shacl(shapes_path: Path, ds: Dataset) -> list[Finding]:
         shapes = Graph().parse(str(shapes_path), format='turtle')
     except Exception as e:  # noqa: BLE001 — any parse error means a broken test file
         return [Finding('broken', shapes_path, title, f'cannot parse shapes: {e}')]
-    _, results, _ = validate(union_graph(ds), shacl_graph=shapes, advanced=True, inference='none',
-                             allow_warnings=True)
+    try:
+        _, results, _ = validate(union_graph(ds), shacl_graph=shapes, advanced=True, inference='none',
+                                 allow_warnings=True)
+    except Exception as e:  # noqa: BLE001 — e.g. pySHACL ConstraintLoadError for an invalid constraint
+        return [Finding('broken', shapes_path, title, f'cannot load shapes: {e}')]
     findings = []
     for result in results.subjects(RDF.type, SH.ValidationResult):
         source = results.value(result, SH.sourceShape)
@@ -84,13 +87,18 @@ def run_sparql(query_path: Path, ds: Dataset) -> tuple[list[str], list[tuple[str
     text = Path(query_path).read_text()
     try:
         result = ds.query(text)
-    except Exception as e:  # noqa: BLE001 — rdflib raises several parser exception types
+        if result.type == 'ASK':
+            return ['ask'], [('true' if result.askAnswer else 'false',)]
+        if result.type != 'SELECT':
+            raise ValueError(f'{result.type} query: competency tests must be SELECT or ASK')
+        prefixes = query_prefixes(text)
+        header = [str(v) for v in result.vars]
+        # rdflib evaluates lazily, so errors can surface while iterating: keep it inside the try
+        return header, [tuple(render_term(row[v], prefixes) for v in result.vars) for row in result]
+    except ValueError:
+        raise
+    except Exception as e:  # noqa: BLE001 — rdflib raises several parser/evaluation exception types
         raise ValueError(str(e)) from e
-    if result.type == 'ASK':
-        return ['ask'], [('true' if result.askAnswer else 'false',)]
-    prefixes = query_prefixes(text)
-    header = [str(v) for v in result.vars]
-    return header, [tuple(render_term(row[v], prefixes) for v in result.vars) for row in result]
 
 
 def compare_rows(expected: list[tuple], actual: list[tuple]) -> tuple[list[tuple], list[tuple]]:
@@ -101,6 +109,7 @@ def compare_rows(expected: list[tuple], actual: list[tuple]) -> tuple[list[tuple
 def read_expected(path: Path) -> tuple[list[str], list[tuple[str, ...]]]:
     with open(path, newline='', encoding='utf-8') as f:
         rows = list(csv.reader(f))
+    rows = [r for r in rows if r]   # a trailing blank line is not a row (an unbound cell is written as "")
     return (rows[0] if rows else []), [tuple(r) for r in rows[1:]]
 
 

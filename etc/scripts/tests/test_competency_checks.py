@@ -119,6 +119,23 @@ class ChecksTest(unittest.TestCase):
         write_expected(self.tmp / 'q.expected.csv', ['o', 'w'], [('ex:w2', 'ex:w1'), ('', 'ex:w2')])
         self.assertEqual(check_sparql(q, dataset(), update=False), [])
 
+    def test_invalid_shapes_constraint_is_broken(self):
+        shapes = self.write('s.shapes.ttl', self.SHAPES +
+                            'ex:S a sh:NodeShape ; sh:targetNode ex:w1 ; '
+                            'sh:property [ sh:path ex:p ; sh:minCount "x" ] .')
+        self.assertEqual([f.kind for f in run_shacl(shapes, dataset())], ['broken'])
+
+    def test_construct_query_is_broken(self):
+        q = self.write('q.rq', PREFIX + 'CONSTRUCT { ?w a ex:Thing } WHERE { ?w a ex:Widget }')
+        findings = check_sparql(q, dataset(), update=False)
+        self.assertEqual([f.kind for f in findings], ['broken'])
+        self.assertIn('SELECT or ASK', findings[0].message)
+
+    def test_trailing_blank_line_in_expected_ignored(self):
+        q = self.write('q.rq', PREFIX + 'SELECT ?w WHERE { ?w a ex:Widget }')
+        (self.tmp / 'q.expected.csv').write_text('w\nex:w1\nex:w2\n\n')
+        self.assertEqual(check_sparql(q, dataset(), update=False), [])
+
     def test_bad_query_is_broken(self):
         q = self.write('q.rq', 'SELEKT nonsense')
         self.assertEqual([f.kind for f in check_sparql(q, dataset(), update=False)], ['broken'])
