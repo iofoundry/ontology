@@ -1,5 +1,6 @@
 import contextlib
 import io
+import json
 import shutil
 import tempfile
 import unittest
@@ -93,6 +94,12 @@ class RunnerTest(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertLess(out.index('::group::release/broken'), out.index('::group::release/good'))
         self.assertIn('release/good passed', out)
+
+    def test_list_prints_suite_names_as_json(self):
+        code, out = self.run_main('release', '--list')
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(out), ['release/broken', 'release/good', 'release/leaky',
+                                           'release/unresolved'])
 
     def test_unknown_selector_is_error(self):
         code, out = self.run_main('release/nope')

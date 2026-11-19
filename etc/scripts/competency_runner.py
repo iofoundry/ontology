@@ -4,6 +4,7 @@
     ./competency release                        # one tier
     ./competency release/slots --no-cache       # one suite, force HermiT
     ./competency release/slots --update-expected
+    ./competency --list                         # suite names as JSON (CI matrix)
 
 Each suite in etc/testing/competency/<tier>/<suite>/ is loaded with only its own import
 closure (resolved through catalog-v001.xml, never the web), entailed with HermiT (cached
@@ -17,6 +18,7 @@ suite importing a provisional module) is an error in both. Exit status 1 iff any
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -100,6 +102,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description='Run the IOF competency tests')
     parser.add_argument('selectors', nargs='*', metavar='SUITE',
                         help="tier ('release') or suite ('release/slots'); default: all")
+    parser.add_argument('--list', action='store_true',
+                        help='print the selected suite names as a JSON array (for a CI matrix) and exit')
     parser.add_argument('--no-cache', action='store_true', help='re-run HermiT even if inputs are unchanged')
     parser.add_argument('--update-expected', action='store_true',
                         help='(re)write each tests/*.expected.csv from the current results')
@@ -119,6 +123,9 @@ def main(argv: list[str] | None = None) -> int:
     except SuiteError as e:
         out.emit('::error', 'Competency Tests', str(e))
         return 1
+    if args.list:
+        print(json.dumps([s.name for s in suites]))
+        return 0
     if not suites:
         out.emit('::warning', 'Competency Tests', f'no competency suites under {args.base}')
         return 0

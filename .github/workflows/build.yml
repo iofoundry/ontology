@@ -1,44 +1,126 @@
 name: Hygiene Tests
 
+# Every job below runs in parallel: the module IRI check, hygiene once per About file,
+# the competency runner's own unit tests, and one job per competency suite (HermiT can
+# take minutes per suite, so each suite gets its own runner).
+
 on:
   push:
     paths:
       - '**/*.rdf'
-      - 'etc/scripts/*.py'
-      - 'etc/scripts/requirements.txt'
-      - 'etc/testing/hygiene_shapes/*.ttl'
+      - 'catalog-v001.xml'
+      - 'competency'
+      - 'etc/scripts/**'
+      - 'etc/testing/**'
       - '**/build*.yml'
   pull_request:
   workflow_dispatch:
 
 jobs:
-  hygiene-tests:
+  module-iris:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r ./etc/scripts/requirements.txt
+      - name: Check Module IRIs
+        run: python etc/scripts/check_module_iris.py
 
+  hygiene-tests:
+    name: hygiene-tests (${{ matrix.about }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        about: [AboutIOFDev.rdf, AboutIOFProd.rdf]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Set up Java (for the HermiT reasoner)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "21"
-
       - name: Install dependencies
-        run: |
-          pip install -r ./etc/scripts/requirements.txt
-
-      - name: Check Module IRIs
-        run: |
-          python etc/scripts/check_module_iris.py
-
+        run: pip install -r ./etc/scripts/requirements.txt
       - name: Run Hygiene Tests
-        if: success() || failure()
-        run: |
-          python etc/scripts/hygiene_runner.py AboutIOFDev.rdf AboutIOFProd.rdf
+        run: python etc/scripts/hygiene_runner.py ${{ matrix.about }}
+
+  competency-runner-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Java (for the HermiT reasoner)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install dependencies
+        run: pip install -r ./etc/scripts/requirements.txt
+      - name: Unit tests for the competency runner
+        run: python -m unittest discover -s etc/scripts/tests -t etc/scripts
+
+  competency-suites:
+    runs-on: ubuntu-latest
+    outputs:
+      suites: ${{ steps.list.outputs.suites }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r ./etc/scripts/requirements.txt
+      - name: List competency suites
+        id: list
+        run: echo "suites=$(./competency --list)" >> "$GITHUB_OUTPUT"
+
+  competency-tests:
+    name: competency (${{ matrix.suite }})
+    needs: competency-suites
+    if: needs.competency-suites.outputs.suites != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: ${{ fromJSON(needs.competency-suites.outputs.suites) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Java (for the HermiT reasoner)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install dependencies
+        run: pip install -r ./etc/scripts/requirements.txt
+      # The runner keys its own cache on the suite's exact import closure, so a restored
+      # but stale entry is simply re-entailed; this key only decides when a new one is saved.
+      - name: Restore entailment cache
+        uses: actions/cache@v4
+        with:
+          path: build/competency/${{ matrix.suite }}
+          key: competency-${{ matrix.suite }}-${{ hashFiles('**/*.rdf', 'catalog-v001.xml', format('etc/testing/competency/{0}/**', matrix.suite)) }}
+          restore-keys: competency-${{ matrix.suite }}-
+      - name: Run competency tests
+        run: ./competency ${{ matrix.suite }}
