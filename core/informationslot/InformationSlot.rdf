@@ -304,6 +304,25 @@
 		</owl:equivalentClass>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&iof-constr;TemporalDurationValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-constr;TemporalValueExpression"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TemporalInstantValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-constr;TemporalValueExpression"/>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TemporalValueExpression">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ValueExpression"/>
+		<rdfs:label xml:lang="en-US">temporal value expression</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
+		<skos:example xml:lang="en-US">The planned start time &apos;2026-11-19T08:00:00Z&apos; (a temporal instant value expression) and the planned duration &apos;PT2H&apos; (a temporal duration value expression) that fill the time slots of a maintenance work order specification.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">Named parent of the temporal duration and temporal instant value expressions, so that time slot can restrict its fillers to one named class. Restricting them to the union of the two directly (has filler only (temporal duration value expression or temporal instant value expression)) makes HermiT branch at every information slot and slows reasoning about tenfold. No covering axiom is asserted, for the same reason.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>TemporalValueExpression(x) → ValueExpression(x)</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">value expression that is a temporal duration value expression or a temporal instant value expression</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">if x is a &apos;temporal value expression&apos; then x is a &apos;value expression&apos;</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&iof-constr;TimeSlot">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
 		<rdfs:label xml:lang="en-US">time slot</rdfs:label>
@@ -315,16 +334,7 @@
 					</rdf:Description>
 					<owl:Restriction>
 						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-constr;TemporalDurationValueExpression">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-constr;TemporalInstantValueExpression">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:allValuesFrom>
+						<owl:allValuesFrom rdf:resource="&iof-constr;TemporalValueExpression"/>
 					</owl:Restriction>
 				</owl:intersectionOf>
 			</owl:Class>
