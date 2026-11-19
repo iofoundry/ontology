@@ -1,0 +1,13 @@
+# Report the types for the Bolt as inferred
+#
+
+PREFIX iof: <https://spec.industrialontologies.org/ontology/construct/>
+PREFIX fst: <https://spec.industrialontologies.org/example/Fastener/>
+PREFIX bfo: <http://purl.obolibrary.org/obo/>
+
+SELECT *
+WHERE {
+  ?bolt a fst:Bolt .
+  GRAPH ?g { ?bolt a ?other }
+  BIND(IF(?g = <urn:asserted>, "asserted", "inferred") AS ?source)
+}

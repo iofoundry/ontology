@@ -119,13 +119,17 @@ def check_sparql(query_path: Path, ds: Dataset, update: bool) -> list[Finding]:
         header, rows = run_sparql(query_path, ds)
     except ValueError as e:
         return [Finding('broken', query_path, title, f'query failed: {e}')]
+    expected_header, expected_rows = read_expected(expected_path) if expected_path.exists() else ([], [])
+    # Column order of SELECT * is not stable between runs in rdflib: follow the expected file's.
+    if sorted(expected_header) == sorted(header) and expected_header != header:
+        order = [header.index(column) for column in expected_header]
+        header, rows = expected_header, [tuple(row[i] for i in order) for row in rows]
     if update:
         write_expected(expected_path, header, rows)
         return []
     if not expected_path.exists():
         return [Finding('broken', query_path, title,
                         f'no {expected_path.name}; create it with --update-expected and review it')]
-    expected_header, expected_rows = read_expected(expected_path)
     if expected_header != header:
         return [Finding('failure', expected_path, title,
                         f'columns {header} do not match expected {expected_header}')]

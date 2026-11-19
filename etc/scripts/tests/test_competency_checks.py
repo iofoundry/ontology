@@ -113,6 +113,12 @@ class ChecksTest(unittest.TestCase):
         self.assertEqual([f.kind for f in findings], ['failure'])
         self.assertIn('columns', findings[0].message)
 
+    def test_column_order_ignored(self):
+        # SELECT * column order is not stable between processes in rdflib.
+        q = self.write('q.rq', PREFIX + 'SELECT ?w ?o WHERE { ?w a ex:Widget OPTIONAL { ?w ex:p ?o } }')
+        write_expected(self.tmp / 'q.expected.csv', ['o', 'w'], [('ex:w2', 'ex:w1'), ('', 'ex:w2')])
+        self.assertEqual(check_sparql(q, dataset(), update=False), [])
+
     def test_bad_query_is_broken(self):
         q = self.write('q.rq', 'SELEKT nonsense')
         self.assertEqual([f.kind for f in check_sparql(q, dataset(), update=False)], ['broken'])
