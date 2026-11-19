@@ -3,7 +3,7 @@
 Competency tests check that IOF does the job: a worked example is loaded on top of the
 IOF modules it imports, entailed with HermiT, and its expected inferences and
 conformance results are checked. (Hygiene tests, in `etc/testing/hygiene_shapes`,
-check that IOF is well-formed.) Design and rationale: [PROPOSAL.md](PROPOSAL.md).
+check that IOF is well-formed.)
 
 ## Layout
 
@@ -41,26 +41,30 @@ etc/testing/competency/
 
 ```bash
 ./competency                                   # every suite
-./competency release                           # one tier
-./competency release/slots                     # one suite
-./competency release/slots --no-cache          # force HermiT
-./competency release/slots --update-expected   # (re)write the .expected.csv files
+./competency provisional                       # one tier
+./competency provisional/slots                 # one suite
+./competency provisional/slots --no-cache      # force HermiT
+./competency provisional/slots --update-expected   # (re)write the .expected.csv files
 python -m unittest discover -s etc/scripts/tests -t etc/scripts   # the runner's own tests
 ```
 
 HermiT results are cached in `build/competency/<tier>/<suite>/` keyed on the content
 of every file in the suite's import closure, so re-running after changing only
-`tests/` takes seconds. After `--update-expected`, review the CSV diff before
-committing: it is the test.
+`tests/` takes seconds. (Pre-entailing IOF and layering an example on top does not
+help: HermiT has no incremental mode and re-classifies everything from the axioms — on
+the slots suite, 185 s with IOF's entailments preloaded vs 192 s from scratch.) After
+`--update-expected`, review the CSV diff before committing: it is the test.
 
 ## Suites
 
-- **release/slots** — the ConnectSpec Fastener example (an M6×25 button head socket
+- **provisional/slots** — the ConnectSpec Fastener example (an M6×25 button head socket
   cap bolt and its design specification built with information slots). Checks that the
   bolt's type is inferred from its parts (`BoltTypes.shapes.ttl`, `BoltInference.rq`)
   and that every prescribed quality conforms to its specification
-  (`SpecConformance.rq`). It does **not** import the provisional InformationSlot
-  module — `Fastener.ttl` declares the slot classes it uses locally — because the full
-  module makes HermiT about ten times slower. When InformationSlot reasons in
-  reasonable time, refactor `Fastener.ttl` to import it, re-time HermiT, and move the
-  suite to `provisional/` while InformationSlot is only in `AboutIOFDev.rdf`.
+  (`SpecConformance.rq`). `Fastener.ttl` imports the provisional InformationSlot
+  module, so the suite is provisional while that module is only in `AboutIOFDev.rdf`.
+  HermiT takes about 5½ min on it (about 3 min without the module). It took 33 min
+  while `time slot` was defined with `has filler only (temporal duration value
+  expression or temporal instant value expression)`: a union inside a universal
+  restriction makes HermiT branch at every slot. The module now restricts fillers to
+  one named parent, `temporal value expression`. Keep unions out of `only` fillers.
