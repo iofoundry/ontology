@@ -9,6 +9,8 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+	<!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
 <rdf:RDF xml:base="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"
@@ -21,53 +23,52 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+	xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
 	<owl:Ontology rdf:about="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/">
 		<rdfs:label xml:lang="en-US">information slot ontology</rdfs:label>
 		<dc:license>http://opensource.org/licenses/MIT</dc:license>
 		<dcterms:abstract xml:lang="en-US">This ontology defines constructs related to representing the structure and semantic of information content entities.</dcterms:abstract>
-		<dcterms:creator>Arkopaul Sarkar, Natioanl Institute of Standards and Technology</dcterms:creator>
+		<dcterms:creator>Arkopaul Sarkar, National Institute of Standards and Technology</dcterms:creator>
 		<dcterms:publisher>Industrial Ontology Foundry</dcterms:publisher>
 		<dcterms:title xml:lang="en-US">Information Slot Ontology</dcterms:title>
+		<owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
 		<owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/core/Core/"/>
 		<owl:versionIRI rdf:resource="https://spec.industrialontologies.org/ontology/202604/core/informationslot/InformationSlot/"/>
-		<iof-av:copyright>Copyright (c) 2022, 2023, 2024, 2025, 2026 Open Applications Group</iof-av:copyright>
 		<iof-av:maturity rdf:resource="&iof-ind;Provisional"/>
 	</owl:Ontology>
 	
-	<owl:Class rdf:about="&iof-constr;AggregationDescription">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationContentEntity"/>
+	<owl:Class rdf:about="&iof-constr;ComponentSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;describes"/>
-				<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040">
+											</rdf:Description>
+											<owl:Class>
+												<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000024"/>
+											</owl:Class>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">aggregation description</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;DescriptiveInformationContentEntity">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;CountSlot"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;AssemblySpecification">
-		<rdfs:subClassOf rdf:resource="&iof-constr;DesignSpecification"/>
-		<rdfs:label xml:lang="en-US">assembly specification</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;ComponentParthoodSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
@@ -78,17 +79,47 @@
 							</rdf:Description>
 							<owl:Restriction>
 								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
-								<owl:allValuesFrom rdf:resource="&iof-constr;MaterialComponent"/>
+								<owl:allValuesFrom>
+									<owl:Class>
+										<owl:intersectionOf rdf:parseType="Collection">
+											<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000040">
+											</rdf:Description>
+											<owl:Class>
+												<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000024"/>
+											</owl:Class>
+										</owl:intersectionOf>
+									</owl:Class>
+								</owl:allValuesFrom>
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
 				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">component slot</rdfs:label>
+		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
+		<skos:example xml:lang="en-US">A system specification has a &apos;component parthood slot&apos; filled by a component specification, thereby prescribing that the specified system must &apos;has component part&apos; the specified component for conformance to the specification; an inspection report has a &apos;component parthood slot&apos; filled by a component description, thereby reporting that the inspected system &apos;has component part&apos; the described component</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) If slot of a prescriptive host, the slot specifies that conformance requires having the filled material component as a component part. If slot of a reporting host, the slot records that the host’s referent has the filled material component as a component part.
+2) The LA2 axiom cant be formalized on the component parthood slot in OWL and it should be utilized instead on the ICEs that the slot &apos;is the slot of&apos;</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (ComponentSlot(x) → (InformationSlot(x) ∧ ∀j (hasFiller(x,j) → (InformationContentEntity(j) ∧ ∀n (isAbout(j,n) → (obo:MaterialEntity(n) ∧ ¬obo:FiatObjectPart(n))))) ∧ ∀i (isSlotOf(x,i) → (InformationContentEntity(i) ∧ ∀m (isAbout(i,m) → (obo:MaterialEntity(m) ∧ ¬obo:FiatObjectPart(m)))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,m,n ((InformationSlot(x) ∧ isSlotOf(x,i) ∧ hasFiller(x,j) ∧ isAbout(i,m) ∧ isAbout(j,n) ∧ componentPartOfAtSomeTime(n,m)) → ComponentSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an independent continuant, that can be filled only by an information content entity that is about a material component, and that, when filled, prescribes or reports a &apos;has component part&apos; relation between the entities the host and filler information content entities are about</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;component slot&apos;, then x is an instance of &apos;information slot&apos;; every j such that x &apos;has filler&apos; j is an instance of &apos;information content entity&apos;, and every entity that j &apos;is about&apos; is an instance of &apos;material entity&apos; and is not an instance of &apos;fiat object part&apos;; and every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;material entity&apos; and is not an instance of &apos;fiat object part&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, i &apos;is about&apos; m, j &apos;is about&apos; n, and n is &apos;component part of at some time&apos; m, then x is an instance of &apos;component slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;LocationSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;PhysicalLocationIdentifier"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-				<owl:someValuesFrom>
+				<owl:allValuesFrom>
 					<owl:Class>
 						<owl:intersectionOf rdf:parseType="Collection">
 							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
@@ -109,358 +140,491 @@
 							</owl:Restriction>
 						</owl:intersectionOf>
 					</owl:Class>
-				</owl:someValuesFrom>
+				</owl:allValuesFrom>
 			</owl:Restriction>
 		</rdfs:subClassOf>
-		<rdfs:label xml:lang="en-US">component parthood slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<skos:example xml:lang="en-US">A system specification has a &apos;component parthood slot&apos; filled by a component specification, thereby prescribing that the specified system must &apos;has component part&apos; the specified component for conformance to the specification; an inspection report has a &apos;component parthood slot&apos; filled by a component description, thereby reporting that the inspected system &apos;has component part&apos; the described component</skos:example>
-		<iof-av:explanatoryNote xml:lang="en-US">1) If slot of a prescriptive host, the slot specifies that conformance requires having the filled material component as a component part. If slot of a reporting host, the slot records that the host’s referent has the filled material component as a component part.
-2) The LA2 axiom cant be formalized on the component parthood slot in OWL and it should be utilized instead on the ICEs that the slot &apos;is the slot of&apos;</iof-av:explanatoryNote>
-		<iof-av:firstOrderLogicAxiom>LA1:ComponentParthoodSlot(x) → ( (∀y(hasFiller(x,y) → (InformationContentEntity(y) ∧ (∃m(MaterialComponent(m) ∧ isAbout(y,m)) ∨ ∀t(isAbout(y,t) → MaterialComponent(t)) )))) ∧ (∃z(isSlotOf(x,z) ∧ InformationContentEntity(z) ∧ (∃c(IndependentContinuant(c) ∧ ¬SpatialRegion(c) ∧ isAbout(z,c)) ∨ ∀u(isAbout(z,u) → (IndependentContinuant(u) ∧ ¬SpatialRegion(u)))))) ) )</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicAxiom>LA2: ComponentParthoodSlot(x) → ∀z, y, c, m ( (slotOf(x,z) ∧ hasFiller(x,y) ∧ isAbout(z,c) ∧ isAbout(y,m)) → (hasComponentPartAtSomeTime(c,m) ∨ (prescribes(z,c) ∧ (conformsTo(c,z) → hasComponentPartAtSomeTime(c,m)))) )</iof-av:firstOrderLogicAxiom>
-		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an independent continuant, that can be filled only by an information content entity that is about a material component, and that, when filled, prescribes or reports a &apos;has component part&apos; relation between the entities the host and filler information content entities are about</iof-av:naturalLanguageDefinition>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: if x is a &apos;component parthood slot&apos; then (i) every &apos;has filler&apos; y of x is an &apos;information content entity&apos; that either &apos;is about&apos; some &apos;material component&apos; or &apos;is about&apos; only &apos;material component&apos;, and (ii) x &apos;is slot of&apos; some &apos;information content entity&apos; that either &apos;is about&apos; some &apos;independent continuant&apos; that is not a &apos;spatial region&apos; or &apos;is about&apos; only &apos;independent continuant&apos; that is not &apos;spatial region&apos;</iof-av:semiFormalNaturalLanguageAxiom>
-		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: if x is a &apos;component parthood slot&apos; then for any z, y, c, and m, if x is &apos;slot of&apos; z and x &apos;has filler&apos; y, and z &apos;is about&apos; c and y &apos;is about&apos; m, then either c &apos;has component part at some time&apos; m, or z &apos;prescribes&apos; c and if c &apos;conforms to&apos; z then c &apos;has component part at some time &apos; m</iof-av:semiFormalNaturalLanguageAxiom>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;ConnectionSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">connection slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<iof-av:firstOrderLogicDefinition>ConnectionSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → conencts(a, b)))</iof-av:firstOrderLogicDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;ConnectorSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">connector slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:someValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;describes"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;JoiningMaterial"/>
-							</owl:Restriction>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:firstOrderLogicDefinition>ConnectionSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → hasConnector(a, b)))</iof-av:firstOrderLogicDefinition>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;CountExpression">
-		<rdfs:subClassOf rdf:resource="&iof-constr;ValueExpression"/>
-		<rdfs:label xml:lang="en-US">count expression</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;CountSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">count slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom rdf:resource="&iof-constr;CountExpression"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;FastenedJointSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-constr;DesignSpecification"/>
-		<rdfs:label xml:lang="en-US">fastened joint specification</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;DesignSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;FastenerSlot"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;FastenerSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">fastener slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;JoiningMaterial">
-		<rdfs:subClassOf rdf:resource="&iof-constr;MaterialArtifact"/>
-		<rdfs:label xml:lang="en-US">joining material</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;Joint">
-		<rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000024"/>
-		<rdfs:label xml:lang="en-US">joint</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;JointSpecification">
-		<rdfs:subClassOf rdf:resource="&iof-constr;DesignSpecification"/>
-		<rdfs:label xml:lang="en-US">joint specification</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;DesignSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
-						<owl:someValuesFrom rdf:resource="&iof-constr;ConnectorSlot"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-	</owl:Class>
-	
-	<owl:Class rdf:about="&iof-constr;LocationSlot">
-		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
 		<rdfs:label xml:lang="en-US">location slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom rdf:resource="&iof-constr;PhysicalLocationIdentifier"/>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-						<owl:allValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;describes"/>
-								<owl:someValuesFrom>
-									<owl:Class>
-										<owl:intersectionOf rdf:parseType="Collection">
-											<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
-											</rdf:Description>
-											<owl:Class>
-												<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
-											</owl:Class>
-										</owl:intersectionOf>
-									</owl:Class>
-								</owl:someValuesFrom>
-							</owl:Restriction>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-		<iof-av:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → locatedInAtSomeTimes(a, b))) → LocationSlot(s)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>LocationSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → locatedInAtSomeTimes(a, b)))</iof-av:firstOrderLogicDefinition>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A machine installation specification has a location slot filled by a physical location identifier designating an installation site, thereby prescribing that the specified machine must be located in that site for conformance to the specification; an inspection report has a location slot filled by a physical location identifier designating a factory-floor site, thereby reporting that the inspected machine was located in that site.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The slot owner is an information content entity about an independent continuant other than a spatial region. The filler is a physical location identifier, which Core defines as an identifier that designates some site. Physical location is treated as a synonym for BFO&apos;s site.
+
+2) The semantic connection uses is about from the owner to the located entity and designates from the filler to the site. The located in at some time relation is directed from the owner&apos;s referent to that site.
+
+3) If the owner is prescriptive, the slot specifies a location required for conformance. If the owner is descriptive, the slot reports a location. A prescriptive slot does not by itself establish that its owner&apos;s referent actually occupies the designated site.
+
+4) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler. When a filler exists, its classification as a physical location identifier entails that it designates some site.
+
+5) LA2 supplies a sufficient condition for classifying an existing information slot as a location slot. It is implemented by the accompanying SWRL rule and does not infer an actual location from the slot type. The rule explicitly requires a physical location identifier as filler.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (LocationSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀c (iof-constr:isAbout(i,c) → (bfo:IndependentContinuant(c) ∧ ¬bfo:SpatialRegion(c)))))) ∧ ∀j (iof-constr:hasFiller(x,j) → iof-constr:PhysicalLocationIdentifier(j))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,c,l ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:PhysicalLocationIdentifier(j) ∧ iof-constr:isAbout(i,c) ∧ iof-constr:designates(j,l) ∧ bfo:locatedInAtSomeTime(c,l)) → LocationSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an independent continuant other than a spatial region, that can be filled only by a physical location identifier, and that, when filled, prescribes or reports that the owner&apos;s referent is located in the site designated by the filler at some time</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;location slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;independent continuant&apos; and is not an instance of &apos;spatial region&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;physical location identifier&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, j is an instance of &apos;physical location identifier&apos;, i &apos;is about&apos; c, j &apos;designates&apos; l, and c is &apos;located in at some time&apos; l, then x is an instance of &apos;location slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ParticipantSlot">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label xml:lang="en-US">participant slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;describes"/>
-								<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
-							</owl:Restriction>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-						<owl:allValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;describes"/>
-								<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-							</owl:Restriction>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">An assembly process specification has a participant slot filled by a robot specification, thereby prescribing that the specified robot must participate in the specified assembly process for conformance to the specification; an execution report has a participant slot filled by a robot description, thereby reporting that the described robot participated in the reported assembly process.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The slot owner and filler are information content entities. The owner&apos;s referent is a process, and the filler&apos;s referent is a continuant. The participation relation is directed from the filler&apos;s referent to the owner&apos;s referent.
+
+2) If the owner is prescriptive, the slot specifies participation required for conformance. If the owner is descriptive, the slot reports participation. A prescriptive slot does not by itself establish that the prescribed participation actually occurs.
+
+3) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler or independently assert the existence of an aboutness target.
+
+4) LA2 supplies a sufficient condition for classifying an existing information slot as a participant slot. It is implemented by the accompanying SWRL rule; it does not infer participation from the slot type.
+
+5) BFO&apos;s participates in at some time relation permits specifically dependent continuants, generically dependent continuants, and independent continuants other than spatial regions as participants. The filler restriction to continuant is a broader structural restriction; actual participation remains subject to BFO&apos;s domain constraints.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (ParticipantSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀p (iof-constr:isAbout(i,p) → bfo:Process(p)))) ∧ ∀j (iof-constr:hasFiller(x,j) → (iof-constr:InformationContentEntity(j) ∧ ∀c (iof-constr:isAbout(j,c) → bfo:Continuant(c))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,p,c ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:isAbout(i,p) ∧ iof-constr:isAbout(j,c) ∧ bfo:participatesInAtSomeTime(c,p)) → ParticipantSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about a process, that can be filled only by an information content entity that is about a continuant, and that, when filled, prescribes or reports that the continuant participates in the process at some time</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;participant slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;process&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;information content entity&apos;, and every entity that j &apos;is about&apos; is an instance of &apos;continuant&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, i &apos;is about&apos; p, j &apos;is about&apos; c, and c &apos;participates in at some time&apos; p, then x is an instance of &apos;participant slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
-	<owl:Class rdf:about="&iof-constr;TimeSlot">
+	<owl:Class rdf:about="&iof-constr;PrecedenceSlot">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">time slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom>
-							<owl:Class>
-								<owl:unionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="&iof-constr;TemporalDurationValueExpression">
-									</rdf:Description>
-									<rdf:Description rdf:about="&iof-constr;TemporalInstantValueExpression">
-									</rdf:Description>
-								</owl:unionOf>
-							</owl:Class>
-						</owl:allValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000003"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000003"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">precedence slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A machining process specification has a precedence slot filled by an inspection process specification, thereby prescribing that the specified machining process must precede the specified inspection process; a machining execution report has a precedence slot filled by an inspection execution report, thereby reporting that the machining process preceded the inspection process.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The slot owner and filler are information content entities whose referents are occurrents. The precedes relation is directed from the owner&apos;s referent to the filler&apos;s referent. The filler therefore describes or specifies the subsequent occurrent.
+
+2) Precedence expresses temporal ordering. It does not by itself establish a causal connection or require that the two occurrents be immediately consecutive.
+
+3) If the owner is prescriptive, the slot specifies temporal ordering required for conformance. If the owner is descriptive, the slot reports temporal ordering. A prescriptive slot does not by itself establish that the prescribed occurrents occur.
+
+4) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler or independently assert the existence of an aboutness target.
+
+5) LA2 supplies a sufficient condition for classifying an existing information slot as a precedence slot. It does not infer a precedes relation from the slot type.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (PrecedenceSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀o (iof-constr:isAbout(i,o) → bfo:Occurrent(o)))) ∧ ∀j (iof-constr:hasFiller(x,j) → (iof-constr:InformationContentEntity(j) ∧ ∀o&apos; (iof-constr:isAbout(j,o&apos;) → bfo:Occurrent(o&apos;)))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,o,o&apos; ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:isAbout(i,o) ∧ iof-constr:isAbout(j,o&apos;) ∧ bfo:Occurrent(o) ∧ bfo:Occurrent(o&apos;) ∧ bfo:precedes(o,o&apos;)) → PrecedenceSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an occurrent, that can be filled only by an information content entity that is about an occurrent, and that, when filled, prescribes or reports that the owner&apos;s referent precedes the filler&apos;s referent</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;precedence slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;occurrent&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;information content entity&apos;, and every entity that j &apos;is about&apos; is an instance of &apos;occurrent&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, i &apos;is about&apos; o, j &apos;is about&apos; o&apos;, both o and o&apos; are instances of &apos;occurrent&apos;, and o &apos;precedes&apos; o&apos;, then x is an instance of &apos;precedence slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;ProcessDurationSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ContextualizedInformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasContextAnchorSlot"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;SubProcessSlot"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasInterpretationAnchorSlot"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;TimeDurationSlot"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">process duration slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">An assembly process specification has a subprocess slot filled by a fastening process specification. The fastening process specification has a time duration slot filled by a temporal duration value expression representing 30 seconds. A process duration slot in the assembly process specification has the subprocess slot as its context anchor and the time duration slot as its interpretation anchor, providing the duration of the fastening subprocess within the assembly specification.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The context anchor identifies the subprocess within the process described or specified by the owner. The interpretation anchor provides a position for the duration of that subprocess.
+
+2) The process duration slot shares its owner with its context anchor. The filler of the context anchor owns the interpretation anchor. These structural connections are inherited from contextualized information slot and its anchor properties.
+
+3) When filled, the process duration slot and its interpretation anchor share the same temporal duration value expression. This expresses the subprocess duration within the context of the containing process; it does not express the duration of the containing process itself.
+
+4) For a prescriptive owner, the slot provides a required subprocess duration. For a descriptive owner, it provides a reported subprocess duration.
+
+5) The universal restrictions constrain the types of all context and interpretation anchors. Anchor existence is inherited from contextualized information slot. A duration filler is not required by these restrictions.
+
+6) LA1 states necessary conditions for membership. The anchor-type restrictions alone are not asserted as sufficient conditions for classifying a contextualized information slot as a process duration slot.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (ProcessDurationSlot(x) → (iof-constr:ContextualizedInformationSlot(x) ∧ ∀y (iof-constr:hasContextAnchorSlot(x,y) → SubProcessSlot(y)) ∧ ∀z (iof-constr:hasInterpretationAnchorSlot(x,z) → TimeDurationSlot(z))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">contextualized information slot that has only subprocess slots as context anchors and only time duration slots as interpretation anchors, providing within its owner a position for information about the duration of a subprocess</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;process duration slot&apos;, then x is an instance of &apos;contextualized information slot&apos;; every y such that x &apos;has context anchor slot&apos; y is an instance of &apos;subprocess slot&apos;; and every z such that x &apos;has interpretation anchor slot&apos; z is an instance of &apos;time duration slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;QualitySlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">quality slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A shaft specification has a quality slot filled by a diameter specification, thereby prescribing a diameter quality of the specified shaft for conformance to the specification; an inspection report has a quality slot filled by a diameter description, thereby reporting a diameter quality of the inspected shaft.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The slot owner and filler are information content entities. The owner&apos;s referent is an independent continuant, and the filler&apos;s referent is a quality. The has quality relation is directed from the owner&apos;s referent to the filler&apos;s referent.
+
+2) If the owner is prescriptive, the slot specifies a quality required for conformance. If the owner is descriptive, the slot reports a quality of the owner&apos;s referent. A prescriptive slot does not by itself establish that the prescribed quality actually exists.
+
+3) The filler is information about a quality, rather than the quality itself. A numerical value or value expression must not be treated as identical to the quality it characterizes.
+
+4) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler or independently assert the existence of an aboutness target.
+
+5) LA2 supplies a sufficient condition for classifying an existing information slot as a quality slot. It does not infer a has quality relation from the slot type.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (QualitySlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀c (iof-constr:isAbout(i,c) → bfo:IndependentContinuant(c)))) ∧ ∀j (iof-constr:hasFiller(x,j) → (iof-constr:InformationContentEntity(j) ∧ ∀q (iof-constr:isAbout(j,q) → bfo:Quality(q))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,c,q ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:isAbout(i,c) ∧ iof-constr:isAbout(j,q) ∧ iof-constr:hasQuality(c,q)) → QualitySlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an independent continuant, that can be filled only by an information content entity that is about a quality, and that, when filled, prescribes or reports a has quality relation between the entities that the owner and filler are about</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;quality slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;independent continuant&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;information content entity&apos;, and every entity that j &apos;is about&apos; is an instance of &apos;quality&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, i &apos;is about&apos; c, j &apos;is about&apos; q, and c &apos;has quality&apos; q, then x is an instance of &apos;quality slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;SubProcessPrecedenceSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;ContextualizedInformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasInterpretationAnchorSlot"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;PrecedenceSlot"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasContextAnchorSlot"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;SubProcessSlot"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">subprocess precedence slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">An assembly process specification has a subprocess slot filled by a fastening process specification. The fastening process specification has a precedence slot filled by an inspection process specification, prescribing that fastening precedes inspection. A subprocess precedence slot in the assembly process specification has the subprocess slot as its context anchor and the precedence slot as its interpretation anchor, providing that ordering information within the assembly specification.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The context anchor identifies a subprocess within the process described or specified by the owner. The interpretation anchor provides a position for information about an occurrent that this subprocess precedes.
+
+2) The subprocess precedence slot shares its owner with its context anchor. The filler of the context anchor owns the interpretation anchor. These structural connections are inherited from contextualized information slot and its anchor properties.
+
+3) When filled, the subprocess precedence slot and its interpretation anchor share the same filler. The subprocess identified through the context anchor precedes the occurrent described or specified by that filler.
+
+4) The filler need not describe another subprocess of the containing process: precedence slot restricts its filler&apos;s referents to occurrents. Membership of the subsequent occurrent in the containing process requires a separate assertion or constraint.
+
+5) The ordering concerns the identified subprocess. It does not by itself imply that the containing process precedes the subsequent occurrent.
+
+6) For a prescriptive owner, the slot provides required temporal ordering. For a descriptive owner, it provides reported temporal ordering.
+
+7) The universal restrictions constrain the types of all context and interpretation anchors. Anchor existence is inherited from contextualized information slot. These restrictions do not require a filler.
+
+8) LA1 states necessary conditions for membership. The anchor-type restrictions alone are not asserted as sufficient conditions for classifying a contextualized information slot as a subprocess precedence slot.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (SubProcessPrecedenceSlot(x) → (iof-constr:ContextualizedInformationSlot(x) ∧ ∀y (iof-constr:hasContextAnchorSlot(x,y) → SubProcessSlot(y)) ∧ ∀z (iof-constr:hasInterpretationAnchorSlot(x,z) → PrecedenceSlot(z))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">contextualized information slot that has only subprocess slots as context anchors and only precedence slots as interpretation anchors, providing within its owner a position for information about an occurrent that a subprocess precedes</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;subprocess precedence slot&apos;, then x is an instance of &apos;contextualized information slot&apos;; every y such that x &apos;has context anchor slot&apos; y is an instance of &apos;subprocess slot&apos;; and every z such that x &apos;has interpretation anchor slot&apos; z is an instance of &apos;precedence slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;SubProcessSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">subprocess slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">An assembly process specification has a subprocess slot filled by a fastening process specification, thereby prescribing that the specified fastening process must be a proper occurrent part of the specified assembly process for conformance to the specification; an execution report has a subprocess slot filled by a fastening process description, thereby reporting that the described fastening process was a proper occurrent part of the reported assembly process.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The slot owner and filler are information content entities whose referents are processes. The proper occurrent part of relation is directed from the filler&apos;s referent to the owner&apos;s referent.
+
+2) BFO&apos;s proper occurrent part of relation has occurrent as its domain and range. This slot specializes its use to processes. LA1 restricts the referents of owners and fillers to processes, and LA2 explicitly requires both referents to be processes.
+
+3) Proper occurrent parthood excludes identity: the subprocess and the containing process are distinct. This condition concerns the process referents rather than merely the identity of their information content entities.
+
+4) If the owner is prescriptive, the slot specifies process decomposition required for conformance. If the owner is descriptive, the slot reports process decomposition. A prescriptive slot does not by itself establish that the prescribed processes occur.
+
+5) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler or independently assert the existence of an aboutness target.
+
+6) LA2 supplies a sufficient condition for classifying an existing information slot as a subprocess slot. It does not infer proper occurrent parthood from the slot type.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (SubProcessSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀p (iof-constr:isAbout(i,p) → bfo:Process(p)))) ∧ ∀j (iof-constr:hasFiller(x,j) → (iof-constr:InformationContentEntity(j) ∧ ∀q (iof-constr:isAbout(j,q) → bfo:Process(q))))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,p,q ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:isAbout(i,p) ∧ iof-constr:isAbout(j,q) ∧ bfo:Process(p) ∧ bfo:Process(q) ∧ bfo:properOccurrentPartOf(q,p)) → SubProcessSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about a process, that can be filled only by an information content entity that is about a process, and that, when filled, prescribes or reports that the filler&apos;s referent is a proper occurrent part of the owner&apos;s referent</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;subprocess slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;process&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;information content entity&apos;, and every entity that j &apos;is about&apos; is an instance of &apos;process&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, i &apos;is about&apos; p, j &apos;is about&apos; q, both p and q are instances of &apos;process&apos;, and q is &apos;proper occurrent part of&apos; p, then x is an instance of &apos;subprocess slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TimeDurationSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;TemporalDurationValueExpression"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">time duration slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A curing process specification has a time duration slot filled by a temporal duration value expression representing 30 minutes, thereby prescribing the duration of the temporal interval occupied by the specified curing process; an execution report has a time duration slot filled by a temporal duration value expression representing 32 minutes, thereby reporting the duration of the temporal interval occupied by the executed curing process.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The owner is an information content entity about a process. The filler is a temporal duration value expression. The semantic connection runs from the process through occupies temporal region to a temporal interval, and from that interval through has value expression at all times to the filler.
+
+2) The filler is itself the value expression. No additional is about relation from the filler is needed in LA2.
+
+3) The temporal interval is explicitly required in LA2 because occupies temporal region has a broader range than temporal interval. The filler is explicitly required to be a temporal duration value expression because has value expression at all times does not by itself distinguish duration from other characteristics.
+
+4) If the owner is prescriptive, the slot specifies a duration required for conformance. If the owner is descriptive, the slot reports a duration. A prescriptive slot does not by itself establish that the prescribed process occurs.
+
+5) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler. A filler classified as temporal duration value expression inherits Core&apos;s requirement that it is value expression of at all times some temporal interval.
+
+6) LA2 supplies a sufficient condition for classifying an existing information slot as a time duration slot. It does not infer the process-to-interval-to-value-expression connection from the slot type.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (TimeDurationSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀p (iof-constr:isAbout(i,p) → bfo:Process(p)))) ∧ ∀j (iof-constr:hasFiller(x,j) → iof-constr:TemporalDurationValueExpression(j))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,p,t ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:TemporalDurationValueExpression(j) ∧ iof-constr:isAbout(i,p) ∧ bfo:Process(p) ∧ bfo:TemporalInterval(t) ∧ bfo:occupiesTemporalRegion(p,t) ∧ iof-constr:hasValueExpressionAtAllTimes(t,j)) → TimeDurationSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about a process, that can be filled only by a temporal duration value expression, and that, when filled, prescribes or reports the duration of the temporal interval occupied by the process</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;time duration slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;process&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;temporal duration value expression&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, j is an instance of &apos;temporal duration value expression&apos;, i &apos;is about&apos; p, p is an instance of &apos;process&apos;, t is an instance of &apos;temporal interval&apos;, p &apos;occupies temporal region&apos; t, and t &apos;has value expression at all times&apos; j, then x is an instance of &apos;time duration slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&iof-constr;TimePointSlot">
+		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
+				<owl:allValuesFrom rdf:resource="&iof-constr;TemporalInstantValueExpression"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
+				<owl:allValuesFrom>
+					<owl:Class>
+						<owl:intersectionOf rdf:parseType="Collection">
+							<rdf:Description rdf:about="&iof-constr;InformationContentEntity">
+							</rdf:Description>
+							<owl:Restriction>
+								<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
+								<owl:allValuesFrom rdf:resource="&iof-constr;Event"/>
+							</owl:Restriction>
+						</owl:intersectionOf>
+					</owl:Class>
+				</owl:allValuesFrom>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">time point slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A production plan has an event specification about the completion boundary of an assembly process. That specification has a time point slot filled by a temporal instant value expression representing 14:30 on a specified date, thereby prescribing when the completion event must occur; an execution report about the actual completion event has a time point slot filled by a temporal instant value expression representing its recorded occurrence time.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The owner is an information content entity about an event. The filler is a temporal instant value expression. The semantic connection runs from the event through occupies temporal region to a temporal instant, and from that instant through has value expression at all times to the filler.
+
+2) Core defines event as a process or process boundary recognized by an agent. Direct occupation of a temporal instant applies to the process-boundary case. For the start or end time of a process with duration, the relevant referent is its starting or ending process boundary.
+
+3) The filler is itself the value expression. No additional is about relation from the filler is needed in LA2. The temporal instant is explicitly required because occupies temporal region has a broader range than temporal instant.
+
+4) If the owner is prescriptive, the slot specifies an occurrence time required for conformance. If the owner is descriptive, the slot reports an occurrence time. A prescriptive slot does not by itself establish that the prescribed event occurs.
+
+5) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal restrictions do not require a filler. A filler classified as temporal instant value expression inherits Core&apos;s requirement that it is value expression of at all times some temporal instant.
+
+6) LA2 supplies a sufficient condition for classifying an existing information slot as a time point slot. It does not infer the event-to-instant-to-value-expression connection from the slot type.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (TimePointSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀i (iof-constr:isSlotOf(x,i) → (iof-constr:InformationContentEntity(i) ∧ ∀e (iof-constr:isAbout(i,e) → iof-constr:Event(e)))) ∧ ∀j (iof-constr:hasFiller(x,j) → iof-constr:TemporalInstantValueExpression(j))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,e,t ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:TemporalInstantValueExpression(j) ∧ iof-constr:isAbout(i,e) ∧ iof-constr:Event(e) ∧ bfo:TemporalInstant(t) ∧ bfo:occupiesTemporalRegion(e,t) ∧ iof-constr:hasValueExpressionAtAllTimes(t,j)) → TimePointSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that is slot of an information content entity that is about an event, that can be filled only by a temporal instant value expression, and that, when filled, prescribes or reports the temporal position of the temporal instant occupied by the event</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;time point slot&apos;, then x is an instance of &apos;information slot&apos;; every i such that x &apos;is slot of&apos; i is an instance of &apos;information content entity&apos;, and every entity that i &apos;is about&apos; is an instance of &apos;event&apos;; and every j such that x &apos;has filler&apos; j is an instance of &apos;temporal instant value expression&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, j is an instance of &apos;temporal instant value expression&apos;, i &apos;is about&apos; e, e is an instance of &apos;event&apos;, t is an instance of &apos;temporal instant&apos;, e &apos;occupies temporal region&apos; t, and t &apos;has value expression at all times&apos; j, then x is an instance of &apos;time point slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&iof-constr;ValueSlot">
 		<rdfs:subClassOf rdf:resource="&iof-constr;InformationSlot"/>
-		<rdfs:label xml:lang="en-US">value slot</rdfs:label>
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<owl:equivalentClass>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;InformationSlot">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:allValuesFrom rdf:resource="&iof-constr;ValueExpression"/>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:equivalentClass>
-	</owl:Class>
-	
-	<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/IngredientSlot">
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<iof-av:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (prescribes(a&apos;,a) ∧ prescribes(b&apos;,b) → isMadeOfAtAllTimes(b, a))) → IngredientSlot(s)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>IngredientSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → isMadeOfAtAllTime(b,a)))</iof-av:firstOrderLogicDefinition>
-	</rdf:Description>
-	
-	<rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/core/Core/RoleSlot">
-		<rdfs:isDefinedBy>https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/</rdfs:isDefinedBy>
-		<iof-av:firstOrderLogicAxiom>InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → hasRole(a, b))) → RoleSlot(s)</iof-av:firstOrderLogicAxiom>
-		<iof-av:firstOrderLogicDefinition>RoleSlot(s) ↔ InformationSlot(s) ∧ ∃a&apos;, b&apos; (slotOf(s, a&apos;) ∧ fills(b&apos;, s) ∧ ∀a, b (describes(a&apos;,a) ∧ describes(b&apos;,b) → hasRole(a, b)))</iof-av:firstOrderLogicDefinition>
-	</rdf:Description>
-	
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-constr;JointSpecification"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-constr;DesignSpecification">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
-				<owl:someValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:someValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-								<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
-							</owl:Restriction>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:someValuesFrom>
-			</owl:Restriction>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-				<owl:someValuesFrom rdf:resource="&iof-constr;Joint"/>
-			</owl:Restriction>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;hasSlot"/>
-				<owl:onClass rdf:resource="&iof-constr;ConnectorSlot"/>
-				<owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-constr;LocationSlot"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-constr;InformationSlot">
-			</rdf:Description>
+		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-						<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000029"/>
-					</owl:Restriction>
-				</owl:allValuesFrom>
+				<owl:allValuesFrom rdf:resource="&iof-constr;ValueExpression"/>
 			</owl:Restriction>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-						<owl:someValuesFrom>
-							<owl:Class>
-								<owl:intersectionOf rdf:parseType="Collection">
-									<rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
-									</rdf:Description>
-									<owl:Class>
-										<owl:complementOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000006"/>
-									</owl:Class>
-								</owl:intersectionOf>
-							</owl:Class>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</owl:intersectionOf>
+		</rdfs:subClassOf>
+		<rdfs:label xml:lang="en-US">value slot</rdfs:label>
+		<rdfs:isDefinedBy rdf:resource="https://spec.industrialontologies.org/ontology/core/informationslot/InformationSlot/"/>
+		<skos:example xml:lang="en-US">A temperature description about a bioreactor&apos;s temperature has a value slot filled by a value expression representing 37 degrees Celsius. The value expression is measured value of at some time the temperature described by the owner.</skos:example>
+		<iof-av:explanatoryNote xml:lang="en-US">1) The owner is an information content entity, as required by information slot. No additional restriction is imposed on the type of entity that the owner is about.
+
+2) The filler is itself a value expression. In LA2, is measured value of at some time connects the filler directly to an entity that the owner is about. No additional is about relation from the filler is required.
+
+3) The filler restriction permits value expressions generally. LA2 supplies a sufficient classification condition for the measured-value case; it does not require every value slot to contain a measured value.
+
+4) Owner existence and uniqueness, and the maximum of one filler, are inherited from information slot. The universal filler restriction does not require a filler.
+
+5) LA2 does not infer a measurement relation from the slot type. Specified, calculated, or simulated values must not be asserted as measured values solely because they fill a value slot.</iof-av:explanatoryNote>
+		<iof-av:firstOrderLogicAxiom>LA1: ∀x (ValueSlot(x) → (iof-constr:InformationSlot(x) ∧ ∀j (iof-constr:hasFiller(x,j) → iof-constr:ValueExpression(j))))</iof-av:firstOrderLogicAxiom>
+		<iof-av:firstOrderLogicAxiom>LA2: ∀x,i,j,e ((iof-constr:InformationSlot(x) ∧ iof-constr:isSlotOf(x,i) ∧ iof-constr:hasFiller(x,j) ∧ iof-constr:ValueExpression(j) ∧ iof-constr:isAbout(i,e) ∧ iof-constr:isMeasuredValueOfAtSomeTime(j,e)) → ValueSlot(x))</iof-av:firstOrderLogicAxiom>
+		<iof-av:naturalLanguageDefinition xml:lang="en-US">information slot that can be filled only by a value expression and that provides a position within its owner for expressing a value of an entity that the owner is about</iof-av:naturalLanguageDefinition>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA1: If x is an instance of &apos;value slot&apos;, then x is an instance of &apos;information slot&apos;, and every j such that x &apos;has filler&apos; j is an instance of &apos;value expression&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
+		<iof-av:semiFormalNaturalLanguageAxiom xml:lang="en-US">LA2: If x is an instance of &apos;information slot&apos;, x &apos;is slot of&apos; i, x &apos;has filler&apos; j, j is an instance of &apos;value expression&apos;, i &apos;is about&apos; e, and j &apos;is measured value of at some time&apos; e, then x is an instance of &apos;value slot&apos;.</iof-av:semiFormalNaturalLanguageAxiom>
 	</owl:Class>
-	<owl:Class>
-		<rdfs:subClassOf rdf:resource="&iof-constr;TimeSlot"/>
-		<owl:intersectionOf rdf:parseType="Collection">
-			<rdf:Description rdf:about="&iof-constr;InformationSlot">
-			</rdf:Description>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-				<owl:allValuesFrom>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;isAbout"/>
-						<owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-					</owl:Restriction>
-				</owl:allValuesFrom>
-			</owl:Restriction>
-		</owl:intersectionOf>
-	</owl:Class>
-	<owl:Restriction>
-		<rdfs:subClassOf rdf:resource="&iof-constr;ConnectorSlot"/>
-		<owl:onProperty rdf:resource="&iof-constr;isSlotOf"/>
-		<owl:someValuesFrom>
-			<owl:Class>
-				<owl:intersectionOf rdf:parseType="Collection">
-					<rdf:Description rdf:about="&iof-constr;JointSpecification">
-					</rdf:Description>
-					<owl:Restriction>
-						<owl:onProperty rdf:resource="&iof-constr;hasFiller"/>
-						<owl:someValuesFrom>
-							<owl:Restriction>
-								<owl:onProperty rdf:resource="&iof-constr;prescribes"/>
-								<owl:someValuesFrom rdf:resource="&iof-constr;JoiningMaterial"/>
-							</owl:Restriction>
-						</owl:someValuesFrom>
-					</owl:Restriction>
-				</owl:intersectionOf>
-			</owl:Class>
-		</owl:someValuesFrom>
-	</owl:Restriction>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#a">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#b">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#m">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#n">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="urn:swrl:var#s">
+	</swrl:Variable>
+	
+	<swrl:Imp>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:classPredicate rdf:resource="&iof-constr;InformationSlot"/>
+			</swrl:ClassAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#a"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;isSlotOf"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#b"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;hasFiller"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#a"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#m"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;isAbout"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#b"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#n"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;isAbout"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#n"/>
+				<swrl:argument2 rdf:resource="urn:swrl:var#m"/>
+				<swrl:propertyPredicate rdf:resource="&iof-constr;componentPartOfAtSomeTime"/>
+			</swrl:IndividualPropertyAtom>
+		</swrl:body>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="urn:swrl:var#s"/>
+				<swrl:classPredicate rdf:resource="&iof-constr;ComponentSlot"/>
+			</swrl:ClassAtom>
+		</swrl:head>
+	</swrl:Imp>
 </rdf:RDF>
