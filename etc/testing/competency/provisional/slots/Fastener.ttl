@@ -592,29 +592,6 @@ fst:HexKeySize
 # its specification's values is checked outside OWL (SpecConformance.rq).
 # ===========================================================================
 
-fst:QualitySlot
-    a owl:Class ;
-    rdfs:subClassOf iof:InformationSlot ,
-        # filler
-        [ a owl:Restriction ;
-          owl:onProperty iof:hasFiller ;
-          owl:allValuesFrom [ a owl:Class ;
-                owl:intersectionOf ( iof:InformationContentEntity
-                    [ a owl:Restriction ;
-                      owl:onProperty iof:isAbout ;
-                      owl:allValuesFrom bfo:BFO_0000019 ] ) ] ] ,
-        # owner
-        [ a owl:Restriction ;
-          owl:onProperty iof:isSlotOf ;
-          owl:allValuesFrom [ a owl:Class ;
-                owl:intersectionOf ( iof:InformationContentEntity
-                    [ a owl:Restriction ;
-                      owl:onProperty iof:isAbout ;
-                      owl:allValuesFrom [ a owl:Class ; owl:intersectionOf ( bfo:BFO_0000004 [ a owl:Class ; owl:complementOf bfo:BFO_0000006 ] ) ] ] ) ] ] ;
-    rdfs:label "quality slot"@en-US ;
-    iof-av:naturalLanguageDefinition "information slot whose filler is an information content entity about only qualities, and whose owner is an information content entity about only independent continuants that are not spatial regions; when filled, it prescribes or reports that the entity the owner is about has a quality ('has quality') that the filler is about"@en-US ;
-    iof-av:explanatoryNote "Restrictions follow 'quality slot' in slot/Hex_Bolt_Information_Slots.rdf, without its 'isAbout some' parts."@en-US .
-
 fst:ProperPartSlot
     a owl:Class ;
     rdfs:subClassOf iof:InformationSlot ,
@@ -707,13 +684,37 @@ fst:AggregatePartSlot
     iof-av:naturalLanguageDefinition "information slot whose filler and owner are information content entities about only object aggregates; when filled, it prescribes or reports that the object aggregate the owner is about has, as a continuant part at some time (BFO_0000178), an object aggregate that the filler is about"@en-US ;
     iof-av:explanatoryNote "Used to group identical members: a bolt set specification's aggregate part slot is filled by a fastener quantity specification for its ten bolts, instead of having ten member part slots."@en-US .
 
+fst:CountSlot
+    a owl:Class ;
+    rdfs:subClassOf iof:ValueSlot ,
+        [ a owl:Restriction ;
+          owl:onProperty iof:hasFiller ;
+          owl:allValuesFrom fst:CountExpression ] ;
+    rdfs:label "count slot"@en-US ;
+    iof-av:naturalLanguageDefinition "value slot that can be filled only by a count expression"@en-US ;
+    iof-av:explanatoryNote "Declared here because the IOF InformationSlot module no longer has a count slot. It is a value slot, so value-slot checks also cover counts."@en-US .
+
+fst:CountExpression
+    a owl:Class ;
+    rdfs:subClassOf iof:ValueExpression ;
+    rdfs:label "count expression"@en-US ;
+    iof-av:naturalLanguageDefinition "value expression that expresses a number of entities"@en-US ;
+    iof-av:explanatoryNote "Declared here because the IOF InformationSlot module no longer has a count expression."@en-US .
+
+fst:FastenedJointSpecification
+    a owl:Class ;
+    rdfs:subClassOf iof:DesignSpecification ;
+    rdfs:label "fastened joint specification"@en-US ;
+    iof-av:naturalLanguageDefinition "design specification that prescribes a joint held together by one or more fasteners"@en-US ;
+    iof-av:explanatoryNote "Declared here because the IOF InformationSlot module no longer has a fastened joint specification."@en-US .
+
 fst:FastenedJointSlot
     a owl:Class ;
     rdfs:subClassOf iof:InformationSlot ,
         # filler
         [ a owl:Restriction ;
           owl:onProperty iof:hasFiller ;
-          owl:allValuesFrom iof:FastenedJointSpecification ] ,
+          owl:allValuesFrom fst:FastenedJointSpecification ] ,
         # owner
         [ a owl:Restriction ;
           owl:onProperty iof:isSlotOf ;
@@ -822,10 +823,10 @@ fst:FastenerQuantitySpecification
           owl:allValuesFrom bfo:BFO_0000027 ] ,      # object aggregate
         [ a owl:Restriction ;
           owl:onProperty iof:hasSlot ;
-          owl:allValuesFrom [ a owl:Class ; owl:unionOf ( fst:MemberPartSlot iof:CountSlot ) ] ] ;
+          owl:allValuesFrom [ a owl:Class ; owl:unionOf ( fst:MemberPartSlot fst:CountSlot ) ] ] ;
     rdfs:label "fastener quantity specification"@en-US ;
     iof-av:naturalLanguageDefinition "design specification that prescribes only object aggregates of identical members; its member part slot is filled by the specification every member conforms to, and its count slot by the number of members"@en-US ;
-    iof-av:explanatoryNote "Follows the IOF InformationSlot module's aggregation description, which has a count slot filled by a count expression. The count is a value, not a cardinality restriction, so a reasoner neither builds the members nor checks their number; SetCount.rq checks it."@en-US ;
+    iof-av:explanatoryNote "Its count slot is filled by a count expression. The count is a value, not a cardinality restriction, so a reasoner neither builds the members nor checks their number; SetCount.rq checks it."@en-US ;
     skos:example "ten M6 x 25 mm bolts of one bolt specification"@en-US .
 
 fst:FastenerSetSpecification

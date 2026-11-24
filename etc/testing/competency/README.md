@@ -63,8 +63,13 @@ the slots suite, 185 s with IOF's entailments preloaded vs 192 s from scratch.) 
   and that every prescribed quality conforms to its specification
   (`SpecConformance.rq`). `Fastener.ttl` imports the provisional InformationSlot
   module, so the suite is provisional while that module is only in `AboutIOFDev.rdf`.
-  HermiT takes about 5½ min on it (about 3 min without the module). It took 33 min
-  while `time slot` was defined with `has filler only (temporal duration value
-  expression or temporal instant value expression)`: a union inside a universal
-  restriction makes HermiT branch at every slot. The module now restricts fillers to
-  one named parent, `temporal value expression`. Keep unions out of `only` fillers.
+  HermiT takes about 3 min on it. It uses the module's `iof:ValueSlot` and `iof:QualitySlot`. Slot types the module
+  does not have are declared in `Fastener.ttl`: part, member, aggregate, material and
+  fastened-joint slots, and `fst:CountSlot` (a value slot) with `fst:CountExpression`.
+  If the module is revised, check that every `iof:` term the example uses is still
+  declared — a reasoner silently treats a removed term as a new, empty class, so the
+  tests can keep passing.
+- **HermiT performance.** A union inside a universal restriction (`has filler only
+  (A or B)`) makes HermiT branch at every slot: an earlier `time slot` defined that
+  way took the slots suite from about 5 to 33 minutes. Restrict fillers to one named
+  class instead.
