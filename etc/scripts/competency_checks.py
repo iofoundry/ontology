@@ -1,10 +1,10 @@
-"""Competency checks over an entailed Dataset: SHACL shapes and SPARQL-vs-expected-CSV.
+"""Competency checks over a Dataset (entailed, or asserted only): SHACL shapes and SPARQL-vs-expected-CSV.
 
-SHACL: tests/<name>.shapes.ttl must conform. sh:Violation → failure, sh:Warning → warning,
+SHACL: <set>/<name>.shapes.ttl must conform. sh:Violation → failure, sh:Warning → warning,
 sh:Info → info. pySHACL validates each named graph of a Dataset separately, so shapes are
-always run against one merged Graph of every graph (asserted + inferred + closure).
+always run against one merged Graph of every graph (asserted, plus inferred and closure when entailed).
 
-SPARQL: tests/<name>.rq is run and compared with tests/<name>.expected.csv (header row,
+SPARQL: <set>/<name>.rq is run and compared with <set>/<name>.expected.csv (header row,
 then one row per result) as an unordered multiset of rows. IRIs are written with the
 query's own prefixes, literals by lexical form, unbound as an empty cell, blank nodes as
 _:b. An ASK query has the single column 'ask' and the row 'true' or 'false'.

@@ -60,6 +60,16 @@ def cache_key(files: list[Path], property_values: bool) -> str:
     return digest.hexdigest()
 
 
+def asserted_dataset(files: list[Path]) -> Dataset:
+    """The input triples alone, in <urn:asserted> (no reasoner): for questions with
+    '# reasoning: false'. Parsed from the files, so it does not depend on whether HermiT ran."""
+    ds = Dataset(default_union=True)
+    asserted = ds.graph(ASSERTED)
+    for triple in merge(files):
+        asserted.add(triple)
+    return ds
+
+
 def _load(path: Path) -> Dataset:
     ds = Dataset(default_union=True)
     ds.parse(str(path), format='nquads')

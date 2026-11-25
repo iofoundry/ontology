@@ -3,6 +3,13 @@ name: Hygiene Tests
 # Every job below runs in parallel: the module IRI check, hygiene once per About file,
 # the competency runner's own unit tests, and one job per competency suite (HermiT can
 # take minutes per suite, so each suite gets its own runner).
+#
+# The competency questions are in the private iofoundry/ontology-questions repository,
+# checked out over etc/testing/competency/ with a read-only deploy key
+# (secret ONTOLOGY_QUESTIONS_DEPLOY_KEY). Without the secret (pull requests from forks,
+# Dependabot) no suites are listed and the competency jobs are skipped. This repository's
+# logs and caches are public, so the runner runs with --redact and the entailment cache is
+# encrypted with the secret COMPETENCY_CACHE_KEY. See etc/scripts/COMPETENCY.md.
 
 on:
   push:
@@ -15,6 +22,13 @@ on:
       - '**/build*.yml'
   pull_request:
   workflow_dispatch:
+    inputs:
+      questions-ref:
+        description: Branch, tag or SHA of iofoundry/ontology-questions to run
+        default: main
+
+permissions:
+  contents: read
 
 jobs:
   module-iris:
@@ -76,11 +90,22 @@ jobs:
 
   competency-suites:
     runs-on: ubuntu-latest
+    env:
+      HAS_QUESTIONS: ${{ secrets.ONTOLOGY_QUESTIONS_DEPLOY_KEY != '' }}
     outputs:
       suites: ${{ steps.list.outputs.suites }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Check out competency questions
+        if: env.HAS_QUESTIONS == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: iofoundry/ontology-questions
+          ref: ${{ inputs.questions-ref || 'main' }}
+          ssh-key: ${{ secrets.ONTOLOGY_QUESTIONS_DEPLOY_KEY }}
+          path: etc/testing/competency
+          persist-credentials: false
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -89,7 +114,11 @@ jobs:
         run: pip install -r ./etc/scripts/requirements.txt
       - name: List competency suites
         id: list
-        run: echo "suites=$(./competency --list)" >> "$GITHUB_OUTPUT"
+        run: |
+          if [ "$HAS_QUESTIONS" != true ]; then
+            echo "::notice title=Competency Tests::no access to iofoundry/ontology-questions (no deploy key); competency tests skipped."
+          fi
+          echo "suites=$(./competency --list)" >> "$GITHUB_OUTPUT"
 
   competency-tests:
     name: competency (${{ matrix.suite }})
@@ -100,9 +129,20 @@ jobs:
       fail-fast: false
       matrix:
         suite: ${{ fromJSON(needs.competency-suites.outputs.suites) }}
+    env:
+      SUITE: ${{ matrix.suite }}
+      HAS_CACHE_KEY: ${{ secrets.COMPETENCY_CACHE_KEY != '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Check out competency questions
+        uses: actions/checkout@v4
+        with:
+          repository: iofoundry/ontology-questions
+          ref: ${{ inputs.questions-ref || 'main' }}
+          ssh-key: ${{ secrets.ONTOLOGY_QUESTIONS_DEPLOY_KEY }}
+          path: etc/testing/competency
+          persist-credentials: false
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -114,22 +154,40 @@ jobs:
           java-version: "21"
       - name: Install dependencies
         run: pip install -r ./etc/scripts/requirements.txt
-      # The runner keys its own cache on the suite's exact import closure and its own code,
-      # so a restored but stale entry is simply re-entailed; this key only decides when a
-      # new one is saved. Saved even when tests fail: the runner writes its cache only after
-      # a successful entailment, so a failing expected CSV must not force HermiT next push.
+      # The entailed graph contains the private data and caches of this public repository
+      # can be restored by pull requests from forks, so the cache holds only an encrypted
+      # tarball. The runner keys its own cache on the suite's exact import closure and its
+      # own code, so a restored but stale entry is simply re-entailed; this key only decides
+      # when a new one is saved. Saved even when tests fail: the runner writes its cache
+      # only after a successful entailment.
       - name: Restore entailment cache
         id: cache
+        if: env.HAS_CACHE_KEY == 'true'
         uses: actions/cache/restore@v4
         with:
-          path: build/competency/${{ matrix.suite }}
+          path: build/competency.enc
           key: competency-${{ matrix.suite }}-${{ hashFiles('**/*.rdf', 'catalog-v001.xml', 'etc/scripts/*.py', format('etc/testing/competency/{0}/**', matrix.suite)) }}
           restore-keys: competency-${{ matrix.suite }}-
+      - name: Decrypt entailment cache
+        if: steps.cache.outputs.cache-matched-key != ''
+        env:
+          CACHE_KEY: ${{ secrets.COMPETENCY_CACHE_KEY }}
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass env:CACHE_KEY -in build/competency.enc | tar -x -C build \
+            || { rm -rf build/competency; echo "::warning title=Competency cache::cannot decrypt the cached entailment; HermiT will run"; }
       - name: Run competency tests
-        run: ./competency ${{ matrix.suite }}
+        run: ./competency "$SUITE" --redact
+      - name: Encrypt entailment cache
+        if: always() && env.HAS_CACHE_KEY == 'true' && steps.cache.outputs.cache-hit != 'true'
+        env:
+          CACHE_KEY: ${{ secrets.COMPETENCY_CACHE_KEY }}
+        run: |
+          if [ -d build/competency ]; then
+            tar -c -C build competency | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:CACHE_KEY -out build/competency.enc
+          fi
       - name: Save entailment cache
-        if: always() && steps.cache.outputs.cache-hit != 'true'
+        if: always() && env.HAS_CACHE_KEY == 'true' && steps.cache.outputs.cache-hit != 'true' && hashFiles('build/competency.enc') != ''
         uses: actions/cache/save@v4
         with:
-          path: build/competency/${{ matrix.suite }}
+          path: build/competency.enc
           key: ${{ steps.cache.outputs.cache-primary-key }}
