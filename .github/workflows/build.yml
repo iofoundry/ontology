@@ -5,11 +5,13 @@ name: Hygiene Tests
 # take minutes per suite, so each suite gets its own runner).
 #
 # The competency questions are in the private iofoundry/ontology-questions repository,
-# checked out over etc/testing/competency/ with a read-only deploy key
-# (secret ONTOLOGY_QUESTIONS_DEPLOY_KEY). Without the secret (pull requests from forks,
-# Dependabot) no suites are listed and the competency jobs are skipped. This repository's
-# logs and caches are public, so the runner runs with --redact and the entailment cache is
-# encrypted with the secret COMPETENCY_CACHE_KEY. See etc/scripts/COMPETENCY.md.
+# checked out over etc/testing/competency/ with a read-only deploy key. Its secrets
+# (ONTOLOGY_QUESTIONS_DEPLOY_KEY, COMPETENCY_CACHE_KEY) are in the `competency` environment,
+# which only master, review/*, staging/* and releases/* may use: a workflow edited on any other branch
+# cannot read them. The competency jobs therefore run only on pushes (and manual runs) on
+# those branches; elsewhere, and on pull requests, they are skipped. This repository's logs
+# and caches are public, so the runner runs with --redact and the entailment cache is
+# encrypted. See etc/scripts/COMPETENCY.md.
 
 on:
   push:
@@ -89,6 +91,13 @@ jobs:
         run: python -m unittest discover -s etc/scripts/tests -t etc/scripts
 
   competency-suites:
+    # Only branches the `competency` environment allows (its deployment-branch rule is what
+    # protects the secrets; this condition just skips the jobs elsewhere instead of failing).
+    if: >-
+      github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' ||
+      startsWith(github.ref, 'refs/heads/review/') || startsWith(github.ref, 'refs/heads/staging/') ||
+      startsWith(github.ref, 'refs/heads/releases/'))
+    environment: competency
     runs-on: ubuntu-latest
     env:
       HAS_QUESTIONS: ${{ secrets.ONTOLOGY_QUESTIONS_DEPLOY_KEY != '' }}
@@ -116,7 +125,7 @@ jobs:
         id: list
         run: |
           if [ "$HAS_QUESTIONS" != true ]; then
-            echo "::notice title=Competency Tests::no access to iofoundry/ontology-questions (no deploy key); competency tests skipped."
+            echo "::notice title=Competency Tests::no ONTOLOGY_QUESTIONS_DEPLOY_KEY in the competency environment; competency tests skipped."
           fi
           echo "suites=$(./competency --list)" >> "$GITHUB_OUTPUT"
 
@@ -124,6 +133,7 @@ jobs:
     name: competency (${{ matrix.suite }})
     needs: competency-suites
     if: needs.competency-suites.outputs.suites != '[]'
+    environment: competency
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

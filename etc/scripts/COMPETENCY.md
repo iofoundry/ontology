@@ -56,27 +56,57 @@ elsewhere.
 ## CI (`.github/workflows/build.yml`)
 
 `competency-suites` checks out the questions and lists the suites; `competency-tests`
-runs one parallel job per suite. This repository is public — so are its Actions logs and
-caches — so:
+runs one parallel job per suite.
+
+**Who can read the questions.** A workflow run uses the workflow file *of the branch it
+runs on*, so anyone who can push a branch could edit the workflow to copy the questions
+or the deploy key somewhere. Repository secrets are given to every branch, so the
+secrets are instead in the **`competency` environment**, which only `master`,
+`review/*`, `staging/*` and `releases/*` may use. A workflow edited on any other branch gets no
+secrets (GitHub refuses the job), and changing the workflow on an allowed branch needs a
+reviewed pull request (branch protection). Consequently:
+
+- The competency jobs run on pushes and manual runs on `master`, `review/*`, `staging/*`
+  and `releases/*` only — after a pull request is merged, not on the pull request itself or
+  on feature branches, where they are skipped (not failed). Run the questions locally
+  before opening the pull request.
+- Pull requests from forks and Dependabot never get secrets either.
+
+**Public logs and caches.** This repository is public, so:
 
 - The runner runs with **`--redact`**: question names, descriptions and counts only;
   never result rows, focus nodes, data IRIs or parser messages. Debug failures locally.
 - The entailment cache is **encrypted** (`openssl enc -aes-256-cbc -pbkdf2`) before it is
-  saved: a pull request from a fork can restore this repository's caches but has no key.
-- Without the deploy key (forks, Dependabot) no suites are listed and the competency jobs
-  are skipped, not failed.
-- A manual run (`workflow_dispatch`) can pick the questions branch (`questions-ref`,
-  default `main`).
+  saved: other branches and forks can restore this repository's caches but have no key.
+
+A manual run (`workflow_dispatch`, on an allowed branch) can pick the questions branch
+(`questions-ref`, default `main`).
 
 ### Setup (once, by a repository admin)
 
 1. Create a key pair: `ssh-keygen -t ed25519 -N "" -C ontology-ci -f oq_deploy`.
 2. In `iofoundry/ontology-questions` → Settings → Deploy keys: add `oq_deploy.pub`,
    **read-only**.
-3. In `iofoundry/ontology` → Settings → Secrets and variables → Actions:
-   - `ONTOLOGY_QUESTIONS_DEPLOY_KEY` = the contents of `oq_deploy` (private key);
-   - `COMPETENCY_CACHE_KEY` = a random string, e.g. `openssl rand -base64 32`.
-4. Delete the local key files.
+3. In `iofoundry/ontology` → Settings → Environments → New environment `competency`:
+   - Deployment branches and tags → **Selected branches and tags**: add `master`,
+     `review/*`, `staging/*` and `releases/*`.
+   - Environment secrets:
+     - `ONTOLOGY_QUESTIONS_DEPLOY_KEY` = the contents of `oq_deploy` (private key);
+     - `COMPETENCY_CACHE_KEY` = a random string, e.g. `openssl rand -base64 32`.
+   - Do **not** also add these as repository secrets — that would give them to every
+     branch again.
+4. Protect every allowed branch with a ruleset targeting `master`, `review/**`,
+   `staging/**` and `releases/**`:
+   - **Restrict creations** — otherwise anyone with write access can create a new
+     matching branch (e.g. `review/x`) with an edited workflow and get the secrets;
+   - **Require a pull request** with an approving review (ideally a CODEOWNER of
+     `.github/`), and block force pushes and deletions;
+   - bypass list: only the people who cut release, staging and review branches.
 
-Anyone who can push a branch to this repository can run a workflow that reads these
-secrets; that is the same set of people (IOF members) who can read the questions.
+   The environment rule is only as strong as this: anyone who can push straight to, or
+   create, an allowed branch can run any workflow there. A branch pattern people push to
+   directly does not belong in the environment.
+5. Delete the local key files. Rotate the key (repeat 1–3) if it may have leaked.
+
+If more branches should run the questions, add them both to the environment's branch
+list and to the jobs' `if:` condition in the workflow.
