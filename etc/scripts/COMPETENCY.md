@@ -43,6 +43,10 @@ elsewhere.
   `# reasoning: false` are asked of the asserted triples alone (parsed directly, so the
   result does not depend on whether HermiT ran). A suite with no reasoning questions never
   starts HermiT.
+- **Engines.** SPARQL questions are evaluated by Oxigraph (`pyoxigraph`), SHACL by pySHACL;
+  rdflib only parses. rdflib's own SPARQL evaluator took minutes per query on the BTEC
+  suites' multi-pattern joins that Oxigraph answers in milliseconds. In expected CSVs,
+  numbers compare by value (`25.0` matches `25`), since engines write them differently.
 - **Cache.** HermiT results are cached in `build/competency/<tier>/<dataset>/`, keyed on
   the content of every file in the import closure and the runner's entailment code.
   Pre-entailing IOF and layering the data on top does not help: HermiT has no incremental

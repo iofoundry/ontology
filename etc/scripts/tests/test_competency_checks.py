@@ -89,6 +89,11 @@ class ChecksTest(unittest.TestCase):
         missing, unexpected = compare_rows([('a',), ('a',)], [('a',)])
         self.assertEqual((missing, unexpected), ([('a',)], []))
 
+    def test_numbers_compare_by_value(self):
+        self.assertEqual(compare_rows([('25.0', 'x', '1e1')], [('25', 'x', '10')]), ([], []))
+        self.assertEqual(compare_rows([('25.0',)], [('25.5',)]), ([('25.0',)], [('25.5',)]))
+        self.assertEqual(compare_rows([('25.0',)], [('25.0 mm',)]), ([('25.0',)], [('25.0 mm',)]))
+
     def test_missing_expected_is_broken(self):
         q = self.write('q.rq', PREFIX + 'SELECT ?w WHERE { ?w a ex:Widget }')
         self.assertEqual([f.kind for f in check_sparql(q, dataset(), update=False)], ['broken'])
