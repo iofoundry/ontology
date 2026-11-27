@@ -158,6 +158,33 @@ class SuiteDiscoveryTest(unittest.TestCase):
         closure = resolve_suite(suite, CATALOG)
         self.assertEqual(tier_violations(suite, closure, PROD, CATALOG), [DEVONLY_IRI])
 
+    def test_release_local_extension_is_not_a_module(self):
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            shutil.copytree(FIX, tmp / 'c')
+            base = tmp / 'c'
+            head = ('@prefix owl: <http://www.w3.org/2002/07/owl#> . ')
+            (base / 'shared').mkdir()
+            (base / 'shared/Ext.ttl').write_text(head + '<https://example.org/ext/> a owl:Ontology ; '
+                                                 'owl:imports <https://example.org/Core/> .')
+            (base / 'shared/LeakyExt.ttl').write_text(head + '<https://example.org/leakyext/> a owl:Ontology ; '
+                                                      'owl:imports <https://example.org/DevOnly/> .')
+            for name, ext, file in (('local', 'ext', 'Ext.ttl'), ('localleak', 'leakyext', 'LeakyExt.ttl')):
+                root = base / 'release' / name
+                (root / 'q').mkdir(parents=True)
+                (root / 'Data.ttl').write_text(head + f'<https://example.org/{name}/> a owl:Ontology ; '
+                                               f'owl:imports <https://example.org/{ext}/> .')
+                (root / 'catalog-v001.xml').write_text(
+                    '<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">'
+                    f'<uri name="https://example.org/{ext}/" uri="../../shared/{file}"/></catalog>')
+            for name, expected in (('local', []), ('localleak', [DEVONLY_IRI])):
+                suite = discover_suites(base, [f'release/{name}'])[0]
+                closure = resolve_suite(suite, base / 'catalog-v001.xml')
+                self.assertEqual(tier_violations(suite, closure, base / 'AboutProd.ttl', base / 'catalog-v001.xml'),
+                                 expected)
+        finally:
+            shutil.rmtree(tmp)
+
     def test_release_good_has_no_violations(self):
         suite = one('release/good')
         self.assertEqual(tier_violations(suite, resolve_suite(suite, CATALOG), PROD, CATALOG), [])

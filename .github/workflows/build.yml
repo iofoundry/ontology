@@ -37,9 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -56,13 +56,13 @@ jobs:
         about: [AboutIOFDev.rdf, AboutIOFProd.rdf]
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Set up Java (for the HermiT reasoner)
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "21"
@@ -75,13 +75,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Set up Java (for the HermiT reasoner)
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "21"
@@ -105,10 +105,10 @@ jobs:
       suites: ${{ steps.list.outputs.suites }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Check out competency questions
         if: env.HAS_QUESTIONS == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: iofoundry/ontology-questions
           ref: ${{ inputs.questions-ref || 'main' }}
@@ -116,7 +116,7 @@ jobs:
           path: etc/testing/competency
           persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -144,9 +144,9 @@ jobs:
       HAS_CACHE_KEY: ${{ secrets.COMPETENCY_CACHE_KEY != '' }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Check out competency questions
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: iofoundry/ontology-questions
           ref: ${{ inputs.questions-ref || 'main' }}
@@ -154,11 +154,11 @@ jobs:
           path: etc/testing/competency
           persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Set up Java (for the HermiT reasoner)
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "21"
@@ -173,7 +173,7 @@ jobs:
       - name: Restore entailment cache
         id: cache
         if: env.HAS_CACHE_KEY == 'true'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: build/competency.enc
           key: competency-${{ matrix.suite }}-${{ hashFiles('**/*.rdf', 'catalog-v001.xml', 'etc/scripts/*.py', format('etc/testing/competency/{0}/**', matrix.suite)) }}
@@ -186,7 +186,15 @@ jobs:
           openssl enc -d -aes-256-cbc -pbkdf2 -pass env:CACHE_KEY -in build/competency.enc | tar -x -C build \
             || { rm -rf build/competency; echo "::warning title=Competency cache::cannot decrypt the cached entailment; HermiT will run"; }
       - name: Run competency tests
-        run: ./competency "$SUITE" --redact
+        run: ./competency "$SUITE" --redact --summary-json build/competency-counts.json
+      # Question counts and the suite name only (already in this public log), for the total.
+      - name: Upload question counts
+        if: always() && hashFiles('build/competency-counts.json') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: competency-counts-${{ strategy.job-index }}
+          path: build/competency-counts.json
+          retention-days: 7
       - name: Encrypt entailment cache
         if: always() && env.HAS_CACHE_KEY == 'true' && steps.cache.outputs.cache-hit != 'true'
         env:
@@ -197,7 +205,34 @@ jobs:
           fi
       - name: Save entailment cache
         if: always() && env.HAS_CACHE_KEY == 'true' && steps.cache.outputs.cache-hit != 'true' && hashFiles('build/competency.enc') != ''
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: build/competency.enc
           key: ${{ steps.cache.outputs.cache-primary-key }}
+
+  # One table on the run's summary page totalling the questions run by every suite job.
+  competency-summary:
+    name: competency summary
+    needs: [competency-suites, competency-tests]
+    if: always() && needs.competency-tests.result != 'skipped'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r ./etc/scripts/requirements.txt
+      - name: Download question counts
+        uses: actions/download-artifact@v8
+        with:
+          pattern: competency-counts-*
+          path: build/competency-counts
+      - name: Total the questions
+        env:
+          SUITES: ${{ needs.competency-suites.outputs.suites }}
+        run: |
+          mkdir -p build/competency-counts
+          python etc/scripts/competency_summary.py build/competency-counts "$SUITES" | tee -a "$GITHUB_STEP_SUMMARY"

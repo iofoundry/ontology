@@ -256,14 +256,18 @@ def resolve_suite(suite: Suite, root_catalog: Path) -> Closure:
 
 
 def tier_violations(suite: Suite, closure: Closure, prod_about: Path, root_catalog: Path) -> list[str]:
-    """IRIs a release suite imports that are not part of the production (About) closure."""
+    """IOF modules a release suite imports that are not part of the production (About) closure.
+
+    The suite's own files and the local extensions its catalog-v001.xml maps (e.g. a shared
+    application ontology) are not IOF modules; the IOF modules they import are checked."""
     if suite.tier != 'release':
         return []
     resolution = load_catalog(root_catalog)
     prod_iri = ontology_iri(prod_about)
     resolution[prod_iri] = Path(prod_about).resolve()
     prod = import_closure([prod_iri], resolution)
-    own = set(suite_iris(suite))
+    overlay = suite.root / 'catalog-v001.xml'
+    own = set(suite_iris(suite)) | (set(load_catalog(overlay)) if overlay.exists() else set())
     prod_files = set(prod.files)
     return sorted(iri for iri in closure.iris
                   if iri not in own and iri not in prod.iris

@@ -34,7 +34,7 @@ import os
 import sys
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from rdflib import Dataset
@@ -83,6 +83,54 @@ class Reporter:
         else:
             text = f'{m.summary}: {m.detail}'
         print(f'{m.level} {location}title={m.title}::{text}'.replace('\n', ' '))
+
+
+@dataclass
+class Tally:
+    """How a suite's questions went: counts and suite names only, safe for the public log."""
+    suite: str
+    tier: str
+    passed: int = 0
+    failed: int = 0
+    broken: int = 0
+    not_run: int = 0
+    clean: bool = True
+
+    @property
+    def questions(self) -> int:
+        return self.passed + self.failed + self.broken + self.not_run
+
+    def add(self, outcome: str) -> None:
+        setattr(self, outcome, getattr(self, outcome) + 1)
+        print('  ' + outcome.replace('_', ' '))
+
+
+OUTCOMES = ('passed', 'failed', 'broken', 'not_run')
+
+
+def summary_table(tallies: list) -> str:
+    """A Markdown table of the tallies with a total row (for $GITHUB_STEP_SUMMARY)."""
+    def total(key):
+        return sum(t[key] if isinstance(t, dict) else getattr(t, key) for t in tallies)
+    rows = ['| Suite | Tier | Questions | Passed | Failed | Broken | Not run | Result |',
+            '|---|---|--:|--:|--:|--:|--:|---|']
+    for t in sorted((t if isinstance(t, dict) else asdict(t) for t in tallies), key=lambda t: t['suite']):
+        n = sum(t[k] for k in OUTCOMES)
+        rows.append(f"| {t['suite']} | {t['tier']} | {n} | {t['passed']} | {t['failed']} | {t['broken']} | "
+                    f"{t['not_run']} | {'✅ passed' if t['clean'] else '❌ failed'} |")
+    n = sum(total(k) for k in OUTCOMES)
+    rows.append(f'| **Total ({len(tallies)} suite{"" if len(tallies) == 1 else "s"})** | | **{n}** | **{total("passed")}** | **{total("failed")}** | '
+                f'**{total("broken")}** | **{total("not_run")}** | {total("clean")} of {len(tallies)} passed |')
+    return '\n'.join(rows) + '\n'
+
+
+def tally_line(tallies: list) -> str:
+    def total(key):
+        return sum(t[key] if isinstance(t, dict) else getattr(t, key) for t in tallies)
+    n = sum(total(k) for k in OUTCOMES)
+    parts = [f'{total(k)} {k.replace("_", " ")}' for k in OUTCOMES if total(k)]
+    suites = f'{len(tallies)} suite' + ('' if len(tallies) == 1 else 's')
+    return f'{n} questions in {suites}: ' + ', '.join(parts or ['none run'])
 
 
 @dataclass
@@ -168,8 +216,9 @@ def _check_inconsistent(suite: Suite, question: Question, entailed: EntailResult
     return True
 
 
-def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
-    """Print the suite's results; True if every question passed."""
+def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> Tally:
+    """Print the suite's results and count them."""
+    tally = Tally(suite.name, suite.tier)
     print('::group::' + suite.name)
     errors_before = out.errors
     failed = loaded.files is None
@@ -192,29 +241,30 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
             print(f'▶ {qset.name}/{question.name}{how}: {question.description or "(no description)"}')
             if question.error:
                 out.emit(Message('::error', question.name, 'broken question', question.error, question.path))
-                print('  broken')
+                tally.add('broken')
                 failed = True
                 continue
             if question.expect_inconsistent:
                 bad = _check_inconsistent(suite, question, entailed, out)
                 failed |= bad
-                print('  failed' if bad else '  passed')
+                tally.add('failed' if bad else 'passed')
                 continue
             ds = (loaded.entailed.dataset if loaded.entailed else None) if question.reasoning else loaded.asserted
             if ds is None:
-                print('  not run')
+                tally.add('not_run')
                 failed = True
                 continue
             findings = _ask(question, ds, args)
             for m in _findings_messages(suite, question, findings, out.redact):
                 out.emit(m)
-            bad = any(f.kind in ('failure', 'broken') for f in findings)
-            failed |= bad
-            print('  failed' if bad else '  passed')
+            failed |= any(f.kind in ('failure', 'broken') for f in findings)
+            tally.add('broken' if any(f.kind == 'broken' for f in findings)
+                      else 'failed' if any(f.kind == 'failure' for f in findings) else 'passed')
     print('::endgroup::')
-    clean = not failed and out.errors == errors_before
-    print(f'::notice title={suite.name}::{suite.name} {"passed" if clean else "failed"}')
-    return clean
+    tally.clean = not failed and out.errors == errors_before
+    print(f'::notice title={suite.name}::{suite.name} {"passed" if tally.clean else "failed"}: '
+          + tally_line([tally]).replace(' in 1 suite', ''))
+    return tally
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -238,6 +288,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument('--catalog', default=REPO_ROOT / 'catalog-v001.xml', type=Path)
     parser.add_argument('--prod-about', default=REPO_ROOT / 'AboutIOFProd.rdf', type=Path)
     parser.add_argument('--build-dir', default=REPO_ROOT / 'build/competency', type=Path)
+    parser.add_argument('--summary-json', type=Path, metavar='FILE',
+                        help='also write the per-suite question counts as JSON (for a CI total)')
     args = parser.parse_args(argv)
 
     out = Reporter(args.redact)
@@ -261,24 +313,35 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     prepared = {s.name: _prepare(s, args) for s in suites}
-    failed: list[str] = []
+    tallies: list[Tally] = []
     with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as pool:
         futures = {s.name: pool.submit(_load, s, prepared[s.name], args)
                    for s in suites if prepared[s.name].files is not None}
         for suite in suites:
             loaded = futures[suite.name].result() if suite.name in futures else prepared[suite.name]
-            if not _report_suite(suite, loaded, args, out):
-                failed.append(suite.name)
+            tallies.append(_report_suite(suite, loaded, args, out))
+    write_summaries(tallies, args.summary_json)
+    counts = tally_line(tallies)
+    failed = [t.suite for t in tallies if not t.clean]
 
     if out.errors:
-        print('::error title=Competency Tests::some competency questions failed.')
+        print(f'::error title=Competency Tests::some competency questions failed. {counts}')
         return 1
     if failed:
-        print('::warning title=Competency Tests::provisional suites failed (warnings only): ' + ', '.join(failed))
+        print(f'::warning title=Competency Tests::provisional suites failed (warnings only): {", ".join(failed)}. {counts}')
         return 0
-    print('::notice title=Competency Tests::all competency questions passed.')
+    print(f'::notice title=Competency Tests::all competency questions passed. {counts}')
     return 0
 
+
+def write_summaries(tallies: list[Tally], json_path: Path | None) -> None:
+    """The counts as a Markdown job summary (under GitHub Actions) and, if asked, as JSON."""
+    step_summary = os.environ.get('GITHUB_STEP_SUMMARY')
+    if step_summary:
+        with open(step_summary, 'a', encoding='utf-8') as f:
+            f.write('### Competency questions\n\n' + summary_table(tallies))
+    if json_path:
+        Path(json_path).write_text(json.dumps([asdict(t) for t in tallies], indent=1))
 
 if __name__ == '__main__':
     sys.exit(main())

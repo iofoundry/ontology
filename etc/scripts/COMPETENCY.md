@@ -39,7 +39,8 @@ elsewhere.
   between the tier and a suite are categories) loads only its own files and what they
   `owl:imports`, resolved through `catalog-v001.xml` (plus the suite's overlay catalog);
   nothing is fetched from the web. A `release/` suite may only import modules in
-  `AboutIOFProd.rdf`.
+  `AboutIOFProd.rdf`; local extensions its own catalog maps (e.g. a shared application
+  ontology) are not modules, but the modules they import are checked.
 - **One load per suite.** The import closure is resolved once for all the suite's question
   sets. HermiT runs once if any question has `# reasoning: true`; questions with
   `# reasoning: false` are asked of the asserted triples alone (parsed directly, so the
@@ -67,6 +68,18 @@ elsewhere.
 
 `competency-suites` checks out the questions and lists the suites; `competency-tests`
 runs one parallel job per suite.
+
+**Question counts.** Each suite's annotation and the final one give the number of
+questions run and how they went (e.g. `26 questions: 26 passed`), and each job's summary
+page has a table of them. Every suite job also uploads its counts
+(`--summary-json`, a small artifact), and `competency-summary` totals them into one table
+on the run's summary page, naming any suite whose job did not report. Only suite names and
+counts are written, as in the redacted log. Locally:
+
+```bash
+./competency --summary-json counts.json
+python etc/scripts/competency_summary.py DIR_OF_JSON_FILES
+```
 
 **Who can read the questions.** A workflow run uses the workflow file *of the branch it
 runs on*, so anyone who can push a branch could edit the workflow to copy the questions

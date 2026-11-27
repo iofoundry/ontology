@@ -1,12 +1,15 @@
 import contextlib
 import io
 import json
+import os
+from unittest import mock
 import shutil
 import tempfile
 import unittest
 from pathlib import Path
 
 from competency_runner import annotation_level, main
+from competency_summary import report
 
 FIX = Path(__file__).parent / 'fixtures'
 ASK_ASSERTED = ('# description: {d}\n# reasoning: false\n'
@@ -66,6 +69,29 @@ class RunnerTest(unittest.TestCase):
         # a reasoning: false question sees only the asserted triples
         self.assertIn('basic/Asserted (no reasoning): Without reasoning, w1 is not yet a Thing.', out)
         self.assertIn('release/good passed', out)
+
+    def test_counts_questions_in_log_step_summary_and_json(self):
+        self.break_expectation('release/good')
+        summary, counts = self.tmp / 'summary.md', self.tmp / 'counts.json'
+        with mock.patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(summary)}):
+            code, out = self.run_main('release/good', 'release/broken', '--summary-json', str(counts))
+        self.assertEqual(code, 1)
+        # good: 2 passed, 1 failed; broken (inconsistent): 1 passed, 1 not run
+        self.assertIn('release/good failed: 3 questions: 2 passed, 1 failed', out)
+        self.assertIn('5 questions in 2 suites: 3 passed, 1 failed, 1 not run', out)
+        table = summary.read_text()
+        self.assertIn('| release/good | release | 3 | 2 | 1 | 0 | 0 | ❌ failed |', table)
+        self.assertIn('| **Total (2 suites)** | | **5** | **3** | **1** | **0** | **1** | 0 of 2 passed |', table)
+        tallies = json.loads(counts.read_text())
+        self.assertEqual([(t['suite'], t['passed'], t['clean']) for t in tallies],
+                         [('release/broken', 1, False), ('release/good', 2, False)])
+        # the CI summary job totals the per-job JSON files and names suites that did not report
+        (self.tmp / 'parts').mkdir()
+        (self.tmp / 'parts/a.json').write_text(json.dumps(tallies[:1]))
+        (self.tmp / 'parts/b.json').write_text(json.dumps(tallies[1:]))
+        text = report(self.tmp / 'parts', ['release/good', 'release/broken', 'release/lost'])
+        self.assertIn('## Competency questions: 5 questions in 2 suites: 3 passed, 1 failed, 1 not run', text)
+        self.assertIn('**No result from:** release/lost', text)
 
     def test_suite_without_reasoning_questions_skips_hermit(self):
         self.add_suite('release/plain', {'q/Plain.rq': ASK_ASSERTED.format(d='asserted z is a D')})
