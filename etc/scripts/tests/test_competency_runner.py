@@ -22,6 +22,12 @@ EXPECT_INCONSISTENT = ('# description: {d}\n# reasoning: true\n# expect: inconsi
 
 class RunnerTest(unittest.TestCase):
     def setUp(self):
+        # Under GitHub Actions the runner appends to the job's summary page: keep these fixture
+        # runs out of the real one (the test that checks the summary points it at a file).
+        environment = mock.patch.dict(os.environ)
+        environment.start()
+        self.addCleanup(environment.stop)
+        os.environ.pop('GITHUB_STEP_SUMMARY', None)
         self.tmp = Path(tempfile.mkdtemp())
         self.base = self.tmp / 'competency'
         shutil.copytree(FIX / 'competency', self.base)
@@ -83,6 +89,12 @@ class RunnerTest(unittest.TestCase):
         table = summary.read_text()
         self.assertIn('| release/good | release | 3 | 2 | 1 | 0 | 0 | ❌ failed |', table)
         self.assertIn('| **Total (2 suites)** | | **5** | **3** | **1** | **0** | **1** | 0 of 2 passed |', table)
+        # which questions did not pass, then every question that ran, per suite
+        self.assertIn('#### Questions that did not pass', table)
+        self.assertIn('| release/good | basic/Q | ❌ failed | Both widgets are found. |', table)
+        self.assertIn('| release/broken | q/NeedsReasoner | ⏭️ not run | needs HermiT |', table)
+        self.assertIn('<summary>❌ release/good (release): 3 questions</summary>', table)
+        self.assertIn('| basic/Asserted | ✅ passed | Without reasoning, w1 is not yet a Thing. |', table)
         tallies = json.loads(counts.read_text())
         self.assertEqual([(t['suite'], t['passed'], t['clean']) for t in tallies],
                          [('release/broken', 1, False), ('release/good', 2, False)])
@@ -93,6 +105,8 @@ class RunnerTest(unittest.TestCase):
         text = report(self.tmp / 'parts', ['release/good', 'release/broken', 'release/lost'])
         self.assertIn('## Competency questions: 5 questions in 2 suites: 3 passed, 1 failed, 1 not run', text)
         self.assertIn('**No result from:** release/lost', text)
+        self.assertLess(text.index('No result from'), text.index('| Suite |'))
+        self.assertIn('| release/good | basic/Q | ❌ failed |', text)
 
     def test_suite_without_reasoning_questions_skips_hermit(self):
         self.add_suite('release/plain', {'q/Plain.rq': ASK_ASSERTED.format(d='asserted z is a D')})

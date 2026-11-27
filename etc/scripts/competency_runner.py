@@ -34,7 +34,7 @@ import os
 import sys
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from rdflib import Dataset
@@ -87,7 +87,7 @@ class Reporter:
 
 @dataclass
 class Tally:
-    """How a suite's questions went: counts and suite names only, safe for the public log."""
+    """How a suite's questions went: names, descriptions and outcomes, as in the redacted log."""
     suite: str
     tier: str
     passed: int = 0
@@ -95,13 +95,16 @@ class Tally:
     broken: int = 0
     not_run: int = 0
     clean: bool = True
+    questions_run: list = field(default_factory=list)    # {question, outcome, description}
 
     @property
     def questions(self) -> int:
         return self.passed + self.failed + self.broken + self.not_run
 
-    def add(self, outcome: str) -> None:
+    def add(self, outcome: str, qset: str, question: Question) -> None:
         setattr(self, outcome, getattr(self, outcome) + 1)
+        self.questions_run.append({'question': f'{qset}/{question.name}', 'outcome': outcome,
+                                   'description': question.description or ''})
         print('  ' + outcome.replace('_', ' '))
 
 
@@ -122,6 +125,35 @@ def summary_table(tallies: list) -> str:
     rows.append(f'| **Total ({len(tallies)} suite{"" if len(tallies) == 1 else "s"})** | | **{n}** | **{total("passed")}** | **{total("failed")}** | '
                 f'**{total("broken")}** | **{total("not_run")}** | {total("clean")} of {len(tallies)} passed |')
     return '\n'.join(rows) + '\n'
+
+
+ICONS = {'passed': '✅ passed', 'failed': '❌ failed', 'broken': '⛔ broken', 'not_run': '⏭️ not run'}
+
+
+def _cell(text: str) -> str:
+    return ' '.join(str(text).split()).replace('|', '\\|')
+
+
+def summary_markdown(tallies: list) -> str:
+    """The counts table, a table of the questions that did not pass, and every question
+    that ran, in a collapsible list per suite."""
+    tallies = sorted((t if isinstance(t, dict) else asdict(t) for t in tallies), key=lambda t: t['suite'])
+    text = summary_table(tallies)
+    problems = [(t['suite'], q) for t in tallies for q in t.get('questions_run', []) if q['outcome'] != 'passed']
+    if problems:
+        text += ('\n#### Questions that did not pass\n\n| Suite | Question | Result | Description |\n'
+                 '|---|---|---|---|\n')
+        text += ''.join(f"| {s} | {q['question']} | {ICONS[q['outcome']]} | {_cell(q['description'])} |\n"
+                        for s, q in problems)
+    text += '\n#### Questions run\n\n'
+    for t in tallies:
+        n = sum(t[k] for k in OUTCOMES)
+        text += (f"<details><summary>{'✅' if t['clean'] else '❌'} {t['suite']} ({t['tier']}): {n} questions</summary>"
+                 '\n\n| Question | Result | Description |\n|---|---|---|\n')
+        text += ''.join(f"| {q['question']} | {ICONS[q['outcome']]} | {_cell(q['description'])} |\n"
+                        for q in t.get('questions_run', []))
+        text += '\n</details>\n'
+    return text
 
 
 def tally_line(tallies: list) -> str:
@@ -241,17 +273,17 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> Tally:
             print(f'▶ {qset.name}/{question.name}{how}: {question.description or "(no description)"}')
             if question.error:
                 out.emit(Message('::error', question.name, 'broken question', question.error, question.path))
-                tally.add('broken')
+                tally.add('broken', qset.name, question)
                 failed = True
                 continue
             if question.expect_inconsistent:
                 bad = _check_inconsistent(suite, question, entailed, out)
                 failed |= bad
-                tally.add('failed' if bad else 'passed')
+                tally.add('failed' if bad else 'passed', qset.name, question)
                 continue
             ds = (loaded.entailed.dataset if loaded.entailed else None) if question.reasoning else loaded.asserted
             if ds is None:
-                tally.add('not_run')
+                tally.add('not_run', qset.name, question)
                 failed = True
                 continue
             findings = _ask(question, ds, args)
@@ -259,7 +291,8 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> Tally:
                 out.emit(m)
             failed |= any(f.kind in ('failure', 'broken') for f in findings)
             tally.add('broken' if any(f.kind == 'broken' for f in findings)
-                      else 'failed' if any(f.kind == 'failure' for f in findings) else 'passed')
+                      else 'failed' if any(f.kind == 'failure' for f in findings) else 'passed',
+                      qset.name, question)
     print('::endgroup::')
     tally.clean = not failed and out.errors == errors_before
     print(f'::notice title={suite.name}::{suite.name} {"passed" if tally.clean else "failed"}: '
@@ -339,7 +372,7 @@ def write_summaries(tallies: list[Tally], json_path: Path | None) -> None:
     step_summary = os.environ.get('GITHUB_STEP_SUMMARY')
     if step_summary:
         with open(step_summary, 'a', encoding='utf-8') as f:
-            f.write('### Competency questions\n\n' + summary_table(tallies))
+            f.write('### Competency questions\n\n' + summary_markdown(tallies))
     if json_path:
         # build/ exists only once HermiT has cached something: a no-reasoning suite on a fresh
         # CI checkout has none

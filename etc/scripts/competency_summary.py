@@ -5,7 +5,8 @@ the summary job downloads those files and runs
 
     python etc/scripts/competency_summary.py DIR >> "$GITHUB_STEP_SUMMARY"
 
-The counts and suite names are already in the public log, so the table reveals nothing more.
+Suite and question names, descriptions and outcomes are already in the public log, so the
+summary reveals nothing more.
 A suite whose job did not report (cancelled, or crashed before writing) is listed as missing.
 """
 from __future__ import annotations
@@ -14,7 +15,7 @@ import json
 import sys
 from pathlib import Path
 
-from competency_runner import summary_table, tally_line
+from competency_runner import summary_markdown, tally_line
 
 
 def collect(directory: Path) -> list[dict]:
@@ -26,10 +27,11 @@ def collect(directory: Path) -> list[dict]:
 
 def report(directory: Path, expected: list[str] | None = None) -> str:
     tallies = collect(directory)
-    text = '## Competency questions: ' + tally_line(tallies) + '\n\n' + summary_table(tallies)
+    text = '## Competency questions: ' + tally_line(tallies) + '\n\n' + summary_markdown(tallies)
     missing = sorted(set(expected or []) - {t['suite'] for t in tallies})
-    if missing:
-        text += '\n**No result from:** ' + ', '.join(missing) + '\n'
+    if missing:   # right under the headline, not after the question lists
+        head, _, rest = text.partition('\n\n')
+        text = head + '\n\n**No result from:** ' + ', '.join(missing) + '\n\n' + rest
     return text
 
 
