@@ -4,9 +4,10 @@ The questions live in the private iofoundry/ontology-questions repository, overl
 etc/testing/competency/ (a CI checkout, or a symlink locally). A suite is one dataset and
 the question sets about it:
 
-    <tier>/<dataset>/            *.ttl / *.rdf: the data and its local ontology extensions,
+    <tier>/[<category>/...]      optional categories grouping suites (no data files)
+    <tier>/.../<dataset>/        *.ttl / *.rdf: the data and its local ontology extensions,
                                  optional catalog-v001.xml overlay
-    <tier>/<dataset>/<set>/      *.rq (+ *.expected.csv) and *.shapes.ttl: the questions
+    <tier>/.../<dataset>/<set>/  *.rq (+ *.expected.csv) and *.shapes.ttl: the questions
 
 <tier> is release or provisional. Every question file starts with a comment header:
 
@@ -154,44 +155,71 @@ def _visible_dirs(path: Path) -> list[Path]:
     return sorted(p for p in path.iterdir() if p.is_dir() and not p.name.startswith('.'))
 
 
-def _suite(tier: str, root: Path) -> Suite:
+def _is_suite_dir(path: Path) -> bool:
+    """A directory holding data (*.ttl / *.rdf) is a suite; any other is a category of suites."""
+    return any(p.is_file() and p.suffix in ONTOLOGY_SUFFIXES for p in path.iterdir())
+
+
+def _suite_roots(base: Path) -> dict[str, tuple[str, Path]]:
+    """Every suite under base by name ('provisional/slots/fasteners'), however deep its categories."""
+    roots: dict[str, tuple[str, Path]] = {}
+
+    def walk(tier: str, path: Path, name: str) -> None:
+        for d in _visible_dirs(path):
+            if _is_suite_dir(d):
+                roots[f'{name}/{d.name}'] = (tier, d)
+                continue
+            stray = [p.name for p in d.iterdir() if p.is_file() and _is_question(p)]
+            if stray:
+                raise SuiteError(f'{name}/{d.name} has no data files, so it is a category of suites; '
+                                 f'questions must be in a question set of a suite: {", ".join(sorted(stray))}')
+            walk(tier, d, f'{name}/{d.name}')
+
+    for tier in TIERS:
+        if (base / tier).is_dir():
+            walk(tier, base / tier, tier)
+    return roots
+
+
+def _suite(tier: str, root: Path, name: str) -> Suite:
     files = sorted(p for p in root.iterdir() if p.is_file())
     stray = [p.name for p in files if _is_question(p)]
     if stray:
-        raise SuiteError(f'{tier}/{root.name}: questions must be in a question-set directory, '
+        raise SuiteError(f'{name}: questions must be in a question-set directory, '
                          f'not next to the data: {", ".join(stray)}')
-    return Suite(name=f'{tier}/{root.name}', tier=tier, root=root,
+    return Suite(name=name, tier=tier, root=root,
                  ontology_files=[p for p in files if p.suffix in ONTOLOGY_SUFFIXES],
                  sets=[_question_set(p) for p in _visible_dirs(root)])
 
 
 def discover_suites(base: Path, selectors: list[str]) -> list[Suite]:
-    """Suites under base, or those named by selectors: a tier ('release'), a suite
-    ('release/fasteners') or one question set ('release/fasteners/bolt-types').
-    A missing base (the questions are not checked out) has no suites."""
+    """Suites under base, or those named by selectors: a tier ('release'), a category
+    ('release/slots'), a suite ('release/slots/fasteners') or one question set
+    ('release/slots/fasteners/bolt-types'). A suite is a directory with data files;
+    directories between the tier and a suite are categories. A missing base (the
+    questions are not checked out) has no suites."""
     base = Path(base)
-    roots = {f'{tier}/{p.name}': (tier, p) for tier in TIERS if (base / tier).is_dir()
-             for p in _visible_dirs(base / tier)}
+    roots = _suite_roots(base)
     if not selectors:
-        return [_suite(*roots[n]) for n in sorted(roots)]
+        return [_suite(*roots[n], n) for n in sorted(roots)]
     chosen: dict[str, set[str] | None] = {}    # suite name -> question-set names (None = all)
     for selector in selectors:
         selector = selector.strip('/')
-        parts = selector.split('/')
-        if len(parts) == 3:
-            name = '/'.join(parts[:2])
-            if name not in roots or not (roots[name][1] / parts[2]).is_dir():
+        matches = [n for n in roots if n == selector or n.startswith(selector + '/')]
+        if matches:
+            chosen.update((n, None) for n in matches)
+            continue
+        name, _, qset = selector.rpartition('/')
+        if name in roots:
+            if not (roots[name][1] / qset).is_dir():
                 raise SuiteError(f'no competency question set {selector!r} under {base}')
             if chosen.get(name, set()) is not None:
-                chosen.setdefault(name, set()).add(parts[2])
+                chosen.setdefault(name, set()).add(qset)
             continue
-        matches = [n for n in roots if n == selector or n.startswith(selector + '/')]
-        if not matches:
-            raise SuiteError(f'no competency suite or tier matches {selector!r} under {base}')
-        chosen.update((n, None) for n in matches)
+        raise SuiteError(f'no competency suite, category or tier matches {selector!r} under {base}')
     suites = []
     for name in sorted(chosen):
-        suite = _suite(*roots[name])
+        suite = _suite(*roots[name], name)
         if chosen[name] is not None:
             suite.sets = [s for s in suite.sets if s.name in chosen[name]]
         suites.append(suite)

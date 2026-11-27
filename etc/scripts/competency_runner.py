@@ -2,10 +2,11 @@
 
     ./competency                                     # every suite
     ./competency provisional                         # one tier
-    ./competency provisional/fasteners               # one suite (a dataset and its question sets)
-    ./competency provisional/fasteners/bolt-types    # one question set
-    ./competency provisional/fasteners --no-cache    # force HermiT
-    ./competency provisional/fasteners --update-expected
+    ./competency provisional/slots                   # one category of suites
+    ./competency provisional/slots/fasteners         # one suite (a dataset and its question sets)
+    ./competency provisional/slots/fasteners/bolt-types   # one question set
+    ./competency provisional/slots/fasteners --no-cache   # force HermiT
+    ./competency provisional/slots/fasteners --update-expected
     ./competency --list                              # suite names as JSON (CI matrix)
     ./competency --redact                            # public CI: hide data in the log
 
@@ -219,8 +220,8 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description='Run the IOF competency questions')
     parser.add_argument('selectors', nargs='*', metavar='SUITE',
-                        help="tier ('release'), suite ('release/fasteners') or question set "
-                             "('release/fasteners/bolt-types'); default: all")
+                        help="tier ('release'), category ('release/slots'), suite ('release/slots/fasteners') "
+                             "or question set ('release/slots/fasteners/bolt-types'); default: all")
     parser.add_argument('--list', action='store_true',
                         help='print the selected suite names as a JSON array (for a CI matrix) and exit')
     parser.add_argument('--no-cache', action='store_true', help='re-run HermiT even if inputs are unchanged')

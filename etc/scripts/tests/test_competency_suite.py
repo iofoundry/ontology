@@ -93,6 +93,30 @@ class SuiteDiscoveryTest(unittest.TestCase):
         with self.assertRaises(SuiteError):
             discover_suites(FIX, ['release/good/nope'])
 
+    def test_categories_group_suites(self):
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            shutil.copytree(FIX, tmp / 'c')
+            (tmp / 'c/release/widgets/more').mkdir(parents=True)
+            shutil.move(str(tmp / 'c/release/good'), tmp / 'c/release/widgets/more/good')
+            base = tmp / 'c'
+            self.assertIn('release/widgets/more/good', [s.name for s in discover_suites(base, [])])
+            for selector in ('release', 'release/widgets', 'release/widgets/more', 'release/widgets/more/good'):
+                self.assertIn('release/widgets/more/good', [s.name for s in discover_suites(base, [selector])])
+            suites = discover_suites(base, ['release/widgets/more/good/basic'])
+            self.assertEqual([(s.name, s.tier, [q.name for q in s.sets]) for s in suites],
+                             [('release/widgets/more/good', 'release', ['basic'])])
+            with self.assertRaises(SuiteError):
+                discover_suites(base, ['release/widgets/more/good/nope'])
+            with self.assertRaises(SuiteError):
+                discover_suites(base, ['release/widg'])
+            (tmp / 'c/release/widgets/Stray.rq').write_text('SELECT * {}\n')
+            with self.assertRaises(SuiteError) as ctx:
+                discover_suites(base, [])
+            self.assertIn('category', str(ctx.exception))
+        finally:
+            shutil.rmtree(tmp)
+
     def test_missing_base_has_no_suites(self):
         self.assertEqual(discover_suites(FIX / 'nope', []), [])
 

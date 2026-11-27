@@ -21,8 +21,9 @@ never a submodule):
 git clone git@github.com:iofoundry/ontology-questions.git ../ontology-questions   # once
 ln -s ../../../ontology-questions etc/testing/competency                         # once
 ./competency                                  # every suite
-./competency provisional/fasteners            # one suite (a dataset and its question sets)
-./competency provisional/fasteners/bolt-types # one question set
+./competency provisional/slots                # one category of suites
+./competency provisional/slots/fasteners      # one suite (a dataset and its question sets)
+./competency provisional/slots/fasteners/bolt-types   # one question set
 ./competency --no-cache                       # force HermiT
 ./competency --update-expected                # (re)write the .expected.csv files
 ./competency --redact                         # as CI: print nothing from the data
@@ -34,7 +35,8 @@ elsewhere.
 
 ## How a suite runs
 
-- **Imports.** A suite (`<tier>/<dataset>/`) loads only its own files and what they
+- **Imports.** A suite (`<tier>/[<category>/...]<dataset>/`: a directory with data files; directories
+  between the tier and a suite are categories) loads only its own files and what they
   `owl:imports`, resolved through `catalog-v001.xml` (plus the suite's overlay catalog);
   nothing is fetched from the web. A `release/` suite may only import modules in
   `AboutIOFProd.rdf`.
@@ -47,7 +49,7 @@ elsewhere.
   rdflib only parses. rdflib's own SPARQL evaluator took minutes per query on the BTEC
   suites' multi-pattern joins that Oxigraph answers in milliseconds. In expected CSVs,
   numbers compare by value (`25.0` matches `25`), since engines write them differently.
-- **Cache.** HermiT results are cached in `build/competency/<tier>/<dataset>/`, keyed on
+- **Cache.** HermiT results are cached in `build/competency/<suite name>/`, keyed on
   the content of every file in the import closure and the runner's entailment code.
   Pre-entailing IOF and layering the data on top does not help: HermiT has no incremental
   mode (on the fasteners suite, 185 s with IOF's entailments preloaded vs 192 s from
