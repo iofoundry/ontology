@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://example.org/wheel-slot/"
+     xml:base="https://example.org/wheel-slot/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:ex="https://example.org/wheel-slot/"
+     xmlns:iof="https://spec.industrialontologies.org/ontology/construct/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:iof-av="https://spec.industrialontologies.org/ontology/annotation/">
+    <owl:Ontology rdf:about="https://example.org/wheel-slot/">
+        <owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202604/core/Core/"/>
+        <owl:imports rdf:resource="https://spec.industrialontologies.org/ontology/202604/core/informationslot/InformationSlot/"/>
+        <rdfs:comment xml:lang="en-us">Standalone offline demonstration with a minimal IOF vocabulary fragment. Expected consistency: consistent. Load separately from the other case.</rdfs:comment>
+        <rdfs:label xml:lang="en-us">Wheel slot valid filler example</rdfs:label>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/hasFiller -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/construct/hasFiller">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationSlot"/>
+        <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/isAbout -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/construct/isAbout">
+        <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/isSlotOf -->
+
+    <owl:ObjectProperty rdf:about="https://spec.industrialontologies.org/ontology/construct/isSlotOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationSlot"/>
+        <rdfs:range rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://example.org/wheel-slot/hasRimDiameterInInches -->
+
+    <owl:DatatypeProperty rdf:about="https://example.org/wheel-slot/hasRimDiameterInInches">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://example.org/wheel-slot/Wheel"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:label xml:lang="en-us">has rim diameter in inches</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://example.org/wheel-slot/BigWheelSpecification -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot/BigWheelSpecification">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/prescribes"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://example.org/wheel-slot/Wheel"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://example.org/wheel-slot/WheelSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://example.org/wheel-slot/Wheel"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                                <owl:allValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:allValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">BigWheelSpecification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://example.org/wheel-slot/SmallWheelSlot -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot/SmallWheelSlot">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/ComponentSlot"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasFiller"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://example.org/wheel-slot/WheelSpecification"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                                <owl:allValuesFrom>
+                                    <owl:Class>
+                                        <owl:intersectionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="https://example.org/wheel-slot/Wheel"/>
+                                            <owl:Restriction>
+                                                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                                                <owl:allValuesFrom>
+                                                    <rdfs:Datatype>
+                                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                                                        <owl:withRestrictions rdf:parseType="Collection">
+                                                            <rdf:Description>
+                                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17</xsd:maxInclusive>
+                                                            </rdf:Description>
+                                                        </owl:withRestrictions>
+                                                    </rdfs:Datatype>
+                                                </owl:allValuesFrom>
+                                            </owl:Restriction>
+                                        </owl:intersectionOf>
+                                    </owl:Class>
+                                </owl:allValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">small wheel slot</rdfs:label>
+        <iof-av:naturalLanguageDefinition xml:lang="en-us">component slot that can be filled only by a wheel specification about wheels with rim diameters no greater than 17 inches</iof-av:naturalLanguageDefinition>
+    </owl:Class>
+    
+
+
+    <!-- https://example.org/wheel-slot/SmallWheelSpecification -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot/SmallWheelSpecification">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://example.org/wheel-slot/Wheel"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://example.org/wheel-slot/WheelSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="https://example.org/wheel-slot/Wheel"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                                <owl:allValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:allValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">SmallWheelSpecification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://example.org/wheel-slot/Wheel -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot/Wheel">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://example.org/wheel-slot/hasRimDiameterInInches"/>
+                <owl:someValuesFrom>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</xsd:minInclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">wheel</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://example.org/wheel-slot/WheelSpecification -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot/WheelSpecification">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/DesignSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:someValuesFrom rdf:resource="https://example.org/wheel-slot/Wheel"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isAbout"/>
+                <owl:allValuesFrom rdf:resource="https://example.org/wheel-slot/Wheel"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en-us">wheel specification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://example.org/wheel-slot//Hatchback-car-design -->
+
+    <owl:Class rdf:about="https://example.org/wheel-slot//Hatchback-car-design">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://spec.industrialontologies.org/ontology/construct/DesignSpecification"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/hasSlot"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">4</owl:qualifiedCardinality>
+                        <owl:onClass rdf:resource="https://example.org/wheel-slot/SmallWheelSlot"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/ComponentSlot -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/ComponentSlot">
+        <rdfs:subClassOf rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationSlot"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/InformationContentEntity -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity">
+        <owl:disjointWith rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationSlot"/>
+    </owl:Class>
+    
+
+
+    <!-- https://spec.industrialontologies.org/ontology/construct/InformationSlot -->
+
+    <owl:Class rdf:about="https://spec.industrialontologies.org/ontology/construct/InformationSlot">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://spec.industrialontologies.org/ontology/construct/isSlotOf"/>
+                <owl:someValuesFrom rdf:resource="https://spec.industrialontologies.org/ontology/construct/InformationContentEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://example.org/wheel-slot/big-wheel -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/big-wheel">
+        <rdf:type rdf:resource="https://example.org/wheel-slot/Wheel"/>
+        <hasRimDiameterInInches rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</hasRimDiameterInInches>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/big-wheel-spec1 -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/big-wheel-spec1">
+        <iof:prescribes rdf:resource="https://example.org/wheel-slot/big-wheel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/rs1-front-left-wheel-slot -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/rs1-front-left-wheel-slot">
+        <rdf:type rdf:resource="https://example.org/wheel-slot/SmallWheelSlot"/>
+        <iof:hasFiller rdf:resource="https://example.org/wheel-slot/small-wheel-spec1"/>
+        <iof:isSlotOf rdf:resource="https://example.org/wheel-slot/rs1-hatchback-car-design"/>
+        <rdfs:label xml:lang="en-us">RS1 front-left wheel slot</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/rs1-hatchback-car-design -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/rs1-hatchback-car-design">
+        <rdf:type rdf:resource="https://example.org/wheel-slot//Hatchback-car-design"/>
+        <rdfs:label xml:lang="en-us">RS1 hatchback car design</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/small-wheel -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/small-wheel">
+        <hasRimDiameterInInches rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</hasRimDiameterInInches>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/small-wheel-spec1 -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/small-wheel-spec1">
+        <iof:prescribes rdf:resource="https://example.org/wheel-slot/small-wheel"/>
+        <rdfs:label xml:lang="en-us">small-wheel-spec</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot/small-wheel-spec2 -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot/small-wheel-spec2"/>
+    
+
+
+    <!-- https://example.org/wheel-slot//rs1-back-left-wheel-slot -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot//rs1-back-left-wheel-slot">
+        <rdf:type rdf:resource="https://example.org/wheel-slot/SmallWheelSlot"/>
+        <iof:hasFiller rdf:resource="https://example.org/wheel-slot/small-wheel-spec1"/>
+        <iof:hasFiller rdf:resource="https://example.org/wheel-slot/small-wheel-spec2"/>
+        <iof:isSlotOf rdf:resource="https://example.org/wheel-slot/rs1-hatchback-car-design"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot//rs1-back-right-wheel-slot -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot//rs1-back-right-wheel-slot">
+        <rdf:type rdf:resource="https://example.org/wheel-slot/SmallWheelSlot"/>
+        <iof:hasFiller rdf:resource="https://example.org/wheel-slot/small-wheel-spec1"/>
+        <iof:isSlotOf rdf:resource="https://example.org/wheel-slot/rs1-hatchback-car-design"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://example.org/wheel-slot//rs1-front-right-wheel-slot -->
+
+    <owl:NamedIndividual rdf:about="https://example.org/wheel-slot//rs1-front-right-wheel-slot">
+        <rdf:type rdf:resource="https://example.org/wheel-slot/SmallWheelSlot"/>
+        <iof:hasFiller rdf:resource="https://example.org/wheel-slot/small-wheel-spec1"/>
+        <iof:isSlotOf rdf:resource="https://example.org/wheel-slot/rs1-hatchback-car-design"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://example.org/wheel-slot/big-wheel-spec1"/>
+            <rdf:Description rdf:about="https://example.org/wheel-slot/small-wheel-spec1"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://example.org/wheel-slot/rs1-front-left-wheel-slot"/>
+            <rdf:Description rdf:about="https://example.org/wheel-slot//rs1-back-left-wheel-slot"/>
+            <rdf:Description rdf:about="https://example.org/wheel-slot//rs1-back-right-wheel-slot"/>
+            <rdf:Description rdf:about="https://example.org/wheel-slot//rs1-front-right-wheel-slot"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://example.org/wheel-slot/small-wheel-spec1"/>
+            <rdf:Description rdf:about="https://example.org/wheel-slot/small-wheel-spec2"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
