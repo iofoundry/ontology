@@ -13,6 +13,8 @@ ASK_ASSERTED = ('# description: {d}\n# reasoning: false\n'
                 'PREFIX i: <https://example.org/i/>\nASK {{ i:z a i:D }}\n')
 ASK_REASONED = ('# description: {d}\n# reasoning: true\n'
                 'PREFIX i: <https://example.org/i/>\nASK {{ i:z a i:D }}\n')
+EXPECT_INCONSISTENT = ('# description: {d}\n# reasoning: true\n# expect: inconsistent\n'
+                       'PREFIX i: <https://example.org/i/>\nASK {{ i:z a i:D }}\n')
 
 
 class RunnerTest(unittest.TestCase):
@@ -27,10 +29,10 @@ class RunnerTest(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmp)
 
-    def add_suite(self, name, questions):
+    def add_suite(self, name, questions, data=FIX / 'entail' / 'Inconsistent.ttl'):
         root = self.base / name
         root.mkdir(parents=True)
-        shutil.copy(FIX / 'entail' / 'Inconsistent.ttl', root / 'Example.ttl')
+        shutil.copy(data, root / 'Example.ttl')
         for path, text in questions.items():
             (root / path).parent.mkdir(parents=True, exist_ok=True)
             (root / path).write_text(text)
@@ -72,6 +74,32 @@ class RunnerTest(unittest.TestCase):
         self.assertNotIn('HermiT', out)
         self.assertIn('release/plain passed', out)
         self.assertFalse((self.tmp / 'build' / 'release' / 'plain').exists())
+
+    def test_expected_inconsistency_passes(self):
+        self.add_suite('release/conflict', {'q/Conflict.rq': EXPECT_INCONSISTENT.format(d='z cannot be a D'),
+                                            'q/Plain.rq': ASK_ASSERTED.format(d='asserted z is a D')})
+        code, out = self.run_main('release/conflict')
+        self.assertEqual(code, 0, out)
+        self.assertIn('inconsistent, as its questions expect', out)
+        self.assertIn('q/Conflict (reasoning): z cannot be a D\n  passed', out)
+        self.assertIn('release/conflict passed', out)
+
+    def test_expected_inconsistency_fails_on_consistent_data(self):
+        self.add_suite('release/fine', {'q/Conflict.rq': EXPECT_INCONSISTENT.format(d='z cannot be a D')},
+                       data=FIX / 'competency' / 'release' / 'good' / 'Example.ttl')
+        code, out = self.run_main('release/fine')
+        self.assertEqual(code, 1, out)
+        self.assertIn('expected HermiT to find the data inconsistent, but it is consistent', out)
+        self.assertIn('release/fine failed', out)
+
+    def test_inconsistency_fails_questions_that_expect_consistency(self):
+        self.add_suite('release/mixed', {'q/Conflict.rq': EXPECT_INCONSISTENT.format(d='z cannot be a D'),
+                                         'q/NeedsReasoner.rq': ASK_REASONED.format(d='needs HermiT')})
+        code, out = self.run_main('release/mixed')
+        self.assertEqual(code, 1, out)
+        self.assertIn('HermiT inconsistent', out)
+        self.assertIn('q/Conflict (reasoning): z cannot be a D\n  passed', out)
+        self.assertIn('q/NeedsReasoner (reasoning): needs HermiT\n  not run', out)
 
     def test_reasoner_failure_still_runs_questions_without_reasoning(self):
         code, out = self.run_main('release/broken')

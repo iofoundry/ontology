@@ -52,6 +52,10 @@ elsewhere.
   Pre-entailing IOF and layering the data on top does not help: HermiT has no incremental
   mode (on the fasteners suite, 185 s with IOF's entailments preloaded vs 192 s from
   scratch).
+- **Expected inconsistency.** A reasoning question with `# expect: inconsistent` passes
+  only if HermiT finds the suite's data inconsistent (its body is not run). When every
+  reasoning question in a suite expects it, the inconsistency is a notice, not a
+  reasoner failure; any other reasoning question in that suite is reported not run.
 - **Results.** Failures are errors in `release/` (they block the build) and warnings in
   `provisional/`. A broken suite or question (unresolved import, unparseable file, missing
   header or expected CSV, a release suite importing a provisional module) is an error in

@@ -3,8 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from competency_suite import (SuiteError, QuestionError, discover_suites, read_metadata, resolve_suite,
-                              tier_violations)
+from competency_suite import (SuiteError, QuestionError, discover_suites, read_expect_inconsistent,
+                              read_metadata, resolve_suite, tier_violations)
 
 FIX = Path(__file__).parent / 'fixtures' / 'competency'
 CATALOG = FIX / 'catalog-v001.xml'
@@ -47,6 +47,20 @@ class MetadataTest(unittest.TestCase):
         with self.assertRaises(QuestionError) as ctx:
             self.meta('# reasoning: true\nSELECT * {}\n')
         self.assertIn('description', str(ctx.exception))
+
+    def test_expect_header(self):
+        path = self.tmp / 'T.rq'
+        path.write_text('# description: x\n# reasoning: true\n# expect: Inconsistent\nASK {}\n')
+        self.assertTrue(read_expect_inconsistent(path, True))
+        path.write_text('# description: x\n# reasoning: true\nASK {}\n')
+        self.assertFalse(read_expect_inconsistent(path, True))
+        path.write_text('# description: x\n# reasoning: true\n# expect: broken\nASK {}\n')
+        with self.assertRaises(QuestionError):
+            read_expect_inconsistent(path, True)
+        path.write_text('# description: x\n# reasoning: false\n# expect: inconsistent\nASK {}\n')
+        with self.assertRaises(QuestionError) as ctx:
+            read_expect_inconsistent(path, False)
+        self.assertIn('reasoning: true', str(ctx.exception))
 
     def test_bad_reasoning_value(self):
         with self.assertRaises(QuestionError) as ctx:

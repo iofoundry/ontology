@@ -12,6 +12,9 @@ the question sets about it:
 
     # description: What the question checks (printed as the test runs).
     # reasoning: true            (false: the question sees only the asserted triples)
+    # expect: inconsistent       (optional, with reasoning: true: passes iff HermiT finds the
+                                 suite's data inconsistent; the body documents the conflict
+                                 and is not run)
 
 The suite's data is loaded once for all its sets; HermiT runs only if a question needs it.
 """
@@ -27,6 +30,7 @@ TIERS = ('release', 'provisional')
 ONTOLOGY_SUFFIXES = ('.ttl', '.rdf')
 SHAPES_SUFFIX = '.shapes.ttl'
 METADATA_KEYS = ('description', 'reasoning')
+EXPECTATIONS = ('consistent', 'inconsistent')
 BOOLEANS = {'true': True, 'yes': True, 'false': False, 'no': False}
 HEADER_KEY = re.compile(r'^#\s*([A-Za-z]+)\s*:\s*(.*?)\s*$')
 DECLARATION = re.compile(r'^\s*(@?prefix|@?base)\b', re.I)
@@ -47,6 +51,7 @@ class Question:
     description: str | None
     reasoning: bool | None
     error: str | None = None        # set when the metadata header is missing or invalid
+    expect_inconsistent: bool = False
 
     @property
     def name(self) -> str:
@@ -77,15 +82,19 @@ class Suite:
         return any(t.reasoning for t in self.tests)
 
     @property
+    def expects_inconsistent(self) -> bool:
+        """Every reasoning question expects HermiT to find the data inconsistent."""
+        reasoning = [t for t in self.tests if t.reasoning]
+        return bool(reasoning) and all(t.expect_inconsistent for t in reasoning)
+
+    @property
     def needs_asserted(self) -> bool:
         return any(t.reasoning is False for t in self.tests)
 
 
-def read_metadata(path: Path) -> tuple[str, bool]:
-    """(description, reasoning) from the question's leading comment header.
-
-    The header is the comments before the first statement; prefix and base declarations
-    and blank lines may come before or among them."""
+def _header(path: Path) -> dict[str, str]:
+    """The header keys from the comments before the first statement; prefix and base
+    declarations and blank lines may come before or among them."""
     found = {}
     for line in Path(path).read_text(encoding='utf-8').splitlines():
         stripped = line.strip()
@@ -94,8 +103,14 @@ def read_metadata(path: Path) -> tuple[str, bool]:
         if not stripped.startswith('#'):
             break
         match = HEADER_KEY.match(stripped)
-        if match and match.group(1).lower() in METADATA_KEYS:
+        if match and match.group(1).lower() in METADATA_KEYS + ('expect',):
             found.setdefault(match.group(1).lower(), match.group(2))
+    return found
+
+
+def read_metadata(path: Path) -> tuple[str, bool]:
+    """(description, reasoning) from the question's leading comment header."""
+    found = _header(path)
     missing = [k for k in METADATA_KEYS if not found.get(k)]
     if missing:
         raise QuestionError(f'{Path(path).name}: header comment is missing '
@@ -106,10 +121,21 @@ def read_metadata(path: Path) -> tuple[str, bool]:
     return found['description'], BOOLEANS[value]
 
 
+def read_expect_inconsistent(path: Path, reasoning: bool) -> bool:
+    """True for '# expect: inconsistent' (only meaningful with reasoning: true)."""
+    value = _header(path).get('expect', 'consistent').lower()
+    if value not in EXPECTATIONS:
+        raise QuestionError(f'{Path(path).name}: "# expect: {value}" must be consistent or inconsistent')
+    if value == 'inconsistent' and not reasoning:
+        raise QuestionError(f'{Path(path).name}: "# expect: inconsistent" needs "# reasoning: true"')
+    return value == 'inconsistent'
+
+
 def _question(path: Path, kind: str) -> Question:
     try:
         description, reasoning = read_metadata(path)
-        return Question(path, kind, description, reasoning)
+        return Question(path, kind, description, reasoning,
+                        expect_inconsistent=read_expect_inconsistent(path, reasoning))
     except (QuestionError, OSError, UnicodeDecodeError) as e:
         return Question(path, kind, None, None, str(e))
 

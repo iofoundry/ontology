@@ -156,6 +156,17 @@ def _ask(question: Question, ds: Dataset, args) -> list[Finding]:
     return check_sparql(question.path, ds, update=args.update_expected)
 
 
+def _check_inconsistent(suite: Suite, question: Question, entailed: EntailResult | None, out: Reporter) -> bool:
+    """A '# expect: inconsistent' question: True (bad) unless HermiT found the data inconsistent."""
+    if entailed is not None and entailed.failure == 'inconsistent':
+        return False
+    if entailed is None or entailed.failure is not None:
+        return True             # HermiT timed out or failed: reported with the reasoner messages
+    out.emit(Message(annotation_level(suite.tier, 'failure'), question.name,
+                     'expected HermiT to find the data inconsistent, but it is consistent', None, question.path))
+    return True
+
+
 def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
     """Print the suite's results; True if every question passed."""
     print('::group::' + suite.name)
@@ -163,10 +174,17 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
     failed = loaded.files is None
     for m in loaded.messages:
         out.emit(m)
-    if loaded.entailed is not None:
-        for m in _reasoner_messages(suite, loaded.entailed):
+    entailed = loaded.entailed
+    # an inconsistency every reasoning question expects is the result, not a reasoner failure
+    expected_inconsistency = (entailed is not None and entailed.failure == 'inconsistent'
+                              and suite.expects_inconsistent)
+    if expected_inconsistency:
+        out.emit(Message('::notice', 'Reasoner', f'{suite.name}: inconsistent, as its questions expect '
+                         f'(HermiT took {entailed.seconds:.0f} s)', None))
+    elif entailed is not None:
+        for m in _reasoner_messages(suite, entailed):
             out.emit(m)
-        failed |= loaded.entailed.failure is not None
+        failed |= entailed.failure is not None
     for qset in suite.sets:
         for question in qset.tests:
             how = '' if question.reasoning is None else ' (reasoning)' if question.reasoning else ' (no reasoning)'
@@ -175,6 +193,11 @@ def _report_suite(suite: Suite, loaded: Loaded, args, out: Reporter) -> bool:
                 out.emit(Message('::error', question.name, 'broken question', question.error, question.path))
                 print('  broken')
                 failed = True
+                continue
+            if question.expect_inconsistent:
+                bad = _check_inconsistent(suite, question, entailed, out)
+                failed |= bad
+                print('  failed' if bad else '  passed')
                 continue
             ds = (loaded.entailed.dataset if loaded.entailed else None) if question.reasoning else loaded.asserted
             if ds is None:
