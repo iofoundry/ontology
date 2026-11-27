@@ -341,6 +341,9 @@ def write_summaries(tallies: list[Tally], json_path: Path | None) -> None:
         with open(step_summary, 'a', encoding='utf-8') as f:
             f.write('### Competency questions\n\n' + summary_table(tallies))
     if json_path:
+        # build/ exists only once HermiT has cached something: a no-reasoning suite on a fresh
+        # CI checkout has none
+        Path(json_path).parent.mkdir(parents=True, exist_ok=True)
         Path(json_path).write_text(json.dumps([asdict(t) for t in tallies], indent=1))
 
 if __name__ == '__main__':

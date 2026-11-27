@@ -72,7 +72,8 @@ class RunnerTest(unittest.TestCase):
 
     def test_counts_questions_in_log_step_summary_and_json(self):
         self.break_expectation('release/good')
-        summary, counts = self.tmp / 'summary.md', self.tmp / 'counts.json'
+        # the counts file's folder does not exist yet (as build/ on a fresh CI checkout)
+        summary, counts = self.tmp / 'summary.md', self.tmp / 'not-yet' / 'build' / 'counts.json'
         with mock.patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(summary)}):
             code, out = self.run_main('release/good', 'release/broken', '--summary-json', str(counts))
         self.assertEqual(code, 1)
