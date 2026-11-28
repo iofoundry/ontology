@@ -11,8 +11,8 @@ through ``catalog-v001.xml``; cached third-party ontologies are skipped) this ch
 
 Which module defines an entity is decided by ``normalize_ontologies.plan_is_defined_by``,
 so this reports exactly what ``normalize_ontologies.py`` would correct. Nothing is
-written. Problems are printed as GitHub Actions annotations; the exit status is 1 if
-any error is found.
+written. Problems are printed as GitHub Actions annotations (and, under GitHub Actions,
+listed on the job's summary page); the exit status is 1 if any error is found.
 
 Usage (from the repository root):
 
@@ -26,6 +26,7 @@ import argparse
 import sys
 from pathlib import Path
 
+import job_summary
 from normalize_ontologies import (defined_by_value, discover, load, module_iri, plan_is_defined_by,
                                   subject_iri)
 
@@ -35,6 +36,15 @@ def line_of(text: str, offset: int) -> int:
 
 
 def main() -> int:
+    with job_summary.recording() as findings:
+        code, modules = check()
+    rollup = 'Module IRIs'          # the closing count, not a problem of its own
+    problems = [f for f in findings if f['title'] != rollup]
+    job_summary.append(job_summary.section(f'Module IRIs: {modules} modules', problems))
+    return code
+
+
+def check() -> tuple[int, int]:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--about", nargs="+", default=["AboutIOFDev.rdf"],
                     help="root packaging files (default: AboutIOFDev.rdf)")
@@ -81,9 +91,9 @@ def main() -> int:
     summary = f"{len(files)} modules: {errors} error(s), {len(plan.warnings)} warning(s)"
     if errors:
         print(f"::error title=Module IRIs::{summary}. Run etc/scripts/normalize_ontologies.py to correct them.")
-        return 1
+        return 1, len(files)
     print(f"::notice title=Module IRIs::{summary}")
-    return 0
+    return 0, len(files)
 
 
 if __name__ == "__main__":

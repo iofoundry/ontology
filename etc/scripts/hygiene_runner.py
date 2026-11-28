@@ -12,6 +12,9 @@ etc/testing/hygiene_shapes/common.ttl for the conventions the shapes follow.
 After all the SHACL tests, each About file's merged import closure is classified with
 the HermiT reasoner bundled with owlready2 (needs Java on the PATH). An inconsistent
 ontology, an unsatisfiable class, or a reasoner failure or timeout is an error.
+
+Under GitHub Actions the errors and warnings are also listed on the job's summary page,
+one section per About file.
 """
 import argparse
 import contextlib
@@ -31,11 +34,35 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH
 from rdflib.plugins.sparql import prepareQuery
 
+import job_summary
 from ontology_closure import CATALOG_NS, HERMIT_CLASSPATH, import_closure, merge, reasoner_input
 
 IOF_H = Namespace('https://spec.industrialontologies.org/ontology/hygiene/')
 IOF_AV = Namespace('https://spec.industrialontologies.org/ontology/annotation/')
 INDIVIDUAL_PREFIX = 'https://spec.industrialontologies.org/ontology/individual/'
+
+
+FINDINGS = []        # {about, level, title, file, message}: the errors and warnings reported
+CURRENT_ABOUT = ''   # the About file being tested, for the summary
+
+
+def annotate(level: str, title: str, message: str, file: str = None) -> None:
+    """Print a GitHub Actions annotation; record errors and warnings for the job summary."""
+    location = 'file=' + file + ',' if file else ''
+    print('::' + level + ' ' + location + 'title=' + title + '::' + message)
+    if level in ('error', 'warning'):
+        FINDINGS.append({'about': CURRENT_ABOUT, 'level': level, 'title': title,
+                         'file': file or '', 'message': message})
+
+
+def summary_markdown(about_files: list, findings: list) -> str:
+    """Per About file: a headline with the counts, then a table of errors and one of warnings."""
+    return ''.join(job_summary.section('Hygiene tests: ' + about, [f for f in findings if f['about'] == about])
+                   for about in about_files)
+
+
+def write_summary(about_files: list) -> None:
+    job_summary.append(summary_markdown(about_files, FINDINGS))
 
 
 def parse_catalog(catalog_file_path: str) -> dict:
@@ -58,7 +85,7 @@ def find_ontologies(about_file: str):
     about = next(((o, m) for o in graph.subjects(RDF.type, OWL.Ontology)
                   for m in graph.objects(o, IOF_AV.maturity)), None)
     if about is None:
-        print('::error file=' + about_file + ',title=Parse About::Could not find maturity level in about file.')
+        annotate('error', 'Parse About', 'Could not find maturity level in about file.', about_file)
         sys.exit(1)
     iri, maturity = str(about[0]), str(about[1]).replace(INDIVIDUAL_PREFIX, '')
     print('::notice file=' + about_file + ',title=Parse About::Maturity level: ' + maturity)
@@ -70,7 +97,7 @@ def find_ontologies(about_file: str):
         print('::notice file=' + as_written[file] + ',title=Find Imports::Getting imports from file:',
               as_written[file])
     for missing, _ in closure.missing:
-        print('::warning file=' + missing + ',title=Find Imports::Could not find ontology for IRI:', missing)
+        annotate('warning', 'Find Imports', 'Could not find ontology for IRI: ' + missing, missing)
     files = [str(f) for f in closure.files]
     return files, maturity, resolution
 
@@ -175,8 +202,8 @@ def load_suppressions(path: str) -> dict:
         focus, rule = graph.value(entry, IOF_H.focusNode), graph.value(entry, IOF_H.rule)
         justification = graph.value(entry, RDFS.comment)
         if focus is None or rule is None or justification is None:
-            print('::warning file=' + path + ',title=Suppressions::Ignoring a suppression without '
-                  'iof-h:focusNode, iof-h:rule and an rdfs:comment justification.')
+            annotate('warning', 'Suppressions', 'Ignoring a suppression without '
+                     'iof-h:focusNode, iof-h:rule and an rdfs:comment justification.', path)
             continue
         suppressions[(focus, rule)] = str(justification)
     return suppressions
@@ -201,12 +228,12 @@ def source_file(data: Graph, focus, resolution: dict):
 
 def annotation_level(severity, maturity: str) -> str:
     if severity == IOF_H.Critical:
-        return '::error'
+        return 'error'
     if severity == SH.Violation:
-        return '::warning' if maturity == 'Provisional' else '::error'
+        return 'warning' if maturity == 'Provisional' else 'error'
     if severity == SH.Warning:
-        return '::warning'
-    return '::notice'
+        return 'warning'
+    return 'notice'
 
 
 def load_data(files: list) -> Graph:
@@ -237,14 +264,12 @@ def run_hygiene(data: Graph, shapes: Graph, maturity: str, resolution: dict, foc
         justification = next((suppressions[(focus, rule)] for rule in result_rules(results, shapes, result)
                               if (focus, rule) in suppressions), None)
         if justification is not None:
-            level, message = '::notice', 'Suppressed (' + justification + '): ' + message
-        file = source_file(data, focus, resolution)
-        location = 'file=' + file + ',' if file else ''
-        annotations.add(level + ' ' + location + 'title=' + title + '::' + message)
+            level, message = 'notice', 'Suppressed (' + justification + '): ' + message
+        annotations.add((level, source_file(data, focus, resolution) or '', title, message))
 
-    for annotation in sorted(annotations):
-        print(annotation)
-    return not any(a.startswith('::error') for a in annotations)
+    for level, file, title, message in sorted(annotations):
+        annotate(level, title, message, file or None)
+    return not any(level == 'error' for level, *_ in annotations)
 
 
 def run_reasoner(data: Graph, about_file: str, resolution: dict, timeout: float, memory: str) -> bool:
@@ -258,28 +283,27 @@ def run_reasoner(data: Graph, about_file: str, resolution: dict, timeout: float,
         try:
             result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
         except subprocess.TimeoutExpired:
-            print('::error title=Reasoner::HermiT did not finish classifying ' + about_file +
-                  ' within the ' + str(round(timeout)) + ' seconds left of the reasoner time limit.')
+            annotate('error', 'Reasoner', 'HermiT did not finish classifying ' + about_file +
+                     ' within the ' + str(round(timeout)) + ' seconds left of the reasoner time limit.')
             return False
         except FileNotFoundError:
-            print('::error title=Reasoner::java was not found on the PATH; HermiT needs Java.')
+            annotate('error', 'Reasoner', 'java was not found on the PATH; HermiT needs Java.')
             return False
 
     if 'InconsistentOntologyException' in result.stderr:
-        print('::error title=Reasoner::' + about_file + ' is inconsistent: its ontologies have no model.')
+        annotate('error', 'Reasoner', about_file + ' is inconsistent: its ontologies have no model.')
         return False
     if result.returncode != 0:
         detail = next((line for line in result.stderr.splitlines() if 'Exception' in line), 'see log')
         print(result.stderr, file=sys.stderr)
-        print('::error title=Reasoner::HermiT failed on ' + about_file + ': ' + detail)
+        annotate('error', 'Reasoner', 'HermiT failed on ' + about_file + ': ' + detail)
         return False
 
     # --unsatisfiable prints "Classes equivalent to 'owl:Nothing':" then one class per line.
     unsatisfiable = sorted(m.group(1) for m in re.finditer(r'^\s*<([^>]+)>\s*$', result.stdout, re.M))
     for iri in unsatisfiable:
-        file = source_file(data, URIRef(iri), resolution)
-        location = 'file=' + file + ',' if file else ''
-        print('::error ' + location + 'title=Reasoner::Class ' + iri + ' is unsatisfiable (equivalent to owl:Nothing).')
+        annotate('error', 'Reasoner', 'Class ' + iri + ' is unsatisfiable (equivalent to owl:Nothing).',
+                 source_file(data, URIRef(iri), resolution))
     if not unsatisfiable:
         print('::notice title=Reasoner::' + about_file + ' is consistent and has no unsatisfiable classes.')
     return not unsatisfiable
@@ -308,6 +332,7 @@ if __name__ == '__main__':
     for about_file in args.about_files:
         print('========================================')
         print('::group::Running tests:', about_file)
+        CURRENT_ABOUT = about_file
         files, maturity, resolution = find_ontologies(about_file)
         print('::notice title=' + about_file + ' Maturity::' + about_file + ' has maturity:', maturity)
         data = load_data(files)
@@ -325,18 +350,20 @@ if __name__ == '__main__':
         for about_file, data, resolution in closures:
             print('========================================')
             print('::group::Reasoning:', about_file)
+            CURRENT_ABOUT = about_file
             remaining = deadline - time.monotonic()
             if remaining > 0:
                 consistent = run_reasoner(data, about_file, resolution, remaining, args.reasoner_memory)
             else:
-                print('::error title=Reasoner::Not classified: the ' + str(args.reasoner_timeout) +
-                      ' second reasoner time limit was used up before ' + about_file + '.')
+                annotate('error', 'Reasoner', 'Not classified: the ' + str(args.reasoner_timeout) +
+                         ' second reasoner time limit was used up before ' + about_file + '.')
                 consistent = False
             ontology_is_clean = ontology_is_clean and consistent
             print('::endgroup::')
             if not consistent:
                 print('::error title=' + about_file + '::Reasoner found errors for about file:', about_file)
 
+    write_summary(args.about_files)
     if not ontology_is_clean:
         print('::error title=Hygiene Tests::some hygiene tests failed.')
         sys.exit(1)
