@@ -70,11 +70,12 @@ elsewhere.
 runs one parallel job per suite.
 
 **Question counts.** Each suite's annotation and the final one give the number of
-questions run and how they went (e.g. `26 questions: 26 passed`), and each job's summary
-page has a table of them. Every suite job also uploads its counts
-(`--summary-json`, a small artifact), and `competency-summary` totals them into one table
-on the run's summary page, naming any suite whose job did not report. Only suite names and
-counts are written, as in the redacted log. Locally:
+questions run and how they went (e.g. `26 questions: 26 passed`). Suite jobs write no
+summary page of their own: each uploads its results (`--summary-json`, a small artifact),
+and `competency-summary` writes one on the run's summary page: the counts per suite, the
+questions that did not pass, and every question run, per suite (collapsed), naming any
+suite whose job did not report. Only suite and question names, descriptions and outcomes
+are written, as in the redacted log. Locally:
 
 ```bash
 ./competency --summary-json counts.json

@@ -368,11 +368,8 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def write_summaries(tallies: list[Tally], json_path: Path | None) -> None:
-    """The counts as a Markdown job summary (under GitHub Actions) and, if asked, as JSON."""
-    step_summary = os.environ.get('GITHUB_STEP_SUMMARY')
-    if step_summary:
-        with open(step_summary, 'a', encoding='utf-8') as f:
-            f.write('### Competency questions\n\n' + summary_markdown(tallies))
+    """The counts as JSON, if asked. Suite jobs write no job summary of their own: the
+    run's competency-summary job totals these files into one (competency_summary.py)."""
     if json_path:
         # build/ exists only once HermiT has cached something: a no-reasoning suite on a fresh
         # CI checkout has none
